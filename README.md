@@ -4,6 +4,8 @@ Adversarial measurement harness for [TrustSight](https://github.com/emiliano-go/
 Turns "an LLM found N bypasses" into a reproducible, auditable, cost-tracked
 measurement against a pinned TrustSight build.
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/emiliano-go/trustsight-harness)
+
 ```bash
 python -m harness campaigns/<name>/     # run a campaign, write a record
 python -m harness regression            # replay every committed bypass
