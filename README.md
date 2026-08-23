@@ -12,7 +12,7 @@ measurement against a pinned TrustSight build.
     <img src="https://img.shields.io/badge/License-MIT-10AC84?style=for-the-badge" alt="License">
   </a>
   <a href="https://deepwiki.com/emiliano-go/trustsight-harness">
-    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki" width="153">
   </a>
   <a href="https://github.com/emiliano-go/trustsight-harness/actions/workflows/ci.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/emiliano-go/trustsight-harness/ci.yml?branch=master&style=for-the-badge&logo=github&label=CI" alt="CI">
