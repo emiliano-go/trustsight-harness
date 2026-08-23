@@ -18,11 +18,11 @@ so a status cannot exist in one and not the others.
 | `constraint_violation` | The output used a technique the campaign declared forbidden | No |
 | `behavior_lost` | The behaviour validator could not prove the attack chain survives | No |
 | `detected` | A FATAL fired, or the score went above the threshold with an expected rule firing | No |
-| `partial_evasion` | The expected rule stayed quiet, but the result is still FLAGGED | No — the catching rules are recorded |
-| `fail_closed_catch` | A coverage gap forbade UNFLAGGED | **No — the tool worked** |
+| `partial_evasion` | The expected rule stayed quiet, but the result is still FLAGGED | No; the catching rules are recorded |
+| `fail_closed_catch` | A coverage gap forbade UNFLAGGED | **No; the tool worked** |
 | `bypass` | Syntax valid, constraints honoured, behaviour proven, and TrustSight returned UNFLAGGED | **Yes** |
-| `known_bypass_match` | Matches a bypass committed by an earlier campaign at a different version | No — a patch-verification event |
-| `harness_error` | Runner crash, TrustSight API failure, or an analysis that exceeded its timeout | No — aborts the campaign above a rate threshold |
+| `known_bypass_match` | Matches a bypass committed by an earlier campaign at a different version | No; a patch-verification event |
+| `harness_error` | Runner crash, TrustSight API failure, or an analysis that exceeded its timeout | No; aborts the campaign above a rate threshold |
 
 `BYPASS_STATUSES` is written as a frozen set containing exactly one member rather
 than as an equality test, because the temptation it guards against is someone
@@ -69,14 +69,14 @@ may never be UNFLAGGED. Counting that as a bypass would score the tool worst
 exactly where it behaves best.
 
 These attempts export to `fixtures-gaps/` as regression tests for the fail-closed
-layer itself — asserting that the gap *is* recorded and that UNFLAGGED is
-forbidden — never to the malicious corpus.
+layer itself; asserting that the gap *is* recorded and that UNFLAGGED is
+forbidden; never to the malicious corpus.
 
 ### `partial_evasion` is a granularity metric
 
 The payload was caught, but not by the rule the campaign set out to test. That is
-worth recording precisely — the trace names the catching rules with their
-severities and weights — but rule-level evasion is not tool-level evasion.
+worth recording precisely; the trace names the catching rules with their
+severities and weights; but rule-level evasion is not tool-level evasion.
 
 ### `behavior_lost` is not "the attempt failed"
 
@@ -91,5 +91,5 @@ consequence.
 A campaign whose errors outnumber its measurements is not measuring. After at
 least ten attempts, a `harness_error` rate above 20% re-raises the underlying
 exception and ends the campaign. Errors before that point are recorded, exported
-to `fixtures-robustness/`, and the loop continues — a single crash is a data
+to `fixtures-robustness/`, and the loop continues; a single crash is a data
 point about the tool, not a reason to discard the run.

@@ -20,7 +20,7 @@ field list is in the [Record Schema](../reference/record-schema.md).
 ```
 
 `campaign_commit` is the commit that last touched `campaign.yml`. The campaign
-file — attempts, spending ceiling, stop conditions — is committed **before** the
+file; attempts, spending ceiling, stop conditions; is committed **before** the
 run, so choosing to stop early is a decision visible in git history rather than a
 judgement made while watching results scroll past.
 
@@ -46,7 +46,7 @@ database makes verdicts depend on run order.
 }
 ```
 
-This is the instrument. Read it before you read any number below it — a bypass
+This is the instrument. Read it before you read any number below it; a bypass
 count without the environment that produced it is an anecdote.
 
 `canary_check` and `canary_score` are how you know the database restore actually
@@ -58,7 +58,7 @@ of the analysis mode rather than evidence about any attack. The harness analyses
 text rather than repositories, so `tree_not_analyzed` appears on every report
 including benign ones. They are derived from the canary run and never declared in
 a config, so a campaign cannot use the mechanism to discount a gap an attack
-actually caused — and they are listed here so you can see exactly what was
+actually caused; and they are listed here so you can see exactly what was
 excluded. See [Design Notes](../explanation/design-notes.md#mode-gaps-analyze_text-always-reports-tree_not_analyzed).
 
 ## Generator and validator
@@ -90,7 +90,7 @@ from one.
 }
 ```
 
-Every terminal status appears, including the zeros — an outcome table with
+Every terminal status appears, including the zeros; an outcome table with
 statuses missing invites the reader to assume they were impossible rather than
 absent. `stop_reason` says why the loop ended: inputs exhausted, a pre-registered
 stop condition, or a cost ceiling.
@@ -134,7 +134,7 @@ Four deliberate choices in one object:
 ```
 
 A rediscovered bypass is not waste and not a new find. Run against a newer
-TrustSight it answers a question no fresh attempt can — did the patch hold? —
+TrustSight it answers a question no fresh attempt can; did the patch hold?;
 so `patch_status` is `verified` (it is now caught) or `regression` (it is still
 open), and it is recorded under its own status so it can never inflate a bypass
 count.
@@ -149,7 +149,7 @@ and is never re-run or re-charged.
           "ceiling_usd": null, "retries": 0, "wall_clock_ms": 1843 }
 ```
 
-`retries` counts failed calls that were retried — cost honesty includes waste.
+`retries` counts failed calls that were retried; cost honesty includes waste.
 `wall_clock_ms` is the campaign's wall clock, not the sum of the attempts; the
 gap between them is the harness's own overhead, and a reader comparing two
 campaigns is entitled to see it.
@@ -159,6 +159,6 @@ started. See [Writing a Campaign](../guides/writing-a-campaign.md).
 
 ## Where to go next
 
-- [Record Schema](../reference/record-schema.md) — the complete record format
-- [Terminal Statuses](../reference/statuses.md) — what each outcome name means
-- [Writing a Campaign](../guides/writing-a-campaign.md) — measure something of your own
+- [Record Schema](../reference/record-schema.md); the complete record format
+- [Terminal Statuses](../reference/statuses.md); what each outcome name means
+- [Writing a Campaign](../guides/writing-a-campaign.md); measure something of your own

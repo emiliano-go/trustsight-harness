@@ -6,7 +6,7 @@ description: What each harness exit code means, per command, and why a campaign 
 
 | Code | Name | Condition |
 |------|------|-----------|
-| **0** | Run completed | The command produced its defined result — a record, or a report. Says nothing about what was found. |
+| **0** | Run completed | The command produced its defined result; a record, or a report. Says nothing about what was found. |
 | **1** | Configuration fault | The run could not start as configured: unknown key, version mismatch, `"latest"` declared, forbidden technique without a checker, LLM campaign without a ceiling, failed calibration. *(Campaigns only.)* |
 | **2** | Harness error | The run started and could not finish: runner crash, environment drift mid-campaign, unreadable committed artefact. |
 
@@ -24,23 +24,23 @@ authority that halts a build on its own.
 
 ### `python -m harness <campaign>`
 
-- **0** — the campaign ran and `record.json` was written. It may contain any
+- **0**; the campaign ran and `record.json` was written. It may contain any
   number of bypasses, or none.
-- **1** — a fault the operator must fix before the campaign can run at all. The
+- **1**; a fault the operator must fix before the campaign can run at all. The
   message names the key or the check that refused.
-- **2** — the campaign started and could not finish. The most common cause is
+- **2**; the campaign started and could not finish. The most common cause is
   environment drift: a changed config fingerprint or a canary that scored
   differently part way through.
 
 ### `python -m harness regression`
 
-- **0** — the gate ran and `regression/report.json` exists.
-- **2** — the gate could not run, for any reason at all.
+- **0**; the gate ran and `regression/report.json` exists.
+- **2**; the gate could not run, for any reason at all.
 
 There is deliberately no exit 1 here. The gate's contract is "did a report get
 produced", and splitting the failure case into "misconfigured" and "broken" would
-force every caller to handle a distinction that does not change what they do next
-— the report is absent either way.
+force every caller to handle a distinction that does not change what they do next;
+the report is absent either way.
 
 ## Why "bypasses found" is not an exit code
 
@@ -53,7 +53,7 @@ changed, for reasons unrelated to their pipeline.
 **It would invite the misreading the whole design rejects.** A bypass count is
 evidence about one generator, one prompt, one TrustSight version and one attempt
 count. Turning it into a pass/fail signal encourages exactly the generalisation
-the record schema forbids — see
+the record schema forbids; see
 [forbidden fields](record-schema.md#forbidden-fields).
 
 To gate something on a campaign, read the record:

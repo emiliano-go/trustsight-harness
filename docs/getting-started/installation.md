@@ -31,7 +31,7 @@ Check the install:
 uv run python -m pytest -q
 ```
 
-All tests must pass before any campaign is worth running — several of them are
+All tests must pass before any campaign is worth running; several of them are
 [self-security gates](../security.md) rather than unit tests.
 
 ## Pointing at the build under test
@@ -44,8 +44,8 @@ resolves it from a sibling checkout:
 trustsight = { path = "../trustsight", editable = true }
 ```
 
-This is deliberate. PyPI lags the build under test — during this harness's own
-development, PyPI was at 0.13.1 while the build being measured was 0.13.2 — and
+This is deliberate. PyPI lags the build under test; during this harness's own
+development, PyPI was at 0.13.1 while the build being measured was 0.13.2; and
 a campaign that silently measured a different version from the one it declared
 is exactly the failure the environment descriptor exists to prevent.
 
@@ -81,7 +81,7 @@ uv lock && uv sync --locked
 
 ## Pre-commit hook
 
-The secret scan runs in CI, but CI catches a key after it is pushed — which is
+The secret scan runs in CI, but CI catches a key after it is pushed; which is
 after it is public. Install the local hook too:
 
 ```bash

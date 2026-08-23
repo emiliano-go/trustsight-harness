@@ -56,7 +56,7 @@ stop_conditions:
 | `stop_conditions` | mapping | no | Pre-registered early stops. |
 
 \* `prompt` may be omitted only if you also omit `forbidden_techniques`, which
-you cannot — see below.
+you cannot; see below.
 
 ## `prompt`
 

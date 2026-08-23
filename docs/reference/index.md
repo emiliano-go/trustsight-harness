@@ -13,4 +13,4 @@ reasoning behind them, see [Explanation](../explanation/index.md).
 | [Campaign Configuration](campaign-config.md) | Every key of `campaign.yml`, its type, and whether it is required. |
 | [Record Schema](record-schema.md) | `record.json`, field by field, including the forbidden fields. |
 | [Terminal Statuses](statuses.md) | The eleven terminal statuses and the order the Judge applies them in. |
-| [Exit Codes](exit-codes.md) | 0, 1, 2 — and why "bypasses found" is not among them. |
+| [Exit Codes](exit-codes.md) | 0, 1, 2; and why "bypasses found" is not among them. |

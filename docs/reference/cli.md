@@ -1,5 +1,5 @@
 ---
-description: Complete reference for python -m harness — running a campaign and running the regression gate.
+description: Complete reference for python -m harness; running a campaign and running the regression gate.
 ---
 
 # CLI Reference
@@ -32,7 +32,7 @@ Runs one campaign and writes its record.
 ### What happens before the first attempt
 
 1. The behaviour validator's **calibration suite** runs. A failure refuses the
-   campaign with exit 1 — no bypass number is publishable from a build that
+   campaign with exit 1; no bypass number is publishable from a build that
    cannot tell a live chain from a dead one.
 2. `campaign.yml` is loaded and **strictly validated**. An unknown key is a
    mistake worth stopping for, not a comment.
@@ -43,7 +43,7 @@ Runs one campaign and writes its record.
 
 ### Output
 
-A JSON summary on stdout — campaign name, attempt count, non-zero outcomes, and
+A JSON summary on stdout; campaign name, attempt count, non-zero outcomes, and
 the bypass rate with its interval:
 
 ```json

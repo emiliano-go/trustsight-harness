@@ -36,11 +36,11 @@ bound. The record states this explicitly in `bypass_rate.note`.
 
 A campaign record is valid only for itself. It cannot say:
 
-- "TrustSight is robust" — only "this generator, this version, this many
+- "TrustSight is robust"; only "this generator, this version, this many
   attempts, found N proven bypasses."
-- "Version A is better than version B" — that is the regression gate's job,
+- "Version A is better than version B"; that is the regression gate's job,
   expressed as open/closed bypasses.
-- "The true bypass rate is exactly X" — the Wilson interval gives a range, and
+- "The true bypass rate is exactly X"; the Wilson interval gives a range, and
   the lower-bound note says the true count may be higher.
 
 These limits are not accidents; they are enforced by the schema and by the

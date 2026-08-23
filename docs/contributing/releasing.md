@@ -32,8 +32,8 @@ On a tag, CI:
 
 `scripts/build_llms_txt.py` reads `zensical.toml` and writes two files:
 
-- `site/llms.txt` — a map of every page with a one-line summary.
-- `site/llms-full.txt` — every page concatenated in navigation order.
+- `site/llms.txt`; a map of every page with a one-line summary.
+- `site/llms-full.txt`; every page concatenated in navigation order.
 
 Run `uv run python scripts/build_llms_txt.py --check` in CI to ensure they are
 current before a tag is pushed.

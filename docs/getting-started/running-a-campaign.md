@@ -105,14 +105,14 @@ jq '{status, stages}' campaigns/known-bypasses-manual/traces/00003.json
 
 The stages run in order and stop at the first refusal. This one passed the
 sanitizer and `bash -n`, honoured the campaign's constraints, and then failed to
-prove its attack chain — so it never ran against TrustSight, and it is not in
+prove its attack chain; so it never ran against TrustSight, and it is not in
 the denominator.
 
 !!! tip "A discarded attempt is a result, not an error"
 
     `behavior_lost` means the validator could not prove the payload still works.
     Sometimes the payload really is dead. Sometimes it is alive and the
-    validator cannot see it — two of the shipped inputs are exactly that, kept
+    validator cannot see it; two of the shipped inputs are exactly that, kept
     deliberately. Both are recall failures, and
     [Section 1.5](../explanation/measurement-and-maturity.md) is the reason every
     published count is a lower bound.
@@ -124,7 +124,7 @@ Before a single attempt is charged for, the harness:
 1. resolves the installed TrustSight version and compares it to the declared one;
 2. binds TrustSight's data and config directories to campaign-local paths;
 3. restores the database to the declared state;
-4. analyses the **canary** — a committed benign recipe — and records its score;
+4. analyses the **canary**; a committed benign recipe; and records its score;
 5. runs one **API/CLI parity check**, because a record produced by a broken
    instrument is worse than no record.
 

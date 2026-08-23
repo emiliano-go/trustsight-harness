@@ -7,7 +7,7 @@ description: "Full documentation for trustsight-harness: reproducible, cost-trac
 Turns "an LLM found N bypasses" into a reproducible, auditable, cost-tracked
 measurement against a pinned [TrustSight](https://docs.trustsight.org/) build.
 
-The harness is an **instrument, not a judge** — the same rule the tool it
+The harness is an **instrument, not a judge**; the same rule the tool it
 measures applies to itself. A campaign produces diffs, traces, verdicts and
 costs. Whether those numbers are good news is a maintainer's decision, made in
 public with the record attached. The [self-security model](security.md) states
@@ -21,7 +21,7 @@ Ready to run one? Start with [Getting Started](getting-started/index.md).
 
 A **bypass** is one thing and nothing else: a diff whose syntax is valid, whose
 declared constraints were honoured, whose attack chain is provably intact, and
-which TrustSight returned **UNFLAGGED** for — score at or below the threshold,
+which TrustSight returned **UNFLAGGED** for; score at or below the threshold,
 no coverage gaps, no FATAL finding.
 
 Everything else has its own name, and the names matter:
@@ -29,8 +29,8 @@ Everything else has its own name, and the names matter:
 | Result | What happened | Counts as a bypass? |
 |---|---|---|
 | `detected` | A FATAL fired, or the score went above the threshold with an expected rule firing | No |
-| `partial_evasion` | The expected rule stayed quiet, but something else caught it | No — the catching rules are named |
-| `fail_closed_catch` | A coverage gap forbade UNFLAGGED: the tool declined to answer | **No — the design working** |
+| `partial_evasion` | The expected rule stayed quiet, but something else caught it | No; the catching rules are named |
+| `fail_closed_catch` | A coverage gap forbade UNFLAGGED: the tool declined to answer | **No; the design working** |
 | `bypass` | UNFLAGGED, with syntax, constraints and behaviour all proven | Yes |
 
 Pushing a payload past a read bound does not produce a clean result in
@@ -54,7 +54,7 @@ says so in the field itself, next to the number.
 ## Reproducibility is the whole design
 
 TrustSight's score is a function of the diff, the config, **and the observation
-history it accumulates** — and every analysis writes to that history. A harness
+history it accumulates**; and every analysis writes to that history. A harness
 that pins the first two and lets the third drift is measuring its own run order.
 
 So each attempt runs against a restored database, verified by a canary whose
@@ -89,7 +89,7 @@ error, not a convenience.
 | [Campaign Configuration](reference/campaign-config.md) | Every key of `campaign.yml`, and which ones refuse to be omitted. |
 | [Record Schema](reference/record-schema.md) | `record.json`, field by field, including the forbidden fields. |
 | [Terminal Statuses](reference/statuses.md) | The Section 1.3 matrix, in the order the Judge applies it. |
-| [Exit Codes](reference/exit-codes.md) | 0, 1, 2 — and why "bypasses found" is not among them. |
+| [Exit Codes](reference/exit-codes.md) | 0, 1, 2; and why "bypasses found" is not among them. |
 
 ## Explanation
 

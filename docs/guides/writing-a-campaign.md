@@ -69,9 +69,9 @@ configuration, not a judgement made while watching results.
 
 ## Generators
 
-- **manual** — static `.PKGBUILD` or `.diff` files.
-- **mutation** — semantic-preserving variations of committed bypasses.
-- **llm** — OpenAI-compatible provider, with a mandatory `max_cost_usd` ceiling.
+- **manual**; static `.PKGBUILD` or `.diff` files.
+- **mutation**; semantic-preserving variations of committed bypasses.
+- **llm**; OpenAI-compatible provider, with a mandatory `max_cost_usd` ceiling.
 
 See [Campaign Configuration](../reference/campaign-config.md) for the complete
 key reference.
