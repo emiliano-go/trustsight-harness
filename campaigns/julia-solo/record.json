@@ -1,0 +1,72 @@
+{
+  "attempts": 1,
+  "bypass_hashes": [
+    "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169"
+  ],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.206549,
+      1.0
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 1,
+    "estimate": 1.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "campaign": "julia-solo",
+  "campaign_commit": "",
+  "campaign_type": "deterministic",
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 1714
+  },
+  "environment": {
+    "accumulate": false,
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.13.2"
+  },
+  "generator": {
+    "directory": "campaigns/julia-solo/manual",
+    "inputs": 1,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "julia-solo",
+    "type": "manual"
+  },
+  "harness_version": "1.0.0",
+  "known_bypass_matches": [],
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 1,
+    "constraint_violation": 0,
+    "detected": 0,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+  }
+}

@@ -1,0 +1,17 @@
+campaign: lua-solo
+campaign_type: deterministic
+environment:
+  trustsight_version: "0.13.2"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+prompt:
+  prompt_id: lua-solo
+  behavior_goal: fetch_then_execute
+  expected_rules: []
+  forbidden_techniques: {}
+attempts: 1

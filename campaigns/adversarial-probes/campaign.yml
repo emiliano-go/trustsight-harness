@@ -1,0 +1,24 @@
+# Probes for bypasses against TrustSight 0.13.2.
+# Each input keeps a valid-looking checksum array so the integrity rules do not
+# auto-flag the recipe before the execution rules are tested.
+campaign: adversarial-probes
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.13.2"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: adversarial-probes
+  behavior_goal: fetch_then_execute
+  expected_rules: []
+  forbidden_techniques: {}
+
+attempts: 20
