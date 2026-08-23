@@ -4,7 +4,20 @@ Adversarial measurement harness for [TrustSight](https://github.com/emiliano-go/
 Turns "an LLM found N bypasses" into a reproducible, auditable, cost-tracked
 measurement against a pinned TrustSight build.
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/emiliano-go/trustsight-harness)
+<p align="center">
+  <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white&style=for-the-badge" alt="Python">
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-10AC84?style=for-the-badge" alt="License">
+  </a>
+  <a href="https://deepwiki.com/emiliano-go/trustsight-harness">
+    <img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki">
+  </a>
+  <a href="https://github.com/emiliano-go/trustsight-harness/actions/workflows/ci.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/emiliano-go/trustsight-harness/ci.yml?branch=master&style=for-the-badge&logo=github&label=CI" alt="CI">
+  </a>
+</p>
 
 ```bash
 python -m harness campaigns/<name>/     # run a campaign, write a record
