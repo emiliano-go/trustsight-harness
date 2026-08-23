@@ -206,8 +206,11 @@ class BehaviorValidator:
 
     @property
     def version_hash(self) -> str:
-        digest = hashlib.sha256(VALIDATOR_SOURCE.read_bytes()).hexdigest()
-        return f"sha256:{digest}"
+        """A change to behavior.py or its AST helper is a new instrument."""
+        digest = hashlib.sha256()
+        digest.update(VALIDATOR_SOURCE.read_bytes())
+        digest.update(Path(__file__).with_name("shellast.py").read_bytes())
+        return f"sha256:{digest.hexdigest()}"
 
     def validate(self, new_text: str) -> BehaviorResult:
         if self.goal != "fetch_then_execute":

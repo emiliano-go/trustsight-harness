@@ -49,6 +49,7 @@ class Trace:
             "attempt": self.attempt,
             "diff_sha256": self.diff_sha256,
             "generator": self.generator,
+            "environment_ref": "campaign.yml#environment",
             "status": str(self.status),
             "stages": self.stages,
             "trustsight": self.trustsight,

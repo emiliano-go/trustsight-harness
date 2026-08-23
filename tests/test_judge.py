@@ -92,5 +92,11 @@ def test_an_unknown_severity_stops_the_campaign():
               flag_threshold=20)
 
 
+def test_an_unknown_coverage_gap_stops_the_campaign():
+    with pytest.raises(UnknownVerdictError):
+        judge(early_status=None, report=report(0, gaps=["new_gap_type"]),
+              flag_threshold=20)
+
+
 def test_only_bypass_counts_as_a_bypass():
     assert {s for s in Status if counts_as_bypass(s)} == {Status.BYPASS}

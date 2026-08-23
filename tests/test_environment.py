@@ -70,6 +70,25 @@ def test_a_drifted_canary_aborts():
         env.check_canary(lambda name, text: NS(score=42, coverage_gaps=()))
 
 
+def test_every_restore_is_canary_verified(tmp_path):
+    """Section 3.2: the restore is verified after restoration."""
+    from types import SimpleNamespace as NS
+
+    env = Environment(trustsight_version="x")
+    env._root = ROOT
+    env.bind(tmp_path)
+    calls = []
+
+    def run(name, text):
+        calls.append(name)
+        return NS(score=0, coverage_gaps=())
+
+    env.restore()
+    env.check_canary(run)
+    env.restore()  # the canary itself writes; restore again before the attempt
+    assert calls == ["canary"], calls
+
+
 def test_the_canary_teaches_the_mode_gaps():
     """A gap the canary produces is a property of the analysis mode, so it
     is derived from a benign run and never declared by the campaign."""

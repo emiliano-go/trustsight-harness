@@ -51,10 +51,6 @@ class Environment:
     #: construction.  Derived, never declared, so it cannot be used to
     #: discount a gap an attack actually caused.
     mode_gaps: tuple[str, ...] = ()
-    #: How often the canary re-verifies a restore, in attempts.  Every
-    #: restore would be honest but doubles the cost of a campaign; never
-    #: again after the first would let a mid-run drift go unnoticed.
-    canary_every: int = 25
     _root: Path = field(default=Path("."), repr=False)
     _data_dir: Path = field(default=Path("."), repr=False)
 
@@ -239,7 +235,7 @@ def load_environment(raw: dict, root: Path) -> Environment:
     known = {
         "trustsight_version", "trustsight_source", "python_version", "db_state",
         "seed_sha256", "db_snapshot", "config_fingerprint", "flag_threshold",
-        "accumulate", "timezone", "locale", "canary_every",
+        "accumulate", "timezone", "locale",
     }
     unknown = set(raw) - known
     if unknown:

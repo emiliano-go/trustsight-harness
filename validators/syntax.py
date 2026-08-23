@@ -34,6 +34,7 @@ class SyntaxResult:
     new_text: str = ""
     bash_n_old: int | None = None
     bash_n_new: int | None = None
+    bash_path: str = ""
     detail: dict = field(default_factory=dict)
 
 
@@ -133,20 +134,20 @@ def validate_syntax(diff_text: str, bash: str) -> SyntaxResult:
     try:
         old_text, new_text = parse_unified_diff(diff_text)
     except ValueError as exc:
-        return SyntaxResult(False, reason=str(exc))
+        return SyntaxResult(False, reason=str(exc), bash_path=bash)
 
     try:
         old_rc = _bash_n(bash, old_text) if old_text.strip() else 0
         new_rc = _bash_n(bash, new_text)
     except subprocess.TimeoutExpired:
         return SyntaxResult(False, reason="bash -n timed out",
-                            old_text=old_text, new_text=new_text)
+                            old_text=old_text, new_text=new_text, bash_path=bash)
 
     if old_rc != 0 or new_rc != 0:
         side = "old" if old_rc != 0 else "new"
         return SyntaxResult(False, reason=f"bash -n rejected the {side} PKGBUILD",
                             old_text=old_text, new_text=new_text,
-                            bash_n_old=old_rc, bash_n_new=new_rc)
+                            bash_n_old=old_rc, bash_n_new=new_rc, bash_path=bash)
 
     return SyntaxResult(True, old_text=old_text, new_text=new_text,
-                        bash_n_old=old_rc, bash_n_new=new_rc)
+                        bash_n_old=old_rc, bash_n_new=new_rc, bash_path=bash)

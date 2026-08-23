@@ -68,8 +68,10 @@ def run_regression(repo_root: Path, environment: dict) -> dict:
         syntax = validate_syntax(diff_text, bash)
         if not syntax.ok:
             results.append({**_ref(item), "state": "unreplayable",
-                            "reason": syntax.reason})
+                            "reason": syntax.reason, "bash_path": syntax.bash_path})
             continue
+        env.restore()
+        env.check_canary(lambda name, text: runner.analyze(text).report)
         env.restore()
         result = runner.analyze(syntax.new_text, syntax.old_text or None)
         env.check_fingerprint(result.report)

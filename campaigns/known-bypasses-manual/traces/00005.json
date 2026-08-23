@@ -3,6 +3,7 @@
   "cost": {},
   "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "diff_sha256": "sha256:841c5c8d163ada5e15a919f9a994c57acac4773a8f61f8395558f45125de3a27",
+  "environment_ref": "campaign.yml#environment",
   "generator": {
     "directory": "campaigns/known-bypasses-manual/manual",
     "inputs": 8,
@@ -37,7 +38,7 @@
       "chain": "source= -> bash \"$1\"",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
     },
     "constraints": {
       "honored": true,
@@ -50,6 +51,7 @@
     "syntax": {
       "bash_n_new": 0,
       "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
       "reason": ""
     }
   },
@@ -239,6 +241,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: checksum set to SKIP [R004]; Executor Runs A File Chosen At Runtime: the file the executor runs is not a literal: bash \"$1\" [X021]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 762
+    "wall_clock_ms": 756
   }
 }

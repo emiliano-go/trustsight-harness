@@ -83,3 +83,17 @@ whatever it scored. That would let a rediscovery inflate a bypass count.
 A rediscovered diff now takes the `known_bypass_match` status, and its
 `patch_status` - `verified` or `regression` - carries the answer to the only
 question a rediscovery can settle: did the patch hold?
+
+## Deduplication "before charge"
+
+Section 6.1 says a duplicate is never re-run and never re-charged. The
+harness deduplicates immediately after generation, before validation or any
+TrustSight analysis. For deterministic generators this means the diff is
+produced without a paid call; for an LLM generator the generation itself is
+the charge, and the harness cannot know what the model will return before it
+returns it. What the clause prevents is re-validating or re-analysing a
+duplicate, which would multiply the cost for no new evidence.
+
+A campaign that wants to avoid paying for duplicates should use a
+deterministic or mutation generator with a fixed seed, where the same
+`(prompt, seed, attempt)` tuple is replayable without an API call.

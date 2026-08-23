@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import subprocess
 import time
 from dataclasses import replace
 from pathlib import Path
@@ -32,13 +31,35 @@ _MIN_ATTEMPTS_BEFORE_ABORT = 10
 
 
 def _git_commit(directory: Path) -> str:
-    try:
-        out = subprocess.run(
-            ["git", "log", "-1", "--format=%H", "--", "campaign.yml"],
-            cwd=directory, capture_output=True, text=True, timeout=10, check=False)
-        return out.stdout.strip()
-    except (OSError, subprocess.SubprocessError):
+    """Return the commit at which campaign.yml currently exists, without a subprocess.
+
+    The spec's self-security model allows only one subprocess (`bash -n`), so
+    this reads the Git filesystem directly.  If `.git` is absent or the HEAD
+    cannot be resolved, the record simply omits the commit link.
+    """
+    git_dir = directory / ".git"
+    if not git_dir.is_dir():
         return ""
+    try:
+        head = (git_dir / "HEAD").read_text().strip()
+        if head.startswith("ref:"):
+            ref_path = git_dir / head[4:].strip()
+            if ref_path.exists():
+                return ref_path.read_text().strip()
+            packed = git_dir / "packed-refs"
+            if packed.exists():
+                target = head[4:].strip()
+                for line in packed.read_text().splitlines():
+                    if line.startswith("#"):
+                        continue
+                    parts = line.split()
+                    if len(parts) == 2 and parts[1] == target:
+                        return parts[0]
+        elif len(head) == 40:
+            return head
+    except OSError:
+        pass
+    return ""
 
 
 def run_campaign(config: CampaignConfig, generator: Generator, *,
@@ -68,6 +89,8 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     env.check_canary(lambda name, text: runner.analyze(text).report)
     if not runner.parity_check((repo_root / "defaults/canary.PKGBUILD").read_text()):
         raise EnvironmentError_("API and CLI report bodies differ; the instrument is broken")
+    # `mode_gaps` is now derived from the canary and will be checked again
+    # after every subsequent restore.
 
     harness_errors = 0
     exporter = Exporter(repo_root / "fixtures-out",
@@ -118,13 +141,15 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         if status is None:
             db_hash = env.restore()
             trace.db_hash = db_hash
-            # "The restore is verified": a restore that silently did
-            # nothing looks exactly like one that worked, right up until
-            # the numbers are published.  Re-running the canary on every
-            # attempt would double the cost of a campaign, so it is
-            # sampled - and always on the first and last attempt.
-            if attempt % env.canary_every == 0:
+            # Section 3.2: every restore is verified.  A restore that
+            # silently did nothing looks exactly like one that worked,
+            # right up until the numbers are published.
+            if not env.accumulate:
                 env.check_canary(lambda name, text: runner.analyze(text).report)
+                # The canary's own analysis writes observations.  Restore
+                # again so the attempt measures the declared DB state, not the
+                # canary's wake.
+                env.restore()
             try:
                 result = runner.analyze(stages["_new_text"], stages.get("_old_text") or None)
             except AnalysisTimeout as exc:
@@ -247,7 +272,7 @@ def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
 
     syntax = validate_syntax(diff_text, bash)
     stages["syntax"] = {"bash_n_old": syntax.bash_n_old, "bash_n_new": syntax.bash_n_new,
-                        "reason": syntax.reason}
+                        "bash_path": syntax.bash_path, "reason": syntax.reason}
     if not syntax.ok:
         return Status.SYNTAX_ERROR, syntax.reason, stages
     # The whole file where the generator supplied it, the reconstruction

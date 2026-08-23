@@ -19,7 +19,7 @@ SOURCES = sorted(
 )
 
 #: The one place a subprocess is allowed, and the one thing it may run.
-SUBPROCESS_ALLOWED = {"validators/syntax.py", "harness/campaign.py"}
+SUBPROCESS_ALLOWED = {"validators/syntax.py"}
 #: The one module permitted to talk to a network.
 NETWORK_ALLOWED = {"generators/llm.py"}
 

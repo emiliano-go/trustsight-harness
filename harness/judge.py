@@ -22,6 +22,25 @@ __all__ = ["UnknownVerdictError", "Verdict", "judge"]
 #: publishing numbers about a tool it no longer understands.
 KNOWN_SEVERITIES = frozenset({"FATAL", "CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"})
 
+#: TrustSight's coverage-gap vocabulary.  A gap type added after the Judge
+#: was written must be understood before it can decide whether it forbids
+#: UNFLAGGED; guessing would let a new bypass channel pass as fail-closed.
+KNOWN_GAPS = frozenset({
+    "diff_truncated",
+    "scan_truncated",
+    "line_truncated",
+    "tree_not_analyzed",
+    "unresolved_source",
+    "unresolved_parse_time",
+    "snapshot_refused",
+    "unpinned_build_deps",
+    "companion_truncated",
+    "unpinned_source_ref",
+    "deps_not_scanned",
+    "ruleset_drifted",
+    "stage_degraded",
+})
+
 
 class UnknownVerdictError(RuntimeError):
     """The report contained something this Judge was not written for."""
@@ -70,6 +89,11 @@ def judge(
     # ones; treating it as a fail-closed catch would classify a score of
     # 100 as "the tool declined to answer".
     gaps = tuple(g for g in all_gaps if g not in set(mode_gaps))
+    unknown_gaps = set(gaps) - KNOWN_GAPS
+    if unknown_gaps:
+        raise UnknownVerdictError(
+            f"unknown coverage gap type(s): {sorted(unknown_gaps)}"
+        )
 
     # 2. A FATAL finding is a detection whatever the arithmetic says.
     if "FATAL" in severities:

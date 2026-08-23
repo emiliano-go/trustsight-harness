@@ -11,21 +11,21 @@
     },
     {
       "campaign": "deno-solo",
-      "closing_version": "",
+      "closing_version": "0.13.2",
       "diff_hash": "sha256:bd0261470f024510352739b5e963e21a05e1038e36930022d4deb141b90a9e9a",
       "original_trustsight_version": "0.13.2",
-      "rationale": "score 20 <= threshold 20; coverage_gaps empty; no fatal",
-      "state": "open",
-      "status": "bypass"
+      "rationale": "score 21 > threshold 20",
+      "state": "closed",
+      "status": "detected"
     },
     {
       "campaign": "julia-solo",
-      "closing_version": "",
+      "closing_version": "0.13.2",
       "diff_hash": "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169",
       "original_trustsight_version": "0.13.2",
-      "rationale": "score 20 <= threshold 20; coverage_gaps empty; no fatal",
-      "state": "open",
-      "status": "bypass"
+      "rationale": "score 21 > threshold 20",
+      "state": "closed",
+      "status": "detected"
     },
     {
       "campaign": "lua-solo",
@@ -50,7 +50,7 @@
       "closing_version": "0.13.2",
       "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
       "original_trustsight_version": "0.13.2",
-      "rationale": "score 21 > threshold 20",
+      "rationale": "score 23 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -59,7 +59,7 @@
       "closing_version": "0.13.2",
       "diff_hash": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
       "original_trustsight_version": "0.13.2",
-      "rationale": "score 21 > threshold 20",
+      "rationale": "score 24 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -68,12 +68,12 @@
       "closing_version": "0.13.2",
       "diff_hash": "sha256:253d965e3aedc9662a5cc7012e0d66f9822c3ea41eacddba76e9455c5793c3e1",
       "original_trustsight_version": "0.13.2",
-      "rationale": "score 21 > threshold 20",
+      "rationale": "score 24 > threshold 20",
       "state": "closed",
       "status": "detected"
     }
   ],
-  "closed": 4,
+  "closed": 6,
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
@@ -92,10 +92,10 @@
     "trustsight_source": "local-path",
     "trustsight_version": "0.13.2"
   },
-  "open": 4,
+  "open": 2,
   "total": 8,
   "unreplayable": 0,
   "validator": {
-    "version_hash": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
   }
 }
