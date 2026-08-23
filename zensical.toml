@@ -1,0 +1,153 @@
+[project]
+site_name = "trustsight-harness"
+site_description = "Reproducible, cost-tracked adversarial measurement for TrustSight."
+site_url = "https://docs.trustsight.org/trustsight-harness/"
+docs_dir = "docs"
+site_dir = "site"
+
+copyright = "&copy; 2026 Emiliano Gandini Outeda"
+
+extra_css = ["stylesheets/extra.css"]
+
+# ==============================================================================
+# Theme
+# ==============================================================================
+
+[project.theme]
+variant = "modern"
+custom_dir = "overrides"
+favicon = "assets/images/favicon.png"
+
+font.text = "Ubuntu"
+font.code = "JetBrains Mono"
+
+features = [
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.tabs",
+    "navigation.indexes",
+    "navigation.top",
+    "navigation.footer",
+    "search.suggest",
+    "search.highlight",
+    "content.code.copy",
+    "content.code.annotate",
+    "toc.follow",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "custom"
+accent = "custom"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+# ==============================================================================
+# Footer / extra
+# ==============================================================================
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/emiliano-go/trustsight"
+name = "trustsight on GitHub"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/python"
+link = "https://pypi.org/project/trustsight/"
+name = "trustsight on PyPI"
+
+# ==============================================================================
+# Navigation
+# ==============================================================================
+
+[[project.nav]]
+Overview = [
+  {Home = "index.md"},
+  {"Security Model" = "security.md"},
+  {Changelog = "changelog.md"},
+  {License = "license.md"},
+]
+
+[[project.nav]]
+"Get Started" = [
+  {Overview = "getting-started/index.md"},
+  {Installation = "getting-started/installation.md"},
+  {Quickstart = "getting-started/quickstart.md"},
+  {"Running a Campaign" = "getting-started/running-a-campaign.md"},
+  {"Reading a Record" = "getting-started/reading-a-record.md"},
+]
+
+[[project.nav]]
+Guides = [
+  {Overview = "guides/index.md"},
+  {"Writing a Campaign" = "guides/writing-a-campaign.md"},
+  {"Using in CI" = "guides/using-in-ci.md"},
+  {"Auditing Results" = "guides/auditing-results.md"},
+]
+
+[[project.nav]]
+Reference = [
+  {Overview = "reference/index.md"},
+  {"CLI Reference" = "reference/cli.md"},
+  {"Campaign Configuration" = "reference/campaign-config.md"},
+  {"Record Schema" = "reference/record-schema.md"},
+  {"Terminal Statuses" = "reference/statuses.md"},
+  {"Exit Codes" = "reference/exit-codes.md"},
+]
+
+[[project.nav]]
+Explanation = [
+  {Overview = "explanation/index.md"},
+  {"What the Harness Cannot Prove" = "explanation/what-the-harness-cannot-prove.md"},
+  {"Measurement and Maturity" = "explanation/measurement-and-maturity.md"},
+  {"Design Notes" = "explanation/design-notes.md"},
+]
+
+[[project.nav]]
+Contributing = [
+  {Overview = "contributing/index.md"},
+  {"Development Setup" = "contributing/development-setup.md"},
+  {"Acceptance Criteria" = "contributing/acceptance-criteria.md"},
+  {"Releasing" = "contributing/releasing.md"},
+  {"Reviewing a Security Control" = "contributing/security-review.md"},
+]
+
+# ==============================================================================
+# Markdown extensions
+# ==============================================================================
+
+[project.markdown_extensions]
+tables = {}
+admonition = {}
+toc = { permalink = true }
+"seoslug.contrib.zensical" = {
+  canonical_host = "docs.trustsight.org",
+  public_base_url = "https://docs.trustsight.org/trustsight-harness/",
+  site_name = "trustsight-harness",
+  title_template = "{title} - TrustSight Harness",
+  default_og_image = "https://docs.trustsight.org/assets/images/trustsight-banner.png",
+  publisher_name = "Emiliano Gandini Outeda",
+  locale = "en_US",
+  twitter_site = "@emiliano_go_",
+  auto_generate_schema = true,
+  debug_dir = ".seo-debug",
+}
+
+[project.markdown_extensions.pymdownx]
+highlight = { anchor_linenums = true, line_spans = "__span", pygments_lang_class = true }
+inlinehilite = {}
+snippets = {}
+superfences = {}
+tabbed = { alternate_style = true }
+tasklist = { custom_checkbox = true }
+
+[project.markdown_extensions.attr_list]
+
+[project.markdown_extensions.md_in_html]

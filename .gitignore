@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.venv/
+campaigns/*/env/
+campaigns/*/thinking/
+regression/env/
+site/
+.seo-debug/
+

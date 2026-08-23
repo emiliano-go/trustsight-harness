@@ -1,0 +1,20 @@
+# Pinned, dated provider prices in USD per million tokens.
+#
+# Dated because prices move: a cost figure computed from a table that
+# silently changed is not reproducible, and the record cites this file.
+# Override per campaign with `generator.prices_path`.
+
+[kimi.kimi-k2]
+input_per_mtok_usd = 0.60
+output_per_mtok_usd = 2.50
+dated = "2026-08-01"
+
+[openai."gpt-4o-mini"]
+input_per_mtok_usd = 0.15
+output_per_mtok_usd = 0.60
+dated = "2026-08-01"
+
+[anthropic."claude-sonnet-4"]
+input_per_mtok_usd = 3.00
+output_per_mtok_usd = 15.00
+dated = "2026-08-01"

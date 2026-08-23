@@ -1,0 +1,42 @@
+{
+  "attempt": 6,
+  "cost": {},
+  "db_hash": "",
+  "diff_sha256": "sha256:6a0157e195a7cae47063ff75fdfa7d58da6b1aeb06431ac43339e934e28be8d5",
+  "generator": {
+    "directory": "campaigns/known-bypasses-manual/manual",
+    "inputs": 8,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "no reachable fetch-to-execution chain",
+    "verdict": "behavior_lost"
+  },
+  "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "",
+      "preserved": false,
+      "reason": "no reachable fetch-to-execution chain",
+      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "reason": ""
+    }
+  },
+  "status": "behavior_lost",
+  "trustsight": {}
+}

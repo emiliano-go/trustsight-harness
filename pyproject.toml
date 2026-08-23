@@ -1,0 +1,42 @@
+[project]
+name = "trustsight-harness"
+version = "1.0.0"
+description = "Adversarial measurement harness for TrustSight: reproducible, cost-tracked bypass campaigns."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    "trustsight>=0.13.0",
+    "pyyaml>=6.0",
+    "bashlex>=0.18",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+llm = ["httpx>=0.27"]
+docs = ["zensical>=0.0.44", "seoslug>=2.0.1"]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.scripts]
+harness = "harness.__main__:main"
+
+# The harness measures a *pinned* TrustSight, so the dependency is a local
+# checkout by default: PyPI lags the build under test, and a campaign that
+# silently measured a different version than it declared is the failure
+# `environment.trustsight_version` exists to prevent.  Override for a
+# released target.
+[tool.uv.sources]
+trustsight = { path = "../trustsight", editable = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["harness", "generators", "validators"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88

@@ -1,0 +1,28 @@
+{
+  "bypasses": [],
+  "closed": 0,
+  "environment": {
+    "accumulate": false,
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.13.2"
+  },
+  "open": 0,
+  "total": 0,
+  "unreplayable": 0,
+  "validator": {
+    "version_hash": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+  }
+}

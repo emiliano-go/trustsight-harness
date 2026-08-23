@@ -1,0 +1,25 @@
+# Section 9 asks for the secret scan at two points, and means it: CI
+# catches a key after it is pushed, which is after it is public.  This
+# catches it while it is still local.
+repos:
+  - repo: local
+    hooks:
+      - id: scan-secrets
+        name: scan campaigns, traces and records for key material
+        entry: python scripts/scan_secrets.py
+        language: system
+        pass_filenames: false
+        always_run: true
+
+      - id: ruff
+        name: ruff
+        entry: ruff check --force-exclude
+        language: system
+        types_or: [python, pyi]
+
+      - id: self-security-gates
+        name: harness self-security gates
+        entry: pytest tests/test_self_security.py -q
+        language: system
+        pass_filenames: false
+        always_run: true

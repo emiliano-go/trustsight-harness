@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      # Lockfile-only. A harness that resolves fresh dependencies at test
+      # time is not the harness whose results were published.
+      - name: Sync (locked)
+        run: uv sync --locked --all-extras
+
+      - name: Self-security gates
+        run: uv run pytest tests/test_self_security.py -q
+
+      - name: Secret scan
+        run: uv run python scripts/scan_secrets.py
+
+      - name: Validator calibration
+        run: uv run pytest tests/test_validators.py -q
+
+      - name: Full test suite
+        run: uv run pytest -q
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Docs site builds without warnings
+        run: |
+          uv run zensical build --strict
+          uv run python scripts/build_llms_txt.py
+          uv run python scripts/build_llms_txt.py --check
+
+  # An SBOM is only useful if it describes a build someone can obtain, so
+  # it is generated from the lockfile on a tag and attached to the release
+  # rather than regenerated from whatever a consumer happens to install.
+  sbom:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Generate SBOM
+        run: uv run python scripts/sbom.py sbom.cyclonedx.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.cyclonedx.json

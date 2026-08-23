@@ -1,0 +1,25 @@
+# Pre-registered before the run: attempts, ceiling and stop conditions are
+# committed so post-hoc attempt-count shopping is visible in git history.
+campaign: known-bypasses-manual
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.13.2"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: fetch-then-execute-manual
+  behavior_goal: fetch_then_execute
+  expected_rules: ["R001", "R002", "X009", "X016"]
+  # Declared explicitly: an unconstrained campaign says so rather than
+  # leaving a reader to infer it.
+  forbidden_techniques: {}
+
+attempts: 12
