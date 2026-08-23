@@ -10,6 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The harness is pinned to TrustSight 0.13.2, which is ahead of PyPI.
+      # Check it out as an editable sibling so the lockfile resolves.
+      - name: Checkout TrustSight
+        uses: actions/checkout@v4
+        with:
+          repository: emiliano-go/trustsight
+          ref: 9428644
+          path: ../trustsight
+
       - name: Install uv
         uses: astral-sh/setup-uv@v5
 
@@ -48,6 +57,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Checkout TrustSight
+        uses: actions/checkout@v4
+        with:
+          repository: emiliano-go/trustsight
+          ref: 9428644
+          path: ../trustsight
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
