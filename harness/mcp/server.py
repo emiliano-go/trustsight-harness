@@ -8,12 +8,11 @@ ID for polling rather than blocking.
 from __future__ import annotations
 
 import json
-import sys
 import threading
 import time
 import traceback
 import uuid
-from dataclasses import asdict, dataclass, field
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -73,7 +72,7 @@ def _run_in_thread(fn, job: Job, *args, **kwargs) -> None:
         try:
             result = fn(*args, **kwargs)
             _finish_job(job, result=result)
-        except Exception as exc:
+        except (RuntimeError, ValueError, FileNotFoundError) as exc:
             _finish_job(job, error=f"{type(exc).__name__}: {exc}\n{traceback.format_exc()}")
 
     t = threading.Thread(target=_worker, daemon=True)
@@ -159,17 +158,17 @@ def run_regression(environment_yaml: str | None = None) -> dict:
     Args:
         environment_yaml: Optional path to environment YAML (defaults to defaults/environment.yml).
     """
-    import yaml
-
     from ..regression import run_regression as _run_regression
 
     env_path = Path(environment_yaml) if environment_yaml else _repo_root() / "defaults" / "environment.yml"
     if not env_path.exists():
         return {"error": f"environment file not found: {env_path}"}
 
+    import yaml as _yaml
+
     try:
-        environment = yaml.safe_load(env_path.read_text())
-    except Exception as exc:
+        environment = _yaml.safe_load(env_path.read_text())
+    except (_yaml.YAMLError, OSError) as exc:
         return {"error": f"failed to parse environment YAML: {exc}"}
 
     job = _create_job("regression")
@@ -232,7 +231,7 @@ def analyze_diff(new_text: str, old_text: str | None = None, package: str = "mcp
         }
     except RunnerError as exc:
         return {"error": str(exc)}
-    except Exception as exc:
+    except (RuntimeError, ValueError, OSError) as exc:
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
@@ -347,7 +346,7 @@ def judge_verdict(
         early_reason: Reason for the early status.
         mode_gaps: Coverage gaps produced by the canary (mode-level, not diff-level).
     """
-    from ..judge import Verdict, judge
+    from ..judge import judge
     from ..status import Status
 
     # Reconstruct a lightweight report-like object from the dict
@@ -387,7 +386,7 @@ def judge_verdict(
             "coverage_gaps": list(verdict.coverage_gaps),
             "catching_rules": list(verdict.catching_rules),
         }
-    except Exception as exc:
+    except (RuntimeError, ValueError) as exc:
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
