@@ -16,7 +16,7 @@ jobs:
       - name: Clone TrustSight
         run: |
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
-          git -C ../trustsight checkout 9428644
+          git -C ../trustsight checkout 05175fe
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
@@ -60,7 +60,7 @@ jobs:
       - name: Clone TrustSight
         run: |
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
-          git -C ../trustsight checkout 9428644
+          git -C ../trustsight checkout 05175fe
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
