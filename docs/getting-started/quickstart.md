@@ -39,6 +39,7 @@ You will see something like:
     "estimate": 0.0,
     "ci_95_wilson": [0.0, 0.434482],
     "denominator": "attempts reaching TrustSight",
+    "denominator_value": 5,
     "note": "lower bound (validator is conservative)"
   }
 }

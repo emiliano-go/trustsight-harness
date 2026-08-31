@@ -75,9 +75,11 @@ uv lock && uv sync --locked
 | Extra | Contents | Needed for |
 |---|---|---|
 | `llm` | `httpx` | LLM campaigns only |
+| `mcp` | `mcp` | MCP server integration |
+| `docs` | `zensical`, `seoslug` | Building the documentation site |
 | `dev` | `pytest`, `ruff` | The test suite and the lint gate |
 
-`uv sync --locked --all-extras` installs both, which is what CI does.
+`uv sync --locked --all-extras` installs all of them, which is what CI does.
 
 ## Pre-commit hook
 

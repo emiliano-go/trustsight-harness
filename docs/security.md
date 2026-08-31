@@ -33,10 +33,10 @@ than trusted:
 **Enforcement.** `tests/test_self_security.py` walks the AST of every module in
 `harness/`, `generators/` and `validators/`. No module may call `eval`, `exec`,
 `compile`, `__import__`, `os.system`, `os.popen` or the `subprocess.getoutput`
-family. No call anywhere may pass `shell=` as anything but `False`. Only
-`validators/syntax.py` and `harness/campaign.py` may import `subprocess` at all,
-and a separate test parses `syntax.py` to assert that every `subprocess.run` in
-it takes a literal argv whose second element is `-n`.
+/ `subprocess.getstatusoutput` family. No call anywhere may pass `shell=` as anything but `False`. Only
+`validators/syntax.py` may import `subprocess` at all, and a separate test
+parses `syntax.py` to assert that every `subprocess.run` in it takes a literal
+argv whose second element is `-n`.
 
 !!! danger "There is no sandbox, and that is the design"
 

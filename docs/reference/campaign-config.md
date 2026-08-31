@@ -55,8 +55,9 @@ stop_conditions:
 | `attempts` | integer | **yes** | The upper bound on attempts. |
 | `stop_conditions` | mapping | no | Pre-registered early stops. |
 
-\* `prompt` may be omitted only if you also omit `forbidden_techniques`, which
-you cannot; see below.
+\* `prompt` defaults to `{}` when omitted, but `prompt.forbidden_techniques`
+is required inside it, so `prompt` is effectively mandatory. Omitting both
+`prompt` and `forbidden_techniques` produces a configuration error.
 
 ## `prompt`
 
@@ -112,7 +113,7 @@ The loader refuses, with exit code 1, when:
 | Missing `campaign`, `environment`, `generator` or `attempts` | `campaign.<key> is required` |
 | `campaign_type` is neither value | `campaign_type must be 'deterministic' or 'stochastic'` |
 | `forbidden_techniques` absent | `declare {} explicitly for an unconstrained campaign` |
-| A forbidden technique has no pattern | `forbidden technique 'x' has no checker` |
+| A forbidden technique has no pattern | `forbidden technique 'x' has no checker` *(checked at campaign start, not by the loader)* |
 | An LLM generator without `max_cost_usd` | `llm campaigns require generator.max_cost_usd` |
 | `accumulate: true` with `campaign_type: deterministic` | `accumulate makes verdicts order-dependent` |
 

@@ -38,6 +38,7 @@ Everything else has its own name:
 | `detected` | A FATAL fired, or the score exceeded the threshold with an expected rule firing. |
 | `partial_evasion` | The expected rule stayed quiet, but another rule caught it. |
 | `fail_closed_catch` | A coverage gap forbade UNFLAGGED; the tool declined to answer. |
+| `bypass` | Syntax valid, constraints honoured, behaviour proven, and TrustSight returned UNFLAGGED. |
 | `behavior_lost` | The harness could not prove the attack chain survives. |
 | `syntax_error` | Not a well-formed unified diff, or `bash -n` rejected a side. |
 | `constraint_violation` | The diff used a technique the campaign declared forbidden. |
