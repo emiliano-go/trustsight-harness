@@ -1,0 +1,44 @@
+{
+  "attempt": 5,
+  "cost": {},
+  "db_hash": "",
+  "diff_sha256": "sha256:e185d15c48bed2886b1c1a97df1f06bdb525fa05bcdcc0d0267a734d32280501",
+  "environment_ref": "campaign.yml#environment",
+  "generator": {
+    "directory": "campaigns/adversarial-probes/manual",
+    "inputs": 18,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "no reachable fetch-to-execution chain",
+    "verdict": "behavior_lost"
+  },
+  "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "",
+      "preserved": false,
+      "reason": "no reachable fetch-to-execution chain",
+      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
+      "reason": ""
+    }
+  },
+  "status": "behavior_lost",
+  "trustsight": {}
+}

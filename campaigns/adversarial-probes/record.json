@@ -1,0 +1,119 @@
+{
+  "attempts": 18,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.299145
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 9,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "campaign": "adversarial-probes",
+  "campaign_commit": "18850e8e2420d45f0b0ee1b1546449a86780111d",
+  "campaign_type": "deterministic",
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 24918
+  },
+  "environment": {
+    "accumulate": false,
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.15.7"
+  },
+  "generator": {
+    "directory": "campaigns/adversarial-probes/manual",
+    "inputs": 18,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "adversarial-probes",
+    "type": "manual"
+  },
+  "harness_version": "1.1.0",
+  "known_bypass_matches": [
+    {
+      "diff_hash": "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476",
+      "observed_status": "detected",
+      "original_campaign": "node-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    },
+    {
+      "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
+      "observed_status": "detected",
+      "original_campaign": "php-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    },
+    {
+      "diff_hash": "sha256:53fed95fba98f2ec619d67f5e26dedff2518d3161768cb72ff61c06d12b826bd",
+      "observed_status": "detected",
+      "original_campaign": "lua-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    },
+    {
+      "diff_hash": "sha256:253d965e3aedc9662a5cc7012e0d66f9822c3ea41eacddba76e9455c5793c3e1",
+      "observed_status": "detected",
+      "original_campaign": "tclsh-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    },
+    {
+      "diff_hash": "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169",
+      "observed_status": "detected",
+      "original_campaign": "julia-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    },
+    {
+      "diff_hash": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
+      "observed_status": "detected",
+      "original_campaign": "rscript-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    }
+  ],
+  "outcomes": {
+    "behavior_lost": 9,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 3,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "known_bypass_match": 6,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "stop_reason": "18 manual inputs exhausted",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+  }
+}

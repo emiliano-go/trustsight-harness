@@ -1,20 +1,18 @@
 {
   "attempts": 1,
-  "bypass_hashes": [
-    "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476"
-  ],
+  "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
-      0.206549,
-      1.0
+      0.0,
+      0.793451
     ],
     "denominator": "attempts reaching TrustSight",
     "denominator_value": 1,
-    "estimate": 1.0,
+    "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "node-solo",
-  "campaign_commit": "",
+  "campaign_commit": "18850e8e2420d45f0b0ee1b1546449a86780111d",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -22,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1721
+    "wall_clock_ms": 3283
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +38,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.13.2"
+    "trustsight_version": "0.15.7"
   },
   "generator": {
     "directory": "campaigns/node-solo/manual",
@@ -49,17 +47,26 @@
     "prompt_id": "node-solo",
     "type": "manual"
   },
-  "harness_version": "1.0.0",
-  "known_bypass_matches": [],
+  "harness_version": "1.1.0",
+  "known_bypass_matches": [
+    {
+      "diff_hash": "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476",
+      "observed_status": "detected",
+      "original_campaign": "node-solo",
+      "original_trustsight_version": "0.13.2",
+      "patch_status": "verified",
+      "trustsight_version": "0.15.7"
+    }
+  ],
   "outcomes": {
     "behavior_lost": 0,
-    "bypass": 1,
+    "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 0,
+    "known_bypass_match": 1,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
@@ -67,6 +74,6 @@
   "stop_reason": "",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
   }
 }

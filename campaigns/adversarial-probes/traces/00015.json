@@ -1,12 +1,12 @@
 {
-  "attempt": 0,
+  "attempt": 15,
   "cost": {},
   "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
   "diff_sha256": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "campaigns/rscript-solo/manual",
-    "inputs": 1,
+    "directory": "campaigns/adversarial-probes/manual",
+    "inputs": 18,
     "type": "manual"
   },
   "judge": {
@@ -234,6 +234,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Downloaded Source File Executed: build() executes declared source file payload.R [H083]; Source URL classified as unknown (https://evil.example/payload.R) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1740
+    "wall_clock_ms": 796
   }
 }

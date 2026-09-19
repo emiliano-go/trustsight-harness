@@ -1,8 +1,9 @@
 {
   "attempt": 0,
   "cost": {},
-  "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
   "diff_sha256": "sha256:c36878d05e5163bad81dabac3f29b1562cf9c4cc1034c86df6da306ed2efacd1",
+  "environment_ref": "campaign.yml#environment",
   "generator": {
     "directory": "campaigns/bun-solo/manual",
     "inputs": 1,
@@ -12,8 +13,8 @@
     "catching_rules": [],
     "coverage_gaps": [],
     "fatal": false,
-    "rationale": "score 20 <= threshold 20; coverage_gaps empty; no fatal",
-    "verdict": "bypass"
+    "rationale": "score 45 > threshold 20 (known bypass from bun-solo; closed)",
+    "verdict": "known_bypass_match"
   },
   "stages": {
     "_text_source": "generator",
@@ -21,7 +22,7 @@
       "chain": "source= -> bun \"$srcdir/payload.js\"",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:1cf585b73235c107a8ce4c9757d7ad27636bed9d18eda3a4d33f074001b0b198"
+      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
     },
     "constraints": {
       "honored": true,
@@ -34,18 +35,19 @@
     "syntax": {
       "bash_n_new": 0,
       "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
       "reason": ""
     }
   },
-  "status": "bypass",
+  "status": "known_bypass_match",
   "trustsight": {
-    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
     "report": {
       "changes": [
         "checksums added or changed",
         "source host changed: evil.example"
       ],
-      "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+      "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
       "coverage_gaps": [
         "tree_not_analyzed"
       ],
@@ -55,6 +57,19 @@
       "failed": false,
       "file_changes": [],
       "findings": [
+        {
+          "description": "Downloaded Source File Executed: build() executes declared source file payload.js [H083]",
+          "evidence": {
+            "match": "build() executes declared source file payload.js",
+            "path": "payload.js",
+            "position": "build"
+          },
+          "file": "PKGBUILD",
+          "line": 22,
+          "rule_id": "H083",
+          "severity": "HIGH",
+          "template": "Downloaded Source File Executed: {match}"
+        },
         {
           "description": "Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]",
           "evidence": {},
@@ -66,7 +81,7 @@
         }
       ],
       "first_seen": false,
-      "flagged": false,
+      "flagged": true,
       "fully_vetted": false,
       "ioc_matches": [],
       "is_trivial": true,
@@ -78,10 +93,10 @@
       "required_by": [],
       "review_profile": "default",
       "review_threshold": 20,
-      "risk": "Inconclusive",
-      "risk_label": "Inconclusive (repository files not examined: payload may be hidden)",
+      "risk": "Medium",
+      "risk_label": "Medium (incomplete analysis)",
       "scan_truncated": false,
-      "score": 20,
+      "score": 45,
       "score_breakdown": [
         {
           "evidence": {
@@ -112,9 +127,43 @@
             "touched": "build"
           },
           "reason": "Critical Build Function Modified: diff modifies build()",
-          "rule_id": "R060",
+          "rule_id": "H015",
           "severity": "INFO",
           "template": "critical build function modified: {touched}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "build() executes declared source file payload.js",
+            "path": "payload.js",
+            "position": "build"
+          },
+          "file": "PKGBUILD",
+          "line": 22,
+          "params": {
+            "path": "payload.js",
+            "position": "build"
+          },
+          "reason": "Downloaded Source File Executed: build() executes declared source file payload.js",
+          "rule_id": "H083",
+          "severity": "HIGH",
+          "template": "Downloaded Source File Executed: {match}",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 3 distinct capability categories",
+            "n_categories": 3
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "n_categories": 3
+          },
+          "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+          "rule_id": "H027",
+          "severity": "INFO",
+          "template": "findings span {n_categories} distinct capability categories",
           "weight": 0
         },
         {
@@ -182,9 +231,9 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]. Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Downloaded Source File Executed: build() executes declared source file payload.js [H083]; Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 954
+    "wall_clock_ms": 1532
   }
 }

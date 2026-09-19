@@ -99,14 +99,14 @@ a "closed" bypass is never an artefact of a broken harness.
 ### Output
 
 ```
-Of 47 known bypasses, 35 closed, 12 open as of 0.13.2.
+Of 8 known bypasses, 8 closed, 0 open as of 0.15.7.
 ```
 
 and `regression/report.json` with the per-bypass detail.
 
 !!! note "This is a report, not a verdict"
 
-    Improvement and regression are both data. Whether "12 open" is good news is a
+    Improvement and regression are both data. Whether "0 open" is good news is a
     maintainer's call, made in a review with the report attached.
 
 ### Exit codes

