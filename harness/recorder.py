@@ -79,6 +79,12 @@ class Recorder:
         path.write_text(json.dumps(trace.to_dict(), indent=2, sort_keys=True))
         if trace.status is Status.BYPASS:
             self.bypass_hashes.append(trace.diff_sha256)
+        # A rediscovered bypass is patch-verification evidence, not a fresh
+        # find, so it does not join `bypass_hashes`.  Its diff is still
+        # written: the regression gate replays historical bypasses by
+        # re-hashing committed diffs, and a re-baseline that dropped them
+        # would leave the gate with nothing to replay.
+        if trace.status in (Status.BYPASS, Status.KNOWN_BYPASS_MATCH):
             (self._traces_dir / f"{trace.attempt:05d}.diff").write_text(diff_text)
 
     def outcomes(self) -> dict[str, int]:

@@ -121,6 +121,13 @@ class Environment:
         if self.accumulate:
             return self._db_hash()
 
+        # TrustSight caches one connection per (thread, path) and reuses it,
+        # so unlinking the file while that handle is open leaves the harness
+        # writing to a deleted inode: the "restore" would be a no-op and
+        # every attempt would inherit the previous one's observations.  Close
+        # first, then delete, then let init_db() open the fresh file.
+        db.close_connections()
+
         for stale in self._data_dir.glob("*.db*"):
             stale.unlink(missing_ok=True)
 
@@ -162,8 +169,8 @@ class Environment:
         with db.get_connection() as conn:
             for row in payload.get("urls", []):
                 conn.execute(
-                    "INSERT OR IGNORE INTO urls (url, first_seen_package_id) "
-                    "VALUES (?, ?)", (row, 0))
+                "INSERT OR IGNORE INTO source_urls (url, first_seen_package_id) "
+                "VALUES (?, ?)", (row, 0))
             conn.commit()
 
     def _db_hash(self) -> str:

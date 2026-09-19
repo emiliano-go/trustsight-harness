@@ -101,6 +101,32 @@ def test_the_canary_teaches_the_mode_gaps():
     assert env.to_record()["mode_gaps"] == ["tree_not_analyzed"]
 
 
+def test_restore_actually_resets_the_database(tmp_path):
+    """TrustSight caches one connection per (thread, path); unlinking the
+    file without closing it leaves the harness writing to a deleted inode,
+    so the "restore" would be a no-op and every attempt would inherit the
+    previous one's rows."""
+    from trustsight import db
+
+    env = Environment(trustsight_version="x")
+    env.bind(tmp_path)
+    env.restore()
+
+    with db.get_connection() as conn:
+        conn.execute(
+            "INSERT OR IGNORE INTO source_urls (url) VALUES (?)",
+            ("https://example.invalid/restore-canary",),
+        )
+        conn.commit()
+        before = conn.execute("SELECT COUNT(*) FROM source_urls").fetchone()[0]
+    assert before == 1
+
+    env.restore()
+    with db.get_connection() as conn:
+        after = conn.execute("SELECT COUNT(*) FROM source_urls").fetchone()[0]
+    assert after == 0
+
+
 def test_binding_never_touches_the_operators_database(tmp_path):
     from trustsight import config, db
 

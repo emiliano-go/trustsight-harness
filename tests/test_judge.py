@@ -39,6 +39,16 @@ def test_a_coverage_gap_forbids_unflagged():
     assert not counts_as_bypass(verdict.status)
 
 
+@pytest.mark.parametrize("gap", ["history_truncated", "noextract_suppressed"])
+def test_gap_types_added_after_the_judge_are_understood(gap):
+    """A gap added by a newer TrustSight must be classified, not crash the
+    campaign: an unrecognised gap stops the run with UnknownVerdictError by
+    design, so the vocabulary has to grow with the instrument."""
+    verdict = judge(early_status=None, report=report(5, gaps=[gap]),
+                    flag_threshold=20)
+    assert verdict.status is Status.FAIL_CLOSED_CATCH
+
+
 def test_a_mode_gap_is_not_evidence_about_the_diff():
     """`analyze_text` never reads a repository, so `tree_not_analyzed` is
     constant for every attempt including the canary.  Treating it as a

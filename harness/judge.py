@@ -35,10 +35,11 @@ KNOWN_GAPS = frozenset({
     "snapshot_refused",
     "unpinned_build_deps",
     "companion_truncated",
-    "unpinned_source_ref",
     "deps_not_scanned",
     "ruleset_drifted",
     "stage_degraded",
+    "history_truncated",
+    "noextract_suppressed",
 })
 
 

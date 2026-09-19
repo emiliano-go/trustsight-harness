@@ -23,11 +23,32 @@ __all__ = ["run_regression"]
 
 
 def _committed_bypasses(campaigns: Path) -> list[dict]:
-    found: list[dict] = []
+    """Every bypass the repo has ever recorded, keyed by diff hash.
+
+    Two sources, because a re-baseline moves a bypass between them without
+    making it any less a historical bypass: `bypass_hashes` are the finds
+    made by the committed run, and `known_bypass_matches` are the finds an
+    earlier run made that this run rediscovered.  Both carry their diff in
+    `traces/`, so both can be replayed.  Duplicates are collapsed: the same
+    diff can be rediscovered by more than one campaign.
+    """
+    found: dict[str, dict] = {}
     for record_path in sorted(campaigns.glob("*/record.json")):
         record = json.loads(record_path.read_text())
         traces = record_path.parent / "traces"
-        for digest in record.get("bypass_hashes", []):
+        version = record.get("environment", {}).get("trustsight_version", "")
+        campaign = record.get("campaign", record_path.parent.name)
+        candidates = [(digest, version, campaign)
+                      for digest in record.get("bypass_hashes", [])]
+        candidates += [
+            (match.get("diff_hash", ""),
+             match.get("original_trustsight_version", version),
+             match.get("original_campaign", campaign))
+            for match in record.get("known_bypass_matches", [])
+        ]
+        for digest, original_version, original_campaign in candidates:
+            if not digest or digest in found:
+                continue
             # Paired by re-hashing, never by filename.  A trace is named
             # for its attempt number, and any weaker pairing would let an
             # edited diff be replayed under the identity of the one that
@@ -36,14 +57,13 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
                          if diff_hash(candidate.read_text()) == digest), None)
             if diff is None:
                 continue
-            found.append({
+            found[digest] = {
                 "diff_hash": digest,
                 "diff_path": diff,
-                "campaign": record.get("campaign", record_path.parent.name),
-                "original_trustsight_version":
-                    record.get("environment", {}).get("trustsight_version", ""),
-            })
-    return found
+                "campaign": original_campaign,
+                "original_trustsight_version": original_version,
+            }
+    return list(found.values())
 
 
 def run_regression(repo_root: Path, environment: dict) -> dict:

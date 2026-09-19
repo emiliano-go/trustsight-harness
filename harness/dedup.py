@@ -53,10 +53,23 @@ class KnownBypasses:
             except (OSError, json.JSONDecodeError):
                 continue
             version = data.get("environment", {}).get("trustsight_version", "")
+            campaign = data.get("campaign", record.parent.name)
             for digest in data.get("bypass_hashes", []):
                 self._index.setdefault(digest, {
-                    "original_campaign": data.get("campaign", record.parent.name),
+                    "original_campaign": campaign,
                     "original_trustsight_version": version,
+                })
+            # A bypass rediscovered by a later run lives here rather than in
+            # `bypass_hashes`.  It is still a known bypass, so a subsequent
+            # re-run must recognise it and keep recording it as one.
+            for match in data.get("known_bypass_matches", []):
+                digest = match.get("diff_hash", "")
+                if not digest:
+                    continue
+                self._index.setdefault(digest, {
+                    "original_campaign": match.get("original_campaign", campaign),
+                    "original_trustsight_version":
+                        match.get("original_trustsight_version", version),
                 })
 
     def __contains__(self, digest: str) -> bool:
