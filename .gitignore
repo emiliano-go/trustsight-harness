@@ -9,6 +9,7 @@ build/
 campaigns/*/env/
 campaigns/*/thinking/
 regression/env/
+.mcp-scratch/
 site/
 .seo-debug/
 

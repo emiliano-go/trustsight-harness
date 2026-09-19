@@ -51,10 +51,28 @@ class Job:
 _jobs: dict[str, Job] = {}
 _jobs_lock = threading.Lock()
 
+#: Finished jobs are kept for polling; the queue is bounded so a long-lived
+#: server does not grow without limit.
+_MAX_JOBS = 256
+
+#: TrustSight's config and database paths are process-wide module globals
+#: (`Environment.bind` patches them), so two analyses running at once would
+#: measure each other's environment.  Every tool that runs an analysis takes
+#: this lock; it is a re-entrant lock because a job may call a helper that
+#: also analyses.
+_analysis_lock = threading.RLock()
+
 
 def _create_job(kind: str) -> Job:
     job = Job(id=str(uuid.uuid4()), kind=kind)
     with _jobs_lock:
+        if len(_jobs) >= _MAX_JOBS:
+            finished = sorted(
+                (j for j in _jobs.values() if j.status != "running"),
+                key=lambda j: j.finished_at or j.created_at,
+            )
+            for stale in finished[: len(_jobs) - _MAX_JOBS + 1]:
+                _jobs.pop(stale.id, None)
         _jobs[job.id] = job
     return job
 
@@ -69,11 +87,16 @@ def _finish_job(job: Job, result: dict | None = None, error: str | None = None) 
 
 def _run_in_thread(fn, job: Job, *args, **kwargs) -> None:
     def _worker():
+        # Always finish the job.  Catching only the exception types the old
+        # worker knew about left any other failure as a job stuck in
+        # "running" forever, which a poller cannot distinguish from a slow
+        # campaign.
         try:
             result = fn(*args, **kwargs)
-            _finish_job(job, result=result)
-        except (RuntimeError, ValueError, FileNotFoundError) as exc:
+        except BaseException as exc:  # noqa: BLE001 - the job must not stick
             _finish_job(job, error=f"{type(exc).__name__}: {exc}\n{traceback.format_exc()}")
+        else:
+            _finish_job(job, result=result)
 
     t = threading.Thread(target=_worker, daemon=True)
     t.start()
@@ -96,14 +119,58 @@ def _defaults_dir() -> Path:
     return _repo_root() / "defaults"
 
 
+def _scratch_dir() -> Path:
+    """An isolated data directory for one-off analyses."""
+    path = _repo_root() / ".mcp-scratch"
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
+def _bind_isolated_environment() -> None:
+    """Point TrustSight at a scratch directory, never the operator's.
+
+    `analyze_diff` used to run against whatever `config.DATA_DIR` happened
+    to hold: the operator's real database on a fresh server, or whichever
+    campaign bound last.  Callers hold `_analysis_lock`.
+    """
+    import trustsight
+
+    from ..environment import Environment
+
+    env = Environment(
+        trustsight_version=getattr(trustsight, "__version__", ""),
+        db_state="cold",
+    )
+    env.resolve()
+    env.bind(_scratch_dir())
+    env.restore()
+
+
+def _campaign_dir(name: str) -> Path:
+    """Resolve a campaign *name* to a directory inside `campaigns/`.
+
+    These tools take a name, not a path; rejecting separators and `..`
+    keeps a request from reading a `record.json` anywhere else on disk.
+    """
+    if (not name or name in (".", "..") or "/" in name or "\\" in name
+            or "\x00" in name):
+        raise ValueError(f"invalid campaign name: {name!r}")
+    root = _campaigns_dir().resolve()
+    candidate = (root / name).resolve()
+    if candidate != root and root not in candidate.parents:
+        raise ValueError(f"campaign name escapes campaigns directory: {name!r}")
+    return candidate
+
+
 def _load_record(campaign_dir: Path) -> dict | None:
     record_path = campaign_dir / "record.json"
     if not record_path.exists():
         return None
     try:
-        return json.loads(record_path.read_text())
+        data = json.loads(record_path.read_text())
     except (OSError, json.JSONDecodeError):
         return None
+    return data if isinstance(data, dict) else None
 
 
 # ---------------------------------------------------------------------------
@@ -121,9 +188,12 @@ def run_campaign(campaign_dir: str) -> dict:
     Args:
         campaign_dir: Path to the campaign directory (relative to repo root or absolute).
     """
+    from yaml import YAMLError
+
     from ..__main__ import _build_generator, _calibration_status
     from ..campaign import run_campaign as _run_campaign
     from ..config import ConfigError, load_campaign
+    from ..environment import EnvironmentError_
 
     path = Path(campaign_dir)
     if not path.is_absolute():
@@ -136,13 +206,14 @@ def run_campaign(campaign_dir: str) -> dict:
     try:
         config = load_campaign(path, _repo_root())
         generator = _build_generator(config, _repo_root())
-    except (ConfigError, ValueError, FileNotFoundError) as exc:
+    except (ConfigError, EnvironmentError_, YAMLError, ValueError, OSError) as exc:
         return {"error": f"configuration error: {exc}"}
 
     job = _create_job("campaign")
 
     def _execute():
-        return _run_campaign(config, generator, repo_root=_repo_root(), calibration=calibration)
+        with _analysis_lock:
+            return _run_campaign(config, generator, repo_root=_repo_root(), calibration=calibration)
 
     _run_in_thread(_execute, job)
     return {"job_id": job.id, "status": "running", "campaign": config.name}
@@ -170,11 +241,14 @@ def run_regression(environment_yaml: str | None = None) -> dict:
         environment = _yaml.safe_load(env_path.read_text())
     except (_yaml.YAMLError, OSError) as exc:
         return {"error": f"failed to parse environment YAML: {exc}"}
+    if not isinstance(environment, dict):
+        return {"error": "environment YAML must be a mapping"}
 
     job = _create_job("regression")
 
     def _execute():
-        return _run_regression(_repo_root(), environment)
+        with _analysis_lock:
+            return _run_regression(_repo_root(), environment)
 
     _run_in_thread(_execute, job)
     return {"job_id": job.id, "status": "running"}
@@ -215,6 +289,10 @@ def get_job_status(job_id: str) -> dict:
 def analyze_diff(new_text: str, old_text: str | None = None, package: str = "mcp-pkg") -> dict:
     """Analyse a single PKGBUILD text (or diff) through TrustSight's analysis pipeline.
 
+    Runs against an isolated, cold scratch database, never the operator's,
+    and serialised against running campaigns because TrustSight's config and
+    database paths are process-wide globals.
+
     Args:
         new_text: The new PKGBUILD text or unified diff.
         old_text: Optional old PKGBUILD text (for diff-based analysis).
@@ -222,17 +300,19 @@ def analyze_diff(new_text: str, old_text: str | None = None, package: str = "mcp
     """
     from ..runner import Runner, RunnerError
 
-    try:
-        runner = Runner(package=package)
-        result = runner.analyze(new_text, old_text)
-        return {
-            "report": result.body,
-            "wall_clock_ms": result.wall_clock_ms,
-        }
-    except RunnerError as exc:
-        return {"error": str(exc)}
-    except (RuntimeError, ValueError, OSError) as exc:
-        return {"error": f"{type(exc).__name__}: {exc}"}
+    with _analysis_lock:
+        try:
+            _bind_isolated_environment()
+            runner = Runner(package=package)
+            result = runner.analyze(new_text, old_text)
+        except RunnerError as exc:
+            return {"error": str(exc)}
+        except (RuntimeError, ValueError, OSError) as exc:
+            return {"error": f"{type(exc).__name__}: {exc}"}
+    return {
+        "report": result.body,
+        "wall_clock_ms": result.wall_clock_ms,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -256,10 +336,17 @@ def validate_diff(
         behavior_goal: The behavior goal to validate against (default: fetch_then_execute).
     """
     from validators.behavior import BehaviorValidator
-    from validators.constraints import build_checkers, validate_constraints
+    from validators.constraints import (
+        CheckerError,
+        build_checkers,
+        validate_constraints,
+    )
     from validators.syntax import resolve_bash, validate_syntax
 
     from ..sanitizer import sanitize
+
+    if forbidden_techniques is not None and not isinstance(forbidden_techniques, dict):
+        return {"passed": False, "error": "forbidden_techniques must be an object"}
 
     stages: dict[str, Any] = {}
 
@@ -290,7 +377,10 @@ def validate_diff(
     old_text = syntax.old_text
 
     # 3. Constraints
-    checkers = build_checkers(forbidden_techniques or {})
+    try:
+        checkers = build_checkers(forbidden_techniques or {})
+    except CheckerError as exc:
+        return {"passed": False, "stages": stages, "error": str(exc)}
     constraints = validate_constraints(new_text, checkers)
     stages["constraints"] = {"honored": constraints.ok, "violated": list(constraints.violated)}
     if not constraints.ok:
@@ -310,6 +400,10 @@ def validate_diff(
         "reason": proven.reason,
         "validator_version": behavior.version_hash,
     }
+    if not proven.preserved and proven.reason.startswith("unknown behavior goal"):
+        # A misspelled goal is a caller mistake, not a diff that lost its
+        # chain; reporting it as `behavior_lost` would blame the input.
+        return {"passed": False, "stages": stages, "error": proven.reason}
     if not proven.preserved:
         return {"passed": False, "stages": stages, "status": "behavior_lost", "reason": proven.reason}
 
@@ -344,18 +438,53 @@ def judge_verdict(
         expected_rules: List of rule IDs expected to fire.
         early_status: An early terminal status (bypasses TrustSight analysis).
         early_reason: Reason for the early status.
-        mode_gaps: Coverage gaps produced by the canary (mode-level, not diff-level).
+        mode_gaps: Coverage gaps produced by the canary (mode-level, not
+            diff-level).  `analyze_text` never reads a repository, so its
+            reports always carry `tree_not_analyzed`; pass
+            `["tree_not_analyzed"]` here when judging one, or the gap is
+            read as a fail-closed catch.
     """
     from ..judge import judge
     from ..status import Status
+
+    # Validate the shape before touching it: an MCP caller is a client, not
+    # the harness, and a malformed body should come back as an error dict
+    # rather than an unhandled exception in the request.
+    if report_body is not None:
+        if not isinstance(report_body, dict):
+            return {"error": "report_body must be an object"}
+        for key in ("findings", "coverage_gaps", "score_breakdown"):
+            value = report_body.get(key)
+            if value is not None and not isinstance(value, (list, tuple)):
+                return {"error": f"report_body.{key} must be an array"}
+    if not isinstance(flag_threshold, int) or isinstance(flag_threshold, bool):
+        return {"error": "flag_threshold must be an integer"}
+    for name, value in (("expected_rules", expected_rules), ("mode_gaps", mode_gaps)):
+        if value is not None and not isinstance(value, (list, tuple)):
+            return {"error": f"{name} must be an array"}
 
     # Reconstruct a lightweight report-like object from the dict
     class _Report:
         def __init__(self, body: dict):
             self.score = body.get("score", 0)
-            self.coverage_gaps = tuple(body.get("coverage_gaps", ()))
+            self.coverage_gaps = tuple(body.get("coverage_gaps") or ())
             self.config_fingerprint = body.get("config_fingerprint", "")
-            self._findings = body.get("findings", [])
+            # `findings` carries evidence, not arithmetic: the report body
+            # omits `weight` there by design.  The weight lives in the
+            # verbose `score_breakdown`, so look it up by rule id rather
+            # than reporting every catching rule as weight 0.
+            weights = {
+                row.get("rule_id", ""): int(row.get("weight", 0) or 0)
+                for row in (body.get("score_breakdown") or ())
+                if isinstance(row, dict)
+            }
+            self._findings = [
+                {**finding,
+                 "weight": finding.get(
+                     "weight", weights.get(finding.get("rule_id", ""), 0))}
+                for finding in (body.get("findings") or ())
+                if isinstance(finding, dict)
+            ]
 
         @property
         def findings(self):
@@ -367,10 +496,13 @@ def judge_verdict(
 
             return [_Finding(f) for f in self._findings]
 
-    early = Status(early_status) if early_status else None
-    report = _Report(report_body) if report_body else None
+    try:
+        early = Status(early_status) if early_status else None
+    except ValueError:
+        return {"error": f"unknown early_status: {early_status!r}"}
 
     try:
+        report = _Report(report_body) if report_body else None
         verdict = judge(
             early_status=early,
             early_reason=early_reason,
@@ -379,15 +511,15 @@ def judge_verdict(
             expected_rules=tuple(expected_rules or ()),
             mode_gaps=tuple(mode_gaps or ()),
         )
-        return {
-            "status": str(verdict.status),
-            "rationale": verdict.rationale,
-            "fatal": verdict.fatal,
-            "coverage_gaps": list(verdict.coverage_gaps),
-            "catching_rules": list(verdict.catching_rules),
-        }
-    except (RuntimeError, ValueError) as exc:
+    except (RuntimeError, ValueError, TypeError) as exc:
         return {"error": f"{type(exc).__name__}: {exc}"}
+    return {
+        "status": str(verdict.status),
+        "rationale": verdict.rationale,
+        "fatal": verdict.fatal,
+        "coverage_gaps": list(verdict.coverage_gaps),
+        "catching_rules": list(verdict.catching_rules),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -399,7 +531,10 @@ def judge_verdict(
 def list_campaigns() -> dict:
     """List all campaigns with their records (if available)."""
     campaigns = []
-    for campaign_dir in sorted(_campaigns_dir().iterdir()):
+    root = _campaigns_dir()
+    if not root.is_dir():
+        return {"campaigns": [], "count": 0}
+    for campaign_dir in sorted(root.iterdir()):
         if not campaign_dir.is_dir():
             continue
         record = _load_record(campaign_dir)
@@ -424,7 +559,10 @@ def load_config(campaign_dir: str) -> dict:
     Args:
         campaign_dir: Path to the campaign directory (relative to repo root or absolute).
     """
+    from yaml import YAMLError
+
     from ..config import ConfigError, load_campaign
+    from ..environment import EnvironmentError_
 
     path = Path(campaign_dir)
     if not path.is_absolute():
@@ -448,7 +586,7 @@ def load_config(campaign_dir: str) -> dict:
                 "accumulate": config.environment.accumulate,
             },
         }
-    except (ConfigError, ValueError, FileNotFoundError) as exc:
+    except (ConfigError, EnvironmentError_, YAMLError, ValueError, OSError) as exc:
         return {"error": f"configuration error: {exc}"}
 
 
@@ -459,7 +597,10 @@ def get_campaign_record(campaign_name: str) -> dict:
     Args:
         campaign_name: The campaign directory name (e.g. 'known-bypasses-manual').
     """
-    campaign_dir = _campaigns_dir() / campaign_name
+    try:
+        campaign_dir = _campaign_dir(campaign_name)
+    except ValueError as exc:
+        return {"error": str(exc)}
     record = _load_record(campaign_dir)
     if record is None:
         return {"error": f"no record.json found for campaign '{campaign_name}'"}
@@ -473,7 +614,10 @@ def list_campaign_traces(campaign_name: str) -> dict:
     Args:
         campaign_name: The campaign directory name.
     """
-    traces_dir = _campaigns_dir() / campaign_name / "traces"
+    try:
+        traces_dir = _campaign_dir(campaign_name) / "traces"
+    except ValueError as exc:
+        return {"error": str(exc)}
     if not traces_dir.is_dir():
         return {"error": f"no traces directory for campaign '{campaign_name}'"}
 
@@ -481,14 +625,16 @@ def list_campaign_traces(campaign_name: str) -> dict:
     for trace_path in sorted(traces_dir.glob("*.json")):
         try:
             trace = json.loads(trace_path.read_text())
-            traces.append({
-                "attempt": trace.get("attempt"),
-                "status": trace.get("status"),
-                "diff_sha256": trace.get("diff_sha256"),
-                "judge": trace.get("judge", {}),
-            })
         except (OSError, json.JSONDecodeError):
             continue
+        if not isinstance(trace, dict):
+            continue
+        traces.append({
+            "attempt": trace.get("attempt"),
+            "status": trace.get("status"),
+            "diff_sha256": trace.get("diff_sha256"),
+            "judge": trace.get("judge", {}),
+        })
     return {"campaign": campaign_name, "traces": traces, "count": len(traces)}
 
 
@@ -524,6 +670,10 @@ def check_calibration() -> dict:
                 "ok": ok,
             })
 
+    if not results:
+        # An empty suite is not a passed suite: nothing was calibrated, so
+        # nothing may be published from this build.
+        overall = "failed"
     return {"status": overall, "results": results, "count": len(results)}
 
 
@@ -568,8 +718,8 @@ def campaign_schema() -> str:
     """The expected structure of campaign.yml."""
     return json.dumps({
         "description": "Schema for campaign.yml files",
-        "required_keys": ["campaign", "environment", "generator", "attempts"],
-        "optional_keys": ["campaign_type", "prompt", "stop_conditions"],
+        "required_keys": ["campaign", "campaign_type", "environment", "generator", "attempts"],
+        "optional_keys": ["prompt", "stop_conditions"],
         "schema": {
             "campaign": {"type": "string", "description": "Unique campaign name"},
             "campaign_type": {
@@ -654,8 +804,8 @@ def status_definitions() -> str:
             "diff_truncated", "scan_truncated", "line_truncated",
             "tree_not_analyzed", "unresolved_source", "unresolved_parse_time",
             "snapshot_refused", "unpinned_build_deps", "companion_truncated",
-            "unpinned_source_ref", "deps_not_scanned", "ruleset_drifted",
-            "stage_degraded",
+            "deps_not_scanned", "ruleset_drifted", "stage_degraded",
+            "history_truncated", "noextract_suppressed",
         ],
     }, indent=2)
 
@@ -701,7 +851,10 @@ def price_list() -> str:
 def status_history() -> str:
     """Campaign records summary with historical outcomes."""
     campaigns = []
-    for campaign_dir in sorted(_campaigns_dir().iterdir()):
+    root = _campaigns_dir()
+    if not root.is_dir():
+        return json.dumps({"campaigns": []}, indent=2)
+    for campaign_dir in sorted(root.iterdir()):
         if not campaign_dir.is_dir():
             continue
         record = _load_record(campaign_dir)

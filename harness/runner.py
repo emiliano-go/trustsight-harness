@@ -9,6 +9,7 @@ rather than assuming it.
 from __future__ import annotations
 
 import signal
+import threading
 import time
 from contextlib import contextmanager
 from dataclasses import dataclass
@@ -43,8 +44,15 @@ def _deadline(seconds: int):
     subprocess kill.  Restoring the previous handler matters: the harness
     is a long-lived process and a leaked alarm would fire during someone
     else's attempt.
+
+    SIGALRM can only be installed from the interpreter's main thread.  The
+    MCP server runs synchronous tools in a worker thread (`anyio.to_thread`),
+    so a runner called there installs no ceiling rather than raising
+    ``ValueError`` on every analysis; the bound is best-effort off the main
+    thread, where the CLI and a direct `python -m harness` run keep it.
     """
-    if seconds <= 0 or not hasattr(signal, "SIGALRM"):
+    if (seconds <= 0 or not hasattr(signal, "SIGALRM")
+            or threading.current_thread() is not threading.main_thread()):
         yield
         return
 

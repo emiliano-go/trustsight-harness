@@ -27,11 +27,14 @@ def _calibration_status() -> str:
 
     validator = BehaviorValidator()
     base = REPO_ROOT / "validators" / "calibration"
+    checked = 0
     for kind, expected in (("known_malicious", True), ("known_benign", False)):
         for path in sorted((base / kind).glob("*.PKGBUILD")):
+            checked += 1
             if validator.validate(path.read_text()).preserved is not expected:
                 return "failed"
-    return "passed"
+    # An empty suite calibrates nothing, so the build cannot publish a rate.
+    return "passed" if checked else "failed"
 
 
 def _build_generator(config, repo_root: Path):
@@ -52,7 +55,7 @@ def _build_generator(config, repo_root: Path):
         prices = load_prices(repo_root / spec.pop("prices_path", "defaults/prices.toml"))
         return LLMGenerator(prices=prices,
                             thinking_dir=config.root / "thinking", **spec)
-    raise SystemExit(f"unknown generator type {kind!r}")
+    raise ValueError(f"unknown generator type {kind!r}")
 
 
 def main(argv: list[str] | None = None) -> int:

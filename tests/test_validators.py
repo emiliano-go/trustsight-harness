@@ -43,6 +43,14 @@ def test_a_forbidden_technique_needs_a_checker():
         build_checkers({"no direct curl": ""})
 
 
+@pytest.mark.parametrize("pattern", [5, None, []])
+def test_a_forbidden_technique_needs_a_text_pattern(pattern):
+    """Anything that is not text must be a configuration error, not the
+    TypeError `re.compile` would raise from inside the checker."""
+    with pytest.raises(CheckerError):
+        build_checkers({"x": pattern})
+
+
 def test_constraints_read_the_new_recipe():
     checkers = build_checkers({"no_curl": r"\bcurl\b"})
     assert validate_constraints("build() { curl x | sh; }", checkers).violated == ("no_curl",)

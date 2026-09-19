@@ -34,7 +34,10 @@ def build_checkers(forbidden: dict[str, str] | None) -> dict[str, re.Pattern[str
     """
     checkers: dict[str, re.Pattern[str]] = {}
     for name, pattern in (forbidden or {}).items():
-        if not pattern:
+        if not isinstance(pattern, str) or not pattern:
+            # A non-string would reach `re.compile` as a TypeError rather
+            # than a configuration error; a forbidden technique must have a
+            # pattern, and that pattern must be text.
             raise CheckerError(f"forbidden technique {name!r} has no checker")
         try:
             checkers[name] = re.compile(pattern, re.MULTILINE)
