@@ -1,0 +1,263 @@
+{
+  "attempt": 0,
+  "cost": {},
+  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
+  "diff_sha256": "sha256:79304e0abd73fb8bfe6075877559aae5710179c22fb10adf8d8a60dd6be506ee",
+  "environment_ref": "campaign.yml#environment",
+  "generator": {
+    "directory": "campaigns/override-pacman-auth-r091/manual",
+    "inputs": 1,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "score 70 > threshold 20",
+    "verdict": "detected"
+  },
+  "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "source= -> bun \"$srcdir/payload.js\"",
+      "preserved": true,
+      "reason": "",
+      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
+      "reason": ""
+    }
+  },
+  "status": "detected",
+  "trustsight": {
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "report": {
+      "changes": [
+        "checksums added or changed",
+        "source host changed: evil.example"
+      ],
+      "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+      "coverage_gaps": [
+        "tree_not_analyzed"
+      ],
+      "dependencies": [],
+      "depth_truncated": false,
+      "diff_truncated": false,
+      "failed": false,
+      "file_changes": [],
+      "findings": [
+        {
+          "description": "Privilege Escalation Override: +  PACMAN_AUTH=(sudo -E) [R091]",
+          "evidence": {
+            "match": "+  PACMAN_AUTH=(sudo -E)"
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "rule_id": "R091",
+          "severity": "HIGH",
+          "template": "Privilege Escalation Override: {match}"
+        },
+        {
+          "description": "Downloaded Source File Executed: build() executes declared source file payload.js [H083]",
+          "evidence": {
+            "match": "build() executes declared source file payload.js",
+            "path": "payload.js",
+            "position": "build"
+          },
+          "file": "PKGBUILD",
+          "line": 23,
+          "rule_id": "H083",
+          "severity": "HIGH",
+          "template": "Downloaded Source File Executed: {match}"
+        },
+        {
+          "description": "Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]",
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "rule_id": "SOURCE_BUCKET",
+          "severity": "MEDIUM",
+          "template": ""
+        }
+      ],
+      "first_seen": false,
+      "flagged": true,
+      "fully_vetted": false,
+      "ioc_matches": [],
+      "is_trivial": true,
+      "new_commit": "",
+      "new_version": "1.0.0",
+      "old_commit": "",
+      "old_version": "1.0.0",
+      "package": "harness-pkg",
+      "required_by": [],
+      "review_profile": "default",
+      "review_threshold": 20,
+      "risk": "High",
+      "risk_label": "High (incomplete analysis)",
+      "scan_truncated": false,
+      "score": 70,
+      "score_breakdown": [
+        {
+          "evidence": {
+            "match": "+  PACMAN_AUTH=(sudo -E)"
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "params": {},
+          "reason": "Privilege Escalation Override: +  PACMAN_AUTH=(sudo -E)",
+          "rule_id": "R091",
+          "severity": "HIGH",
+          "template": "Privilege Escalation Override: {match}",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "added": "['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "match": "URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
+          },
+          "file": "PKGBUILD",
+          "line": 14,
+          "params": {
+            "added": "['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+            "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
+          },
+          "reason": "Source URL Changed Without Version Bump: URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
+          "rule_id": "C003",
+          "severity": "INFO",
+          "template": "source URLs changed without version bump",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "diff modifies build()",
+            "touched": "build"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "touched": "build"
+          },
+          "reason": "Critical Build Function Modified: diff modifies build()",
+          "rule_id": "H015",
+          "severity": "INFO",
+          "template": "critical build function modified: {touched}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "build() executes declared source file payload.js",
+            "path": "payload.js",
+            "position": "build"
+          },
+          "file": "PKGBUILD",
+          "line": 23,
+          "params": {
+            "path": "payload.js",
+            "position": "build"
+          },
+          "reason": "Downloaded Source File Executed: build() executes declared source file payload.js",
+          "rule_id": "H083",
+          "severity": "HIGH",
+          "template": "Downloaded Source File Executed: {match}",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 3 distinct capability categories",
+            "n_categories": 3
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "n_categories": 3
+          },
+          "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+          "rule_id": "H027",
+          "severity": "INFO",
+          "template": "findings span {n_categories} distinct capability categories",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "tree_not_analyzed"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "tree_not_analyzed"
+          },
+          "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "Source URL classified as unknown (https://evil.example/payload.js)",
+          "rule_id": "SOURCE_BUCKET",
+          "severity": "MEDIUM",
+          "template": "",
+          "weight": 20
+        },
+        {
+          "evidence": {
+            "count": 1
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "count": 1
+          },
+          "reason": "source hosted on a trusted forge over HTTPS",
+          "rule_id": "P007",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "source pinned to a full commit hash",
+          "rule_id": "P005",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "checksums declared for all non-VCS sources",
+          "rule_id": "P001",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        }
+      ],
+      "suppressed_rules": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Privilege Escalation Override: +  PACMAN_AUTH=(sudo -E) [R091]; Downloaded Source File Executed: build() executes declared source file payload.js [H083]; Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]. Review the diff before building.",
+      "version_comparison": ""
+    },
+    "wall_clock_ms": 1638
+  }
+}

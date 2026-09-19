@@ -1,0 +1,25 @@
+# Probe for R078 (Compression Command Override).
+# The recipe keeps a declared source and an interpreter sink so the behaviour
+# validator can certify a fetch-to-execution chain; TrustSight is then asked
+# whether R078 catches the technique on top of that chain.
+campaign: override-compress-r078
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.15.7"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: override-compress-r078
+  behavior_goal: fetch_then_execute
+  expected_rules: ["R078"]
+  forbidden_techniques: {}
+
+attempts: 1

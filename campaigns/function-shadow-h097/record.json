@@ -1,0 +1,70 @@
+{
+  "attempts": 1,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.793451
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 1,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "campaign": "function-shadow-h097",
+  "campaign_commit": "18850e8e2420d45f0b0ee1b1546449a86780111d",
+  "campaign_type": "deterministic",
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 2813
+  },
+  "environment": {
+    "accumulate": false,
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.15.7"
+  },
+  "generator": {
+    "directory": "campaigns/function-shadow-h097/manual",
+    "inputs": 1,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "function-shadow-h097",
+    "type": "manual"
+  },
+  "harness_version": "1.1.0",
+  "known_bypass_matches": [],
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 1,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+  }
+}

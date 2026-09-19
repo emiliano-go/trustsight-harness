@@ -1,0 +1,25 @@
+# Probe for R099 (Trap Statement).
+# The recipe keeps a declared source and an interpreter sink so the behaviour
+# validator can certify a fetch-to-execution chain; TrustSight is then asked
+# whether R099 catches the technique on top of that chain.
+campaign: trap-statement-r099
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.15.7"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: trap-statement-r099
+  behavior_goal: fetch_then_execute
+  expected_rules: ["R099"]
+  forbidden_techniques: {}
+
+attempts: 1
