@@ -1,11 +1,11 @@
-# Probes for bypasses against TrustSight 0.13.2.
+# Probes for bypasses against TrustSight 0.15.7.
 # Each input keeps a valid-looking checksum array so the integrity rules do not
 # auto-flag the recipe before the execution rules are tested.
 campaign: adversarial-probes
 campaign_type: deterministic
 
 environment:
-  trustsight_version: "0.13.2"
+  trustsight_version: "0.15.7"
   trustsight_source: "local-path"
   db_state: "cold"
   flag_threshold: 20

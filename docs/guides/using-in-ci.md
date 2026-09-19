@@ -21,7 +21,7 @@ uv run python -m harness campaigns/my-campaign
 python - <<'PY'
 import json
 record = json.load(open("campaigns/my-campaign/record.json"))
-assert record["environment"]["trustsight_version"] == "0.13.2"
+assert record["environment"]["trustsight_version"] == "0.15.7"
 assert record["validator"]["calibration"] == "passed"
 PY
 ```

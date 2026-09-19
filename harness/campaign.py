@@ -23,7 +23,7 @@ from .status import Status
 
 __all__ = ["HARNESS_VERSION", "run_campaign"]
 
-HARNESS_VERSION = "1.0.0"
+HARNESS_VERSION = "1.1.0"
 
 #: A campaign whose errors outnumber its measurements is not measuring.
 HARNESS_ERROR_ABORT_RATE = 0.20
@@ -32,6 +32,11 @@ _MIN_ATTEMPTS_BEFORE_ABORT = 10
 
 def _git_commit(directory: Path) -> str:
     """Return the commit at which campaign.yml currently exists, without a subprocess.
+
+    *directory* is the repository root, not the campaign directory: `.git`
+    lives at the root, and campaigns are nested several levels below it, so
+    looking next to `campaign.yml` always answers "" and the record links
+    no commit at all.
 
     The spec's self-security model allows only one subprocess (`bash -n`), so
     this reads the Git filesystem directly.  If `.git` is absent or the HEAD
@@ -236,7 +241,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                    "prompt_hash": prompt.hash},
         validator={"version_hash": behavior.version_hash, "calibration": calibration},
         cost=cost,
-        campaign_commit=_git_commit(config.root),
+        campaign_commit=_git_commit(repo_root),
     )
     recorder.write_record(record)
     return record

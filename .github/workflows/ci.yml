@@ -8,18 +8,18 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      # The harness is pinned to TrustSight 0.13.2, which is ahead of PyPI.
+      # The harness is pinned to TrustSight 0.15.7 (commit 683dd6f), which is ahead of PyPI.
       # actions/checkout refuses a path outside $GITHUB_WORKSPACE, so clone
       # the sibling manually; the lockfile expects ../trustsight.
       - name: Clone TrustSight
         run: |
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
-          git -C ../trustsight checkout 05175fe
+          git -C ../trustsight checkout 683dd6f
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
 
       # Lockfile-only. A harness that resolves fresh dependencies at test
       # time is not the harness whose results were published.
@@ -35,8 +35,20 @@ jobs:
       - name: Validator calibration
         run: uv run pytest tests/test_validators.py -q
 
+      - name: Pinned TrustSight matches the declared version
+        # The campaigns declare an instrument version at runtime; nothing
+        # else in CI reads it, which is how the repo once pinned 0.14.0 in
+        # CI while every campaign declared 0.13.2.
+        run: |
+          uv run python -c "import trustsight, yaml; declared = yaml.safe_load(open('defaults/environment.yml'))['trustsight_version']; assert trustsight.__version__ == declared, (trustsight.__version__, declared); print('trustsight', trustsight.__version__)"
+
       - name: Full test suite
         run: uv run pytest -q
+
+      - name: Regression gate
+        # Replays every committed bypass against the pinned instrument and
+        # writes regression/report.json without judging the result.
+        run: uv run python -m harness regression
 
       - name: Lint
         run: uv run ruff check .
@@ -55,20 +67,20 @@ jobs:
     needs: check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Clone TrustSight
         run: |
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
-          git -C ../trustsight checkout 05175fe
+          git -C ../trustsight checkout 683dd6f
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
 
       - name: Generate SBOM
         run: uv run python scripts/sbom.py sbom.cyclonedx.json
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sbom
           path: sbom.cyclonedx.json

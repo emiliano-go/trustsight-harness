@@ -45,7 +45,7 @@ trustsight = { path = "../trustsight", editable = true }
 ```
 
 This is deliberate. PyPI lags the build under test; during this harness's own
-development, PyPI was at 0.13.1 while the build being measured was 0.13.2; and
+development, PyPI lagged the build being measured (0.15.7); and
 a campaign that silently measured a different version from the one it declared
 is exactly the failure the environment descriptor exists to prevent.
 
@@ -53,7 +53,7 @@ To measure a released version instead, drop the `[tool.uv.sources]` block and
 pin the release:
 
 ```toml
-dependencies = ["trustsight==0.13.2", ...]
+dependencies = ["trustsight==0.15.7", ...]
 ```
 
 Then re-lock:

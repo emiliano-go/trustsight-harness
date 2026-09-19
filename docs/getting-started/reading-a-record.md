@@ -33,7 +33,7 @@ database makes verdicts depend on run order.
 
 ```json
 "environment": {
-  "trustsight_version": "0.13.2",
+  "trustsight_version": "0.15.7",
   "trustsight_source": "local-path",
   "python_version": "3.13",
   "db_state": "cold",
@@ -126,10 +126,10 @@ Four deliberate choices in one object:
 "known_bypass_matches": [
   { "diff_hash": "sha256:…",
     "original_campaign": "fetch-evasion-2026-07",
-    "original_trustsight_version": "0.12.0",
+    "original_trustsight_version": "0.13.2",
     "patch_status": "verified",
     "observed_status": "detected",
-    "trustsight_version": "0.13.2" }
+    "trustsight_version": "0.15.7" }
 ]
 ```
 

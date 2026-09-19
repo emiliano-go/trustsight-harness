@@ -9,7 +9,7 @@ notice these and should not have to guess.
 
 **The conflict.** Section 1.4 requires `coverage_gaps` to be empty for a
 bypass. Section 3.3 says the harness analyses text rather than repositories.
-Under TrustSight 0.13.2 those cannot both hold: `analyze_text` never reads a
+Under TrustSight 0.15.7 those cannot both hold: `analyze_text` never reads a
 repository, so every report carries `tree_not_analyzed`.
 
 Taken literally, the Judge could never return `bypass` - and worse, an
