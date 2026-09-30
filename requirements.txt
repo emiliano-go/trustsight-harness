@@ -1,0 +1,8 @@
+# Cloudflare Pages installs this before running the project's build command.
+#
+# The harness itself is a measurement tool with no docs dependency; the site is
+# built with the `docs` extra (zensical and seoslug). Pages installs the base
+# project only from `pyproject.toml`, so the docs toolchain has to be named
+# here or the build command cannot find it. uv users get the same set from
+# `uv sync --all-extras`; this file exists for the Pages build only.
+.[docs]
