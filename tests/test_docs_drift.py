@@ -66,3 +66,22 @@ def test_record_example_carries_the_harness_version():
 def test_readme_lists_every_command():
     for command in ("campaigns/<name>/", "regression", "coverage", "benign --corpus"):
         assert f"python -m harness {command}" in README, f"README omits `{command}`"
+
+
+def test_cloudflare_pages_pins_match_the_lock():
+    """Pages builds from requirements.txt, CI from uv.lock; they must agree.
+
+    A divergent zensical is how a green CI still fails the deployed site: the
+    lock held 0.0.51 while Pages installed the latest, whose strict build read
+    a front matter the older one tolerated.
+    """
+    import tomllib
+
+    lock = tomllib.loads((ROOT / "uv.lock").read_text(encoding="utf-8"))
+    versions = {p["name"]: p["version"] for p in lock["package"]}
+    requirements = (ROOT / "requirements.txt").read_text(encoding="utf-8")
+    for name in ("zensical", "seoslug"):
+        assert f"{name}=={versions[name]}" in requirements, (
+            f"requirements.txt must pin {name}=={versions[name]} to match uv.lock"
+        )
+

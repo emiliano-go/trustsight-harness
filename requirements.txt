@@ -1,8 +1,12 @@
 # Cloudflare Pages installs this before running the project's build command.
 #
-# The harness itself is a measurement tool with no docs dependency; the site is
-# built with the `docs` extra (zensical and seoslug). Pages installs the base
-# project only from `pyproject.toml`, so the docs toolchain has to be named
-# here or the build command cannot find it. uv users get the same set from
-# `uv sync --all-extras`; this file exists for the Pages build only.
-.[docs]
+# The harness is a measurement tool with no docs dependency; the site is built
+# with the `docs` extra (the zensical builder and seoslug). Pages installs the
+# base project from pyproject.toml, so the toolchain has to be named here.
+#
+# The pins mirror the versions uv.lock resolves; `tests/test_docs_drift.py`
+# fails if the two drift, because Pages builds from this file and CI builds
+# from the lock. Divergent builders are how a green CI can still fail the site.
+.
+zensical==0.0.57
+seoslug==2.3.0

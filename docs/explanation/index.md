@@ -1,5 +1,5 @@
 ---
-description: The reasoning behind the harness design: measurement discipline, what it cannot prove, and where the specification met reality.
+description: "The reasoning behind the harness design: measurement discipline, what it cannot prove, and where the specification met reality."
 ---
 
 # Explanation
