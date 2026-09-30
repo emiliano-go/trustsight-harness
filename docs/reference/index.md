@@ -9,7 +9,7 @@ reasoning behind them, see [Explanation](../explanation/index.md).
 
 | Page | What it covers |
 |---|---|
-| [CLI](cli.md) | `python -m harness <campaign>` and `python -m harness regression`. |
+| [CLI](cli.md) | The four commands: a campaign, the regression gate, the coverage report, and the benign scan. |
 | [Campaign Configuration](campaign-config.md) | Every key of `campaign.yml`, its type, and whether it is required. |
 | [Record Schema](record-schema.md) | `record.json`, field by field, including the forbidden fields. |
 | [Terminal Statuses](statuses.md) | The eleven terminal statuses and the order the Judge applies them in. |
