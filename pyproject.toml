@@ -37,9 +37,6 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["harness", "generators", "validators"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"harness/mcp" = "harness/mcp"
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
