@@ -38,6 +38,11 @@ class Environment:
     db_state: str = "cold"
     seed_sha256: str = ""
     db_snapshot: str = ""
+    #: A federation IOC baseline directory to import into every restored
+    #: database, so a campaign can assert that the IOC stage matched.  Path is
+    #: relative to the repository root.  Unsigned local baselines are accepted;
+    #: this is a test instrument, not a distribution path.
+    ioc_baseline: str = ""
     config_fingerprint: str = ""
     flag_threshold: int = 20
     accumulate: bool = False
@@ -105,6 +110,9 @@ class Environment:
         config.DATA_DIR = self._data_dir
         db.DATA_DIR = self._data_dir
         config.ensure_default_configs()
+        if self.ioc_baseline:
+            db.init_db()
+            self._import_ioc_baseline()
 
     # -- per-attempt isolation ---------------------------------------
 
@@ -142,7 +150,18 @@ class Environment:
             with opener(source, "rb") as src, open(target, "wb") as dst:
                 shutil.copyfileobj(src, dst)
         db.init_db()
+        if self.ioc_baseline:
+            self._import_ioc_baseline()
         return self._db_hash()
+
+    def _import_ioc_baseline(self) -> None:
+        """Import the declared federation baseline into the bound database."""
+        from trustsight.ioc_baseline import import_baseline
+
+        path = self._root / self.ioc_baseline
+        if not path.exists():
+            raise EnvironmentError_(f"ioc_baseline not found: {path}")
+        import_baseline(path, allow_unsigned=True)
 
     def _import_seed(self) -> None:
         """Import the declared seed and verify the digest TrustSight recorded.
@@ -227,6 +246,7 @@ class Environment:
             "db_state": self.db_state,
             "seed_sha256": self.seed_sha256,
             "db_snapshot": self.db_snapshot,
+            "ioc_baseline": self.ioc_baseline,
             "config_fingerprint": self.config_fingerprint,
             "flag_threshold": self.flag_threshold,
             "accumulate": self.accumulate,
@@ -241,8 +261,8 @@ class Environment:
 def load_environment(raw: dict, root: Path) -> Environment:
     known = {
         "trustsight_version", "trustsight_source", "python_version", "db_state",
-        "seed_sha256", "db_snapshot", "config_fingerprint", "flag_threshold",
-        "accumulate", "timezone", "locale",
+        "seed_sha256", "db_snapshot", "ioc_baseline", "config_fingerprint",
+        "flag_threshold", "accumulate", "timezone", "locale",
     }
     unknown = set(raw) - known
     if unknown:

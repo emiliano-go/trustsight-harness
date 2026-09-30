@@ -23,7 +23,7 @@ from .status import Status
 
 __all__ = ["HARNESS_VERSION", "run_campaign"]
 
-HARNESS_VERSION = "1.1.0"
+HARNESS_VERSION = "2.0.0"
 
 #: A campaign whose errors outnumber its measurements is not measuring.
 HARNESS_ERROR_ABORT_RATE = 0.20
@@ -76,7 +76,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     bash = resolve_bash()
     behavior = BehaviorValidator(config.prompt.get("behavior_goal", "fetch_then_execute"))
     checkers = build_checkers(config.forbidden)
-    runner = Runner()
+    runner = Runner(package=config.package)
     dedup = Deduplicator()
     known = KnownBypasses(repo_root / "campaigns")
     recorder = Recorder(config.root, config.name, HARNESS_VERSION)
@@ -87,6 +87,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         behavior_goal=config.prompt.get("behavior_goal", "fetch_then_execute"),
         expected_rules=config.expected_rules,
         forbidden_techniques=config.forbidden,
+        expected_iocs=config.expected_iocs,
     )
 
     # The environment is verified before a single attempt is charged for.
@@ -185,6 +186,19 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 "config_fingerprint": getattr(report, "config_fingerprint", ""),
                 "wall_clock_ms": result.wall_clock_ms,
             }
+            if prompt.expected_iocs:
+                matched = {
+                    str(m.get("value", ""))
+                    for m in (result.body.get("ioc_matches") or ())
+                }
+                expected = [str(e.get("value", "")) for e in prompt.expected_iocs]
+                missing = sorted(v for v in expected if v not in matched)
+                trace.trustsight["ioc_expectations"] = {
+                    "expected": expected,
+                    "matched": sorted(v for v in matched if v),
+                    "satisfied": not missing,
+                    "missing": missing,
+                }
 
         stages.pop("_new_text", None)
         stages.pop("_old_text", None)

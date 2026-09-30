@@ -22,6 +22,8 @@ measurement against a pinned TrustSight build.
 ```bash
 python -m harness campaigns/<name>/     # run a campaign, write a record
 python -m harness regression            # replay every committed bypass
+python -m harness coverage              # which rules the suite does and does not probe
+python -m harness benign --corpus <dir> # false-positive rate over a benign corpus
 ```
 
 ## What it measures

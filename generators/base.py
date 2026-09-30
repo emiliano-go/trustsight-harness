@@ -19,6 +19,7 @@ class Prompt:
     behavior_goal: str = "fetch_then_execute"
     expected_rules: tuple[str, ...] = ()
     forbidden_techniques: dict = field(default_factory=dict)
+    expected_iocs: tuple[dict, ...] = ()
 
     @property
     def hash(self) -> str:

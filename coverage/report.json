@@ -1,0 +1,633 @@
+{
+  "by_category": {
+    "composition": {
+      "targeted": 0,
+      "total": 3,
+      "untargeted": [
+        "H027",
+        "H043",
+        "H098"
+      ]
+    },
+    "corpus-behavioral": {
+      "targeted": 0,
+      "total": 7,
+      "untargeted": [
+        "H028",
+        "H046",
+        "H056",
+        "H057",
+        "H060",
+        "H061",
+        "H073"
+      ]
+    },
+    "count-based": {
+      "targeted": 0,
+      "total": 5,
+      "untargeted": [
+        "H030",
+        "H036",
+        "H045",
+        "H052",
+        "H055"
+      ]
+    },
+    "crossfire": {
+      "targeted": 6,
+      "total": 25,
+      "untargeted": [
+        "X001",
+        "X003",
+        "X004",
+        "X005",
+        "X006",
+        "X007",
+        "X008",
+        "X010",
+        "X012",
+        "X013",
+        "X014",
+        "X015",
+        "X017",
+        "X018",
+        "X019",
+        "X020",
+        "X021",
+        "X022",
+        "X023"
+      ]
+    },
+    "deception": {
+      "targeted": 1,
+      "total": 6,
+      "untargeted": [
+        "H012",
+        "H013",
+        "H067",
+        "R012",
+        "R013"
+      ]
+    },
+    "fetch-and-execution": {
+      "targeted": 3,
+      "total": 37,
+      "untargeted": [
+        "C007",
+        "H003",
+        "H004",
+        "H009",
+        "H011",
+        "H015",
+        "H016",
+        "H031",
+        "H034",
+        "H041",
+        "H068",
+        "H069",
+        "H071",
+        "H072",
+        "H075",
+        "H077",
+        "H081",
+        "H082",
+        "H083",
+        "H090",
+        "H094",
+        "R008",
+        "R010",
+        "R011",
+        "R041",
+        "R042",
+        "R044",
+        "R046",
+        "R047",
+        "R048",
+        "R051",
+        "R055",
+        "R056",
+        "R057"
+      ]
+    },
+    "install-and-persist": {
+      "targeted": 1,
+      "total": 17,
+      "untargeted": [
+        "H017",
+        "H023",
+        "H032",
+        "H039",
+        "H062",
+        "H084",
+        "H089",
+        "H093",
+        "H095",
+        "R007",
+        "R017",
+        "R052",
+        "R053",
+        "R054",
+        "R059",
+        "R144"
+      ]
+    },
+    "integrity": {
+      "targeted": 8,
+      "total": 35,
+      "untargeted": [
+        "C001",
+        "C002",
+        "C003",
+        "C004",
+        "C005",
+        "C008",
+        "C009",
+        "C010",
+        "H001",
+        "H002",
+        "H005",
+        "H008",
+        "H018",
+        "H019",
+        "H024",
+        "H025",
+        "H033",
+        "H047",
+        "H066",
+        "H070",
+        "H078",
+        "H079",
+        "H087",
+        "H091",
+        "H092",
+        "R049",
+        "R050"
+      ]
+    },
+    "maintainer-and-metadata": {
+      "targeted": 0,
+      "total": 13,
+      "untargeted": [
+        "C006",
+        "H026",
+        "H037",
+        "H044",
+        "H049",
+        "H050",
+        "H051",
+        "H054",
+        "H058",
+        "H063",
+        "H074",
+        "H086",
+        "H088"
+      ]
+    },
+    "naming-and-dependency": {
+      "targeted": 0,
+      "total": 10,
+      "untargeted": [
+        "D001",
+        "D002",
+        "D003",
+        "D004",
+        "H006",
+        "H029",
+        "H048",
+        "H053",
+        "H059",
+        "H064"
+      ]
+    },
+    "obfuscation": {
+      "targeted": 1,
+      "total": 8,
+      "untargeted": [
+        "H014",
+        "H080",
+        "R003",
+        "R039",
+        "R040",
+        "R043",
+        "R045"
+      ]
+    },
+    "sabotage": {
+      "targeted": 0,
+      "total": 8,
+      "untargeted": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008"
+      ]
+    },
+    "staging-and-recon": {
+      "targeted": 0,
+      "total": 8,
+      "untargeted": [
+        "H007",
+        "H010",
+        "H038",
+        "H040",
+        "H042",
+        "H076",
+        "H085",
+        "R058"
+      ]
+    },
+    "temporal": {
+      "targeted": 0,
+      "total": 3,
+      "untargeted": [
+        "H020",
+        "H021",
+        "H022"
+      ]
+    },
+    "unverifiable": {
+      "targeted": 0,
+      "total": 6,
+      "untargeted": [
+        "W001",
+        "W002",
+        "W003",
+        "W004",
+        "W005",
+        "W006"
+      ]
+    }
+  },
+  "campaigns": [
+    {
+      "campaign": "adversarial-probes",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "bun-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "deno-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "dlagents-override-h096",
+      "expected_rules": [
+        "H096"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "fork-divergence-c013",
+      "expected_rules": [
+        "C013"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "freehosting-source-r152",
+      "expected_rules": [
+        "R152"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "function-shadow-h097",
+      "expected_rules": [
+        "H097"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "indirect-assignment-x024",
+      "expected_rules": [
+        "X024"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "installhook-foreign-pm-h035",
+      "expected_rules": [
+        "H035"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "julia-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "known-bypasses-manual",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "lua-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "multiline-shadow-x025",
+      "expected_rules": [
+        "X025"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "node-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "override-compress-r078",
+      "expected_rules": [
+        "R078"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "override-pacman-auth-r091",
+      "expected_rules": [
+        "R091"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "php-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "pkmanager-build-x011",
+      "expected_rules": [
+        "X011"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "prebuilt-host-divergence-c011",
+      "expected_rules": [
+        "C011"
+      ],
+      "package": "harness-payload-bin"
+    },
+    {
+      "campaign": "rscript-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "tclsh-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "trap-statement-r099",
+      "expected_rules": [
+        "R099"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "trap-suppressed-r104",
+      "expected_rules": [
+        "R104"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "upstream-typosquat-c012",
+      "expected_rules": [
+        "C012"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "wave3-nextfile-js",
+      "expected_rules": [
+        "X011"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "wave3-obfuscated",
+      "expected_rules": [
+        "X002",
+        "H065"
+      ],
+      "package": "harness-pkg"
+    }
+  ],
+  "rules": {
+    "targeted": 20,
+    "total": 191,
+    "unknown_expected_rules": [],
+    "untargeted": 171,
+    "untargeted_ids": [
+      "C001",
+      "C002",
+      "C003",
+      "C004",
+      "C005",
+      "C006",
+      "C007",
+      "C008",
+      "C009",
+      "C010",
+      "D001",
+      "D002",
+      "D003",
+      "D004",
+      "H001",
+      "H002",
+      "H003",
+      "H004",
+      "H005",
+      "H006",
+      "H007",
+      "H008",
+      "H009",
+      "H010",
+      "H011",
+      "H012",
+      "H013",
+      "H014",
+      "H015",
+      "H016",
+      "H017",
+      "H018",
+      "H019",
+      "H020",
+      "H021",
+      "H022",
+      "H023",
+      "H024",
+      "H025",
+      "H026",
+      "H027",
+      "H028",
+      "H029",
+      "H030",
+      "H031",
+      "H032",
+      "H033",
+      "H034",
+      "H036",
+      "H037",
+      "H038",
+      "H039",
+      "H040",
+      "H041",
+      "H042",
+      "H043",
+      "H044",
+      "H045",
+      "H046",
+      "H047",
+      "H048",
+      "H049",
+      "H050",
+      "H051",
+      "H052",
+      "H053",
+      "H054",
+      "H055",
+      "H056",
+      "H057",
+      "H058",
+      "H059",
+      "H060",
+      "H061",
+      "H062",
+      "H063",
+      "H064",
+      "H066",
+      "H067",
+      "H068",
+      "H069",
+      "H070",
+      "H071",
+      "H072",
+      "H073",
+      "H074",
+      "H075",
+      "H076",
+      "H077",
+      "H078",
+      "H079",
+      "H080",
+      "H081",
+      "H082",
+      "H083",
+      "H084",
+      "H085",
+      "H086",
+      "H087",
+      "H088",
+      "H089",
+      "H090",
+      "H091",
+      "H092",
+      "H093",
+      "H094",
+      "H095",
+      "H098",
+      "R003",
+      "R007",
+      "R008",
+      "R010",
+      "R011",
+      "R012",
+      "R013",
+      "R017",
+      "R039",
+      "R040",
+      "R041",
+      "R042",
+      "R043",
+      "R044",
+      "R045",
+      "R046",
+      "R047",
+      "R048",
+      "R049",
+      "R050",
+      "R051",
+      "R052",
+      "R053",
+      "R054",
+      "R055",
+      "R056",
+      "R057",
+      "R058",
+      "R059",
+      "R144",
+      "S001",
+      "S002",
+      "S003",
+      "S004",
+      "S005",
+      "S006",
+      "S007",
+      "S008",
+      "W001",
+      "W002",
+      "W003",
+      "W004",
+      "W005",
+      "W006",
+      "X001",
+      "X003",
+      "X004",
+      "X005",
+      "X006",
+      "X007",
+      "X008",
+      "X010",
+      "X012",
+      "X013",
+      "X014",
+      "X015",
+      "X017",
+      "X018",
+      "X019",
+      "X020",
+      "X021",
+      "X022",
+      "X023"
+    ]
+  },
+  "stage_map_available": true,
+  "stages_targeted": [
+    "foreign_fetch",
+    "obfuscation",
+    "payload"
+  ],
+  "untargeted_reasons": {
+    "H026": "needs a prior maintainer snapshot (corpus path)",
+    "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
+    "H044": "needs a prior ownership snapshot (corpus path)",
+    "H045": "needs a full-aur cycle",
+    "H046": "needs a full-aur cycle",
+    "H058": "needs several cycles of maintainer history",
+    "H073": "needs a full-aur cycle",
+    "H074": "needs a recorded adoption before the diff",
+    "H086": "needs a recorded prior orphan observation",
+    "H087": "needs a recorded prior upstream state",
+    "H088": "needs H086 and H087 recorded state"
+  }
+}

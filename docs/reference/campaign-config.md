@@ -16,7 +16,7 @@ campaign: fetch-evasion-2026-08
 campaign_type: stochastic
 
 environment:
-  trustsight_version: "0.15.7"
+  trustsight_version: "0.17.1"
   trustsight_source: "local-path"
   db_state: "cold"
   flag_threshold: 20
@@ -49,6 +49,7 @@ stop_conditions:
 |---|---|---|---|
 | `campaign` | string | **yes** | The campaign's name; appears in the record and in fixture provenance. |
 | `campaign_type` | `deterministic` \| `stochastic` | **yes** | How the results may be compared. Anything else is refused. |
+| `package` | string | no | The package name TrustSight is asked to analyse. Defaults to `harness-pkg`. |
 | `environment` | mapping | **yes** | See [Record Schema &rarr; environment](record-schema.md#environment). |
 | `generator` | mapping | **yes** | See [Writing a Campaign &rarr; generators](../guides/writing-a-campaign.md#generators). |
 | `prompt` | mapping | no* | The behaviour goal, expected rules and constraints. |
@@ -59,6 +60,16 @@ stop_conditions:
 is required inside it, so `prompt` is effectively mandatory. Omitting both
 `prompt` and `forbidden_techniques` produces a configuration error.
 
+`package` is the name the API is told the PKGBUILD belongs to; it is not read
+from the recipe's own `pkgname`. Most rules do not care, but some key on the
+name, such as C011, which applies only to a `-bin` package. A campaign probing
+one of those declares the name here.
+
+`prompt.expected_iocs` asserts the **federation IOC layer**, which is separate
+from the verdict: an IOC match never changes the score. It needs the entries to
+be imported, so declare `environment.ioc_baseline` as well; the harness imports
+that directory (unsigned) into every restored database before the attempts run.
+
 ## `prompt`
 
 | Key | Type | Required | Meaning |
@@ -67,6 +78,7 @@ is required inside it, so `prompt` is effectively mandatory. Omitting both
 | `text` | string | for LLM | The prompt itself. Its SHA-256 goes in the record. |
 | `behavior_goal` | string | no | Defaults to `fetch_then_execute`, the only goal implemented. |
 | `expected_rules` | list of strings | no | The rule IDs the campaign set out to test. |
+| `expected_iocs` | list of mappings | no | Federation IOC entries (`type`/`value`) the campaign expects to match, asserted against `ioc_matches`. |
 | `forbidden_techniques` | mapping | **yes** | Technique name → regex. |
 
 ### `forbidden_techniques` is mandatory, even when empty

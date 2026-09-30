@@ -4,10 +4,11 @@ description: Run the shipped campaign, read the summary it prints, and find the 
 
 # Running a Campaign
 
-The repository ships one campaign, `known-bypasses-manual`. It replays eight
-recipes drawn from real evasions found against TrustSight, in fully
-deterministic manual mode. Running it is the fastest way to see every part of
-the pipeline do its job, including the parts that refuse.
+The repository ships a suite of campaigns; the one to start with is
+`known-bypasses-manual`. It replays eight recipes drawn from real evasions
+found against TrustSight, in fully deterministic manual mode. Running it is
+the fastest way to see every part of the pipeline do its job, including the
+parts that refuse.
 
 ```bash
 uv run python -m harness campaigns/known-bypasses-manual

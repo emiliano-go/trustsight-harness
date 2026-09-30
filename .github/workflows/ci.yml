@@ -10,13 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
-      # The harness is pinned to TrustSight 0.15.7 (commit 683dd6f), which is ahead of PyPI.
+      # The instrument under test.  The commit lives in
+      # `.github/trustsight-commit`, read here and by the Docker workflow, so
+      # the clone, the assertion and the image cannot pin different trees -
+      # which is how the repo once pinned 0.14.0 in CI while every campaign
+      # declared 0.13.2.
+      - name: Resolve the pinned TrustSight commit
+        run: echo "TRUSTSIGHT_COMMIT=$(cat .github/trustsight-commit)" >> "$GITHUB_ENV"
+
       # actions/checkout refuses a path outside $GITHUB_WORKSPACE, so clone
       # the sibling manually; the lockfile expects ../trustsight.
       - name: Clone TrustSight
         run: |
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
-          git -C ../trustsight checkout 683dd6f
+          git -C ../trustsight checkout "$TRUSTSIGHT_COMMIT"
 
       - name: Install uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
@@ -38,9 +45,14 @@ jobs:
       - name: Pinned TrustSight matches the declared version
         # The campaigns declare an instrument version at runtime; nothing
         # else in CI reads it, which is how the repo once pinned 0.14.0 in
-        # CI while every campaign declared 0.13.2.
+        # CI while every campaign declared 0.13.2.  The commit check closes
+        # the other half: the checkout must be the pinned commit, not just
+        # some tree that reports the right version string.
         run: |
-          uv run python -c "import trustsight, yaml; declared = yaml.safe_load(open('defaults/environment.yml'))['trustsight_version']; assert trustsight.__version__ == declared, (trustsight.__version__, declared); print('trustsight', trustsight.__version__)"
+          head=$(git -C ../trustsight rev-parse HEAD)
+          test "$head" = "$TRUSTSIGHT_COMMIT" || {
+            echo "checked out $head, expected $TRUSTSIGHT_COMMIT" >&2; exit 1; }
+          uv run python -c "import trustsight, yaml; declared = yaml.safe_load(open('defaults/environment.yml'))['trustsight_version']; assert trustsight.__version__ == declared, (trustsight.__version__, declared); print('trustsight', trustsight.__version__, 'at', '$head')"
 
       - name: Full test suite
         run: uv run pytest -q
@@ -69,10 +81,13 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
+      - name: Resolve the pinned TrustSight commit
+        run: echo "TRUSTSIGHT_COMMIT=$(cat .github/trustsight-commit)" >> "$GITHUB_ENV"
+
       - name: Clone TrustSight
         run: |
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
-          git -C ../trustsight checkout 683dd6f
+          git -C ../trustsight checkout "$TRUSTSIGHT_COMMIT"
 
       - name: Install uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1

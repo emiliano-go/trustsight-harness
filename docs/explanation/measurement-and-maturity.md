@@ -32,6 +32,16 @@ a false positive certifies a dead payload. Because false positives are worse,
 the validator refuses when uncertain. Therefore every bypass count is a lower
 bound. The record states this explicitly in `bypass_rate.note`.
 
+## The other side
+
+A bypass count alone rewards a tool that flags everything. The harness
+therefore also measures the false-positive rate: `python -m harness benign`
+scans a corpus of benign diffs through the stateless analysis and reports how
+many a healthy update causes TrustSight to flag, with the same Wilson interval.
+That path is separate from a campaign on purpose - a benign update has no
+attack chain for the behaviour validator to certify, and an unflagged benign
+diff is not a bypass for the exporter to file.
+
 ## What a record cannot claim
 
 A campaign record is valid only for itself. It cannot say:

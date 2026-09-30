@@ -1,0 +1,28 @@
+# Probe for C013 (Source Fork Diverges From Declared Upstream).
+# The recipe declares github.com/example/harness-baseline as its upstream and
+# fetches the same repository name from a different owner on the same forge.
+# C013 weighs 15, below the shipped 20-point flag threshold, so on its own it
+# names a divergence without crossing the threshold; the campaign declares
+# 10 to record that the rule fired rather than that the score stayed under a
+# bar a single MEDIUM finding is not meant to cross.
+campaign: fork-divergence-c013
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.17.1"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 10
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: fork-divergence-c013
+  behavior_goal: fetch_then_execute
+  expected_rules: ["C013"]
+  forbidden_techniques: {}
+
+attempts: 1

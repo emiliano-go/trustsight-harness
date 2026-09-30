@@ -1,14 +1,16 @@
 ---
-description: Complete reference for python -m harness; running a campaign and running the regression gate.
+description: Complete reference for python -m harness; campaigns, the regression gate, coverage and the benign scan.
 ---
 
 # CLI Reference
 
-The harness has two commands. One config, one record, one command each.
+The harness has four commands. One config, one record, one command each.
 
 ```bash
 python -m harness <campaign-directory>
 python -m harness regression [--environment PATH]
+python -m harness coverage
+python -m harness benign --corpus <dir> [--sample N]
 ```
 
 Under `uv`, prefix with `uv run`:
@@ -99,7 +101,7 @@ a "closed" bypass is never an artefact of a broken harness.
 ### Output
 
 ```
-Of 8 known bypasses, 8 closed, 0 open as of 0.15.7.
+Of 8 known bypasses, 8 closed, 0 open as of 0.17.1.
 ```
 
 and `regression/report.json` with the per-bypass detail.
@@ -114,6 +116,57 @@ and `regression/report.json` with the per-bypass detail.
 The regression gate uses **0 and 2 only**. A caller scripting it should never
 have to distinguish "misconfigured" from "broken" to know whether a report
 exists. A missing environment file is therefore exit 2, not exit 1.
+
+---
+
+## `python -m harness coverage`
+
+Maps every campaign to the rules it sets out to test, against TrustSight's own
+rule taxonomy, and writes `coverage/report.json`.
+
+The harness is adversarial, not exhaustive. This makes the untested surface a
+number: of 190 rules, how many a campaign names, grouped by category, with the
+rules a cold `analyze_text` campaign *cannot* reach named and explained (the
+adoption and composition rules need a corpus cycle or recorded observation).
+
+```bash
+uv run python -m harness coverage
+# 20 of 191 rules targeted by 26 campaigns; 171 untargeted, 11 with a reason.
+```
+
+---
+
+## `python -m harness benign`
+
+Scans a directory of benign `*.diff` files and reports the **false-positive**
+rate: how many a healthy update causes TrustSight to flag. This is the other
+half of the measurement every campaign leaves out.
+
+It is deliberately not a campaign. A benign update carries no fetch-to-execute
+chain, so the behaviour validator would discard it as `behavior_lost` before
+TrustSight saw it; and an unflagged benign diff is not a bypass, so the
+exporter must not file it as one. This path calls `trustsight.analysis.scan_diff`
+directly, with the host's pacman answer frozen to the cold-machine value so the
+number is reproducible.
+
+### Arguments
+
+| Argument | Required | Meaning |
+|---|---|---|
+| `--corpus DIR` | yes | Directory of benign `*.diff` files, searched recursively. |
+| `--sample N` | no | Scan every Nth diff (default: all). Do not compare a sample's rate to a whole-corpus one. |
+| `--environment PATH` | no | Environment YAML. Defaults to `defaults/environment.yml`. |
+
+### Output
+
+`benign/report.json`, plus a one-line summary:
+
+```
+15 of 186 benign diffs flagged at threshold 20 (rate 0.0806).
+```
+
+Against TrustSight's own 3,739-diff corpus the whole-run figure is ~7.8%, the
+same order as the tool's published calibration.
 
 ---
 

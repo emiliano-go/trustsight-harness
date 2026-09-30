@@ -1,0 +1,29 @@
+# Probe for the wave-3 Atomic Arch shape: a package-manager install of
+# `nextfile-js` in a build function.  The IOC baseline is imported so the
+# federation stage can be asserted (its `ioc_matches`), separately from the
+# verdict: an IOC match never changes the score.
+campaign: wave3-nextfile-js
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.17.1"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+  ioc_baseline: "../trustsight/ioc-baselines/atomic-arch-2026-06"
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: wave3-nextfile-js
+  behavior_goal: fetch_then_execute
+  expected_rules: ["X011"]
+  expected_iocs:
+    - type: package
+      value: nextfile-js
+  forbidden_techniques: {}
+
+attempts: 1

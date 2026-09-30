@@ -40,6 +40,8 @@ KNOWN_GAPS = frozenset({
     "stage_degraded",
     "history_truncated",
     "noextract_suppressed",
+    "binary_metadata",
+    "tokenizer_unavailable",
 })
 
 

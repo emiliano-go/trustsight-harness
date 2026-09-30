@@ -435,3 +435,29 @@ def test_the_diff_hash_tool_matches_the_harness():
     from harness.dedup import diff_hash
 
     assert server.diff_hash("a\nb\n") == diff_hash("a\nb\n")
+
+
+# ---------------------------------------------------------------------------
+# Adversarial input: a campaign.yml is untrusted
+# ---------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("generator", [
+    {"type": "manual", "directory": "../.."},
+    {"type": "manual", "directory": "manual", "baseline": "/etc/passwd"},
+    {"type": "manual", "directory": "/etc"},
+    {"type": "mutation", "sources": ["/etc"]},
+])
+def test_a_generator_path_cannot_escape_its_root(tmp_path, generator):
+    path = _campaign(tmp_path / "c", generator=generator)
+    out = server.run_campaign(str(path))
+    assert "error" in out
+    assert "escapes" in out["error"]
+
+
+def test_load_config_does_not_read_outside_the_campaign(tmp_path):
+    """Loading is side-effect free; the escape is refused where it is used."""
+    path = _campaign(tmp_path / "c", generator={"type": "manual", "directory": "../.."})
+    out = server.load_config(str(path))
+    assert out["name"] == "t"
+

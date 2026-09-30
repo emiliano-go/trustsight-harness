@@ -16,7 +16,7 @@ pages in order.
 
 -   [**Running a Campaign**](running-a-campaign.md)
 
-    Run the campaign the repository ships with, read the summary it prints, and
+    Run a shipped campaign, read the summary it prints, and
     find the traces behind every number in it.
 
 -   [**Reading a Record**](reading-a-record.md)

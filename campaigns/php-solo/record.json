@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "php-solo",
-  "campaign_commit": "18850e8e2420d45f0b0ee1b1546449a86780111d",
+  "campaign_commit": "3e77d9db2e22cc3462ed4d82b2ef0301d42de581",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,16 +20,17 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 3884
+    "wall_clock_ms": 3051
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
+    "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
       "tree_not_analyzed"
@@ -38,16 +39,16 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.15.7"
+    "trustsight_version": "0.17.1"
   },
   "generator": {
-    "directory": "campaigns/php-solo/manual",
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/php-solo/manual",
     "inputs": 1,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "php-solo",
     "type": "manual"
   },
-  "harness_version": "1.1.0",
+  "harness_version": "2.0.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
@@ -55,7 +56,7 @@
       "original_campaign": "php-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.15.7"
+      "trustsight_version": "0.17.1"
     }
   ],
   "outcomes": {

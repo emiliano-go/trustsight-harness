@@ -5,7 +5,7 @@
   "diff_sha256": "sha256:8313dc97e41511791628ca4841423863be8a7cf49a306809b43cd23bf577008f",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "campaigns/known-bypasses-manual/manual",
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/known-bypasses-manual/manual",
     "inputs": 8,
     "type": "manual"
   },

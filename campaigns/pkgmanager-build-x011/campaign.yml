@@ -1,0 +1,30 @@
+# Probe for X011 (Package Manager Runs Fetched Code At Build Time).
+# The June 2026 "Atomic Arch" campaign injected a single package-manager
+# install into an existing, trusted PKGBUILD.  This is that shape: a declared
+# source and an interpreter sink keep the behaviour validator's chain intact,
+# and one added `npm install` line resolves and executes third-party code
+# during the build.  X011 fires, and because the diff resolves dependencies
+# from a registry the analysis also records an `unpinned_build_deps` coverage
+# gap, so the verdict is a fail-closed catch rather than a score-based
+# detection: the tool declines to call it clean, which is the same catch.
+campaign: pkmanager-build-x011
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.17.1"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: pkmanager-build-x011
+  behavior_goal: fetch_then_execute
+  expected_rules: ["X011"]
+  forbidden_techniques: {}
+
+attempts: 1

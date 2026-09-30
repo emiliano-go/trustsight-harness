@@ -37,22 +37,42 @@ def _calibration_status() -> str:
     return "passed" if checked else "failed"
 
 
+def _within(base: Path, rel: str, what: str) -> Path:
+    """Resolve *rel* under *base*, refusing to escape it.
+
+    A campaign.yml is untrusted input: MCP clients and generated campaigns
+    both hand one to the loader.  `generator.directory: ../../etc` would
+    otherwise let a manual glob read PKGBUILDs from anywhere on disk, and
+    an absolute path ignores *base* entirely.
+    """
+    base = base.resolve()
+    candidate = (base / rel).resolve()
+    if candidate != base and base not in candidate.parents:
+        raise ValueError(f"{what} escapes its allowed root: {rel!r}")
+    return candidate
+
+
 def _build_generator(config, repo_root: Path):
     spec = dict(config.generator)
     kind = spec.pop("type", "manual")
     if kind == "manual":
         from generators.manual import DEFAULT_BASELINE, ManualGenerator
-        baseline = repo_root / spec.pop("baseline", DEFAULT_BASELINE)
-        return ManualGenerator(config.root / spec.pop("directory", "manual"),
-                               baseline=baseline, variables=spec.pop("variables", {}))
+        directory = _within(config.root, spec.pop("directory", "manual"),
+                            "generator.directory")
+        baseline = _within(repo_root, spec.pop("baseline", DEFAULT_BASELINE),
+                           "generator.baseline")
+        return ManualGenerator(directory, baseline=baseline,
+                               variables=spec.pop("variables", {}))
     if kind == "mutation":
         from generators.mutation import MutationGenerator
-        sources = [repo_root / p for p in spec.pop("sources", [])]
+        sources = [_within(repo_root, p, "generator.sources")
+                   for p in spec.pop("sources", [])]
         return MutationGenerator(sources, seed=int(spec.pop("seed", 0)),
                                  operators=tuple(spec.pop("operators", []) or ()) or None)
     if kind == "llm":
         from generators.llm import LLMGenerator, load_prices
-        prices = load_prices(repo_root / spec.pop("prices_path", "defaults/prices.toml"))
+        prices = load_prices(_within(repo_root, spec.pop("prices_path", "defaults/prices.toml"),
+                                     "generator.prices_path"))
         return LLMGenerator(prices=prices,
                             thinking_dir=config.root / "thinking", **spec)
     raise ValueError(f"unknown generator type {kind!r}")
@@ -60,8 +80,11 @@ def _build_generator(config, repo_root: Path):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
-    parser.add_argument("target", help="a campaign directory, or 'regression'")
+    parser.add_argument("target", help="a campaign directory, 'regression', 'coverage' or 'benign'")
     parser.add_argument("--environment", help="environment YAML for regression runs")
+    parser.add_argument("--corpus", help="directory of benign *.diff files for 'benign'")
+    parser.add_argument("--sample", type=int, default=1,
+                        help="scan every Nth benign diff (default: all)")
     args = parser.parse_args(argv)
 
     calibration = _calibration_status()
@@ -86,6 +109,41 @@ def main(argv: list[str] | None = None) -> int:
             return EXIT_HARNESS
         print(f"Of {report['total']} known bypasses, {report['closed']} closed, "
               f"{report['open']} open as of {report['environment']['trustsight_version']}.")
+        return EXIT_OK
+
+    if args.target == "coverage":
+        from .coverage import build_coverage
+        report = build_coverage(REPO_ROOT)
+        out = REPO_ROOT / "coverage" / "report.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        rules = report["rules"]
+        print(f"{rules['targeted']} of {rules['total']} rules targeted by "
+              f"{len(report['campaigns'])} campaigns; {rules['untargeted']} "
+              f"untargeted, {len(report['untargeted_reasons'])} with a reason.")
+        return EXIT_OK
+
+    if args.target == "benign":
+        import yaml
+
+        from .benign import scan_benign
+        if not args.corpus:
+            print("benign needs --corpus <directory of *.diff>", file=sys.stderr)
+            return EXIT_CONFIG
+        corpus = Path(args.corpus)
+        if not corpus.exists():
+            print(f"corpus not found: {corpus}", file=sys.stderr)
+            return EXIT_CONFIG
+        env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
+        report = scan_benign(REPO_ROOT, corpus=corpus,
+                             environment=yaml.safe_load(env_path.read_text()),
+                             sample=max(1, args.sample))
+        out = REPO_ROOT / "benign" / "report.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        print(f"{report['flagged']} of {report['scanned']} benign diffs flagged at "
+              f"threshold {report['threshold']} "
+              f"(rate {report['flag_rate']['estimate']:.4f}).")
         return EXIT_OK
 
     from .config import ConfigError, load_campaign

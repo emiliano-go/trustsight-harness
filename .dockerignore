@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+*.pyc
+.ruff_cache
+.pytest_cache
+.mcp-scratch
+site
+.seo-debug
+campaigns/*/env
+campaigns/*/thinking
+regression/env
+benign

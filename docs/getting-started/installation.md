@@ -34,6 +34,24 @@ uv run python -m pytest -q
 All tests must pass before any campaign is worth running; several of them are
 [self-security gates](../security.md) rather than unit tests.
 
+## Container
+
+The image `ghcr.io/emiliano-go/trustsight-harness` bundles both the harness and
+a pinned TrustSight checkout, so it needs no local sibling and measures exactly
+the commit the release pinned:
+
+```bash
+docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest regression
+docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest coverage
+```
+
+The entrypoint is `python -m harness`, so every command in the CLI reference is
+an argument. Mount a directory over the tree a command writes to keep its
+report, for example `-v "$PWD/out:/app/trustsight-harness/regression"`.
+
+The image is built from the commit in `.github/trustsight-commit`; to measure a
+different build, change that file and rebuild.
+
 ## Pointing at the build under test
 
 The harness measures a **pinned** TrustSight. By default `pyproject.toml`
@@ -45,7 +63,7 @@ trustsight = { path = "../trustsight", editable = true }
 ```
 
 This is deliberate. PyPI lags the build under test; during this harness's own
-development, PyPI lagged the build being measured (0.15.7); and
+development, PyPI lagged the build being measured (0.17.1); and
 a campaign that silently measured a different version from the one it declared
 is exactly the failure the environment descriptor exists to prevent.
 
@@ -53,7 +71,7 @@ To measure a released version instead, drop the `[tool.uv.sources]` block and
 pin the release:
 
 ```toml
-dependencies = ["trustsight==0.15.7", ...]
+dependencies = ["trustsight==0.17.1", ...]
 ```
 
 Then re-lock:

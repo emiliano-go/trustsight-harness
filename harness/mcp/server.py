@@ -719,13 +719,18 @@ def campaign_schema() -> str:
     return json.dumps({
         "description": "Schema for campaign.yml files",
         "required_keys": ["campaign", "campaign_type", "environment", "generator", "attempts"],
-        "optional_keys": ["prompt", "stop_conditions"],
+        "optional_keys": ["package", "prompt", "stop_conditions"],
         "schema": {
             "campaign": {"type": "string", "description": "Unique campaign name"},
             "campaign_type": {
                 "type": "string",
                 "enum": ["deterministic", "stochastic"],
                 "description": "Whether verdicts are order-independent",
+            },
+            "package": {
+                "type": "string",
+                "default": "harness-pkg",
+                "description": "Package name TrustSight analyses; rules such as C011 key on it",
             },
             "environment": {
                 "type": "object",
@@ -739,6 +744,9 @@ def campaign_schema() -> str:
                     "config_fingerprint": {"type": "string"},
                     "flag_threshold": {"type": "integer", "default": 20},
                     "accumulate": {"type": "boolean", "default": False},
+                    "python_version": {"type": "string"},
+                    "timezone": {"type": "string"},
+                    "locale": {"type": "string"},
                 },
             },
             "generator": {
@@ -806,6 +814,7 @@ def status_definitions() -> str:
             "snapshot_refused", "unpinned_build_deps", "companion_truncated",
             "deps_not_scanned", "ruleset_drifted", "stage_degraded",
             "history_truncated", "noextract_suppressed",
+            "binary_metadata", "tokenizer_unavailable",
         ],
     }, indent=2)
 

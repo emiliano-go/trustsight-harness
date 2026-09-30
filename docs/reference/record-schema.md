@@ -40,6 +40,7 @@ See [Campaign Configuration](campaign-config.md) for how these are declared.
 | `db_state` | `cold`, `seeded`, or `snapshot`. |
 | `seed_sha256` | Required when `db_state` is `seeded`. |
 | `db_snapshot` | Required when `db_state` is `snapshot`. |
+| `ioc_baseline` | Path to a federation IOC baseline imported into every restored database, so a campaign can assert its `ioc_matches`. Relative to the repository root. |
 | `config_fingerprint` | TrustSight config fingerprint, verified every attempt. |
 | `flag_threshold` | The score threshold used by the Judge. |
 | `accumulate` | Whether the database was allowed to warm between attempts. |

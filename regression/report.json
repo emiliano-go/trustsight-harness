@@ -2,7 +2,7 @@
   "bypasses": [
     {
       "campaign": "node-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -11,7 +11,7 @@
     },
     {
       "campaign": "php-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -20,7 +20,7 @@
     },
     {
       "campaign": "lua-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:53fed95fba98f2ec619d67f5e26dedff2518d3161768cb72ff61c06d12b826bd",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -29,7 +29,7 @@
     },
     {
       "campaign": "tclsh-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:253d965e3aedc9662a5cc7012e0d66f9822c3ea41eacddba76e9455c5793c3e1",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -38,7 +38,7 @@
     },
     {
       "campaign": "julia-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -47,7 +47,7 @@
     },
     {
       "campaign": "rscript-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -56,7 +56,7 @@
     },
     {
       "campaign": "bun-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:c36878d05e5163bad81dabac3f29b1562cf9c4cc1034c86df6da306ed2efacd1",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -65,7 +65,7 @@
     },
     {
       "campaign": "deno-solo",
-      "closing_version": "0.15.7",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:bd0261470f024510352739b5e963e21a05e1038e36930022d4deb141b90a9e9a",
       "original_trustsight_version": "0.13.2",
       "rationale": "score 45 > threshold 20",
@@ -78,10 +78,11 @@
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
+    "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
       "tree_not_analyzed"
@@ -90,7 +91,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.15.7"
+    "trustsight_version": "0.17.1"
   },
   "open": 0,
   "total": 8,

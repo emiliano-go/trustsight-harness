@@ -5,7 +5,7 @@
   "diff_sha256": "sha256:f503c44ed010b1e66cd0683afbe8d983abd2f68d90d6fbc1ba36873075b8b202",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "campaigns/adversarial-probes/manual",
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/adversarial-probes/manual",
     "inputs": 18,
     "type": "manual"
   },

@@ -5,7 +5,7 @@
   "diff_sha256": "sha256:1dbd26fdff569905e9930f40ee2326c80bcdb39b736bdee67ea4a3a8984c139f",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "campaigns/multiline-shadow-x025/manual",
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/multiline-shadow-x025/manual",
     "inputs": 1,
     "type": "manual"
   },
@@ -41,21 +41,29 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
     "report": {
+      "cached": false,
+      "cached_at": "",
       "changes": [
         "checksums added or changed",
         "source host changed: evil.example"
       ],
-      "config_fingerprint": "sha256:a7343821bc34603c5b4b048e213725d72a44fe0a5c92fd6d8c92e3f66aec0e8f",
+      "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
       "coverage_gaps": [
         "tree_not_analyzed"
       ],
+      "coverage_gaps_carried": [],
       "dependencies": [],
       "depth_truncated": false,
       "diff_truncated": false,
       "failed": false,
-      "file_changes": [],
+      "file_changes": [
+        {
+          "path": "PKGBUILD",
+          "status": "modified"
+        }
+      ],
       "findings": [
         {
           "description": "Multi-Line Function Shadow: function shadow defined across multiple lines: +  msg ()\\ [X025]",
@@ -65,7 +73,7 @@
             "shape": "function shadow defined across multiple lines"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 26,
           "rule_id": "X025",
           "severity": "HIGH",
           "template": "Multi-Line Function Shadow: {match}"
@@ -79,7 +87,7 @@
             "match": "function 'msg' is redefined"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 26,
           "rule_id": "H097",
           "severity": "HIGH",
           "template": "function '{func_name}' is redefined: {body}"
@@ -92,7 +100,7 @@
             "position": "build"
           },
           "file": "PKGBUILD",
-          "line": 26,
+          "line": 30,
           "rule_id": "H083",
           "severity": "HIGH",
           "template": "Downloaded Source File Executed: {match}"
@@ -111,7 +119,7 @@
       "flagged": true,
       "fully_vetted": false,
       "ioc_matches": [],
-      "is_trivial": true,
+      "is_trivial": false,
       "new_commit": "",
       "new_version": "1.0.0",
       "old_commit": "",
@@ -132,7 +140,7 @@
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
           },
           "file": "PKGBUILD",
-          "line": 14,
+          "line": 18,
           "params": {
             "added": "['https://evil.example/payload.js', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
@@ -150,7 +158,7 @@
             "shape": "function shadow defined across multiple lines"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 26,
           "params": {
             "body": "+  msg ()\\",
             "shape": "function shadow defined across multiple lines"
@@ -185,7 +193,7 @@
             "match": "function 'msg' is redefined"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 26,
           "params": {
             "body": "msg ()  {",
             "detail": "redefinition of msg may suppress or hijack makepkg logic",
@@ -204,7 +212,7 @@
             "position": "build"
           },
           "file": "PKGBUILD",
-          "line": 26,
+          "line": 30,
           "params": {
             "path": "payload.js",
             "position": "build"
@@ -277,17 +285,6 @@
           "file": "",
           "line": null,
           "params": {},
-          "reason": "source pinned to a full commit hash",
-          "rule_id": "P005",
-          "severity": "INFO",
-          "template": "",
-          "weight": 0
-        },
-        {
-          "evidence": {},
-          "file": "",
-          "line": null,
-          "params": {},
           "reason": "checksums declared for all non-VCS sources",
           "rule_id": "P001",
           "severity": "INFO",
@@ -296,9 +293,9 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. added 2 source URL(s). Signals: Multi-Line Function Shadow: function shadow defined across multiple lines: +  msg ()\\ [X025]; function 'msg' is redefined: msg ()  { [H097]; Downloaded Source File Executed: build() executes declared source file payload.js [H083]; Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]. Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 2 source URL(s). Signals: Multi-Line Function Shadow: function shadow defined across multiple lines: +  msg ()\\ [X025]; function 'msg' is redefined: msg ()  { [H097]; Downloaded Source File Executed: build() executes declared source file payload.js [H083]; Source URL classified as unknown (https://evil.example/payload.js) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1702
+    "wall_clock_ms": 1327
   }
 }

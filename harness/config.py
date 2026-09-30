@@ -21,7 +21,7 @@ class ConfigError(ValueError):
 
 
 _TOP_LEVEL = {"campaign", "campaign_type", "environment", "generator", "prompt",
-              "attempts", "stop_conditions"}
+              "attempts", "stop_conditions", "package"}
 
 
 @dataclass
@@ -33,6 +33,11 @@ class CampaignConfig:
     prompt: dict
     attempts: int
     stop_conditions: dict = field(default_factory=dict)
+    #: The package name TrustSight is asked to analyse.  Rules such as C011
+    #: key on the name (`-bin` means a prebuilt artifact), and the recipe's
+    #: own `pkgname` is not what the API is told; a campaign probing one of
+    #: those declares the name here.  Defaults to the historical placeholder.
+    package: str = "harness-pkg"
     root: Path = Path(".")
 
     @property
@@ -42,6 +47,16 @@ class CampaignConfig:
     @property
     def forbidden(self) -> dict:
         return self.prompt.get("forbidden_techniques", {}) or {}
+
+    @property
+    def expected_iocs(self) -> tuple[dict, ...]:
+        """Indicators the campaign expects the federation layer to match.
+
+        Each entry is ``{"type": ..., "value": ...}``.  This is an
+        assertion about the IOC stage, which is separate from the verdict and
+        therefore from ``expected_rules``: an IOC match never changes the score.
+        """
+        return tuple(self.prompt.get("expected_iocs", ()) or ())
 
 
 def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
@@ -92,5 +107,6 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
         prompt=prompt,
         attempts=int(raw["attempts"]),
         stop_conditions=raw.get("stop_conditions", {}) or {},
+        package=str(raw.get("package", "harness-pkg")),
         root=directory,
     )

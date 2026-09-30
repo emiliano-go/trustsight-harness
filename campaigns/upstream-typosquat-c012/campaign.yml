@@ -1,0 +1,26 @@
+# Probe for C012 (Source Domain Resembles Declared Upstream).
+# The recipe declares a trusted-forge upstream and adds a source URL whose
+# registrable domain is one Damerau-Levenshtein edit from it, same TLD
+# (github.com -> guthub.com).  C012 is scoped to a trusted-forge/official
+# upstream, which this payload provides.
+campaign: upstream-typosquat-c012
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.17.1"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: upstream-typosquat-c012
+  behavior_goal: fetch_then_execute
+  expected_rules: ["C012"]
+  forbidden_techniques: {}
+
+attempts: 1
