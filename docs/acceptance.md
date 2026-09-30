@@ -25,6 +25,9 @@ checked. A criterion with no test is a claim, not a property.
 | Untested rules are countable, not inferred; a probe cannot name a rule that does not exist | `harness/coverage.py`, `python -m harness coverage` | `tests/test_coverage.py` |
 | A benign diff that is flagged is measured, and an unflagged one is not counted as a bypass | `harness/benign.py`, `python -m harness benign` | `tests/test_benign.py` |
 | An untrusted `campaign.yml` cannot read outside its roots through the generator | `_within` in `harness/__main__.py` | `tests/test_mcp.py` (generator path escape) |
+| A campaign can assert the federation IOC layer without touching the verdict | `prompt.expected_iocs`, `environment.ioc_baseline`, `Trace.trustsight["ioc_expectations"]` | `tests/test_config.py`, the `wave3-*` campaign traces |
+| CI and the container image pin the same TrustSight commit | `.github/trustsight-commit`, read by `ci.yml` and `docker.yml` | the two workflows, which assert the checked-out SHA |
+| The published image measures the pinned build and runs the tool | `Dockerfile`, `.github/workflows/docker.yml` | the workflow smoke test (`--help`, `coverage`, `regression`) |
 
 ## Where the validator stops
 

@@ -45,6 +45,30 @@ uv run ruff check .
 uv run python -m harness campaigns/known-bypasses-manual
 ```
 
+## Run the reports
+
+```bash
+uv run python -m harness regression   # replay every committed bypass
+uv run python -m harness coverage     # rule coverage across the campaigns
+uv run python -m harness benign --corpus ../trustsight/tests/fixtures/benign-corpus --sample 20
+```
+
+`regression` and `coverage` run against the sibling checkout. `benign` needs a
+directory of benign `*.diff` files; TrustSight's own corpus is the natural one.
+
+## Build the container
+
+The image carries both repos, so the build context must contain a `trustsight`
+and a `trustsight-harness` directory. From a workspace that holds both:
+
+```bash
+docker build -f trustsight-harness/Dockerfile -t trustsight-harness:dev .
+```
+
+The `Dockerfile` reads the pinned commit from `.github/trustsight-commit` on the
+release path; for a local build, check out the same TrustSight tree you have
+beside the harness.
+
 ## Build the docs companions
 
 ```bash

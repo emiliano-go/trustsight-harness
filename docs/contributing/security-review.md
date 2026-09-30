@@ -16,7 +16,9 @@ below needs the same scrutiny as a change to TrustSight's own security model.
 | Bounded reads | `harness/sanitizer.py`, `generators/llm.py` | Memory exhaustion or unbounded logs. |
 | Inert rendering | `harness/safe_text.py` | Terminal escape injection. |
 | Parameterized storage | `harness/environment.py`, `scripts/sbom.py` | SQL injection or command injection. |
+| Untrusted campaign config is confined | `_within` in `harness/__main__.py`, `tests/test_mcp.py` | Reading a recipe, baseline or price file from outside the tree. |
 | Pinned dependencies | `uv.lock`, CI | Supply-chain drift. |
+| The image pins the same instrument | `.github/trustsight-commit`, `Dockerfile`, `docker.yml` | The image measuring a different TrustSight than CI. |
 | Secrets | `scripts/scan_secrets.py`, `.pre-commit-config.yaml` | Committed credentials. |
 
 ## Review checklist
@@ -25,8 +27,12 @@ below needs the same scrutiny as a change to TrustSight's own security model.
       API? If so, it must be gated.
 - [ ] Does it parse attacker-controlled text? Size bounds and escape handling
       must be present.
+- [ ] Does it accept a path from `campaign.yml` or a tool argument? It must be
+      confined to its allowed root.
 - [ ] Does it add a new record field? Check it against `FORBIDDEN_RECORD_FIELDS`.
 - [ ] Does it change the Judge matrix? The change must map to a specification
       update and new tests.
+- [ ] Does it move the measured TrustSight build? Update
+      `.github/trustsight-commit` and re-baseline the campaigns.
 - [ ] Does it relax a constraint? A calibration case or self-security test must
       cover the relaxation.

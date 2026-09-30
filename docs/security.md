@@ -113,18 +113,46 @@ An SBOM is generated from the lockfile on release (`scripts/sbom.py`); from the
 lockfile, not from the installed environment, because the lockfile is what CI
 installs and what a reader can check out.
 
+The container image is the same pin in another shape. `.github/trustsight-commit`
+names one TrustSight commit; `ci.yml` reads it before cloning and `docker.yml`
+reads it before assembling the build context, so the CI checkout and the image
+cannot measure different trees. The image installs `uv` from PyPI at a pinned
+version rather than copying it from a second registry, and copies only tracked
+files, so no local environment leaks in.
+
 ## H7: Secrets from the environment only
 
 API keys come from environment variables and from nowhere else. No key file is
 read, and no key is written to a trace, a record, a thinking log or a fixture.
 
 **Enforcement.** `scripts/scan_secrets.py` scans `campaigns/`, `regression/`,
-`fixtures-out/`, `docs/`, and all source directories for credential shapes:
-OpenAI, Anthropic, AWS, GitHub and Slack token forms, PEM private-key blocks, and
-literal `Authorization: Bearer` headers. The patterns are deliberately specific;
-a scanner that flags every long string gets disabled within a week. It runs in CI
-**and** as a pre-commit hook, because CI catches a key after it is pushed, which
-is after it is public.
+`fixtures-out/`, `coverage/`, `docs/`, `.github/`, and all source directories for
+credential shapes: OpenAI, Anthropic, AWS, GitHub and Slack token forms, PEM
+private-key blocks, and literal `Authorization: Bearer` headers. The patterns are
+deliberately specific; a scanner that flags every long string gets disabled
+within a week. It runs in CI **and** as a pre-commit hook, because CI catches a
+key after it is pushed, which is after it is public.
+
+## H8: An untrusted campaign file is confined
+
+**The claim.** `campaign.yml` is input. An MCP client or a generated campaign
+hands one to the loader, so the paths inside it are not trusted: the harness
+resolves `generator.directory`, `generator.baseline`, `generator.sources` and
+`generator.prices_path` under their allowed root (`_within` in
+`harness/__main__.py`) and refuses the run when one escapes, rather than reading
+a PKGBUILD or a price file from anywhere on disk.
+
+`environment.ioc_baseline` imports a federation baseline into the campaign-local
+database before the attempts. An unsigned baseline is accepted only because this
+is a local test instrument, never a distribution path; the imported rows are data
+TrustSight matches, and the harness never acts on them. Pattern entries are
+validated by TrustSight's own loader, which refuses a pattern that risks
+catastrophic backtracking.
+
+**Enforcement.** Adversarial cases in `tests/test_mcp.py` drive `run_campaign`
+with a `directory`, `baseline` or `sources` value that escapes the tree and
+assert the configuration error, and the path confinement itself is a plain
+function with its own test.
 
 ---
 
@@ -150,8 +178,9 @@ These are not defaults to be overridden. There is no flag for any of them.
 
 | TrustSight | Harness counterpart |
 |---|---|
-| A1–A3: analysis never executes package content | [H1](#h1-no-execution-of-generated-content), [H2](#h2-no-fetching-of-generated-urls) |
+| A1-A3: analysis never executes package content | [H1](#h1-no-execution-of-generated-content), [H2](#h2-no-fetching-of-generated-urls) |
 | A5/A14: bounded resource use on attacker-controlled input | [H3](#h3-bounded-reads) |
 | A10: terminal output is inert | [H4](#h4-inert-rendering) |
+| A13b: IOC baselines are attributed, non-scoring data | [H8](#h8-an-untrusted-campaign-file-is-confined) |
 | B11: one pipeline behind the API and the CLI | the runner's per-campaign parity check |
 | "Evidence, not verdicts" | the record schema's [forbidden fields](reference/record-schema.md#forbidden-fields) |

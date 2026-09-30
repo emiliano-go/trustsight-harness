@@ -12,7 +12,7 @@ field list is in the [Record Schema](../reference/record-schema.md).
 
 ```json
 {
-  "harness_version": "1.2.0",
+  "harness_version": "2.0.0",
   "campaign": "known-bypasses-manual",
   "campaign_type": "deterministic",
   "campaign_commit": "a1b2c3…"

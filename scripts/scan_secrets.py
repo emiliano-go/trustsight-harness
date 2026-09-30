@@ -26,8 +26,9 @@ PATTERNS = {
     "bearer literal": re.compile(r"Authorization[\"']?\s*:\s*[\"']Bearer\s+[A-Za-z0-9._-]{20,}"),
 }
 
-SCANNED = ("campaigns", "regression", "fixtures-out", "docs", "harness",
-           "generators", "validators", "defaults", "scripts", "tests")
+SCANNED = ("campaigns", "regression", "fixtures-out", "coverage", "docs",
+           "harness", "generators", "validators", "defaults", "scripts",
+           "tests", ".github")
 SKIP_SUFFIXES = {".png", ".gz", ".db", ".pyc"}
 
 
