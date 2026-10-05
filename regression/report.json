@@ -75,18 +75,18 @@
     {
       "campaign": "context-composites",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:a07ae006027842b5f453fce61a6004d067bcf064d4fb0ddacc34ac73628bd249",
+      "diff_hash": "sha256:b8a7df9e1bfad5805dbd1586c9c63023d9e348c28d8a0d2dbf3cadef2320cc11",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 70 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
       "campaign": "context-composites",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:b8a7df9e1bfad5805dbd1586c9c63023d9e348c28d8a0d2dbf3cadef2320cc11",
+      "diff_hash": "sha256:a07ae006027842b5f453fce61a6004d067bcf064d4fb0ddacc34ac73628bd249",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -156,34 +156,7 @@
     {
       "campaign": "exotic-interpreter-sinks",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:2ba4fdf966fb470487b33e866892dc46aff2d775604ea84edae69dea27e0a8a9",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "exotic-interpreter-sinks",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:899aef7858bb3f4bc23c0a877fe91e378b58d5ef9098f5cbc1a22c08c3fd654c",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "exotic-interpreter-sinks",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:982f5ff4d1fab973f54d4261412f5e475743c1b1c4ac6ac3f2135ea8a4f1437f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "exotic-interpreter-sinks",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:c71ac632f12f2f7080792955e856e58b982043ec71334d2652c91a2c62ad0223",
+      "diff_hash": "sha256:b03beecdae9d8b4a0d1885a57a1406205ab9dea7bfee3cd1d4a901993f58bfc1",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -201,7 +174,7 @@
     {
       "campaign": "exotic-interpreter-sinks",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:b03beecdae9d8b4a0d1885a57a1406205ab9dea7bfee3cd1d4a901993f58bfc1",
+      "diff_hash": "sha256:aa2c9f2ac453f18717086e62db54ff512e3fc6bbf49e117f41be3137990f7119",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -210,7 +183,16 @@
     {
       "campaign": "exotic-interpreter-sinks",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:aa2c9f2ac453f18717086e62db54ff512e3fc6bbf49e117f41be3137990f7119",
+      "diff_hash": "sha256:2ba4fdf966fb470487b33e866892dc46aff2d775604ea84edae69dea27e0a8a9",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 70 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "exotic-interpreter-sinks",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:c71ac632f12f2f7080792955e856e58b982043ec71334d2652c91a2c62ad0223",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -237,7 +219,25 @@
     {
       "campaign": "exotic-interpreter-sinks",
       "closing_version": "0.17.1",
+      "diff_hash": "sha256:982f5ff4d1fab973f54d4261412f5e475743c1b1c4ac6ac3f2135ea8a4f1437f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 70 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "exotic-interpreter-sinks",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:1758b1c90391d8aae9dd5ab7081a198c30b59fa75446b4834580572140a345e5",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 70 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "exotic-interpreter-sinks",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:899aef7858bb3f4bc23c0a877fe91e378b58d5ef9098f5cbc1a22c08c3fd654c",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -273,7 +273,7 @@
     {
       "campaign": "fetch-spec-in-file",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:88662e55e3de6433ac892b99f0db57195470fdfa41e04b50479ef75a2bd83a74",
+      "diff_hash": "sha256:e339bd98a3afd60b18aa5365f323581521d079149d5cf89bde4092a7536fd2a9",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -282,7 +282,7 @@
     {
       "campaign": "fetch-spec-in-file",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:e339bd98a3afd60b18aa5365f323581521d079149d5cf89bde4092a7536fd2a9",
+      "diff_hash": "sha256:88662e55e3de6433ac892b99f0db57195470fdfa41e04b50479ef75a2bd83a74",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -300,9 +300,18 @@
     {
       "campaign": "form-evasions-b6",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:17b53511753611a81886c565d23208a47dedac82d9e806ba0ae9bfe8ad8a5ca7",
+      "diff_hash": "sha256:40f0816ce1dd99adbed6a1fa546da95965d4e56cda1b79c0f487aab20e49a638",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-b6",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:9bbffaa7a1750f551c8c099a132d540a30ecfb5f2fd4bd71159de7aec1e90db6",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 70 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -318,7 +327,7 @@
     {
       "campaign": "form-evasions-b6",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:40f0816ce1dd99adbed6a1fa546da95965d4e56cda1b79c0f487aab20e49a638",
+      "diff_hash": "sha256:17b53511753611a81886c565d23208a47dedac82d9e806ba0ae9bfe8ad8a5ca7",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -327,16 +336,7 @@
     {
       "campaign": "form-evasions-b6",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:54f738edc678e17e2d6969a44ed076eaa95dc3be8d1a0624868d60a3bdd022c1",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 50 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-b6",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:9bbffaa7a1750f551c8c099a132d540a30ecfb5f2fd4bd71159de7aec1e90db6",
+      "diff_hash": "sha256:f127dbb8717c0cac626a9befcee6f769d25164387f89ab91a83021f87d2bca04",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -354,9 +354,9 @@
     {
       "campaign": "form-evasions-b6",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f127dbb8717c0cac626a9befcee6f769d25164387f89ab91a83021f87d2bca04",
+      "diff_hash": "sha256:54f738edc678e17e2d6969a44ed076eaa95dc3be8d1a0624868d60a3bdd022c1",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
+      "rationale": "score 50 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -381,15 +381,6 @@
     {
       "campaign": "form-evasions-b7",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:01d074264f62ddd654e7bb5cde957b1d0fef131de5b616710ceaf2a1eab59eb9",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-b7",
-      "closing_version": "0.17.1",
       "diff_hash": "sha256:0a76663e20742825133db34fce3f22f22b2cc306cd6f35063e95102037cac9dd",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
@@ -406,9 +397,9 @@
       "status": "detected"
     },
     {
-      "campaign": "form-evasions-b8",
+      "campaign": "form-evasions-b7",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:638a98e71a41f3dac448fcaab4dffa038a7beb5f42c4525abef31851da5d06a0",
+      "diff_hash": "sha256:01d074264f62ddd654e7bb5cde957b1d0fef131de5b616710ceaf2a1eab59eb9",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -417,9 +408,9 @@
     {
       "campaign": "form-evasions-b8",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:7f177583ecfd90387c214d83c69281ec42f69c3053522462f9bf8917896c82ee",
+      "diff_hash": "sha256:638a98e71a41f3dac448fcaab4dffa038a7beb5f42c4525abef31851da5d06a0",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 70 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -451,47 +442,11 @@
       "status": "detected"
     },
     {
-      "campaign": "form-evasions-c1",
+      "campaign": "form-evasions-b8",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:22083955c1b31674b1b01a90414ce3540af988435896619b8387f5579f03793e",
+      "diff_hash": "sha256:7f177583ecfd90387c214d83c69281ec42f69c3053522462f9bf8917896c82ee",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:358518dc29650504262862d19dd0703b81e55fb5fe71ddc694dc325ed96b326d",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:4d69552feddbe94bcab0f84d17369f12eed2bc57faa51a6de04a0ad959b95d63",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:6ffc712e85f202adaec818888658857b09c87fbb627214faec78a687ebfbcd29",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8792631cbf68ffeeea2755b72e7eaad73f6e932216f552ccdf72d4ce43c4fb04",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -507,9 +462,9 @@
     {
       "campaign": "form-evasions-c1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:924114544fb76ce8ba8f7956d7b8eaa2d8d5bdb8e3589bc18b7489cd71d8bba8",
+      "diff_hash": "sha256:4d69552feddbe94bcab0f84d17369f12eed2bc57faa51a6de04a0ad959b95d63",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 70 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -525,27 +480,36 @@
     {
       "campaign": "form-evasions-c1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:9badc63300154968bc335ee9668af0a8828d5c032d08d4b120520a39540383af",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:9fada2a2550502480916294efdde146a81b5fcb2e86595c2aafd00ef851a9387",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
       "diff_hash": "sha256:be8fa552ecdbdaba01bdafe830ece8efca5cc4e69ef2ec6fe0a3c4a48b4e1e93",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e1f3a1b425b81707ab198911dfe25a00a17857ed924ca0ae7da2e4f18f7b8bba",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8792631cbf68ffeeea2755b72e7eaad73f6e932216f552ccdf72d4ce43c4fb04",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:924114544fb76ce8ba8f7956d7b8eaa2d8d5bdb8e3589bc18b7489cd71d8bba8",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -561,7 +525,7 @@
     {
       "campaign": "form-evasions-c1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:cadd782f7f598e7498782533cc96d2f0fc22ece0e969af34a3a67c8f4b5bd662",
+      "diff_hash": "sha256:22083955c1b31674b1b01a90414ce3540af988435896619b8387f5579f03793e",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -579,25 +543,7 @@
     {
       "campaign": "form-evasions-c1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:d34afd85afb32005289643aeac0eb9b2ebf01badbbebe5a6a4648de4f38aca90",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:e1f3a1b425b81707ab198911dfe25a00a17857ed924ca0ae7da2e4f18f7b8bba",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "form-evasions-c1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:e77fefcfe5771d5415e30cdb6d4a0b3d1386c9402ef2b8c89681e2f77b7949a7",
+      "diff_hash": "sha256:358518dc29650504262862d19dd0703b81e55fb5fe71ddc694dc325ed96b326d",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -613,11 +559,56 @@
       "status": "detected"
     },
     {
-      "campaign": "git-no-url-fetch",
+      "campaign": "form-evasions-c1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:158e36819c28810d27c509c7525eaed8612d7c15c595a4a14580a47370c52249",
+      "diff_hash": "sha256:9fada2a2550502480916294efdde146a81b5fcb2e86595c2aafd00ef851a9387",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:d34afd85afb32005289643aeac0eb9b2ebf01badbbebe5a6a4648de4f38aca90",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e77fefcfe5771d5415e30cdb6d4a0b3d1386c9402ef2b8c89681e2f77b7949a7",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:6ffc712e85f202adaec818888658857b09c87fbb627214faec78a687ebfbcd29",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:9badc63300154968bc335ee9668af0a8828d5c032d08d4b120520a39540383af",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:cadd782f7f598e7498782533cc96d2f0fc22ece0e969af34a3a67c8f4b5bd662",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -640,45 +631,9 @@
       "status": "detected"
     },
     {
-      "campaign": "matrix-e1-a",
+      "campaign": "git-no-url-fetch",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:02a69968077a720d56af192e711df0bb5ac404d016499cafdc444d9ad22d968c",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:0b0b2aa1fc0e6faf1d71095c76d4fb44bfd71518ea60ae6bde4e57c63f27c327",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:1acc3771a3668dd7ffdb876760dbdcc1ff37cb57ec6361d3d3383c751f767491",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:1dfcbc9cf510c54e3fda7e170f0297125eec507dc1960c8ad82c782b800962a9",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:1f1a92816c3b0f946578eeb375d89da1f6c5e2bd544385361a7824028bb9a08a",
+      "diff_hash": "sha256:158e36819c28810d27c509c7525eaed8612d7c15c595a4a14580a47370c52249",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -687,9 +642,117 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:20e1d6c2b69bf45b2a7617c314b3cc40f15e7d69ace6db25d3d1c54ccce5c81b",
+      "diff_hash": "sha256:ce3dc325c332881fc9f0da94485e36eb7d82a25017269928a44a17f848519dff",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:46958e97161584f0cc463bd5f908866c3a188db2fa3e662509793a6410cdae51",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:69ea8965bf6c7129bbcf0c216aa4b588723ed8be00e8a698f7753c7920baed68",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b3034ddea1dad4e1050b15b2af6bfd7859a0ce5e923f7af74d05794195d0a147",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b6465c89fe9af8c3a33de2c90b63dbd8d849d225dc1cbcd5ded5fa6846b2818f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:f0253348afe7ec3853f3a61feb4880a8f9406c2dff1e4024eca5c452b595a533",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:9d5297d48aa2ece537d77649e5258bc7c12e55ba8c47f54f75dc94a828e5f20f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:481bbd60ea97cb33085f5765af025c59630a8bc1b09a0bba17cad43f8aaeccc8",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:63e0b647da9e14079fd708221cebbe6f57bd9cf3d63c860d5e30c84aebf400ca",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:bab43e1af008932e31d987fe2aa8c94db121cb5ad0a58b559eeca1b530c7a809",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:c6f7497fae23b8a99877048c3b1dc564d7fbd64c334a4449531c59d237a238f3",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:75a480833637ac58b582c87f484da9ae6fc54704eb3b53baab4c138fdedcde3e",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:ddbb1d91804f9df28246dc4f5bc9fc7ba0077467d30e4c29841bfb4e576d730d",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -714,132 +777,6 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:3a1fc506feb1114629ce06394139a1e158cb725fdd9633408cf8f5dc8f92636f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:465812dfff151f5a0b786f74f1015513906931a2baa60a06737d4a5a5696f02f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:46958e97161584f0cc463bd5f908866c3a188db2fa3e662509793a6410cdae51",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:481bbd60ea97cb33085f5765af025c59630a8bc1b09a0bba17cad43f8aaeccc8",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:498a6467d5cdf50ff9e29d07d92dd2d557e01901ff5b5ba82a899055136c1633",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:4de964fe121bb2a0e07e344c07fb431eda98fdb27cb2171e50fcded2a1458d0a",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:58f114cde6a24b426703e1e55830d9cedd447d4145f187f623e647378627d865",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:5cd359b4db8746a4458c1702c71a5ba0810d5cbc392701c30963a8edd14bc862",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:63e0b647da9e14079fd708221cebbe6f57bd9cf3d63c860d5e30c84aebf400ca",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:698bc469179c64297f95bcd9955879f6084a9b5848c5153c150716c3775ca6fd",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:69ea8965bf6c7129bbcf0c216aa4b588723ed8be00e8a698f7753c7920baed68",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:75a480833637ac58b582c87f484da9ae6fc54704eb3b53baab4c138fdedcde3e",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:7a1dcaaba4b4507d75b6e32cdf6292dcf343ca86e07e2a2c042eee731afd262f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:7bba4becf3694cabddd1e8de6071212a9ee9f2fed34699c5115ff4afbd3fb69f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
       "diff_hash": "sha256:874524c05a3485d39d9347ae2468c0fcb0c0138a2e63213b40f6e04316958408",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
@@ -849,7 +786,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:8c2e105f4d5618e716be6970dacfad2b60a59ab6faef736272c5b6fb3f11f219",
+      "diff_hash": "sha256:3a1fc506feb1114629ce06394139a1e158cb725fdd9633408cf8f5dc8f92636f",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -858,16 +795,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:8c722a9285d67bed73b17cc76c956f92abc80958107cdf1437715a924dcd5627",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:91611b825e816a6f7b984fd9601d16d3745ea9acb8730a13ab7cbceb8c8adb05",
+      "diff_hash": "sha256:c5aad74117e0295ee0130cf27882f60c14a48025b7dfe6c8208e8c7457921fc4",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -876,16 +804,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:91e33dc035b75db1406953a293914719869873fa8f1ace803c69e1d17c5ca990",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:9368dca75805db5a1c95761a1ed92a6f31c622e286e411edfc4ead98cfd6f049",
+      "diff_hash": "sha256:d633a7258403ea863c8b41e4a946602cbbffa16946495122a6bbadbab6a4a1f8",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -903,7 +822,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:9d5297d48aa2ece537d77649e5258bc7c12e55ba8c47f54f75dc94a828e5f20f",
+      "diff_hash": "sha256:8c2e105f4d5618e716be6970dacfad2b60a59ab6faef736272c5b6fb3f11f219",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -912,43 +831,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:a2a07e4df7ee02e99abf0f39a5cc51e55984ce4c807cda7bbc065e053989cb4f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:ada56e081ad3ed86dff2be756551291583901f235794aff883299c414b42a016",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:b3034ddea1dad4e1050b15b2af6bfd7859a0ce5e923f7af74d05794195d0a147",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:b3226ea0db8c575891791253899ed048d6117f0694c7780e0f4877073a56114f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:b6465c89fe9af8c3a33de2c90b63dbd8d849d225dc1cbcd5ded5fa6846b2818f",
+      "diff_hash": "sha256:91e33dc035b75db1406953a293914719869873fa8f1ace803c69e1d17c5ca990",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -966,70 +849,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:bab43e1af008932e31d987fe2aa8c94db121cb5ad0a58b559eeca1b530c7a809",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:bea35f30d0c79448e8561a89a9ff7a336892725d79ea5539bdc744166da3437f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:c5aad74117e0295ee0130cf27882f60c14a48025b7dfe6c8208e8c7457921fc4",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:c6f7497fae23b8a99877048c3b1dc564d7fbd64c334a4449531c59d237a238f3",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:cc498a0333239a9f7f7c3fd7cb5a645d985825fbc04077b9378125c68e68b0b9",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:ce3dc325c332881fc9f0da94485e36eb7d82a25017269928a44a17f848519dff",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d3573a01f8f1ec1c9ebddd97ba5b9c5eb02119525c3559c820240a2c8f6fddb7",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d633a7258403ea863c8b41e4a946602cbbffa16946495122a6bbadbab6a4a1f8",
+      "diff_hash": "sha256:0b0b2aa1fc0e6faf1d71095c76d4fb44bfd71518ea60ae6bde4e57c63f27c327",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1047,16 +867,7 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:d97e544ceea2da5ea88110c30102e8f13d9c5f43d7a6768f2fed2bde83fa2aca",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-a",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:ddbb1d91804f9df28246dc4f5bc9fc7ba0077467d30e4c29841bfb4e576d730d",
+      "diff_hash": "sha256:91611b825e816a6f7b984fd9601d16d3745ea9acb8730a13ab7cbceb8c8adb05",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1065,7 +876,34 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:e3e6cbe29e74410c71d8ecbc4f42efb491314e601d828fa29b46dfb97055c32b",
+      "diff_hash": "sha256:1acc3771a3668dd7ffdb876760dbdcc1ff37cb57ec6361d3d3383c751f767491",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b3226ea0db8c575891791253899ed048d6117f0694c7780e0f4877073a56114f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:498a6467d5cdf50ff9e29d07d92dd2d557e01901ff5b5ba82a899055136c1633",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:fdb3bac64f2f82afea218954c07610bae637527ca7ee2d39fb52f10a8928427c",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1083,6 +921,159 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
+      "diff_hash": "sha256:9368dca75805db5a1c95761a1ed92a6f31c622e286e411edfc4ead98cfd6f049",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:02a69968077a720d56af192e711df0bb5ac404d016499cafdc444d9ad22d968c",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:5cd359b4db8746a4458c1702c71a5ba0810d5cbc392701c30963a8edd14bc862",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:465812dfff151f5a0b786f74f1015513906931a2baa60a06737d4a5a5696f02f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:1dfcbc9cf510c54e3fda7e170f0297125eec507dc1960c8ad82c782b800962a9",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:698bc469179c64297f95bcd9955879f6084a9b5848c5153c150716c3775ca6fd",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:58f114cde6a24b426703e1e55830d9cedd447d4145f187f623e647378627d865",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e3e6cbe29e74410c71d8ecbc4f42efb491314e601d828fa29b46dfb97055c32b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:4de964fe121bb2a0e07e344c07fb431eda98fdb27cb2171e50fcded2a1458d0a",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:1f1a92816c3b0f946578eeb375d89da1f6c5e2bd544385361a7824028bb9a08a",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:ada56e081ad3ed86dff2be756551291583901f235794aff883299c414b42a016",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:cc498a0333239a9f7f7c3fd7cb5a645d985825fbc04077b9378125c68e68b0b9",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:d97e544ceea2da5ea88110c30102e8f13d9c5f43d7a6768f2fed2bde83fa2aca",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:20e1d6c2b69bf45b2a7617c314b3cc40f15e7d69ace6db25d3d1c54ccce5c81b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8c722a9285d67bed73b17cc76c956f92abc80958107cdf1437715a924dcd5627",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:7a1dcaaba4b4507d75b6e32cdf6292dcf343ca86e07e2a2c042eee731afd262f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:a2a07e4df7ee02e99abf0f39a5cc51e55984ce4c807cda7bbc065e053989cb4f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-a",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:ee6bcb10dd2aa1d1d66bc022a1d3fea355874f699306589d806ea966e9087b72",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
@@ -1092,25 +1083,25 @@
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f0253348afe7ec3853f3a61feb4880a8f9406c2dff1e4024eca5c452b595a533",
+      "diff_hash": "sha256:d3573a01f8f1ec1c9ebddd97ba5b9c5eb02119525c3559c820240a2c8f6fddb7",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
       "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:fdb3bac64f2f82afea218954c07610bae637527ca7ee2d39fb52f10a8928427c",
+      "diff_hash": "sha256:bea35f30d0c79448e8561a89a9ff7a336892725d79ea5539bdc744166da3437f",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
-      "campaign": "matrix-e1-b",
+      "campaign": "matrix-e1-a",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:0b8fb1feea981155b05756a1aa888a65e68148de30f1b0ab4b3fbf1e37947a11",
+      "diff_hash": "sha256:7bba4becf3694cabddd1e8de6071212a9ee9f2fed34699c5115ff4afbd3fb69f",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -1119,90 +1110,9 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:0f8e899b7e30b0e547e79b0bf47bb92f264828de076c13767d67d12d91159b43",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:1b82fa6ec6d9bd6e6ba1572302f27d4fcd06a815d7b0e13f91d5a546c9211a3e",
+      "diff_hash": "sha256:98c0b4f303d9cc1d68fe3dd8d19d1acee70328e76f1e26d923cd34c890d7e035",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:1c82f0c4c6e5c250ef7399fe05f563131286a5d3c34f90afe9ee058e3f1ee8bd",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:23f683e7231969917cffe9907bcb05dfd8571952aadb8630182bfa0acf05a6ef",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:2b93b932df14451b96fa2aa7d0b9d36f1650a7d060bd389ed2bf4b7e68f2c533",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:2e368e9822aa381780eb618f8e59ac20f33e99808af525af56f49ad898f0c17f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:2fffe5b5d73e2bffafe2b19bcb9f6a06367b855c25613f83a8a7c0cadd24754c",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:4694ae8f013b0dd055a293ea4c47accf461d6a7a1538d1a6c77ea6e2a88878c7",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:48c9609342c819cc73dc1ea3dedfcdab3cb528326ccb04c854ea01fabcbfcde7",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:4b7ea90ef7f89430f6b9be041401771bde1df7d94cfd18143ea2eb3d3721ab81",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -1227,43 +1137,7 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:4f6cb460d3355a49ec92f2dee8668dc430628db2864255dc27702fd5c7008354",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:60e9331b727943c1836d3e47f2e88a25ac40089ea9a5d86e3c08106c58ec49a3",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:67ed73eabd21db41fe3f8310042f7169a996335a4d97cffb1df83ae2d7fa25db",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:69855a5b31c8069199e3bb6e455ad8814c3ebe4998d6caf12db87c303f32154f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:6b932cc5c7d3120b33bbb0f71781b5502576629dea71ec21658afbebee0d45ba",
+      "diff_hash": "sha256:0b8fb1feea981155b05756a1aa888a65e68148de30f1b0ab4b3fbf1e37947a11",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -1272,162 +1146,9 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:6dded0dbb36c3d617ba1c2f388c5f1a2501360af43a43240032f27e0004a3eae",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:71193323d4f2a52c61a0c94b6afc36e4b9e1e77a91d5233a75087a62e687217d",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:7121b2a0f9f31d4df47f95c4410df75cccb5108d2a382019ba68e4c5531d8ba7",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:716f2f4c0cc5bb2453de94ba34cedff7eaa949190fb5c59cf2cb6c32d5d5c208",
+      "diff_hash": "sha256:2e368e9822aa381780eb618f8e59ac20f33e99808af525af56f49ad898f0c17f",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:72390355f14e09e30f60d38cbd32289ec7bba9355fc509d4a0f6fba7269652e1",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:72babafed7701ee46864f3e4fd36902442f37a7f3eef81a8840b36942a07e4e3",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:812df495b9387603ca044b7d332bde9ca23d17644972f5831937cf7a0653c4a8",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8274679d45167aac4b242d8271ab4f71701bc886c0c43b8a9523ca7743231281",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:83d672fb6d44ff9f30c2b7c90f247e7630d139b00edfbd4292fbccf2c3bd4b98",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:867f551773c9c9909b65f34de35546e5596c14f7a95a1258ee3863d531912763",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8953a02831e62923f78c7638807337aca362b19e9b84a2a1d97d6fe8cf52d98d",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:923d7befae848e018bb3be6db6ae90037f75d84aad6d632e9f3a2ec84b37ab8b",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:9658b1bc5fd21fc30f379b82fa242cd21582bbc37ae7317d043ac95501dc4340",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:96b8c5a61139945cbfd4dfa2123d45a9077104b3ef386dba06bb5d7ff06703c1",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:97e0e30b744379ad0aa6d984c6f1f05b2b1bda6ebfe3a0f85f93a0c63ed3c4af",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:98c0b4f303d9cc1d68fe3dd8d19d1acee70328e76f1e26d923cd34c890d7e035",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:adaec514a8b74aca90524daacb1269b5a0c5fdc9c887d257a3194d4487394970",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:aee46bb84150adaf66eadaca2042333f855ad3bd6f94e3375cf323c28fd0bc5f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -1443,7 +1164,70 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:b60c7c0437b71f5197c88bd69478f84850b38d41dd8ed87efb1463d94b45424b",
+      "diff_hash": "sha256:96b8c5a61139945cbfd4dfa2123d45a9077104b3ef386dba06bb5d7ff06703c1",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e60b3f92d0d8513a1509c9b5f06c25e2be54e49a3db3f48c30c082c1fe64070a",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:fcb7281172621c470e287750672eb224e651948cc3ca9c79e6efe7276c705344",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:6b932cc5c7d3120b33bbb0f71781b5502576629dea71ec21658afbebee0d45ba",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:716f2f4c0cc5bb2453de94ba34cedff7eaa949190fb5c59cf2cb6c32d5d5c208",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:1b82fa6ec6d9bd6e6ba1572302f27d4fcd06a815d7b0e13f91d5a546c9211a3e",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:1c82f0c4c6e5c250ef7399fe05f563131286a5d3c34f90afe9ee058e3f1ee8bd",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "no-url-fetch-exotic",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:21bc3af186e42a9b44019c59dda472bbd5c3e3eeee1177c86812f0c5c51eacf0",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
@@ -1461,7 +1245,7 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:da5af0ca98af96dec6f08934373a19d63ed144523c60eb7118a9d79f23b93794",
+      "diff_hash": "sha256:8953a02831e62923f78c7638807337aca362b19e9b84a2a1d97d6fe8cf52d98d",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
@@ -1470,16 +1254,7 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:e60b3f92d0d8513a1509c9b5f06c25e2be54e49a3db3f48c30c082c1fe64070a",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-b",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:eb9e33431a66e7dcc5ea03d12952b3e8684c7a843817bf3dddf0e8b74f7c93a5",
+      "diff_hash": "sha256:812df495b9387603ca044b7d332bde9ca23d17644972f5831937cf7a0653c4a8",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
@@ -1488,7 +1263,79 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f016dbfa28e129d53fd75852248035a11c4f7dfa772cd3ce28f591d86acb53dc",
+      "diff_hash": "sha256:60e9331b727943c1836d3e47f2e88a25ac40089ea9a5d86e3c08106c58ec49a3",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:7121b2a0f9f31d4df47f95c4410df75cccb5108d2a382019ba68e4c5531d8ba7",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:6dded0dbb36c3d617ba1c2f388c5f1a2501360af43a43240032f27e0004a3eae",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:adaec514a8b74aca90524daacb1269b5a0c5fdc9c887d257a3194d4487394970",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:23f683e7231969917cffe9907bcb05dfd8571952aadb8630182bfa0acf05a6ef",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:69855a5b31c8069199e3bb6e455ad8814c3ebe4998d6caf12db87c303f32154f",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b60c7c0437b71f5197c88bd69478f84850b38d41dd8ed87efb1463d94b45424b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:0f8e899b7e30b0e547e79b0bf47bb92f264828de076c13767d67d12d91159b43",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:aee46bb84150adaf66eadaca2042333f855ad3bd6f94e3375cf323c28fd0bc5f",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1497,7 +1344,70 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f5bc14868233a17c7d20753d0739bd917cee31cc40dd6bc3f410878f3a90a34d",
+      "diff_hash": "sha256:867f551773c9c9909b65f34de35546e5596c14f7a95a1258ee3863d531912763",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8274679d45167aac4b242d8271ab4f71701bc886c0c43b8a9523ca7743231281",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:4b7ea90ef7f89430f6b9be041401771bde1df7d94cfd18143ea2eb3d3721ab81",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:71193323d4f2a52c61a0c94b6afc36e4b9e1e77a91d5233a75087a62e687217d",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:9658b1bc5fd21fc30f379b82fa242cd21582bbc37ae7317d043ac95501dc4340",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:fcd2773bc407f65540b6a2b270f542069502ed8116764c73918deeaeeb044d43",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:72390355f14e09e30f60d38cbd32289ec7bba9355fc509d4a0f6fba7269652e1",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:da5af0ca98af96dec6f08934373a19d63ed144523c60eb7118a9d79f23b93794",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
@@ -1515,7 +1425,43 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
+      "diff_hash": "sha256:72babafed7701ee46864f3e4fd36902442f37a7f3eef81a8840b36942a07e4e3",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:fc3bf66af0c8d8e704aec68def32565b6545fa3a644985ff59c9477480df375a",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:f016dbfa28e129d53fd75852248035a11c4f7dfa772cd3ce28f591d86acb53dc",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "no-url-fetch-exotic",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b1db0cbdc0f8e81109bdb8a3dcbf295cd8be352f30c3678e9c5b85c870dcbb5d",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:97e0e30b744379ad0aa6d984c6f1f05b2b1bda6ebfe3a0f85f93a0c63ed3c4af",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
@@ -1533,52 +1479,88 @@
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:fcb7281172621c470e287750672eb224e651948cc3ca9c79e6efe7276c705344",
+      "diff_hash": "sha256:2fffe5b5d73e2bffafe2b19bcb9f6a06367b855c25613f83a8a7c0cadd24754c",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
       "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:fcd2773bc407f65540b6a2b270f542069502ed8116764c73918deeaeeb044d43",
+      "diff_hash": "sha256:48c9609342c819cc73dc1ea3dedfcdab3cb528326ccb04c854ea01fabcbfcde7",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
-      "campaign": "no-url-fetch-exotic",
+      "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:21bc3af186e42a9b44019c59dda472bbd5c3e3eeee1177c86812f0c5c51eacf0",
+      "diff_hash": "sha256:2b93b932df14451b96fa2aa7d0b9d36f1650a7d060bd389ed2bf4b7e68f2c533",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
-      "campaign": "no-url-fetch-exotic",
+      "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:b1db0cbdc0f8e81109bdb8a3dcbf295cd8be352f30c3678e9c5b85c870dcbb5d",
+      "diff_hash": "sha256:eb9e33431a66e7dcc5ea03d12952b3e8684c7a843817bf3dddf0e8b74f7c93a5",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
-      "campaign": "matrix-e1-c",
+      "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:0b8a2b94769ce43163fe59577030b444b2da073e00722f468424e42e8c47ecbd",
+      "diff_hash": "sha256:83d672fb6d44ff9f30c2b7c90f247e7630d139b00edfbd4292fbccf2c3bd4b98",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
-      "campaign": "matrix-e1-c",
+      "campaign": "matrix-e1-b",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:12c3b5fde54d08bf09fc84ae2ee8b6495b491fe5eb391a95c6d13865d2e14e75",
+      "diff_hash": "sha256:67ed73eabd21db41fe3f8310042f7169a996335a4d97cffb1df83ae2d7fa25db",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:923d7befae848e018bb3be6db6ae90037f75d84aad6d632e9f3a2ec84b37ab8b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:4f6cb460d3355a49ec92f2dee8668dc430628db2864255dc27702fd5c7008354",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:f5bc14868233a17c7d20753d0739bd917cee31cc40dd6bc3f410878f3a90a34d",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:4694ae8f013b0dd055a293ea4c47accf461d6a7a1538d1a6c77ea6e2a88878c7",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1587,16 +1569,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:135aaf30f057d4b52f1d507238af19bf0eb26424bca430f561a0722c2790b3be",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:13b9b9a4f1159cb08eb24dce6b4af3979117da6f78ee84cbacb648da7602f4be",
+      "diff_hash": "sha256:6caa9abce8357af47f299aa2bf53bdbe8dab9c0761739a4f93438ff61ab76b32",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1605,7 +1578,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:1a4f07a8a13f67135875aabb115c244609a5b93fdedbb59beed177e58a136348",
+      "diff_hash": "sha256:5d2287cd56573eebf854738ef100248dbacfe817b9d90d242e3312b29b9bafd8",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1614,16 +1587,43 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:27ec84a6c85f1c28e45e2279336246f0268d2080c4205f99629257377760056d",
+      "diff_hash": "sha256:b3cfb85737d44af025400ac7c6b70a5f543a6bdbc393df7f705514e7ce2106ad",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:302f37b7bf11e20432e63b98bc913f736b9d6ea01653340fca91bacf55878b8b",
+      "diff_hash": "sha256:d8a054c108c2402b492ec3b391dfd8f7bf745df2269334c9d667cdf139a42d7b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:d776bdd324531335960a3e879e96e12c9d4e7c7381ed4aaeea6955d936506391",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:fb7efab45c413db027ec2e52a1488eb34a4c4899179bcd593793062ce06cbf65",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e8187d46579cab2c936b184a24ce17fe923c51612b79b6d027ebe88f5e4f7b13",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1641,16 +1641,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:58c588a7172d043537fb2c6f4900be33c54b4329e51b70dcc5f1508ad030cf83",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:5d2287cd56573eebf854738ef100248dbacfe817b9d90d242e3312b29b9bafd8",
+      "diff_hash": "sha256:12c3b5fde54d08bf09fc84ae2ee8b6495b491fe5eb391a95c6d13865d2e14e75",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1659,16 +1650,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:66121b88918f455b6505fa3e2a22907ad6488f66e54cc5956ba430c1f9874e60",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:6caa9abce8357af47f299aa2bf53bdbe8dab9c0761739a4f93438ff61ab76b32",
+      "diff_hash": "sha256:c277f601fb58d759e8ec90d159393ebf7e5334579eae53fccd5de0f4b01aa98c",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1677,88 +1659,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:704c5ff0426f6965d3e01219ae1b0630d7c6a74c6894477f0246031384dbfcc3",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:7e2a16c45a382898e7f4a80f9bd1c6a3fce10322e65756bf0eaed3134ddac98b",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:7ff42ed1de95c9a43b4c7d62681d25f85b9a3e8ca73021834cf3895910ae0114",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8270716d2933f6c050c00d30b8c1319f8e23b0485f5d9557138b31d42f1f5d4b",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8626c299791bffba51def9df1fdfe9d792dcd5ad838c59e44fbbccfa6a9525db",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8aabddc8450c217371e5f7d133ae044c0a41c40dec7f05992a47ea2af904c78c",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8d3fcd60a97f503c2eb223e7245af81717dfc34559aebd3bdb8b0d66b1602e5b",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8eb535ebaf0f433d663f6b2ea2ff5b698aca845dc080e1a85ae5e6df57d6fc71",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:8f4e42c538e19501183377008787c133438c39031fa4f3107e98ffcef959213f",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:916bfe397a456131c469ec8a94321446b7b24214f8a462794d1e30c39deef19a",
+      "diff_hash": "sha256:13b9b9a4f1159cb08eb24dce6b4af3979117da6f78ee84cbacb648da7602f4be",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -1776,7 +1677,241 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
+      "diff_hash": "sha256:1a4f07a8a13f67135875aabb115c244609a5b93fdedbb59beed177e58a136348",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b85360653390e2b5b6410518291c58672f1ab4040c7c45ed467415de62a4ea06",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:f4b72295d861be0fdd122458d2478f305a8d4acd0c6b24a920fc97482fa013f7",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e83a1fe7fae464a61c6c04ea52cd2f5a8e18086ad147455c15341ee9a9cf7d35",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:d7cf8675742e28952544328e6ccaa03647d31ec6fac43bc5292ace940095a022",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
       "diff_hash": "sha256:a038c25d2abbd86863fc4194624f8987df59d9341d3728bf512ba81a350c34e5",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8270716d2933f6c050c00d30b8c1319f8e23b0485f5d9557138b31d42f1f5d4b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:0b8a2b94769ce43163fe59577030b444b2da073e00722f468424e42e8c47ecbd",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:f2dd4584d0144fc23810d1646fef39f1ef624388c5c9d83800723f57229db026",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8d3fcd60a97f503c2eb223e7245af81717dfc34559aebd3bdb8b0d66b1602e5b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:27ec84a6c85f1c28e45e2279336246f0268d2080c4205f99629257377760056d",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:704c5ff0426f6965d3e01219ae1b0630d7c6a74c6894477f0246031384dbfcc3",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b853f8cbf79245fccfc481a796c147d005bcdf66a385710c032ceab963aaa65c",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:b4ee3d7ba7e7246e7c9cfc6b9efd0bb226046ebc2a8ddc0cb9f7d35224df04d6",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8eb535ebaf0f433d663f6b2ea2ff5b698aca845dc080e1a85ae5e6df57d6fc71",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:ddcb5f52f4e69f366f4ac0beee9cbb4db9a85ef2f671f849d941b87155f8526e",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:302f37b7bf11e20432e63b98bc913f736b9d6ea01653340fca91bacf55878b8b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e9769614240a967375d16eb271e072bd3dbc4fe7f5b614f2d74bf9e72c4ec795",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:ba18a93616427fb0d43b94fa4e44ba0d97c59833e5d930442b16181cfde6cffb",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:916bfe397a456131c469ec8a94321446b7b24214f8a462794d1e30c39deef19a",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8626c299791bffba51def9df1fdfe9d792dcd5ad838c59e44fbbccfa6a9525db",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:7e2a16c45a382898e7f4a80f9bd1c6a3fce10322e65756bf0eaed3134ddac98b",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:d5f72a7776eff5e3773518c31c3f7a8cdbe1d455ef08e3820d13fe7f76fcbc55",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8aabddc8450c217371e5f7d133ae044c0a41c40dec7f05992a47ea2af904c78c",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:c58667eda4aab2575a0d4361ecbf7626a961e159cefe684c029ae2bbb1bd34c8",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:ecee956c38b1e0884235c063f94b612f27fd0439f67bc3b49aaa524df63e7279",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:d4647dd758017bbddaa1ad8e309c51e633828857e6ef71463adf12c4ef89f95e",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -1803,126 +1938,9 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:b3cfb85737d44af025400ac7c6b70a5f543a6bdbc393df7f705514e7ce2106ad",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:b4ee3d7ba7e7246e7c9cfc6b9efd0bb226046ebc2a8ddc0cb9f7d35224df04d6",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:b85360653390e2b5b6410518291c58672f1ab4040c7c45ed467415de62a4ea06",
+      "diff_hash": "sha256:58c588a7172d043537fb2c6f4900be33c54b4329e51b70dcc5f1508ad030cf83",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:b853f8cbf79245fccfc481a796c147d005bcdf66a385710c032ceab963aaa65c",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:ba18a93616427fb0d43b94fa4e44ba0d97c59833e5d930442b16181cfde6cffb",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:bb485ff052b4ba076b68040b5b75b610efd43257a53448f9ecf3c5a2cec94946",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:c277f601fb58d759e8ec90d159393ebf7e5334579eae53fccd5de0f4b01aa98c",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:c58667eda4aab2575a0d4361ecbf7626a961e159cefe684c029ae2bbb1bd34c8",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d4647dd758017bbddaa1ad8e309c51e633828857e6ef71463adf12c4ef89f95e",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d5f72a7776eff5e3773518c31c3f7a8cdbe1d455ef08e3820d13fe7f76fcbc55",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d776bdd324531335960a3e879e96e12c9d4e7c7381ed4aaeea6955d936506391",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d7cf8675742e28952544328e6ccaa03647d31ec6fac43bc5292ace940095a022",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:d8a054c108c2402b492ec3b391dfd8f7bf745df2269334c9d667cdf139a42d7b",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:ddcb5f52f4e69f366f4ac0beee9cbb4db9a85ef2f671f849d941b87155f8526e",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -1930,42 +1948,6 @@
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
       "diff_hash": "sha256:e096ab90d7a7a28515e6a2884d3ead8d2e23124ddb34562126f82d45ebbc3b52",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:e8187d46579cab2c936b184a24ce17fe923c51612b79b6d027ebe88f5e4f7b13",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:e83a1fe7fae464a61c6c04ea52cd2f5a8e18086ad147455c15341ee9a9cf7d35",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:e9769614240a967375d16eb271e072bd3dbc4fe7f5b614f2d74bf9e72c4ec795",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "matrix-e1-c",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:ea7c2730f6f84c6313e486277e83603f7607b04b09f40de9ea0d4158b18d7aba",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -1983,7 +1965,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:ecee956c38b1e0884235c063f94b612f27fd0439f67bc3b49aaa524df63e7279",
+      "diff_hash": "sha256:7ff42ed1de95c9a43b4c7d62681d25f85b9a3e8ca73021834cf3895910ae0114",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -1992,7 +1974,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f2dd4584d0144fc23810d1646fef39f1ef624388c5c9d83800723f57229db026",
+      "diff_hash": "sha256:bb485ff052b4ba076b68040b5b75b610efd43257a53448f9ecf3c5a2cec94946",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -2001,7 +1983,7 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f4b72295d861be0fdd122458d2478f305a8d4acd0c6b24a920fc97482fa013f7",
+      "diff_hash": "sha256:66121b88918f455b6505fa3e2a22907ad6488f66e54cc5956ba430c1f9874e60",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -2010,16 +1992,25 @@
     {
       "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:fb7efab45c413db027ec2e52a1488eb34a4c4899179bcd593793062ce06cbf65",
+      "diff_hash": "sha256:ea7c2730f6f84c6313e486277e83603f7607b04b09f40de9ea0d4158b18d7aba",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
     {
-      "campaign": "misc-vectors-d1",
+      "campaign": "matrix-e1-c",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:268906ab6d73b336396d92b2cfef39deb3dcf0cd8854dfa8951e86968743e966",
+      "diff_hash": "sha256:135aaf30f057d4b52f1d507238af19bf0eb26424bca430f561a0722c2790b3be",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:8f4e42c538e19501183377008787c133438c39031fa4f3107e98ffcef959213f",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -2037,9 +2028,9 @@
     {
       "campaign": "misc-vectors-d1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:6056f052acb9ba9a96bcb3ad99f6a4987fd1f41baa5f64ac7370d46595e2bff8",
+      "diff_hash": "sha256:8d1571bd3e13e990a8ec834d569bab3daea569585f8f3fc3c0dfad59b38de7a0",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2055,18 +2046,9 @@
     {
       "campaign": "misc-vectors-d1",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:8d1571bd3e13e990a8ec834d569bab3daea569585f8f3fc3c0dfad59b38de7a0",
+      "diff_hash": "sha256:268906ab6d73b336396d92b2cfef39deb3dcf0cd8854dfa8951e86968743e966",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "misc-vectors-d1",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:9392788e3e02e8301b9573d1098404870ca446c3b9fbcb7fc06e8111c6ac5c2e",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2080,6 +2062,33 @@
       "status": "detected"
     },
     {
+      "campaign": "misc-vectors-d1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:6056f052acb9ba9a96bcb3ad99f6a4987fd1f41baa5f64ac7370d46595e2bff8",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "misc-vectors-d1",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:9392788e3e02e8301b9573d1098404870ca446c3b9fbcb7fc06e8111c6ac5c2e",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "no-url-fetch-clients",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:f987cecdfdcddbb5ee09805bd1eddb43af526d440fb81788d386ac5036bc50f4",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
       "campaign": "no-url-fetch-clients",
       "closing_version": "0.17.1",
       "diff_hash": "sha256:f1bf8dc047c05edd3a392d7f6567de83a5dd0fdeb63adbcd598a65e7190f4eb1",
@@ -2089,9 +2098,9 @@
       "status": "detected"
     },
     {
-      "campaign": "no-url-fetch-clients",
+      "campaign": "no-url-fetch-exotic",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:f987cecdfdcddbb5ee09805bd1eddb43af526d440fb81788d386ac5036bc50f4",
+      "diff_hash": "sha256:5dcd93efad67f4046ff941aa588ea9d567dbd3d3c50941f88b30febc2714aaef",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -2107,11 +2116,11 @@
       "status": "detected"
     },
     {
-      "campaign": "no-url-fetch-exotic",
+      "campaign": "no-url-fetch-exotic2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:5dcd93efad67f4046ff941aa588ea9d567dbd3d3c50941f88b30febc2714aaef",
+      "diff_hash": "sha256:9c00c4354adecaa08f7b11305691ff2d4c904719da26abc3bff0de0a191c2182",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 90 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2127,9 +2136,9 @@
     {
       "campaign": "no-url-fetch-exotic2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:02473eb07c47d832628c32fc3c4e9fb72a2a8f9169f9a986f850ac206fb4bc5b",
+      "diff_hash": "sha256:7c67666f07ee7c24dbdffbdbfafa3d8c54fdce4c85b0642b86a26850aebef5fc",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
+      "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2154,18 +2163,9 @@
     {
       "campaign": "no-url-fetch-exotic2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:7c67666f07ee7c24dbdffbdbfafa3d8c54fdce4c85b0642b86a26850aebef5fc",
+      "diff_hash": "sha256:02473eb07c47d832628c32fc3c4e9fb72a2a8f9169f9a986f850ac206fb4bc5b",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "no-url-fetch-exotic2",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:9c00c4354adecaa08f7b11305691ff2d4c904719da26abc3bff0de0a191c2182",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 65 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2181,7 +2181,16 @@
     {
       "campaign": "output-flag-evasions",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:140f53f32ae43b13bf3ea93674025e24c1803a2782beea73283e442d648aa399",
+      "diff_hash": "sha256:f80135b8dc5ee77fb1148e3bb54da3a9b3617bafdb6d4065c0845d29f8c7e8e0",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 70 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "output-flag-evasions",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:e36ddf9062b9579c6973db5a6aae84df74bff05979c3bd2accac28ee609341ed",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -2191,6 +2200,15 @@
       "campaign": "output-flag-evasions",
       "closing_version": "0.17.1",
       "diff_hash": "sha256:3eb44eb0a627ec1afdcf06a1c417481825394789dd815f326caa47e71ac3fc29",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 70 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "output-flag-evasions",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:140f53f32ae43b13bf3ea93674025e24c1803a2782beea73283e442d648aa399",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 70 > threshold 20",
       "state": "closed",
@@ -2215,29 +2233,11 @@
       "status": "detected"
     },
     {
-      "campaign": "output-flag-evasions",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:e36ddf9062b9579c6973db5a6aae84df74bff05979c3bd2accac28ee609341ed",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "output-flag-evasions",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:f80135b8dc5ee77fb1148e3bb54da3a9b3617bafdb6d4065c0845d29f8c7e8e0",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
       "campaign": "rename-source-exec",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:1352cdf61e760c7bcd7ac25d5689bc99c751e60e8b96b67bb0e8a55e983c38e3",
+      "diff_hash": "sha256:db5460490a878f90655aa1e7db4027a079f3fe88e6b749a5d36ef55359652065",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 50 > threshold 20",
+      "rationale": "score 70 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2253,18 +2253,9 @@
     {
       "campaign": "rename-source-exec",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:db5460490a878f90655aa1e7db4027a079f3fe88e6b749a5d36ef55359652065",
+      "diff_hash": "sha256:1352cdf61e760c7bcd7ac25d5689bc99c751e60e8b96b67bb0e8a55e983c38e3",
       "original_trustsight_version": "0.17.1",
-      "rationale": "score 70 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "sftp-write-then-exec",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:3adf08b557df23281e86dea9a3671005626e78a54a30afae3bad002df61b81d8",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 90 > threshold 20",
+      "rationale": "score 50 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2272,6 +2263,15 @@
       "campaign": "sftp-write-then-exec",
       "closing_version": "0.17.1",
       "diff_hash": "sha256:3bc532aa3f47ed01a47b33be1b26d93a8844b948741fe8dbec1c324777942a6d",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 65 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "sftp-write-then-exec",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:cb90c9d784cbed01d23df4fd047b5bb685ca5768716ea4b6c11f499906a8544a",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -2289,7 +2289,7 @@
     {
       "campaign": "sftp-write-then-exec",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:cb90c9d784cbed01d23df4fd047b5bb685ca5768716ea4b6c11f499906a8544a",
+      "diff_hash": "sha256:d9dfd18707357ea79b15ca226fac7d4fd36689770260d145e50318ff45f21a9a",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 65 > threshold 20",
       "state": "closed",
@@ -2298,16 +2298,7 @@
     {
       "campaign": "sftp-write-then-exec",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:d9dfd18707357ea79b15ca226fac7d4fd36689770260d145e50318ff45f21a9a",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 65 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "stdin-execution",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:0e4250b4eed2cc03165e9ce7f37afcaa8d44356830b23a707de5f6896deb89c6",
+      "diff_hash": "sha256:3adf08b557df23281e86dea9a3671005626e78a54a30afae3bad002df61b81d8",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -2317,6 +2308,15 @@
       "campaign": "stdin-execution",
       "closing_version": "0.17.1",
       "diff_hash": "sha256:11bf22e4f6356d40c0e4e04aa967226ec4074cf975779b6d054e292f9ac9c23c",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "stdin-execution",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:0e4250b4eed2cc03165e9ce7f37afcaa8d44356830b23a707de5f6896deb89c6",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -2361,16 +2361,7 @@
     {
       "campaign": "stdin-exotic-c2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:13d4ac9eb212d084a7893cabcaa9dcd1da8d4f586fe7acd342c07a8aa77d96b3",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "stdin-exotic-c2",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:63c843c19c8e7a3dcea8ef4f97d822beba97c080ff5d4080a98f523334fb41d9",
+      "diff_hash": "sha256:6aa5c1751be200d1145d2905c8d0d34b3d30073c643f0dddffe86361cae346b1",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -2379,7 +2370,7 @@
     {
       "campaign": "stdin-exotic-c2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:6aa5c1751be200d1145d2905c8d0d34b3d30073c643f0dddffe86361cae346b1",
+      "diff_hash": "sha256:b842e7acd6461723b8d377accb0e0ec538511756da811ce6f5f36e8c4138a4e6",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -2397,7 +2388,7 @@
     {
       "campaign": "stdin-exotic-c2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:b842e7acd6461723b8d377accb0e0ec538511756da811ce6f5f36e8c4138a4e6",
+      "diff_hash": "sha256:ce06ae4c161b2d4ec3a409ab02f4feb9255adc2f40dca9df8c8ae27324def2bf",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
       "state": "closed",
@@ -2406,9 +2397,27 @@
     {
       "campaign": "stdin-exotic-c2",
       "closing_version": "0.17.1",
-      "diff_hash": "sha256:ce06ae4c161b2d4ec3a409ab02f4feb9255adc2f40dca9df8c8ae27324def2bf",
+      "diff_hash": "sha256:13d4ac9eb212d084a7893cabcaa9dcd1da8d4f586fe7acd342c07a8aa77d96b3",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "stdin-exotic-c2",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:63c843c19c8e7a3dcea8ef4f97d822beba97c080ff5d4080a98f523334fb41d9",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 90 > threshold 20",
+      "state": "closed",
+      "status": "detected"
+    },
+    {
+      "campaign": "vcs-implicit-rename",
+      "closing_version": "0.17.1",
+      "diff_hash": "sha256:7f3122cbbbb55b00ec2b7bb9609bab8a68024ff1cd03c30c608fd90d037f4efa",
+      "original_trustsight_version": "0.17.1",
+      "rationale": "score 100 > threshold 20",
       "state": "closed",
       "status": "detected"
     },
@@ -2425,15 +2434,6 @@
       "campaign": "vcs-implicit-rename",
       "closing_version": "0.17.1",
       "diff_hash": "sha256:362f3879f562401247ab6374ea0c5608af70a60c9d4dd6c1964266707ec2c11a",
-      "original_trustsight_version": "0.17.1",
-      "rationale": "score 100 > threshold 20",
-      "state": "closed",
-      "status": "detected"
-    },
-    {
-      "campaign": "vcs-implicit-rename",
-      "closing_version": "0.17.1",
-      "diff_hash": "sha256:7f3122cbbbb55b00ec2b7bb9609bab8a68024ff1cd03c30c608fd90d037f4efa",
       "original_trustsight_version": "0.17.1",
       "rationale": "score 100 > threshold 20",
       "state": "closed",
