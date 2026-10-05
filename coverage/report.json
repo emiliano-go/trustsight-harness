@@ -2,11 +2,14 @@
   "by_category": {
     "composition": {
       "targeted": 0,
-      "total": 3,
+      "total": 6,
       "untargeted": [
+        "C021",
+        "C024",
         "H027",
         "H043",
-        "H098"
+        "H098",
+        "H102"
       ]
     },
     "corpus-behavioral": {
@@ -35,7 +38,7 @@
     },
     "crossfire": {
       "targeted": 6,
-      "total": 25,
+      "total": 31,
       "untargeted": [
         "X001",
         "X003",
@@ -55,7 +58,13 @@
         "X020",
         "X021",
         "X022",
-        "X023"
+        "X023",
+        "X026",
+        "X027",
+        "X028",
+        "X029",
+        "X030",
+        "X031"
       ]
     },
     "deception": {
@@ -70,16 +79,17 @@
       ]
     },
     "fetch-and-execution": {
-      "targeted": 3,
-      "total": 37,
+      "targeted": 6,
+      "total": 39,
       "untargeted": [
         "C007",
+        "C015",
+        "C016",
         "H003",
         "H004",
         "H009",
         "H011",
         "H015",
-        "H016",
         "H031",
         "H034",
         "H041",
@@ -90,8 +100,6 @@
         "H075",
         "H077",
         "H081",
-        "H082",
-        "H083",
         "H090",
         "H094",
         "R008",
@@ -111,8 +119,9 @@
     },
     "install-and-persist": {
       "targeted": 1,
-      "total": 17,
+      "total": 19,
       "untargeted": [
+        "C017",
         "H017",
         "H023",
         "H032",
@@ -122,6 +131,7 @@
         "H089",
         "H093",
         "H095",
+        "H100",
         "R007",
         "R017",
         "R052",
@@ -133,7 +143,7 @@
     },
     "integrity": {
       "targeted": 8,
-      "total": 35,
+      "total": 42,
       "untargeted": [
         "C001",
         "C002",
@@ -143,6 +153,10 @@
         "C008",
         "C009",
         "C010",
+        "C014",
+        "C020",
+        "C022",
+        "C023",
         "H001",
         "H002",
         "H005",
@@ -160,6 +174,9 @@
         "H087",
         "H091",
         "H092",
+        "H099",
+        "H101",
+        "H103",
         "R049",
         "R050"
       ]
@@ -228,8 +245,9 @@
     },
     "staging-and-recon": {
       "targeted": 0,
-      "total": 8,
+      "total": 9,
       "untargeted": [
+        "C025",
         "H007",
         "H010",
         "H038",
@@ -274,6 +292,30 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "context-composites",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "cross-function-chains",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "deno-solo",
       "expected_rules": [],
       "package": "harness-pkg"
@@ -286,9 +328,93 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "exec-and-heredoc",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "exotic-interpreter-sinks",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "fetch-spec-in-file",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "fork-divergence-c013",
       "expected_rules": [
         "C013"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "form-evasions-b6",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "form-evasions-b7",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "form-evasions-b8",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "form-evasions-c1",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
       ],
       "package": "harness-pkg"
     },
@@ -303,6 +429,18 @@
       "campaign": "function-shadow-h097",
       "expected_rules": [
         "H097"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "git-no-url-fetch",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
       ],
       "package": "harness-pkg"
     },
@@ -341,6 +479,54 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "matrix-e1-a",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "matrix-e1-b",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "matrix-e1-c",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "misc-vectors-d1",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "multiline-shadow-x025",
       "expected_rules": [
         "X025"
@@ -348,8 +534,68 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "no-url-fetch-clients",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "no-url-fetch-exotic",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "no-url-fetch-exotic2",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "node-solo",
       "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "object-store-positional",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "output-flag-evasions",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
       "package": "harness-pkg"
     },
     {
@@ -386,8 +632,66 @@
       "package": "harness-payload-bin"
     },
     {
+      "campaign": "rename-source-exec",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "round7-unmeasured-clients",
+      "expected_rules": [
+        "H082",
+        "H016",
+        "X009",
+        "R001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "rscript-solo",
       "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "sftp-write-then-exec",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016",
+        "H082",
+        "H016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "stdin-execution",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "stdin-exotic-c2",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
       "package": "harness-pkg"
     },
     {
@@ -417,6 +721,18 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "vcs-implicit-rename",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "wave3-nextfile-js",
       "expected_rules": [
         "X011"
@@ -433,10 +749,10 @@
     }
   ],
   "rules": {
-    "targeted": 20,
-    "total": 191,
+    "targeted": 23,
+    "total": 212,
     "unknown_expected_rules": [],
-    "untargeted": 171,
+    "untargeted": 189,
     "untargeted_ids": [
       "C001",
       "C002",
@@ -448,6 +764,16 @@
       "C008",
       "C009",
       "C010",
+      "C014",
+      "C015",
+      "C016",
+      "C017",
+      "C020",
+      "C021",
+      "C022",
+      "C023",
+      "C024",
+      "C025",
       "D001",
       "D002",
       "D003",
@@ -467,7 +793,6 @@
       "H013",
       "H014",
       "H015",
-      "H016",
       "H017",
       "H018",
       "H019",
@@ -531,8 +856,6 @@
       "H079",
       "H080",
       "H081",
-      "H082",
-      "H083",
       "H084",
       "H085",
       "H086",
@@ -546,6 +869,11 @@
       "H094",
       "H095",
       "H098",
+      "H099",
+      "H100",
+      "H101",
+      "H102",
+      "H103",
       "R003",
       "R007",
       "R008",
@@ -608,14 +936,21 @@
       "X020",
       "X021",
       "X022",
-      "X023"
+      "X023",
+      "X026",
+      "X027",
+      "X028",
+      "X029",
+      "X030",
+      "X031"
     ]
   },
   "stage_map_available": true,
   "stages_targeted": [
     "foreign_fetch",
     "obfuscation",
-    "payload"
+    "payload",
+    "write_then_exec"
   ],
   "untargeted_reasons": {
     "H026": "needs a prior maintainer snapshot (corpus path)",

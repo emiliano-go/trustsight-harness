@@ -42,6 +42,13 @@ KNOWN_GAPS = frozenset({
     "noextract_suppressed",
     "binary_metadata",
     "tokenizer_unavailable",
+    # Added by the typed-core work: a hunk cut mid-stream, an install
+    # script shown only in part, and a first review compared against the
+    # parent commit only.  An unrecognised gap stops the run by design, so
+    # the vocabulary grows with the instrument.
+    "partial_hunk",
+    "partial_file_analysis",
+    "parent_baseline",
 })
 
 

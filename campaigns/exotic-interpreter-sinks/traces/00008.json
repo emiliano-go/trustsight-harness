@@ -1,0 +1,27 @@
+{
+  "attempt": 8,
+  "cost": {},
+  "db_hash": "",
+  "diff_sha256": "sha256:1758b1c90391d8aae9dd5ab7081a198c30b59fa75446b4834580572140a345e5",
+  "environment_ref": "campaign.yml#environment",
+  "generator": {
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/exotic-interpreter-sinks/manual",
+    "inputs": 14,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "already recorded as a bypass at 0.17.1 in campaign exotic-interpreter-sinks (known bypass from exotic-interpreter-sinks; closed)",
+    "verdict": "known_bypass_match"
+  },
+  "stages": {
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    }
+  },
+  "status": "known_bypass_match",
+  "trustsight": {}
+}

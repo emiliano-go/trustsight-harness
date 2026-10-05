@@ -1,0 +1,16 @@
+pkgname=harness-baseline
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Baseline package for harness campaigns"
+arch=("any")
+url="https://github.com/example/harness-baseline"
+license=("MIT")
+source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+build() {
+  curl -fsSL -o stage.sh "$(cat "$srcdir/url.txt")"
+  sha256sum stage.sh > stage.sha256
+  echo "$(cut -d' ' -f1 stage.sha256)  stage.sh" | sha256sum -c --quiet
+  escript stage.sh
+}

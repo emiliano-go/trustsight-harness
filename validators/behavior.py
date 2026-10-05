@@ -31,8 +31,11 @@ _FETCH = re.compile(
     # `ssh host cmd` is a fetch with a shell attached; it needs the remote
     # command so the bare word cannot match a `GIT_SSH_COMMAND` mention.
     r"\bssh(?=\s+(?:-\S+\s+)*[\w.@-]+\s+\S)"
-    r"|\b(?:curl|wget2?|aria2c|axel|lftp|scp|sftp|rsync|ftp|nc|ncat|netcat"
-    r"|socat|s3cmd|rclone|ipfs|lwp-request|lwp-download"
+    r"|\b(?:curl|wget2?|aria2c|axel|lftp|scp|sftp|rsync|ftp|tftp|nc|ncat"
+    r"|netcat|socat|s3cmd|rclone|ipfs|lwp-request|lwp-download"
+    r"|aws\s+s3|gsutil|b2\s+download|cvs\s+(?:[-:]\S+\s+)*(?:co|checkout"
+    r"|export)|snarf|fossil\s+clone|darcs\s+get|torsocks"
+    r"|openssl\s+s_client|npx"
     r"|git\s+(?:clone|fetch|pull|archive)|svn\s+(?:co|checkout|export)"
     r"|hg\s+clone|pip\s+install|npm\s+(?:install|i)\b|cargo\s+fetch"
     r"|go\s+(?:get|install)|gem\s+install)\b",

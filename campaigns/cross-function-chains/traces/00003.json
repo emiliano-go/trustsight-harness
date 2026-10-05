@@ -1,0 +1,27 @@
+{
+  "attempt": 3,
+  "cost": {},
+  "db_hash": "",
+  "diff_sha256": "sha256:116aef2668169b48dbddf631191ce3ac1512bfd4e104fb63b0667027fcab5757",
+  "environment_ref": "campaign.yml#environment",
+  "generator": {
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/cross-function-chains/manual",
+    "inputs": 4,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "already recorded as a bypass at 0.17.1 in campaign misc-vectors-d1 (known bypass from misc-vectors-d1; closed)",
+    "verdict": "known_bypass_match"
+  },
+  "stages": {
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    }
+  },
+  "status": "known_bypass_match",
+  "trustsight": {}
+}

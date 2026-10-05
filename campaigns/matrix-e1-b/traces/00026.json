@@ -1,0 +1,27 @@
+{
+  "attempt": 26,
+  "cost": {},
+  "db_hash": "",
+  "diff_sha256": "sha256:8792631cbf68ffeeea2755b72e7eaad73f6e932216f552ccdf72d4ce43c4fb04",
+  "environment_ref": "campaign.yml#environment",
+  "generator": {
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/matrix-e1-b/manual",
+    "inputs": 52,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "already recorded as a bypass at 0.17.1 in campaign form-evasions-c1 (known bypass from form-evasions-c1; closed)",
+    "verdict": "known_bypass_match"
+  },
+  "stages": {
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    }
+  },
+  "status": "known_bypass_match",
+  "trustsight": {}
+}

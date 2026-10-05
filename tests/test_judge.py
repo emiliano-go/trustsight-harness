@@ -42,6 +42,7 @@ def test_a_coverage_gap_forbids_unflagged():
 @pytest.mark.parametrize("gap", [
     "history_truncated", "noextract_suppressed",
     "binary_metadata", "tokenizer_unavailable",
+    "partial_hunk", "partial_file_analysis", "parent_baseline",
 ])
 def test_gap_types_added_after_the_judge_are_understood(gap):
     """A gap added by a newer TrustSight must be classified, not crash the

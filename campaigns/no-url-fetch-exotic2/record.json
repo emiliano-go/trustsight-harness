@@ -1,0 +1,78 @@
+{
+  "attempts": 6,
+  "bypass_hashes": [
+    "sha256:01baf9e81433651811e5e4d75c7849558bc976cf764b53fa5abfa57a27e70922",
+    "sha256:02473eb07c47d832628c32fc3c4e9fb72a2a8f9169f9a986f850ac206fb4bc5b",
+    "sha256:2520c07f9307ea684bb9e26ecef7fe984d566dfe0ca1b475fb36cbb1bde11bcb",
+    "sha256:7372a571877480a4f0459abfe8173ebb8f5b31145cea2fd5a074350299ab7c28",
+    "sha256:7c67666f07ee7c24dbdffbdbfafa3d8c54fdce4c85b0642b86a26850aebef5fc",
+    "sha256:9c00c4354adecaa08f7b11305691ff2d4c904719da26abc3bff0de0a191c2182"
+  ],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.609666,
+      1.0
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 6,
+    "estimate": 1.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "campaign": "no-url-fetch-exotic2",
+  "campaign_commit": "cdb68f50e6c62f44489c67e0d03b356e9e4d96bc",
+  "campaign_type": "deterministic",
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 14105
+  },
+  "environment": {
+    "accumulate": false,
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.17.1"
+  },
+  "generator": {
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/no-url-fetch-exotic2/manual",
+    "inputs": 6,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "no-url-fetch-exotic2-manual",
+    "type": "manual"
+  },
+  "harness_version": "2.0.0",
+  "known_bypass_matches": [],
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 6,
+    "constraint_violation": 0,
+    "detected": 0,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "stop_reason": "6 manual inputs exhausted",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+  }
+}

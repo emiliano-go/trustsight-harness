@@ -1,0 +1,25 @@
+# Probes for a gap in TrustSight 0.17.1: two-step download-then-execute
+# where the downloader is an SSH-family client whose command line carries
+# no parseable URL (sftp/ssh/ftp), so neither H016 (Hidden Network Fetch)
+# nor R082 (Write Then Exec, curl/wget-family only) fires.
+campaign: sftp-write-then-exec
+campaign_type: deterministic
+
+environment:
+  trustsight_version: "0.17.1"
+  trustsight_source: "local-path"
+  db_state: "cold"
+  flag_threshold: 20
+
+generator:
+  type: manual
+  directory: manual
+  baseline: defaults/baseline.PKGBUILD
+
+prompt:
+  prompt_id: sftp-write-then-exec-manual
+  behavior_goal: fetch_then_execute
+  expected_rules: ["R001", "R002", "X009", "X016", "H082", "H016"]
+  forbidden_techniques: {}
+
+attempts: 8
