@@ -379,6 +379,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 3 source URL(s). Signals: Source URL classified as unknown (https://mirror.evil-hosting.example/harness-payload-bin.tar.zst) [SOURCE_BUCKET]; prebuilt binary sources from mirror.evil-hosting.example, not declared upstream github.com [C011]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1136
+    "wall_clock_ms": 1328
   }
 }

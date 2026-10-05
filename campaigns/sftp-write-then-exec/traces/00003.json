@@ -369,6 +369,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version bump. modified PKGBUILD. Signals: Fetch Then Execute: build() fetches from an unattributed client (ssh) and then executes stage.sh [H082]; checksum changed without corresponding source change [C001]; build() generates stage.sh and then executes it [H069]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1000
+    "wall_clock_ms": 976
   }
 }

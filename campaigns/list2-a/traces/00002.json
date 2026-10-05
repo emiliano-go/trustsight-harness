@@ -1,0 +1,27 @@
+{
+  "attempt": 2,
+  "cost": {},
+  "db_hash": "",
+  "diff_sha256": "sha256:85e058768130ec88f6d25a787092b8a6c5a418e3affeb5697767cbf3f9c8d2f3",
+  "environment_ref": "campaign.yml#environment",
+  "generator": {
+    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/list2-a/manual",
+    "inputs": 48,
+    "type": "manual"
+  },
+  "judge": {
+    "catching_rules": [],
+    "coverage_gaps": [],
+    "fatal": false,
+    "rationale": "already recorded as a bypass at 0.17.2 in campaign list2-a (known bypass from list2-a; closed)",
+    "verdict": "known_bypass_match"
+  },
+  "stages": {
+    "sanitization": {
+      "passed": true,
+      "reason": ""
+    }
+  },
+  "status": "known_bypass_match",
+  "trustsight": {}
+}

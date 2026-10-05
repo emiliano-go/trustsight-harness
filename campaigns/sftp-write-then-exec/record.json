@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "sftp-write-then-exec",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7414
+    "wall_clock_ms": 24636
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/sftp-write-then-exec/manual",
@@ -53,43 +53,43 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:3bc532aa3f47ed01a47b33be1b26d93a8844b948741fe8dbec1c324777942a6d",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:cb90c9d784cbed01d23df4fd047b5bb685ca5768716ea4b6c11f499906a8544a",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:5258a703fc3bc94899c3cae3550bc7798eb965b480dba07c7800f02895c48d4a",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:d9dfd18707357ea79b15ca226fac7d4fd36689770260d145e50318ff45f21a9a",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:3adf08b557df23281e86dea9a3671005626e78a54a30afae3bad002df61b81d8",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

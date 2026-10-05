@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "vcs-implicit-rename",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1
+    "wall_clock_ms": 9693
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/vcs-implicit-rename/manual",
@@ -53,27 +53,27 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:7f3122cbbbb55b00ec2b7bb9609bab8a68024ff1cd03c30c608fd90d037f4efa",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "vcs-implicit-rename",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:0b8fe70b30ccb0900c2ad76d29f8017db82a28a4cd9a73fa002419ec8b5efea3",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "vcs-implicit-rename",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:362f3879f562401247ab6374ea0c5608af70a60c9d4dd6c1964266707ec2c11a",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "vcs-implicit-rename",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

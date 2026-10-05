@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "cross-function-chains",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 21
+    "wall_clock_ms": 11958
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/cross-function-chains/manual",
@@ -53,35 +53,35 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:885dc7e2ba992184300160cfbc230797fe01803216d1836863253b34c9e85026",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "cross-function-chains",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:aa386f76b8814909cb4bf996700845d5b77b54a10d92608458a8b1065e88cc88",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "cross-function-chains",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:f2130f681d16302aac277b299ce27f1fc3f22ab93bfc3aca593926e354c1893a",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "cross-function-chains",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:116aef2668169b48dbddf631191ce3ac1512bfd4e104fb63b0667027fcab5757",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

@@ -17,7 +17,7 @@ _TEMPLATE = """\
 campaign: probe
 campaign_type: deterministic
 environment:
-  trustsight_version: "0.17.1"
+  trustsight_version: "0.17.2"
 generator:
   type: manual
 prompt:
@@ -43,7 +43,7 @@ _IOC_TEMPLATE = """\
 campaign: probe
 campaign_type: deterministic
 environment:
-  trustsight_version: "0.17.1"
+  trustsight_version: "0.17.2"
   ioc_baseline: "../trustsight/ioc-baselines/atomic-arch-2026-06"
 generator:
   type: manual

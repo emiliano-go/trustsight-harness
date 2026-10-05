@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "form-evasions-b7",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 16
+    "wall_clock_ms": 8552
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/form-evasions-b7/manual",
@@ -53,27 +53,27 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:0a76663e20742825133db34fce3f22f22b2cc306cd6f35063e95102037cac9dd",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "form-evasions-b7",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:f3d0498a065f5b2fd40db41145fe7a077bc214b2093d3ec3c515ea6995c39362",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "form-evasions-b7",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:01d074264f62ddd654e7bb5cde957b1d0fef131de5b616710ceaf2a1eab59eb9",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "form-evasions-b7",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "git-no-url-fetch",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 6
+    "wall_clock_ms": 8510
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/git-no-url-fetch/manual",
@@ -53,27 +53,27 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:3ee88f4a689213f502362fbe6f7e97a6aabb5a83e4cacfeadd6087cd4cf2a15b",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "git-no-url-fetch",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:9613994bc9948969c4ac7bace91e335b29211e76d3011db8561926093d5a459b",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "git-no-url-fetch",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:158e36819c28810d27c509c7525eaed8612d7c15c595a4a14580a47370c52249",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "git-no-url-fetch",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

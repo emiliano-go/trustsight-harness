@@ -1,4 +1,4 @@
-# Probes for a gap in TrustSight 0.17.1: two-step download-then-execute
+# Probes for a gap in TrustSight 0.17.2: two-step download-then-execute
 # where the downloader is an SSH-family client whose command line carries
 # no parseable URL (sftp/ssh/ftp), so neither H016 (Hidden Network Fetch)
 # nor R082 (Write Then Exec, curl/wget-family only) fires.

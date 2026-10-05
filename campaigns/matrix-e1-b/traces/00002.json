@@ -1,7 +1,7 @@
 {
   "attempt": 2,
   "cost": {},
-  "db_hash": "",
+  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
   "diff_sha256": "sha256:4dcaa7bfe40eeca19c1e2ec14b4c166f4bd7b78cec55f43383280f4007b53ee4",
   "environment_ref": "campaign.yml#environment",
   "generator": {
@@ -13,15 +13,300 @@
     "catching_rules": [],
     "coverage_gaps": [],
     "fatal": false,
-    "rationale": "already recorded as a bypass at 0.17.1 in campaign matrix-e1-b (known bypass from matrix-e1-b; closed)",
+    "rationale": "score 65 > threshold 20 (known bypass from matrix-e1-b; closed)",
     "verdict": "known_bypass_match"
   },
   "stages": {
+    "_text_source": "generator",
+    "behavior": {
+      "chain": "lftp -> zx f.erl",
+      "preserved": true,
+      "reason": "",
+      "validator_version": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
+    },
+    "constraints": {
+      "honored": true,
+      "violated": []
+    },
     "sanitization": {
       "passed": true,
+      "reason": ""
+    },
+    "syntax": {
+      "bash_n_new": 0,
+      "bash_n_old": 0,
+      "bash_path": "/usr/bin/bash",
       "reason": ""
     }
   },
   "status": "known_bypass_match",
-  "trustsight": {}
+  "trustsight": {
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+    "report": {
+      "acknowledged_urls": [],
+      "cached": false,
+      "cached_at": "",
+      "change": {
+        "checkdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "checksum_behavior": "checksum_added_or_changed",
+        "checksums": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "dependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "files": [
+          {
+            "hunks": [
+              1
+            ],
+            "old_path": "PKGBUILD",
+            "path": "PKGBUILD",
+            "status": "modified"
+          }
+        ],
+        "hosts_gained": [],
+        "hosts_lost": [],
+        "local_sources_gained": [],
+        "local_sources_lost": [],
+        "makedependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "optdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "pgp_keys": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "reordered": false,
+        "sources": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "version": {
+          "moved": true,
+          "new_epoch": "",
+          "new_pkgrel": "1",
+          "new_pkgver": "1.0.1",
+          "old_epoch": "",
+          "old_pkgrel": "1",
+          "old_pkgver": "1.0.0",
+          "pkgver_changed": true
+        }
+      },
+      "changes": [
+        "pkgver 1.0.0 -> 1.0.1",
+        "checksums added or changed"
+      ],
+      "comparison_base": "",
+      "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+      "coverage_gaps": [
+        "tree_not_analyzed",
+        "ruleset_drifted"
+      ],
+      "coverage_gaps_carried": [],
+      "dependencies": [],
+      "depth_truncated": false,
+      "diff_truncated": false,
+      "failed": false,
+      "file_changes": [
+        {
+          "path": "PKGBUILD",
+          "status": "modified"
+        }
+      ],
+      "findings": [
+        {
+          "description": "checksum changed without corresponding source change [C001]",
+          "evidence": {
+            "match": "checksum updated with a version bump that also adds a network fetch (lftp)"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "rule_id": "C001",
+          "severity": "HIGH",
+          "template": "checksum changed without corresponding source change"
+        },
+        {
+          "description": "Fetch Then Execute: build() fetches from an unattributed client (lftp) and then executes f.erl [H082]",
+          "evidence": {
+            "match": "build() fetches from an unattributed client (lftp) and then executes f.erl",
+            "path": "f.erl",
+            "position": "build"
+          },
+          "file": "PKGBUILD",
+          "line": 12,
+          "rule_id": "H082",
+          "severity": "CRITICAL",
+          "template": "Fetch Then Execute: {match}"
+        }
+      ],
+      "first_seen": false,
+      "flagged": true,
+      "fully_vetted": false,
+      "ioc_matches": [],
+      "is_trivial": false,
+      "new_commit": "",
+      "new_version": "1.0.1",
+      "old_commit": "",
+      "old_version": "1.0.0",
+      "package": "harness-pkg",
+      "partial_files": [],
+      "required_by": [],
+      "resolution_coverage": {
+        "resolved_lines": 3,
+        "resolved_target_rules": [
+          "R001",
+          "R002",
+          "R003",
+          "R008",
+          "R012",
+          "R039",
+          "R040",
+          "R041",
+          "R042",
+          "R043",
+          "R044",
+          "R045",
+          "R055",
+          "R056",
+          "R057"
+        ],
+        "resolved_target_rules_fired": [],
+        "unresolved_lines": 0
+      },
+      "review_profile": "default",
+      "review_threshold": 20,
+      "risk": "High",
+      "risk_label": "High (incomplete analysis)",
+      "scan_truncated": false,
+      "score": 65,
+      "score_breakdown": [
+        {
+          "evidence": {
+            "match": "checksum updated with a version bump that also adds a network fetch (lftp)"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {},
+          "reason": "Checksum Changed Without Source Change With Stable Version: checksum updated with a version bump that also adds a network fetch (lftp)",
+          "rule_id": "C001",
+          "severity": "HIGH",
+          "template": "checksum changed without corresponding source change",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "diff modifies build()",
+            "touched": "build"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "touched": "build"
+          },
+          "reason": "Critical Build Function Modified: diff modifies build()",
+          "rule_id": "H015",
+          "severity": "INFO",
+          "template": "critical build function modified: {touched}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "build() fetches from an unattributed client (lftp) and then executes f.erl",
+            "path": "f.erl",
+            "position": "build"
+          },
+          "file": "PKGBUILD",
+          "line": 12,
+          "params": {
+            "path": "f.erl",
+            "position": "build"
+          },
+          "reason": "Fetch Then Execute: build() fetches from an unattributed client (lftp) and then executes f.erl",
+          "rule_id": "H082",
+          "severity": "CRITICAL",
+          "template": "Fetch Then Execute: {match}",
+          "weight": 40
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 3 distinct capability categories",
+            "n_categories": 3
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "n_categories": 3
+          },
+          "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+          "rule_id": "H027",
+          "severity": "INFO",
+          "template": "findings span {n_categories} distinct capability categories",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "tree_not_analyzed"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "tree_not_analyzed"
+          },
+          "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "ruleset_drifted"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "ruleset_drifted"
+          },
+          "reason": "Coverage gap: the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {},
+          "file": "",
+          "line": null,
+          "params": {},
+          "reason": "checksums declared for all non-VCS sources",
+          "rule_id": "P001",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        }
+      ],
+      "suppressed_rules": [],
+      "unresolved_assignments": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version bump. modified PKGBUILD. Signals: Fetch Then Execute: build() fetches from an unattributed client (lftp) and then executes f.erl [H082]; checksum changed without corresponding source change [C001]. Review the diff before building.",
+      "version_comparison": ""
+    },
+    "wall_clock_ms": 924
+  }
 }

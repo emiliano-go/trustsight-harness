@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "adversarial-probes",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 20705
+    "wall_clock_ms": 26638
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/adversarial-probes/manual",
@@ -57,7 +57,7 @@
       "original_campaign": "node-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
@@ -65,7 +65,7 @@
       "original_campaign": "php-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:53fed95fba98f2ec619d67f5e26dedff2518d3161768cb72ff61c06d12b826bd",
@@ -73,7 +73,7 @@
       "original_campaign": "lua-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:253d965e3aedc9662a5cc7012e0d66f9822c3ea41eacddba76e9455c5793c3e1",
@@ -81,7 +81,7 @@
       "original_campaign": "tclsh-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169",
@@ -89,7 +89,7 @@
       "original_campaign": "julia-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
@@ -97,7 +97,7 @@
       "original_campaign": "rscript-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {

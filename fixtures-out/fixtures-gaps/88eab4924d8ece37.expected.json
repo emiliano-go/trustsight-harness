@@ -12,6 +12,6 @@
     },
     "harness_version": "2.0.0",
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   }
 }

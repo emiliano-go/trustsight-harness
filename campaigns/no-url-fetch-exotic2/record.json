@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "no-url-fetch-exotic2",
-  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
+  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,13 +20,13 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 20
+    "wall_clock_ms": 20761
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.1"
+    "trustsight_version": "0.17.2"
   },
   "generator": {
     "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/no-url-fetch-exotic2/manual",
@@ -53,51 +53,51 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:9c00c4354adecaa08f7b11305691ff2d4c904719da26abc3bff0de0a191c2182",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:01baf9e81433651811e5e4d75c7849558bc976cf764b53fa5abfa57a27e70922",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:7c67666f07ee7c24dbdffbdbfafa3d8c54fdce4c85b0642b86a26850aebef5fc",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:2520c07f9307ea684bb9e26ecef7fe984d566dfe0ca1b475fb36cbb1bde11bcb",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:7372a571877480a4f0459abfe8173ebb8f5b31145cea2fd5a074350299ab7c28",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     },
     {
       "diff_hash": "sha256:02473eb07c47d832628c32fc3c4e9fb72a2a8f9169f9a986f850ac206fb4bc5b",
-      "observed_status": "duplicate",
+      "observed_status": "detected",
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.1"
+      "trustsight_version": "0.17.2"
     }
   ],
   "outcomes": {
