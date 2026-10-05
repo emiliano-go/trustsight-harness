@@ -1,7 +1,7 @@
 {
   "attempt": 2,
   "cost": {},
-  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
+  "db_hash": "",
   "diff_sha256": "sha256:a07ae006027842b5f453fce61a6004d067bcf064d4fb0ddacc34ac73628bd249",
   "environment_ref": "campaign.yml#environment",
   "generator": {
@@ -13,202 +13,15 @@
     "catching_rules": [],
     "coverage_gaps": [],
     "fatal": false,
-    "rationale": "score 0 <= threshold 20; coverage_gaps empty; no fatal",
-    "verdict": "bypass"
+    "rationale": "already recorded as a bypass at 0.17.1 in campaign context-composites (known bypass from context-composites; closed)",
+    "verdict": "known_bypass_match"
   },
   "stages": {
-    "_text_source": "generator",
-    "behavior": {
-      "chain": "git pull -> sh -s",
-      "preserved": true,
-      "reason": "",
-      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
-    },
-    "constraints": {
-      "honored": true,
-      "violated": []
-    },
     "sanitization": {
       "passed": true,
       "reason": ""
-    },
-    "syntax": {
-      "bash_n_new": 0,
-      "bash_n_old": 0,
-      "bash_path": "/usr/bin/bash",
-      "reason": ""
     }
   },
-  "status": "bypass",
-  "trustsight": {
-    "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
-    "report": {
-      "acknowledged_urls": [],
-      "cached": false,
-      "cached_at": "",
-      "change": {
-        "checkdependencies": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "checksum_behavior": "checksum_added_or_changed",
-        "checksums": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "dependencies": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "files": [
-          {
-            "hunks": [
-              1
-            ],
-            "old_path": "PKGBUILD",
-            "path": "PKGBUILD",
-            "status": "modified"
-          }
-        ],
-        "hosts_gained": [],
-        "hosts_lost": [],
-        "local_sources_gained": [],
-        "local_sources_lost": [],
-        "makedependencies": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "optdependencies": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "pgp_keys": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "reordered": false,
-        "sources": {
-          "gained": [],
-          "lost": [],
-          "reordered": false
-        },
-        "version": {
-          "moved": true,
-          "new_epoch": "",
-          "new_pkgrel": "1",
-          "new_pkgver": "1.0.1",
-          "old_epoch": "",
-          "old_pkgrel": "1",
-          "old_pkgver": "1.0.0",
-          "pkgver_changed": true
-        }
-      },
-      "changes": [
-        "pkgver 1.0.0 -> 1.0.1",
-        "checksums added or changed"
-      ],
-      "comparison_base": "",
-      "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
-      "coverage_gaps": [
-        "tree_not_analyzed"
-      ],
-      "coverage_gaps_carried": [],
-      "dependencies": [],
-      "depth_truncated": false,
-      "diff_truncated": false,
-      "failed": false,
-      "file_changes": [
-        {
-          "path": "PKGBUILD",
-          "status": "modified"
-        }
-      ],
-      "findings": [],
-      "first_seen": false,
-      "flagged": false,
-      "fully_vetted": false,
-      "ioc_matches": [],
-      "is_trivial": true,
-      "new_commit": "",
-      "new_version": "1.0.1",
-      "old_commit": "",
-      "old_version": "1.0.0",
-      "package": "harness-pkg",
-      "required_by": [],
-      "review_profile": "default",
-      "review_threshold": 20,
-      "risk": "Inconclusive",
-      "risk_label": "Inconclusive (repository files not examined: payload may be hidden)",
-      "scan_truncated": false,
-      "score": 0,
-      "score_breakdown": [
-        {
-          "evidence": {
-            "match": "sha256sums updated alongside a version move"
-          },
-          "file": "PKGBUILD",
-          "line": null,
-          "params": {},
-          "reason": "Checksum Updated With Version Bump: sha256sums updated alongside a version move",
-          "rule_id": "C002",
-          "severity": "INFO",
-          "template": "checksum updated alongside version bump",
-          "weight": 0
-        },
-        {
-          "evidence": {
-            "match": "diff modifies build()",
-            "touched": "build"
-          },
-          "file": "PKGBUILD",
-          "line": null,
-          "params": {
-            "touched": "build"
-          },
-          "reason": "Critical Build Function Modified: diff modifies build()",
-          "rule_id": "H015",
-          "severity": "INFO",
-          "template": "critical build function modified: {touched}",
-          "weight": 0
-        },
-        {
-          "evidence": {
-            "gap": "tree_not_analyzed"
-          },
-          "file": "",
-          "line": null,
-          "params": {
-            "gap": "tree_not_analyzed"
-          },
-          "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
-          "rule_id": "COVERAGE",
-          "severity": "INFO",
-          "template": "",
-          "weight": 0
-        },
-        {
-          "evidence": {},
-          "file": "",
-          "line": null,
-          "params": {},
-          "reason": "checksums declared for all non-VCS sources",
-          "rule_id": "P001",
-          "severity": "INFO",
-          "template": "",
-          "weight": 0
-        }
-      ],
-      "suppressed_rules": [],
-      "unresolved_assignments": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version bump. modified PKGBUILD. No published rule matched. Review the diff before building.",
-      "version_comparison": ""
-    },
-    "wall_clock_ms": 847
-  }
+  "status": "known_bypass_match",
+  "trustsight": {}
 }

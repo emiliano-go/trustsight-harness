@@ -38,7 +38,7 @@
       "chain": "source= -> bash \"$1\"",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+      "validator_version": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
     },
     "constraints": {
       "honored": true,
@@ -57,17 +57,95 @@
   },
   "status": "partial_evasion",
   "trustsight": {
-    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
+    "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
     "report": {
+      "acknowledged_urls": [],
       "cached": false,
       "cached_at": "",
+      "change": {
+        "checkdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "checksum_behavior": "changed_from_sha256_to_skip",
+        "checksums": {
+          "gained": [
+            "SKIP"
+          ],
+          "lost": [
+            "0000000000000000000000000000000000000000000000000000000000000000"
+          ],
+          "reordered": false
+        },
+        "dependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "files": [
+          {
+            "hunks": [
+              1
+            ],
+            "old_path": "PKGBUILD",
+            "path": "PKGBUILD",
+            "status": "modified"
+          }
+        ],
+        "hosts_gained": [
+          "evil.example"
+        ],
+        "hosts_lost": [
+          "github.com"
+        ],
+        "local_sources_gained": [],
+        "local_sources_lost": [],
+        "makedependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "optdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "pgp_keys": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "reordered": false,
+        "sources": {
+          "gained": [
+            "https://evil.example/stage.sh"
+          ],
+          "lost": [
+            "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          ],
+          "reordered": false
+        },
+        "version": {
+          "moved": false,
+          "new_epoch": "",
+          "new_pkgrel": "1",
+          "new_pkgver": "1.0.0",
+          "old_epoch": "",
+          "old_pkgrel": "1",
+          "old_pkgver": "1.0.0",
+          "pkgver_changed": false
+        }
+      },
       "changes": [
         "checksums changed from sha256 to SKIP",
         "source host changed: evil.example"
       ],
-      "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
+      "comparison_base": "",
+      "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
       "coverage_gaps": [
-        "tree_not_analyzed"
+        "tree_not_analyzed",
+        "ruleset_drifted"
       ],
       "coverage_gaps_carried": [],
       "dependencies": [],
@@ -88,7 +166,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 18,
+          "line": 8,
           "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}"
@@ -101,7 +179,7 @@
             "shape": "the file the executor runs is not a literal"
           },
           "file": "PKGBUILD",
-          "line": 24,
+          "line": 12,
           "rule_id": "X021",
           "severity": "HIGH",
           "template": "Executor Runs A File Chosen At Runtime: {match}"
@@ -126,7 +204,30 @@
       "old_commit": "",
       "old_version": "1.0.0",
       "package": "harness-pkg",
+      "partial_files": [],
       "required_by": [],
+      "resolution_coverage": {
+        "resolved_lines": 3,
+        "resolved_target_rules": [
+          "R001",
+          "R002",
+          "R003",
+          "R008",
+          "R012",
+          "R039",
+          "R040",
+          "R041",
+          "R042",
+          "R043",
+          "R044",
+          "R045",
+          "R055",
+          "R056",
+          "R057"
+        ],
+        "resolved_target_rules_fired": [],
+        "unresolved_lines": 2
+      },
       "review_profile": "default",
       "review_threshold": 20,
       "risk": "High",
@@ -140,7 +241,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 18,
+          "line": 8,
           "params": {
             "skip_suffix": ""
           },
@@ -157,7 +258,7 @@
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
           },
           "file": "PKGBUILD",
-          "line": 17,
+          "line": 7,
           "params": {
             "added": "['https://evil.example/stage.sh']",
             "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
@@ -175,7 +276,7 @@
             "shape": "the file the executor runs is not a literal"
           },
           "file": "PKGBUILD",
-          "line": 24,
+          "line": 12,
           "params": {
             "body": "bash \"$1\"",
             "shape": "the file the executor runs is not a literal"
@@ -234,6 +335,21 @@
           "weight": 0
         },
         {
+          "evidence": {
+            "gap": "ruleset_drifted"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "ruleset_drifted"
+          },
+          "reason": "Coverage gap: the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
           "evidence": {},
           "file": "",
           "line": null,
@@ -246,9 +362,10 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: checksum set to SKIP [H001]; Executor Runs A File Chosen At Runtime: the file the executor runs is not a literal: bash \"$1\" [X021]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]. Review the diff before building.",
+      "unresolved_assignments": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: checksum set to SKIP [H001]; Executor Runs A File Chosen At Runtime: the file the executor runs is not a literal: bash \"$1\" [X021]; Source URL classified as unknown (https://evil.example/stage.sh) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 876
+    "wall_clock_ms": 768
   }
 }

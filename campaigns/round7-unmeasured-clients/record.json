@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "round7-unmeasured-clients",
-  "campaign_commit": "cdb68f50e6c62f44489c67e0d03b356e9e4d96bc",
+  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 16276
+    "wall_clock_ms": 17272
   },
   "environment": {
     "accumulate": false,

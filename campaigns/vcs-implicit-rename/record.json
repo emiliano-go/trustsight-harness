@@ -1,22 +1,18 @@
 {
   "attempts": 3,
-  "bypass_hashes": [
-    "sha256:0b8fe70b30ccb0900c2ad76d29f8017db82a28a4cd9a73fa002419ec8b5efea3",
-    "sha256:362f3879f562401247ab6374ea0c5608af70a60c9d4dd6c1964266707ec2c11a",
-    "sha256:7f3122cbbbb55b00ec2b7bb9609bab8a68024ff1cd03c30c608fd90d037f4efa"
-  ],
+  "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
-      0.438503,
-      1.0
+      0.0,
+      0.561497
     ],
     "denominator": "attempts reaching TrustSight",
     "denominator_value": 3,
-    "estimate": 1.0,
+    "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "vcs-implicit-rename",
-  "campaign_commit": "cdb68f50e6c62f44489c67e0d03b356e9e4d96bc",
+  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -24,20 +20,21 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7664
+    "wall_clock_ms": 1
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
+    "config_fingerprint": "",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed"
+      "tree_not_analyzed",
+      "ruleset_drifted"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
@@ -53,16 +50,41 @@
     "type": "manual"
   },
   "harness_version": "2.0.0",
-  "known_bypass_matches": [],
+  "known_bypass_matches": [
+    {
+      "diff_hash": "sha256:7f3122cbbbb55b00ec2b7bb9609bab8a68024ff1cd03c30c608fd90d037f4efa",
+      "observed_status": "duplicate",
+      "original_campaign": "vcs-implicit-rename",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:0b8fe70b30ccb0900c2ad76d29f8017db82a28a4cd9a73fa002419ec8b5efea3",
+      "observed_status": "duplicate",
+      "original_campaign": "vcs-implicit-rename",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:362f3879f562401247ab6374ea0c5608af70a60c9d4dd6c1964266707ec2c11a",
+      "observed_status": "duplicate",
+      "original_campaign": "vcs-implicit-rename",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    }
+  ],
   "outcomes": {
     "behavior_lost": 0,
-    "bypass": 3,
+    "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 0,
+    "known_bypass_match": 3,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
@@ -70,6 +92,6 @@
   "stop_reason": "3 manual inputs exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+    "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
   }
 }

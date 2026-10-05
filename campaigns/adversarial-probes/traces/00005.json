@@ -22,7 +22,7 @@
       "chain": "",
       "preserved": false,
       "reason": "no reachable fetch-to-execution chain",
-      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+      "validator_version": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
     },
     "constraints": {
       "honored": true,

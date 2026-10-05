@@ -1,29 +1,18 @@
 {
   "attempts": 10,
-  "bypass_hashes": [
-    "sha256:0302f406e1a21b211fe9024b0cad05efb56faf2749880c0ce59d95a2d8867839",
-    "sha256:17b53511753611a81886c565d23208a47dedac82d9e806ba0ae9bfe8ad8a5ca7",
-    "sha256:1c240eb2c20091662148d9cb529b47cf5146b061b2e244ee420bf267409ee2d8",
-    "sha256:40f0816ce1dd99adbed6a1fa546da95965d4e56cda1b79c0f487aab20e49a638",
-    "sha256:54f738edc678e17e2d6969a44ed076eaa95dc3be8d1a0624868d60a3bdd022c1",
-    "sha256:9bbffaa7a1750f551c8c099a132d540a30ecfb5f2fd4bd71159de7aec1e90db6",
-    "sha256:d2f17cb4c4443ad774c90ca593e17ceb1d6f97a7d7230cdf22c27930d64638c6",
-    "sha256:f127dbb8717c0cac626a9befcee6f769d25164387f89ab91a83021f87d2bca04",
-    "sha256:f448f55782a73ddaa79ba367efd2dee77d25842cc5ce6225ed77bfdc37cdf69a",
-    "sha256:f49f652c8c41e88506c296063718c4bff9941b16d0f2d703042fe9451f44bff9"
-  ],
+  "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
-      0.722467,
-      1.0
+      0.0,
+      0.277533
     ],
     "denominator": "attempts reaching TrustSight",
     "denominator_value": 10,
-    "estimate": 1.0,
+    "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "form-evasions-b6",
-  "campaign_commit": "cdb68f50e6c62f44489c67e0d03b356e9e4d96bc",
+  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -31,20 +20,21 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 24399
+    "wall_clock_ms": 22
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
+    "config_fingerprint": "",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed"
+      "tree_not_analyzed",
+      "ruleset_drifted"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
@@ -60,16 +50,97 @@
     "type": "manual"
   },
   "harness_version": "2.0.0",
-  "known_bypass_matches": [],
+  "known_bypass_matches": [
+    {
+      "diff_hash": "sha256:0302f406e1a21b211fe9024b0cad05efb56faf2749880c0ce59d95a2d8867839",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:40f0816ce1dd99adbed6a1fa546da95965d4e56cda1b79c0f487aab20e49a638",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:9bbffaa7a1750f551c8c099a132d540a30ecfb5f2fd4bd71159de7aec1e90db6",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:1c240eb2c20091662148d9cb529b47cf5146b061b2e244ee420bf267409ee2d8",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:17b53511753611a81886c565d23208a47dedac82d9e806ba0ae9bfe8ad8a5ca7",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:f127dbb8717c0cac626a9befcee6f769d25164387f89ab91a83021f87d2bca04",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:d2f17cb4c4443ad774c90ca593e17ceb1d6f97a7d7230cdf22c27930d64638c6",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:54f738edc678e17e2d6969a44ed076eaa95dc3be8d1a0624868d60a3bdd022c1",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:f448f55782a73ddaa79ba367efd2dee77d25842cc5ce6225ed77bfdc37cdf69a",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:f49f652c8c41e88506c296063718c4bff9941b16d0f2d703042fe9451f44bff9",
+      "observed_status": "duplicate",
+      "original_campaign": "form-evasions-b6",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    }
+  ],
   "outcomes": {
     "behavior_lost": 0,
-    "bypass": 10,
+    "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 0,
+    "known_bypass_match": 10,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
@@ -77,6 +148,6 @@
   "stop_reason": "10 manual inputs exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+    "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
   }
 }

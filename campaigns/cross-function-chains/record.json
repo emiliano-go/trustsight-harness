@@ -1,22 +1,18 @@
 {
   "attempts": 4,
-  "bypass_hashes": [
-    "sha256:885dc7e2ba992184300160cfbc230797fe01803216d1836863253b34c9e85026",
-    "sha256:aa386f76b8814909cb4bf996700845d5b77b54a10d92608458a8b1065e88cc88",
-    "sha256:f2130f681d16302aac277b299ce27f1fc3f22ab93bfc3aca593926e354c1893a"
-  ],
+  "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
-      0.300642,
-      0.954413
+      0.0,
+      0.489891
     ],
     "denominator": "attempts reaching TrustSight",
     "denominator_value": 4,
-    "estimate": 0.75,
+    "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "cross-function-chains",
-  "campaign_commit": "cdb68f50e6c62f44489c67e0d03b356e9e4d96bc",
+  "campaign_commit": "cd3fddc7271418f7ccbe2800888566e120317999",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -24,20 +20,21 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7380
+    "wall_clock_ms": 21
   },
   "environment": {
     "accumulate": false,
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:4d29026f6b3d70bdb7c16f6ab53ffe28d01977497ced3fe95923bb4bf37ca9ff",
+    "config_fingerprint": "",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed"
+      "tree_not_analyzed",
+      "ruleset_drifted"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
@@ -55,6 +52,30 @@
   "harness_version": "2.0.0",
   "known_bypass_matches": [
     {
+      "diff_hash": "sha256:885dc7e2ba992184300160cfbc230797fe01803216d1836863253b34c9e85026",
+      "observed_status": "duplicate",
+      "original_campaign": "cross-function-chains",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:aa386f76b8814909cb4bf996700845d5b77b54a10d92608458a8b1065e88cc88",
+      "observed_status": "duplicate",
+      "original_campaign": "cross-function-chains",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
+      "diff_hash": "sha256:f2130f681d16302aac277b299ce27f1fc3f22ab93bfc3aca593926e354c1893a",
+      "observed_status": "duplicate",
+      "original_campaign": "cross-function-chains",
+      "original_trustsight_version": "0.17.1",
+      "patch_status": "verified",
+      "trustsight_version": "0.17.1"
+    },
+    {
       "diff_hash": "sha256:116aef2668169b48dbddf631191ce3ac1512bfd4e104fb63b0667027fcab5757",
       "observed_status": "duplicate",
       "original_campaign": "misc-vectors-d1",
@@ -65,13 +86,13 @@
   ],
   "outcomes": {
     "behavior_lost": 0,
-    "bypass": 3,
+    "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 1,
+    "known_bypass_match": 4,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
@@ -79,6 +100,6 @@
   "stop_reason": "4 manual inputs exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:368bb45c32cc6123445b114f08f7e3b11774bd130049ec160f3ebbcc966b6025"
+    "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
   }
 }
