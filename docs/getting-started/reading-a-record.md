@@ -33,7 +33,7 @@ database makes verdicts depend on run order.
 
 ```json
 "environment": {
-  "trustsight_version": "0.17.1",
+  "trustsight_version": "0.17.2",
   "trustsight_source": "local-path",
   "python_version": "3.13",
   "db_state": "cold",
@@ -129,7 +129,7 @@ Four deliberate choices in one object:
     "original_trustsight_version": "0.13.2",
     "patch_status": "verified",
     "observed_status": "detected",
-    "trustsight_version": "0.17.1" }
+    "trustsight_version": "0.17.2" }
 ]
 ```
 

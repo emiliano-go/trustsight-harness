@@ -16,7 +16,7 @@ campaign: my-first-campaign
 campaign_type: deterministic
 
 environment:
-  trustsight_version: "0.17.1"
+  trustsight_version: "0.17.2"
   trustsight_source: "local-path"
   db_state: "cold"
   flag_threshold: 20
