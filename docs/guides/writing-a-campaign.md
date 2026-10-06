@@ -119,8 +119,6 @@ configuration, not a judgement made while watching results.
 ## Generators
 
 - **inputs**; the committed `inputs.yml` manifest, fully deterministic.
-- **manual**; the legacy literal `.PKGBUILD`/`.diff` directory (kept for MCP
-  clients and older trees; new campaigns use `inputs`).
 - **mutation**; semantic-preserving variations of committed bypasses.
 - **llm**; OpenAI-compatible provider, with a mandatory `max_cost_usd` ceiling.
 

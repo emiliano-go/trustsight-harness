@@ -12,7 +12,7 @@ import json
 import sys
 from pathlib import Path
 
-from .paths import within as _within
+from .factory import build_generator
 from .safe_text import clean
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -36,41 +36,6 @@ def _calibration_status() -> str:
                 return "failed"
     # An empty suite calibrates nothing, so the build cannot publish a rate.
     return "passed" if checked else "failed"
-
-
-def _build_generator(config, repo_root: Path):
-    spec = dict(config.generator)
-    kind = spec.pop("type", "manual")
-    if kind == "inputs":
-        from generators.inputs import InputsGenerator
-        manifest = _within(config.root, spec.pop("manifest", "inputs.yml"),
-                           "generator.manifest")
-        if spec:
-            raise ValueError(f"unknown generator keys for inputs: {sorted(spec)}")
-        return InputsGenerator(manifest, campaign_root=config.root,
-                               repo_root=repo_root, resolve=_within)
-    if kind == "manual":
-        from generators.manual import DEFAULT_BASELINE, ManualGenerator
-        directory = _within(config.root, spec.pop("directory", "manual"),
-                            "generator.directory")
-        baseline = _within(repo_root, spec.pop("baseline", DEFAULT_BASELINE),
-                           "generator.baseline")
-        if spec:
-            raise ValueError(f"unknown generator keys for manual: {sorted(spec)}")
-        return ManualGenerator(directory, baseline=baseline)
-    if kind == "mutation":
-        from generators.mutation import MutationGenerator
-        sources = [_within(repo_root, p, "generator.sources")
-                   for p in spec.pop("sources", [])]
-        return MutationGenerator(sources, seed=int(spec.pop("seed", 0)),
-                                 operators=tuple(spec.pop("operators", []) or ()) or None)
-    if kind == "llm":
-        from generators.llm import LLMGenerator, load_prices
-        prices = load_prices(_within(repo_root, spec.pop("prices_path", "defaults/prices.toml"),
-                                     "generator.prices_path"))
-        return LLMGenerator(prices=prices,
-                            thinking_dir=config.root / "thinking", **spec)
-    raise ValueError(f"unknown generator type {kind!r}")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -107,9 +72,11 @@ def main(argv: list[str] | None = None) -> int:
             # "broken" to know the report is absent.
             print(f"regression needs an environment file: {env_path}", file=sys.stderr)
             return EXIT_HARNESS
+        stats: dict = {}
         try:
             report = run_regression(REPO_ROOT, yaml.safe_load(env_path.read_text()),
-                                    jobs=args.jobs, use_cache=not args.no_cache)
+                                    jobs=args.jobs, use_cache=not args.no_cache,
+                                    stats=stats)
         except ValueError as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
@@ -121,6 +88,8 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Of {report['total']} known bypasses, {report['closed']} closed, "
               f"{report['open']} open{extra} "
               f"as of {report['environment']['trustsight_version']}.")
+        if stats.get("enabled"):
+            print(f"cache: {stats['hits']} hits, {stats['misses']} misses")
         return EXIT_OK
 
     if args.target == "sweep":
@@ -184,7 +153,7 @@ def main(argv: list[str] | None = None) -> int:
     directory = Path(args.target)
     try:
         config = load_campaign(directory, REPO_ROOT)
-        generator = _build_generator(config, REPO_ROOT)
+        generator = build_generator(config, REPO_ROOT)
     except (ConfigError, ValueError, FileNotFoundError) as exc:
         print(f"configuration error: {clean(exc)}", file=sys.stderr)
         return EXIT_CONFIG

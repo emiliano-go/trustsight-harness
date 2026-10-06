@@ -19,7 +19,12 @@ import hashlib
 import json
 from pathlib import Path
 
-__all__ = ["RegressionCache", "cache_key", "judge_source_hash"]
+__all__ = ["MAX_CACHE_BYTES", "RegressionCache", "cache_key", "judge_source_hash"]
+
+#: Rewrite the file once it grows past this.  The key includes the installed
+#: source hash, so every development edit adds a full generation of entries;
+#: without compaction the file grows without bound.
+MAX_CACHE_BYTES = 8 * 1024 * 1024
 
 
 def judge_source_hash(repo_root: Path) -> str:
@@ -105,3 +110,13 @@ class RegressionCache:
         with self.path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps({"key": key, "result": result},
                                     sort_keys=True) + "\n")
+        if self.path.stat().st_size > MAX_CACHE_BYTES:
+            self.compact()
+
+    def compact(self) -> None:
+        """Rewrite the file with one entry per key, atomically."""
+        temporary = self.path.with_name(self.path.name + ".tmp")
+        temporary.write_text("".join(
+            json.dumps({"key": key, "result": result}, sort_keys=True) + "\n"
+            for key, result in self._entries.items()))
+        temporary.replace(self.path)

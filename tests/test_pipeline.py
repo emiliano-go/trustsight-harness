@@ -90,7 +90,7 @@ def test_a_bypass_exports_with_provenance_and_an_unassigned_expectation(tmp_path
     exporter = Exporter(tmp_path, validator_calibration="passed",
                         provenance={"campaign": "c", "model": "m"})
     trace = Trace(attempt=1, diff_sha256="sha256:" + "a" * 64,
-                  generator={"type": "manual"}, status=Status.BYPASS)
+                  generator={"type": "inputs"}, status=Status.BYPASS)
     path = exporter.export(trace, "+payload\n")
     assert path is not None
     expected = json.loads(Path(str(path).replace(".diff", ".expected.json")).read_text())

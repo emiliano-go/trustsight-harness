@@ -13,8 +13,7 @@ campaign); the same evidence now lives in four to five files per campaign.
 - One `evidence.jsonl` per campaign: one JSON line per attempt, oldest first,
   with the diff embedded for bypasses and known-bypass matches. The regression
   gate replays the embedded diffs and keeps the re-hash pairing, so an edited
-  diff is dropped rather than replayed under the recorded identity. The legacy
-  `traces/` layout is still read while a tree is half-migrated.
+  diff is dropped rather than replayed under the recorded identity.
 - One strict `inputs.yml` per campaign replaces `manual/`. Cells are data:
   `{id, text}` or, under a `template.PKGBUILD`, `{id, vars}`. Rendering is a
   single-pass literal `@@name@@` substitution, deliberately not Jinja2 and not
@@ -22,16 +21,17 @@ campaign); the same evidence now lives in four to five files per campaign.
   `$`-placeholder syntax would force escaping every literal `$`). Missing or
   unused placeholders, unknown keys, duplicate ids, escaped paths and
   oversized inputs are configuration errors; `jinja2` is no longer a
-  dependency.
+  dependency, and the legacy `manual` generator (literal directory, MCP
+  schema included) is removed.
 - `python -m harness <campaign> --dump-inputs DIR` renders every cell to a
   file, so what the manifest produces can be reviewed without running.
 - Path confinement moved to `harness/paths.py` and now also covers
   `generator.manifest` and `generator.template`; the self-security model and
   review checklist name the new boundary.
-- Migration verified byte-for-byte: every rendered cell must re-hash to the
-  `diff_sha256` its run recorded, and a failing campaign is left untouched
-  (`scripts/migrate_campaign_layout.py`). The section-11 acceptance criterion
-  now names the manifest, not manual mode.
+- Migration verified byte-for-byte: every rendered cell had to re-hash to the
+  `diff_sha256` its run recorded, and a failing campaign was left untouched
+  (the one-time migration script ran, then was removed). The section-11
+  acceptance criterion now names the manifest, not a literal directory.
 - `HARNESS_ENV_ROOT` relocates the per-campaign scratch tree (database,
   regenerated configs) out of `campaigns/<name>/env`.  A regression replay
   restores the database once per attempt and each restore is fsync-heavy, so

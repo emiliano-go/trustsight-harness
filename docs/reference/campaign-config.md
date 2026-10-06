@@ -108,7 +108,6 @@ the *new* PKGBUILD text before TrustSight runs.
 | `type` | Keys | Meaning |
 |---|---|---|
 | `inputs` | `manifest` (default `inputs.yml`) | Strict recipes manifest, one cell per attempt. The deterministic default. |
-| `manual` | `directory` (default `manual`), `baseline` | Legacy literal reader kept for MCP clients and pre-2.1.0 trees. |
 | `mutation` | `sources`, `seed`, `operators` | Semantic-preserving variations of committed diffs. |
 | `llm` | provider/model/`max_cost_usd`, … | OpenAI-compatible provider with a mandatory ceiling. |
 

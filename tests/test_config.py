@@ -19,7 +19,7 @@ campaign_type: deterministic
 environment:
   trustsight_version: "0.17.2"
 generator:
-  type: manual
+  type: inputs
 prompt:
   forbidden_techniques: {{}}
 attempts: 1
@@ -46,7 +46,7 @@ environment:
   trustsight_version: "0.17.2"
   ioc_baseline: "../trustsight/ioc-baselines/atomic-arch-2026-06"
 generator:
-  type: manual
+  type: inputs
 prompt:
   forbidden_techniques: {}
   expected_iocs:

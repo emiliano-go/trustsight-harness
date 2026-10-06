@@ -10,7 +10,6 @@ from generators.llm import (
     extract_single_diff,
     strip_thinking,
 )
-from generators.manual import ManualGenerator
 from generators.mutation import MutationGenerator
 
 PRICES = {"kimi": {"kimi-k2": {"input_per_mtok_usd": 1.0,
@@ -77,32 +76,6 @@ def test_the_operator_set_is_hashed_into_the_record(tmp_path):
     a = MutationGenerator([source], operators=("vary_whitespace",))
     b = MutationGenerator([source], operators=("vary_whitespace", "inject_comment"))
     assert a.operators_hash != b.operators_hash
-
-
-def test_a_recipe_becomes_a_diff_against_the_baseline(tmp_path):
-    """Some rules read a *change* - a URL that moved, a checksum that became
-    SKIP - which a bare recipe cannot express."""
-    baseline = tmp_path / "base.PKGBUILD"
-    baseline.write_text("pkgname=p\npkgver=1\n")
-    manual = tmp_path / "manual"
-    manual.mkdir()
-    (manual / "a.PKGBUILD").write_text("pkgname=p\npkgver=2\n")
-    produced = ManualGenerator(manual, baseline=baseline).generate(Prompt(), 0)
-    assert "-pkgver=1" in produced.diff and "+pkgver=2" in produced.diff
-    # The whole file travels alongside, because a hunk is not a recipe.
-    assert produced.new_text == "pkgname=p\npkgver=2\n"
-
-
-def test_manual_inputs_run_out_rather_than_repeat(tmp_path):
-    from generators.base import Exhausted
-
-    manual = tmp_path / "manual"
-    manual.mkdir()
-    (manual / "a.diff").write_text("--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1 @@\n-a\n+b\n")
-    generator = ManualGenerator(manual)
-    generator.generate(Prompt(), 0)
-    with pytest.raises(Exhausted):
-        generator.generate(Prompt(), 1)
 
 
 def _inputs(tmp_path, manifest, template=None):
@@ -191,20 +164,6 @@ def test_paths_escape_nothing(tmp_path):
     with pytest.raises(ValueError, match="escapes its allowed root"):
         _inputs(tmp_path, {"baseline": "../../etc/passwd",
                            "cells": [{"id": "a", "text": "pkgname=p\n"}]})
-
-
-def test_the_inputs_generator_reproduces_the_manual_generator(tmp_path):
-    recipe = "pkgname=p\npkgver=2\n"
-    manual_dir = tmp_path / "manual"
-    manual_dir.mkdir()
-    (manual_dir / "a.PKGBUILD").write_text(recipe)
-    baseline = tmp_path / "base.PKGBUILD"
-    baseline.write_text("pkgname=p\npkgver=1\n")
-    legacy = ManualGenerator(manual_dir, baseline=baseline).generate(Prompt(), 0)
-    strict = _inputs(tmp_path, {"cells": [{"id": "a", "text": recipe}]}).generate(Prompt(), 0)
-    assert strict.diff == legacy.diff
-    assert strict.new_text == legacy.new_text
-    assert strict.old_text == legacy.old_text
 
 
 def test_dump_inputs_lists_every_cell(tmp_path):

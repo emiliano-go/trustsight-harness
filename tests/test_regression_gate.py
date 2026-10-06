@@ -101,23 +101,6 @@ def test_the_same_diff_found_by_two_campaigns_is_replayed_once(tmp_path):
     assert len(_committed_bypasses(tmp_path)) == 1
 
 
-def test_a_legacy_trace_pair_is_still_replayable(tmp_path):
-    """A half-migrated tree must keep gating: the legacy per-attempt layout
-    is read until the migration deletes it."""
-    campaign = tmp_path / "c6"
-    traces = campaign / "traces"
-    traces.mkdir(parents=True)
-    diff = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+w=1\n"
-    digest = diff_hash(diff)
-    (traces / "00000.json").write_text(json.dumps({
-        "attempt": 0, "status": "bypass", "diff_sha256": digest}))
-    (traces / "00000.diff").write_text(diff)
-    _record(campaign, bypass_hashes=[digest])
-    found = _committed_bypasses(tmp_path)
-    assert len(found) == 1
-    assert found[0]["diff_text"] == diff
-
-
 def test_a_known_match_is_still_a_known_bypass(tmp_path):
     from harness.dedup import KnownBypasses
 
@@ -282,21 +265,41 @@ def test_a_cached_replay_does_not_analyse_again(tmp_path, monkeypatch):
 
     work = tmp_path / "work"
     cache_path = tmp_path / "cache.jsonl"
+    first_stats: dict = {}
     first = regression.run_regression(
         Path(__file__).resolve().parent.parent,
         {"trustsight_version": trustsight.__version__}, use_cache=True,
-        cache_path=cache_path, work_dir=work)
-    assert first["cache"] == {"hits": 0, "misses": 2, "enabled": True}
+        cache_path=cache_path, work_dir=work, stats=first_stats)
+    assert first_stats == {"hits": 0, "misses": 2, "enabled": True}
+    assert "cache" not in first, "cache counters are run detail, not report data"
     assert len(calls) == 2
 
     calls.clear()
+    second_stats: dict = {}
     second = regression.run_regression(
         Path(__file__).resolve().parent.parent,
         {"trustsight_version": trustsight.__version__}, use_cache=True,
-        cache_path=cache_path, work_dir=work)
-    assert second["cache"] == {"hits": 2, "misses": 0, "enabled": True}
+        cache_path=cache_path, work_dir=work, stats=second_stats)
+    assert second_stats == {"hits": 2, "misses": 0, "enabled": True}
     assert calls == []
     assert second["closed"] == 2
+
+
+def test_an_oversized_cache_compacts_to_one_entry_per_key(tmp_path, monkeypatch):
+    """The key carries the installed source hash, so every development edit
+    adds a full generation of entries; without compaction the file grows
+    without bound."""
+    from harness import regression_cache
+    from harness.regression_cache import RegressionCache
+
+    monkeypatch.setattr(regression_cache, "MAX_CACHE_BYTES", 200)
+    path = tmp_path / "cache.jsonl"
+    cache = RegressionCache(path)
+    for index in range(50):
+        cache.put(f"key-{index}", {"state": "closed", "status": "detected"})
+    entries = [json.loads(line) for line in path.read_text().splitlines()]
+    keys = [entry["key"] for entry in entries]
+    assert len(keys) == len(set(keys)) == 50
 
 
 def test_no_secrets_in_the_tree():

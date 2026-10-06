@@ -181,7 +181,14 @@ def _replay_worker(payload: tuple) -> list[tuple[int, dict]]:
 
 def run_regression(repo_root: Path, environment: dict, jobs=1,
                    use_cache: bool = True, cache_path: Path | None = None,
-                   work_dir: Path | None = None) -> dict:
+                   work_dir: Path | None = None,
+                   stats: dict | None = None) -> dict:
+    """Replay every committed bypass; return the report.
+
+    `stats`, when given, is filled with this run's cache counters.  They are
+    not part of the report: hits and misses describe the machine that ran,
+    not the corpus, and the report is an artifact people commit.
+    """
     env: Environment = load_environment(environment, repo_root)
     env.resolve()
     work = work_dir or repo_root / "regression"
@@ -241,10 +248,12 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
         for index, _item in pending:
             cache.put(keys[index], results[index])
 
+    if stats is not None:
+        stats.update({"hits": hits, "misses": len(pending), "enabled": use_cache})
+
     report = {
         "environment": environment_record,
         "validator": {"version_hash": behavior.version_hash},
-        "cache": {"hits": hits, "misses": len(pending), "enabled": use_cache},
         "total": len(results),
         "closed": sum(1 for r in results if r["state"] == "closed"),
         "open": sum(1 for r in results if r["state"] == "open"),

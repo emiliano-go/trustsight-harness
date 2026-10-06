@@ -53,14 +53,15 @@ def _campaign(path: Path, **overrides) -> Path:
         "campaign": "t",
         "campaign_type": "deterministic",
         "environment": {"trustsight_version": VERSION, "db_state": "cold"},
-        "generator": {"type": "manual", "directory": "manual"},
+        "generator": {"type": "inputs"},
         "prompt": {"prompt_id": "t", "behavior_goal": "fetch_then_execute",
                    "expected_rules": [], "forbidden_techniques": {}},
         "attempts": 1,
     }
     raw.update(overrides)
     (path / "campaign.yml").write_text(yaml.safe_dump(raw))
-    (path / "manual").mkdir(exist_ok=True)
+    (path / "inputs.yml").write_text(yaml.safe_dump(
+        {"cells": [{"id": "only", "text": "pkgname=demo\n"}]}, sort_keys=False))
     return path
 
 
@@ -397,16 +398,6 @@ def test_list_traces_skips_non_object_entries(monkeypatch, tmp_path):
     assert out["traces"][0]["attempt"] == 0
 
 
-def test_list_traces_reads_the_legacy_layout(monkeypatch, tmp_path):
-    root = tmp_path / "campaigns"
-    traces = root / "c" / "traces"
-    traces.mkdir(parents=True)
-    (traces / "00000.json").write_text(json.dumps({"attempt": 0, "status": "detected"}))
-    monkeypatch.setattr(server, "_campaigns_dir", lambda: root)
-    out = server.list_campaign_traces("c")
-    assert out["count"] == 1
-
-
 def test_list_campaigns_with_no_directory(monkeypatch, tmp_path):
     monkeypatch.setattr(server, "_campaigns_dir", lambda: tmp_path / "nope")
     assert server.list_campaigns() == {"campaigns": [], "count": 0}
@@ -467,9 +458,8 @@ def test_the_diff_hash_tool_matches_the_harness():
 
 
 @pytest.mark.parametrize("generator", [
-    {"type": "manual", "directory": "../.."},
-    {"type": "manual", "directory": "manual", "baseline": "/etc/passwd"},
-    {"type": "manual", "directory": "/etc"},
+    {"type": "inputs", "manifest": "../.."},
+    {"type": "inputs", "manifest": "/etc"},
     {"type": "mutation", "sources": ["/etc"]},
 ])
 def test_a_generator_path_cannot_escape_its_root(tmp_path, generator):
@@ -481,7 +471,7 @@ def test_a_generator_path_cannot_escape_its_root(tmp_path, generator):
 
 def test_load_config_does_not_read_outside_the_campaign(tmp_path):
     """Loading is side-effect free; the escape is refused where it is used."""
-    path = _campaign(tmp_path / "c", generator={"type": "manual", "directory": "../.."})
+    path = _campaign(tmp_path / "c", generator={"type": "inputs", "manifest": "../.."})
     out = server.load_config(str(path))
     assert out["name"] == "t"
 

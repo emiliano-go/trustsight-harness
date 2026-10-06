@@ -39,14 +39,14 @@ def _run_one(payload: tuple) -> dict:
 
     Top-level so the spawn context can pickle it.
     """
-    from .__main__ import _build_generator
+    from .factory import build_generator
 
     repo_root_raw, directory_raw, calibration = payload
     repo_root = Path(repo_root_raw)
     directory = Path(directory_raw)
     try:
         config = load_campaign(directory, repo_root)
-        generator = _build_generator(config, repo_root)
+        generator = build_generator(config, repo_root)
         record = run_campaign(config, generator, repo_root=repo_root,
                               calibration=calibration)
     except Exception as exc:                            # noqa: BLE001

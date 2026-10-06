@@ -5,9 +5,8 @@ embedded for the statuses that produce one (bypass and known-bypass match), so
 the file a reader opens is the file the regression gate replays - there is no
 second artefact that could drift from it.
 
-A legacy `traces/NNNNN.json` + `NNNNN.diff` pair is read while a tree is
-half-migrated.  The pairing is by re-hashing, never by filename: an edited
-diff must not be replayed under the identity of the one that was recorded.
+The pairing is by re-hashing, never by order or filename: an edited diff must
+not be replayed under the identity of the one that was recorded.
 """
 
 from __future__ import annotations
@@ -23,20 +22,20 @@ __all__ = ["diff_by_hash", "iter_evidence"]
 def iter_evidence(campaign_dir: Path) -> list[dict]:
     """Every attempt the campaign recorded, keyed by `attempt` where present."""
     path = campaign_dir / "evidence.jsonl"
-    if path.exists():
-        entries = []
-        for line in path.read_text().splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            try:
-                entry = json.loads(line)
-            except json.JSONDecodeError:
-                continue
-            if isinstance(entry, dict):
-                entries.append(entry)
-        return sorted(entries, key=lambda e: e.get("attempt", 0))
-    return _legacy_evidence(campaign_dir)
+    if not path.exists():
+        return []
+    entries = []
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            entry = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(entry, dict):
+            entries.append(entry)
+    return sorted(entries, key=lambda e: e.get("attempt", 0))
 
 
 def diff_by_hash(campaign_dir: Path) -> dict[str, str]:
@@ -56,25 +55,3 @@ def diff_by_hash(campaign_dir: Path) -> dict[str, str]:
             continue
         found.setdefault(computed, text)
     return found
-
-
-def _legacy_evidence(campaign_dir: Path) -> list[dict]:
-    traces = campaign_dir / "traces"
-    if not traces.is_dir():
-        return []
-    entries = []
-    for trace_path in sorted(traces.glob("*.json")):
-        try:
-            entry = json.loads(trace_path.read_text())
-        except (OSError, json.JSONDecodeError):
-            continue
-        if not isinstance(entry, dict):
-            continue
-        diff_path = trace_path.with_suffix(".diff")
-        if diff_path.exists():
-            try:
-                entry["diff"] = diff_path.read_text()
-            except OSError:
-                pass
-        entries.append(entry)
-    return entries

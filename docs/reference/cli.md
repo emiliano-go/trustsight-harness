@@ -4,7 +4,7 @@ description: Complete reference for python -m harness; campaigns, the regression
 
 # CLI Reference
 
-The harness has four commands. One config, one record, one command each.
+The harness has five commands. One config, one record, one command each.
 
 ```bash
 python -m harness <campaign-directory> [--dump-inputs DIR]

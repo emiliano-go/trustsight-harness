@@ -192,10 +192,11 @@ def run_campaign(campaign_dir: str) -> dict:
     """
     from yaml import YAMLError
 
-    from ..__main__ import _build_generator, _calibration_status
+    from ..__main__ import _calibration_status
     from ..campaign import run_campaign as _run_campaign
     from ..config import ConfigError, load_campaign
     from ..environment import EnvironmentError_
+    from ..factory import build_generator
 
     path = Path(campaign_dir)
     if not path.is_absolute():
@@ -207,7 +208,7 @@ def run_campaign(campaign_dir: str) -> dict:
 
     try:
         config = load_campaign(path, _repo_root())
-        generator = _build_generator(config, _repo_root())
+        generator = build_generator(config, _repo_root())
     except (ConfigError, EnvironmentError_, YAMLError, ValueError, OSError) as exc:
         return {"error": f"configuration error: {exc}"}
 
@@ -620,8 +621,7 @@ def list_campaign_traces(campaign_name: str) -> dict:
         campaign_dir = _campaign_dir(campaign_name)
     except ValueError as exc:
         return {"error": str(exc)}
-    if not (campaign_dir / "evidence.jsonl").is_file() \
-            and not (campaign_dir / "traces").is_dir():
+    if not (campaign_dir / "evidence.jsonl").is_file():
         return {"error": f"no evidence for campaign '{campaign_name}'"}
 
     traces = [
@@ -751,14 +751,11 @@ def campaign_schema() -> str:
                 "type": "object",
                 "required": ["type"],
                 "properties": {
-                    "type": {"type": "string", "enum": ["inputs", "manual", "mutation", "llm"]},
+                    "type": {"type": "string", "default": "inputs",
+                             "enum": ["inputs", "mutation", "llm"]},
                     "manifest": {
                         "type": "string", "default": "inputs.yml",
                         "description": "inputs generator: strict cells manifest under the campaign root",
-                    },
-                    "directory": {
-                        "type": "string", "default": "manual",
-                        "description": "manual generator: legacy literal input directory",
                     },
                 },
             },
