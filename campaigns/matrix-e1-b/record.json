@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "matrix-e1-b",
-  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
+  "campaign_commit": "ea056a8de0b575869014bf25be6a89cd2b533b7d",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,36 +20,37 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 148839
+    "wall_clock_ms": 7007
   },
   "environment": {
     "accumulate": false,
+    "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.2"
+    "trustsight_version": "0.18.0"
   },
   "generator": {
-    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/matrix-e1-b/manual",
-    "inputs": 52,
+    "cells": 52,
+    "manifest": "inputs.yml",
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "matrix-e1-b-manual",
-    "type": "manual"
+    "template": "template.PKGBUILD",
+    "type": "inputs"
   },
-  "harness_version": "2.0.0",
+  "harness_version": "2.1.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:98c0b4f303d9cc1d68fe3dd8d19d1acee70328e76f1e26d923cd34c890d7e035",
@@ -57,7 +58,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:4d61cacbe5cfd06c59a6de548304d99a645769e3f969e9e0c001ab051620977b",
@@ -65,7 +66,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:4dcaa7bfe40eeca19c1e2ec14b4c166f4bd7b78cec55f43383280f4007b53ee4",
@@ -73,7 +74,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:0b8fb1feea981155b05756a1aa888a65e68148de30f1b0ab4b3fbf1e37947a11",
@@ -81,7 +82,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:2e368e9822aa381780eb618f8e59ac20f33e99808af525af56f49ad898f0c17f",
@@ -89,7 +90,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:b26fb053519f65cac8bad6dd3d1c68582de2cea2471621571ad9169bcf287d76",
@@ -97,7 +98,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:96b8c5a61139945cbfd4dfa2123d45a9077104b3ef386dba06bb5d7ff06703c1",
@@ -105,7 +106,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:e60b3f92d0d8513a1509c9b5f06c25e2be54e49a3db3f48c30c082c1fe64070a",
@@ -113,7 +114,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:fcb7281172621c470e287750672eb224e651948cc3ca9c79e6efe7276c705344",
@@ -121,7 +122,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:6b932cc5c7d3120b33bbb0f71781b5502576629dea71ec21658afbebee0d45ba",
@@ -129,7 +130,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:716f2f4c0cc5bb2453de94ba34cedff7eaa949190fb5c59cf2cb6c32d5d5c208",
@@ -137,7 +138,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:1b82fa6ec6d9bd6e6ba1572302f27d4fcd06a815d7b0e13f91d5a546c9211a3e",
@@ -145,7 +146,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:1c82f0c4c6e5c250ef7399fe05f563131286a5d3c34f90afe9ee058e3f1ee8bd",
@@ -153,7 +154,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:21bc3af186e42a9b44019c59dda472bbd5c3e3eeee1177c86812f0c5c51eacf0",
@@ -161,7 +162,7 @@
       "original_campaign": "no-url-fetch-exotic",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:c288562ac5b0f4964045ba27f6948cf758268194a479c356749620779646d2ab",
@@ -169,7 +170,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:8953a02831e62923f78c7638807337aca362b19e9b84a2a1d97d6fe8cf52d98d",
@@ -177,7 +178,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:812df495b9387603ca044b7d332bde9ca23d17644972f5831937cf7a0653c4a8",
@@ -185,7 +186,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:60e9331b727943c1836d3e47f2e88a25ac40089ea9a5d86e3c08106c58ec49a3",
@@ -193,7 +194,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:7121b2a0f9f31d4df47f95c4410df75cccb5108d2a382019ba68e4c5531d8ba7",
@@ -201,7 +202,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:6dded0dbb36c3d617ba1c2f388c5f1a2501360af43a43240032f27e0004a3eae",
@@ -209,7 +210,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:adaec514a8b74aca90524daacb1269b5a0c5fdc9c887d257a3194d4487394970",
@@ -217,7 +218,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:23f683e7231969917cffe9907bcb05dfd8571952aadb8630182bfa0acf05a6ef",
@@ -225,7 +226,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:69855a5b31c8069199e3bb6e455ad8814c3ebe4998d6caf12db87c303f32154f",
@@ -233,7 +234,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:b60c7c0437b71f5197c88bd69478f84850b38d41dd8ed87efb1463d94b45424b",
@@ -241,7 +242,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:0f8e899b7e30b0e547e79b0bf47bb92f264828de076c13767d67d12d91159b43",
@@ -249,7 +250,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:aee46bb84150adaf66eadaca2042333f855ad3bd6f94e3375cf323c28fd0bc5f",
@@ -257,7 +258,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:8792631cbf68ffeeea2755b72e7eaad73f6e932216f552ccdf72d4ce43c4fb04",
@@ -265,7 +266,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:867f551773c9c9909b65f34de35546e5596c14f7a95a1258ee3863d531912763",
@@ -273,7 +274,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:8274679d45167aac4b242d8271ab4f71701bc886c0c43b8a9523ca7743231281",
@@ -281,7 +282,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:4b7ea90ef7f89430f6b9be041401771bde1df7d94cfd18143ea2eb3d3721ab81",
@@ -289,7 +290,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:71193323d4f2a52c61a0c94b6afc36e4b9e1e77a91d5233a75087a62e687217d",
@@ -297,7 +298,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:9658b1bc5fd21fc30f379b82fa242cd21582bbc37ae7317d043ac95501dc4340",
@@ -305,7 +306,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:fcd2773bc407f65540b6a2b270f542069502ed8116764c73918deeaeeb044d43",
@@ -313,7 +314,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:72390355f14e09e30f60d38cbd32289ec7bba9355fc509d4a0f6fba7269652e1",
@@ -321,7 +322,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:da5af0ca98af96dec6f08934373a19d63ed144523c60eb7118a9d79f23b93794",
@@ -329,7 +330,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:fa6f3c9a03e8f1cb91aa35a69472841d5e14f6d748510d50d2a7ba5b2f61f61a",
@@ -337,7 +338,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:72babafed7701ee46864f3e4fd36902442f37a7f3eef81a8840b36942a07e4e3",
@@ -345,7 +346,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:fc3bf66af0c8d8e704aec68def32565b6545fa3a644985ff59c9477480df375a",
@@ -353,7 +354,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:f016dbfa28e129d53fd75852248035a11c4f7dfa772cd3ce28f591d86acb53dc",
@@ -361,7 +362,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:b1db0cbdc0f8e81109bdb8a3dcbf295cd8be352f30c3678e9c5b85c870dcbb5d",
@@ -369,7 +370,7 @@
       "original_campaign": "no-url-fetch-exotic",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:97e0e30b744379ad0aa6d984c6f1f05b2b1bda6ebfe3a0f85f93a0c63ed3c4af",
@@ -377,7 +378,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:fc4627fd4161369e10491b11607e6415538f6eb6f9309db05ab6b1d1f77204c4",
@@ -385,7 +386,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:2fffe5b5d73e2bffafe2b19bcb9f6a06367b855c25613f83a8a7c0cadd24754c",
@@ -393,7 +394,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:48c9609342c819cc73dc1ea3dedfcdab3cb528326ccb04c854ea01fabcbfcde7",
@@ -401,7 +402,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:2b93b932df14451b96fa2aa7d0b9d36f1650a7d060bd389ed2bf4b7e68f2c533",
@@ -409,7 +410,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:eb9e33431a66e7dcc5ea03d12952b3e8684c7a843817bf3dddf0e8b74f7c93a5",
@@ -417,7 +418,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:83d672fb6d44ff9f30c2b7c90f247e7630d139b00edfbd4292fbccf2c3bd4b98",
@@ -425,7 +426,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:67ed73eabd21db41fe3f8310042f7169a996335a4d97cffb1df83ae2d7fa25db",
@@ -433,7 +434,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:923d7befae848e018bb3be6db6ae90037f75d84aad6d632e9f3a2ec84b37ab8b",
@@ -441,7 +442,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:4f6cb460d3355a49ec92f2dee8668dc430628db2864255dc27702fd5c7008354",
@@ -449,7 +450,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:f5bc14868233a17c7d20753d0739bd917cee31cc40dd6bc3f410878f3a90a34d",
@@ -457,7 +458,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:4694ae8f013b0dd055a293ea4c47accf461d6a7a1538d1a6c77ea6e2a88878c7",
@@ -465,7 +466,7 @@
       "original_campaign": "matrix-e1-b",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     }
   ],
   "outcomes": {
@@ -481,7 +482,7 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
-  "stop_reason": "52 manual inputs exhausted",
+  "stop_reason": "52 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"

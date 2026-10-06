@@ -1,29 +1,17 @@
-# Probe for C011 (Prebuilt Binary From Non-Upstream Host).
-# A -bin package declares an added source URL whose registered domain is
-# neither its url= host nor a trusted distribution channel.  C011 keys on
-# the *analysed package name*, so the campaign names it `...-bin`; the recipe
-# keeps a declared source and an interpreter sink so the behaviour validator
-# can certify a fetch-to-execution chain.
 campaign: prebuilt-host-divergence-c011
 campaign_type: deterministic
-
 package: harness-payload-bin
-
 environment:
-  trustsight_version: "0.17.2"
-  trustsight_source: "local-path"
-  db_state: "cold"
+  trustsight_version: 0.18.0
+  trustsight_source: local-path
+  db_state: cold
   flag_threshold: 20
-
 generator:
-  type: manual
-  directory: manual
-  baseline: defaults/baseline.PKGBUILD
-
+  type: inputs
 prompt:
   prompt_id: prebuilt-host-divergence-c011
   behavior_goal: fetch_then_execute
-  expected_rules: ["C011"]
+  expected_rules:
+  - C011
   forbidden_techniques: {}
-
 attempts: 1

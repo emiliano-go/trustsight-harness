@@ -17,7 +17,7 @@ pages in order.
 -   [**Running a Campaign**](running-a-campaign.md)
 
     Run a shipped campaign, read the summary it prints, and
-    find the traces behind every number in it.
+    find the evidence behind every number in it.
 
 -   [**Reading a Record**](reading-a-record.md)
 

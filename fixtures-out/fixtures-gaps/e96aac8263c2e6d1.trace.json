@@ -5,9 +5,10 @@
   "diff_sha256": "sha256:e96aac8263c2e6d15b00581fdc19c74d4591c7405f2f6888b434a4d256b06eae",
   "environment_ref": "campaign.yml#environment",
   "generator": {
-    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/pkgmanager-build-x011/manual",
-    "inputs": 1,
-    "type": "manual"
+    "cells": 1,
+    "manifest": "inputs.yml",
+    "template": null,
+    "type": "inputs"
   },
   "judge": {
     "catching_rules": [],
@@ -43,7 +44,7 @@
   },
   "status": "fail_closed_catch",
   "trustsight": {
-    "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
     "report": {
       "acknowledged_urls": [],
       "cached": false,
@@ -123,11 +124,10 @@
         "source host added: evil.example"
       ],
       "comparison_base": "",
-      "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
+      "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
       "coverage_gaps": [
         "tree_not_analyzed",
-        "unpinned_build_deps",
-        "ruleset_drifted"
+        "unpinned_build_deps"
       ],
       "coverage_gaps_carried": [],
       "dependencies": [],
@@ -369,21 +369,6 @@
           "weight": 0
         },
         {
-          "evidence": {
-            "gap": "ruleset_drifted"
-          },
-          "file": "",
-          "line": null,
-          "params": {
-            "gap": "ruleset_drifted"
-          },
-          "reason": "Coverage gap: the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents",
-          "rule_id": "COVERAGE",
-          "severity": "INFO",
-          "template": "",
-          "weight": 0
-        },
-        {
           "evidence": {},
           "file": "",
           "line": null,
@@ -423,9 +408,9 @@
       ],
       "suppressed_rules": [],
       "unresolved_assignments": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it, and the installed rules.toml differs from the shipped rule set in a field that changes what a rule detects, so this analysis did not run the checks this version documents. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 2 source URL(s). Signals: Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency [X011]; Downloaded Source File Executed: build() executes declared source file payload.sh [H083]; Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]. Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 2 source URL(s). Signals: Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency [X011]; Downloaded Source File Executed: build() executes declared source file payload.sh [H083]; Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]. Review the diff before building.",
       "version_comparison": ""
     },
-    "wall_clock_ms": 1231
+    "wall_clock_ms": 80
   }
 }

@@ -8,7 +8,7 @@ Turns "an LLM found N bypasses" into a reproducible, auditable, cost-tracked
 measurement against a pinned [TrustSight](https://docs.trustsight.org/) build.
 
 The harness is an **instrument, not a judge**; the same rule the tool it
-measures applies to itself. A campaign produces diffs, traces, verdicts and
+measures applies to itself. A campaign produces diffs, evidence, verdicts and
 costs. Whether those numbers are good news is a maintainer's decision, made in
 public with the record attached. The [self-security model](security.md) states
 the boundaries the harness holds itself to, and how each one is enforced.
@@ -70,7 +70,7 @@ error, not a convenience.
 |------|----------------|
 | [Installation](getting-started/installation.md) | Install with `uv`, pointed at the TrustSight build you mean to measure. |
 | [Quickstart](getting-started/quickstart.md) | Run the shipped campaign and read the summary in under five minutes. |
-| [Running a Campaign](getting-started/running-a-campaign.md) | Run the shipped campaign, read the summary, find the traces. |
+| [Running a Campaign](getting-started/running-a-campaign.md) | Run the shipped campaign, read the summary, find the evidence. |
 | [Reading a Record](getting-started/reading-a-record.md) | Every field of `record.json`, and what each one is evidence for. |
 
 ## Guides

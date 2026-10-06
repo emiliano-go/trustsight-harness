@@ -10,8 +10,8 @@ population of attempts. This page describes the discipline the record enforces.
 
 ## Deterministic campaigns
 
-A manual campaign with committed inputs is deterministic in the generator
-sense: replay produces the same diff hashes. Whether the verdicts are
+An `inputs` campaign with a committed manifest is deterministic in the
+generator sense: replay produces the same diff hashes. Whether the verdicts are
 reproducible depends on the pinned (TrustSight version, environment) pair.
 
 If the campaign declares `environment.accumulate: true`, verdicts become

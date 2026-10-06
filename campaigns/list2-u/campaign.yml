@@ -1,0 +1,23 @@
+campaign: list2-u
+campaign_type: deterministic
+environment:
+  trustsight_version: 0.18.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: inputs
+prompt:
+  prompt_id: list2-u-manual
+  behavior_goal: fetch_then_execute
+  expected_rules:
+  - R001
+  - R002
+  - X009
+  - H082
+  - H016
+  - H083
+  - C001
+  - R051
+  forbidden_techniques: {}
+attempts: 30

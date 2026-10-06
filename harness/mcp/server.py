@@ -18,6 +18,8 @@ from typing import Any
 
 from mcp.server.mcpserver import MCPServer
 
+from ..evidence import iter_evidence
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -615,26 +617,22 @@ def list_campaign_traces(campaign_name: str) -> dict:
         campaign_name: The campaign directory name.
     """
     try:
-        traces_dir = _campaign_dir(campaign_name) / "traces"
+        campaign_dir = _campaign_dir(campaign_name)
     except ValueError as exc:
         return {"error": str(exc)}
-    if not traces_dir.is_dir():
-        return {"error": f"no traces directory for campaign '{campaign_name}'"}
+    if not (campaign_dir / "evidence.jsonl").is_file() \
+            and not (campaign_dir / "traces").is_dir():
+        return {"error": f"no evidence for campaign '{campaign_name}'"}
 
-    traces = []
-    for trace_path in sorted(traces_dir.glob("*.json")):
-        try:
-            trace = json.loads(trace_path.read_text())
-        except (OSError, json.JSONDecodeError):
-            continue
-        if not isinstance(trace, dict):
-            continue
-        traces.append({
+    traces = [
+        {
             "attempt": trace.get("attempt"),
             "status": trace.get("status"),
             "diff_sha256": trace.get("diff_sha256"),
             "judge": trace.get("judge", {}),
-        })
+        }
+        for trace in iter_evidence(campaign_dir)
+    ]
     return {"campaign": campaign_name, "traces": traces, "count": len(traces)}
 
 
@@ -753,7 +751,15 @@ def campaign_schema() -> str:
                 "type": "object",
                 "required": ["type"],
                 "properties": {
-                    "type": {"type": "string", "enum": ["manual", "mutation", "llm"]},
+                    "type": {"type": "string", "enum": ["inputs", "manual", "mutation", "llm"]},
+                    "manifest": {
+                        "type": "string", "default": "inputs.yml",
+                        "description": "inputs generator: strict cells manifest under the campaign root",
+                    },
+                    "directory": {
+                        "type": "string", "default": "manual",
+                        "description": "manual generator: legacy literal input directory",
+                    },
                 },
             },
             "prompt": {

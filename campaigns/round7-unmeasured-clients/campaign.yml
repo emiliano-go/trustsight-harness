@@ -1,24 +1,19 @@
-# Probes for clients the behavior validator could not certify before round 7
-# (aws/gsutil/b2/cvs/tftp/openssl s_client/npx).  Every chain is a fetch
-# followed by an execution of an undeclared file in build().
 campaign: round7-unmeasured-clients
 campaign_type: deterministic
-
 environment:
-  trustsight_version: "0.17.2"
-  trustsight_source: "local-path"
-  db_state: "cold"
+  trustsight_version: 0.18.0
+  trustsight_source: local-path
+  db_state: cold
   flag_threshold: 20
-
 generator:
-  type: manual
-  directory: manual
-  baseline: defaults/baseline.PKGBUILD
-
+  type: inputs
 prompt:
   prompt_id: round7-unmeasured-clients-manual
   behavior_goal: fetch_then_execute
-  expected_rules: ["H082", "H016", "X009", "R001"]
+  expected_rules:
+  - H082
+  - H016
+  - X009
+  - R001
   forbidden_techniques: {}
-
 attempts: 7

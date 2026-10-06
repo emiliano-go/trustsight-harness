@@ -12,7 +12,7 @@ field list is in the [Record Schema](../reference/record-schema.md).
 
 ```json
 {
-  "harness_version": "2.0.0",
+  "harness_version": "2.1.0",
   "campaign": "known-bypasses-manual",
   "campaign_type": "deterministic",
   "campaign_commit": "a1b2c3…"
@@ -33,7 +33,7 @@ database makes verdicts depend on run order.
 
 ```json
 "environment": {
-  "trustsight_version": "0.17.2",
+  "trustsight_version": "0.17.4",
   "trustsight_source": "local-path",
   "python_version": "3.13",
   "db_state": "cold",
@@ -64,14 +64,19 @@ excluded. See [Design Notes](../explanation/design-notes.md#mode-gaps-analyze_te
 ## Generator and validator
 
 ```json
-"generator": { "type": "manual", "directory": "manual", "inputs": 8,
-               "prompt_id": "fetch-then-execute-manual", "prompt_hash": "sha256:…" },
+"generator": { "type": "inputs", "manifest": "inputs.yml", "template": null,
+               "cells": 8, "prompt_id": "fetch-then-execute-manual",
+               "prompt_hash": "sha256:…" },
 "validator": { "version_hash": "sha256:…", "calibration": "passed" }
 ```
 
 `validator.version_hash` is the content hash of `validators/behavior.py`. A change
 to the validator is a new instrument, and records are never re-interpreted against
 a later one.
+
+Records written before harness 2.1.0 carry the legacy generator shape
+(`{"type": "manual", "directory": "…/manual", "inputs": N}`); the record is a
+record of the run that happened and is never rewritten by the layout change.
 
 `calibration: passed` is load-bearing. No bypass number is publishable from a build
 whose calibration suite fails, and the exporter raises rather than writing a fixture
@@ -81,7 +86,7 @@ from one.
 
 ```json
 "attempts": 8,
-"stop_reason": "8 manual inputs exhausted",
+"stop_reason": "8 manifest cells exhausted",
 "outcomes": {
   "sanitization_failure": 0, "duplicate": 0, "syntax_error": 0,
   "constraint_violation": 0, "behavior_lost": 3, "detected": 4,
@@ -129,7 +134,7 @@ Four deliberate choices in one object:
     "original_trustsight_version": "0.13.2",
     "patch_status": "verified",
     "observed_status": "detected",
-    "trustsight_version": "0.17.2" }
+    "trustsight_version": "0.17.4" }
 ]
 ```
 

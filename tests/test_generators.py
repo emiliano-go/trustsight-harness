@@ -103,3 +103,114 @@ def test_manual_inputs_run_out_rather_than_repeat(tmp_path):
     generator.generate(Prompt(), 0)
     with pytest.raises(Exhausted):
         generator.generate(Prompt(), 1)
+
+
+def _inputs(tmp_path, manifest, template=None):
+    import yaml
+
+    from generators.inputs import InputsGenerator
+    from harness.paths import within
+
+    campaign = tmp_path / "c"
+    campaign.mkdir(exist_ok=True)
+    (tmp_path / "base.PKGBUILD").write_text("pkgname=p\npkgver=1\n")
+    manifest.setdefault("baseline", "base.PKGBUILD")
+    if template is not None:
+        (campaign / "template.PKGBUILD").write_text(template)
+    (campaign / "inputs.yml").write_text(yaml.safe_dump(manifest))
+    return InputsGenerator(campaign / "inputs.yml", campaign_root=campaign,
+                           repo_root=tmp_path, resolve=within)
+
+
+def test_a_text_cell_becomes_a_diff_against_the_baseline(tmp_path):
+    from generators.base import Exhausted
+
+    generator = _inputs(tmp_path, {"cells": [
+        {"id": "a", "text": "pkgname=p\npkgver=2\n"},
+    ]})
+    produced = generator.generate(Prompt(), 0)
+    assert "-pkgver=1" in produced.diff and "+pkgver=2" in produced.diff
+    assert produced.new_text == "pkgname=p\npkgver=2\n"
+    with pytest.raises(Exhausted):
+        generator.generate(Prompt(), 1)
+
+
+def test_a_template_cell_substitutes_every_placeholder(tmp_path):
+    generator = _inputs(
+        tmp_path,
+        {"template": "template.PKGBUILD", "cells": [
+            {"id": "a", "vars": {"sink": "escript f.erl"}},
+            {"id": "b", "vars": {"sink": "bash f.erl"}},
+        ]},
+        template="pkgname=p\npkgver=1\nbuild() {\n  @@sink@@\n}\n")
+    first = generator.generate(Prompt(), 0).new_text
+    second = generator.generate(Prompt(), 1).new_text
+    assert "escript f.erl" in first and "bash f.erl" in second
+    assert first != second
+
+
+def test_a_missing_placeholder_is_refused(tmp_path):
+    with pytest.raises(ValueError, match="missing placeholders"):
+        _inputs(tmp_path,
+                {"template": "template.PKGBUILD",
+                 "cells": [{"id": "a", "vars": {}}]},
+                template="@@sink@@\n")
+
+
+def test_an_unused_variable_is_refused(tmp_path):
+    with pytest.raises(ValueError, match="unused variables"):
+        _inputs(tmp_path,
+                {"template": "template.PKGBUILD",
+                 "cells": [{"id": "a", "vars": {"sink": "x", "extra": "y"}}]},
+                template="@@sink@@\n")
+
+
+def test_unknown_keys_are_refused(tmp_path):
+    with pytest.raises(ValueError, match="unknown inputs manifest keys"):
+        _inputs(tmp_path, {"cells": [{"id": "a", "text": "pkgname=p\n"}],
+                           "manual": "old"})
+    with pytest.raises(ValueError, match="unknown keys"):
+        _inputs(tmp_path, {"cells": [{"id": "a", "text": "pkgname=p\n",
+                                      "vars": {}}]})
+
+
+def test_duplicate_cell_ids_are_refused(tmp_path):
+    with pytest.raises(ValueError, match="duplicate cell id"):
+        _inputs(tmp_path, {"cells": [
+            {"id": "a", "text": "pkgname=p\n"},
+            {"id": "a", "text": "pkgname=q\n"},
+        ]})
+
+
+def test_paths_escape_nothing(tmp_path):
+    with pytest.raises(ValueError, match="escapes its allowed root"):
+        _inputs(tmp_path,
+                {"template": "../outside.PKGBUILD",
+                 "cells": [{"id": "a", "vars": {"sink": "x"}}]},
+                template="@@sink@@\n")
+    with pytest.raises(ValueError, match="escapes its allowed root"):
+        _inputs(tmp_path, {"baseline": "../../etc/passwd",
+                           "cells": [{"id": "a", "text": "pkgname=p\n"}]})
+
+
+def test_the_inputs_generator_reproduces_the_manual_generator(tmp_path):
+    recipe = "pkgname=p\npkgver=2\n"
+    manual_dir = tmp_path / "manual"
+    manual_dir.mkdir()
+    (manual_dir / "a.PKGBUILD").write_text(recipe)
+    baseline = tmp_path / "base.PKGBUILD"
+    baseline.write_text("pkgname=p\npkgver=1\n")
+    legacy = ManualGenerator(manual_dir, baseline=baseline).generate(Prompt(), 0)
+    strict = _inputs(tmp_path, {"cells": [{"id": "a", "text": recipe}]}).generate(Prompt(), 0)
+    assert strict.diff == legacy.diff
+    assert strict.new_text == legacy.new_text
+    assert strict.old_text == legacy.old_text
+
+
+def test_dump_inputs_lists_every_cell(tmp_path):
+    generator = _inputs(tmp_path, {"cells": [
+        {"id": "a", "text": "pkgname=p\n"},
+        {"id": "b", "text": "pkgname=q\n"},
+    ]})
+    assert [cell[1] for cell in generator.iter_inputs()] == ["a", "b"]
+    assert generator.describe()["cells"] == 2

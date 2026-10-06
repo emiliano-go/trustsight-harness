@@ -1,0 +1,282 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 253-curlO-tsnode
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 254-curlO-julialt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 255-curlO-rscriptlt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 256-curlO-pwshlt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 257-curlO-py3lt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 258-curlO-perllt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 259-curlO-nodelt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 260-curlO-tclshlt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 261-curlO-phplt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 262-curlO-rubylt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 263-curlO-lualt
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 264-curlO-loop
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 265-axelbase-bash
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 266-axelbase-sh
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 267-axelbase-escript
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 268-axelbase-fennel
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 269-axelbase-zx
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 270-axelbase-guile
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 271-axelbase-racket
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 272-axelbase-deno
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 273-axelbase-bun
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 274-axelbase-elixir
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 275-axelbase-tsnode
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 276-axelbase-julialt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 277-axelbase-rscriptlt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 278-axelbase-pwshlt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 279-axelbase-py3lt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 280-axelbase-perllt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 281-axelbase-nodelt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 282-axelbase-tclshlt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 283-axelbase-phplt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 284-axelbase-rubylt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 285-axelbase-lualt
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 286-axelbase-loop
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 287-lwpdl-bash
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 288-lwpdl-sh
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 289-lwpdl-escript
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 290-lwpdl-fennel
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 291-lwpdl-zx
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 292-lwpdl-guile
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 293-lwpdl-racket
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 294-lwpdl-deno
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 295-lwpdl-bun
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 296-lwpdl-elixir
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 297-lwpdl-tsnode
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 298-lwpdl-julialt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 299-lwpdl-rscriptlt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 300-lwpdl-pwshlt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 301-lwpdl-py3lt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 302-lwpdl-perllt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 303-lwpdl-nodelt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 304-lwpdl-tclshlt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 305-lwpdl-phplt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 306-lwpdl-rubylt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 307-lwpdl-lualt
+- vars:
+    p1: |2
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 308-lwpdl-loop

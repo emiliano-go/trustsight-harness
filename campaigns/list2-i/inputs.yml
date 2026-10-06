@@ -1,0 +1,409 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bash f.erl
+  id: 001-gitref-bash
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        sh f.erl
+  id: 002-gitref-sh
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        escript f.erl
+  id: 003-gitref-escript
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        fennel f.erl
+  id: 004-gitref-fennel
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        zx f.erl
+  id: 005-gitref-zx
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        guile f.erl
+  id: 006-gitref-guile
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        racket f.erl
+  id: 007-gitref-racket
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 008-gitref-deno
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bun f.erl
+  id: 009-gitref-bun
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        elixir f.erl
+  id: 010-gitref-elixir
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        ts-node f.erl
+  id: 011-gitref-tsnode
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        julia < f.erl
+  id: 012-gitref-julialt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        Rscript < f.erl
+  id: 013-gitref-rscriptlt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        pwsh < f.erl
+  id: 014-gitref-pwshlt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        python3 < f.erl
+  id: 015-gitref-py3lt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        perl < f.erl
+  id: 016-gitref-perllt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        node < f.erl
+  id: 017-gitref-nodelt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        tclsh < f.erl
+  id: 018-gitref-tclshlt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        php < f.erl
+  id: 019-gitref-phplt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        ruby < f.erl
+  id: 020-gitref-rubylt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        lua < f.erl
+  id: 021-gitref-lualt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        for x in *.erl; do bash "$x"; done
+  id: 022-gitref-loop
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bash f.erl
+  id: 023-gitdepth-bash
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        sh f.erl
+  id: 024-gitdepth-sh
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        escript f.erl
+  id: 025-gitdepth-escript
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        fennel f.erl
+  id: 026-gitdepth-fennel
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        zx f.erl
+  id: 027-gitdepth-zx
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        guile f.erl
+  id: 028-gitdepth-guile
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        racket f.erl
+  id: 029-gitdepth-racket
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 030-gitdepth-deno
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bun f.erl
+  id: 031-gitdepth-bun
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        elixir f.erl
+  id: 032-gitdepth-elixir
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        ts-node f.erl
+  id: 033-gitdepth-tsnode
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        julia < f.erl
+  id: 034-gitdepth-julialt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        Rscript < f.erl
+  id: 035-gitdepth-rscriptlt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        pwsh < f.erl
+  id: 036-gitdepth-pwshlt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        python3 < f.erl
+  id: 037-gitdepth-py3lt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        perl < f.erl
+  id: 038-gitdepth-perllt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        node < f.erl
+  id: 039-gitdepth-nodelt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        tclsh < f.erl
+  id: 040-gitdepth-tclshlt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        php < f.erl
+  id: 041-gitdepth-phplt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        ruby < f.erl
+  id: 042-gitdepth-rubylt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        lua < f.erl
+  id: 043-gitdepth-lualt
+- vars:
+    payload: |2
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        for x in *.erl; do bash "$x"; done
+  id: 044-gitdepth-loop
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 045-rclonemv-bash
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 046-rclonemv-sh
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 047-rclonemv-escript
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 048-rclonemv-fennel
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 049-rclonemv-zx
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 050-rclonemv-guile
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 051-rclonemv-racket
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 052-rclonemv-deno
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 053-rclonemv-bun
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 054-rclonemv-elixir
+- vars:
+    payload: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 055-rclonemv-tsnode

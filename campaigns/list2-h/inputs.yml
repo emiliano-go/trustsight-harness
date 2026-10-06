@@ -1,0 +1,96 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        bash f.sh
+  id: 002-pkgver-gitpull
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.tar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tar -xf f.tar
+        bash m.sh
+  id: 005-extract-tar-bash
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.tar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tar -xzf f.tar
+        escript m.erl
+  id: 006-extract-tar-escript
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.zip "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        unzip -o f.zip
+        bash m.sh
+  id: 007-extract-unzip
+- vars:
+    payload: |
+      build() {
+        rclone copy --files-from list.txt remote:dir . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.sh
+  id: 009-rclone-filesfrom
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.sh
+        cd "$srcdir"
+        bash harness-baseline-1.0.0/f.sh
+  id: 011-git-refspec
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        _f=$(cat fname.txt)
+        bash "$_f"
+  id: 012-wrap-cmdsubst-name
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (cd "$srcdir" && bash f.sh)
+  id: 013-wrap-nested-subshell
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        bash f.sh
+  id: 014-pkgver-gitfetch
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull --rebase origin main
+        escript f.erl
+  id: 015-pkgver-gitpull-escript
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.tar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        7z e f.tar
+        bash m.sh
+  id: 016-extract-7z
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.tar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tar -xf f.tar
+        fennel m.fnl
+  id: 017-extract-tar-fennel
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.tar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tar -xf f.tar -C sub
+        bash sub/m.sh
+  id: 018-extract-tar-subdir
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.sh
+  id: 019-phase-check-gitpull

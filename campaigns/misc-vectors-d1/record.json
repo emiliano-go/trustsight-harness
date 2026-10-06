@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "misc-vectors-d1",
-  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
+  "campaign_commit": "ea056a8de0b575869014bf25be6a89cd2b533b7d",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,36 +20,37 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 23006
+    "wall_clock_ms": 806
   },
   "environment": {
     "accumulate": false,
+    "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.2"
+    "trustsight_version": "0.18.0"
   },
   "generator": {
-    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/misc-vectors-d1/manual",
-    "inputs": 8,
+    "cells": 8,
+    "manifest": "inputs.yml",
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "misc-vectors-d1-manual",
-    "type": "manual"
+    "template": "template.PKGBUILD",
+    "type": "inputs"
   },
-  "harness_version": "2.0.0",
+  "harness_version": "2.1.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:3b11e5def2a3aae97f9d11b6da76d00907b5f89b36cb4de658d83b9e485a18f5",
@@ -57,7 +58,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:8d1571bd3e13e990a8ec834d569bab3daea569585f8f3fc3c0dfad59b38de7a0",
@@ -65,7 +66,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:861b386b44e77f144c4508f25b448fea1e6615d3b058cdbe1ca7a44c0d2be77f",
@@ -73,7 +74,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:268906ab6d73b336396d92b2cfef39deb3dcf0cd8854dfa8951e86968743e966",
@@ -81,7 +82,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:c5ce9ae0b0bb9a7f881fb6101d12ef19387ea03a176f2ec3f0d8ad73b2b8e238",
@@ -89,7 +90,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:6056f052acb9ba9a96bcb3ad99f6a4987fd1f41baa5f64ac7370d46595e2bff8",
@@ -97,7 +98,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:9392788e3e02e8301b9573d1098404870ca446c3b9fbcb7fc06e8111c6ac5c2e",
@@ -105,7 +106,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:116aef2668169b48dbddf631191ce3ac1512bfd4e104fb63b0667027fcab5757",
@@ -113,7 +114,7 @@
       "original_campaign": "misc-vectors-d1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     }
   ],
   "outcomes": {
@@ -129,7 +130,7 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
-  "stop_reason": "8 manual inputs exhausted",
+  "stop_reason": "8 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"

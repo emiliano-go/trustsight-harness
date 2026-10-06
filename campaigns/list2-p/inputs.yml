@@ -1,0 +1,326 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        pwsh < m.ps1
+  id: 034-x-cpio-pwsh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        python3 < m.py
+  id: 035-x-cpio-py3
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        perl < m.pl
+  id: 036-x-cpio-perl
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        node < m.js
+  id: 037-x-cpio-node
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        tclsh < m.tcl
+  id: 038-x-cpio-tclsh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        php < m.php
+  id: 039-x-cpio-php
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        ruby < m.rb
+  id: 040-x-cpio-ruby
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        lua < m.lua
+  id: 041-x-cpio-lua
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        sh m.sh
+  id: 042-x-cpio-sh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        bash m.sh
+  id: 043-x-rpm2cpio-bash
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        escript m.erl
+  id: 044-x-rpm2cpio-escript
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        fennel m.fnl
+  id: 045-x-rpm2cpio-fennel
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        deno m.ts
+  id: 046-x-rpm2cpio-deno
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        bun m.js
+  id: 047-x-rpm2cpio-bun
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        zx m.mjs
+  id: 048-x-rpm2cpio-zx
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        guile m.scm
+  id: 049-x-rpm2cpio-guile
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        racket m.rkt
+  id: 050-x-rpm2cpio-racket
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        elixir m.exs
+  id: 051-x-rpm2cpio-elixir
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        ts-node m.ts
+  id: 052-x-rpm2cpio-tsnode
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        julia < m.jl
+  id: 053-x-rpm2cpio-julia
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        Rscript < m.R
+  id: 054-x-rpm2cpio-rscript
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        pwsh < m.ps1
+  id: 055-x-rpm2cpio-pwsh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        python3 < m.py
+  id: 056-x-rpm2cpio-py3
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        perl < m.pl
+  id: 057-x-rpm2cpio-perl
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        node < m.js
+  id: 058-x-rpm2cpio-node
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        tclsh < m.tcl
+  id: 059-x-rpm2cpio-tclsh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        php < m.php
+  id: 060-x-rpm2cpio-php
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        ruby < m.rb
+  id: 061-x-rpm2cpio-ruby
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        lua < m.lua
+  id: 062-x-rpm2cpio-lua
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        sh m.sh
+  id: 063-x-rpm2cpio-sh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        bash m.sh
+  id: 064-x-ar-bash
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        escript m.erl
+  id: 065-x-ar-escript
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        fennel m.fnl
+  id: 066-x-ar-fennel
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        deno m.ts
+  id: 067-x-ar-deno
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        bun m.js
+  id: 068-x-ar-bun
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        zx m.mjs
+  id: 069-x-ar-zx
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        guile m.scm
+  id: 070-x-ar-guile
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        racket m.rkt
+  id: 071-x-ar-racket
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        elixir m.exs
+  id: 072-x-ar-elixir
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        ts-node m.ts
+  id: 073-x-ar-tsnode
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        julia < m.jl
+  id: 074-x-ar-julia
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        Rscript < m.R
+  id: 075-x-ar-rscript
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        pwsh < m.ps1
+  id: 076-x-ar-pwsh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        python3 < m.py
+  id: 077-x-ar-py3
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        perl < m.pl
+  id: 078-x-ar-perl
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        node < m.js
+  id: 079-x-ar-node
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        tclsh < m.tcl
+  id: 080-x-ar-tclsh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        php < m.php
+  id: 081-x-ar-php
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        ruby < m.rb
+  id: 082-x-ar-ruby
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        lua < m.lua
+  id: 083-x-ar-lua
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        sh m.sh
+  id: 084-x-ar-sh
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        unrar x -o+ f.rar
+        bash m.sh
+  id: 085-x-unrar-bash
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        unrar x -o+ f.rar
+        escript m.erl
+  id: 086-x-unrar-escript
+- vars:
+    p1: |2
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        unrar x -o+ f.rar
+        fennel m.fnl
+  id: 087-x-unrar-fennel

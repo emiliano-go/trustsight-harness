@@ -1,0 +1,26 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        curl -fsSL -o"stage.sh" "$(cat "$srcdir/url.txt")"
+  id: 022-curl-glued-o
+- vars:
+    p1: |2
+        wget -q -Ostage.sh "$(cat "$srcdir/url.txt")"
+  id: 023-wget-glued-O
+- vars:
+    p1: |2
+        wget -q "$(cat "$srcdir/url.txt")"
+  id: 025-wget-basename
+- vars:
+    p1: |2
+        curl -fsSL -O "$(cat "$srcdir/url.txt")"
+  id: 026-curl-capO-indirect
+- vars:
+    p1: |2
+        aria2c -q "$(cat "$srcdir/url.txt")"
+  id: 027-aria2c-basename
+- vars:
+    p1: |2
+        axel -q "$(cat "$srcdir/url.txt")"
+  id: 028-axel-basename

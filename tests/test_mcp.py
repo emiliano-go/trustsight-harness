@@ -25,7 +25,19 @@ from harness.status import Status
 
 ROOT = Path(__file__).resolve().parent.parent
 VERSION = trustsight.__version__
-DIFF = (ROOT / "campaigns" / "bun-solo" / "traces" / "00000.diff").read_text()
+
+
+def _first_evidence_diff(campaign: str) -> str:
+    """The first recorded diff of *campaign*, from whichever layout is present."""
+    from harness.evidence import iter_evidence
+
+    for entry in iter_evidence(ROOT / "campaigns" / campaign):
+        if entry.get("diff"):
+            return entry["diff"]
+    raise AssertionError(f"no recorded diff for {campaign}")
+
+
+DIFF = _first_evidence_diff("bun-solo")
 
 
 def _wait(job, timeout: float = 60.0):
@@ -373,11 +385,23 @@ def test_a_non_object_record_is_not_a_record(tmp_path):
 
 def test_list_traces_skips_non_object_entries(monkeypatch, tmp_path):
     root = tmp_path / "campaigns"
+    campaign = root / "c"
+    campaign.mkdir(parents=True)
+    (campaign / "evidence.jsonl").write_text(
+        json.dumps({"attempt": 0, "status": "detected"}) + "\n"
+        + "[]\n"
+        + "not json\n")
+    monkeypatch.setattr(server, "_campaigns_dir", lambda: root)
+    out = server.list_campaign_traces("c")
+    assert out["count"] == 1
+    assert out["traces"][0]["attempt"] == 0
+
+
+def test_list_traces_reads_the_legacy_layout(monkeypatch, tmp_path):
+    root = tmp_path / "campaigns"
     traces = root / "c" / "traces"
     traces.mkdir(parents=True)
     (traces / "00000.json").write_text(json.dumps({"attempt": 0, "status": "detected"}))
-    (traces / "00001.json").write_text("[]")
-    (traces / "00002.json").write_text("not json")
     monkeypatch.setattr(server, "_campaigns_dir", lambda: root)
     out = server.list_campaign_traces("c")
     assert out["count"] == 1

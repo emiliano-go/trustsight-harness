@@ -1,4 +1,4 @@
-trustsight_version: "0.17.2"
+trustsight_version: "0.18.0"
 trustsight_source: "local-path"
 db_state: "cold"
 flag_threshold: 20

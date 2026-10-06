@@ -1,0 +1,78 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        fennel f.erl
+  id: 021-gfv2-fennel
+- vars:
+    p1: |2
+        zx f.erl
+  id: 022-gfv2-zx
+- vars:
+    p1: |2
+        guile f.erl
+  id: 023-gfv2-guile
+- vars:
+    p1: |2
+        racket f.erl
+  id: 024-gfv2-racket
+- vars:
+    p1: |2
+        deno f.erl
+  id: 025-gfv2-deno
+- vars:
+    p1: |2
+        bun f.erl
+  id: 026-gfv2-bun
+- vars:
+    p1: |2
+        elixir f.erl
+  id: 027-gfv2-elixir
+- vars:
+    p1: |2
+        ts-node f.erl
+  id: 028-gfv2-tsnode
+- vars:
+    p1: |2
+        julia < f.erl
+  id: 029-gfv2-julialt
+- vars:
+    p1: |2
+        Rscript < f.erl
+  id: 030-gfv2-rscriptlt
+- vars:
+    p1: |2
+        pwsh < f.erl
+  id: 031-gfv2-pwshlt
+- vars:
+    p1: |2
+        python3 < f.erl
+  id: 032-gfv2-py3lt
+- vars:
+    p1: |2
+        perl < f.erl
+  id: 033-gfv2-perllt
+- vars:
+    p1: |2
+        node < f.erl
+  id: 034-gfv2-nodelt
+- vars:
+    p1: |2
+        tclsh < f.erl
+  id: 035-gfv2-tclshlt
+- vars:
+    p1: |2
+        php < f.erl
+  id: 036-gfv2-phplt
+- vars:
+    p1: |2
+        ruby < f.erl
+  id: 037-gfv2-rubylt
+- vars:
+    p1: |2
+        lua < f.erl
+  id: 038-gfv2-lualt
+- vars:
+    p1: |2
+        sh f.erl
+  id: 039-gfv2-sh

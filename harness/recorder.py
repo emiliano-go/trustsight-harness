@@ -70,22 +70,27 @@ class Recorder:
         self.bypass_hashes: list[str] = []
         self.known_matches: list[dict] = []
         self.stop_reason = ""
-        self._traces_dir = root / "traces"
-        self._traces_dir.mkdir(parents=True, exist_ok=True)
+        #: One line per attempt, truncated at the start of a run.  Appended
+        #: after each attempt so a crash mid-campaign leaves the attempts that
+        #: did finish readable, exactly as the per-attempt files did.
+        self._evidence_path = root / "evidence.jsonl"
+        self._evidence_path.write_text("")
 
     def add(self, trace: Trace, diff_text: str) -> None:
         self.traces.append(trace)
-        path = self._traces_dir / f"{trace.attempt:05d}.json"
-        path.write_text(json.dumps(trace.to_dict(), indent=2, sort_keys=True))
-        if trace.status is Status.BYPASS:
-            self.bypass_hashes.append(trace.diff_sha256)
+        entry = trace.to_dict()
         # A rediscovered bypass is patch-verification evidence, not a fresh
         # find, so it does not join `bypass_hashes`.  Its diff is still
-        # written: the regression gate replays historical bypasses by
+        # recorded: the regression gate replays historical bypasses by
         # re-hashing committed diffs, and a re-baseline that dropped them
-        # would leave the gate with nothing to replay.
+        # would leave the gate with nothing to replay.  Other statuses keep
+        # only the hash; their diff is not an artefact the gate uses.
         if trace.status in (Status.BYPASS, Status.KNOWN_BYPASS_MATCH):
-            (self._traces_dir / f"{trace.attempt:05d}.diff").write_text(diff_text)
+            entry["diff"] = diff_text
+        with self._evidence_path.open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(entry, sort_keys=True) + "\n")
+        if trace.status is Status.BYPASS:
+            self.bypass_hashes.append(trace.diff_sha256)
 
     def outcomes(self) -> dict[str, int]:
         counts = Counter(str(t.status) for t in self.traces)

@@ -1,0 +1,15 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        git fetch origin tag v9.9.9
+        git checkout FETCH_HEAD
+  id: 01-git-fetch-tag-bash
+- vars:
+    payload: |2
+        git pull --rebase
+  id: 02-git-pull
+- vars:
+    payload: |2
+        git pull origin main
+  id: 023-git-pull-origin-main

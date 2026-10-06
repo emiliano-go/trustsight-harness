@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "context-composites",
-  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
+  "campaign_commit": "ea056a8de0b575869014bf25be6a89cd2b533b7d",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,36 +20,37 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 8471
+    "wall_clock_ms": 353
   },
   "environment": {
     "accumulate": false,
+    "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.2"
+    "trustsight_version": "0.18.0"
   },
   "generator": {
-    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/context-composites/manual",
-    "inputs": 3,
+    "cells": 3,
+    "manifest": "inputs.yml",
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "context-composites-manual",
-    "type": "manual"
+    "template": "template.PKGBUILD",
+    "type": "inputs"
   },
-  "harness_version": "2.0.0",
+  "harness_version": "2.1.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:495bba995b6ee8a7e3cfda4f8cd39bb788a34bddc0b65b0cd899a3849b77f94b",
@@ -57,7 +58,7 @@
       "original_campaign": "context-composites",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:b8a7df9e1bfad5805dbd1586c9c63023d9e348c28d8a0d2dbf3cadef2320cc11",
@@ -65,7 +66,7 @@
       "original_campaign": "context-composites",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:a07ae006027842b5f453fce61a6004d067bcf064d4fb0ddacc34ac73628bd249",
@@ -73,7 +74,7 @@
       "original_campaign": "context-composites",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     }
   ],
   "outcomes": {
@@ -89,7 +90,7 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
-  "stop_reason": "3 manual inputs exhausted",
+  "stop_reason": "3 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"

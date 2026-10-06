@@ -1,0 +1,272 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 056-rclonemv-julialt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 057-rclonemv-rscriptlt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 058-rclonemv-pwshlt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 059-rclonemv-py3lt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 060-rclonemv-perllt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 061-rclonemv-nodelt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 062-rclonemv-tclshlt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 063-rclonemv-phplt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 064-rclonemv-rubylt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 065-rclonemv-lualt
+- vars:
+    p1: |2
+        rclone moveto remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 066-rclonemv-loop
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 067-rclonebi-bash
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 068-rclonebi-sh
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 069-rclonebi-escript
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 070-rclonebi-fennel
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 071-rclonebi-zx
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 072-rclonebi-guile
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 073-rclonebi-racket
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 074-rclonebi-deno
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 075-rclonebi-bun
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 076-rclonebi-elixir
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 077-rclonebi-tsnode
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 078-rclonebi-julialt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 079-rclonebi-rscriptlt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 080-rclonebi-pwshlt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 081-rclonebi-py3lt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 082-rclonebi-perllt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 083-rclonebi-nodelt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 084-rclonebi-tclshlt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 085-rclonebi-phplt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 086-rclonebi-rubylt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 087-rclonebi-lualt
+- vars:
+    p1: |2
+        rclone bisync remote:b/f.erl ./f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 088-rclonebi-loop
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 089-rclonecp-bash
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 090-rclonecp-sh
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 091-rclonecp-escript
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 092-rclonecp-fennel
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 093-rclonecp-zx
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 094-rclonecp-guile
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 095-rclonecp-racket
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 096-rclonecp-deno
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 097-rclonecp-bun
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        elixir f.erl
+  id: 098-rclonecp-elixir
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ts-node f.erl
+  id: 099-rclonecp-tsnode
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 100-rclonecp-julialt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        Rscript < f.erl
+  id: 101-rclonecp-rscriptlt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        pwsh < f.erl
+  id: 102-rclonecp-pwshlt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        python3 < f.erl
+  id: 103-rclonecp-py3lt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        perl < f.erl
+  id: 104-rclonecp-perllt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        node < f.erl
+  id: 105-rclonecp-nodelt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        tclsh < f.erl
+  id: 106-rclonecp-tclshlt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        php < f.erl
+  id: 107-rclonecp-phplt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ruby < f.erl
+  id: 108-rclonecp-rubylt
+- vars:
+    p1: |2
+        rclone copy remote:b/f.erl . "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lua < f.erl
+  id: 109-rclonecp-lualt

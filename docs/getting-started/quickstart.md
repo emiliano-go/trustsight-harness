@@ -4,8 +4,8 @@ description: Run the shipped campaign and read the summary in under five minutes
 
 # Quickstart
 
-The fastest way to see the harness work is to replay the committed manual
-campaign against the local TrustSight checkout.
+The fastest way to see the harness work is to replay the committed campaign
+against the local TrustSight checkout.
 
 ## 1. Install
 
@@ -52,12 +52,12 @@ live chain. The record holds the evidence.
 ## 3. Read one trace
 
 ```bash
-cat campaigns/known-bypasses-manual/traces/00000.json
+head -1 campaigns/known-bypasses-manual/evidence.jsonl | jq .
 ```
 
-Each trace links one diff to one TrustSight report. It contains only pipeline
-output; it does not explain *why* a regex matched. The diff and the report are
-the evidence.
+Each line links one diff to one TrustSight report. It contains only pipeline
+output; it does not explain *why* a regex matched. The diff (embedded for
+bypasses) and the report are the evidence.
 
 ## 4. Read the record
 

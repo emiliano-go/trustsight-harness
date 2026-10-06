@@ -60,7 +60,7 @@ jobs:
       - name: Regression gate
         # Replays every committed bypass against the pinned instrument and
         # writes regression/report.json without judging the result.
-        run: uv run python -m harness regression
+        run: uv run python -m harness regression --jobs auto
 
       - name: Lint
         run: uv run ruff check .

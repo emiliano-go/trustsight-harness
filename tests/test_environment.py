@@ -136,6 +136,67 @@ def test_binding_never_touches_the_operators_database(tmp_path):
         assert str(module_dir).startswith(str(tmp_path))
 
 
+def test_the_aur_lookup_is_frozen(tmp_path, monkeypatch):
+    """`analyze_text` asks the AUR about the analysed package name.  Every
+    name this corpus asks about is absent from the AUR, so the endpoint's
+    answer is the empty reply; freezing it keeps the measurement hermetic
+    and skips a retry that measured ~11 s under an HTTP 429."""
+    from trustsight import discovery
+
+    def denied(*args, **kwargs):
+        raise AssertionError("the frozen AUR lookup opened the network")
+
+    monkeypatch.setattr(discovery.urllib.request, "urlopen", denied)
+    env = Environment(trustsight_version="x")
+    env.bind(tmp_path)
+    assert discovery.get_aur_package_info(["harness-pkg"]) == {}
+    assert env.to_record()["aur_lookup"] == "frozen-empty"
+
+
+def test_no_campaign_input_declares_dependencies():
+    """The freeze above is only answer-preserving while no campaign asks
+    about a real package.  If an input ever adds one, this fails so the
+    freeze is revisited rather than silently answering for a name the AUR
+    would know."""
+    import re
+
+    pattern = re.compile(
+        r"(?m)^\s*(?:optdepends|makedepends|checkdepends|depends)\s*=")
+    offenders = []
+    for path in sorted((ROOT / "campaigns").glob("*")):
+        for name in ("inputs.yml", "template.PKGBUILD"):
+            candidate = path / name
+            if candidate.is_file() and pattern.search(candidate.read_text()):
+                offenders.append(str(candidate.relative_to(ROOT)))
+    assert offenders == [], (
+        "a campaign input declares dependencies; the AUR freeze must be "
+        f"revisited: {offenders}")
+
+
+def test_the_scratch_tree_moves_to_harness_env_root(tmp_path, monkeypatch):
+    """A regression replay restores the database once per attempt; the
+    variable lets that fsync-heavy scratch live on tmpfs while the committed
+    campaign tree stays untouched."""
+    from trustsight import config, db
+
+    scratch = tmp_path / "shm"
+    monkeypatch.setenv("HARNESS_ENV_ROOT", str(scratch))
+    env = Environment(trustsight_version="x")
+    env.bind(tmp_path / "work")
+    for module_dir in (config.DATA_DIR, db.DATA_DIR, config.CONFIG_DIR):
+        assert str(module_dir).startswith(str(scratch))
+    assert not (tmp_path / "work" / "env").exists()
+
+
+def test_two_work_roots_do_not_share_a_scratch_database(tmp_path, monkeypatch):
+    monkeypatch.setenv("HARNESS_ENV_ROOT", str(tmp_path / "shm"))
+    first = Environment(trustsight_version="x")
+    second = Environment(trustsight_version="x")
+    first.bind(tmp_path / "a")
+    second.bind(tmp_path / "b")
+    assert first._data_dir != second._data_dir
+
+
 def test_the_verdict_does_not_depend_on_the_timezone(tmp_path, monkeypatch):
     """Section 3.3: replay in a different timezone produces identical
     verdicts.  The harness analyses text, so temporal rules cannot fire -

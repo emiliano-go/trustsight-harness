@@ -23,7 +23,7 @@ from .status import Status
 
 __all__ = ["HARNESS_VERSION", "run_campaign"]
 
-HARNESS_VERSION = "2.0.0"
+HARNESS_VERSION = "2.1.0"
 
 #: A campaign whose errors outnumber its measurements is not measuring.
 HARNESS_ERROR_ABORT_RATE = 0.20

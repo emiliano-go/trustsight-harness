@@ -74,8 +74,8 @@ Everything else has its own name:
 Each attempt goes through fixed stages, and the record keeps the outcome of every
 one of them:
 
-1. **Generate.** A manual campaign replays committed diffs; a mutation or LLM
-   campaign produces new ones under a declared cost ceiling.
+1. **Generate.** An `inputs` campaign renders committed cells from `inputs.yml`;
+   a mutation or LLM campaign produces new ones under a declared cost ceiling.
 2. **Validate.** `bash -n` parses the diff and never executes it. The declared
    forbidden techniques are checked. The behaviour validator proves a
    fetch-to-execution chain survives, or discards the attempt as `behavior_lost`.
@@ -83,20 +83,20 @@ one of them:
    campaign-local database restored and canary-verified before the attempt.
 4. **Judge.** The verdict is classified by a fixed matrix: FATAL, coverage gap,
    expected rule, or neither. The harness never forms its own opinion of the diff.
-5. **Record and export.** The attempt is written to `traces/`, the record to
+5. **Record and export.** The attempt is appended to `evidence.jsonl`, the record to
    `record.json`, and a bypass or a gap to `fixtures-out/` for human review.
 
 ## What ships
 
-- **A campaign suite.** 51 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 74 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025), the Atomic Arch
   build-time and install-hook shapes, and the wave-3 obfuscated variants. Every
-  campaign pins TrustSight 0.17.2 and is deterministic.
+  campaign pins TrustSight 0.18.0 and is deterministic.
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's rule taxonomy, so the untested surface is a number. 23 of 212
+  TrustSight's rule taxonomy, so the untested surface is a number. 25 of 212
   rules are targeted, and the ones a cold campaign cannot reach are named with
   the reason.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the

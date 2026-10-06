@@ -6,7 +6,7 @@ description: Run the shipped campaign, read the summary it prints, and find the 
 
 The repository ships a suite of campaigns; the one to start with is
 `known-bypasses-manual`. It replays eight recipes drawn from real evasions
-found against TrustSight, in fully deterministic manual mode. Running it is
+found against TrustSight through a committed `inputs.yml` manifest. Running it is
 the fastest way to see every part of the pipeline do its job, including the
 parts that refuse.
 
@@ -58,11 +58,9 @@ the catching rules with their severities and weights.
 ```
 campaigns/known-bypasses-manual/
 ├── campaign.yml          # the whole configuration, committed before the run
+├── inputs.yml            # the recipes as data, one cell per attempt
+├── evidence.jsonl        # one JSON line per attempt (attempt 0 first)
 ├── record.json           # the whole result
-├── traces/
-│   ├── 00000.json        # one per attempt
-│   ├── 00001.json
-│   └── …
 └── env/                  # this campaign's own TrustSight data and config
 ```
 
@@ -80,11 +78,11 @@ Nothing here is ever submitted automatically. See
 
 ## Following one attempt
 
-Every number in the record traces back to a file. Take the attempt that was
+Every number in the record traces back to a line. Take the attempt that was
 discarded before TrustSight ever saw it:
 
 ```bash
-jq '{status, stages}' campaigns/known-bypasses-manual/traces/00003.json
+sed -n '4p' campaigns/known-bypasses-manual/evidence.jsonl | jq '{status, stages}'
 ```
 
 ```json

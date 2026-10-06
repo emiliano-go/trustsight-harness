@@ -7,7 +7,8 @@ description: Complete reference for python -m harness; campaigns, the regression
 The harness has four commands. One config, one record, one command each.
 
 ```bash
-python -m harness <campaign-directory>
+python -m harness <campaign-directory> [--dump-inputs DIR]
+python -m harness sweep [--jobs N] [--match GLOB]
 python -m harness regression [--environment PATH]
 python -m harness coverage
 python -m harness benign --corpus <dir> [--sample N]
@@ -30,6 +31,7 @@ Runs one campaign and writes its record.
 | Argument | Required | Meaning |
 |---|---|---|
 | `target` | yes | A directory containing `campaign.yml`. |
+| `--dump-inputs DIR` | no | Write every generated input to `DIR` and exit, without running. Audits what the manifest renders to. |
 
 ### What happens before the first attempt
 
@@ -67,11 +69,34 @@ The summary omits zero-valued outcomes; `record.json` keeps all of them.
 | Path | Contents |
 |---|---|
 | `<campaign>/record.json` | The complete campaign record |
-| `<campaign>/traces/NNNNN.json` | One trace per attempt |
-| `<campaign>/traces/NNNNN.diff` | The diff, for bypasses only |
-| `<campaign>/env/` | The campaign's own TrustSight data and config directories |
+| `<campaign>/evidence.jsonl` | One JSON trace per attempt, with the diff embedded for bypasses |
+| `<campaign>/inputs.yml` | The recipes as data, one cell per attempt |
+| `<campaign>/template.PKGBUILD` | The shared skeleton, when the cells are templated |
+| `<campaign>/env/` | The campaign's own TrustSight data and config directories; relocate to tmpfs with `HARNESS_ENV_ROOT` |
 | `<campaign>/thinking/` | LLM reasoning logs, when the generator produces them |
 | `fixtures-out/` | Exported bypasses, gap fixtures and robustness finds |
+
+---
+
+## `python -m harness sweep`
+
+Runs every campaign under `campaigns/`, in parallel where asked. The
+campaigns are independent — each binds its own database and writes only
+inside its own directory — so a re-baseline is a worker pool, not a loop.
+
+| Argument | Required | Meaning |
+|---|---|---|
+| `--jobs N` \| `auto` | no | Concurrent campaigns (default `1`; `auto` caps at 4). |
+| `--match GLOB` | no | Only campaigns whose name matches; repeatable. |
+
+Each campaign still verifies its own environment and canary before its first
+attempt. A campaign that fails is reported in the summary and does not stop
+the others; the command exits 2 if any failed, 0 otherwise.
+
+```bash
+uv run python -m harness sweep --jobs auto
+# {"campaigns": 74, "attempts": 1402, "bypasses": 0, "bypassing": []}
+```
 
 ---
 
@@ -85,23 +110,39 @@ current environment.
 | Argument | Required | Meaning |
 |---|---|---|
 | `--environment PATH` | no | Environment YAML. Defaults to `defaults/environment.yml`. |
+| `--jobs N` \| `auto` | no | Replay workers (default `1`; `auto` caps at 4). Each worker binds its own database; the merged report is identical to the serial one. |
+| `--no-cache` | no | Ignore and do not write `regression/cache.jsonl`. A result is cached only when every verdict input is in the key (diff, instrument pin, config fingerprint, validator and Judge sources, canary gaps, threshold, database state). Degraded results are never cached. |
 
 ### Behaviour
 
-For each committed bypass hash: locate its diff by **re-hashing** the candidate
-files (never by filename), restore the database, re-analyse, and classify.
+For each committed bypass hash: locate its diff by **re-hashing** the embedded
+diff in `evidence.jsonl` (never by filename), restore the database, re-analyse,
+and classify.
 
 - Still UNFLAGGED → **open**
-- Anything else → **closed**, with the closing version recorded
+- A positive finding → **closed**, with the closing version recorded
 - Fails `bash -n` now → **unreplayable**, with the reason
+- Analysis stage failed (`stage_degraded`, the tokenizer sandbox timing out
+  under load) → **degraded**, retried once serially, never counted closed
 
 The gate also replays the canary and one API/CLI parity check per environment, so
 a "closed" bypass is never an artefact of a broken harness.
 
+!!! tip "A full replay writes gigabytes"
+
+    Each replay restores the database before the attempt, and a restore is
+    fsync-heavy. Point `HARNESS_ENV_ROOT` at a tmpfs to keep the churn out of
+    the disk (the committed tree is untouched; the scratch is keyed per work
+    root):
+
+    ```bash
+    HARNESS_ENV_ROOT=/dev/shm/trustsight-harness uv run python -m harness regression --jobs auto
+    ```
+
 ### Output
 
 ```
-Of 271 known bypasses, 271 closed, 0 open as of 0.17.2.
+Of 1277 known bypasses, 1276 closed, 1 open as of 0.18.0.
 ```
 
 and `regression/report.json` with the per-bypass detail.
@@ -131,7 +172,7 @@ adoption and composition rules need a corpus cycle or recorded observation).
 
 ```bash
 uv run python -m harness coverage
-# 23 of 212 rules targeted by 51 campaigns; 189 untargeted, 11 with a reason.
+# 25 of 212 rules targeted by 74 campaigns; 187 untargeted, 11 with a reason.
 ```
 
 ---

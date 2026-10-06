@@ -1,0 +1,14 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    p1: |2
+        wget -q --input-file="$srcdir/urls.txt"
+  id: 012-wget-inputfile-eq
+- vars:
+    p1: |2
+        aria2c -q -i "$srcdir/list.txt"
+  id: 013-aria2c-inputfile
+- vars:
+    p1: |2
+        lftp -f "$srcdir/lftprc"
+  id: 014-lftp-script

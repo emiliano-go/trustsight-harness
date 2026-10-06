@@ -17,7 +17,8 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
-__all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_", "load_environment"]
+__all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
+           "freeze_aur_lookup", "load_environment"]
 
 
 class EnvironmentError_(RuntimeError):
@@ -28,6 +29,33 @@ class EnvironmentError_(RuntimeError):
 #: meaningful if the restoration is checked, and the cheapest check that
 #: exercises the whole path is to analyse something whose answer is known.
 CANARY_DIFF = "defaults/canary.PKGBUILD"
+
+#: Whether the AUR reply has been frozen in this process.
+_AUR_FROZEN = False
+
+
+def freeze_aur_lookup() -> None:
+    """Answer TrustSight's AUR lookups without touching the network.
+
+    `analyze_text` walks the corpus dependency graph, and the walk asks the
+    AUR RPC about the analysed package name (`depth.py` -> `discovery.py`).
+    Every name this corpus asks about is absent from the AUR - the `package`
+    placeholder, and no campaign input declares a dependency array - so the
+    real endpoint's answer is the empty reply.  Freezing that answer removes
+    a rate-limit-driven retry (measured at ~11 s per analysis while the AUR
+    returned HTTP 429) without changing what the instrument is told, and it
+    makes the measurement hermetic: an analysis can no longer depend on
+    network state (self-security H2).
+
+    Idempotent; `HARNESS_ALLOW_NETWORK=1` skips the freeze for debugging.
+    """
+    global _AUR_FROZEN
+    if _AUR_FROZEN or os.environ.get("HARNESS_ALLOW_NETWORK") == "1":
+        return
+    from trustsight import discovery
+
+    discovery._aur_rpc_query = lambda names: {}
+    _AUR_FROZEN = True
 
 
 @dataclass
@@ -96,14 +124,30 @@ class Environment:
         why the two are separate. Binding used to overwrite the root with
         the campaign directory and then look for the canary underneath it.
 
+        `HARNESS_ENV_ROOT` relocates the scratch tree - the per-attempt
+        database and regenerated configs - out of `work/env`.  A regression
+        replay restores that database ~1,300 times and each restore is
+        fsync-heavy, so pointing the variable at a tmpfs (`/dev/shm`,
+        `$XDG_RUNTIME_DIR`) trades the writeback stall for RAM.  The
+        directory is keyed by the resolved work path, so a campaign and the
+        gate never share a database.  Committed assets stay where they are:
+        only the scratch moves.
+
         The operator's real database is never opened.  This is not only
         courtesy: a campaign that read the operator's history would produce
         a number nobody else could reproduce.
         """
         from trustsight import config, db
 
-        self._data_dir = work / "env" / "data"
-        config_dir = work / "env" / "config"
+        freeze_aur_lookup()
+        scratch = os.environ.get("HARNESS_ENV_ROOT", "")
+        if scratch:
+            key = hashlib.sha256(str(work.resolve()).encode()).hexdigest()[:16]
+            env_root = Path(scratch) / key
+        else:
+            env_root = work / "env"
+        self._data_dir = env_root / "data"
+        config_dir = env_root / "config"
         self._data_dir.mkdir(parents=True, exist_ok=True)
         config_dir.mkdir(parents=True, exist_ok=True)
         config.CONFIG_DIR = config_dir
@@ -255,6 +299,7 @@ class Environment:
             "canary_check": "passed" if self.canary_score is not None else "not run",
             "canary_score": self.canary_score,
             "mode_gaps": list(self.mode_gaps),
+            "aur_lookup": "frozen-empty" if _AUR_FROZEN else "live",
         }
 
 

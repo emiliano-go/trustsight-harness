@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "form-evasions-c1",
-  "campaign_commit": "e207ec7b86cde9853869d5702e7c9025e058fbf2",
+  "campaign_commit": "ea056a8de0b575869014bf25be6a89cd2b533b7d",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,36 +20,37 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 52904
+    "wall_clock_ms": 2118
   },
   "environment": {
     "accumulate": false,
+    "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.17.2"
+    "trustsight_version": "0.18.0"
   },
   "generator": {
-    "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/form-evasions-c1/manual",
-    "inputs": 18,
+    "cells": 18,
+    "manifest": "inputs.yml",
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "form-evasions-c1-manual",
-    "type": "manual"
+    "template": "template.PKGBUILD",
+    "type": "inputs"
   },
-  "harness_version": "2.0.0",
+  "harness_version": "2.1.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:88489075577dfb6245c3b6cc1f31f523216258444c6fe72da9dff6fc060f37f5",
@@ -57,7 +58,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:4d69552feddbe94bcab0f84d17369f12eed2bc57faa51a6de04a0ad959b95d63",
@@ -65,7 +66,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:928db43b01278b0c8e101763011e4317ceea46a8e081788811625b9377072eda",
@@ -73,7 +74,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:be8fa552ecdbdaba01bdafe830ece8efca5cc4e69ef2ec6fe0a3c4a48b4e1e93",
@@ -81,7 +82,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:e1f3a1b425b81707ab198911dfe25a00a17857ed924ca0ae7da2e4f18f7b8bba",
@@ -89,7 +90,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:8792631cbf68ffeeea2755b72e7eaad73f6e932216f552ccdf72d4ce43c4fb04",
@@ -97,7 +98,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:924114544fb76ce8ba8f7956d7b8eaa2d8d5bdb8e3589bc18b7489cd71d8bba8",
@@ -105,7 +106,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:bfe1af9c90d7f2784cb9535f1f8138bbf5b5216de0fd3b74a77d6f564a06dd1d",
@@ -113,7 +114,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:22083955c1b31674b1b01a90414ce3540af988435896619b8387f5579f03793e",
@@ -121,7 +122,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:cbcb18c9fa6d4868e8f426bb46d35121e75ac1abf08363562641cbdacbe1f54c",
@@ -129,7 +130,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:358518dc29650504262862d19dd0703b81e55fb5fe71ddc694dc325ed96b326d",
@@ -137,7 +138,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:ede6a80e13ed23e3e049ed39c3a782bd422a1b8abca4539bd9e3f796a8b2976a",
@@ -145,7 +146,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:9fada2a2550502480916294efdde146a81b5fcb2e86595c2aafd00ef851a9387",
@@ -153,7 +154,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:d34afd85afb32005289643aeac0eb9b2ebf01badbbebe5a6a4648de4f38aca90",
@@ -161,7 +162,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:e77fefcfe5771d5415e30cdb6d4a0b3d1386c9402ef2b8c89681e2f77b7949a7",
@@ -169,7 +170,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:6ffc712e85f202adaec818888658857b09c87fbb627214faec78a687ebfbcd29",
@@ -177,7 +178,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:9badc63300154968bc335ee9668af0a8828d5c032d08d4b120520a39540383af",
@@ -185,7 +186,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     },
     {
       "diff_hash": "sha256:cadd782f7f598e7498782533cc96d2f0fc22ece0e969af34a3a67c8f4b5bd662",
@@ -193,7 +194,7 @@
       "original_campaign": "form-evasions-c1",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.17.2"
+      "trustsight_version": "0.18.0"
     }
   ],
   "outcomes": {
@@ -209,7 +210,7 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
-  "stop_reason": "18 manual inputs exhausted",
+  "stop_reason": "18 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"

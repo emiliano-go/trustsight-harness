@@ -79,7 +79,7 @@
       ]
     },
     "fetch-and-execution": {
-      "targeted": 6,
+      "targeted": 7,
       "total": 39,
       "untargeted": [
         "C007",
@@ -111,7 +111,6 @@
         "R046",
         "R047",
         "R048",
-        "R051",
         "R055",
         "R056",
         "R057"
@@ -142,10 +141,9 @@
       ]
     },
     "integrity": {
-      "targeted": 8,
+      "targeted": 9,
       "total": 42,
       "untargeted": [
-        "C001",
         "C002",
         "C003",
         "C004",
@@ -474,6 +472,321 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "list2-a",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-b",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-c",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-d",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-e",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-f",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-g",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-h",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-i",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-j",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-k",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-l",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-m",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-n",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-o",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-p",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-q",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-r",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-s",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-t",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-u",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-v",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "list2-w",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "H082",
+        "H016",
+        "H083",
+        "C001",
+        "R051"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "lua-solo",
       "expected_rules": [],
       "package": "harness-pkg"
@@ -618,7 +931,7 @@
       "package": "harness-pkg"
     },
     {
-      "campaign": "pkmanager-build-x011",
+      "campaign": "pkgmanager-build-x011",
       "expected_rules": [
         "X011"
       ],
@@ -749,12 +1062,11 @@
     }
   ],
   "rules": {
-    "targeted": 23,
+    "targeted": 25,
     "total": 212,
     "unknown_expected_rules": [],
-    "untargeted": 189,
+    "untargeted": 187,
     "untargeted_ids": [
-      "C001",
       "C002",
       "C003",
       "C004",
@@ -894,7 +1206,6 @@
       "R048",
       "R049",
       "R050",
-      "R051",
       "R052",
       "R053",
       "R054",

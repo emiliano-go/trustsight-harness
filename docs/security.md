@@ -60,6 +60,17 @@ by searching the text; an earlier version searched for the substring and
 reported `runner.py` for a *comment* explaining that it does not use a
 subprocess. A gate that cries wolf gets switched off.
 
+TrustSight's own analysis is hermetic under the harness too. `analyze_text`
+walks the corpus dependency graph, and the walk asks the AUR RPC about the
+analysed package name; the harness freezes that reply to the empty answer
+(`harness/environment.py::freeze_aur_lookup`, recorded as
+`environment.aur_lookup: frozen-empty`). Every name the corpus asks about is
+absent from the AUR - the `package` placeholder, and no campaign input declares
+a dependency array - so the frozen answer is the one the endpoint gives, minus
+the network retry that measured ~11 s per analysis while the AUR returned HTTP
+429. A test fails if a campaign input ever declares dependencies, so the
+assumption cannot rot silently.
+
 ## H3: Bounded reads
 
 Every generated artefact is size-capped before anything parses it.
@@ -137,10 +148,12 @@ key after it is pushed, which is after it is public.
 
 **The claim.** `campaign.yml` is input. An MCP client or a generated campaign
 hands one to the loader, so the paths inside it are not trusted: the harness
-resolves `generator.directory`, `generator.baseline`, `generator.sources` and
-`generator.prices_path` under their allowed root (`_within` in
-`harness/__main__.py`) and refuses the run when one escapes, rather than reading
-a PKGBUILD or a price file from anywhere on disk.
+resolves `generator.manifest`, `generator.template`, `generator.directory`,
+`generator.baseline`, `generator.sources` and `generator.prices_path` under
+their allowed root (`within` in `harness/paths.py`) and refuses the run when one
+escapes, rather than reading a PKGBUILD, template or price file from anywhere on
+disk. The inputs manifest is data: it cannot name a path, and its cells are
+substituted literally, never evaluated.
 
 `environment.ioc_baseline` imports a federation baseline into the campaign-local
 database before the attempts. An unsigned baseline is accepted only because this

@@ -1,0 +1,434 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        fennel "$srcdir/f.erl"
+  id: 055-gp-xf-pb-fennel
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        fennel "$srcdir/f.erl"
+  id: 056-gp-xf-pc-fennel
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        fennel "$srcdir/f.erl"
+  id: 057-gp-xf-bc-fennel
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        bash "$srcdir/f.erl"
+  id: 058-rc-xf-pb-bash
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 059-rc-xf-pc-bash
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 060-rc-xf-bc-bash
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        escript "$srcdir/f.erl"
+  id: 061-rc-xf-pb-escript
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 062-rc-xf-pc-escript
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 063-rc-xf-bc-escript
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        fennel "$srcdir/f.erl"
+  id: 064-rc-xf-pb-fennel
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        fennel "$srcdir/f.erl"
+  id: 065-rc-xf-pc-fennel
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        fennel "$srcdir/f.erl"
+  id: 066-rc-xf-bc-fennel
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      build() {
+        bash "$srcdir/f.erl"
+  id: 067-gr-xf-pb-bash
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 068-gr-xf-pc-bash
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 069-gr-xf-bc-bash
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      build() {
+        escript "$srcdir/f.erl"
+  id: 070-gr-xf-pb-escript
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 071-gr-xf-pc-escript
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 072-gr-xf-bc-escript
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      build() {
+        fennel "$srcdir/f.erl"
+  id: 073-gr-xf-pb-fennel
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      check() {
+        fennel "$srcdir/f.erl"
+  id: 074-gr-xf-pc-fennel
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      check() {
+        fennel "$srcdir/f.erl"
+  id: 075-gr-xf-bc-fennel
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        bash f.erl
+  id: 076-gpv-bash
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        escript f.erl
+  id: 077-gpv-escript
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        fennel f.erl
+  id: 078-gpv-fennel
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        deno f.erl
+  id: 079-gpv-deno
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        bun f.erl
+  id: 080-gpv-bun
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        zx f.erl
+  id: 081-gpv-zx
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        guile f.erl
+  id: 082-gpv-guile
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        racket f.erl
+  id: 083-gpv-racket
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        elixir f.erl
+  id: 084-gpv-elixir
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        ts-node f.erl
+  id: 085-gpv-tsnode
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        for x in *.erl; do bash "$x"; done
+  id: 086-gpv-loop
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        julia < f.erl
+  id: 087-gpv-julialt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        Rscript < f.erl
+  id: 088-gpv-rscriptlt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        pwsh < f.erl
+  id: 089-gpv-pwshlt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        python3 < f.erl
+  id: 090-gpv-py3lt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        perl < f.erl
+  id: 091-gpv-perllt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        node < f.erl
+  id: 092-gpv-nodelt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        tclsh < f.erl
+  id: 093-gpv-tclshlt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        php < f.erl
+  id: 094-gpv-phplt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        ruby < f.erl
+  id: 095-gpv-rubylt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        lua < f.erl
+  id: 096-gpv-lualt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main
+        sh f.erl
+  id: 097-gpv-sh
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        bash f.erl
+  id: 098-gfv-bash
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        escript f.erl
+  id: 099-gfv-escript
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        fennel f.erl
+  id: 100-gfv-fennel
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        deno f.erl
+  id: 101-gfv-deno
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        bun f.erl
+  id: 102-gfv-bun
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        zx f.erl
+  id: 103-gfv-zx
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        guile f.erl
+  id: 104-gfv-guile
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        racket f.erl
+  id: 105-gfv-racket
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        elixir f.erl
+  id: 106-gfv-elixir
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        ts-node f.erl
+  id: 107-gfv-tsnode
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        for x in *.erl; do bash "$x"; done
+  id: 108-gfv-loop
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        julia < f.erl
+  id: 109-gfv-julialt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        Rscript < f.erl
+  id: 110-gfv-rscriptlt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        pwsh < f.erl
+  id: 111-gfv-pwshlt
+- vars:
+    payload: |
+      pkgver() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin tag v9.9.9
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q FETCH_HEAD
+        python3 < f.erl
+  id: 112-gfv-py3lt

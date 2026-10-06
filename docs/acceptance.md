@@ -21,7 +21,7 @@ checked. A criterion with no test is a claim, not a property.
 | The regression gate replays committed bypasses plus canary and API/CLI parity checks; exit codes are 0/2 only | `harness/regression.py`, `harness/__main__.py` | `tests/test_regression_gate.py` |
 | Harness self-security gates run in CI and fail the build | `tests/test_self_security.py`, `scripts/scan_secrets.py`, `.github/workflows/ci.yml` | the gates themselves and the CI workflow |
 | `campaign.yml` is committed before execution; the record links the commit | `_git_commit` reads `.git` directly (no subprocess); `record.campaign_commit` | inspection of `record.json` |
-| All previously known bypasses are reproducible in manual mode | `campaigns/known-bypasses-manual/` | run the campaign |
+| All previously known bypasses are reproducible from committed inputs | `campaigns/known-bypasses-manual/` (`inputs.yml`) | run the campaign; the migration gate re-renders every cell and requires the recorded `diff_sha256` |
 | Untested rules are countable, not inferred; a probe cannot name a rule that does not exist | `harness/coverage.py`, `python -m harness coverage` | `tests/test_coverage.py` |
 | A benign diff that is flagged is measured, and an unflagged one is not counted as a bypass | `harness/benign.py`, `python -m harness benign` | `tests/test_benign.py` |
 | An untrusted `campaign.yml` cannot read outside its roots through the generator | `_within` in `harness/__main__.py` | `tests/test_mcp.py` (generator path escape) |

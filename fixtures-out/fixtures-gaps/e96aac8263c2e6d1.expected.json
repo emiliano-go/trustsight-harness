@@ -6,12 +6,13 @@
   "provenance": {
     "campaign": "pkmanager-build-x011",
     "generator": {
-      "directory": "/home/eclipse/Documents/GitHub/TrustSight/trustsight-harness/campaigns/pkgmanager-build-x011/manual",
-      "inputs": 1,
-      "type": "manual"
+      "cells": 1,
+      "manifest": "inputs.yml",
+      "template": null,
+      "type": "inputs"
     },
-    "harness_version": "2.0.0",
+    "harness_version": "2.1.0",
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-    "trustsight_version": "0.17.2"
+    "trustsight_version": "0.18.0"
   }
 }

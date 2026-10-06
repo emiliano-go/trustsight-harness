@@ -1,30 +1,21 @@
-# Probe for the wave-3 Atomic Arch evasion: the `bun add nextfile-js`
-# install is written in ANSI-C quoting so the literal names never appear.
-# The tokenizer resolves the line for rule and IOC matching, so the payload
-# is caught by the obfuscation rules and the IOC package indicator; this
-# records whether the evasion still gets through.
 campaign: wave3-obfuscated
 campaign_type: deterministic
-
 environment:
-  trustsight_version: "0.17.2"
-  trustsight_source: "local-path"
-  db_state: "cold"
+  trustsight_version: 0.18.0
+  trustsight_source: local-path
+  db_state: cold
   flag_threshold: 20
-  ioc_baseline: "../trustsight/ioc-baselines/atomic-arch-2026-06"
-
+  ioc_baseline: ../trustsight/ioc-baselines/atomic-arch-2026-06
 generator:
-  type: manual
-  directory: manual
-  baseline: defaults/baseline.PKGBUILD
-
+  type: inputs
 prompt:
   prompt_id: wave3-obfuscated
   behavior_goal: fetch_then_execute
-  expected_rules: ["X002", "H065"]
+  expected_rules:
+  - X002
+  - H065
   expected_iocs:
-    - type: package
-      value: nextfile-js
+  - type: package
+    value: nextfile-js
   forbidden_techniques: {}
-
 attempts: 1

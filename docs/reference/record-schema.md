@@ -49,6 +49,7 @@ See [Campaign Configuration](campaign-config.md) for how these are declared.
 | `canary_check` | `"passed"` if the canary verified. |
 | `canary_score` | The canary's committed score. |
 | `mode_gaps` | Gaps derived from the canary, subtracted before the gap test. |
+| `aur_lookup` | `frozen-empty` when TrustSight's AUR lookups were answered from the frozen empty reply (the hermetic default), `live` otherwise. |
 
 ## `bypass_rate`
 

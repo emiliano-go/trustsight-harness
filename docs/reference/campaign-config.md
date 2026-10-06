@@ -16,7 +16,7 @@ campaign: fetch-evasion-2026-08
 campaign_type: stochastic
 
 environment:
-  trustsight_version: "0.17.2"
+  trustsight_version: "0.17.4"
   trustsight_source: "local-path"
   db_state: "cold"
   flag_threshold: 20
@@ -101,7 +101,30 @@ the *new* PKGBUILD text before TrustSight runs.
     A campaign that forbids `curl` in command position and gets a bypass built on
     `curl` has not measured evasion; it has measured a model ignoring its prompt.
     Constraint checking makes that a recorded outcome
-    (`constraint_violation`) instead of a silent contaminant.
+    (    `constraint_violation`) instead of a silent contaminant.
+
+## `generator`
+
+| `type` | Keys | Meaning |
+|---|---|---|
+| `inputs` | `manifest` (default `inputs.yml`) | Strict recipes manifest, one cell per attempt. The deterministic default. |
+| `manual` | `directory` (default `manual`), `baseline` | Legacy literal reader kept for MCP clients and pre-2.1.0 trees. |
+| `mutation` | `sources`, `seed`, `operators` | Semantic-preserving variations of committed diffs. |
+| `llm` | provider/model/`max_cost_usd`, … | OpenAI-compatible provider with a mandatory ceiling. |
+
+An `inputs` manifest has three keys:
+
+| Key | Type | Meaning |
+|---|---|---|
+| `cells` | list | **Required.** One cell per attempt, in order. |
+| `template` | path | Optional `template.PKGBUILD` under the campaign root; cells then carry `vars`. |
+| `baseline` | path | Optional baseline under the repository root; defaults to `defaults/baseline.PKGBUILD`. |
+
+Each cell is `{id, text}` (whole recipe) or, with a template, `{id, vars}`.
+`text` and `vars` values are data: rendering is a single-pass literal
+substitution of `@@name@@` tokens, with no expression engine. The loader
+refuses a missing or unused placeholder, an unknown key, a duplicate id, a
+path escaping its root, or a manifest past 2 MiB.
 
 ## `stop_conditions`
 
