@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "stdin-execution",
-  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
+  "campaign_commit": "42af97cfd4e3e2062f183df598287fe2470b216f",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 661
+    "wall_clock_ms": 841
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.0"
+    "trustsight_version": "0.18.1"
   },
   "generator": {
     "cells": 6,
@@ -58,7 +58,7 @@
       "original_campaign": "stdin-execution",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:0e4250b4eed2cc03165e9ce7f37afcaa8d44356830b23a707de5f6896deb89c6",
@@ -66,7 +66,7 @@
       "original_campaign": "stdin-execution",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:51003aafff11f214a75010b688b014a518a1e2c261b096ea721f065de31ce004",
@@ -74,7 +74,7 @@
       "original_campaign": "stdin-execution",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:5c8f38d70f777a8609d96214fed8e7b3a164d9026e446190afc0844578ae4b08",
@@ -82,7 +82,7 @@
       "original_campaign": "stdin-execution",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:a7d1867876e62e0d86128b4c1b54abfacaeebd39c84152e7d3796462c8d47888",
@@ -90,7 +90,7 @@
       "original_campaign": "stdin-execution",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:cd4b07c67d86a7853f7c293b0e3ef4b27801332c77bc1d8ff114e68a29594536",
@@ -98,7 +98,7 @@
       "original_campaign": "stdin-execution",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     }
   ],
   "outcomes": {

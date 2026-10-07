@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "no-url-fetch-exotic2",
-  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
+  "campaign_commit": "42af97cfd4e3e2062f183df598287fe2470b216f",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 639
+    "wall_clock_ms": 714
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.0"
+    "trustsight_version": "0.18.1"
   },
   "generator": {
     "cells": 6,
@@ -58,7 +58,7 @@
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:01baf9e81433651811e5e4d75c7849558bc976cf764b53fa5abfa57a27e70922",
@@ -66,7 +66,7 @@
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:7c67666f07ee7c24dbdffbdbfafa3d8c54fdce4c85b0642b86a26850aebef5fc",
@@ -74,7 +74,7 @@
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:2520c07f9307ea684bb9e26ecef7fe984d566dfe0ca1b475fb36cbb1bde11bcb",
@@ -82,7 +82,7 @@
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:7372a571877480a4f0459abfe8173ebb8f5b31145cea2fd5a074350299ab7c28",
@@ -90,7 +90,7 @@
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:02473eb07c47d832628c32fc3c4e9fb72a2a8f9169f9a986f850ac206fb4bc5b",
@@ -98,7 +98,7 @@
       "original_campaign": "no-url-fetch-exotic2",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     }
   ],
   "outcomes": {

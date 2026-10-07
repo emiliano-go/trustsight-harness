@@ -2,7 +2,7 @@ campaign: prebuilt-host-divergence-c011
 campaign_type: deterministic
 package: harness-payload-bin
 environment:
-  trustsight_version: 0.18.0
+  trustsight_version: 0.18.1
   trustsight_source: local-path
   db_state: cold
   flag_threshold: 20

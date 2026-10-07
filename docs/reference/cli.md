@@ -142,7 +142,7 @@ a "closed" bypass is never an artefact of a broken harness.
 ### Output
 
 ```
-Of 1277 known bypasses, 1276 closed, 1 open as of 0.18.0.
+Of 1277 known bypasses, 1276 closed, 1 open as of 0.18.1.
 ```
 
 and `regression/report.json` with the per-bypass detail.

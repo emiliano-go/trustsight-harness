@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "exotic-interpreter-sinks",
-  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
+  "campaign_commit": "42af97cfd4e3e2062f183df598287fe2470b216f",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1437
+    "wall_clock_ms": 1463
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.0"
+    "trustsight_version": "0.18.1"
   },
   "generator": {
     "cells": 14,
@@ -58,7 +58,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:cbc9d9200bbcd8eaa7e4e9b16ed65ed4413068929a8feed8e4ba348ac66578e7",
@@ -66,7 +66,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:aa2c9f2ac453f18717086e62db54ff512e3fc6bbf49e117f41be3137990f7119",
@@ -74,7 +74,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:2ba4fdf966fb470487b33e866892dc46aff2d775604ea84edae69dea27e0a8a9",
@@ -82,7 +82,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:c71ac632f12f2f7080792955e856e58b982043ec71334d2652c91a2c62ad0223",
@@ -90,7 +90,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:be4a45c5d3b7111df066ecba70940c45a1363a46cb28f6661d66d938b8e3bbc9",
@@ -98,7 +98,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:035112b048055e6b7777ca41f4d9c81966bfefb7c00b083082e7085a51e28138",
@@ -106,7 +106,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:982f5ff4d1fab973f54d4261412f5e475743c1b1c4ac6ac3f2135ea8a4f1437f",
@@ -114,7 +114,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:1758b1c90391d8aae9dd5ab7081a198c30b59fa75446b4834580572140a345e5",
@@ -122,7 +122,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:899aef7858bb3f4bc23c0a877fe91e378b58d5ef9098f5cbc1a22c08c3fd654c",
@@ -130,7 +130,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:27efd65b6c57ea832012e3cdaaaa52d9753b77c51d36160d5c0fd3c184f7f104",
@@ -138,7 +138,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:22e7c893a5e16530cf61ea9afa6b43306760f1936842364ddfb3de93052f9df0",
@@ -146,7 +146,7 @@
       "original_campaign": "exotic-interpreter-sinks",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     }
   ],
   "outcomes": {

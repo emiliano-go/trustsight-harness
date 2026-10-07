@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "no-url-fetch-exotic",
-  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
+  "campaign_commit": "42af97cfd4e3e2062f183df598287fe2470b216f",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 451
+    "wall_clock_ms": 508
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.0"
+    "trustsight_version": "0.18.1"
   },
   "generator": {
     "cells": 4,
@@ -58,7 +58,7 @@
       "original_campaign": "no-url-fetch-exotic",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:b1db0cbdc0f8e81109bdb8a3dcbf295cd8be352f30c3678e9c5b85c870dcbb5d",
@@ -66,7 +66,7 @@
       "original_campaign": "no-url-fetch-exotic",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:5dcd93efad67f4046ff941aa588ea9d567dbd3d3c50941f88b30febc2714aaef",
@@ -74,7 +74,7 @@
       "original_campaign": "no-url-fetch-exotic",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:13570d408eb5287d298308621aa08926b8603a0b81c94e8f0b9149fc0a3bef2f",
@@ -82,7 +82,7 @@
       "original_campaign": "no-url-fetch-exotic",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     }
   ],
   "outcomes": {

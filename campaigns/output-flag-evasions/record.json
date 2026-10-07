@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "output-flag-evasions",
-  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
+  "campaign_commit": "42af97cfd4e3e2062f183df598287fe2470b216f",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 628
+    "wall_clock_ms": 763
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.0"
+    "trustsight_version": "0.18.1"
   },
   "generator": {
     "cells": 6,
@@ -58,7 +58,7 @@
       "original_campaign": "output-flag-evasions",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:e36ddf9062b9579c6973db5a6aae84df74bff05979c3bd2accac28ee609341ed",
@@ -66,7 +66,7 @@
       "original_campaign": "output-flag-evasions",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:3eb44eb0a627ec1afdcf06a1c417481825394789dd815f326caa47e71ac3fc29",
@@ -74,7 +74,7 @@
       "original_campaign": "output-flag-evasions",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:140f53f32ae43b13bf3ea93674025e24c1803a2782beea73283e442d648aa399",
@@ -82,7 +82,7 @@
       "original_campaign": "output-flag-evasions",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:5b03bac2790a841d6f21af93ed1b5def8c284c13b4eb387aa3614b8850c91189",
@@ -90,7 +90,7 @@
       "original_campaign": "output-flag-evasions",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:a4c044caf9419486d976bbf8fae4fb49f493c9d4b788d8ff9bf970a11e020dac",
@@ -98,7 +98,7 @@
       "original_campaign": "output-flag-evasions",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     }
   ],
   "outcomes": {

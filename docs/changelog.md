@@ -69,6 +69,10 @@ campaign); the same evidence now lives in four to five files per campaign.
   extraction is scoped to the PKGBUILD, and the stale review limit is
   repaired.  Campaigns are re-baselined at that commit (1,402 attempts, 0
   bypasses) and the replay still reports 1,276 of 1,277 closed.
+- The measured build moves to TrustSight 0.18.1 (`d4fa86c`): calibration
+  hardening, a load-proof regex-safety test and documentation changes only,
+  so the re-baseline is unchanged - 1,402 attempts, 0 bypasses; the replay
+  still reports 1,276 of 1,277 closed, 0 degraded, 0 unreplayable.
 
 ## 2.0.0
 

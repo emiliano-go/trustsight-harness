@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "sftp-write-then-exec",
-  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
+  "campaign_commit": "42af97cfd4e3e2062f183df598287fe2470b216f",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 905
+    "wall_clock_ms": 1021
   },
   "environment": {
     "accumulate": false,
@@ -40,7 +40,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.0"
+    "trustsight_version": "0.18.1"
   },
   "generator": {
     "cells": 8,
@@ -58,7 +58,7 @@
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:cb90c9d784cbed01d23df4fd047b5bb685ca5768716ea4b6c11f499906a8544a",
@@ -66,7 +66,7 @@
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:5258a703fc3bc94899c3cae3550bc7798eb965b480dba07c7800f02895c48d4a",
@@ -74,7 +74,7 @@
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:d9dfd18707357ea79b15ca226fac7d4fd36689770260d145e50318ff45f21a9a",
@@ -82,7 +82,7 @@
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     },
     {
       "diff_hash": "sha256:3adf08b557df23281e86dea9a3671005626e78a54a30afae3bad002df61b81d8",
@@ -90,7 +90,7 @@
       "original_campaign": "sftp-write-then-exec",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.0"
+      "trustsight_version": "0.18.1"
     }
   ],
   "outcomes": {
