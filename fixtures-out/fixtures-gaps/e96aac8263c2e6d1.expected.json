@@ -4,7 +4,7 @@
     "unpinned_build_deps"
   ],
   "provenance": {
-    "campaign": "pkmanager-build-x011",
+    "campaign": "pkgmanager-build-x011",
     "generator": {
       "cells": 1,
       "manifest": "inputs.yml",

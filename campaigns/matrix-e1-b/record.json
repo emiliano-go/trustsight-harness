@@ -12,7 +12,7 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "matrix-e1-b",
-  "campaign_commit": "ea056a8de0b575869014bf25be6a89cd2b533b7d",
+  "campaign_commit": "07809f1afca5e5880ae50c8f29dc1dba062b2805",
   "campaign_type": "deterministic",
   "cost": {
     "api_cost_usd": 0.0,
@@ -20,7 +20,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7007
+    "wall_clock_ms": 5524
   },
   "environment": {
     "accumulate": false,

@@ -64,6 +64,11 @@ campaign); the same evidence now lives in four to five files per campaign.
   0.18.0 and re-baselined (1,402 attempts in 53 s via `sweep --jobs auto`).
   The regression replay at 0.18.0 reports 1,276 of 1,277 historical bypasses
   closed; the survivor is the deliberate benign-artifact exemption.
+- The measured build moves to TrustSight 0.18.0 master (`5447fb7`), which
+  carries the post-release fixes: H083 stands down on a patch, dependency
+  extraction is scoped to the PKGBUILD, and the stale review limit is
+  repaired.  Campaigns are re-baselined at that commit (1,402 attempts, 0
+  bypasses) and the replay still reports 1,276 of 1,277 closed.
 
 ## 2.0.0
 

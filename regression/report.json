@@ -11494,11 +11494,6 @@
       "status": "detected"
     }
   ],
-  "cache": {
-    "enabled": true,
-    "hits": 0,
-    "misses": 1277
-  },
   "closed": 1276,
   "degraded": 0,
   "environment": {
