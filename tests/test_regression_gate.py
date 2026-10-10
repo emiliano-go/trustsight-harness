@@ -9,6 +9,7 @@ from harness.dedup import diff_hash
 from harness.regression import (
     _classify,
     _committed_bypasses,
+    _replay_item,
     _shard,
     resolve_jobs,
 )
@@ -164,9 +165,26 @@ def test_a_degraded_stage_is_not_a_closure():
         _verdict(Status.FAIL_CLOSED_CATCH, ["stage_degraded"]), "1.0")
     assert closed["state"] == "degraded"
     assert closed["closing_version"] == ""
-    other = _classify(
-        _verdict(Status.FAIL_CLOSED_CATCH, ["tokenizer_unavailable"]), "1.0")
-    assert other["state"] == "closed"
+
+
+def test_no_coverage_gap_is_ever_recorded_as_a_closure():
+    """A gap forbids UNFLAGGED, so a `fail_closed_catch` is the tool
+    declining to answer - evidence about the analysis, not about the payload.
+    Recording it as `closed` retired a bypass on an incomplete read and
+    stamped a closing version on it, which is the one direction this gate must
+    never be wrong in.  Sixteen of the seventeen gap types reached that line;
+    only `stage_degraded` was separated, because it means a stage failed
+    rather than a read that was incomplete."""
+    for gap in ("unresolved_source", "unresolved_parse_time", "diff_truncated",
+                "scan_truncated", "line_truncated", "partial_hunk",
+                "history_truncated", "companion_truncated", "noextract_suppressed",
+                "binary_metadata", "snapshot_refused", "tokenizer_unavailable"):
+        row = _classify(_verdict(Status.FAIL_CLOSED_CATCH, [gap]), "0.18.1")
+        assert row["state"] == "inconclusive", gap
+        assert row["closing_version"] == "", gap
+    # And a real detection still closes, with the version.
+    assert _classify(_verdict(Status.DETECTED), "0.18.1")["state"] == "closed"
+    assert _classify(_verdict(Status.DETECTED), "0.18.1")["closing_version"] == "0.18.1"
 
 
 def test_jobs_resolution_and_sharding():
@@ -305,3 +323,184 @@ def test_an_oversized_cache_compacts_to_one_entry_per_key(tmp_path, monkeypatch)
 def test_no_secrets_in_the_tree():
     from scripts.scan_secrets import scan
     assert scan() == []
+
+
+# ---------------------------------------------------------------------------
+# The gate must replay the measurement the record describes.
+#
+# `parse_unified_diff` keeps the lines inside a diff's hunks and discards the
+# rest, so a reconstruction of any realistic PKGBUILD is missing its `url=`
+# and its `source=`.  Those are the two declarations a bundle of rules
+# measures an undeclared fetch against, so replaying the reconstruction asks
+# TrustSight a different question from the one the record answers - and it
+# answered differently: a bypass whose evasion turns on the recipe's own
+# declared metadata came back `closed`.  That is the one direction a gate
+# whose job is "did the patch hold?" must never be wrong in, because it
+# reports a fix that was never tested.
+# ---------------------------------------------------------------------------
+
+_LOSSY_DIFF = (
+    "--- a/PKGBUILD\n"
+    "+++ b/PKGBUILD\n"
+    "@@ -1,4 +1,3 @@\n"
+    "-# Baseline recipe: recipe-mode inputs are diffed against this.\n"
+    " pkgname=harness-baseline\n"
+    " pkgver=1.0.0\n"
+    " pkgrel=1\n"
+    "@@ -10,11 +9,13 @@\n"
+    " sha256sums=('SKIP')\n"
+    " \n"
+    " build() {\n"
+    "-  make\n"
+    "+  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n"
+    "+  sh \"$srcdir\"/setup\n"
+    " }\n"
+)
+
+#: The PKGBUILD the campaign actually analysed: the hunks plus the head the
+#: diff never carried.
+_ANALYSED = (
+    "pkgname=harness-baseline\n"
+    "pkgver=1.0.0\n"
+    "pkgrel=1\n"
+    'url="https://github.com/example/harness-baseline"\n'
+    "license=('MIT')\n"
+    "source=(\"https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\n"
+    "sha256sums=('SKIP')\n"
+    "\n"
+    "build() {\n"
+    "  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n"
+    "  sh \"$srcdir\"/setup\n"
+    "}\n"
+)
+
+
+def test_the_reconstruction_of_a_realistic_diff_loses_the_declarations():
+    """The premise of the fix, asserted rather than assumed."""
+    from validators.syntax import parse_unified_diff
+
+    _old, new = parse_unified_diff(_LOSSY_DIFF)
+    assert "url=" not in new
+    assert "source=" not in new
+    assert "url=" in _ANALYSED and "source=" in _ANALYSED
+
+
+def test_a_recorded_bypass_carries_the_text_its_verdict_was_reached_on(tmp_path):
+    from harness.recorder import Recorder, Trace
+    from harness.status import Status
+
+    recorder = Recorder(tmp_path, "c", "1.1.0")
+    recorder.add(Trace(attempt=0, diff_sha256="sha256:z", generator={},
+                       status=Status.BYPASS), _LOSSY_DIFF, _ANALYSED)
+    entry = json.loads((tmp_path / "evidence.jsonl").read_text().splitlines()[0])
+    assert entry["analysed_text"] == _ANALYSED
+    # The diff is still what a human reads, and still what identifies it.
+    assert entry["diff"] == _LOSSY_DIFF
+
+
+def test_the_gate_replays_the_recorded_text_not_the_reconstruction(tmp_path):
+    campaign = tmp_path / "c1"
+    digest = diff_hash(_LOSSY_DIFF)
+    _record(campaign, bypass_hashes=[digest])
+    _evidence(campaign, [{"attempt": 0, "status": "bypass",
+                          "diff_sha256": digest, "diff": _LOSSY_DIFF,
+                          "analysed_text": _ANALYSED}])
+
+    found = _committed_bypasses(tmp_path)
+    assert found[0]["analysed_text"] == _ANALYSED
+
+
+def test_a_record_without_the_text_replays_and_says_it_reconstructed(tmp_path,
+                                                                    monkeypatch):
+    campaign = tmp_path / "c1"
+    digest = diff_hash(_LOSSY_DIFF)
+    _record(campaign, bypass_hashes=[digest])
+    _evidence(campaign, [{"attempt": 0, "status": "bypass",
+                          "diff_sha256": digest, "diff": _LOSSY_DIFF}])
+
+    assert _committed_bypasses(tmp_path)[0]["analysed_text"] == ""
+
+    analysed = []
+
+    class _Report:
+        score = 0
+        findings = ()
+        coverage_gaps = ()
+
+    class _Runner:
+        def analyze(self, text, old=None):
+            analysed.append(text)
+            return type("R", (), {"report": _Report()})()
+
+    class _Env:
+        flag_threshold = 20
+        mode_gaps = ("tree_not_analyzed",)
+        trustsight_version = "0.18.1"
+
+        def restore(self):
+            pass
+
+        def check_canary(self, fn):
+            pass
+
+        def check_fingerprint(self, report):
+            pass
+
+    row = _replay_item(tmp_path, _Env(), _Runner(), "/usr/bin/bash",
+                       _committed_bypasses(tmp_path)[0])
+    assert row["analysed_from"] == "reconstruction"
+    assert "url=" not in analysed[-1]
+
+
+def test_a_record_with_the_text_replays_that_text(tmp_path):
+    campaign = tmp_path / "c1"
+    digest = diff_hash(_LOSSY_DIFF)
+    _record(campaign, bypass_hashes=[digest])
+    _evidence(campaign, [{"attempt": 0, "status": "bypass",
+                          "diff_sha256": digest, "diff": _LOSSY_DIFF,
+                          "analysed_text": _ANALYSED}])
+
+    analysed = []
+
+    class _Report:
+        score = 0
+        findings = ()
+        coverage_gaps = ()
+
+    class _Runner:
+        def analyze(self, text, old=None):
+            analysed.append(text)
+            return type("R", (), {"report": _Report()})()
+
+    class _Env:
+        flag_threshold = 20
+        mode_gaps = ("tree_not_analyzed",)
+        trustsight_version = "0.18.1"
+
+        def restore(self):
+            pass
+
+        def check_canary(self, fn):
+            pass
+
+        def check_fingerprint(self, report):
+            pass
+
+    row = _replay_item(tmp_path, _Env(), _Runner(), "/usr/bin/bash",
+                       _committed_bypasses(tmp_path)[0])
+    assert row["analysed_from"] == "recorded"
+    assert analysed[-1] == _ANALYSED
+
+
+def test_the_cache_key_separates_the_two_replays(tmp_path):
+    """A record that gains `analysed_text` must not be served the stored
+    reconstruction-based verdict for the same diff hash."""
+    from harness.regression_cache import cache_key
+
+    env = {"trustsight_version": "0.18.1", "config_fingerprint": "f"}
+    without = cache_key({"diff_hash": "sha256:d"}, env, "v", "j", "s")
+    with_text = cache_key({"diff_hash": "sha256:d", "analysed_text": _ANALYSED},
+                          env, "v", "j", "s")
+    other = cache_key({"diff_hash": "sha256:d", "analysed_text": "pkgname=x\n"},
+                      env, "v", "j", "s")
+    assert len({without, with_text, other}) == 3

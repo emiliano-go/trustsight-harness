@@ -64,6 +64,15 @@ campaigns/known-bypasses-manual/
 └── env/                  # this campaign's own TrustSight data and config
 ```
 
+A line for a bypass carries two more fields than the others. `diff` is the
+unified diff, for a human and for the gate's re-hashing. `analysed_text` is
+the PKGBUILD the verdict was actually reached on, and it is there because a
+diff is not the whole file: reconstructing a side from its hunks discards
+every line outside one, so the reconstruction has no `url=` and no `source=`.
+The gate replays `analysed_text` when it is present, and counts the
+reconstruction-based replays separately so a reader can see how much of a
+report rests on the older shape.
+
 Plus, at the repository root, anything the campaign exported:
 
 ```

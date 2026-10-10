@@ -121,9 +121,15 @@ def main(argv: list[str] | None = None) -> int:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
         rules = report["rules"]
+        # Two numbers, because "unprobed" and "unprobeable" are different
+        # facts and only one of them is a gap in the suite.  Naming them
+        # together let a reader count the rules that no campaign can reach as
+        # rules nobody had got round to.
+        untriable = len(report["untargeted_because_unreachable"])
         print(f"{rules['targeted']} of {rules['total']} rules targeted by "
               f"{len(report['campaigns'])} campaigns; {rules['untargeted']} "
-              f"untargeted, {len(report['untargeted_reasons'])} with a reason.")
+              f"untargeted, {len(report['untargeted_reasons'])} with a reason "
+              f"and all {untriable} unreachable by this harness's format.")
         return EXIT_OK
 
     if args.target == "benign":
@@ -198,6 +204,8 @@ def main(argv: list[str] | None = None) -> int:
             f"{summary['minimum_layer_cut']}, single-layer failures "
             f"{summary['single_layer_failure'] or '{}'}, bypasses "
             f"{summary['bypasses']}")
+        if summary["limitations"]:
+            print("attack-set limitations: " + "; ".join(summary["limitations"]))
     return EXIT_OK
 
 

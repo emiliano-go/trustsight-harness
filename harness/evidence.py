@@ -16,7 +16,7 @@ from pathlib import Path
 
 from .dedup import diff_hash
 
-__all__ = ["diff_by_hash", "iter_evidence"]
+__all__ = ["analysed_text_by_hash", "diff_by_hash", "iter_evidence"]
 
 
 def iter_evidence(campaign_dir: Path) -> list[dict]:
@@ -50,6 +50,29 @@ def diff_by_hash(campaign_dir: Path) -> dict[str, str]:
         if not isinstance(text, str) or not text:
             continue
         computed = diff_hash(text)
+        recorded = entry.get("diff_sha256", "")
+        if recorded and recorded != computed:
+            continue
+        found.setdefault(computed, text)
+    return found
+
+
+def analysed_text_by_hash(campaign_dir: Path) -> dict[str, str]:
+    """The PKGBUILD each verdict was reached on, keyed by its *recomputed* hash.
+
+    Recorded by `Recorder.add` for the statuses that carry a diff, and absent
+    from entries written before that field existed.  Absent is not empty: the
+    regression gate falls back to the diff reconstruction and records that it
+    did, because a replay of a reconstruction is not the measurement the
+    record describes and a reader has to be able to see the difference.
+    """
+    found: dict[str, str] = {}
+    for entry in iter_evidence(campaign_dir):
+        text = entry.get("analysed_text")
+        diff = entry.get("diff")
+        if not isinstance(text, str) or not text or not isinstance(diff, str):
+            continue
+        computed = diff_hash(diff)
         recorded = entry.get("diff_sha256", "")
         if recorded and recorded != computed:
             continue

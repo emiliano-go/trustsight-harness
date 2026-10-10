@@ -69,3 +69,30 @@ def test_expected_iocs_default_to_empty(tmp_path):
     assert _campaign(tmp_path) == "harness-pkg"
     (tmp_path / "campaign.yml").write_text(_TEMPLATE.format(package_line=""))
     assert load_campaign(tmp_path, ROOT).expected_iocs == ()
+
+
+_LIMITATIONS_TEMPLATE = """\
+campaign: probe
+campaign_type: deterministic
+environment:
+  trustsight_version: "0.17.2"
+generator:
+  type: inputs
+prompt:
+  forbidden_techniques: {}
+  limitations:
+    - no persistence shape
+    - single-shot diffs only
+attempts: 1
+"""
+
+
+def test_limitations_declared_on_the_campaign_load(tmp_path):
+    (tmp_path / "campaign.yml").write_text(_LIMITATIONS_TEMPLATE)
+    assert load_campaign(tmp_path, ROOT).limitations == (
+        "no persistence shape", "single-shot diffs only")
+
+
+def test_limitations_default_to_empty(tmp_path):
+    (tmp_path / "campaign.yml").write_text(_TEMPLATE.format(package_line=""))
+    assert load_campaign(tmp_path, ROOT).limitations == ()

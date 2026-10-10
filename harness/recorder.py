@@ -15,7 +15,9 @@ from pathlib import Path
 from .stats import (
     bypass_count,
     bypass_rate,
+    layers_fully_bypassed,
     minimum_layer_cut,
+    resilience_distribution,
     single_layer_failure,
 )
 from .status import Status
@@ -81,7 +83,8 @@ class Recorder:
         self._evidence_path = root / "evidence.jsonl"
         self._evidence_path.write_text("")
 
-    def add(self, trace: Trace, diff_text: str) -> None:
+    def add(self, trace: Trace, diff_text: str,
+            analysed_text: str = "") -> None:
         self.traces.append(trace)
         entry = trace.to_dict()
         # A rediscovered bypass is patch-verification evidence, not a fresh
@@ -92,6 +95,17 @@ class Recorder:
         # only the hash; their diff is not an artefact the gate uses.
         if trace.status in (Status.BYPASS, Status.KNOWN_BYPASS_MATCH):
             entry["diff"] = diff_text
+            # The text the verdict was actually reached on.  A unified diff
+            # is not the whole PKGBUILD: `parse_unified_diff` reconstructs
+            # each side from its hunks and drops every line outside one, so
+            # the `url=` and `source=` a campaign analysed are absent from
+            # it.  Replaying the reconstruction asks TrustSight a different
+            # question from the one the record answers, and the answer
+            # differed - a bypass whose evasion turns on the recipe's own
+            # declared metadata replayed as `closed`.  The gate replays this
+            # when it is present and says so in the report when it is not.
+            if analysed_text:
+                entry["analysed_text"] = analysed_text
         with self._evidence_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(entry, sort_keys=True) + "\n")
         if trace.status is Status.BYPASS:
@@ -103,7 +117,9 @@ class Recorder:
 
     def build_record(self, *, campaign_type: str, environment: dict,
                      generator: dict, validator: dict, cost: dict,
-                     campaign_commit: str = "") -> dict:
+                     campaign_commit: str = "", package: str = "",
+                     expected_rules: tuple = (),
+                     limitations: tuple = ()) -> dict:
         reached = sum(1 for t in self.traces if t.status in _REACHED)
         bypasses = sum(1 for t in self.traces if t.status is Status.BYPASS)
         record = {
@@ -112,11 +128,23 @@ class Recorder:
             "campaign_type": campaign_type,
             "campaign_commit": campaign_commit,
             "environment": environment,
+            # Two inputs change the verdict and were in neither the record nor
+            # the evidence: `package` is what TrustSight is asked about, and
+            # rules such as C011 key on the name - the same recipe text scored
+            # 0 as `harness-pkg` and 45 as `harness-baseline`; and
+            # `expected_rules` is the only thing separating `detected` from
+            # `partial_evasion`.  Two records with identical provenance could
+            # differ for a reason the record could not state.
+            "package": package,
+            "expected_rules": list(expected_rules),
             "generator": generator,
             "validator": validator,
             "attempts": len(self.traces),
             "stop_reason": self.stop_reason,
             "outcomes": self.outcomes(),
+            # Remediation T7: what the attack set does not cover.  The layer
+            # numbers are only meaningful beside this.
+            "limitations": list(limitations),
             "bypass_rate": dict(bypass_rate(bypasses, reached)),
             "bypass_hashes": sorted(self.bypass_hashes),
             "known_bypass_matches": self.known_matches,
@@ -136,6 +164,8 @@ class Recorder:
         if layer_paths:
             record["minimum_layer_cut"] = minimum_layer_cut(layer_paths)
             record["single_layer_failure"] = single_layer_failure(layer_paths)
+            record["resilience_distribution"] = resilience_distribution(layer_paths)
+            record["layers_fully_bypassed"] = layers_fully_bypassed(layer_paths)
             record["bypasses"] = bypass_count(layer_paths)
         # Addendum 5 §6.5 M004: co-fire health notes (tool health, not a
         # package verdict).  Empty when the campaign declared no pairs.

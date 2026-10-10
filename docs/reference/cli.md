@@ -124,6 +124,25 @@ and classify.
 - Fails `bash -n` now → **unreplayable**, with the reason
 - Analysis stage failed (`stage_degraded`, the tokenizer sandbox timing out
   under load) → **degraded**, retried once serially, never counted closed
+- The tool declined to answer (any other coverage gap forbids UNFLAGGED) →
+  **inconclusive**, never counted closed and never stamped with a closing
+  version. A gap is evidence about the *analysis*, not about the payload, so
+  retiring a bypass on one would be the gate being wrong in the only
+  direction it must never be.
+
+**What is re-analysed.** The gate replays the PKGBUILD the recorded verdict was
+reached on, which `evidence.jsonl` carries in `analysed_text` beside the diff.
+A unified diff is not the whole recipe: reconstructing a side from its hunks
+drops every line outside one, so the reconstruction has no `url=` and no
+`source=` — the two declarations a bundle of rules measures an undeclared fetch
+against. Replaying it asks TrustSight a different question from the one the
+record answers, and the two disagreed often enough to matter. A record written
+before the field existed still replays, on the reconstruction, and the report's
+`analysed_from` counts say how much of the run rests on which shape:
+
+```json
+"analysed_from": {"recorded": 36, "reconstruction": 1282}
+```
 
 The gate also replays the canary and one API/CLI parity check per environment, so
 a "closed" bypass is never an artefact of a broken harness.
@@ -167,12 +186,15 @@ rule taxonomy, and writes `coverage/report.json`.
 
 The harness is adversarial, not exhaustive. This makes the untested surface a
 number: of 212 rules, how many a campaign names, grouped by category, with the
-rules a cold `analyze_text` campaign *cannot* reach named and explained (the
-adoption and composition rules need a corpus cycle or recorded observation).
+rules a cold `analyze_text` campaign *cannot* reach named and explained. Two
+kinds of unreachability are separated, because they are different facts: the
+adoption and composition rules need a corpus cycle or a recorded observation,
+and twelve more need a committed companion file, which no campaign in this
+suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 25 of 212 rules targeted by 81 campaigns; 187 untargeted, 11 with a reason.
+# 34 of 212 rules targeted by 87 campaigns; 178 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
 ```
 
 ---

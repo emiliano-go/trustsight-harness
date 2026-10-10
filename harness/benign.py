@@ -63,10 +63,14 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
     from .stats import minimum_layer_cut, single_layer_failure
 
     try:  # the layer projection ships with newer TrustSight cores
-        from trustsight.layers import observed_layers
+        from trustsight.layers import observed_layers, parse_overrides
+
+        layer_overrides = parse_overrides(config)
     except Exception:  # noqa: BLE001 - telemetry must never fail the scan
-        def observed_layers(_findings):
-            return ()
+        def observed_layers(*_args, **_kwargs):
+            return {"fired": [], "fully_bypassed": True}
+
+        layer_overrides = {}
 
     seen_urls: dict[str, set[str]] = {}
     scanned = 0
@@ -84,10 +88,9 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
             scanned += 1
             if fact.final_score > threshold:
                 flagged += 1
-                flagged_paths.append({
-                    "fired": observed_layers([
-                        {"rule_id": e.rule_id} for e in fact.score_breakdown]),
-                })
+                flagged_paths.append(observed_layers(
+                    [{"rule_id": e.rule_id} for e in fact.score_breakdown],
+                    layer_overrides))
                 if len(examples) < max_examples:
                     examples.append({
                         "package": pkg,

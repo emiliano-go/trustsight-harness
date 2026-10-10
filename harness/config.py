@@ -49,6 +49,16 @@ class CampaignConfig:
         return self.prompt.get("forbidden_techniques", {}) or {}
 
     @property
+    def limitations(self) -> tuple[str, ...]:
+        """What this campaign's attack set does not cover.
+
+        Remediation T7: the published layer-resilience numbers are only
+        meaningful beside the attack-set limitations, so a campaign declares
+        them and the record carries them.
+        """
+        return tuple(str(x) for x in (self.prompt.get("limitations", ()) or ()))
+
+    @property
     def cofire_pairs(self) -> tuple[tuple[str, str], ...]:
         """(precursor, expected) rule pairs for the M004 co-fire health check.
 

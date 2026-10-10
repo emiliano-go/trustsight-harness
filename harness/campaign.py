@@ -21,7 +21,7 @@ from .runner import AnalysisTimeout, Runner, RunnerError
 from .sanitizer import sanitize
 from .status import Status
 
-__all__ = ["HARNESS_VERSION", "run_campaign"]
+__all__ = ["HARNESS_VERSION", "patch_verification", "run_campaign"]
 
 HARNESS_VERSION = "2.1.0"
 
@@ -92,8 +92,15 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 
     # The environment is verified before a single attempt is charged for.
     env.restore()
+    canary_text = (repo_root / "defaults/canary.PKGBUILD").read_text()
     env.check_canary(lambda name, text: runner.analyze(text).report)
-    if not runner.parity_check((repo_root / "defaults/canary.PKGBUILD").read_text()):
+    # Adopt the fingerprint from the canary, not from the first attempt.
+    # `check_fingerprint` takes whatever it is shown first and refuses every
+    # later mismatch, so leaving the first call inside the attempt loop made
+    # the value a property of attempt 1 and turned a drift between startup and
+    # attempt 1 into a recorded observation instead of a refusal.
+    env.check_fingerprint(runner.analyze(canary_text).report)
+    if not runner.parity_check(canary_text):
         raise EnvironmentError_("API and CLI report bodies differ; the instrument is broken")
     # `mode_gaps` is now derived from the canary and will be checked again
     # after every subsequent restore.
@@ -144,6 +151,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         trace.stages = stages
 
         report = None
+        analysed_text = ""
         if status is None:
             db_hash = env.restore()
             trace.db_hash = db_hash
@@ -180,6 +188,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                     raise
                 continue
             report = result.report
+            analysed_text = stages.get("_new_text", "")
             env.check_fingerprint(report)
             trace.trustsight = {
                 "report": result.body,
@@ -189,12 +198,15 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             # Addendum 5 §4: the layers this attempt passed and the layer
             # that stopped it, from the report's own `layers` projection.
             try:
-                from trustsight.layers import observed_layers
+                from trustsight.config import load_config
+                from trustsight.layers import observed_layers, parse_overrides
 
                 # A projection of which evidence categories fired, not an
-                # observed traversal.
+                # observed traversal.  `[layers]` overrides move a rule in
+                # every surface, telemetry included.
                 trace.trustsight["observed_layers"] = observed_layers(
-                    result.body.get("findings", ()))
+                    result.body.get("findings", ()),
+                    parse_overrides(load_config()))
             except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
             # Addendum 5 §6.5 M004: a declared co-fire that did not happen is
@@ -236,19 +248,18 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         # recorded under its own status so it cannot inflate a bypass count.
         if digest in known:
             origin = known.get(digest) or {}
-            still_open = verdict.status is Status.BYPASS
-            recorder.known_matches.append({
-                **origin,
-                "diff_hash": digest,
-                "patch_status": "regression" if still_open else "verified",
-                "observed_status": str(verdict.status),
-                "trustsight_version": env.trustsight_version,
-            })
-            verdict = replace(verdict, status=Status.KNOWN_BYPASS_MATCH,
-                              rationale=f"{verdict.rationale} "
-                                        f"(known bypass from "
-                                        f"{origin.get('original_campaign', '?')}; "
-                                        f"{'still open' if still_open else 'closed'})")
+            event = patch_verification(
+                verdict, digest=digest, origin=origin,
+                reached=report is not None,
+                trustsight_version=env.trustsight_version)
+            if event is not None:
+                recorder.known_matches.append(event)
+                verdict = replace(
+                    verdict, status=Status.KNOWN_BYPASS_MATCH,
+                    rationale=f"{verdict.rationale} "
+                              f"(known bypass from "
+                              f"{origin.get('original_campaign', '?')}; "
+                              f"{'still open' if event['patch_status'] == 'regression' else 'closed'})")
 
         trace.status = verdict.status
         trace.judge = {
@@ -256,7 +267,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             "fatal": verdict.fatal, "coverage_gaps": list(verdict.coverage_gaps),
             "catching_rules": list(verdict.catching_rules),
         }
-        recorder.add(trace, diff_text)
+        recorder.add(trace, diff_text, analysed_text)
         exporter.export(trace, diff_text)
 
     cost = {
@@ -278,6 +289,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         validator={"version_hash": behavior.version_hash, "calibration": calibration},
         cost=cost,
         campaign_commit=_git_commit(repo_root),
+        package=config.package,
+        expected_rules=tuple(config.expected_rules),
+        limitations=config.limitations,
     )
     recorder.write_record(record)
     return record
@@ -285,6 +299,40 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 
 def _abort(errors: int, attempts: int) -> bool:
     return attempts >= _MIN_ATTEMPTS_BEFORE_ABORT and errors / attempts > HARNESS_ERROR_ABORT_RATE
+
+
+def patch_verification(verdict, *, digest: str, origin: dict,
+                       reached: bool, trustsight_version: str) -> dict | None:
+    """The record of a rediscovery, or ``None`` when nothing was verified.
+
+    A known bypass re-run against a newer TrustSight answers a question no
+    fresh attempt can - did the patch hold? - so it is recorded with a
+    `patch_status` and never counted as a new find.
+
+    `reached` is the whole test.  A rediscovery at the *same* version is
+    refused earlier, as `duplicate`, because the environment that produced it
+    is the environment about to replay it: no analysis runs, so there is
+    nothing to verify.  Recording a `patch_status` anyway published
+    `verified` on a diff nobody re-read, which is the most expensive sentence
+    this harness can emit - it retires a bypass from the gate's output on the
+    strength of a run that never happened, and the gate's whole job is to say
+    whether a bypass is still open.
+
+    A refusal is not a fix either.  `fail_closed_catch` means the tool
+    declined to answer, which is not evidence the payload was caught, so it
+    counts as still open - the conservative direction, and the one the gate's
+    own comment calls the only safe one.
+    """
+    if not reached:
+        return None
+    still_open = verdict.status in (Status.BYPASS, Status.FAIL_CLOSED_CATCH)
+    return {
+        **origin,
+        "diff_hash": digest,
+        "patch_status": "regression" if still_open else "verified",
+        "observed_status": str(verdict.status),
+        "trustsight_version": trustsight_version,
+    }
 
 
 def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,

@@ -10,12 +10,28 @@ from __future__ import annotations
 
 import math
 
+# The layer-resilience primitives live in the tool under test
+# (``trustsight.layers``); the harness imports them rather than keeping a
+# second copy that can drift.  ``minimum_layer_cut`` is the exact cut, the
+# same function the report uses.
+from trustsight.layers import (  # noqa: F401
+    bypass_count,
+    exact_minimum_cut,
+    layers_fully_bypassed,
+    minimum_layer_cut,
+    resilience_distribution,
+    single_layer_failure,
+)
+
 __all__ = [
     "BypassRate",
     "bypass_count",
     "bypass_rate",
     "campaign_summary",
+    "exact_minimum_cut",
+    "layers_fully_bypassed",
     "minimum_layer_cut",
+    "resilience_distribution",
     "single_layer_failure",
     "wilson_interval",
 ]
@@ -29,61 +45,18 @@ def campaign_summary(record: dict) -> dict:
     """
     return {
         "attempts": record.get("attempts", 0),
+        "outcomes": record.get("outcomes", {}),
         "bypasses": record.get("bypasses", 0),
         "minimum_layer_cut": record.get("minimum_layer_cut"),
         "single_layer_failure": record.get("single_layer_failure", {}),
+        "resilience_distribution": record.get("resilience_distribution", {}),
+        "layers_fully_bypassed": record.get("layers_fully_bypassed", 0),
+        # Remediation T7: the attack-set limitations the numbers must be read
+        # beside.
+        "limitations": record.get("limitations", []),
         # Addendum 5 §6.5 M004: co-fire health notes (never a package finding).
         "cofire_health": record.get("cofire_health", []),
     }
-
-#: The evidence layers, ordered (Addendum 5 §1).
-_LAYER_ORDER = ("L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8")
-
-
-def minimum_layer_cut(paths) -> int | None:
-    """Exact smallest layer set that covers every caught attempt.
-
-    *paths* is an iterable of ``{"fired": [...], "fully_bypassed": bool}``
-    (Addendum 5 §4).  A layer covers an attempt when it fired for it.  The
-    cut is the smallest set of layers covering every caught attempt,
-    enumerated exactly over the 2**8 subsets; a fully-bypassed attempt is
-    uncuttable, so any bypass makes the cut ``None`` (reported separately by
-    :func:`bypass_count`).  ``None`` when there are no paths.
-    """
-    paths = [p for p in (paths or ()) if p]
-    if not paths:
-        return None
-    caught = [set(p.get("fired") or ()) for p in paths]
-    if any(not fired for fired in caught):
-        return None
-    import itertools
-
-    for size in range(1, len(_LAYER_ORDER) + 1):
-        for combo in itertools.combinations(_LAYER_ORDER, size):
-            chosen = set(combo)
-            if all(chosen & fired for fired in caught):
-                return size
-    return len(_LAYER_ORDER)
-
-
-def single_layer_failure(paths) -> dict[str, int]:
-    """Attempts that bypass if one layer's detector family is disabled.
-
-    For each layer, the count of caught attempts whose *only* fired layer is
-    that layer - disable it and they pass.  The empirical answer to "does one
-    layer's failure reopen a path".
-    """
-    out: dict[str, int] = {}
-    for path in paths or ():
-        fired = [lit for lit in (path.get("fired") or ()) if lit]
-        if len(fired) == 1:
-            out[fired[0]] = out.get(fired[0], 0) + 1
-    return dict(sorted(out.items()))
-
-
-def bypass_count(paths) -> int:
-    """Attempts that fired no rule at all."""
-    return sum(1 for p in (paths or ()) if p and p.get("fully_bypassed"))
 
 
 def wilson_interval(successes: int, trials: int, z: float = 1.959963985) -> tuple[float, float]:
@@ -120,7 +93,13 @@ def bypass_rate(bypasses: int, reached_trustsight: int) -> BypassRate:
     """
     low, high = wilson_interval(bypasses, reached_trustsight)
     return BypassRate({
-        "estimate": round(bypasses / reached_trustsight, 6) if reached_trustsight else 0.0,
+        # `None`, not `0.0`, when nothing reached the tool.  Zero of zero is
+        # not a bypass rate: it reads as "no bypasses found" on a run that
+        # measured nothing, and a campaign can reach that state with nine
+        # harness errors, since the abort threshold is ten.  `None` says the
+        # question was not asked, which is what happened.
+        "estimate": (round(bypasses / reached_trustsight, 6)
+                     if reached_trustsight else None),
         "ci_95_wilson": [round(low, 6), round(high, 6)],
         "denominator": "attempts reaching TrustSight",
         "denominator_value": reached_trustsight,

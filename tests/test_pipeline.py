@@ -52,8 +52,15 @@ def test_the_denominator_is_attempts_that_reached_trustsight():
     assert "lower bound" in rate["note"]
 
 
-def test_a_rate_over_nothing_is_not_an_error():
-    assert bypass_rate(0, 0)["estimate"] == 0.0
+def test_a_rate_over_nothing_says_it_measured_nothing():
+    """Zero of zero is not a bypass rate.  `0.0` reads as "no bypasses found"
+    on a run where no attempt reached the tool, and a campaign reaches that
+    state with nine harness errors because the abort threshold is ten."""
+    rate = bypass_rate(0, 0)
+    assert rate["estimate"] is None
+    assert rate["denominator_value"] == 0
+    # Still not an error: the record is written, with the question unanswered.
+    assert bypass_rate(1, 4)["estimate"] == 0.25
 
 
 def test_a_record_carries_no_derived_field(tmp_path):
@@ -164,11 +171,15 @@ def test_exact_minimum_cut_and_single_layer_failure():
 def test_campaign_summary_reports_layer_resilience():
     from harness.stats import campaign_summary
 
-    record = {"attempts": 5, "bypasses": 1, "minimum_layer_cut": 2,
-              "single_layer_failure": {"L4": 1}}
+    record = {"attempts": 5, "outcomes": {"BYPASS": 1}, "bypasses": 1,
+              "minimum_layer_cut": 2, "single_layer_failure": {"L4": 1},
+              "resilience_distribution": {1: 2}, "layers_fully_bypassed": 1,
+              "limitations": ["no persistence shape"]}
     assert campaign_summary(record) == {
-        "attempts": 5, "bypasses": 1, "minimum_layer_cut": 2,
-        "single_layer_failure": {"L4": 1}, "cofire_health": []}
+        "attempts": 5, "outcomes": {"BYPASS": 1}, "bypasses": 1,
+        "minimum_layer_cut": 2, "single_layer_failure": {"L4": 1},
+        "resilience_distribution": {1: 2}, "layers_fully_bypassed": 1,
+        "limitations": ["no persistence shape"], "cofire_health": []}
 
 
 def test_campaign_summary_carries_cofire_health_notes():

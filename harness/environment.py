@@ -271,8 +271,24 @@ class Environment:
         Checked on *every* attempt, not once at startup: a config reload
         part way through a campaign would otherwise split the record into
         two instruments with one label.
+
+        The report's own flag threshold is checked here too, for the same
+        reason and a sharper edge.  The Judge asks `score > flag_threshold`
+        against the *campaign's* value, while the tool's own verdict is
+        `report.flagged`, which is `score > report.review_threshold`.  A
+        campaign that declared 200 would be handed reports the tool calls
+        FLAGGED and the Judge would call them `bypass` - a bypass is defined
+        as TrustSight returning UNFLAGGED, and it would be publishing the
+        opposite.  This runs per attempt, so the disagreement is refused
+        before any attempt is judged.
         """
         actual = getattr(report, "config_fingerprint", "") or ""
+        reported = getattr(report, "review_threshold", None)
+        if reported is not None and int(reported) != int(self.flag_threshold):
+            raise EnvironmentError_(
+                f"campaign declares flag_threshold {self.flag_threshold}, but "
+                f"the report flags at {reported}; a bypass means the tool "
+                f"returned UNFLAGGED, so the two cannot differ")
         if not self.config_fingerprint:
             self.config_fingerprint = actual
             return

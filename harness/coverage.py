@@ -40,6 +40,26 @@ UNREACHABLE = {
     "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
 }
 
+#: Rules whose evidence is a *second file*.  `Runner.analyze` calls
+#: `analyze_text(package, new_text, old_text)`, so every analysed diff is one
+#: PKGBUILD, and no generator in this suite emits a companion: `diff_against_baseline`
+#: diffs one text against one baseline.  A rule that fires on a committed file -
+#: an embedded binary, a packaged script the recipe never declared, a build-only
+#: path baked into a companion config - therefore has nothing to fire on, however
+#: many campaigns are written against it.
+#:
+#: This is a different fact from "not tried yet", and the report used to conflate
+#: them: a reader counting 181 untargeted rules with 11 explained could not tell
+#: that twelve more were untriable rather than merely untried, which is the
+#: direction that overstates what the suite can do.  Reaching them needs a
+#: multi-file generator and a tree manifest, not a campaign.
+UNREACHABLE_BY_FORMAT = {
+    rule: "needs a committed companion file; the generators diff one PKGBUILD "
+          "against one baseline and never supply a tree manifest"
+    for rule in ("C010", "H066", "H081", "H084", "H085", "H089", "H090",
+                 "H092", "H093", "H094", "H095", "W006")
+}
+
 
 def _campaigns(repo_root: Path) -> list[dict]:
     out = []
@@ -84,6 +104,9 @@ def build_coverage(repo_root: Path) -> dict:
             entry["untargeted"].append(rule)
 
     untargeted = [r for r in all_rules if r not in targeted]
+    reasons = {r: UNREACHABLE[r] for r in untargeted if r in UNREACHABLE}
+    reasons.update({r: UNREACHABLE_BY_FORMAT[r] for r in untargeted
+                    if r in UNREACHABLE_BY_FORMAT})
     return {
         "campaigns": campaigns,
         "rules": {
@@ -94,8 +117,10 @@ def build_coverage(repo_root: Path) -> dict:
             "unknown_expected_rules": unknown,
         },
         "by_category": by_category,
-        "untargeted_reasons": {r: UNREACHABLE[r]
-                               for r in untargeted if r in UNREACHABLE},
+        "untargeted_reasons": reasons,
+        "untargeted_because_unreachable": sorted(
+            r for r in untargeted if r not in targeted and
+            (r in UNREACHABLE or r in UNREACHABLE_BY_FORMAT)),
         "stage_map_available": bool(_STAGE_OF),
         "stages_targeted": sorted({_STAGE_OF[r] for r in targeted if r in _STAGE_OF}),
     }

@@ -78,7 +78,27 @@ _EXEC_SINK = re.compile(
 #: the slash to follow immediately discarded a live chain as unprovable.
 _BUILD_TREE = re.compile(r"\$\{?(?:srcdir|startdir|PWD|BUILDDIR)\}?[\"']?/")
 
-_FUNCTION = re.compile(r"^\s*(?:function\s+)?(\w+)\s*\(\s*\)\s*\{", re.MULTILINE)
+#: Bash spells a function two ways, and this has to see both.  `name() {` and
+#: `function name {` are the same declaration to the shell, but a regex that
+#: demands the parentheses after `function` never matches the second form, so
+#: no span is recorded for it and its body survives into the "runs at parse
+#: time" region below - which certifies the payload in a function nothing
+#: calls.  Two alternatives, one group each.
+_FUNCTION = re.compile(
+    r"^\s*(?:function\s+(\w+)|(\w+)\s*\(\s*\))\s*\{", re.MULTILINE)
+
+#: A statement that ends the function it sits in.  Nothing after one of these
+#: runs, so a sink that follows an `exit` is not a chain - the fetch happened
+#: and then the shell was gone.  Anchored to a command boundary so `exitcode=1`
+#: and `$(exit 0)` inside a word do not match.
+_TERMINATOR = re.compile(
+    r"(?:\A|[;&|]|\n)\s*(?:exit|return)\b")
+
+#: A guard the shell can evaluate without running anything, so a chain behind
+#: one of these never executes.  Deliberately narrow: `if [ -n "$X" ]; then`
+#: is live and must stay recall, and only a constant-false test is dropped.
+_DEAD_GUARD = re.compile(r"(?:\A|[;&|]|\n)\s*if\s+(?:false|0)\s*(?:;|\))")
+
 
 #: Functions makepkg calls.  A chain inside a function nothing calls is not
 #: reachable, and reachability is the whole claim.
@@ -125,6 +145,117 @@ def _strip_comments(text: str) -> str:
     return "\n".join(out)
 
 
+#: A heredoc opener is `<<` that is not `<<<`, outside quotes and outside a
+#: comment.  The obvious spelling of that test is a regex over the line, and
+#: it is wrong in the same way TrustSight's own scanner is: `note "the <<EOF
+#: form is what upstream uses"` and `wget -q # <<EOF` both push a delimiter
+#: that bash never pushed, and every following line then reads as data - which
+#: is how a live chain stops being certified.  So the delimiters come from a
+#: scan that tracks quote state and stops at a comment.
+def _heredoc_delimiters(line: str) -> list[str]:
+    """Delimiters this line opens, as the shell would read them."""
+    found: list[str] = []
+    quote: str | None = None
+    index = 0
+    while index < len(line):
+        char = line[index]
+        if quote:
+            if char == "\\" and quote == '"':
+                index += 2
+                continue
+            if char == quote:
+                quote = None
+            index += 1
+            continue
+        if char in "'\"":
+            quote = char
+            index += 1
+            continue
+        if char == "#" and (index == 0 or line[index - 1].isspace()):
+            break  # a comment runs to end of line; nothing after it is code
+        if line.startswith("<<<", index):
+            # A herestring: the text is on this line and there is no body.
+            # Skipping one character would leave `<<` looking like an opener.
+            index += 3
+            continue
+        if line.startswith("<<", index):
+            cursor = index + 2
+            if cursor < len(line) and line[cursor] == "-":
+                cursor += 1  # `<<-` strips leading tabs; the body is still a body
+            while cursor < len(line) and line[cursor].isspace():
+                cursor += 1
+            delimiter = ""
+            if cursor < len(line) and line[cursor] in "'\"":
+                closer = line[cursor]
+                cursor += 1
+                while cursor < len(line) and line[cursor] != closer:
+                    delimiter += line[cursor]
+                    cursor += 1
+                cursor += 1  # the closing quote
+            else:
+                while cursor < len(line) and (line[cursor].isalnum()
+                                              or line[cursor] == "_"):
+                    delimiter += line[cursor]
+                    cursor += 1
+            if delimiter:
+                found.append(delimiter)
+                index = cursor
+                continue
+        index += 1
+    return found
+
+
+def _strip_heredoc_bodies(text: str) -> str:
+    """Blank the body of every heredoc, keeping the opener line.
+
+    A heredoc body is data: `cat > f <<EOF ... EOF` writes the lines to a
+    file, and whether that file is executed is a separate question this
+    validator answers by looking for a sink on some *other* line.  Reading
+    the body as commands certified chains that never ran - the payload was
+    written to a file nothing opened.
+
+    The delimiter is tracked across lines because a body runs until the
+    matching word, exactly as bash reads it, and a payload that contains its
+    own `EOF` would otherwise end the body early and be read as code.
+    """
+    out: list[str] = []
+    pending: str | None = None
+    for line in text.split("\n"):
+        if pending is not None:
+            if line.strip() == pending:
+                pending = None
+            out.append("")
+            continue
+        out.append(line)
+        delimiters = _heredoc_delimiters(line)
+        if delimiters:
+            pending = delimiters[-1]
+    return "\n".join(out)
+
+
+def _truncate_at_terminator(text: str) -> str:
+    """Drop everything from the first statement that ends the function.
+
+    `exit` and `return` stop the shell, so a fetch before one and an
+    execution after it are not a chain: the bytes arrived and then nothing
+    ran them.  The region is already one function body, so the first
+    top-level terminator ends all of it.
+    """
+    match = _TERMINATOR.search(text)
+    return text[:match.start()] if match else text
+
+
+def _truncate_at_dead_guard(text: str) -> str:
+    """Drop a chain that sits behind a guard the shell decides without running.
+
+    `if false; then curl … | bash; fi` never fetches.  Only a constant test
+    is dropped: `if [ -n "$X" ]; then` is live, and losing it would be a
+    recall failure on a real payload.
+    """
+    match = _DEAD_GUARD.search(text)
+    return text[:match.start()] if match else text
+
+
 #: How deep helper calls are followed.  Bounded because generated text is
 #: attacker-grade: mutual recursion is legal shell, and `seen` alone stops
 #: a cycle but not a fan-out that expands exponentially.
@@ -159,7 +290,7 @@ def _reachable_regions(text: str) -> list[str]:
     bodies: dict[str, str] = {}
     spans: dict[str, tuple[int, int]] = {}
     for match in _FUNCTION.finditer(text):
-        name = match.group(1)
+        name = match.group(1) or match.group(2)
         depth = 0
         start = match.end() - 1
         for index in range(start, len(text)):
@@ -219,10 +350,21 @@ class BehaviorValidator:
         if self.goal != "fetch_then_execute":
             return BehaviorResult(False, reason=f"unknown behavior goal {self.goal!r}")
 
-        text = _strip_comments(new_text)
+        # Comments out, then heredoc bodies out.  Both are data to the shell
+        # rather than code, and reading either as a command certified chains
+        # that never ran.  Order matters: a heredoc body's own `EOF` must not
+        # end the body before the body is recognised as one.
+        text = _strip_heredoc_bodies(_strip_comments(new_text))
         declared_source = bool(_SOURCE_ARRAY.search(text))
 
         for region in _reachable_regions(text):
+            # Reachability first: a region that a terminator or a dead guard
+            # ends is not evidence of anything, and every arm below would
+            # otherwise read a chain out of code the shell never runs.
+            region = _truncate_at_dead_guard(_truncate_at_terminator(region))
+            if not region.strip():
+                continue
+
             direct = self._direct_pipeline(region)
             if direct:
                 return BehaviorResult(True, chain=direct)
@@ -241,15 +383,27 @@ class BehaviorValidator:
 
     @staticmethod
     def _direct_pipeline(region: str) -> str:
-        """A fetch piped straight into a shell, on one logical line."""
+        """A fetch piped straight into a shell, on one logical line.
+
+        The sink goes through the parser like every other one.  Matching
+        `\\|\\s*sh` against the raw line instead certified
+        `curl -fsSL "https://evil/x.sh | sh"` - the pipeline is inside a
+        quoted argument, curl fetches one file, and nothing is executed -
+        and the same for a `| sh` in a trailing comment.
+        """
         for line in region.split("\n"):
             fetch = _FETCH.search(line)
             if not fetch or not in_command_position(line, fetch.group(0)):
                 continue
-            pipe = re.search(r"\|\s*(?:/(?:usr/)?bin/)?(?:ba|z|da|k|)sh\b", line)
+            pipe = _first_command_match(_PIPE_SHELL, line)
             if pipe and pipe.start() > fetch.start():
                 return f"{_tidy(fetch.group(0))} -> pipe -> shell"
         return ""
+
+
+#: A shell at the end of a pipe, used only by `_direct_pipeline`.
+_PIPE_SHELL = re.compile(
+    r"\|\s*(?:/(?:usr/)?bin/)?(?:ba|z|da|k|)sh\b", re.IGNORECASE)
 
 
 def _first_command_match(pattern: re.Pattern[str], region: str) -> re.Match[str] | None:

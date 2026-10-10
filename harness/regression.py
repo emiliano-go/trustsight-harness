@@ -16,7 +16,7 @@ from validators.behavior import BehaviorValidator
 from validators.syntax import resolve_bash, validate_syntax
 
 from .environment import Environment, EnvironmentError_, load_environment
-from .evidence import diff_by_hash
+from .evidence import analysed_text_by_hash, diff_by_hash
 from .judge import judge
 from .regression_cache import (
     RegressionCache,
@@ -65,6 +65,7 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
         # Paired by re-hashing, never by order or filename: an entry whose
         # embedded diff does not hash to its own `diff_sha256` is not served.
         diffs = diff_by_hash(record_path.parent)
+        texts = analysed_text_by_hash(record_path.parent)
         for digest, original_version, original_campaign in candidates:
             if not digest or digest in found:
                 continue
@@ -74,6 +75,9 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
             found[digest] = {
                 "diff_hash": digest,
                 "diff_text": diff,
+                # Empty means this record predates the field, and the replay
+                # falls back to reconstructing the PKGBUILD from the hunks.
+                "analysed_text": texts.get(digest, ""),
                 "campaign": original_campaign,
                 "original_trustsight_version": original_version,
             }
@@ -119,19 +123,25 @@ def _preflight(env: Environment, runner: Runner, repo_root: Path) -> None:
 def _classify(verdict, trustsight_version: str) -> dict:
     """Map a Judge verdict to the gate's `open`/`closed`/`degraded` state.
 
-    A `fail_closed_catch` driven by `stage_degraded` is not evidence the diff
-    was caught: an analysis stage failed (the tokenizer sandbox times out
-    under load), and the Judge, correctly conservative, refuses to call the
-    diff clean.  Recording that as closed would turn a slow machine into a
-    green report, so it is its own state and the caller retries it once.
+    A coverage gap forbids UNFLAGGED, so a `fail_closed_catch` is the tool
+    declining to answer rather than a detection.  Recording that as `closed`
+    retires a bypass on an incomplete analysis and stamps a closing version on
+    it, which is the one direction this gate must never be wrong in: a
+    truncation, an unresolved source or a refused patch is evidence about the
+    *analysis*, not about the payload.  It gets its own state and the run
+    says so.
+
+    `stage_degraded` stays separate because it means an analysis stage failed
+    rather than a read that was incomplete - the tokenizer sandbox timing out
+    under load, say - and the caller retries it once with less contention.
     """
     from trustsight.coverage import STAGE_DEGRADED
 
     if verdict.status is Status.BYPASS:
         state = "open"
-    elif (verdict.status is Status.FAIL_CLOSED_CATCH
-          and STAGE_DEGRADED in verdict.coverage_gaps):
-        state = "degraded"
+    elif verdict.status is Status.FAIL_CLOSED_CATCH:
+        state = ("degraded" if STAGE_DEGRADED in verdict.coverage_gaps
+                 else "inconclusive")
     else:
         state = "closed"
     return {
@@ -149,15 +159,30 @@ def _replay_item(repo_root: Path, env: Environment, runner: Runner,
     if not syntax.ok:
         return {**_ref(item), "state": "unreplayable",
                 "reason": syntax.reason, "bash_path": syntax.bash_path}
+    # Replay the text the recorded verdict was reached on.  A unified diff is
+    # not the whole PKGBUILD: `parse_unified_diff` keeps the lines inside its
+    # hunks and discards the rest, so a reconstruction has no `url=` and no
+    # `source=` - the two declarations a bundle of rules measures a fetch
+    # against.  Replaying it asks TrustSight a different question from the one
+    # the record answers, and the two disagreed: a bypass whose evasion turns
+    # on the recipe's own metadata replayed as `closed`, which is the one
+    # direction this gate must never be wrong in.  A record written before the
+    # field existed still replays, on the reconstruction, and says so.
+    analysed = item.get("analysed_text") or ""
+    source = "recorded" if analysed else "reconstruction"
     env.restore()
     env.check_canary(lambda name, text: runner.analyze(text).report)
     env.restore()
-    result = runner.analyze(syntax.new_text, syntax.old_text or None)
+    if analysed:
+        result = runner.analyze(analysed, syntax.old_text or None)
+    else:
+        result = runner.analyze(syntax.new_text, syntax.old_text or None)
     env.check_fingerprint(result.report)
     verdict = judge(early_status=None, report=result.report,
                     flag_threshold=env.flag_threshold,
                     mode_gaps=env.mode_gaps)
-    return {**_ref(item), **_classify(verdict, env.trustsight_version)}
+    return {**_ref(item), **_classify(verdict, env.trustsight_version),
+            "analysed_from": source}
 
 
 def _replay_worker(payload: tuple) -> list[tuple[int, dict]]:
@@ -258,7 +283,20 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
         "closed": sum(1 for r in results if r["state"] == "closed"),
         "open": sum(1 for r in results if r["state"] == "open"),
         "degraded": sum(1 for r in results if r["state"] == "degraded"),
+        "inconclusive": sum(1 for r in results
+                            if r["state"] == "inconclusive"),
         "unreplayable": sum(1 for r in results if r["state"] == "unreplayable"),
+        # How many replays answered the recorded question and how many had to
+        # reconstruct the PKGBUILD because the record predates the field.  A
+        # reconstruction has no `url=` or `source=`, so it is not the same
+        # measurement; the count is what tells a reader how much of this
+        # report rests on the older shape.
+        "analysed_from": {
+            "recorded": sum(1 for r in results
+                            if r.get("analysed_from") == "recorded"),
+            "reconstruction": sum(1 for r in results
+                                  if r.get("analysed_from") == "reconstruction"),
+        },
         "bypasses": results,
     }
     (work / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))

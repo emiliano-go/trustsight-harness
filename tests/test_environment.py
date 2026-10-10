@@ -257,3 +257,63 @@ def test_replay_in_another_timezone_gives_the_same_verdict(tmp_path):
         time.tzset()
 
     assert verdicts[0] == verdicts[1], "verdict changed with the timezone"
+
+
+def test_a_campaign_may_not_declare_a_threshold_the_tool_disagrees_with():
+    """A `bypass` is defined as TrustSight returning UNFLAGGED, and the
+    tool's own verdict is `report.flagged` - `score > report.review_threshold`.
+    The Judge asks `score > flag_threshold` against the *campaign's* value, so
+    a campaign declaring 200 would be handed reports the tool calls FLAGGED
+    and the Judge would call every one of them a bypass.  Measured: the same
+    recipe scored 45 and was `flagged=True` at threshold 20, and the Judge
+    returned `bypass` at both 45 and 200."""
+    from harness.environment import Environment, EnvironmentError_
+
+    env = Environment(trustsight_version="0.18.1", flag_threshold=200)
+    env._data_dir = None
+    report = type("R", (), {"config_fingerprint": "sha256:x",
+                            "review_threshold": 20})()
+    with pytest.raises(EnvironmentError_, match="flags at 20"):
+        env.check_fingerprint(report)
+
+
+def test_a_matching_threshold_is_accepted_and_adopts_the_fingerprint():
+    from harness.environment import Environment
+
+    env = Environment(trustsight_version="0.18.1", flag_threshold=20)
+    env._data_dir = None
+    report = type("R", (), {"config_fingerprint": "sha256:x",
+                            "review_threshold": 20})()
+    env.check_fingerprint(report)
+    assert env.config_fingerprint == "sha256:x"
+    # And the same report again is fine; a different one is not.
+    env.check_fingerprint(report)
+    with pytest.raises(EnvironmentError_):
+        env.check_fingerprint(type("R", (), {"config_fingerprint": "sha256:y",
+                                             "review_threshold": 20})())
+
+
+def test_a_report_without_a_threshold_is_not_refused():
+    """`review_threshold` is the tool's own field; an older build or a stub
+    that omits it must not stop a campaign that declares the default."""
+    from harness.environment import Environment
+
+    env = Environment(trustsight_version="0.18.1", flag_threshold=20)
+    env._data_dir = None
+    env.check_fingerprint(type("R", (), {"config_fingerprint": "sha256:x"})())
+
+
+def test_the_record_names_the_two_inputs_that_change_the_verdict(tmp_path):
+    """`package` is what TrustSight is asked about and rules such as C011 key
+    on it; `expected_rules` is the only thing separating `detected` from
+    `partial_evasion`.  Neither was in the record, so two records with
+    identical provenance could differ for a reason the record could not
+    state."""
+    from harness.recorder import Recorder
+
+    record = Recorder(tmp_path, "c", "1.0").build_record(
+        campaign_type="deterministic", environment={}, generator={},
+        validator={}, cost={}, package="harness-payload-bin",
+        expected_rules=("H016", "H082"))
+    assert record["package"] == "harness-payload-bin"
+    assert record["expected_rules"] == ["H016", "H082"]

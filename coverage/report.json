@@ -79,11 +79,10 @@
       ]
     },
     "fetch-and-execution": {
-      "targeted": 7,
+      "targeted": 12,
       "total": 39,
       "untargeted": [
         "C007",
-        "C015",
         "C016",
         "H003",
         "H004",
@@ -94,16 +93,12 @@
         "H034",
         "H041",
         "H068",
-        "H069",
         "H071",
-        "H072",
         "H075",
-        "H077",
         "H081",
         "H090",
         "H094",
         "R008",
-        "R010",
         "R011",
         "R041",
         "R042",
@@ -141,7 +136,7 @@
       ]
     },
     "integrity": {
-      "targeted": 9,
+      "targeted": 12,
       "total": 42,
       "untargeted": [
         "C002",
@@ -155,7 +150,6 @@
         "C020",
         "C022",
         "C023",
-        "H001",
         "H002",
         "H005",
         "H008",
@@ -170,10 +164,8 @@
         "H078",
         "H079",
         "H087",
-        "H091",
         "H092",
         "H099",
-        "H101",
         "H103",
         "R049",
         "R050"
@@ -266,10 +258,9 @@
       ]
     },
     "unverifiable": {
-      "targeted": 0,
+      "targeted": 1,
       "total": 6,
       "untargeted": [
-        "W001",
         "W002",
         "W003",
         "W004",
@@ -283,6 +274,16 @@
       "campaign": "adversarial-probes",
       "expected_rules": [],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "benign-name-sweep-h072",
+      "expected_rules": [
+        "H072",
+        "H082",
+        "H083",
+        "W001"
+      ],
+      "package": "harness-baseline"
     },
     {
       "campaign": "bun-solo",
@@ -314,6 +315,15 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "decl-option-resolver",
+      "expected_rules": [
+        "H016",
+        "H082",
+        "R010"
+      ],
+      "package": "harness-baseline"
+    },
+    {
       "campaign": "deno-solo",
       "expected_rules": [],
       "package": "harness-pkg"
@@ -324,6 +334,17 @@
         "H096"
       ],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "evasions-stacked",
+      "expected_rules": [
+        "H016",
+        "H069",
+        "H082",
+        "H083",
+        "R010"
+      ],
+      "package": "harness-baseline"
     },
     {
       "campaign": "exec-and-heredoc",
@@ -441,6 +462,29 @@
         "H083"
       ],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "glued-hash-comment",
+      "expected_rules": [
+        "H016",
+        "H069",
+        "H072",
+        "H077",
+        "H082",
+        "W001"
+      ],
+      "package": "harness-baseline"
+    },
+    {
+      "campaign": "h077-client-sweep",
+      "expected_rules": [
+        "H016",
+        "H069",
+        "H072",
+        "H077",
+        "H082"
+      ],
+      "package": "harness-baseline"
     },
     {
       "campaign": "indirect-assignment-x024",
@@ -828,6 +872,26 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "mcp-probe-wave1",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "mcp-probe-wave2",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "misc-vectors-d1",
       "expected_rules": [
         "R001",
@@ -900,6 +964,17 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "openssl-connect-port-h016",
+      "expected_rules": [
+        "H016",
+        "H069",
+        "H072",
+        "H082",
+        "X009"
+      ],
+      "package": "harness-baseline"
+    },
+    {
       "campaign": "output-flag-evasions",
       "expected_rules": [
         "R001",
@@ -924,6 +999,37 @@
         "R091"
       ],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "parsetime-fetch-h077",
+      "expected_rules": [
+        "H016",
+        "H069",
+        "H072",
+        "H077",
+        "H082"
+      ],
+      "package": "harness-baseline"
+    },
+    {
+      "campaign": "parsetime-phase-split",
+      "expected_rules": [
+        "C015",
+        "H016",
+        "H082"
+      ],
+      "package": "harness-baseline"
+    },
+    {
+      "campaign": "phantom-heredoc-opener",
+      "expected_rules": [
+        "H016",
+        "H069",
+        "H072",
+        "H082",
+        "H083"
+      ],
+      "package": "harness-baseline"
     },
     {
       "campaign": "php-solo",
@@ -982,6 +1088,30 @@
         "H016"
       ],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "source-array-undeclared-exec",
+      "expected_rules": [
+        "H001",
+        "H016",
+        "H069",
+        "H082",
+        "H083",
+        "H101"
+      ],
+      "package": "harness-baseline"
+    },
+    {
+      "campaign": "source-rename-benign-h083",
+      "expected_rules": [
+        "H001",
+        "H016",
+        "H069",
+        "H072",
+        "H083",
+        "H091"
+      ],
+      "package": "harness-baseline"
     },
     {
       "campaign": "stdin-execution",
@@ -1062,10 +1192,10 @@
     }
   ],
   "rules": {
-    "targeted": 25,
+    "targeted": 34,
     "total": 212,
     "unknown_expected_rules": [],
-    "untargeted": 187,
+    "untargeted": 178,
     "untargeted_ids": [
       "C002",
       "C003",
@@ -1077,7 +1207,6 @@
       "C009",
       "C010",
       "C014",
-      "C015",
       "C016",
       "C017",
       "C020",
@@ -1090,7 +1219,6 @@
       "D002",
       "D003",
       "D004",
-      "H001",
       "H002",
       "H003",
       "H004",
@@ -1155,15 +1283,12 @@
       "H066",
       "H067",
       "H068",
-      "H069",
       "H070",
       "H071",
-      "H072",
       "H073",
       "H074",
       "H075",
       "H076",
-      "H077",
       "H078",
       "H079",
       "H080",
@@ -1175,7 +1300,6 @@
       "H088",
       "H089",
       "H090",
-      "H091",
       "H092",
       "H093",
       "H094",
@@ -1183,13 +1307,11 @@
       "H098",
       "H099",
       "H100",
-      "H101",
       "H102",
       "H103",
       "R003",
       "R007",
       "R008",
-      "R010",
       "R011",
       "R012",
       "R013",
@@ -1223,7 +1345,6 @@
       "S006",
       "S007",
       "S008",
-      "W001",
       "W002",
       "W003",
       "W004",
@@ -1259,21 +1380,59 @@
   "stage_map_available": true,
   "stages_targeted": [
     "foreign_fetch",
+    "integrity_removed",
     "obfuscation",
     "payload",
     "write_then_exec"
   ],
+  "untargeted_because_unreachable": [
+    "C010",
+    "H026",
+    "H043",
+    "H044",
+    "H045",
+    "H046",
+    "H058",
+    "H066",
+    "H073",
+    "H074",
+    "H081",
+    "H084",
+    "H085",
+    "H086",
+    "H087",
+    "H088",
+    "H089",
+    "H090",
+    "H092",
+    "H093",
+    "H094",
+    "H095",
+    "W006"
+  ],
   "untargeted_reasons": {
+    "C010": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
     "H026": "needs a prior maintainer snapshot (corpus path)",
     "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
     "H044": "needs a prior ownership snapshot (corpus path)",
     "H045": "needs a full-aur cycle",
     "H046": "needs a full-aur cycle",
     "H058": "needs several cycles of maintainer history",
+    "H066": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
     "H073": "needs a full-aur cycle",
     "H074": "needs a recorded adoption before the diff",
+    "H081": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H084": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H085": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
     "H086": "needs a recorded prior orphan observation",
     "H087": "needs a recorded prior upstream state",
-    "H088": "needs H086 and H087 recorded state"
+    "H088": "needs H086 and H087 recorded state",
+    "H089": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H090": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H092": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H093": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H094": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "H095": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest",
+    "W006": "needs a committed companion file; the generators diff one PKGBUILD against one baseline and never supply a tree manifest"
   }
 }

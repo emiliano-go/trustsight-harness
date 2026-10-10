@@ -58,6 +58,13 @@ def cache_key(item: dict, environment: dict, validator_hash: str,
               judge_hash: str, source_hash: str = "") -> str:
     fields = [
         item.get("diff_hash", ""),
+        # What the verdict was reached on.  A diff hashes the same whether or
+        # not the record carries the PKGBUILD it was measured on, so a key
+        # built from the diff alone would serve a stored reconstruction-based
+        # result to an item that now replays the recorded text - and the two
+        # can disagree, which is the whole reason the text is stored.
+        hashlib.sha256(
+            (item.get("analysed_text") or "").encode("utf-8")).hexdigest(),
         environment.get("trustsight_version", ""),
         environment.get("config_fingerprint", ""),
         environment.get("db_state", ""),
