@@ -32,6 +32,8 @@ def campaign_summary(record: dict) -> dict:
         "bypasses": record.get("bypasses", 0),
         "minimum_layer_cut": record.get("minimum_layer_cut"),
         "single_layer_failure": record.get("single_layer_failure", {}),
+        # Addendum 5 §6.5 M004: co-fire health notes (never a package finding).
+        "cofire_health": record.get("cofire_health", []),
     }
 
 #: The evidence layers, ordered (Addendum 5 §1).

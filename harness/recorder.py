@@ -137,6 +137,14 @@ class Recorder:
             record["minimum_layer_cut"] = minimum_layer_cut(layer_paths)
             record["single_layer_failure"] = single_layer_failure(layer_paths)
             record["bypasses"] = bypass_count(layer_paths)
+        # Addendum 5 §6.5 M004: co-fire health notes (tool health, not a
+        # package verdict).  Empty when the campaign declared no pairs.
+        health: list[str] = []
+        for trace in self.traces:
+            if isinstance(trace.trustsight, dict):
+                health.extend(trace.trustsight.get("cofire_health", ()))
+        if health:
+            record["cofire_health"] = sorted(set(health))
         leaked = FORBIDDEN_RECORD_FIELDS & set(record)
         if leaked:
             raise ValueError(f"record contains forbidden derived fields: {sorted(leaked)}")

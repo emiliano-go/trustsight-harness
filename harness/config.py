@@ -49,6 +49,18 @@ class CampaignConfig:
         return self.prompt.get("forbidden_techniques", {}) or {}
 
     @property
+    def cofire_pairs(self) -> tuple[tuple[str, str], ...]:
+        """(precursor, expected) rule pairs for the M004 co-fire health check.
+
+        Addendum 5 §6.5: a construct that historically co-fires with a rule
+        appearing without it means the rule broke or was evaded in a known
+        shape.  A campaign declares the pairs it expects to co-fire; the
+        result is a harness health note, never a package finding.
+        """
+        pairs = self.prompt.get("cofire_pairs", ()) or ()
+        return tuple((str(p[0]), str(p[1])) for p in pairs if len(p) >= 2)
+
+    @property
     def expected_iocs(self) -> tuple[dict, ...]:
         """Indicators the campaign expects the federation layer to match.
 

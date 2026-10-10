@@ -49,6 +49,9 @@ def test_a_benign_bump_is_not_flagged_and_a_chain_is(tmp_path):
     assert report["scanned"] == 2
     assert report["flag_rate"]["denominator_value"] == 2
     assert report["flagged"] >= 1, "the injected chain must be flagged"
+    # Addendum 5 §4: the layer-resilience view rides beside the flag rate.
+    assert "minimum_layer_cut" in report
+    assert isinstance(report["single_layer_failure"], dict)
 
 
 def test_sampling_scans_a_subset(tmp_path):

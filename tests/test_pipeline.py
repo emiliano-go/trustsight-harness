@@ -168,4 +168,22 @@ def test_campaign_summary_reports_layer_resilience():
               "single_layer_failure": {"L4": 1}}
     assert campaign_summary(record) == {
         "attempts": 5, "bypasses": 1, "minimum_layer_cut": 2,
-        "single_layer_failure": {"L4": 1}}
+        "single_layer_failure": {"L4": 1}, "cofire_health": []}
+
+
+def test_campaign_summary_carries_cofire_health_notes():
+    """Addendum 5 §6.5 M004: the health notes ride the summary, not a verdict."""
+    from harness.stats import campaign_summary
+
+    record = {"attempts": 1, "cofire_health": ["H091 fired without H024"]}
+    assert campaign_summary(record)["cofire_health"] == [
+        "H091 fired without H024"]
+
+
+def test_config_reads_cofire_pairs():
+    from harness.config import CampaignConfig
+
+    config = CampaignConfig(
+        name="c", campaign_type="t", environment=None, generator={},
+        prompt={"cofire_pairs": [["H091", "H024"], "x"]}, attempts=1)
+    assert config.cofire_pairs == (("H091", "H024"),)

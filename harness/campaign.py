@@ -197,6 +197,17 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                     result.body.get("findings", ()))
             except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
+            # Addendum 5 §6.5 M004: a declared co-fire that did not happen is
+            # a tool-health note, never a package finding.
+            try:
+                from trustsight.analysis.meta import cofire_absence
+
+                pairs = getattr(config, "cofire_pairs", ()) or ()
+                if pairs:
+                    trace.trustsight["cofire_health"] = cofire_absence(
+                        list(result.body.get("findings", ())), pairs)
+            except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
+                pass
             if prompt.expected_iocs:
                 matched = {
                     str(m.get("value", ""))

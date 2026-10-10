@@ -60,10 +60,14 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
     for path in sorted(corpus.rglob("*.diff")):
         by_pkg[path.name.split("__")[0]].append(path)
 
+    from trustsight.layers import observed_layers
+    from .stats import minimum_layer_cut, single_layer_failure
+
     seen_urls: dict[str, set[str]] = {}
     scanned = 0
     flagged = 0
     examples: list[dict] = []
+    flagged_paths: list[dict] = []
     index = 0
     for pkg in sorted(by_pkg):
         for path in sorted(by_pkg[pkg], key=lambda p: p.stem):
@@ -75,6 +79,10 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
             scanned += 1
             if fact.final_score > threshold:
                 flagged += 1
+                flagged_paths.append({
+                    "fired": observed_layers([
+                        {"rule_id": e.rule_id} for e in fact.score_breakdown]),
+                })
                 if len(examples) < max_examples:
                     examples.append({
                         "package": pkg,
@@ -98,5 +106,11 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
             "denominator_value": scanned,
             "note": "upper bound is the point: a false positive is the failure here",
         },
+        # Addendum 5 §4: the layer-resilience view, published beside the flag
+        # rate.  Over the *flagged* benign diffs, the smallest set of evidence
+        # categories that covers every flag, and how many flags one category's
+        # removal alone would clear.
+        "minimum_layer_cut": minimum_layer_cut(flagged_paths),
+        "single_layer_failure": single_layer_failure(flagged_paths),
         "examples": examples,
     }
