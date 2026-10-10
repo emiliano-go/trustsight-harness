@@ -159,3 +159,13 @@ def test_exact_minimum_cut_and_single_layer_failure():
     assert bypass_count([caught_only_l4, bypass]) == 1
     # A bypass is uncuttable.
     assert minimum_layer_cut([caught_only_l4, bypass]) is None
+
+
+def test_campaign_summary_reports_layer_resilience():
+    from harness.stats import campaign_summary
+
+    record = {"attempts": 5, "bypasses": 1, "minimum_layer_cut": 2,
+              "single_layer_failure": {"L4": 1}}
+    assert campaign_summary(record) == {
+        "attempts": 5, "bypasses": 1, "minimum_layer_cut": 2,
+        "single_layer_failure": {"L4": 1}}

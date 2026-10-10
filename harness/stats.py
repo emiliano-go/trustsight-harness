@@ -14,10 +14,25 @@ __all__ = [
     "BypassRate",
     "bypass_count",
     "bypass_rate",
+    "campaign_summary",
     "minimum_layer_cut",
     "single_layer_failure",
     "wilson_interval",
 ]
+
+
+def campaign_summary(record: dict) -> dict:
+    """The published layer-resilience numbers for a campaign record.
+
+    Pulled out so the CLI can print them and a test can pin them without
+    re-deriving the fields.
+    """
+    return {
+        "attempts": record.get("attempts", 0),
+        "bypasses": record.get("bypasses", 0),
+        "minimum_layer_cut": record.get("minimum_layer_cut"),
+        "single_layer_failure": record.get("single_layer_failure", {}),
+    }
 
 #: The evidence layers, ordered (Addendum 5 §1).
 _LAYER_ORDER = ("L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8")

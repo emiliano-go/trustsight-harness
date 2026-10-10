@@ -183,11 +183,21 @@ def main(argv: list[str] | None = None) -> int:
         print(f"harness error: {clean(exc)}", file=sys.stderr)
         return EXIT_HARNESS
 
+    from .stats import campaign_summary
+
     outcomes = {k: v for k, v in record["outcomes"].items() if v}
+    summary = campaign_summary(record)
     print(json.dumps({"campaign": record["campaign"],
                       "attempts": record["attempts"],
                       "outcomes": outcomes,
-                      "bypass_rate": record["bypass_rate"]}, indent=2))
+                      "bypass_rate": record["bypass_rate"],
+                      "layer_resilience": summary}, indent=2))
+    if summary["attempts"]:
+        print(
+            "layer resilience: minimum layer-cut "
+            f"{summary['minimum_layer_cut']}, single-layer failures "
+            f"{summary['single_layer_failure'] or '{}'}, bypasses "
+            f"{summary['bypasses']}")
     return EXIT_OK
 
 
