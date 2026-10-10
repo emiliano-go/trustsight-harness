@@ -12,7 +12,12 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .stats import bypass_rate, minimum_cut_distribution, minimum_layer_cut
+from .stats import (
+    bypass_count,
+    bypass_rate,
+    minimum_layer_cut,
+    single_layer_failure,
+)
 from .status import Status
 
 __all__ = ["FORBIDDEN_RECORD_FIELDS", "Recorder", "Trace"]
@@ -117,18 +122,21 @@ class Recorder:
             "known_bypass_matches": self.known_matches,
             "cost": cost,
         }
-        # Addendum 5 §4: the smallest layer-set intersection that would have
-        # stopped every recorded attempt (the "minimum layer-cut").
+        # Addendum 5 §4: the empirical layer-resilience numbers.  A layer is
+        # an evidence category; the cut is the smallest set of categories
+        # that covers every caught attempt, single_layer_failure is how many
+        # attempts one category's removal lets through, and bypass_count is
+        # attempts that fired nothing.
         layer_paths = [
-            t.trustsight["layers_traversed"]
+            t.trustsight["observed_layers"]
             for t in self.traces
             if isinstance(t.trustsight, dict)
-            and "layers_traversed" in t.trustsight
+            and "observed_layers" in t.trustsight
         ]
         if layer_paths:
             record["minimum_layer_cut"] = minimum_layer_cut(layer_paths)
-            record["minimum_cut_distribution"] = minimum_cut_distribution(
-                layer_paths)
+            record["single_layer_failure"] = single_layer_failure(layer_paths)
+            record["bypasses"] = bypass_count(layer_paths)
         leaked = FORBIDDEN_RECORD_FIELDS & set(record)
         if leaked:
             raise ValueError(f"record contains forbidden derived fields: {sorted(leaked)}")

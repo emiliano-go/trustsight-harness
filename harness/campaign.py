@@ -189,14 +189,12 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             # Addendum 5 §4: the layers this attempt passed and the layer
             # that stopped it, from the report's own `layers` projection.
             try:
-                from trustsight.layers import layers_traversed
+                from trustsight.layers import observed_layers
 
-                path = layers_traversed(result.body.get("findings", ()))
-                trace.trustsight["layers_traversed"] = path
-                if path.get("stopped") is None:
-                    # A bypass: the depth is how many layers' holes aligned.
-                    trace.trustsight["aligned_hole_depth"] = len(
-                        path.get("traversed") or ())
+                # A projection of which evidence categories fired, not an
+                # observed traversal.
+                trace.trustsight["observed_layers"] = observed_layers(
+                    result.body.get("findings", ()))
             except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
             if prompt.expected_iocs:

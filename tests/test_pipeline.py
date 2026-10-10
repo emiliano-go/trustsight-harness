@@ -121,48 +121,41 @@ def test_known_bypasses_index_reads_committed_records(tmp_path):
     assert known.get("sha256:deadbeef")["original_trustsight_version"] == "0.13.0"
 
 
-def test_a_record_carries_the_minimum_layer_cut(tmp_path):
-    """Addendum 5 §4: per-attempt layer telemetry rolls up to a cut."""
+def test_a_record_carries_the_exact_layer_resilience(tmp_path):
+    """Addendum 5 §4: fired-category telemetry rolls up to exact metrics."""
     from harness.recorder import Recorder, Status, Trace
 
     rec = Recorder(tmp_path, "demo", "0.0.0")
     for i, path in enumerate([
-        {"traversed": [], "stopped": "L1"},
-        {"traversed": ["L1", "L2", "L3"], "stopped": "L4"},
+        {"fired": ["L4"], "fully_bypassed": False},
+        {"fired": ["L7"], "fully_bypassed": False},
+        {"fired": ["L4", "L7"], "fully_bypassed": False},
     ]):
         trace = Trace(attempt=i, diff_sha256=f"sha256:{i}", generator={},
                       status=Status.DETECTED)
-        trace.trustsight = {"layers_traversed": path}
+        trace.trustsight = {"observed_layers": path}
         rec.traces.append(trace)
 
     record = rec.build_record(campaign_type="t", environment={}, generator={},
                               validator={}, cost={})
-    # L1 intersects every attempt's path, so a single-layer cut suffices.
-    assert record["minimum_layer_cut"] == 1
+    # L4 and L7 together cover every attempt; no single category does.
+    assert record["minimum_layer_cut"] == 2
+    assert record["single_layer_failure"] == {"L4": 1, "L7": 1}
+    assert record["bypasses"] == 0
 
 
-def test_aligned_hole_depth_and_cut_distribution():
-    from harness.stats import aligned_hole_depth, minimum_cut_distribution
+def test_exact_minimum_cut_and_single_layer_failure():
+    from harness.stats import (
+        bypass_count,
+        minimum_layer_cut,
+        single_layer_failure,
+    )
 
-    bypass = {"traversed": ["L1", "L2", "L3"], "stopped": None}
-    caught = {"traversed": ["L1"], "stopped": "L2"}
-    assert aligned_hole_depth(bypass) == 3
-    assert aligned_hole_depth(caught) == 0
-    assert minimum_cut_distribution([bypass, caught, caught]) == {"1": 2, "3": 1}
-
-
-def test_a_record_carries_the_cut_distribution(tmp_path):
-    from harness.recorder import Recorder, Status, Trace
-
-    rec = Recorder(tmp_path, "demo", "0.0.0")
-    for i, path in enumerate([
-        {"traversed": [], "stopped": "L1"},
-        {"traversed": ["L1", "L2"], "stopped": None},
-    ]):
-        trace = Trace(attempt=i, diff_sha256=f"sha256:{i}", generator={},
-                      status=Status.DETECTED)
-        trace.trustsight = {"layers_traversed": path}
-        rec.traces.append(trace)
-    record = rec.build_record(campaign_type="t", environment={}, generator={},
-                              validator={}, cost={})
-    assert record["minimum_cut_distribution"] == {"1": 1, "2": 1}
+    caught_only_l4 = {"fired": ["L4"], "fully_bypassed": False}
+    caught_l4_l3 = {"fired": ["L3", "L4"], "fully_bypassed": False}
+    bypass = {"fired": [], "fully_bypassed": True}
+    assert minimum_layer_cut([caught_only_l4, caught_l4_l3]) == 1
+    assert single_layer_failure([caught_only_l4, caught_l4_l3]) == {"L4": 1}
+    assert bypass_count([caught_only_l4, bypass]) == 1
+    # A bypass is uncuttable.
+    assert minimum_layer_cut([caught_only_l4, bypass]) is None

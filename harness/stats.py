@@ -12,76 +12,61 @@ import math
 
 __all__ = [
     "BypassRate",
-    "aligned_hole_depth",
+    "bypass_count",
     "bypass_rate",
-    "minimum_cut_distribution",
     "minimum_layer_cut",
+    "single_layer_failure",
     "wilson_interval",
 ]
 
-#: The assurance layers, outermost first (Addendum 5 §1).
+#: The evidence layers, ordered (Addendum 5 §1).
 _LAYER_ORDER = ("L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8")
 
 
 def minimum_layer_cut(paths) -> int | None:
-    """The smallest layer set that intersects every attempt's path.
+    """Exact smallest layer set that covers every caught attempt.
 
-    *paths* is an iterable of ``{"traversed": [...], "stopped": layer|None}``
-    (Addendum 5 §4).  A layer covers an attempt when the attempt stopped at
-    it or traversed it.  Greedy set cover; ``None`` when there are no paths.
+    *paths* is an iterable of ``{"fired": [...], "fully_bypassed": bool}``
+    (Addendum 5 §4).  A layer covers an attempt when it fired for it.  The
+    cut is the smallest set of layers covering every caught attempt,
+    enumerated exactly over the 2**8 subsets; a fully-bypassed attempt is
+    uncuttable, so any bypass makes the cut ``None`` (reported separately by
+    :func:`bypass_count`).  ``None`` when there are no paths.
     """
-    paths = list(paths)
+    paths = [p for p in (paths or ()) if p]
     if not paths:
         return None
-    uncovered = set(range(len(paths)))
-    coverage = {
-        layer: {
-            i for i, p in enumerate(paths)
-            if p.get("stopped") == layer or layer in (p.get("traversed") or ())
-        }
-        for layer in _LAYER_ORDER
-    }
-    chosen = 0
-    while uncovered:
-        best = max(coverage.values(), key=lambda c: len(c & uncovered), default=set())
-        if not (best & uncovered):
-            break
-        uncovered -= best
-        chosen += 1
-    return chosen
+    caught = [set(p.get("fired") or ()) for p in paths]
+    if any(not fired for fired in caught):
+        return None
+    import itertools
+
+    for size in range(1, len(_LAYER_ORDER) + 1):
+        for combo in itertools.combinations(_LAYER_ORDER, size):
+            chosen = set(combo)
+            if all(chosen & fired for fired in caught):
+                return size
+    return len(_LAYER_ORDER)
 
 
-def aligned_hole_depth(path) -> int:
-    """The minimum set of layers whose holes had to align (Addendum 5 §4).
+def single_layer_failure(paths) -> dict[str, int]:
+    """Attempts that bypass if one layer's detector family is disabled.
 
-    ``path`` is ``{"traversed": [...], "stopped": layer|None}``.  A bypass
-    (nothing stopped it) needed every layer it traversed to have a hole, so
-    its depth is that count; a caught attempt needed no alignment, so 0.
+    For each layer, the count of caught attempts whose *only* fired layer is
+    that layer - disable it and they pass.  The empirical answer to "does one
+    layer's failure reopen a path".
     """
-    if not path:
-        return 0
-    if path.get("stopped") is not None:
-        return 0
-    return len(path.get("traversed") or ())
-
-
-def minimum_cut_distribution(paths) -> dict[str, int]:
-    """Histogram of the per-attempt minimum cut size across a campaign.
-
-    Each attempt is cut by one layer when it was stopped there, or by every
-    layer it traversed when it bypassed (the layers whose holes aligned).
-    The distribution is the campaign-level view of how many independent
-    regressions a class needs.
-    """
-    distribution: dict[str, int] = {}
+    out: dict[str, int] = {}
     for path in paths or ():
-        if not path:
-            continue
-        size = 1 if path.get("stopped") is not None else len(
-            path.get("traversed") or ())
-        key = str(size)
-        distribution[key] = distribution.get(key, 0) + 1
-    return dict(sorted(distribution.items(), key=lambda kv: int(kv[0])))
+        fired = [lit for lit in (path.get("fired") or ()) if lit]
+        if len(fired) == 1:
+            out[fired[0]] = out.get(fired[0], 0) + 1
+    return dict(sorted(out.items()))
+
+
+def bypass_count(paths) -> int:
+    """Attempts that fired no rule at all."""
+    return sum(1 for p in (paths or ()) if p and p.get("fully_bypassed"))
 
 
 def wilson_interval(successes: int, trials: int, z: float = 1.959963985) -> tuple[float, float]:
