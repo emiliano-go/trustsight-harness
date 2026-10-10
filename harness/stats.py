@@ -10,7 +10,14 @@ from __future__ import annotations
 
 import math
 
-__all__ = ["BypassRate", "bypass_rate", "minimum_layer_cut", "wilson_interval"]
+__all__ = [
+    "BypassRate",
+    "aligned_hole_depth",
+    "bypass_rate",
+    "minimum_cut_distribution",
+    "minimum_layer_cut",
+    "wilson_interval",
+]
 
 #: The assurance layers, outermost first (Addendum 5 §1).
 _LAYER_ORDER = ("L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8")
@@ -42,6 +49,39 @@ def minimum_layer_cut(paths) -> int | None:
         uncovered -= best
         chosen += 1
     return chosen
+
+
+def aligned_hole_depth(path) -> int:
+    """The minimum set of layers whose holes had to align (Addendum 5 §4).
+
+    ``path`` is ``{"traversed": [...], "stopped": layer|None}``.  A bypass
+    (nothing stopped it) needed every layer it traversed to have a hole, so
+    its depth is that count; a caught attempt needed no alignment, so 0.
+    """
+    if not path:
+        return 0
+    if path.get("stopped") is not None:
+        return 0
+    return len(path.get("traversed") or ())
+
+
+def minimum_cut_distribution(paths) -> dict[str, int]:
+    """Histogram of the per-attempt minimum cut size across a campaign.
+
+    Each attempt is cut by one layer when it was stopped there, or by every
+    layer it traversed when it bypassed (the layers whose holes aligned).
+    The distribution is the campaign-level view of how many independent
+    regressions a class needs.
+    """
+    distribution: dict[str, int] = {}
+    for path in paths or ():
+        if not path:
+            continue
+        size = 1 if path.get("stopped") is not None else len(
+            path.get("traversed") or ())
+        key = str(size)
+        distribution[key] = distribution.get(key, 0) + 1
+    return dict(sorted(distribution.items(), key=lambda kv: int(kv[0])))
 
 
 def wilson_interval(successes: int, trials: int, z: float = 1.959963985) -> tuple[float, float]:

@@ -139,3 +139,30 @@ def test_a_record_carries_the_minimum_layer_cut(tmp_path):
                               validator={}, cost={})
     # L1 intersects every attempt's path, so a single-layer cut suffices.
     assert record["minimum_layer_cut"] == 1
+
+
+def test_aligned_hole_depth_and_cut_distribution():
+    from harness.stats import aligned_hole_depth, minimum_cut_distribution
+
+    bypass = {"traversed": ["L1", "L2", "L3"], "stopped": None}
+    caught = {"traversed": ["L1"], "stopped": "L2"}
+    assert aligned_hole_depth(bypass) == 3
+    assert aligned_hole_depth(caught) == 0
+    assert minimum_cut_distribution([bypass, caught, caught]) == {"1": 2, "3": 1}
+
+
+def test_a_record_carries_the_cut_distribution(tmp_path):
+    from harness.recorder import Recorder, Status, Trace
+
+    rec = Recorder(tmp_path, "demo", "0.0.0")
+    for i, path in enumerate([
+        {"traversed": [], "stopped": "L1"},
+        {"traversed": ["L1", "L2"], "stopped": None},
+    ]):
+        trace = Trace(attempt=i, diff_sha256=f"sha256:{i}", generator={},
+                      status=Status.DETECTED)
+        trace.trustsight = {"layers_traversed": path}
+        rec.traces.append(trace)
+    record = rec.build_record(campaign_type="t", environment={}, generator={},
+                              validator={}, cost={})
+    assert record["minimum_cut_distribution"] == {"1": 1, "2": 1}

@@ -12,7 +12,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .stats import bypass_rate, minimum_layer_cut
+from .stats import bypass_rate, minimum_cut_distribution, minimum_layer_cut
 from .status import Status
 
 __all__ = ["FORBIDDEN_RECORD_FIELDS", "Recorder", "Trace"]
@@ -127,6 +127,8 @@ class Recorder:
         ]
         if layer_paths:
             record["minimum_layer_cut"] = minimum_layer_cut(layer_paths)
+            record["minimum_cut_distribution"] = minimum_cut_distribution(
+                layer_paths)
         leaked = FORBIDDEN_RECORD_FIELDS & set(record)
         if leaked:
             raise ValueError(f"record contains forbidden derived fields: {sorted(leaked)}")
