@@ -186,6 +186,15 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 "config_fingerprint": getattr(report, "config_fingerprint", ""),
                 "wall_clock_ms": result.wall_clock_ms,
             }
+            # Addendum 5 §4: the layers this attempt passed and the layer
+            # that stopped it, from the report's own `layers` projection.
+            try:
+                from trustsight.layers import layers_traversed
+
+                trace.trustsight["layers_traversed"] = layers_traversed(
+                    result.body.get("findings", ()))
+            except Exception:  # noqa: BLE001 - telemetry must never fail a run
+                pass
             if prompt.expected_iocs:
                 matched = {
                     str(m.get("value", ""))

@@ -119,3 +119,23 @@ def test_known_bypasses_index_reads_committed_records(tmp_path):
     known = KnownBypasses(tmp_path)
     assert "sha256:deadbeef" in known
     assert known.get("sha256:deadbeef")["original_trustsight_version"] == "0.13.0"
+
+
+def test_a_record_carries_the_minimum_layer_cut(tmp_path):
+    """Addendum 5 §4: per-attempt layer telemetry rolls up to a cut."""
+    from harness.recorder import Recorder, Status, Trace
+
+    rec = Recorder(tmp_path, "demo", "0.0.0")
+    for i, path in enumerate([
+        {"traversed": [], "stopped": "L1"},
+        {"traversed": ["L1", "L2", "L3"], "stopped": "L4"},
+    ]):
+        trace = Trace(attempt=i, diff_sha256=f"sha256:{i}", generator={},
+                      status=Status.DETECTED)
+        trace.trustsight = {"layers_traversed": path}
+        rec.traces.append(trace)
+
+    record = rec.build_record(campaign_type="t", environment={}, generator={},
+                              validator={}, cost={})
+    # L1 intersects every attempt's path, so a single-layer cut suffices.
+    assert record["minimum_layer_cut"] == 1

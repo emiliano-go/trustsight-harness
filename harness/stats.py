@@ -10,7 +10,38 @@ from __future__ import annotations
 
 import math
 
-__all__ = ["BypassRate", "bypass_rate", "wilson_interval"]
+__all__ = ["BypassRate", "bypass_rate", "minimum_layer_cut", "wilson_interval"]
+
+#: The assurance layers, outermost first (Addendum 5 §1).
+_LAYER_ORDER = ("L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8")
+
+
+def minimum_layer_cut(paths) -> int | None:
+    """The smallest layer set that intersects every attempt's path.
+
+    *paths* is an iterable of ``{"traversed": [...], "stopped": layer|None}``
+    (Addendum 5 §4).  A layer covers an attempt when the attempt stopped at
+    it or traversed it.  Greedy set cover; ``None`` when there are no paths.
+    """
+    paths = list(paths)
+    if not paths:
+        return None
+    uncovered = set(range(len(paths)))
+    coverage = {
+        layer: {
+            i for i, p in enumerate(paths)
+            if p.get("stopped") == layer or layer in (p.get("traversed") or ())
+        }
+        for layer in _LAYER_ORDER
+    }
+    chosen = 0
+    while uncovered:
+        best = max(coverage.values(), key=lambda c: len(c & uncovered), default=set())
+        if not (best & uncovered):
+            break
+        uncovered -= best
+        chosen += 1
+    return chosen
 
 
 def wilson_interval(successes: int, trials: int, z: float = 1.959963985) -> tuple[float, float]:
