@@ -1,0 +1,18 @@
+{
+  "campaign": "bypass-tag-v0181",
+  "attempts": 2100,
+  "outcomes": {
+    "detected": 60,
+    "bypass": 2040
+  },
+  "bypass_rate": {
+    "estimate": 0.971429,
+    "ci_95_wilson": [
+      0.963397,
+      0.977739
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 2100,
+    "note": "lower bound (validator is conservative)"
+  }
+}

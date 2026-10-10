@@ -172,7 +172,7 @@ adoption and composition rules need a corpus cycle or recorded observation).
 
 ```bash
 uv run python -m harness coverage
-# 25 of 212 rules targeted by 74 campaigns; 187 untargeted, 11 with a reason.
+# 25 of 212 rules targeted by 81 campaigns; 187 untargeted, 11 with a reason.
 ```
 
 ---

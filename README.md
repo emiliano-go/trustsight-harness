@@ -88,7 +88,7 @@ one of them:
 
 ## What ships
 
-- **A campaign suite.** 74 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 81 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025), the Atomic Arch
   build-time and install-hook shapes, and the wave-3 obfuscated variants. Every

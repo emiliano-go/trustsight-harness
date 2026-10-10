@@ -1,0 +1,15 @@
+campaign: evasion-matrix-1500
+campaign_type: deterministic
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: inputs
+prompt:
+  prompt_id: evasion-matrix-1500
+  behavior_goal: fetch_then_execute
+  expected_rules: []
+  forbidden_techniques: {}
+attempts: 2370

@@ -1,0 +1,19 @@
+{
+  "campaign": "evasion-matrix-1500",
+  "attempts": 2370,
+  "outcomes": {
+    "detected": 92,
+    "bypass": 2262,
+    "known_bypass_match": 16
+  },
+  "bypass_rate": {
+    "estimate": 0.95443,
+    "ci_95_wilson": [
+      0.945273,
+      0.962117
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 2370,
+    "note": "lower bound (validator is conservative)"
+  }
+}

@@ -11506,7 +11506,7 @@
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
-    "locale": "en_US.UTF-8",
+    "locale": "",
     "mode_gaps": [
       "tree_not_analyzed"
     ],
@@ -11520,6 +11520,6 @@
   "total": 1277,
   "unreplayable": 0,
   "validator": {
-    "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
+    "version_hash": "sha256:2d5dcbe19927d3d965946ffda010f88ac88840970de3609af7fd6f6972eaadf4"
   }
 }
