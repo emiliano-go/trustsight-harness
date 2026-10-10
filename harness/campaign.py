@@ -193,7 +193,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 
                 trace.trustsight["layers_traversed"] = layers_traversed(
                     result.body.get("findings", ()))
-            except Exception:  # noqa: BLE001 - telemetry must never fail a run
+            except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
             if prompt.expected_iocs:
                 matched = {
