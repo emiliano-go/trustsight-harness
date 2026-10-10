@@ -60,8 +60,13 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
     for path in sorted(corpus.rglob("*.diff")):
         by_pkg[path.name.split("__")[0]].append(path)
 
-    from trustsight.layers import observed_layers
     from .stats import minimum_layer_cut, single_layer_failure
+
+    try:  # the layer projection ships with newer TrustSight cores
+        from trustsight.layers import observed_layers
+    except Exception:  # noqa: BLE001 - telemetry must never fail the scan
+        def observed_layers(_findings):
+            return ()
 
     seen_urls: dict[str, set[str]] = {}
     scanned = 0
