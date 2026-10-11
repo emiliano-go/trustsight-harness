@@ -26,24 +26,36 @@ than trusted:
 
 - the content goes to a **mode-0600 temporary file**, never through a shell string;
 - the argument vector is a **literal list**; `[bash, "-n", path]`;
+- the child runs in a **kernel-enforced sandbox** — a fresh user, mount and
+  network namespace (`CLONE_NEWUSER|CLONE_NEWNS|CLONE_NEWNET`) via
+  rsyscall-ng — so even a bash that somehow executed something could not open a
+  socket or touch a mount the harness did not intend;
 - the environment is **replaced, not inherited**, so a hostile `BASH_ENV` in the
   operator's own shell cannot turn a parse into an execution;
-- the call is bounded by a timeout and its output is byte-capped.
+- the call is bounded by a **kill-based deadline** (a `threading.Timer` that
+  `SIGKILL`s the child's pid; a trio-side timeout could never fire, because
+  rsyscall's waitpid holds the portal event loop for its whole duration), and
+  its stderr goes to `/dev/null` — only the exit status is read.
 
 **Enforcement.** `tests/test_self_security.py` walks the AST of every module in
 `harness/`, `generators/` and `validators/`. No module may call `eval`, `exec`,
-`compile`, `__import__`, `os.system`, `os.popen` or the `subprocess.getoutput`
-/ `subprocess.getstatusoutput` family. No call anywhere may pass `shell=` as anything but `False`. Only
-`validators/syntax.py` may import `subprocess` at all, and a separate test
-parses `syntax.py` to assert that every `subprocess.run` in it takes a literal
-argv whose second element is `-n`.
+`compile`, `__import__`, `os.system` or `os.popen`. No module may import
+`subprocess` at all: every process runs under rsyscall, and rsyscall itself may
+be imported only by the sandboxed exec sites (`validators/syntax.py`,
+`harness/runner.py`, `harness/portal.py`, later `harness/pool.py`). A separate
+test parses `syntax.py` to assert its one `Command()` takes a literal argv whose
+second element is `-n`, and that no `.args()` call appends anything to it. A
+third test execs Python through the same `NEWUSER|NEWNET` clone path and fails
+if the child can open a network socket.
 
-!!! danger "There is no sandbox, and that is the design"
+!!! danger "The sandbox wraps the instrument's own processes; generated code is still never executed"
 
-    Not `bash -c`, not a container, not "just this once". Behaviour is proven
-    statically; see [What the Harness Cannot Prove](explanation/what-the-harness-cannot-prove.md),
-    or the attempt is discarded as `behavior_lost`. An execution sandbox is a
-    non-goal, not a missing feature.
+    The namespaces exist to bound the harness's *own* children — the parser
+    and the analysis worker — not to make executing generated code safe.
+    Behaviour is proven statically; see
+    [What the Harness Cannot Prove](explanation/what-the-harness-cannot-prove.md),
+    or the attempt is discarded as `behavior_lost`. There is no flag to run a
+    generated PKGBUILD, sandboxed or otherwise.
 
 ## H2: No fetching of generated URLs
 
@@ -64,7 +76,10 @@ TrustSight's own analysis is hermetic under the harness too. `analyze_text`
 walks the corpus dependency graph, and the walk asks the AUR RPC about the
 analysed package name; the harness freezes that reply to the empty answer
 (`harness/environment.py::freeze_aur_lookup`, recorded as
-`environment.aur_lookup: frozen-empty`). Every name the corpus asks about is
+`environment.aur_lookup: frozen-empty`). The analysis itself runs in a worker
+process whose network namespace is empty (`CLONE_NEWNET`), so a network call
+the freeze did not anticipate fails in the kernel before it can reach a peer.
+Every name the corpus asks about is
 absent from the AUR - the `package` placeholder, and no campaign input declares
 a dependency array - so the frozen answer is the one the endpoint gives, minus
 the network retry that measured ~11 s per analysis while the AUR returned HTTP
@@ -79,7 +94,7 @@ Every generated artefact is size-capped before anything parses it.
 |---|---|---|
 | Diff text | 512 KiB | `sanitization_failure` |
 | LLM response | 256 KiB | truncated at read |
-| `bash -n` diagnostic | 64 KiB | truncated; only the exit status is used |
+| `bash -n` diagnostic | — | discarded (`/dev/null`); only the exit status is used |
 | A parsed shell line | 8 KiB | not parsed; the regex verdict stands |
 | One analysis | 120 s | `harness_error`, exported to `fixtures-robustness/` |
 

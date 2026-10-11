@@ -1,0 +1,97 @@
+{
+  "attempts": 9,
+  "bypass_hashes": [
+    "sha256:6209dc01e683cdf6e68e189e0daf0d7a8ed4816cf7cbfedb1f38d7c8d0624e82",
+    "sha256:71f8bcd508e3db901c36feb50198397a1f470cc566bce6a1b0f765eee3f5ca7e",
+    "sha256:803b3861cb9995924ca50a10c2e5146c51dec204fc8598ff21a69d18d115e951",
+    "sha256:8e433c5fb9ed4a4e6fb7318296fd2005c806767cc4a81f180a129266b3f020b4",
+    "sha256:a59d8a1e49510d3b236d3e475bd63708a44f5a6b3ada70a95a8b2c49c1e679de"
+  ],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.565518,
+      1.0
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 5,
+    "estimate": 1.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "campaign": "mcp-probe-wave5",
+  "campaign_commit": "e9d6872a42fedce881fb4e5fea15f8f39d3dac0d",
+  "campaign_type": "deterministic",
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 3604
+  },
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed",
+      "ruleset_drifted"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.18.1"
+  },
+  "expected_rules": [
+    "R001",
+    "R002",
+    "X009",
+    "X016"
+  ],
+  "generator": {
+    "cells": 9,
+    "manifest": "inputs.yml",
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "mcp-probe-wave5",
+    "template": "template.PKGBUILD",
+    "type": "inputs"
+  },
+  "harness_version": "2.2.0",
+  "known_bypass_matches": [],
+  "layers_fully_bypassed": 0,
+  "limitations": [],
+  "minimum_layer_cut": 1,
+  "outcomes": {
+    "behavior_lost": 2,
+    "bypass": 5,
+    "constraint_violation": 0,
+    "detected": 0,
+    "duplicate": 2,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-pkg",
+  "resilience_distribution": {
+    "1": 5
+  },
+  "single_layer_failure": {
+    "L3": 5
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": "sha256:0dc042221edc43a82a63be8d5f3f2a6261650c5081396b42e6905ead4224fb95"
+  }
+}

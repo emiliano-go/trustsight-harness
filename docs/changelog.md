@@ -4,6 +4,52 @@ description: Changes to trustsight-harness.
 
 # Changelog
 
+## 2.2.0
+
+Process control moves to rsyscall-ng, and unprivileged user namespaces
+become a hard requirement (Linux x86_64; without them the harness exits 1
+with `NamespaceUnavailableError` naming the fix). No fallback path remains.
+
+- **Out-of-process analysis.** TrustSight runs in an exec'd worker
+  (`harness/analysis_worker.py`) cloned into `CLONE_NEWUSER|CLONE_NEWNET`.
+  The kill-based deadline is a `threading.Timer` that `killpg`s the
+  worker's process group - it works from any thread, which the old
+  SIGALRM deadline could not, so MCP-driven analyses finally have a
+  ceiling - and a timed-out worker is dropped and respawned, not waited
+  on. The worker owns every sqlite connection, so the close-unlink-reseed
+  cycle stays in one process. Warm analyses measured at parity with the
+  in-process call (3-4 ms); the canary scores identically through the
+  NEWNET worker.
+- **Namespaced `bash -n`.** The syntax validator's child runs in
+  `CLONE_NEWUSER|CLONE_NEWNS|CLONE_NEWNET` with a replaced environment,
+  so a hostile `BASH_ENV` cannot turn a parse into an execution and the
+  kernel, not a convention, enforces "no network". Only the exit status
+  is read; the diagnostic goes to `/dev/null`.
+- **Namespaced pools.** Regression replays (`--jobs 2+`) and parallel
+  sweeps replace `multiprocessing.Pool` with workers cloned into
+  `CLONE_NEWUSER|CLONE_NEWNS|CLONE_NEWPID` (`NEWNET` on regression
+  shards; sweeps keep the host network for LLM campaigns). Same shard,
+  map, collect shape; results keyed by entry id.
+- **Throughput.** Both sides of a syntax diff are parsed concurrently
+  (wall time is their maximum, not their sum). `--jobs` is split per
+  command: `sweep` defaults to `auto` (capped at 8, RAM-bound),
+  `regression` stays serial unless asked otherwise. A sweep pool worker
+  keeps its analysis worker alive across campaigns - the namespace clone
+  and cold TrustSight import are paid once per worker, and the worker
+  closes its sqlite connections before re-binding so campaign databases
+  cannot leak into each other.
+- **Gates.** `subprocess` is banned outright; rsyscall imports are
+  confined to the exec sites (`validators/syntax.py`, `harness/runner.py`,
+  `harness/portal.py`, `harness/pool.py`); the syntax validator's argv is
+  checked as a literal `[bash, "-n", path]`; a test execs Python through
+  the same clone path and fails if the child can open a socket. The
+  self-security doc's H1 danger box now says what is true: the sandbox
+  wraps the instrument's own processes; generated code is still never
+  executed.
+- CI enables unprivileged user namespaces before the suite and fails
+  loudly if the kernel refuses; the container's run flags are documented
+  as requirements (`--security-opt seccomp=unconfined`).
+
 ## 2.1.0
 
 The campaign layout is compacted. 74 campaigns stored ~1,300 tracked files

@@ -25,6 +25,19 @@ jobs:
           git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
           git -C ../trustsight checkout "$TRUSTSIGHT_COMMIT"
 
+      # The harness clones unprivileged user namespaces everywhere: the
+      # analysis worker, `bash -n` and the pool.  There is no degradation
+      # path, so a runner that cannot create them cannot run the suite at
+      # all - fail loudly here rather than as a wall of refusals later.
+      # Ubuntu 24.04 lets AppArmor restrict unprivileged userns; lift the
+      # restriction where the knob exists, then ask the kernel directly.
+      - name: Enable unprivileged user namespaces
+        run: |
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+          unshare --user --map-root-user true
+
       - name: Install uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
 

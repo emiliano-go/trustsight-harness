@@ -1,6 +1,6 @@
 [project]
 name = "trustsight-harness"
-version = "2.1.0"
+version = "2.2.0"
 description = "Adversarial measurement harness for TrustSight: reproducible, cost-tracked bypass campaigns."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -9,6 +9,10 @@ dependencies = [
     "trustsight>=0.17.2",
     "pyyaml>=6.0",
     "bashlex>=0.18",
+    # Process control: the analysis worker, the syntax sandbox and the pool
+    # all clone user+network namespaces through it.  Linux x86_64 only,
+    # CPython >= 3.12 - the same floor this project already had.
+    "rsyscall-ng>=0.1.0",
 ]
 
 [project.optional-dependencies]

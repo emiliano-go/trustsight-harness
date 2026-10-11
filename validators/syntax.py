@@ -3,7 +3,10 @@
 Two questions, both answered without running anything.  `bash -n` parses
 and reports syntax errors; it does not execute the script.  The harness
 still treats that boundary formally, because "it only parses" is the kind
-of claim that stops being true when someone adds a flag.
+of claim that stops being true when someone adds a flag - so the parse
+runs in a kernel sandbox (fresh user, mount and network namespaces) with
+a replaced environment and a kill-based deadline, and a build gate
+asserts the argument vector is the literal `[bash, "-n", path]`.
 """
 
 from __future__ import annotations
@@ -11,11 +14,22 @@ from __future__ import annotations
 import os
 import re
 import shutil
-import subprocess
+import signal
 import tempfile
+import threading
 from dataclasses import dataclass, field
 
-__all__ = ["SyntaxResult", "parse_unified_diff", "resolve_bash", "validate_syntax"]
+from rsyscall import Command, local_process
+from rsyscall.fcntl import O
+from rsyscall.path import Path as RPath
+from rsyscall.sched import CLONE
+from rsyscall.sys.wait import W
+
+from harness.environment import NamespaceUnavailableError
+from harness.portal import get_portal
+
+__all__ = ["BashTimeout", "SyntaxResult", "parse_unified_diff", "resolve_bash",
+           "validate_syntax"]
 
 _HUNK = re.compile(r"^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@")
 _FILE_OLD = re.compile(r"^--- ")
@@ -23,7 +37,10 @@ _FILE_NEW = re.compile(r"^\+\+\+ ")
 
 #: `bash -n` is given a file, never a string, and never a shell.
 BASH_TIMEOUT_S = 10
-BASH_OUTPUT_CAP = 64 * 1024
+
+
+class BashTimeout(Exception):
+    """`bash -n` did not finish inside the deadline; the child was killed."""
 
 
 @dataclass
@@ -95,38 +112,118 @@ def parse_unified_diff(diff_text: str) -> tuple[str, str]:
     return "\n".join(old), "\n".join(new)
 
 
-def _bash_n(bash: str, text: str) -> int:
-    """Return `bash -n`'s exit status for *text*.
+async def _spawn_bash_n(bash: str, path: str, box: dict):
+    """Clone a sandbox, exec `bash -n path`, return the child handle.
 
-    The content goes to a mode-0600 temporary file and the argument vector
-    is fixed.  The environment is replaced rather than inherited, so a
-    hostile `BASH_ENV` in the operator's shell cannot turn a parse into an
-    execution.
+    Only the exit status will be read: bash's diagnostic echoes the
+    offending line, which is generated text, so stderr goes straight to
+    /dev/null.  The pid is published in *box* as soon as the child exists
+    so the caller's timer can kill it even while this coroutine is blocked
+    in a wait - the portal loop holds no checkpoint during a wait, so a
+    trio-side deadline could never fire.
     """
-    handle, path = tempfile.mkstemp(prefix="harness-syntax-", suffix=".sh")
     try:
-        os.fchmod(handle, 0o600)
-        with os.fdopen(handle, "w", encoding="utf-8", errors="replace") as fh:
-            fh.write(text)
-        completed = subprocess.run(
-            [bash, "-n", path],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.PIPE,
-            timeout=BASH_TIMEOUT_S,
-            env={"PATH": "/usr/bin:/bin", "LC_ALL": "C"},
-            check=False,
-        )
-        # Only the exit status is read.  bash's diagnostic is capped rather
-        # than kept in full: it echoes the offending line, which is
-        # generated text, and an unbounded copy of hostile input is the
-        # thing every other gate here exists to avoid.
-        _ = (completed.stderr or b"")[:BASH_OUTPUT_CAP]
-        return completed.returncode
-    finally:
+        child = await local_process.clone(
+            CLONE.NEWUSER | CLONE.NEWNS | CLONE.NEWNET)
+    except PermissionError as exc:
+        raise NamespaceUnavailableError(
+            "unprivileged user namespaces are not available; bash -n "
+            "requires them (on Ubuntu set "
+            "kernel.apparmor_restrict_unprivileged_userns=0)") from exc
+    box["pid"] = child.pid.pid.near.id
+    # Replace, not inherit: a hostile BASH_ENV in the operator's own shell
+    # must not turn a parse into an execution.
+    child.environ.data = {"PATH": "/usr/bin:/bin", "LC_ALL": "C"}
+    # Opened on the child's task, not the parent's: only fds that existed
+    # at clone time may be inherit_fd'd, and this one did not.
+    null = await child.task.open(await child.ptr(RPath("/dev/null")), O.RDWR)
+    for std in (child.stdin, child.stdout, child.stderr):
+        await null.dup2(std)
+    await null.close()
+    return await child.exec(Command(RPath(bash), [bash, "-n", path], {}))
+
+
+async def _wait_bash_n(execd) -> int:
+    state = await execd.waitpid(W.EXITED)
+    return state.exit_status if state.exit_status is not None else -1
+
+
+async def _bash_n_pair(bash: str, old_path: str | None, new_path: str,
+                       old_box: dict, new_box: dict) -> tuple[int, int]:
+    """Parse both sides of a diff concurrently.
+
+    Both children are spawned before either is waited on: they are
+    independent processes, so the parses overlap and the wall time is
+    their maximum, not their sum.  The portal's blocking waits only delay
+    collection, not execution.
+    """
+    old_execd = (await _spawn_bash_n(bash, old_path, old_box)
+                 if old_path is not None else None)
+    new_execd = await _spawn_bash_n(bash, new_path, new_box)
+    old_rc = await _wait_bash_n(old_execd) if old_execd is not None else 0
+    new_rc = await _wait_bash_n(new_execd)
+    return old_rc, new_rc
+
+
+def _bash_n_pair_sync(bash: str, old_text: str | None,
+                      new_text: str) -> tuple[int, int]:
+    """Return `(old_rc, new_rc)` for both sides of a diff.
+
+    A ``None`` *old_text* skips the old side (an added-only diff); its
+    status is reported as 0.  Each side's content goes to a mode-0600
+    temporary file and the argument vector is fixed.  The children run in
+    fresh user, mount and network namespaces with a replaced environment;
+    the deadline is a ``threading.Timer`` that kills both children,
+    because rsyscall's waits hold the portal event loop for their whole
+    duration and any timeout scheduled on that loop would only run after
+    the wait it should beat.
+    """
+    handles: list[tuple[object, str]] = []
+    old_path: str | None = None
+    if old_text is not None:
+        handle, old_path = tempfile.mkstemp(prefix="harness-syntax-old-",
+                                            suffix=".sh")
+        handles.append((handle, old_text))
+    new_handle, new_path = tempfile.mkstemp(prefix="harness-syntax-new-",
+                                            suffix=".sh")
+    handles.append((new_handle, new_text))
+    try:
+        for handle, text in handles:
+            os.fchmod(handle, 0o600)
+            with os.fdopen(handle, "w", encoding="utf-8", errors="replace") as fh:
+                fh.write(text)
+        old_box: dict = {}
+        new_box: dict = {}
+        state = {"killed": False}
+
+        def _fire() -> None:
+            state["killed"] = True
+            for box in (old_box, new_box):
+                pid = box.get("pid")
+                if pid is not None:
+                    try:
+                        os.kill(pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+
+        timer = threading.Timer(BASH_TIMEOUT_S, _fire)
+        timer.start()
         try:
-            os.unlink(path)
-        except OSError:
-            pass
+            return get_portal().run(_bash_n_pair, bash,
+                                    old_path, new_path, old_box, new_box)
+        except BaseException:
+            if state["killed"]:
+                raise BashTimeout(
+                    f"bash -n exceeded {BASH_TIMEOUT_S}s") from None
+            raise
+        finally:
+            timer.cancel()
+    finally:
+        for path in ([old_path] if old_path else []) + [new_path]:
+            try:
+                os.unlink(path)
+            except OSError:
+                pass
 
 
 def validate_syntax(diff_text: str, bash: str) -> SyntaxResult:
@@ -137,9 +234,9 @@ def validate_syntax(diff_text: str, bash: str) -> SyntaxResult:
         return SyntaxResult(False, reason=str(exc), bash_path=bash)
 
     try:
-        old_rc = _bash_n(bash, old_text) if old_text.strip() else 0
-        new_rc = _bash_n(bash, new_text)
-    except subprocess.TimeoutExpired:
+        old_rc, new_rc = _bash_n_pair_sync(
+            bash, old_text if old_text.strip() else None, new_text)
+    except BashTimeout:
         return SyntaxResult(False, reason="bash -n timed out",
                             old_text=old_text, new_text=new_text, bash_path=bash)
 

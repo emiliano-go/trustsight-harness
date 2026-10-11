@@ -1,0 +1,49 @@
+campaign: parsetime-phase-split
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: parsetime-phase-split
+  behavior_goal: fetch_then_execute
+  text: |
+    The parse-time fetch of `parsetime-fetch-h077`, with the execution moved
+    into a different makepkg phase.
+
+    H082 pairs a fetch with a later execution by order and by phase rank
+    (`delivery.py:1385-1390`, `_PHASE_RANK = {pkgver: 0, prepare: 1, build: 2,
+    check: 3, package: 4}`), and the attributed arm only ever compares a
+    fetch with an execution in the *same* function body. Combined with the
+    parse-time scope gap - H016, H069, H072 and H082 all gate on
+    `scopes.within`, so a fetch that is a bare top-level statement is outside
+    all four - there is nothing left to pair: the fetch is in no phase, and the
+    execution is in a phase the fetch could never have been ranked against.
+
+    The cells cover the execution in `package()`, `check()`, `build()` and
+    `pkgver()`, with `rsync` and `socat` as the fetch. The two controls put the
+    same `rsync` fetch *inside* the phase that runs it, and both are caught:
+    `ctl-fetch-inside-package` scores 50 with C015 and H016, because a fetch in
+    `package()` is read by the rule that exists for exactly that. The phase
+    split is not what defeats detection - the parse-time placement is; the
+    split shows that once a fetch is out of scope, the phase machinery has
+    nothing left to work with either.
+  expected_rules:
+  - C015
+  - H016
+  - H082
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 7
+
+stop_conditions:
+  bypasses: 6

@@ -13,14 +13,14 @@ decides what a non-empty error list means.
 from __future__ import annotations
 
 import fnmatch
-import multiprocessing
 from pathlib import Path
 
 from .campaign import run_campaign
 from .config import load_campaign
+from .pool import run_pool
 from .regression import resolve_jobs
 
-__all__ = ["campaign_dirs", "run_sweep"]
+__all__ = ["campaign_dirs", "run_one_campaign", "run_sweep"]
 
 
 def campaign_dirs(campaigns_root: Path, patterns: tuple[str, ...] = ()) -> list[Path]:
@@ -34,21 +34,23 @@ def campaign_dirs(campaigns_root: Path, patterns: tuple[str, ...] = ()) -> list[
     return directories
 
 
-def _run_one(payload: tuple) -> dict:
+def run_one_campaign(repo_root_raw: str, directory_raw: str,
+                     calibration: str, runner=None) -> dict:
     """Run one campaign in this process; return its summary or its error.
 
-    Top-level so the spawn context can pickle it.
+    Shared by the serial path and :mod:`harness.pool_worker`.  ``runner``
+    is a pre-built `harness.runner.Runner` to rebind and reuse instead of
+    spawning a fresh worker per campaign.
     """
     from .factory import build_generator
 
-    repo_root_raw, directory_raw, calibration = payload
     repo_root = Path(repo_root_raw)
     directory = Path(directory_raw)
     try:
         config = load_campaign(directory, repo_root)
         generator = build_generator(config, repo_root)
         record = run_campaign(config, generator, repo_root=repo_root,
-                              calibration=calibration)
+                              calibration=calibration, runner=runner)
     except Exception as exc:                            # noqa: BLE001
         return {"campaign": directory.name,
                 "error": f"{type(exc).__name__}: {exc}"}
@@ -61,6 +63,11 @@ def _run_one(payload: tuple) -> dict:
     }
 
 
+def _run_one(payload: tuple) -> dict:
+    """Unpack the serial path's tuple shape into `run_one_campaign`."""
+    return run_one_campaign(*payload)
+
+
 def run_sweep(repo_root: Path, *, patterns: tuple[str, ...] = (), jobs=1,
               calibration: str = "passed") -> dict:
     directories = campaign_dirs(repo_root / "campaigns", patterns)
@@ -70,9 +77,13 @@ def run_sweep(repo_root: Path, *, patterns: tuple[str, ...] = (), jobs=1,
     if worker_count == 1:
         summaries = [_run_one(payload) for payload in payloads]
     else:
-        context = multiprocessing.get_context("spawn")
-        with context.Pool(worker_count) as pool:
-            summaries = pool.map(_run_one, payloads)
+        entries = [{"id": index, "repo_root": repo_root_raw,
+                    "directory": directory_raw, "calibration": cal}
+                   for index, (repo_root_raw, directory_raw, cal)
+                   in enumerate(payloads)]
+        by_id = dict(run_pool(entries, worker_count, kind="campaign",
+                              newnet=False))
+        summaries = [by_id[index] for index in range(len(entries))]
 
     errors = [summary for summary in summaries if "error" in summary]
     bypassing = [{"campaign": summary["campaign"],

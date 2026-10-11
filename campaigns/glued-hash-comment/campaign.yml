@@ -1,0 +1,60 @@
+campaign: glued-hash-comment
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: glued-hash-comment
+  behavior_goal: fetch_then_execute
+  text: |
+    A fetch-to-execute chain preceded by two characters: `x=1#;`.
+
+    Bash treats `#` as a comment only where a word begins.  In `x=1#;` the
+    word already started, so `#` is an ordinary character, the assignment sets
+    `x` to the literal `1#`, and the `;` ends the command - the fetch on the
+    rest of the line runs.  (`bash -c 'x=1#; echo ran'` prints `ran` and
+    `printf %s "$x"` prints `1#`.)
+
+    TrustSight strips it anyway.  `deps._strip_comment` (src/trustsight/deps.py:98)
+    truncates a line at the first unquoted `#` with no word-boundary test, and
+    every code-aware gate reads the line through it: H016 at build.py:685-692,
+    H069/H072 at delivery.py:1245, H082 at delivery.py:1615, H077 at
+    network.py:516, and the whole X001-X025 family at crossfire.py:2182.  The
+    line each of them needed is empty, so none of them fires.
+
+    `line_lex._opens_a_comment` (line_lex.py:56-61) is the bash-correct test
+    and line_lex.py:3-7 describes itself as the one place that decides which
+    text is code, so the two readers cannot disagree.  They do: deps.py holds
+    a second copy of the rule, and the rules engine reads that copy.
+
+    Nothing about the payload is special to curl or to a shell sink.  The
+    cells vary the client (curl, aria2c, ftp), the sink (`bash`, `python3`,
+    the pipe form) and the host, and all of them land at or under 20.  The
+    `ctl-spaced-hash-not-live` cell is the discriminator: `x=1 # ;` does put
+    the fetch behind a comment, bash does not run it, and it is scored the
+    same way as the live form - which is the finding, not a control that
+    rescues it.  It is included because the distinction is the whole bug: the
+    two spellings are indistinguishable to the analyser and opposite to bash.
+  expected_rules:
+  - H016
+  - H069
+  - H072
+  - H077
+  - H082
+  - W001
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 12
+
+stop_conditions:
+  bypasses: 10

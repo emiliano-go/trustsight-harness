@@ -1,0 +1,67 @@
+template: template.PKGBUILD
+cells:
+- id: comment-opener-wget-then-sh
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  # upstream uses the <<EOF redirection form\n\
+      \  cat > \"$srcdir\"/urls <<'URLS'\nhttps://github.com/example/harness-baseline/raw/main/setup\n\
+      URLS\n  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n  sh \"$srcdir\"/setup\n  make\n"
+- id: quoted-opener-wget-then-sh
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  note \"the <<EOF form is what upstream uses\"\
+      \n  cat > \"$srcdir\"/urls <<'URLS'\nhttps://github.com/example/harness-baseline/raw/main/setup\n\
+      URLS\n  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n  sh \"$srcdir\"/setup\n  make\n"
+- id: comment-opener-aria2c-then-sh
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  # <<EOF\n  cat > \"$srcdir\"/urls <<'URLS'\n\
+      https://github.com/example/harness-baseline/raw/main/setup\nURLS\n  aria2c -q -i \"$srcdir\"/urls\
+      \ -d \"$srcdir\"\n  sh \"$srcdir\"/setup\n  make\n"
+- id: comment-opener-setup-py
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  # <<EOF\n  cat > \"$srcdir\"/urls <<'URLS'\n\
+      https://github.com/example/harness-baseline/raw/main/setup.py\nURLS\n  wget -q -i \"$srcdir\"/urls\
+      \ -P \"$srcdir\"\n  python3 setup.py build\n  make\n"
+- id: comment-opener-configure
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  # <<EOF\n  cat > \"$srcdir\"/urls <<'URLS'\n\
+      https://github.com/example/harness-baseline/raw/main/setup\nURLS\n  wget -q -i \"$srcdir\"/urls\
+      \ -P \"$srcdir\"\n  cp \"$srcdir\"/setup \"$srcdir\"/configure\n  bash \"$srcdir\"/configure\n \
+      \ make\n"
+- id: ctl-trailing-opener-same-line
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  cat > \"$srcdir\"/urls <<'URLS' # <<EOF\nhttps://github.com/example/harness-baseline/raw/main/setup\n\
+      URLS\n  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n  sh \"$srcdir\"/setup\n  make\n"
+- id: ctl-no-opener
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  cat > \"$srcdir\"/urls <<'URLS'\nhttps://github.com/example/harness-baseline/raw/main/setup\n\
+      URLS\n  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n  sh \"$srcdir\"/setup\n  make\n"
+- id: ctl-opener-but-url-inline
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  # <<EOF\n  wget -q -i https://github.com/example/harness-baseline/raw/main/setup\
+      \ -P \"$srcdir\"\n  sh \"$srcdir\"/setup\n  make\n"
+- id: ctl-real-heredoc-body
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh \"$srcdir\"/setup <<'EOF'\nwget -q -i https://github.com/example/harness-baseline/raw/main/setup\
+      \ -P \"$srcdir\"\nEOF\n  make\n"
+- id: ctl-benign-comment-only
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  # no redirection here\n  make\n"

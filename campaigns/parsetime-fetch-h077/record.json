@@ -1,0 +1,93 @@
+{
+  "attempts": 15,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.390334
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 6,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "campaign": "parsetime-fetch-h077",
+  "campaign_commit": "e9d6872a42fedce881fb4e5fea15f8f39d3dac0d",
+  "campaign_type": "deterministic",
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 3648
+  },
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed",
+      "ruleset_drifted"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.18.1"
+  },
+  "expected_rules": [
+    "H016",
+    "H069",
+    "H072",
+    "H077",
+    "H082"
+  ],
+  "generator": {
+    "cells": 15,
+    "manifest": "inputs.yml",
+    "prompt_hash": "sha256:283df4a91db64b17304060b0b8fca59aa42ace9710bffde017a1d2afcdc07b08",
+    "prompt_id": "parsetime-fetch-h077",
+    "template": "template.PKGBUILD",
+    "type": "inputs"
+  },
+  "harness_version": "2.2.0",
+  "known_bypass_matches": [],
+  "layers_fully_bypassed": 0,
+  "limitations": [],
+  "minimum_layer_cut": 1,
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 6,
+    "duplicate": 9,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-baseline",
+  "resilience_distribution": {
+    "1": 5,
+    "2": 1
+  },
+  "single_layer_failure": {
+    "L5": 5
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": "sha256:0dc042221edc43a82a63be8d5f3f2a6261650c5081396b42e6905ead4224fb95"
+  }
+}

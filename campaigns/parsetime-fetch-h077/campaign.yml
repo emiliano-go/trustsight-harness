@@ -1,0 +1,64 @@
+campaign: parsetime-fetch-h077
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: parsetime-fetch-h077
+  behavior_goal: fetch_then_execute
+  text: |
+    A fetch-to-execute chain whose fetch sits at PKGBUILD top level, outside
+    every function body, and whose client is one H077 does not name.
+
+    Four rules own a build-time fetch, and all four open with the same gate -
+    `scopes.within(i, _FUNCTION_SCOPE)`, so they only read lines the scope
+    resolver can attribute to prepare/build/check/package/pkgver:
+
+      * H016 Hidden Network Fetch In Build   (analysis/build.py:673)
+      * H069 Build-time Generation Then Execution (analysis/delivery.py:1233)
+      * H072 Write Then Execute              (analysis/delivery.py:1233)
+      * H082 Fetch Then Execute              (analysis/delivery.py:1618)
+
+    A fetch written as a bare top-level statement is outside all four.  The
+    one rule that reads top level is H077 Parse-time Network Fetch, and its
+    vocabulary is `DEFAULT_PARSE_TIME_FETCH` (src/trustsight/config.py) - a
+    hand-maintained list of eighteen clients that is a strict subset of
+    `NETWORK_CLIENT_ALTERNATIVES`, the fifty-eight-client alternation every
+    other rule uses.  `openssl s_client`, `rsync`, `socat`, `ftp`, `fetch`,
+    `rclone` and `borg` are in the larger set and absent from the smaller.
+
+    The two halves are independent, and the cells separate them:
+
+    * the client decides whether H077 fires (the `curl`, `wget`, `sftp` and
+      `git clone` controls are all caught at 25 or 45);
+    * the position decides whether H016/H069/H072/H082 fire at all (the two
+      `rsync`-in-`build()` controls are caught at 65 by H016 and H082, with
+      the same client that scores 0 at top level).
+
+    Nothing here needs a benign build-artifact basename, a declared-upstream
+    host, or a `cp` to hide the write.  The `attacker.test` cells go one step
+    further: the fetched host appears nowhere in `url=` or `source=`, so the
+    only thing scored is the `unknown` source-bucket prior of exactly 20 -
+    at the threshold, and therefore UNFLAGGED.
+  expected_rules:
+  - H016
+  - H069
+  - H072
+  - H077
+  - H082
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 15
+
+stop_conditions:
+  bypasses: 11

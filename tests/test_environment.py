@@ -203,18 +203,20 @@ def test_the_verdict_does_not_depend_on_the_timezone(tmp_path, monkeypatch):
     this asserts that rather than assuming it."""
     import time
 
+    import trustsight
+
     from harness.runner import Runner
 
-    recipe = (ROOT / "defaults" / "canary.PKGBUILD").read_text()
+    recipe = (ROOT / "defaults/canary.PKGBUILD").read_text()
     scores = []
     for zone in ("UTC", "Pacific/Kiritimati"):
         monkeypatch.setenv("TZ", zone)
         if hasattr(time, "tzset"):
             time.tzset()
-        env = Environment(trustsight_version="x")
+        env = Environment(trustsight_version=trustsight.__version__)
         env.bind(tmp_path / zone.replace("/", "-"))
         env.restore()
-        scores.append(Runner().analyze(recipe).report.score)
+        scores.append(Runner(env=env).analyze(recipe).report.score)
     assert scores[0] == scores[1]
 
 
@@ -230,21 +232,23 @@ def test_replay_in_another_timezone_gives_the_same_verdict(tmp_path):
     import os
     import time
 
+    import trustsight
+
     from harness.environment import Environment
     from harness.runner import Runner
 
-    recipe = (ROOT / "defaults" / "canary.PKGBUILD").read_text()
+    recipe = (ROOT / "defaults/canary.PKGBUILD").read_text()
     previous = os.environ.get("TZ")
     verdicts = []
     try:
         for zone in ("UTC", "Pacific/Kiritimati"):
             os.environ["TZ"] = zone
             time.tzset()
-            env = Environment(trustsight_version="0.0.0")
+            env = Environment(trustsight_version=trustsight.__version__)
             env._root = ROOT
             env.bind(tmp_path / zone.replace("/", "-"))
             env.restore()
-            report = Runner().analyze(recipe).report
+            report = Runner(env=env).analyze(recipe).report
             verdicts.append((report.score,
                              tuple(getattr(report, "coverage_gaps", ()) or ()),
                              tuple(sorted(str(getattr(f, "rule_id", ""))

@@ -18,11 +18,23 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 __all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
-           "freeze_aur_lookup", "load_environment"]
+           "NamespaceUnavailableError", "freeze_aur_lookup",
+           "load_environment"]
 
 
 class EnvironmentError_(RuntimeError):
     """The instrument is not the instrument the campaign declared."""
+
+
+class NamespaceUnavailableError(EnvironmentError_):
+    """Unprivileged user namespaces are not available here.
+
+    The harness hard-requires them: the analysis worker, the syntax
+    sandbox and the pool all clone user namespaces.  Refused at spawn with
+    this error rather than silently degrading to an unnamespaced child,
+    because a run that published numbers from two different isolation
+    postures would be measuring two instruments under one label.
+    """
 
 
 #: A benign diff whose verdict is committed.  Restoring a database is only
@@ -86,6 +98,16 @@ class Environment:
     mode_gaps: tuple[str, ...] = ()
     _root: Path = field(default=Path("."), repr=False)
     _data_dir: Path = field(default=Path("."), repr=False)
+    #: The ``work`` argument of the last ``bind`` call, kept so a runner can
+    #: hand the worker the same directory to bind.
+    _work: Path = field(default=Path("."), repr=False)
+    #: When set (by the runner, once its worker is attached), ``restore``
+    #: delegates to the worker instead of touching the database here.
+    #: TrustSight caches sqlite connections per (thread, path): unlinking the
+    #: file while the worker holds one open would leave every later attempt
+    #: writing to a deleted inode, so the process that owns the connections
+    #: must own the restore.
+    _restore_delegate: object | None = field(default=None, repr=False)
 
     # -- lifecycle ----------------------------------------------------
 
@@ -140,6 +162,7 @@ class Environment:
         from trustsight import config, db
 
         freeze_aur_lookup()
+        self._work = work
         scratch = os.environ.get("HARNESS_ENV_ROOT", "")
         if scratch:
             key = hashlib.sha256(str(work.resolve()).encode()).hexdigest()[:16]
@@ -172,6 +195,9 @@ class Environment:
 
         if self.accumulate:
             return self._db_hash()
+
+        if self._restore_delegate is not None:
+            return self._restore_delegate()
 
         # TrustSight caches one connection per (thread, path) and reuses it,
         # so unlinking the file while that handle is open leaves the harness
@@ -297,6 +323,25 @@ class Environment:
                 f"config fingerprint changed mid-campaign: declared "
                 f"{self.config_fingerprint}, report says {actual}"
             )
+
+    def worker_payload(self) -> dict:
+        """What the analysis worker needs to re-bind this environment.
+
+        The worker is a fresh interpreter: it re-runs ``load_environment``
+        and ``bind`` from these values rather than inheriting this process's
+        monkeypatched config globals, so the two processes cannot drift.
+        """
+        known = {
+            "trustsight_version", "trustsight_source", "python_version",
+            "db_state", "seed_sha256", "db_snapshot", "ioc_baseline",
+            "config_fingerprint", "flag_threshold", "accumulate", "timezone",
+            "locale",
+        }
+        return {
+            "environment": {k: getattr(self, k) for k in known},
+            "root": str(self._root),
+            "work": str(self._work),
+        }
 
     def to_record(self) -> dict:
         return {

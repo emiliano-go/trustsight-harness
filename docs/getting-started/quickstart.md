@@ -16,7 +16,8 @@ uv sync --locked --all-extras
 
 This installs the harness and the local TrustSight build it is configured to
 measure. The `--locked` flag means the same dependencies the record was produced
-with; without it, the measurement is not reproducible.
+with; without it, the measurement is not reproducible. Linux x86_64 with
+unprivileged user namespaces is required ([installation](installation.md#requirements)).
 
 ## 2. Run the shipped campaign
 

@@ -14,7 +14,7 @@ import math
 # (``trustsight.layers``); the harness imports them rather than keeping a
 # second copy that can drift.  ``minimum_layer_cut`` is the exact cut, the
 # same function the report uses.
-from trustsight.layers import (  # noqa: F401
+from trustsight.layers import (
     bypass_count,
     exact_minimum_cut,
     layers_fully_bypassed,

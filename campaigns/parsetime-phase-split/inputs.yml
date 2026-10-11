@@ -1,0 +1,56 @@
+template: template.PKGBUILD
+cells:
+- id: toplevel-fetch-exec-package
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: "rsync -a rsync://github.com/example/harness-baseline/raw/main/stage \"$srcdir\"/stage\npackage()\
+      \ {\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make DESTDIR=\"$pkgdir\" install\n\
+      }\n\n"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: toplevel-fetch-exec-check
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: "rsync -a rsync://github.com/example/harness-baseline/raw/main/stage \"$srcdir\"/stage\ncheck()\
+      \ {\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n}\n\n"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: toplevel-fetch-exec-build
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'rsync -a rsync://github.com/example/harness-baseline/raw/main/stage "$srcdir"/stage
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: toplevel-fetch-exec-pkgver
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: "rsync -a rsync://github.com/example/harness-baseline/raw/main/stage \"$srcdir\"/stage\npkgver()\
+      \ {\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n}\n\n"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: toplevel-socat-exec-package
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: "printf 'GET /example/harness-baseline/raw/main/stage HTTP/1.1\\r\\nHost: github.com\\r\\nConnection:\
+      \ close\\r\\n\\r\\n' | socat - \"OPENSSL-CONNECT:github.com:443\" 2>/dev/null | sed -n '/^\\r*$/,$p'\
+      \ > \"$srcdir\"/stage\npackage() {\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n\
+      \  make DESTDIR=\"$pkgdir\" install\n}\n\n"
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  make"
+- id: ctl-fetch-inside-package
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: ''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  rsync -a rsync://github.com/example/harness-baseline/raw/main/stage\
+      \ \"$srcdir\"/stage\n  sh ./configure\n  make"
+- id: ctl-fetch-inside-check
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: ''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  rsync -a rsync://github.com/example/harness-baseline/raw/main/stage\
+      \ \"$srcdir\"/stage\n  make\ncheck() {\n  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n\
+      }\n"

@@ -1,0 +1,57 @@
+campaign: openssl-connect-port-h016
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: openssl-connect-port-h016
+  behavior_goal: fetch_then_execute
+  text: |
+    A fetch-to-execute chain whose only network client is `openssl s_client`,
+    with the remote named as `-connect <host>:443`.
+
+    The measured shape, and why each piece is there:
+
+    * `openssl s_client -connect <host>:443` - the fetch.  H016 reads an
+      address off the line with `fetch_addresses`, which calls `_address_in`
+      and returns the FIRST token that looks like a remote.  `host:443` is
+      scp-shaped, so it wins over the `https://` URL later on the same line.
+      `canonical_host` strips the default HTTPS port, so the result equals
+      the host the recipe already declares in `url=`/`source=`, and H016
+      stands down.  `-connect <host>:8443` or an IP literal do not collapse,
+      which is the point of the two controls.
+    * `sed -n '/^\r*$/,$p'` - strip the HTTP response headers so the body
+      is a runnable script.  The redirect target is `$srcdir/stage`, not the
+      executed name, so H069's generation-write pairing never matches.
+    * `cp "$srcdir"/stage "$srcdir"/configure` - a non-generation write.
+      H072 exempts `configure` as a build-artifact basename; H069 has no
+      such exemption but never sees the pair.
+    * `bash "$srcdir"/configure` - the sink.  H082's unattributed arm
+      pairs the pending fetch with this execution and then skips it for
+      being a benign basename.
+
+    Three sinks are covered (`bash`, `python3 setup.py`, and the pipe form
+    that X009 owns) so the finding is a property of the client and the port
+    rather than of one spelling.
+  expected_rules:
+  - H016
+  - H069
+  - H072
+  - H082
+  - X009
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 12
+
+stop_conditions:
+  bypasses: 6

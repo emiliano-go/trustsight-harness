@@ -23,7 +23,7 @@ from .status import Status
 
 __all__ = ["HARNESS_VERSION", "patch_verification", "run_campaign"]
 
-HARNESS_VERSION = "2.1.0"
+HARNESS_VERSION = "2.2.0"
 
 #: A campaign whose errors outnumber its measurements is not measuring.
 HARNESS_ERROR_ABORT_RATE = 0.20
@@ -68,7 +68,13 @@ def _git_commit(directory: Path) -> str:
 
 
 def run_campaign(config: CampaignConfig, generator: Generator, *,
-                 repo_root: Path, calibration: str) -> dict:
+                 repo_root: Path, calibration: str,
+                 runner: Runner | None = None) -> dict:
+    """Run one campaign; *runner* is reused if given instead of spawned.
+
+    A pool worker hands its long-lived runner in so a sweep does not pay a
+    namespace clone and a cold TrustSight import per campaign.
+    """
     env = config.environment
     env.resolve()
     env.bind(config.root)
@@ -76,7 +82,10 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     bash = resolve_bash()
     behavior = BehaviorValidator(config.prompt.get("behavior_goal", "fetch_then_execute"))
     checkers = build_checkers(config.forbidden)
-    runner = Runner(package=config.package)
+    if runner is None:
+        runner = Runner(package=config.package, env=env)
+    else:
+        runner.rebind(env, config.package)
     dedup = Deduplicator()
     known = KnownBypasses(repo_root / "campaigns")
     recorder = Recorder(config.root, config.name, HARNESS_VERSION)

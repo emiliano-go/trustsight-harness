@@ -1,0 +1,74 @@
+campaign: source-rename-benign-h083
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: source-rename-benign-h083
+  behavior_goal: fetch_then_execute
+  text: |
+    A payload that is *declared*: listed in `source=`, checksummed, fetched by
+    makepkg, and executed — with its local name chosen by the recipe:
+
+        source=("https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz"
+                "configure::https://github.com/example/harness-baseline/raw/main/setup")
+        sha256sums=('1111…'   '2222…')
+
+        build() {
+          cd "$srcdir"/harness-baseline-1.0.0
+          sh ./configure --prefix=/usr
+          make
+        }
+
+    makepkg downloads both, verifies both against the declared checksums, and
+    `sh ./configure` runs the second one.  Nothing is fetched at build time by
+    the recipe and nothing is written by it, so H016 has no client to read and
+    H069/H072 have no write to pair.  H083 is the one rule whose subject is
+    "a declared source was executed", and it fires only when the executed
+    basename is among the declared ones (delivery.py:1831) — which is the one
+    condition a `::` rename satisfies by construction.  Score 0, no finding.
+
+    The second half of the exemption is `_H072_BENIGN_EXEC`
+    (delivery.py:676-689), a set of 25 build-tool basenames consulted at six
+    gates: H072's pairing (delivery.py:1264), H082's attributed and
+    unattributed arms (delivery.py:1679, :1689), H083 (delivery.py:1825),
+    W001 (delivery.py:2688) and C002's capability signal
+    (structural.py:1244).  A name is not a property of a file; the rename puts
+    the recipe's own string into the set, and the rule that was written to
+    notice a fetched file executing reads the name and stands down.
+
+    The controls are the minimal pair.  `ctl-nonbenign-rename` is the same
+    recipe with `payload::` instead of `configure::`, and
+    `ctl-no-rename` is the same with no rename at all: both score 25 on H083.
+    One string in `source=()` moves the score from 25 to 0, and it is not a
+    property of the payload, the client or the host — the recipe is entirely
+    checksum-clean either way.
+
+    `ctl-attacker-host-rename` puts the payload on a host that appears nowhere
+    in `url=`, and scores 20: the only thing scored is the `unknown` source
+    bucket, at the threshold. `ctl-rename-bump` is the same bypass wearing a
+    version bump and two refreshed checksums, which is what a routine update
+    looks like.
+  expected_rules:
+  - H001
+  - H016
+  - H069
+  - H072
+  - H083
+  - H091
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 12
+
+stop_conditions:
+  bypasses: 9

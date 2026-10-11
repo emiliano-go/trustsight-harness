@@ -1,0 +1,135 @@
+template: template.PKGBUILD
+cells:
+- id: benign-configure
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'configure::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./configure --prefix=/usr\n  make"
+- id: benign-make
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'make::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./make --prefix=/usr\n  make"
+- id: benign-makefile
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'Makefile::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./Makefile --prefix=/usr\n  make"
+- id: benign-config-status
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'config.status::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./config.status --prefix=/usr\n  make"
+- id: benign-config-log
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'config.log::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./config.log --prefix=/usr\n  make"
+- id: benign-meson
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'meson::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./meson --prefix=/usr\n  make"
+- id: benign-cmake
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'cmake::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./cmake --prefix=/usr\n  make"
+- id: benign-ninja
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'ninja::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./ninja --prefix=/usr\n  make"
+- id: benign-meson-build
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'meson.build::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./meson.build --prefix=/usr\n  make"
+- id: benign-build-ninja
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'build.ninja::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./build.ninja --prefix=/usr\n  make"
+- id: benign-cpack
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'cpack::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./cpack --prefix=/usr\n  make"
+- id: benign-ctest
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'ctest::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./ctest --prefix=/usr\n  make"
+- id: benign-cmakelists-txt
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'CMakeLists.txt::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./CMakeLists.txt --prefix=/usr\n  make"
+- id: benign-cmakecache-txt
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'CMakeCache.txt::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./CMakeCache.txt --prefix=/usr\n  make"
+- id: benign-config-h
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'config.h::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./config.h --prefix=/usr\n  make"
+- id: benign-sconstruct
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'SConstruct::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./SConstruct --prefix=/usr\n  make"
+- id: benign-waf
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'waf::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./waf --prefix=/usr\n  make"
+- id: benign-config-cache
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'config.cache::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./config.cache --prefix=/usr\n  make"
+- id: ctl-nonbenign-rename
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: "https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz\n        'zzz-stage::https://github.com/example/harness-baseline/raw/main/stage'"
+    sums: "'1111111111111111111111111111111111111111111111111111111111111111'\n            '2222222222222222222222222222222222222222222222222222222222222222'"
+    dir: harness-baseline-1.0.0
+    payload: "  sh ./zzz-stage\n  make"

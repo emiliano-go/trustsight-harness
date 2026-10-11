@@ -1,0 +1,76 @@
+campaign: source-array-undeclared-exec
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: source-array-undeclared-exec
+  behavior_goal: fetch_then_execute
+  text: |
+    A recipe that delegates its fetch to makepkg and then executes a file the
+    `source=` array never declared:
+
+        source=('git+https://github.com/example/harness-baseline.git')
+        sha256sums=('SKIP')
+
+        build() {
+          cd "$srcdir"/harness-baseline
+          sh ./configure --prefix=/usr
+          make
+        }
+
+    There is no network client anywhere in the diff, so H016 cannot fire.
+    Nothing in the diff writes the executed file, so H069 and H072 cannot
+    fire.  H083 is the one rule whose subject is "a declared source was
+    executed", and it fires only when the executed basename is among the
+    declared ones (delivery.py:1831) - which is precisely the check that
+    cannot fail here, because the file being run was never declared.
+
+    Two cells are the whole finding, and they differ only in the source line:
+
+    * `ctl-tarball-then-stage-sh` - a pinned tarball, checksummed, and a build
+      that runs `bash "$srcdir"/stage.sh`.  Still score 0.  So the silence is
+      not about VCS: TrustSight has no rule that asks "where did this file
+      come from".
+    * the `git-unpinned-*`, `hg-unpinned`, `bzr-unpinned`, `fossil-unpinned`
+      and `git-branch-fragment` cells - the same silence with the checksum
+      removed as well.  Three gates make that version worse, each defensible
+      alone: H001 is emitted at INFO rather than HIGH for a VCS source
+      (differ.py:385-388, structural.py:519) because a VCS package has no
+      checksum to declare; an unpinned ref is reported as P008 at weight 0
+      (coverage.py:230-284, scoring.py:43); and H101 only fires on a
+      pinned-to-floating transition keeping the same local name
+      (delivery.py:992), so replacing a pinned tarball entry with a floating
+      VCS entry never matches it.  What executes is whatever the remote
+      chooses at build time.
+
+    For a new package this is the shape of an ordinary `-git` recipe: the
+    submitter's own repository, a trusted-forge `url=`, and a `configure`
+    that is theirs.  The whole package scores 0.
+
+    `ctl-tarball-then-undeclared-file` is the control that shows the cost of
+    writing the same fetch into the diff instead: `curl` is a client H016
+    reads and H082 pairs with the execution, and the score is 95.
+  expected_rules:
+  - H001
+  - H016
+  - H069
+  - H082
+  - H083
+  - H101
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 11
+
+stop_conditions:
+  bypasses: 11

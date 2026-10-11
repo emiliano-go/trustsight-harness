@@ -188,9 +188,11 @@ def test_no_coverage_gap_is_ever_recorded_as_a_closure():
 
 
 def test_jobs_resolution_and_sharding():
+    import os
+
     assert resolve_jobs("1", 0) == 1
     assert resolve_jobs("4", 3) == 3
-    assert 1 <= resolve_jobs("auto", 100) <= 8
+    assert resolve_jobs("auto", 100) == min(os.cpu_count() or 1, 8)
     with pytest.raises(ValueError, match="integer or 'auto'"):
         resolve_jobs("many", 10)
     with pytest.raises(ValueError, match="at least 1"):

@@ -21,6 +21,12 @@ measurement against a pinned TrustSight build.
 
 ## Two ways to run
 
+Requirements: **Linux x86_64** with **unprivileged user namespaces**
+available. The harness runs its parser, its analysis workers and its
+parallel pools in kernel-enforced namespaces and has no degradation path:
+without them it exits 1 with `NamespaceUnavailableError` naming the fix
+(on Ubuntu: `kernel.apparmor_restrict_unprivileged_userns=0`).
+
 From a checkout, pinned to a sibling TrustSight:
 
 ```bash
@@ -31,10 +37,12 @@ uv run python -m harness campaigns/known-bypasses-manual
 ```
 
 From the container, which carries a pinned TrustSight checkout and needs no
-sibling:
+sibling (`--security-opt seccomp=unconfined` lets the daemon create user
+namespaces; see the note in `Dockerfile`):
 
 ```bash
-docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest regression
+docker run --rm --security-opt seccomp=unconfined \
+  ghcr.io/emiliano-go/trustsight-harness:latest regression
 ```
 
 The commands:
@@ -88,7 +96,7 @@ one of them:
 
 ## What ships
 
-- **A campaign suite.** 87 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 99 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025), the Atomic Arch
   build-time and install-hook shapes, the wave-3 obfuscated variants, and six shapes
@@ -99,7 +107,7 @@ one of them:
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's rule taxonomy, so the untested surface is a number. 34 of 212
+  TrustSight's rule taxonomy, so the untested surface is a number. 34 of 242
   rules are targeted, and the ones a cold campaign cannot reach are named with
   the reason.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the
@@ -115,8 +123,10 @@ TrustSight checkout, so it measures exactly the commit CI pins
 command above is an argument:
 
 ```bash
-docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest coverage
-docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest regression
+docker run --rm --security-opt seccomp=unconfined \
+  ghcr.io/emiliano-go/trustsight-harness:latest coverage
+docker run --rm --security-opt seccomp=unconfined \
+  ghcr.io/emiliano-go/trustsight-harness:latest regression
 ```
 
 Mount a directory over the tree a command writes to keep its report, for example
@@ -124,7 +134,8 @@ Mount a directory over the tree a command writes to keep its report, for example
 
 ## What it will not do
 
-- **It never executes generated code.** `bash -n` parses; nothing runs.
+- **It never executes generated code.** `bash -n` parses, inside a kernel
+  sandbox with an empty network namespace; nothing runs.
 - **It never fetches a URL a generated PKGBUILD declares.**
 - **It never opens your TrustSight database.** Every campaign binds its own data directory.
 - **It never reads outside a campaign's tree.** A path in `campaign.yml` is confined to its root.

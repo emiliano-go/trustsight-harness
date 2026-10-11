@@ -1,0 +1,62 @@
+campaign: evasions-stacked
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: evasions-stacked
+  behavior_goal: fetch_then_execute
+  text: |
+    Payloads that combine two of the mechanisms this suite already registered.
+
+    Each of the five families below is a defect on its own; the point of these
+    cells is that they are not independent of one another, so a fix for any
+    one of them leaves the others, and a defence that only patches the reported
+    example does not hold. The families:
+
+    * the glued `#` - `deps._strip_comment` (`deps.py:75`) has no word-boundary
+      test, so `x=1#;` discards the rest of the line from every code rule;
+    * the declaration option - `_ASSIGNMENT_RE`
+      (`_tokenizer_engine.py:655`) has no option run after the keyword, so
+      `declare -r` never enters the variable table and H016 has no address;
+    * the phantom heredoc - `delivery._heredoc_body_indices`
+      (`delivery.py:479`) scans for `<<WORD` without asking whether it is in a
+      comment or a string;
+    * the `::` source rename - `delivery.py:877` puts the recipe's own
+      basename into the declared set, and `_H072_BENIGN_EXEC`
+      (`delivery.py:676-689`) stands six gates down for it;
+    * the parse-time fetch - H016/H069/H072/H082 all gate on `scopes.within`.
+
+    The cells pair them two at a time. `glued-plus-declare-option` hides the
+    fetch from H016 twice over: the line is truncated at the glued `#` and the
+    URL never resolves. `rename-plus-glued-fetch` declares the payload as
+    `configure::` so H083 stands down, and truncates the build-time fetch that
+    would otherwise have flagged the undeclared address. `glued-plus-openssl-port`
+    stacks the glued `#` with the `-connect <host>:443` address misattribution
+    from `openssl-connect-port-h016`.
+
+    These are recorded because the count of mechanisms a scanner misses is the
+    quantity a defender needs, and stacking multiplies it. They are not new
+    defects and the campaign says so.
+  expected_rules:
+  - H016
+  - H069
+  - H082
+  - H083
+  - R010
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 6
+
+stop_conditions:
+  bypasses: 6

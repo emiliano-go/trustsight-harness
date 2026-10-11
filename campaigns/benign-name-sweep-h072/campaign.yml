@@ -1,0 +1,63 @@
+campaign: benign-name-sweep-h072
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: benign-name-sweep-h072
+  behavior_goal: fetch_then_execute
+  text: |
+    Every name in `_H072_BENIGN_EXEC`, one per attempt.
+
+    `_H072_BENIGN_EXEC` (`analysis/delivery.py:676-689`) is a frozenset of
+    twenty-five build-tool basenames - `configure`, `make`, `Makefile`,
+    `config.status`, `meson.build`, `CMakeCache.txt`, `SConstruct`, `waf`,
+    `ninja`, `cpack` and the rest - consulted at six gates, all keyed on
+    `os.path.basename()` of the *executed* path. `source-rename-benign-h083`
+    established that a `::` rename puts the recipe's own string into the
+    declared set, so the name is the recipe's to choose. This campaign
+    sweeps the set rather than demonstrating one member of it, because the
+    size of the set is the useful number: a maintainer patching H083 has to
+    decide what the set is *for*, and that question cannot be answered from
+    one example.
+
+    Each cell is the same recipe with a different renamed source, executed
+    with `sh ./<name>`, and each scores 0 with no finding at all. The single
+    control renames the source to `zzz-stage`, which is outside the set, and
+    H083 fires at 25 - so the exemption is the only difference and it is
+    total.
+
+    Two of the twenty-five are absent because the harness's behaviour
+    validator cannot certify them, and that is the validator being right:
+    `make`, `ninja` and `cmake` execute a build manifest rather than a
+    script, so the harness declines to claim a chain it cannot see. The
+    `Makefile`, `meson.build`, `build.ninja` and `CMakeLists.txt` rows are
+    present with a `sh` sink, which is a real shell invocation of a file that
+    a build tool would otherwise have read; the point of the row is the name
+    in the exemption, not the tool that consumed it.
+
+    The set's own comment says these names are exempt because "a recipe
+    running `python setup.py build` is doing the one thing the packaging
+    format is for". That reasoning is sound for a file that arrived with the
+    project and unsound for one the recipe just declared a download for.
+  expected_rules:
+  - H072
+  - H082
+  - H083
+  - W001
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 19
+
+stop_conditions:
+  bypasses: 19

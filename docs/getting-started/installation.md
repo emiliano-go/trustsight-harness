@@ -8,6 +8,8 @@ description: Install trustsight-harness with uv, pointed at the exact TrustSight
 
 | Requirement | Why |
 |---|---|
+| Linux x86_64 | rsyscall-ng's supported platform; the process control depends on it |
+| Unprivileged user namespaces | The parser, the analysis worker and the pool all run in kernel-enforced namespaces. There is no degradation path: without them the harness exits 1 with `NamespaceUnavailableError` naming the fix (on Ubuntu: `kernel.apparmor_restrict_unprivileged_userns=0`) |
 | Python 3.12+ | `StrEnum`, and the type syntax the codebase uses throughout |
 | [`uv`](https://docs.astral.sh/uv/) | Lockfile-only installs; CI asserts `uv sync --locked` |
 | `bash` | The syntax validator runs `bash -n`; the path is resolved once and recorded |
@@ -41,9 +43,16 @@ a pinned TrustSight checkout, so it needs no local sibling and measures exactly
 the commit the release pinned:
 
 ```bash
-docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest regression
-docker run --rm ghcr.io/emiliano-go/trustsight-harness:latest coverage
+docker run --rm --security-opt seccomp=unconfined \
+  ghcr.io/emiliano-go/trustsight-harness:latest regression
+docker run --rm --security-opt seccomp=unconfined \
+  ghcr.io/emiliano-go/trustsight-harness:latest coverage
 ```
+
+`--security-opt seccomp=unconfined` (or a seccomp profile permitting
+`clone(CLONE_NEWUSER)`) is a requirement, not a tuning knob: the harness
+creates user namespaces in every process it spawns and refuses to run
+without them. The host kernel must allow unprivileged userns as well.
 
 The entrypoint is `python -m harness`, so every command in the CLI reference is
 an argument. Mount a directory over the tree a command writes to keep its

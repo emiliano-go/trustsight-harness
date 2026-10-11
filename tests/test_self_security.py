@@ -18,14 +18,17 @@ SOURCES = sorted(
     path for package in PACKAGES for path in (ROOT / package).rglob("*.py")
 )
 
-#: The one place a subprocess is allowed, and the one thing it may run.
-SUBPROCESS_ALLOWED = {"validators/syntax.py"}
+#: The only modules permitted to spawn a process, via rsyscall-ng.  The
+#: sandboxed exec sites: the namespaced `bash -n` (validators/syntax.py),
+#: the analysis worker (harness/runner.py), the trio portal it drives
+#: (harness/portal.py) and the namespaced pool (harness/pool.py).
+EXEC_ALLOWED = {"validators/syntax.py", "harness/runner.py",
+                "harness/portal.py", "harness/pool.py"}
 #: The one module permitted to talk to a network.
 NETWORK_ALLOWED = {"generators/llm.py"}
 
 FORBIDDEN_CALLS = {"eval", "exec", "compile", "__import__"}
-FORBIDDEN_ATTRS = {("os", "system"), ("os", "popen"), ("subprocess", "getoutput"),
-                   ("subprocess", "getstatusoutput")}
+FORBIDDEN_ATTRS = {("os", "system"), ("os", "popen")}
 
 
 def _rel(path: Path) -> str:
@@ -47,16 +50,19 @@ def test_no_module_evaluates_anything(path):
 
 
 @pytest.mark.parametrize("path", SOURCES, ids=_rel)
-def test_no_subprocess_uses_a_shell(path):
-    tree = ast.parse(path.read_text())
-    for node in ast.walk(tree):
-        if not isinstance(node, ast.Call):
-            continue
-        for keyword in node.keywords:
-            if keyword.arg == "shell" and not (
-                isinstance(keyword.value, ast.Constant) and keyword.value.value is False
-            ):
-                pytest.fail(f"{_rel(path)} passes shell= to a subprocess")
+def test_no_module_imports_subprocess(path):
+    """`subprocess` is gone: every process runs under rsyscall, namespaced."""
+    assert "subprocess" not in _imported_modules(path), \
+        f"{_rel(path)} imports subprocess"
+
+
+@pytest.mark.parametrize("path", SOURCES, ids=_rel)
+def test_process_spawning_is_confined(path):
+    """Only the sandboxed exec sites may reach rsyscall."""
+    if _rel(path) in EXEC_ALLOWED:
+        return
+    assert "rsyscall" not in _imported_modules(path), \
+        f"{_rel(path)} imports rsyscall"
 
 
 def _imported_modules(path: Path) -> set[str]:
@@ -77,15 +83,6 @@ def _imported_modules(path: Path) -> set[str]:
 
 
 @pytest.mark.parametrize("path", SOURCES, ids=_rel)
-def test_subprocess_is_confined(path):
-    """Only the syntax validator runs a program, and only `bash -n`."""
-    if _rel(path) in SUBPROCESS_ALLOWED:
-        return
-    assert "subprocess" not in _imported_modules(path), \
-        f"{_rel(path)} imports subprocess"
-
-
-@pytest.mark.parametrize("path", SOURCES, ids=_rel)
 def test_network_is_confined_to_the_generator(path):
     """The harness never fetches a URL a generated PKGBUILD declares."""
     if _rel(path) in NETWORK_ALLOWED:
@@ -96,20 +93,61 @@ def test_network_is_confined_to_the_generator(path):
 
 
 def test_the_syntax_validator_only_ever_runs_bash_n():
+    """syntax.py's one exec is `[bash, "-n", path]`: literal argv, no extras."""
     source = (ROOT / "validators" / "syntax.py").read_text()
     tree = ast.parse(source)
-    argv_literals = []
+    commands = []
     for node in ast.walk(tree):
         if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) \
-                and node.func.attr == "run":
-            argv = node.args[0] if node.args else None
-            assert isinstance(argv, ast.List), "subprocess argv must be a literal list"
-            argv_literals.append([
-                el.value if isinstance(el, ast.Constant) else "<var>" for el in argv.elts
-            ])
-    assert argv_literals, "expected one subprocess call"
-    for argv in argv_literals:
+                and node.func.attr == "args":
+            pytest.fail("syntax.py must not append argv fragments via .args()")
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) \
+                and node.func.id == "Command":
+            argv = node.args[1] if len(node.args) > 1 else None
+            assert isinstance(argv, ast.List), "Command argv must be a literal list"
+            commands.append([
+                el.value if isinstance(el, ast.Constant) else "<var>"
+                for el in argv.elts])
+    assert commands, "expected one Command() call"
+    for argv in commands:
         assert argv[1] == "-n", f"unexpected bash flags: {argv}"
+
+
+def test_the_namespaced_exec_has_no_network():
+    """The clone flags the sandbox uses (NEWUSER|NEWNET) block sockets.
+
+    ``bash -n`` executes nothing, so the socket probe is Python run through
+    the same clone path the analysis worker and the syntax validator take:
+    if the kernel did not enforce an empty network namespace, this child
+    could reach the LLM provider or the AUR, and H1/H2 would be promises
+    instead of boundaries.
+    """
+    import sys
+
+    from rsyscall import Command, local_process
+    from rsyscall.path import Path as RPath
+    from rsyscall.sched import CLONE
+    from rsyscall.sys.wait import W
+
+    from harness.portal import get_portal
+
+    async def probe() -> int:
+        child = await local_process.clone(CLONE.NEWUSER | CLONE.NEWNET)
+        script = (
+            "import socket\n"
+            "try:\n"
+            "    socket.socket().connect(('192.0.2.1', 80))\n"
+            "except OSError:\n"
+            "    raise SystemExit(0)\n"
+            "raise SystemExit(1)\n")
+        execd = await child.exec(
+            Command(RPath(sys.executable),
+                    [sys.executable, "-c", script], {}))
+        state = await execd.waitpid(W.EXITED)
+        return -1 if state.exit_status is None else state.exit_status
+
+    assert get_portal().run(probe) == 0, \
+        "a namespaced child could open a network socket"
 
 
 def test_generated_text_is_cleaned_before_display():

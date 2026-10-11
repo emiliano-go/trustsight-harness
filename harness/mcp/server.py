@@ -64,6 +64,11 @@ _MAX_JOBS = 256
 #: also analyses.
 _analysis_lock = threading.RLock()
 
+#: The one analysis runner: a worker-backed `harness.runner.Runner` over the
+#: MCP scratch directory, created on first use.  Callers hold
+#: `_analysis_lock`.
+_ANALYSIS_RUNNER = None
+
 
 def _create_job(kind: str) -> Job:
     job = Job(id=str(uuid.uuid4()), kind=kind)
@@ -128,24 +133,31 @@ def _scratch_dir() -> Path:
     return path
 
 
-def _bind_isolated_environment() -> None:
-    """Point TrustSight at a scratch directory, never the operator's.
+def _analysis_runner():
+    """A module-level runner over an isolated scratch directory.
 
-    `analyze_diff` used to run against whatever `config.DATA_DIR` happened
-    to hold: the operator's real database on a fresh server, or whichever
-    campaign bound last.  Callers hold `_analysis_lock`.
+    `analyze_diff` used to bind a fresh environment and analyse in-process
+    on every call.  Analysis now runs in a worker process owned by the
+    runner (see `harness.runner`), so the runner is built once: the worker
+    keeps its tokenizer pool warm across calls, and every call still gets a
+    restored, cold database because the restore is delegated to that worker.
+    Never the operator's database.
     """
     import trustsight
 
     from ..environment import Environment
+    from ..runner import Runner
 
-    env = Environment(
-        trustsight_version=getattr(trustsight, "__version__", ""),
-        db_state="cold",
-    )
-    env.resolve()
-    env.bind(_scratch_dir())
-    env.restore()
+    global _ANALYSIS_RUNNER
+    if _ANALYSIS_RUNNER is None:
+        env = Environment(
+            trustsight_version=getattr(trustsight, "__version__", ""),
+            db_state="cold",
+        )
+        env.resolve()
+        env.bind(_scratch_dir())
+        _ANALYSIS_RUNNER = Runner(env=env)
+    return _ANALYSIS_RUNNER
 
 
 def _campaign_dir(name: str) -> Path:
@@ -293,21 +305,21 @@ def analyze_diff(new_text: str, old_text: str | None = None, package: str = "mcp
     """Analyse a single PKGBUILD text (or diff) through TrustSight's analysis pipeline.
 
     Runs against an isolated, cold scratch database, never the operator's,
-    and serialised against running campaigns because TrustSight's config and
-    database paths are process-wide globals.
+    and serialised through one analysis worker: TrustSight's config and
+    database paths are process-wide globals inside that worker.
 
     Args:
         new_text: The new PKGBUILD text or unified diff.
         old_text: Optional old PKGBUILD text (for diff-based analysis).
-        package: Package name label (default: mcp-pkg).
+        package: Package name label (default: "mcp-pkg").
     """
-    from ..runner import Runner, RunnerError
+    from ..runner import RunnerError
 
     with _analysis_lock:
         try:
-            _bind_isolated_environment()
-            runner = Runner(package=package)
-            result = runner.analyze(new_text, old_text)
+            runner = _analysis_runner()
+            runner.restore()
+            result = runner.analyze(new_text, old_text, package=package)
         except RunnerError as exc:
             return {"error": str(exc)}
         except (RuntimeError, ValueError, OSError) as exc:

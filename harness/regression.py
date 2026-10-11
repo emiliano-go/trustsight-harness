@@ -8,7 +8,6 @@ in a review with the report attached.
 from __future__ import annotations
 
 import json
-import multiprocessing
 import os
 from pathlib import Path
 
@@ -18,6 +17,7 @@ from validators.syntax import resolve_bash, validate_syntax
 from .environment import Environment, EnvironmentError_, load_environment
 from .evidence import analysed_text_by_hash, diff_by_hash
 from .judge import judge
+from .pool import run_pool
 from .regression_cache import (
     RegressionCache,
     cache_key,
@@ -29,12 +29,12 @@ from .status import Status
 
 __all__ = ["resolve_jobs", "run_regression"]
 
-#: Upper bound for `--jobs auto`.  Each worker carries its own sandbox pool
-#: (up to four child interpreter processes), so the cap bounds process count
-#: and memory as much as it bounds the shard count.  Exceed it on a loaded
-#: machine and the tokenizer sandbox starts timing out, which the analysis
-#: reports as `stage_degraded`.
-MAX_AUTO_JOBS = 4
+#: Upper bound for `--jobs auto`.  Each namespaced worker is its own
+#: process tree carrying an analysis worker plus TrustSight's tokenizer
+#: sandbox pool, so the cap bounds RAM rather than process count.  Exceed
+#: the machine's memory and the tokenizer sandbox starts timing out, which
+#: the analysis reports as `stage_degraded`.
+MAX_AUTO_JOBS = 8
 
 
 def _committed_bypasses(campaigns: Path) -> list[dict]:
@@ -185,19 +185,18 @@ def _replay_item(repo_root: Path, env: Environment, runner: Runner,
             "analysed_from": source}
 
 
-def _replay_worker(payload: tuple) -> list[tuple[int, dict]]:
+def replay_shard(repo_root: Path, environment: dict, work: Path,
+                 indexed: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
     """One process's shard: its own database, canary and sandbox pool.
 
-    Top-level so the spawn context can pickle it.  Each worker binds a
-    distinct work root, and `HARNESS_ENV_ROOT` keys the scratch by that root,
-    so no two workers share a database.
+    Shared by the serial path and :mod:`harness.pool_worker`.  Each worker
+    binds a distinct work root, and `HARNESS_ENV_ROOT` keys the scratch by
+    that root, so no two workers share a database.
     """
-    repo_root_raw, environment, work_raw, indexed = payload
-    repo_root = Path(repo_root_raw)
     env: Environment = load_environment(environment, repo_root)
     env.resolve()
-    env.bind(Path(work_raw))
-    runner = Runner()
+    env.bind(work)
+    runner = Runner(env=env)
     bash = resolve_bash()
     _preflight(env, runner, repo_root)
     return [(index, _replay_item(repo_root, env, runner, bash, item))
@@ -220,7 +219,7 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
     work.mkdir(parents=True, exist_ok=True)
     env.bind(work)
 
-    runner = Runner()
+    runner = Runner(env=env)
     bash = resolve_bash()
     behavior = BehaviorValidator()
 
@@ -251,16 +250,18 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
             for index, item in pending:
                 results[index] = _replay_item(repo_root, env, runner, bash, item)
         else:
-            payloads = [
-                (str(repo_root), environment,
-                 str(work / ".jobs" / f"{offset}"), shard)
-                for offset, shard in enumerate(_shard(pending, worker_count))
+            shards = _shard(pending, worker_count)
+            entries = [
+                {"id": offset,
+                 "repo_root": str(repo_root),
+                 "environment": environment,
+                 "work": str(work / ".jobs" / f"{offset}"),
+                 "items": [[index, item] for index, item in shard]}
+                for offset, shard in enumerate(shards)
             ]
-            context = multiprocessing.get_context("spawn")
-            with context.Pool(worker_count) as pool:
-                shards = pool.map(_replay_worker, payloads)
-            for shard in shards:
-                for index, result in shard:
+            for _entry_id, shard_results in run_pool(
+                    entries, len(entries), kind="regression", newnet=True):
+                for index, result in shard_results:
                     results[index] = result
 
         # A degraded analysis is retried once with the parent's

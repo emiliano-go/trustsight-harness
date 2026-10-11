@@ -1,0 +1,90 @@
+template: template.PKGBUILD
+cells:
+- id: declare-r-url
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare -r _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: declare-x-url
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare -x _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: declare-rx-url
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare -rx _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: typeset-r-url
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'typeset -r _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: declare-plusx-url
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare +x _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: readonly-a-url-array
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'readonly -a _stages=("https://github.com/example/harness-baseline/raw/main/stage")
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"${_stages[0]}\"\n  sh ./configure\n\
+      \  make"
+- id: local-r-url-in-build
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: ''
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  local -r _stage=\"https://github.com/example/harness-baseline/raw/main/\"\
+      \n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n  make"
+- id: ctl-declare-no-option
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'declare _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: ctl-bare-assignment
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: '_stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"
+- id: ctl-export-url
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    extra: 'export _stage="https://github.com/example/harness-baseline/raw/main/"
+
+      '
+    payload: "  cd \"$srcdir\"/harness-baseline-1.0.0\n  curl -fsSLO \"$_stage\"/stage\n  sh ./configure\n\
+      \  make"

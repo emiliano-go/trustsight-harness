@@ -86,7 +86,7 @@ inside its own directory — so a re-baseline is a worker pool, not a loop.
 
 | Argument | Required | Meaning |
 |---|---|---|
-| `--jobs N` \| `auto` | no | Concurrent campaigns (default `1`; `auto` caps at 4). |
+| `--jobs N` \| `auto` | no | Concurrent campaigns (default `auto`, capped at 8 — RAM-bound). Each campaign still verifies its own environment and canary. |
 | `--match GLOB` | no | Only campaigns whose name matches; repeatable. |
 
 Each campaign still verifies its own environment and canary before its first
@@ -110,7 +110,7 @@ current environment.
 | Argument | Required | Meaning |
 |---|---|---|
 | `--environment PATH` | no | Environment YAML. Defaults to `defaults/environment.yml`. |
-| `--jobs N` \| `auto` | no | Replay workers (default `1`; `auto` caps at 4). Each worker binds its own database; the merged report is identical to the serial one. |
+| `--jobs N` \| `auto` | no | Replay workers (default `1`; `auto` caps at 8). Each worker binds its own database; the merged report is identical to the serial one. |
 | `--no-cache` | no | Ignore and do not write `regression/cache.jsonl`. A result is cached only when every verdict input is in the key (diff, instrument pin, config fingerprint, validator and Judge sources, canary gaps, threshold, database state). Degraded results are never cached. |
 
 ### Behaviour
@@ -185,7 +185,7 @@ Maps every campaign to the rules it sets out to test, against TrustSight's own
 rule taxonomy, and writes `coverage/report.json`.
 
 The harness is adversarial, not exhaustive. This makes the untested surface a
-number: of 212 rules, how many a campaign names, grouped by category, with the
+number: of 242 rules, how many a campaign names, grouped by category, with the
 rules a cold `analyze_text` campaign *cannot* reach named and explained. Two
 kinds of unreachability are separated, because they are different facts: the
 adoption and composition rules need a corpus cycle or a recorded observation,
@@ -194,7 +194,7 @@ suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 34 of 212 rules targeted by 87 campaigns; 178 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+# 34 of 242 rules targeted by 99 campaigns; 208 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
 ```
 
 ---
