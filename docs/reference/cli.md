@@ -185,7 +185,7 @@ Maps every campaign to the rules it sets out to test, against TrustSight's own
 rule taxonomy, and writes `coverage/report.json`.
 
 The harness is adversarial, not exhaustive. This makes the untested surface a
-number: of 242 rules, how many a campaign names, grouped by category, with the
+number: of 243 rules, how many a campaign names, grouped by category, with the
 rules a cold `analyze_text` campaign *cannot* reach named and explained. Two
 kinds of unreachability are separated, because they are different facts: the
 adoption and composition rules need a corpus cycle or a recorded observation,
@@ -194,7 +194,7 @@ suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 34 of 242 rules targeted by 99 campaigns; 208 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+# 34 of 243 rules targeted by 99 campaigns; 209 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
 ```
 
 ---

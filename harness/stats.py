@@ -46,7 +46,7 @@ def campaign_summary(record: dict) -> dict:
     return {
         "attempts": record.get("attempts", 0),
         "outcomes": record.get("outcomes", {}),
-        "bypasses": record.get("bypasses", 0),
+        "bypasses": record.get("layers_fully_bypassed", 0),
         "minimum_layer_cut": record.get("minimum_layer_cut"),
         "single_layer_failure": record.get("single_layer_failure", {}),
         "resilience_distribution": record.get("resilience_distribution", {}),

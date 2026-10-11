@@ -13,7 +13,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .stats import (
-    bypass_count,
     bypass_rate,
     layers_fully_bypassed,
     minimum_layer_cut,
@@ -165,8 +164,11 @@ class Recorder:
             record["minimum_layer_cut"] = minimum_layer_cut(layer_paths)
             record["single_layer_failure"] = single_layer_failure(layer_paths)
             record["resilience_distribution"] = resilience_distribution(layer_paths)
+            # The layer-level bypass count is `layers_fully_bypassed`.  The
+            # old `bypasses` alias collided with the verdict-level count a
+            # reader expects under that name (`bypass_rate`, `outcomes`), so
+            # the record carries only the unambiguous key.
             record["layers_fully_bypassed"] = layers_fully_bypassed(layer_paths)
-            record["bypasses"] = bypass_count(layer_paths)
         # Addendum 5 §6.5 M004: co-fire health notes (tool health, not a
         # package verdict).  Empty when the campaign declared no pairs.
         health: list[str] = []

@@ -33,6 +33,7 @@ _FETCH = re.compile(
     r"\bssh(?=\s+(?:-\S+\s+)*[\w.@-]+\s+\S)"
     r"|\b(?:curl|wget2?|aria2c|axel|lftp|scp|sftp|rsync|ftp|tftp|nc|ncat"
     r"|netcat|socat|s3cmd|rclone|ipfs|lwp-request|lwp-download"
+    r"|fetch(?=\s+\S)"  # FreeBSD fetch; the argument keeps `fetch()` off it
     r"|aws\s+s3|gsutil|b2\s+download(?:-file)?|cvs\s+(?:[-:]\S+\s+)*(?:co|checkout"
     r"|export)|snarf|fossil\s+clone|darcs\s+get|torsocks"
     r"|openssl\s+s_client|npx"
@@ -44,6 +45,40 @@ _FETCH = re.compile(
 
 #: A declared source is a fetch the recipe delegates to makepkg.
 _SOURCE_ARRAY = re.compile(r"^\s*source(?:_[a-z0-9_]+)?\s*=\s*\(", re.MULTILINE)
+
+#: One `source=()` array's contents, for the declared-source arm's basenames.
+_SOURCE_ENTRY = re.compile(
+    r"source(?:_[a-z0-9_]+)?\s*=\s*\(([^)]*)\)", re.IGNORECASE | re.DOTALL)
+
+
+def _declared_source_basenames(text: str) -> frozenset[str]:
+    """Basenames named in every ``source=()`` array.
+
+    The declared-source arm proves a chain only when the executed file is one
+    the recipe actually declared.  A `source=` tarball does not vouch for a
+    ``$srcdir/runme`` written from a file the recipe never fetched; without
+    this the arm certified ``base32 -d p.b32 > runme; lua runme`` as a live
+    chain and put a fabricated bypass into the record.
+    """
+    names: set[str] = set()
+    for match in _SOURCE_ENTRY.finditer(text):
+        for token in match.group(1).split():
+            token = token.strip("\"'")
+            if "::" in token:           # `name::url` - the local name is key
+                token = token.split("::", 1)[0]
+            base = token.rstrip("()").rsplit("/", 1)[-1].strip("\"'")
+            if base:
+                names.add(base)
+    return frozenset(names)
+
+
+def _sink_names_declared(sink: str, declared: frozenset[str]) -> bool:
+    """Does the executed sink name a declared source file?"""
+    return any(
+        re.search(rf"(?<![\w.-]){re.escape(base)}(?![\w.-])", sink)
+        for base in declared
+    )
+
 
 #: Bytes being executed.
 #
@@ -356,6 +391,7 @@ class BehaviorValidator:
         # end the body before the body is recognised as one.
         text = _strip_heredoc_bodies(_strip_comments(new_text))
         declared_source = bool(_SOURCE_ARRAY.search(text))
+        declared_bases = _declared_source_basenames(text)
 
         for region in _reachable_regions(text):
             # Reachability first: a region that a terminator or a dead guard
@@ -375,7 +411,14 @@ class BehaviorValidator:
                 return BehaviorResult(
                     True, chain=f"{_tidy(fetch.group(0))} -> {_tidy(sink.group(0))}")
 
-            if declared_source and sink and _BUILD_TREE.search(region):
+            if (declared_source and sink and _BUILD_TREE.search(region)
+                    and _sink_names_declared(sink.group(0), declared_bases)):
+                # The source arm proves a chain only when the executed file
+                # is one the recipe actually declared.  Certifying any sink
+                # under a declared `source=` let a payload written from a
+                # file the recipe never fetched (`base32 -d p.b32 > runme;
+                # lua runme`) read as a live chain - the fabricated bypass
+                # this arm must never produce.
                 return BehaviorResult(
                     True, chain=f"source= -> {_tidy(sink.group(0))}")
 

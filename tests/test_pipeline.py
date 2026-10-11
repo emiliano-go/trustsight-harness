@@ -148,7 +148,7 @@ def test_a_record_carries_the_exact_layer_resilience(tmp_path):
     # L4 and L7 together cover every attempt; no single category does.
     assert record["minimum_layer_cut"] == 2
     assert record["single_layer_failure"] == {"L4": 1, "L7": 1}
-    assert record["bypasses"] == 0
+    assert record["layers_fully_bypassed"] == 0
 
 
 def test_exact_minimum_cut_and_single_layer_failure():

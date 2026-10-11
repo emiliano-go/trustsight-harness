@@ -104,6 +104,9 @@ def _example(fragment: str) -> str:
             j = i + 3 if fragment.startswith("(?", i) else i + 1
             inner_start = j
             while depth:
+                if fragment[j] == "\\":
+                    j += 2  # an escaped char is literal, not a group edge
+                    continue
                 if fragment[j] == "(":
                     depth += 1
                 elif fragment[j] == ")":
@@ -258,6 +261,7 @@ VALIDATOR_ONLY: dict[tuple[str, ...], tuple[str, str | None]] = {
 #: here with a reason; anything new in core fails the forward test until the
 #: validator grows it or it is whitelisted.
 CORE_ONLY_DELIBERATE: dict[str, str] = {
+    r"fetch(?!\()": "the no-call guard half of FreeBSD `fetch`; the validator matches `fetch(?=\\s+\\S)`",
     r"httpie": "the binary is `http`; a bare word would match every URL's scheme",
     r"elinks": "recall-limit: text-mode browser; no campaign chain fetches with one",
     r"links2?": "recall-limit: text-mode browser; same class as elinks",

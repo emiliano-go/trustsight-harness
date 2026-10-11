@@ -1,5 +1,19 @@
 {
   "by_category": {
+    "artifact": {
+      "targeted": 0,
+      "total": 8,
+      "untargeted": [
+        "A001",
+        "A002",
+        "A003",
+        "A004",
+        "A005",
+        "A006",
+        "A007",
+        "A008"
+      ]
+    },
     "composition": {
       "targeted": 0,
       "total": 6,
@@ -14,15 +28,23 @@
     },
     "corpus-behavioral": {
       "targeted": 0,
-      "total": 7,
+      "total": 6,
       "untargeted": [
         "H028",
         "H046",
-        "H056",
         "H057",
         "H060",
         "H061",
         "H073"
+      ]
+    },
+    "correlation": {
+      "targeted": 0,
+      "total": 3,
+      "untargeted": [
+        "G001",
+        "G002",
+        "G003"
       ]
     },
     "count-based": {
@@ -38,7 +60,7 @@
     },
     "crossfire": {
       "targeted": 6,
-      "total": 31,
+      "total": 33,
       "untargeted": [
         "X001",
         "X003",
@@ -64,7 +86,9 @@
         "X028",
         "X029",
         "X030",
-        "X031"
+        "X031",
+        "X032",
+        "X033"
       ]
     },
     "deception": {
@@ -76,6 +100,15 @@
         "H067",
         "R012",
         "R013"
+      ]
+    },
+    "entropy": {
+      "targeted": 0,
+      "total": 3,
+      "untargeted": [
+        "E001",
+        "E002",
+        "E003"
       ]
     },
     "fetch-and-execution": {
@@ -111,11 +144,19 @@
         "R057"
       ]
     },
+    "indicator": {
+      "targeted": 0,
+      "total": 1,
+      "untargeted": [
+        "H056"
+      ]
+    },
     "install-and-persist": {
       "targeted": 1,
-      "total": 19,
+      "total": 20,
       "untargeted": [
         "C017",
+        "C029",
         "H017",
         "H023",
         "H032",
@@ -137,7 +178,7 @@
     },
     "integrity": {
       "targeted": 12,
-      "total": 42,
+      "total": 46,
       "untargeted": [
         "C002",
         "C003",
@@ -147,9 +188,13 @@
         "C009",
         "C010",
         "C014",
+        "C018",
+        "C019",
         "C020",
         "C022",
         "C023",
+        "C026",
+        "C027",
         "H002",
         "H005",
         "H008",
@@ -173,9 +218,10 @@
     },
     "maintainer-and-metadata": {
       "targeted": 0,
-      "total": 13,
+      "total": 14,
       "untargeted": [
         "C006",
+        "C030",
         "H026",
         "H037",
         "H044",
@@ -188,6 +234,15 @@
         "H074",
         "H086",
         "H088"
+      ]
+    },
+    "meta": {
+      "targeted": 0,
+      "total": 3,
+      "untargeted": [
+        "M001",
+        "M002",
+        "M003"
       ]
     },
     "naming-and-dependency": {
@@ -235,9 +290,10 @@
     },
     "staging-and-recon": {
       "targeted": 0,
-      "total": 9,
+      "total": 10,
       "untargeted": [
         "C025",
+        "C028",
         "H007",
         "H010",
         "H038",
@@ -250,22 +306,27 @@
     },
     "temporal": {
       "targeted": 0,
-      "total": 3,
+      "total": 6,
       "untargeted": [
         "H020",
         "H021",
-        "H022"
+        "H022",
+        "T001",
+        "T002",
+        "T003"
       ]
     },
     "unverifiable": {
       "targeted": 1,
-      "total": 6,
+      "total": 8,
       "untargeted": [
         "W002",
         "W003",
         "W004",
         "W005",
-        "W006"
+        "W006",
+        "W007",
+        "W008"
       ]
     }
   },
@@ -287,6 +348,16 @@
     },
     {
       "campaign": "bun-solo",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "bypass-tag-v0181",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "bypass-tag-v0181-b",
       "expected_rules": [],
       "package": "harness-pkg"
     },
@@ -333,6 +404,16 @@
       "expected_rules": [
         "H096"
       ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "dprobe",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "evasion-matrix-1500",
+      "expected_rules": [],
       "package": "harness-pkg"
     },
     {
@@ -892,6 +973,46 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "mcp-probe-wave3",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "mcp-probe-wave4",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "mcp-probe-wave5",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "mcp-probe-wave6",
+      "expected_rules": [
+        "R001",
+        "R002",
+        "X009",
+        "X016"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "misc-vectors-d1",
       "expected_rules": [
         "R001",
@@ -1176,6 +1297,11 @@
       "package": "harness-pkg"
     },
     {
+      "campaign": "wave3",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "wave3-nextfile-js",
       "expected_rules": [
         "X011"
@@ -1189,14 +1315,37 @@
         "H065"
       ],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "wave4",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "wave5",
+      "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "wave6",
+      "expected_rules": [],
+      "package": "harness-pkg"
     }
   ],
   "rules": {
     "targeted": 34,
-    "total": 212,
+    "total": 243,
     "unknown_expected_rules": [],
-    "untargeted": 178,
+    "untargeted": 209,
     "untargeted_ids": [
+      "A001",
+      "A002",
+      "A003",
+      "A004",
+      "A005",
+      "A006",
+      "A007",
+      "A008",
       "C002",
       "C003",
       "C004",
@@ -1209,16 +1358,29 @@
       "C014",
       "C016",
       "C017",
+      "C018",
+      "C019",
       "C020",
       "C021",
       "C022",
       "C023",
       "C024",
       "C025",
+      "C026",
+      "C027",
+      "C028",
+      "C029",
+      "C030",
       "D001",
       "D002",
       "D003",
       "D004",
+      "E001",
+      "E002",
+      "E003",
+      "G001",
+      "G002",
+      "G003",
       "H002",
       "H003",
       "H004",
@@ -1309,6 +1471,9 @@
       "H100",
       "H102",
       "H103",
+      "M001",
+      "M002",
+      "M003",
       "R003",
       "R007",
       "R008",
@@ -1345,11 +1510,16 @@
       "S006",
       "S007",
       "S008",
+      "T001",
+      "T002",
+      "T003",
       "W002",
       "W003",
       "W004",
       "W005",
       "W006",
+      "W007",
+      "W008",
       "X001",
       "X003",
       "X004",
@@ -1374,7 +1544,9 @@
       "X028",
       "X029",
       "X030",
-      "X031"
+      "X031",
+      "X032",
+      "X033"
     ]
   },
   "stage_map_available": true,
