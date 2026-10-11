@@ -49,6 +49,14 @@ with `NamespaceUnavailableError` naming the fix). No fallback path remains.
 - CI enables unprivileged user namespaces before the suite and fails
   loudly if the kernel refuses; the container's run flags are documented
   as requirements (`--security-opt seccomp=unconfined`).
+- **Validator.** The declared-source arm proves a chain only when the
+  executed file is one the recipe declared: it used to certify any sink
+  under a `source=` plus a `$srcdir` reference, so a payload written from a
+  file the recipe never fetched (`base32 -d p.b32 > runme; lua runme`)
+  counted as live and became a fabricated bypass. The calibration gains the
+  benign fixture that would have slipped through. FreeBSD `fetch` joins the
+  fetch vocabulary, and the record's layer-level `bypasses` alias is
+  replaced by `layers_fully_bypassed` (the verdict count keeps its name).
 
 ## 2.1.0
 
