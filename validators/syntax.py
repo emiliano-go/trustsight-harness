@@ -226,6 +226,15 @@ def _bash_n_pair_sync(bash: str, old_text: str | None,
                 pass
 
 
+#: `bash -n` results for a side, keyed by `(bash, text)`.  Pure and
+#: deterministic, and a campaign's old side is the same baseline across every
+#: cell, so caching it turns the per-attempt two-child parse into one.  The
+#: cache stores only the exit status; a hit is a parse that already ran in the
+#: sandbox for byte-identical input.
+_OLD_RC_CACHE: dict[tuple[str, str], int] = {}
+_MAX_OLD_CACHE = 1024
+
+
 def validate_syntax(diff_text: str, bash: str) -> SyntaxResult:
     """Parse the diff and check both sides with `bash -n`."""
     try:
@@ -233,9 +242,20 @@ def validate_syntax(diff_text: str, bash: str) -> SyntaxResult:
     except ValueError as exc:
         return SyntaxResult(False, reason=str(exc), bash_path=bash)
 
+    # The old side is usually the campaign baseline, identical across cells;
+    # a cache hit skips its child and runs only the new side.
+    old_side = old_text if old_text.strip() else None
+    key = (bash, old_side) if old_side is not None else None
+    cached_old = _OLD_RC_CACHE.get(key) if key is not None else None
+
     try:
-        old_rc, new_rc = _bash_n_pair_sync(
-            bash, old_text if old_text.strip() else None, new_text)
+        if cached_old is not None:
+            old_rc = cached_old
+            new_rc = _bash_n_pair_sync(bash, None, new_text)[1]
+        else:
+            old_rc, new_rc = _bash_n_pair_sync(bash, old_side, new_text)
+            if key is not None and len(_OLD_RC_CACHE) < _MAX_OLD_CACHE:
+                _OLD_RC_CACHE[key] = old_rc
     except BashTimeout:
         return SyntaxResult(False, reason="bash -n timed out",
                             old_text=old_text, new_text=new_text, bash_path=bash)
