@@ -81,6 +81,19 @@ def test_a_single_change_line_is_already_minimal():
     assert not result.partial
 
 
+def test_a_hostile_diff_is_kept_whole_rather_than_scanned():
+    """Above the unit cap, ddmin is skipped: bookkeeping must not become a
+    quadratic scan on a hostile diff, and the original is already verified."""
+    from harness.minimize import MAX_CHANGE_UNITS
+
+    header = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1 @@\n"
+    original = header + "\n".join(f"+{i}" for i in range(MAX_CHANGE_UNITS + 1))
+    result = minimize(original, lambda text: True)
+    assert result.partial is True
+    assert result.analyses == 0
+    assert result.diff == original
+
+
 def test_change_line_indices_exclude_structure():
     lines = ["--- a/PKGBUILD", "+++ b/PKGBUILD", "@@ -1 +1 @@",
              " context", "+added", "-removed", "\\ No newline"]

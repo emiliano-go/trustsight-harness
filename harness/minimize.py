@@ -23,6 +23,12 @@ __all__ = ["MinimizeResult", "change_line_indices", "ddmin", "minimize"]
 #: A candidate's oracle: ``True`` when the pipeline still accepts it.
 Oracle = Callable[[str], bool]
 
+#: Above this many change lines the diff is not a repro to shrink but a file
+#: to look at; ddmin is skipped so a hostile diff cannot turn bookkeeping into
+#: an O(units x budget) scan.  The sanitizer already caps diff bytes, so this
+#: is a second, cheaper ceiling on the work.
+MAX_CHANGE_UNITS = 4096
+
 
 @dataclass(frozen=True)
 class MinimizeResult:
@@ -114,6 +120,10 @@ def minimize(diff_text: str, test: Oracle, *, budget: int = 24) -> MinimizeResul
     changes = change_line_indices(lines)
     if len(changes) < 2:
         return MinimizeResult(diff_text, len(changes), len(changes), 0, False)
+    if len(changes) > MAX_CHANGE_UNITS:
+        # Too large to shrink safely; keep the original and mark it, rather
+        # than spend the budget on a scan the result would not justify.
+        return MinimizeResult(diff_text, len(changes), len(changes), 0, True)
 
     kept, calls, partial = ddmin(
         changes, lambda keep: test(_rebuild(lines, changes, keep)), budget)
