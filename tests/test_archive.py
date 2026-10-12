@@ -8,6 +8,8 @@ specification names plus the representative/versioning rules they rest on.
 
 from __future__ import annotations
 
+import pytest
+
 from harness.archive import Archive, archive_key
 
 
@@ -71,6 +73,122 @@ def test_a_degraded_cell_round_trips():
     loaded = Archive.from_dict(archive.to_dict())
     entry = loaded.cells[archive_key("H016", ("unshaped",))]
     assert entry.degraded is True
+
+
+def test_the_campaign_slice_carries_only_this_runs_cells():
+    archive = Archive()
+    _observe(archive, shape=("X002:partial-quote",))
+    archive.observe("H082", ("unshaped",), diff="+b\n", campaign="c",
+                    attempt=1, version="0.18.1")
+    campaign_archive = archive.slice({("H016", ("X002:partial-quote",))}, "0.18.1")
+    assert set(campaign_archive.cells) == {archive_key("H016", ("X002:partial-quote",))}
+
+
+# -- hardening: parallel-safe, idempotent, bounded persistence --------------
+
+
+def test_merge_into_is_idempotent(tmp_path):
+    path = tmp_path / "archive.json"
+    run = Archive(saturation=3)
+    run.observe("H016", ("X002:partial-quote",), diff="+a\n", campaign="c",
+                attempt=0, version="0.18.1")
+    run.merge_into(path)
+    run.merge_into(path)  # a re-run must not duplicate provenance
+    entry = Archive.load(path).cells[archive_key("H016", ("X002:partial-quote",))]
+    assert len(entry.observations) == 1
+
+
+def test_merge_into_does_not_lose_disjoint_cells(tmp_path):
+    """Parallel sweep workers each write; no worker's cell may vanish."""
+    path = tmp_path / "archive.json"
+    first = Archive()
+    first.observe("H016", ("X002:partial-quote",), diff="+a\n", campaign="c1",
+                  attempt=0, version="0.18.1")
+    second = Archive()
+    second.observe("H082", ("unshaped",), diff="+b\n", campaign="c2",
+                   attempt=0, version="0.18.1")
+    first.merge_into(path)
+    second.merge_into(path)
+    loaded = Archive.load(path)
+    assert set(loaded.cells) == {
+        archive_key("H016", ("X002:partial-quote",)),
+        archive_key("H082", ("unshaped",)),
+    }
+
+
+def test_merge_into_applies_an_incoming_patch_status(tmp_path):
+    path = tmp_path / "archive.json"
+    base = Archive()
+    base.observe("H016", ("X002:partial-quote",), diff="+a\n", campaign="c",
+                 attempt=0, version="0.18.1")
+    base.merge_into(path)
+    regression = Archive()
+    regression.set_patch_status("H016", ("X002:partial-quote",), "verified",
+                                "0.18.1", create=True)
+    regression.merge_into(path)
+    loaded = Archive.load(path)
+    assert loaded.is_closed("H016", ("X002:partial-quote",), "0.18.1")
+
+
+def test_load_rejects_an_oversize_archive(tmp_path, monkeypatch):
+    import harness.archive as archive_module
+    from harness.archive import ArchiveError
+
+    monkeypatch.setattr(archive_module, "MAX_ARCHIVE_BYTES", 32)
+    path = tmp_path / "archive.json"
+    path.write_text("x" * 64)
+    with pytest.raises(ArchiveError):
+        Archive.load(path)
+
+
+def test_load_rejects_malformed_json(tmp_path):
+    from harness.archive import ArchiveError
+
+    path = tmp_path / "archive.json"
+    path.write_text("{ not json")
+    with pytest.raises(ArchiveError):
+        Archive.load(path)
+
+
+def test_load_skips_one_malformed_cell(tmp_path):
+    import json
+
+    path = tmp_path / "archive.json"
+    path.write_text(json.dumps({
+        "saturation": 3,
+        "cells": {"good": {"rule": "H016", "shape": ["unshaped"]},
+                  "bad": "not an object"},
+    }))
+    archive = Archive.load(path)
+    assert "good" in archive.cells and "bad" not in archive.cells
+
+
+def test_load_tolerates_a_malformed_saturation_and_shape(tmp_path):
+    import json
+
+    path = tmp_path / "archive.json"
+    path.write_text(json.dumps({
+        "saturation": "oops",
+        "cells": {"c": {"rule": "H016", "shape": "abc", "duplicates": ["x"]}},
+    }))
+    archive = Archive.load(path)
+    assert archive.saturation == 3
+    assert archive.cells["c"].shape == ()
+    assert archive.cells["c"].duplicates == {}
+
+
+def test_save_is_atomic_and_leaves_no_temp(tmp_path):
+    archive = Archive()
+    _observe(archive)
+    path = tmp_path / "archive.json"
+    archive.save(path)
+    assert not list(tmp_path.glob("*.tmp.*"))
+    assert Archive.load(path).to_dict() == archive.to_dict()
+
+
+def test_archive_key_refuses_a_separator():
+    with pytest.raises(ValueError):
+        archive_key("H\x1f16", ("unshaped",))
 
 
 def test_the_representative_is_the_smallest_diff():

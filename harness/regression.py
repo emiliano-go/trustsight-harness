@@ -331,7 +331,7 @@ def _update_archive(repo_root: Path, env: Environment, behavior: BehaviorValidat
     `patch_status`; a degraded or inconclusive replay says nothing about the
     patch and is left alone.
     """
-    archive = Archive.load(repo_root / "archive.json")
+    archive = Archive()
     touched = False
     for item, result in zip(items, results):
         state = result.get("state")
@@ -341,16 +341,17 @@ def _update_archive(repo_root: Path, env: Environment, behavior: BehaviorValidat
         if not text:
             continue
         try:
-            chain = behavior.validate(text).chain
+            proven = behavior.validate(text)
         except Exception:  # noqa: BLE001, S112 - a validator fault is not a verdict
             continue
         # The shape is read from the recorded *diff* (the added lines carry
         # the technique), matching how the campaign keyed the cell.
         for rule, shape, _key in cells_for(item.get("expected_rules") or (),
-                                           item.get("diff_text") or "", chain):
+                                           item.get("diff_text") or "",
+                                           proven.chain, proven.context):
             archive.set_patch_status(
                 rule, shape, "verified" if state == "closed" else "regression",
                 env.trustsight_version, create=True)
             touched = True
     if touched:
-        archive.save(repo_root / "archive.json")
+        archive.merge_into(repo_root / "archive.json")

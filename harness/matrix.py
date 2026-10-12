@@ -20,11 +20,20 @@ rendering.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 from .archive import Archive
 
 __all__ = ["build_matrix", "matrix_diff", "render_markdown", "save_matrix"]
+
+
+def _write_atomic(path: Path, text: str) -> None:
+    """Write *text* via a temp file and a rename, so a crash cannot truncate."""
+    path = Path(path)
+    temporary = path.with_name(path.name + f".tmp.{os.getpid()}")
+    temporary.write_text(text)
+    os.replace(temporary, path)
 
 
 def _cell_state(archive: Archive, entry, version: str) -> str:
@@ -50,14 +59,18 @@ def build_matrix(archive: Archive, version: str, known_rules) -> dict:
             raise ValueError(
                 f"archive cell names rule {entry.rule!r}, which the pinned "
                 f"TrustSight does not ship; the matrix has no such row")
+        observations = [
+            obs for obs in entry.observations
+            if obs.get("trustsight_version") == version
+        ]
         observed.setdefault(entry.rule, []).append({
             "shape": list(entry.shape),
             "state": _cell_state(archive, entry, version),
             "degraded": entry.degraded,
-            "observations": [
-                obs for obs in entry.observations
-                if obs.get("trustsight_version") == version
-            ],
+            "observations": observations,
+            "spend_usd": round(sum(float(o.get("cost", 0.0) or 0.0)
+                                   for o in observations), 6),
+            "duplicates": entry.duplicates.get(version, 0),
             "patch_status": entry.patch_status,
         })
 
@@ -111,16 +124,17 @@ def matrix_diff(old: dict, new: dict) -> dict:
     newly names (growth, not regression).
     """
     before, after = _flat(old), _flat(new)
+    unresolved = ("open", "unshaped", "degraded")
     closed = sorted(
         f"{rule}[{'+'.join(shape)}]"
         for (rule, shape), state in after.items()
-        if state == "closed" and before.get((rule, shape)) in ("open", "unshaped")
+        if state == "closed" and before.get((rule, shape)) in unresolved
     )
     opened = sorted(
         f"{rule}[{'+'.join(shape)}]"
         for (rule, shape), state in after.items()
-        if state in ("open", "unshaped")
-        and before.get((rule, shape)) not in ("open", "unshaped")
+        if state in unresolved
+        and before.get((rule, shape)) not in unresolved
     )
     catalog_growth = sorted(
         f"{rule}[{'+'.join(shape)}]"
@@ -160,9 +174,19 @@ def render_markdown(matrix: dict) -> str:
 
 
 def save_matrix(matrix: dict, directory: Path, version: str) -> Path:
-    """Write the committed per-version snapshot and its markdown map."""
+    """Write the current map plus the committed per-version snapshot.
+
+    `matrix.json`/`matrix.md` are the current version's rendering (what a
+    release publishes); `cellmatrix-<version>.json`/`.md` are the frozen
+    per-version snapshots, so the matrix is diffable between releases.
+    Returns the versioned snapshot path.
+    """
     directory.mkdir(parents=True, exist_ok=True)
+    markdown = render_markdown(matrix)
+    payload = json.dumps(matrix, indent=2, sort_keys=True) + "\n"
+    _write_atomic(directory / "matrix.json", payload)
+    _write_atomic(directory / "matrix.md", markdown)
     json_path = directory / f"cellmatrix-{version}.json"
-    json_path.write_text(json.dumps(matrix, indent=2, sort_keys=True) + "\n")
-    (directory / f"cellmatrix-{version}.md").write_text(render_markdown(matrix))
+    _write_atomic(json_path, payload)
+    _write_atomic(directory / f"cellmatrix-{version}.md", markdown)
     return json_path

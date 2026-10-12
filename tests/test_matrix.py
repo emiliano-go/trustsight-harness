@@ -81,3 +81,24 @@ def test_markdown_names_every_rule_and_its_open_shapes():
     markdown = render_markdown(build_matrix(archive, "0.18.1", {"H016"}))
     assert "TrustSight 0.18.1" in markdown
     assert "| H016 | open | X002:partial-quote |" in markdown
+
+
+def test_save_matrix_writes_the_current_map_and_the_versioned_snapshot(tmp_path):
+    from harness.matrix import save_matrix
+
+    matrix = build_matrix(_archive(("H016", _SHAPE)), "0.18.1", {"H016"})
+    path = save_matrix(matrix, tmp_path, "0.18.1")
+    assert (tmp_path / "matrix.json").exists()
+    assert (tmp_path / "matrix.md").exists()
+    assert path == tmp_path / "cellmatrix-0.18.1.json"
+    assert (tmp_path / "cellmatrix-0.18.1.json").exists()
+
+
+def test_a_cell_carries_its_spend_and_duplicate_count():
+    archive = Archive(saturation=3)
+    archive.observe("H016", _SHAPE, diff="+a\n", campaign="c", attempt=0,
+                    version="0.18.1", cost=0.25)
+    archive.note_duplicate("H016", _SHAPE, "0.18.1")
+    cell = build_matrix(archive, "0.18.1", {"H016"})["rules"][0]["cells"][0]
+    assert cell["spend_usd"] == 0.25
+    assert cell["duplicates"] == 1

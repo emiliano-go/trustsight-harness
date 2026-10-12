@@ -14,18 +14,71 @@ that is exactly the regression question.
 
 from __future__ import annotations
 
+import contextlib
+import fcntl
 import json
+import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
-__all__ = ["Archive", "CellEntry", "archive_key"]
+__all__ = ["Archive", "ArchiveError", "CellEntry", "archive_key"]
 
 _SEP = "\x1f"
 
+#: An archive is a committed artifact, not generated text, but it is read
+#: from disk and a corrupt or truncated one must not exhaust memory.  This is
+#: far above the corpus's own size (a few thousand observations) and far below
+#: anything that would strain a machine.
+MAX_ARCHIVE_BYTES = 16 * 1024 * 1024
+
+
+class ArchiveError(ValueError):
+    """The committed archive cannot be read as an archive."""
+
 
 def archive_key(rule: str, shape: tuple[str, ...]) -> str:
-    """A JSON-safe, order-stable key for a cell."""
+    """A JSON-safe, order-stable key for a cell.
+
+    A separator inside a rule id or shape name would let two cells collide,
+    so it is refused rather than silently conflated: those strings come from
+    the instrument's own vocabulary and a campaign's declared rules, never
+    from generated text.
+    """
+    if _SEP in rule or any(_SEP in part for part in shape):
+        raise ValueError(f"rule/shape may not contain {_SEP!r}: {rule!r} {shape!r}")
     return rule + _SEP + _SEP.join(shape)
+
+
+@contextlib.contextmanager
+def _file_lock(path: Path):
+    """An exclusive cross-process lock beside *path* (a sibling `.lock` file).
+
+    Parallel sweep workers write the same shared archive; without this the
+    last writer wins and the others' cells vanish.  `flock` is advisory and
+    released on process exit, so a killed worker cannot wedge it.  The lock
+    file is created once and left in place (removing it races).
+    """
+    lock_path = path.with_name(path.name + ".lock")
+    with lock_path.open("w") as handle:
+        fcntl.flock(handle, fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(handle, fcntl.LOCK_UN)
+
+
+def _better_rep(candidate: str, incumbent: str) -> bool:
+    """The smaller diff wins: the minimal repro is the cell's face.
+
+    Within a cell the technique set is constant by construction, so the
+    specification's "widest in its shape class" tie-break reduces to the
+    smallest representative.
+    """
+    if not candidate:
+        return not incumbent
+    if not incumbent:
+        return True
+    return len(candidate.split("\n")) < len(incumbent.split("\n"))
 
 
 @dataclass
@@ -52,6 +105,36 @@ class CellEntry:
         return sum(1 for obs in self.observations
                    if obs.get("trustsight_version") == version)
 
+    @staticmethod
+    def _obs_key(obs: dict) -> tuple:
+        return (obs.get("campaign"), obs.get("attempt"),
+                obs.get("trustsight_version"))
+
+    def merge(self, other: CellEntry) -> None:
+        """Fold *other* into this cell, idempotently.
+
+        Observations are deduped by `(campaign, attempt, version)`, so a
+        campaign replayed twice does not double its own provenance - the
+        merge is safe to run on every sweep and every re-baseline.
+        """
+        seen = {self._obs_key(obs) for obs in self.observations}
+        for obs in other.observations:
+            if self._obs_key(obs) in seen:
+                continue
+            self.observations.append(obs)
+        for version, count in other.duplicates.items():
+            self.duplicates[version] = max(self.duplicates.get(version, 0), count)
+        # A regression replay carries the authoritative patch status; take it
+        # when the incoming entry has one.  A degraded cell stays degraded
+        # until a named observation clears it.
+        if other.patch_status:
+            self.patch_status = other.patch_status
+            self.closed_version = other.closed_version
+        if other.representative and _better_rep(other.representative,
+                                                self.representative):
+            self.representative = other.representative
+        self.degraded = self.degraded and other.degraded
+
     def to_dict(self) -> dict:
         return {
             "rule": self.rule,
@@ -66,15 +149,32 @@ class CellEntry:
 
     @classmethod
     def from_dict(cls, data: dict) -> CellEntry:
+        if not isinstance(data, dict):
+            raise ArchiveError(f"cell entry is not an object: {type(data).__name__}")
+        raw_shape = data.get("shape", ()) or ()
+        # A string is iterable but is not a shape tuple; a malformed one is an
+        # unnamed cell, not a cell whose shape is its characters.
+        shape = (tuple(str(s) for s in raw_shape)
+                 if isinstance(raw_shape, (list, tuple)) else ())
+        raw_obs = data.get("observations", ()) or ()
+        observations = ([obs for obs in raw_obs if isinstance(obs, dict)]
+                        if isinstance(raw_obs, (list, tuple)) else [])
+        raw_dupes = data.get("duplicates", {}) or {}
+        duplicates: dict[str, int] = {}
+        if isinstance(raw_dupes, dict):
+            for key, value in raw_dupes.items():
+                try:
+                    duplicates[str(key)] = int(value)
+                except (TypeError, ValueError):
+                    continue
         return cls(
             rule=str(data.get("rule", "")),
-            shape=tuple(str(s) for s in data.get("shape", ())),
+            shape=shape,
             representative=str(data.get("representative", "")),
-            observations=list(data.get("observations", ())),
+            observations=observations,
             patch_status=str(data.get("patch_status", "")),
             closed_version=str(data.get("closed_version", "")),
-            duplicates={str(k): int(v)
-                        for k, v in (data.get("duplicates", {}) or {}).items()},
+            duplicates=duplicates,
             degraded=bool(data.get("degraded", False)),
         )
 
@@ -110,7 +210,7 @@ class Archive:
             "campaign": campaign, "attempt": attempt,
             "trustsight_version": version, "cost": round(float(cost), 6),
         })
-        if self._better_rep(diff, entry.representative):
+        if _better_rep(diff, entry.representative):
             entry.representative = diff
         return entry
 
@@ -135,20 +235,6 @@ class Archive:
         entry.patch_status = status
         entry.closed_version = version if status == "verified" else ""
 
-    @staticmethod
-    def _better_rep(candidate: str, incumbent: str) -> bool:
-        """The smaller diff wins: the minimal repro is the cell's face.
-
-        Within a cell the technique set is constant by construction, so the
-        specification's "widest in its shape class" tie-break reduces to the
-        smallest representative.
-        """
-        if not candidate:
-            return not incumbent
-        if not incumbent:
-            return True
-        return len(candidate.split("\n")) < len(incumbent.split("\n"))
-
     # -- the closed-cell gate -----------------------------------------
 
     def verified_count(self, rule: str, shape: tuple[str, ...], version: str) -> int:
@@ -170,19 +256,23 @@ class Archive:
         """Per rule, the shapes still open and the shapes already closed.
 
         The generator is handed this before a paid call so it can be asked to
-        fill an empty cell instead of rediscovering a full one.
+        fill an empty cell instead of rediscovering a full one.  The cells
+        are indexed by rule once, so the map is O(cells + rules), not
+        O(rules x cells) - this runs before every paid call.
         """
+        by_rule: dict[str, list[CellEntry]] = {}
+        for entry in self.cells.values():
+            by_rule.setdefault(entry.rule, []).append(entry)
         view: dict[str, list] = {}
         for rule in rules:
             entry_view = {"open": [], "closed": [], "unshaped": [],
                           "vocabulary": []}
-            for entry in self.cells.values():
-                if entry.rule != rule:
-                    continue
-                bucket = ("closed" if self.is_closed(rule, entry.shape, version)
-                          else "open")
+            for entry in by_rule.get(rule, ()):
+                closed = self.is_closed(rule, entry.shape, version)
                 if entry.shape == ("unshaped",):
-                    bucket = "closed" if self.is_closed(rule, entry.shape, version) else "unshaped"
+                    bucket = "closed" if closed else "unshaped"
+                else:
+                    bucket = "closed" if closed else "open"
                 entry_view[bucket].append(list(entry.shape))
             # The known vocabulary: every shape name the suite has observed
             # for this rule, so the generator is told the catalog it is being
@@ -202,22 +292,88 @@ class Archive:
 
     @classmethod
     def from_dict(cls, data: dict) -> Archive:
-        archive = cls(saturation=int(data.get("saturation", 3)))
-        for key, raw in (data.get("cells", {}) or {}).items():
-            entry = CellEntry.from_dict(raw)
-            archive.cells[key] = entry
+        if not isinstance(data, dict):
+            raise ArchiveError("archive root is not an object")
+        cells = data.get("cells", {}) or {}
+        if not isinstance(cells, dict):
+            raise ArchiveError("archive 'cells' is not an object")
+        try:
+            saturation = int(data.get("saturation", 3) or 3)
+        except (TypeError, ValueError):
+            saturation = 3
+        archive = cls(saturation=max(1, saturation))
+        for key, raw in cells.items():
+            try:
+                archive.cells[str(key)] = CellEntry.from_dict(raw)
+            except (ArchiveError, TypeError, ValueError):
+                # One malformed cell must not discard the whole grid; the
+                # rest of the archive is still usable.
+                continue
         return archive
 
     @classmethod
-    def load(cls, path: Path, saturation: int = 3) -> Archive:
-        if not Path(path).exists():
-            return cls(saturation=saturation)
-        data = json.loads(Path(path).read_text())
+    def load(cls, path: Path, saturation: int | None = None) -> Archive:
+        path = Path(path)
+        if not path.exists():
+            return cls(saturation=saturation if saturation is not None else 3)
+        try:
+            size = path.stat().st_size
+        except OSError as exc:
+            raise ArchiveError(f"cannot stat archive {path}: {exc}") from exc
+        if size > MAX_ARCHIVE_BYTES:
+            raise ArchiveError(
+                f"archive {path} is {size} bytes, over the {MAX_ARCHIVE_BYTES} cap")
+        try:
+            data = json.loads(path.read_text())
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ArchiveError(f"archive {path} is not valid JSON: {exc}") from exc
         archive = cls.from_dict(data)
-        # The file's saturation is authoritative only when the caller did not
-        # override it; a campaign's declared cap always wins.
-        archive.saturation = max(1, int(saturation))
+        # A caller that passes a saturation overrides the file's (a campaign's
+        # declared cap wins); a caller that does not keeps what the file says.
+        if saturation is not None:
+            archive.saturation = max(1, int(saturation))
         return archive
 
     def save(self, path: Path) -> None:
-        Path(path).write_text(json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n")
+        """Write atomically: a crash mid-write cannot truncate the artifact."""
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = path.with_name(path.name + f".tmp.{os.getpid()}")
+        temporary.write_text(json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n")
+        os.replace(temporary, path)
+
+    def merge_into(self, path: Path) -> Archive:
+        """Merge this grid into the shared archive at *path*, under a lock.
+
+        Parallel sweep workers each hold their own in-memory grid and write
+        back at the end; a plain read-modify-write would let the last writer
+        win and silently drop every other campaign's cells.  The lock makes
+        the read-merge-write atomic across processes, and the merge is
+        idempotent, so a re-run adds no duplicates.
+        """
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with _file_lock(path):
+            base = (Archive.load(path)
+                    if path.exists() else Archive(saturation=self.saturation))
+            for key, entry in self.cells.items():
+                existing = base.cells.get(key)
+                if existing is None:
+                    base.cells[key] = entry
+                else:
+                    existing.merge(entry)
+            base.save(path)
+        return base
+
+    def slice(self, cells, version: str) -> Archive:
+        """A campaign-level archive of only the cells *this* run filled.
+
+        The shared grid is the suite's; the campaign-level artifact is the
+        campaign's own contribution, carrying the same cells and provenance.
+        """
+        out = Archive(saturation=self.saturation)
+        for key in {archive_key(rule, shape) for rule, shape in cells}:
+            entry = self.cells.get(key)
+            if entry is not None:
+                out.cells[key] = entry
+        return out
