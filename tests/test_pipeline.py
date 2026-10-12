@@ -168,6 +168,24 @@ def test_exact_minimum_cut_and_single_layer_failure():
     assert minimum_layer_cut([caught_only_l4, bypass]) is None
 
 
+def test_minimization_spend_is_kept_off_the_measured_path(tmp_path):
+    """The metric is coverage; shrinking is bookkeeping, so the minimizer's
+    cost must not touch the attempt's cost and must ride its own field."""
+    rec = Recorder(tmp_path, "c", "1.0.0")
+    rec.add(Trace(attempt=0, diff_sha256="sha256:x", generator={},
+                  status=Status.BYPASS), "+x\n")
+    record = rec.build_record(
+        campaign_type="t", environment={}, generator={}, validator={},
+        cost={"api_cost_usd": 1.0, "wall_clock_ms": 5},
+        cell_coverage={"filled": 2, "cells": ["H016[x]"], "open": 0, "total": 2},
+        duplicate_rate=0.5,
+        minimization_spend={"analyses": 7, "attempts": 1, "partial": 0})
+    assert record["cost"] == {"api_cost_usd": 1.0, "wall_clock_ms": 5}
+    assert record["minimization_spend"]["analyses"] == 7
+    assert record["cell_coverage"]["filled"] == 2
+    assert record["duplicate_rate"] == 0.5
+
+
 def test_campaign_summary_reports_layer_resilience():
     from harness.stats import campaign_summary
 
@@ -179,7 +197,9 @@ def test_campaign_summary_reports_layer_resilience():
         "attempts": 5, "outcomes": {"BYPASS": 1}, "bypasses": 1,
         "minimum_layer_cut": 2, "single_layer_failure": {"L4": 1},
         "resilience_distribution": {1: 2}, "layers_fully_bypassed": 1,
-        "limitations": ["no persistence shape"], "cofire_health": []}
+        "limitations": ["no persistence shape"], "cofire_health": [],
+        "cell_coverage": {"filled": 0, "cells": [], "open": 0, "total": 0},
+        "duplicate_rate": None, "minimization_spend": None}
 
 
 def test_campaign_summary_carries_cofire_health_notes():

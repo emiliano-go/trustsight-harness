@@ -49,9 +49,12 @@ class Trace:
     judge: dict = field(default_factory=dict)
     cost: dict = field(default_factory=dict)
     db_hash: str = ""
+    #: The minimizer's result for this attempt, when it ran.  Kept off the
+    #: measured path: the campaign's cost and analysis counts exclude it.
+    minimized: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
-        return {
+        out = {
             "attempt": self.attempt,
             "diff_sha256": self.diff_sha256,
             "generator": self.generator,
@@ -63,6 +66,9 @@ class Trace:
             "cost": self.cost,
             "db_hash": self.db_hash,
         }
+        if self.minimized:
+            out["minimized"] = self.minimized
+        return out
 
 
 class Recorder:
@@ -118,7 +124,10 @@ class Recorder:
                      generator: dict, validator: dict, cost: dict,
                      campaign_commit: str = "", package: str = "",
                      expected_rules: tuple = (),
-                     limitations: tuple = ()) -> dict:
+                     limitations: tuple = (),
+                     cell_coverage: dict | None = None,
+                     duplicate_rate: float | None = None,
+                     minimization_spend: dict | None = None) -> dict:
         reached = sum(1 for t in self.traces if t.status in _REACHED)
         bypasses = sum(1 for t in self.traces if t.status is Status.BYPASS)
         record = {
@@ -148,6 +157,15 @@ class Recorder:
             "bypass_hashes": sorted(self.bypass_hashes),
             "known_bypass_matches": self.known_matches,
             "cost": cost,
+            # The shape archive makes coverage, not volume, the primary
+            # metric.  `cell_coverage` counts unique `(rule, shape)` cells
+            # filled; `duplicate_rate` is the Goodhart canary watching the
+            # generator's exploration; `minimization_spend` is kept off the
+            # measured path and reported only so the cost is visible.
+            "cell_coverage": cell_coverage or {
+                "filled": 0, "cells": [], "open": 0, "total": 0},
+            "duplicate_rate": duplicate_rate,
+            "minimization_spend": minimization_spend,
         }
         # Addendum 5 §4: the empirical layer-resilience numbers.  A layer is
         # an evidence category; the cut is the smallest set of categories

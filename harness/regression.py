@@ -14,6 +14,8 @@ from pathlib import Path
 from validators.behavior import BehaviorValidator
 from validators.syntax import resolve_bash, validate_syntax
 
+from .archive import Archive
+from .dedup import cells_for
 from .environment import Environment, EnvironmentError_, load_environment
 from .evidence import analysed_text_by_hash, diff_by_hash
 from .judge import judge
@@ -80,6 +82,10 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
                 "analysed_text": texts.get(digest, ""),
                 "campaign": original_campaign,
                 "original_trustsight_version": original_version,
+                # The rules the bypass was meant to exercise; the cell it
+                # filled is keyed on them, so the gate can move `patch_status`
+                # onto the archive cell it re-ran.
+                "expected_rules": list(record.get("expected_rules", []) or []),
             }
     return list(found.values())
 
@@ -277,6 +283,12 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
     if stats is not None:
         stats.update({"hits": hits, "misses": len(pending), "enabled": use_cache})
 
+    # Moves each replayed bypass's `patch_status` onto its archive cell: a
+    # patch that closed the bypass closes the cell, a still-open one marks it
+    # a regression.  Runs on cached results too - the cell key is derived from
+    # the analysed text and the chain, both pure, so no analysis is repeated.
+    _update_archive(repo_root, env, behavior, items, results)
+
     report = {
         "environment": environment_record,
         "validator": {"version_hash": behavior.version_hash},
@@ -307,3 +319,38 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
 def _ref(item: dict) -> dict:
     return {"diff_hash": item["diff_hash"], "campaign": item["campaign"],
             "original_trustsight_version": item["original_trustsight_version"]}
+
+
+def _update_archive(repo_root: Path, env: Environment, behavior: BehaviorValidator,
+                    items: list[dict], results: list) -> None:
+    """Move each replayed bypass's verdict onto its archive cell.
+
+    The cell key comes from the analysed text and the proven chain, both
+    pure functions, so a cached replay updates the archive without repeating
+    an analysis.  Only a definite `open`/`closed` verdict moves a
+    `patch_status`; a degraded or inconclusive replay says nothing about the
+    patch and is left alone.
+    """
+    archive = Archive.load(repo_root / "archive.json")
+    touched = False
+    for item, result in zip(items, results):
+        state = result.get("state")
+        if state not in ("closed", "open"):
+            continue
+        text = item.get("analysed_text") or ""
+        if not text:
+            continue
+        try:
+            chain = behavior.validate(text).chain
+        except Exception:  # noqa: BLE001, S112 - a validator fault is not a verdict
+            continue
+        # The shape is read from the recorded *diff* (the added lines carry
+        # the technique), matching how the campaign keyed the cell.
+        for rule, shape, _key in cells_for(item.get("expected_rules") or (),
+                                           item.get("diff_text") or "", chain):
+            archive.set_patch_status(
+                rule, shape, "verified" if state == "closed" else "regression",
+                env.trustsight_version, create=True)
+            touched = True
+    if touched:
+        archive.save(repo_root / "archive.json")

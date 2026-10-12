@@ -138,7 +138,7 @@ class LLMGenerator(Generator):
         payload = {
             "model": self.model,
             "temperature": self.temperature,
-            "messages": [{"role": "user", "content": prompt.text}],
+            "messages": [{"role": "user", "content": prompt.render()}],
         }
         started = time.perf_counter()
         retries = 0

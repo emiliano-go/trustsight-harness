@@ -45,3 +45,14 @@ cannot prove, so the true bypass count is at or above the reported count.
 The harness exports bypasses to `fixtures-out/` for human review. A fixture
 includes the diff, the trace, and an `expected.json` with `must_fire: []` left
 for the reviewer to assign. The harness never opens a pull request.
+
+!!! note "Re-checking many records? Use the pool, not a serial loop"
+
+    To re-analyse campaigns or exported bypasses against a newer TrustSight,
+    go through the harness: `python -m harness sweep --jobs auto` re-runs
+    every campaign, and `regression --jobs auto` replays the committed
+    bypasses - each campaign or shard in its own worker, verifying its own
+    environment and canary. Looping the analysis API over every trace by
+    hand is serial, reloads config per call, and re-reads campaign copies
+    that recur across worktrees; if you must script it, deduplicate by diff
+    hash and run it through a process pool.

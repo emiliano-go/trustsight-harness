@@ -11,14 +11,23 @@ from validators.behavior import BehaviorValidator
 from validators.constraints import build_checkers, validate_constraints
 from validators.syntax import resolve_bash, validate_syntax
 
+from .archive import Archive
 from .config import CampaignConfig
-from .dedup import Deduplicator, KnownBypasses, diff_hash
+from .dedup import (
+    Deduplicator,
+    KnownBypasses,
+    SemanticDeduplicator,
+    cells_for,
+    diff_hash,
+)
 from .environment import EnvironmentError_
 from .exporter import Exporter
 from .judge import judge
+from .minimize import minimize
 from .recorder import Recorder, Trace
 from .runner import AnalysisTimeout, Runner, RunnerError
 from .sanitizer import sanitize
+from .shape import shape_signature, technique_vocabulary
 from .status import Status
 
 __all__ = ["HARNESS_VERSION", "patch_verification", "run_campaign"]
@@ -88,6 +97,12 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         runner.rebind(env, config.package)
     dedup = Deduplicator()
     known = KnownBypasses(repo_root / "campaigns")
+    semantic = SemanticDeduplicator()
+    # The archive is the campaign suite's shared artifact: loaded from the
+    # repo root, extended by this run, written back at the end.  A new
+    # TrustSight version reopens every cell (its occupancy is versioned).
+    archive = Archive.load(repo_root / "archive.json",
+                           saturation=config.archive.cell_saturation)
     recorder = Recorder(config.root, config.name, HARNESS_VERSION)
 
     prompt = Prompt(
@@ -97,6 +112,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         expected_rules=config.expected_rules,
         forbidden_techniques=config.forbidden,
         expected_iocs=config.expected_iocs,
+        contract=config.archive.prompt_contract,
     )
 
     # The environment is verified before a single attempt is charged for.
@@ -115,6 +131,10 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     # after every subsequent restore.
 
     harness_errors = 0
+    #: Cells this campaign filled, and what minimization cost - both kept off
+    #: the measured path: the metric is coverage, and shrinking is bookkeeping.
+    filled_cells: set[tuple] = set()
+    minimization = {"analyses": 0, "attempts": 0, "partial": 0}
     exporter = Exporter(repo_root / "fixtures-out",
                         validator_calibration=calibration,
                         provenance={
@@ -140,8 +160,15 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         if stop_after_seconds and time.monotonic() - started_at >= stop_after_seconds:
             recorder.stop_reason = f"reached {stop_after_seconds}s wall clock"
             break
+        # The open-cell map is refreshed before *every* paid call, not once
+        # per campaign: a cell this run just filled or closed must be told to
+        # the next generation, or the generator spends budget rediscovering it.
+        attempt_prompt = replace(
+            prompt,
+            open_cells=archive.open_cells(config.expected_rules,
+                                          env.trustsight_version))
         try:
-            produced = generator.generate(prompt, attempt)
+            produced = generator.generate(attempt_prompt, attempt)
         except Exhausted as stop:
             recorder.stop_reason = str(stop)
             break
@@ -156,8 +183,13 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                                            bash, checkers, behavior,
                                            version=env.trustsight_version,
                                            full_new=produced.new_text,
-                                           full_old=produced.old_text)
+                                           full_old=produced.old_text,
+                                           semantic=semantic, archive=archive,
+                                           expected_rules=config.expected_rules)
         trace.stages = stages
+        cells = [(c["rule"], tuple(c["shape"]))
+                 for c in stages.get("_cells", ())]
+        cell_degraded = bool(stages.get("_degraded"))
 
         report = None
         analysed_text = ""
@@ -276,6 +308,36 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             "fatal": verdict.fatal, "coverage_gaps": list(verdict.coverage_gaps),
             "catching_rules": list(verdict.catching_rules),
         }
+        # A fresh bypass fills cells.  Minimize first (off the measured path),
+        # then record the smallest repro as each cell's representative.  A
+        # known-bypass rediscovery is a patch-verification event, not a new
+        # cell, so it is skipped here.
+        if verdict.status is Status.BYPASS and cells:
+            minimized = _minimize(diff_text, runner=runner, env=env, bash=bash,
+                                  checkers=checkers, behavior=behavior,
+                                  expected_rules=config.expected_rules,
+                                  cells=cells, budget=config.archive.minimize_budget)
+            if minimized is not None:
+                minimization["analyses"] += minimized.analyses
+                minimization["attempts"] += 1
+                minimization["partial"] += 1 if minimized.partial else 0
+                representative = minimized.diff
+                trace.minimized = {
+                    "status": "partial" if minimized.partial else "complete",
+                    "change_lines": minimized.change_lines,
+                    "original_change_lines": minimized.original_change_lines,
+                    "analyses": minimized.analyses,
+                    "partial": minimized.partial,
+                }
+            else:
+                representative = diff_text
+            for rule, shape in cells:
+                archive.observe(rule, shape, diff=representative,
+                                campaign=config.name, attempt=attempt,
+                                version=env.trustsight_version,
+                                cost=float(produced.cost.get("api_cost_usd", 0.0) or 0.0),
+                                degraded=cell_degraded)
+                filled_cells.add((rule, shape))
         recorder.add(trace, diff_text, analysed_text)
         exporter.export(trace, diff_text)
 
@@ -294,16 +356,37 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         campaign_type=config.campaign_type,
         environment=env.to_record(),
         generator={**generator.describe(), "prompt_id": prompt.prompt_id,
-                   "prompt_hash": prompt.hash},
+                   "prompt_hash": prompt.hash,
+                   "prompt_contract": prompt.contract},
         validator={"version_hash": behavior.version_hash, "calibration": calibration},
         cost=cost,
         campaign_commit=_git_commit(repo_root),
         package=config.package,
         expected_rules=tuple(config.expected_rules),
         limitations=config.limitations,
+        cell_coverage=_cell_coverage(filled_cells, archive, env.trustsight_version),
+        duplicate_rate=semantic.duplicate_rate,
+        minimization_spend=(dict(minimization) if minimization["attempts"] else None),
     )
     recorder.write_record(record)
+    archive.save(repo_root / "archive.json")
     return record
+
+
+def _cell_coverage(filled: set, archive, version: str) -> dict:
+    """The primary metric: unique `(rule, shape)` cells this run filled.
+
+    Volume is a secondary statistic.  The `open`/`total` counts describe the
+    whole shared grid so a reader can see a campaign's contribution against
+    everything the suite knows, not only what this run touched.
+    """
+    return {
+        "filled": len(filled),
+        "cells": sorted(f"{rule}[{'+'.join(shape)}]" for rule, shape in filled),
+        "open": sum(1 for entry in archive.cells.values()
+                    if not archive.is_closed(entry.rule, entry.shape, version)),
+        "total": len(archive.cells),
+    }
 
 
 def _abort(errors: int, attempts: int) -> bool:
@@ -345,7 +428,8 @@ def patch_verification(verdict, *, digest: str, origin: dict,
 
 
 def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
-              *, version="", full_new=None, full_old=None):
+              *, version="", full_new=None, full_old=None,
+              semantic=None, archive=None, expected_rules=()):
     """Run the pre-TrustSight stages; return (status, reason, stages)."""
     stages: dict = {}
 
@@ -396,4 +480,80 @@ def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
     if not proven.preserved:
         return Status.BEHAVIOR_LOST, proven.reason, stages
 
+    # Semantic dedup and the saturation gate, both after validation (a
+    # malformed attempt is not a duplicate of anything) and before analysis
+    # (no new cell means nothing to measure).  The shape is read from the
+    # *diff*: `crossfire_techniques` detects techniques on the added lines,
+    # and the reconstructed file has none.
+    cells = cells_for(expected_rules, diff_text, proven.chain)
+    stages["_cells"] = [{"rule": rule, "shape": list(shape)}
+                        for rule, shape, _key in cells]
+    # The technique vocabulary being unreachable is a fact about the
+    # instrument, not the attempt; the matrix marks the cell `degraded`.
+    stages["_degraded"] = technique_vocabulary(new_text) is None
+    if cells:
+        if archive is not None and all(
+                archive.is_closed(rule, shape, version)
+                for rule, shape, _key in cells):
+            return (Status.DUPLICATE,
+                    f"cell(s) already saturated at {version}", stages)
+        if semantic is not None and semantic.attempt([key for _r, _s, key in cells]):
+            if archive is not None:
+                for rule, shape, _key in cells:
+                    archive.note_duplicate(rule, shape, version)
+            return (Status.DUPLICATE,
+                    "same (rule, shape) already measured in this campaign", stages)
+
     return None, "", stages
+
+
+def _minimize(diff_text, *, runner, env, bash, checkers, behavior,
+              expected_rules, cells, budget):
+    """Shrink *diff_text* while the whole pipeline still accepts it.
+
+    The oracle re-runs every property the specification names - parses,
+    honors the constraints, proves the chain, and bypasses at the same
+    `(rule, shape)` - so a reduction that migrated cells is refused.  Any
+    failure of minimization itself is swallowed: it is bookkeeping, and
+    bookkeeping never fails a measurement run.
+    """
+    want = list(cells)
+
+    def test(candidate: str) -> bool:
+        if not sanitize(candidate).ok:
+            return False
+        syntax = validate_syntax(candidate, bash)
+        if not syntax.ok:
+            return False
+        if not validate_constraints(syntax.new_text, checkers).ok:
+            return False
+        if not behavior.validate(syntax.new_text).preserved:
+            return False
+        for rule, shape in want:
+            if shape_signature(candidate, excluding=frozenset({rule})) != shape:
+                return False
+        try:
+            env.restore()
+            result = runner.analyze(syntax.new_text)
+        except Exception:  # noqa: BLE001 - an analysis fault is not a reduction
+            return False
+        verdict = judge(early_status=None, report=result.report,
+                        flag_threshold=env.flag_threshold,
+                        expected_rules=expected_rules, mode_gaps=env.mode_gaps)
+        return verdict.status is Status.BYPASS
+
+    try:
+        result = minimize(diff_text, test, budget=budget)
+    except Exception:  # noqa: BLE001 - bookkeeping must not fail the run
+        return None
+    # The specification's gate: the reduced repro is re-run through the full
+    # pipeline before it replaces the cell representative.  ddmin only keeps
+    # tested reductions, but the original diff is the untested starting point
+    # and a budget-exhausted run can return it, so the check is made explicit.
+    if result.diff != diff_text:
+        if not test(result.diff):
+            return None
+        # The re-run is one more analysis; count it against the budget so the
+        # recorded spend is the true spend.
+        result = replace(result, analyses=result.analyses + 1)
+    return result

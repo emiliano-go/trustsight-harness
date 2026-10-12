@@ -56,6 +56,13 @@ def campaign_summary(record: dict) -> dict:
         "limitations": record.get("limitations", []),
         # Addendum 5 §6.5 M004: co-fire health notes (never a package finding).
         "cofire_health": record.get("cofire_health", []),
+        # The shape archive makes coverage the primary metric; the duplicate
+        # rate is the Goodhart canary and the minimization spend is bookkeeping
+        # reported so its cost is visible.
+        "cell_coverage": record.get("cell_coverage", {
+            "filled": 0, "cells": [], "open": 0, "total": 0}),
+        "duplicate_rate": record.get("duplicate_rate"),
+        "minimization_spend": record.get("minimization_spend"),
     }
 
 

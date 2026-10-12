@@ -27,6 +27,9 @@ harness raises if any of those leak into a record.
 | `bypass_hashes` | list | Diff hashes classified as `bypass`. |
 | `known_bypass_matches` | list | Rediscovered bypasses, with `patch_status`. |
 | `cost` | object | Tokens, API spend, ceiling, wall clock. |
+| `cell_coverage` | object | The primary metric: unique `(rule, shape)` cells this run filled, plus the shared grid's open/total counts. |
+| `duplicate_rate` | number \| null | Semantic duplicates over attempts that reached dedup; null when none did. The Goodhart canary for generator exploration. |
+| `minimization_spend` | object \| null | Minimizer analyses, attempts and partials. Kept off the measured path; reported only so the cost is visible. |
 
 ## `environment`
 

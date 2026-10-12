@@ -42,7 +42,7 @@ def _calibration_status() -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
     parser.add_argument("target", help="a campaign directory, 'sweep', 'regression', "
-                                       "'coverage' or 'benign'")
+                                       "'coverage', 'matrix' or 'benign'")
     parser.add_argument("--environment", help="environment YAML for regression runs")
     parser.add_argument("--corpus", help="directory of benign *.diff files for 'benign'")
     parser.add_argument("--sample", type=int, default=1,
@@ -140,6 +140,26 @@ def main(argv: list[str] | None = None) -> int:
               f"{len(report['campaigns'])} campaigns; {rules['untargeted']} "
               f"untargeted, {len(report['untargeted_reasons'])} with a reason "
               f"and all {untriable} unreachable by this harness's format.")
+        return EXIT_OK
+
+    if args.target == "matrix":
+        import yaml
+        from trustsight.categories import RULE_CATEGORIES
+
+        from .archive import Archive
+        from .matrix import build_matrix, save_matrix
+        env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
+        version = str(yaml.safe_load(env_path.read_text())["trustsight_version"])
+        archive = Archive.load(REPO_ROOT / "archive.json")
+        try:
+            matrix = build_matrix(archive, version, RULE_CATEGORIES)
+        except ValueError as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
+        path = save_matrix(matrix, REPO_ROOT / "regression", version)
+        summary = matrix["summary"]
+        print(f"{summary['hardened']} hardened, {summary['open']} open, "
+              f"{summary['unproven']} unproven of {summary['rules']} rules; wrote {path}")
         return EXIT_OK
 
     if args.target == "benign":

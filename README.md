@@ -51,6 +51,7 @@ The commands:
 python -m harness campaigns/<name>/     # run a campaign, write a record
 python -m harness regression            # replay every committed bypass
 python -m harness coverage              # which rules the suite does and does not probe
+python -m harness matrix                # the per-version hardness matrix of (rule, shape) cells
 python -m harness benign --corpus <dir> # false-positive rate over a benign corpus
 ```
 
@@ -72,7 +73,7 @@ Everything else has its own name:
 | `behavior_lost` | The harness could not prove the attack chain survives. |
 | `syntax_error` | Not a well-formed unified diff, or `bash -n` rejected a side. |
 | `constraint_violation` | The diff used a technique the campaign declared forbidden. |
-| `duplicate` | Hash already seen in this campaign or recorded at this version. |
+| `duplicate` | Hash, `(rule, shape)` cell, or closed/saturated cell already measured at this version. |
 | `sanitization_failure` | Null byte, path traversal, or size cap exceeded. |
 | `harness_error` | Runner crash, API failure, or analysis timeout. |
 | `known_bypass_match` | A committed bypass rediscovered at a different TrustSight version. |
@@ -107,7 +108,7 @@ one of them:
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's rule taxonomy, so the untested surface is a number. 34 of 243
+  TrustSight's rule taxonomy, so the untested surface is a number. 34 of 244
   rules are targeted, and the ones a cold campaign cannot reach are named with
   the reason.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the

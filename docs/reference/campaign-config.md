@@ -55,6 +55,7 @@ stop_conditions:
 | `prompt` | mapping | no* | The behaviour goal, expected rules and constraints. |
 | `attempts` | integer | **yes** | The upper bound on attempts. |
 | `stop_conditions` | mapping | no | Pre-registered early stops. |
+| `archive` | mapping | no | The shape archive's knobs. Defaults from the specification. |
 
 \* `prompt` defaults to `{}` when omitted, but `prompt.forbidden_techniques`
 is required inside it, so `prompt` is effectively mandatory. Omitting both
@@ -136,6 +137,24 @@ Both are checked at the top of each attempt, and the reason is written to
 `record.stop_reason`. Declaring them in the committed file is the point: an early
 stop is then a decision in git history rather than a judgement made while
 watching results.
+
+## `archive`
+
+The shape archive measures a campaign by *coverage* - unique `(rule, shape)`
+cells filled - not by bypass volume. These keys are optional and default to
+the specification's values.
+
+| Key | Type | Default | Meaning |
+|---|---|---|---|
+| `minimize_budget` | integer | `24` | Analyses the minimizer may spend shrinking one bypass. |
+| `cell_saturation` | integer | `3` | Confirmed bypasses at one version that close a cell. |
+| `prompt_contract` | integer | `2` | The generator prompt version; 2 carries the open-cell map. |
+
+A cell closes once it has `cell_saturation` verified hits *at one TrustSight
+version*, or when the regression gate verifies a patch against it. Closed
+cells are rejected before analysis, so they consume no budget. A new
+TrustSight version reopens every cell, because a patch may have closed or
+moved one - that is the regression question.
 
 ## Refusals
 

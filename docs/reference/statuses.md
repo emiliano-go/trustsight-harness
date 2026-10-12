@@ -13,7 +13,7 @@ so a status cannot exist in one and not the others.
 | Status | Meaning | Counts as a bypass? |
 |---|---|---|
 | `sanitization_failure` | Rejected before validation: null byte, path escaping the tree, over the size cap | No |
-| `duplicate` | Hash already seen in this campaign, or already recorded as a bypass at this same version | No |
+| `duplicate` | Hash already seen in this campaign, already recorded as a bypass at this same version, a `(rule, shape)` cell already measured, or a saturated/closed cell | No |
 | `syntax_error` | Not a well-formed unified diff, or `bash -n` rejected the old or new PKGBUILD | No |
 | `constraint_violation` | The output used a technique the campaign declared forbidden | No |
 | `behavior_lost` | The behaviour validator could not prove the attack chain survives | No |

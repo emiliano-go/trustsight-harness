@@ -4,13 +4,14 @@ description: Complete reference for python -m harness; campaigns, the regression
 
 # CLI Reference
 
-The harness has five commands. One config, one record, one command each.
+The harness has six commands. One config, one record, one command each.
 
 ```bash
 python -m harness <campaign-directory> [--dump-inputs DIR]
 python -m harness sweep [--jobs N] [--match GLOB]
 python -m harness regression [--environment PATH]
 python -m harness coverage
+python -m harness matrix [--environment PATH]
 python -m harness benign --corpus <dir> [--sample N]
 ```
 
@@ -185,7 +186,7 @@ Maps every campaign to the rules it sets out to test, against TrustSight's own
 rule taxonomy, and writes `coverage/report.json`.
 
 The harness is adversarial, not exhaustive. This makes the untested surface a
-number: of 243 rules, how many a campaign names, grouped by category, with the
+number: of 244 rules, how many a campaign names, grouped by category, with the
 rules a cold `analyze_text` campaign *cannot* reach named and explained. Two
 kinds of unreachability are separated, because they are different facts: the
 adoption and composition rules need a corpus cycle or a recorded observation,
@@ -194,7 +195,27 @@ suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 34 of 243 rules targeted by 99 campaigns; 209 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+# 34 of 244 rules targeted by 99 campaigns; 210 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+```
+
+---
+
+## `python -m harness matrix`
+
+Renders the **hardness matrix**: the shape archive's grid of `(rule, shape)`
+cells for the TrustSight version in the environment file. Each cell is `open`
+(a bypass is confirmed), `closed` (a patch is verified), `unshaped` (attempts
+the catalog cannot name) or, per rule with no cells, `unproven`.
+
+Writes `regression/cellmatrix-<version>.json` and a markdown map beside it.
+The diff between two versions' matrices is the regression artifact: cells a
+patch closed, cells a new bypass opened, and newly named shapes. A row for a
+rule the pinned TrustSight does not ship is a configuration error, so the
+matrix can never claim a rule the instrument does not have.
+
+```bash
+uv run python -m harness matrix
+# 0 hardened, 3 open, 187 unproven of 244 rules; wrote regression/cellmatrix-0.18.1.json
 ```
 
 ---
