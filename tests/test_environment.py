@@ -70,23 +70,34 @@ def test_a_drifted_canary_aborts():
         env.check_canary(lambda name, text: NS(score=42, coverage_gaps=()))
 
 
-def test_every_restore_is_canary_verified(tmp_path):
-    """Section 3.2: the restore is verified after restoration."""
-    from types import SimpleNamespace as NS
-
+def test_every_restore_is_verified_by_the_clean_fingerprint(tmp_path):
+    """Every restore is verified: the first adopts the clean database's
+    fingerprint, the rest compare against it - a read, not a canary
+    analysis."""
     env = Environment(trustsight_version="x")
     env._root = ROOT
     env.bind(tmp_path)
-    calls = []
+    clean = env.restore()
+    env.check_restore(clean)          # adopts
+    env.check_restore(clean)          # stable
+    with pytest.raises(EnvironmentError_, match="restore did not reset"):
+        env.check_restore("sha256:drift")
 
-    def run(name, text):
-        calls.append(name)
-        return NS(score=0, coverage_gaps=())
 
+def test_canary_restore_check_skips_the_hash_comparison(tmp_path):
+    """`restore_check: canary` leaves verification to the analysis path."""
+    env = Environment(trustsight_version="x", restore_check="canary")
+    env._root = ROOT
+    env.bind(tmp_path)
     env.restore()
-    env.check_canary(run)
-    env.restore()  # the canary itself writes; restore again before the attempt
-    assert calls == ["canary"], calls
+    env.check_restore("sha256:anything")  # no comparison, no raise
+
+
+def test_unknown_restore_check_is_refused(tmp_path):
+    from harness.environment import load_environment
+
+    with pytest.raises(EnvironmentError_, match="restore_check"):
+        load_environment({"trustsight_version": "x", "restore_check": "nope"}, ROOT)
 
 
 def test_the_canary_teaches_the_mode_gaps():

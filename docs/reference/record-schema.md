@@ -52,6 +52,7 @@ See [Campaign Configuration](campaign-config.md) for how these are declared.
 | `locale` | `LC_ALL`/`LANG` at run time. |
 | `canary_check` | `"passed"` if the canary verified. |
 | `canary_score` | The canary's committed score. |
+| `restore_check` | How each restore is verified: `hash` (default, compares the clean database fingerprint) or `canary` (re-analyses the canary). |
 | `mode_gaps` | Gaps derived from the canary, subtracted before the gap test. |
 | `aur_lookup` | `frozen-empty` when TrustSight's AUR lookups were answered from the frozen empty reply (the hermetic default), `live` otherwise. |
 

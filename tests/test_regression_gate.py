@@ -438,8 +438,12 @@ def test_a_record_without_the_text_replays_and_says_it_reconstructed(tmp_path,
         flag_threshold = 20
         mode_gaps = ("tree_not_analyzed",)
         trustsight_version = "0.18.1"
+        restore_check = "hash"
 
         def restore(self):
+            pass
+
+        def check_restore(self, db_hash):
             pass
 
         def check_canary(self, fn):
@@ -478,8 +482,12 @@ def test_a_record_with_the_text_replays_that_text(tmp_path):
         flag_threshold = 20
         mode_gaps = ("tree_not_analyzed",)
         trustsight_version = "0.18.1"
+        restore_check = "hash"
 
         def restore(self):
+            pass
+
+        def check_restore(self, db_hash):
             pass
 
         def check_canary(self, fn):

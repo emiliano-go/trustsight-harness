@@ -14,6 +14,7 @@ import hashlib
 import json
 import os
 import shutil
+import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -96,6 +97,14 @@ class Environment:
     #: construction.  Derived, never declared, so it cannot be used to
     #: discount a gap an attack actually caused.
     mode_gaps: tuple[str, ...] = ()
+    #: How each restore is verified.  `hash` (default) compares the freshly
+    #: restored database's content fingerprint against the one captured at
+    #: startup - one cheap read instead of a full canary analysis.  `canary`
+    #: re-analyses the canary after every restore, the pre-optimization
+    #: behaviour, for an instrument whose analysis is stateful.
+    restore_check: str = "hash"
+    #: The content fingerprint of a freshly restored database, captured once.
+    _clean_hash: str = field(default="", repr=False)
     _root: Path = field(default=Path("."), repr=False)
     _data_dir: Path = field(default=Path("."), repr=False)
     #: The ``work`` argument of the last ``bind`` call, kept so a runner can
@@ -162,6 +171,16 @@ class Environment:
         from trustsight import config, db
 
         freeze_aur_lookup()
+        # The bound database is campaign-local scratch, deleted and rebuilt
+        # every attempt, so its commit durability is not worth an fsync: WAL
+        # plus `synchronous=OFF` is still crash-consistent within a process,
+        # and a corrupted scratch DB is caught by the restore check.  The
+        # operator's real database is never touched (it is never bound here).
+        # `HARNESS_SQLITE_SYNCHRONOUS` overrides, e.g. to `FULL` for a replay
+        # that must match an older build's write cost.
+        os.environ["TRUSTSIGHT_SQLITE_SYNCHRONOUS"] = (
+            os.environ.get("HARNESS_SQLITE_SYNCHRONOUS", "OFF").strip().upper()
+            or "OFF")
         self._work = work
         scratch = os.environ.get("HARNESS_ENV_ROOT", "")
         if scratch:
@@ -263,10 +282,49 @@ class Environment:
             conn.commit()
 
     def _db_hash(self) -> str:
+        """Content fingerprint of the bound database.
+
+        The WAL is checkpointed into the main file first: without it a write
+        lives only in `-wal` and the main file's hash is unchanged, so the
+        digest could not tell a fresh database from a written-to one.  A
+        checkpoint folds the log back in, making the digest deterministic
+        across restores and sensitive to any analysis that wrote.
+        """
+        db_path = self._data_dir / "trustsight.db"
+        if db_path.exists():
+            try:
+                conn = sqlite3.connect(str(db_path))
+                try:
+                    conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+                finally:
+                    conn.close()
+            except sqlite3.Error:
+                # A locked or already-gone database is not a failure here;
+                # the hash is taken over whatever files remain.
+                pass
         digest = hashlib.sha256()
         for path in sorted(self._data_dir.glob("*.db")):
             digest.update(path.read_bytes())
         return f"sha256:{digest.hexdigest()}"
+
+    def check_restore(self, db_hash: str) -> None:
+        """Verify a restore put the database back to the declared state.
+
+        The first call adopts the fingerprint of a freshly restored database;
+        every later call compares against it.  A restore that silently did
+        nothing leaves the previous attempt's writes in place, and the digest
+        differs - the failure `check_canary` also guards against, caught here
+        for the cost of one read instead of a second analysis.
+        """
+        if self.restore_check == "canary":
+            return  # the caller runs the canary analysis instead
+        if not self._clean_hash:
+            self._clean_hash = db_hash
+            return
+        if db_hash != self._clean_hash:
+            raise EnvironmentError_(
+                "restore did not reset the database: hash drifted from the "
+                "clean state; the analysis is stateful or the restore failed")
 
     # -- verification -------------------------------------------------
 
@@ -335,7 +393,7 @@ class Environment:
             "trustsight_version", "trustsight_source", "python_version",
             "db_state", "seed_sha256", "db_snapshot", "ioc_baseline",
             "config_fingerprint", "flag_threshold", "accumulate", "timezone",
-            "locale",
+            "locale", "restore_check",
         }
         return {
             "environment": {k: getattr(self, k) for k in known},
@@ -359,6 +417,7 @@ class Environment:
             "locale": self.locale,
             "canary_check": "passed" if self.canary_score is not None else "not run",
             "canary_score": self.canary_score,
+            "restore_check": self.restore_check,
             "mode_gaps": list(self.mode_gaps),
             "aur_lookup": "frozen-empty" if _AUR_FROZEN else "live",
         }
@@ -368,7 +427,7 @@ def load_environment(raw: dict, root: Path) -> Environment:
     known = {
         "trustsight_version", "trustsight_source", "python_version", "db_state",
         "seed_sha256", "db_snapshot", "ioc_baseline", "config_fingerprint",
-        "flag_threshold", "accumulate", "timezone", "locale",
+        "flag_threshold", "accumulate", "timezone", "locale", "restore_check",
     }
     unknown = set(raw) - known
     if unknown:
@@ -383,4 +442,8 @@ def load_environment(raw: dict, root: Path) -> Environment:
         raise EnvironmentError_("db_state 'snapshot' requires db_snapshot")
     if env.db_state == "seeded" and not env.seed_sha256:
         raise EnvironmentError_("db_state 'seeded' requires seed_sha256")
+    if env.restore_check not in ("hash", "canary"):
+        raise EnvironmentError_(
+            f"unknown environment.restore_check {env.restore_check!r}; "
+            "expected 'hash' or 'canary'")
     return env

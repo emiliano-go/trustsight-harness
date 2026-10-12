@@ -111,13 +111,15 @@ def _shard(items: list, jobs: int) -> list[list]:
 
 
 def _preflight(env: Environment, runner: Runner, repo_root: Path) -> None:
-    """Restore, verify the restore with the canary, and check API/CLI parity.
+    """Restore, verify it, and adopt the canary's fingerprint and mode gaps.
 
     The canary's report also adopts the config fingerprint for this process,
     so a worker that only replays a shard records the same environment as the
     serial run - and every later attempt's fingerprint is verified against it.
+    The clean-database fingerprint is captured here so every replay's restore
+    is checked against it (or the canary re-run, under `restore_check: canary`).
     """
-    env.restore()
+    env.check_restore(env.restore())
     canary = (repo_root / "defaults/canary.PKGBUILD").read_text()
     report = runner.analyze(canary).report
     env.check_canary(lambda name, text: report)
@@ -176,9 +178,12 @@ def _replay_item(repo_root: Path, env: Environment, runner: Runner,
     # field existed still replays, on the reconstruction, and says so.
     analysed = item.get("analysed_text") or ""
     source = "recorded" if analysed else "reconstruction"
-    env.restore()
-    env.check_canary(lambda name, text: runner.analyze(text).report)
-    env.restore()
+    db_hash = env.restore()
+    if env.restore_check == "canary":
+        env.check_canary(lambda name, text: runner.analyze(text).report)
+        env.restore()
+    else:
+        env.check_restore(db_hash)
     if analysed:
         result = runner.analyze(analysed, syntax.old_text or None)
     else:

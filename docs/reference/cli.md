@@ -148,12 +148,14 @@ before the field existed still replays, on the reconstruction, and the report's
 The gate also replays the canary and one API/CLI parity check per environment, so
 a "closed" bypass is never an artefact of a broken harness.
 
-!!! tip "A full replay writes gigabytes"
+!!! tip "Restores are already fsync-light"
 
-    Each replay restores the database before the attempt, and a restore is
-    fsync-heavy. Point `HARNESS_ENV_ROOT` at a tmpfs to keep the churn out of
-    the disk (the committed tree is untouched; the scratch is keyed per work
-    root):
+    Each replay restores the database before the attempt. The bound database
+    is campaign-local scratch, so the harness commits it with
+    `TRUSTSIGHT_SQLITE_SYNCHRONOUS=OFF` (WAL, crash-consistent, no fsync);
+    set `HARNESS_SQLITE_SYNCHRONOUS=NORMAL|FULL` to override. Pointing
+    `HARNESS_ENV_ROOT` at a tmpfs still removes the remaining disk I/O (the
+    committed tree is untouched; the scratch is keyed per work root):
 
     ```bash
     HARNESS_ENV_ROOT=/dev/shm/trustsight-harness uv run python -m harness regression --jobs auto

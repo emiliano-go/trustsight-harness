@@ -126,19 +126,23 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     )
 
     # The environment is verified before a single attempt is charged for.
-    env.restore()
+    # One canary analysis serves both checks: the score/mode-gaps adoption
+    # and the config fingerprint.  Analysing the same text twice bought
+    # nothing but a second charge.
     canary_text = (repo_root / "defaults/canary.PKGBUILD").read_text()
-    env.check_canary(lambda name, text: runner.analyze(text).report)
+    env.check_restore(env.restore())
+    canary_report = runner.analyze(canary_text).report
+    env.check_canary(lambda name, text: canary_report)
     # Adopt the fingerprint from the canary, not from the first attempt.
     # `check_fingerprint` takes whatever it is shown first and refuses every
     # later mismatch, so leaving the first call inside the attempt loop made
     # the value a property of attempt 1 and turned a drift between startup and
     # attempt 1 into a recorded observation instead of a refusal.
-    env.check_fingerprint(runner.analyze(canary_text).report)
+    env.check_fingerprint(canary_report)
     if not runner.parity_check(canary_text):
         raise EnvironmentError_("API and CLI report bodies differ; the instrument is broken")
-    # `mode_gaps` is now derived from the canary and will be checked again
-    # after every subsequent restore.
+    # `mode_gaps` is now derived from the canary and the clean-database
+    # fingerprint is captured; every later restore is verified against it.
 
     harness_errors = 0
     #: Cells this campaign filled, and what minimization cost - both kept off
@@ -206,15 +210,16 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         if status is None:
             db_hash = env.restore()
             trace.db_hash = db_hash
-            # Section 3.2: every restore is verified.  A restore that
-            # silently did nothing looks exactly like one that worked,
-            # right up until the numbers are published.
+            # Every restore is verified.  `hash` (the default) compares the
+            # database fingerprint against the clean one captured at startup:
+            # one read, not a second analysis.  `canary` keeps the old
+            # analysis-based check for a stateful instrument.
             if not env.accumulate:
-                env.check_canary(lambda name, text: runner.analyze(text).report)
-                # The canary's own analysis writes observations.  Restore
-                # again so the attempt measures the declared DB state, not the
-                # canary's wake.
-                env.restore()
+                if env.restore_check == "canary":
+                    env.check_canary(lambda name, text: runner.analyze(text).report)
+                    env.restore()
+                else:
+                    env.check_restore(db_hash)
             try:
                 result = runner.analyze(stages["_new_text"], stages.get("_old_text") or None)
             except AnalysisTimeout as exc:
