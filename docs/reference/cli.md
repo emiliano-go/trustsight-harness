@@ -154,11 +154,13 @@ a "closed" bypass is never an artefact of a broken harness.
     is campaign-local scratch, so the harness commits it with
     `TRUSTSIGHT_SQLITE_SYNCHRONOUS=OFF` (WAL, crash-consistent, no fsync);
     set `HARNESS_SQLITE_SYNCHRONOUS=NORMAL|FULL` to override. Pointing
-    `HARNESS_ENV_ROOT` at a tmpfs still removes the remaining disk I/O (the
-    committed tree is untouched; the scratch is keyed per work root):
+    `HARNESS_ENV_ROOT` at a tmpfs still removes the remaining disk I/O; set it
+    to `auto` to pick a writable tmpfs (`$XDG_RUNTIME_DIR`, `/dev/shm`, `/tmp`)
+    for you (the committed tree is untouched; the scratch is keyed per work
+    root):
 
     ```bash
-    HARNESS_ENV_ROOT=/dev/shm/trustsight-harness uv run python -m harness regression --jobs auto
+    HARNESS_ENV_ROOT=auto uv run python -m harness regression --jobs auto
     ```
 
 ### Output

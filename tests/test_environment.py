@@ -332,3 +332,31 @@ def test_the_record_names_the_two_inputs_that_change_the_verdict(tmp_path):
         expected_rules=("H016", "H082"))
     assert record["package"] == "harness-payload-bin"
     assert record["expected_rules"] == ["H016", "H082"]
+
+
+def test_auto_scratch_root_prefers_a_tmpfs(monkeypatch):
+    """`HARNESS_ENV_ROOT=auto` picks a writable tmpfs for the file churn."""
+    import harness.environment as E
+
+    monkeypatch.setenv("XDG_RUNTIME_DIR", "")
+    monkeypatch.setattr(E, "_is_tmpfs", lambda p: p.rstrip("/").endswith("shm"))
+    assert E._auto_scratch_root() == "/dev/shm/trustsight-harness"
+
+
+def test_auto_scratch_root_falls_back_when_no_tmpfs(monkeypatch):
+    import harness.environment as E
+
+    monkeypatch.setenv("XDG_RUNTIME_DIR", "")
+    monkeypatch.setattr(E, "_is_tmpfs", lambda p: False)
+    assert E._auto_scratch_root() == ""
+
+
+def test_bind_with_auto_scratch_root_uses_it(monkeypatch, tmp_path):
+    import harness.environment as E
+
+    monkeypatch.setenv("HARNESS_ENV_ROOT", "auto")
+    monkeypatch.setattr(E, "_auto_scratch_root", lambda: str(tmp_path / "shm"))
+    env = Environment(trustsight_version="x")
+    env._root = ROOT
+    env.bind(tmp_path / "work")
+    assert str(tmp_path / "shm") in str(env._data_dir)

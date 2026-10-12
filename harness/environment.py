@@ -71,6 +71,37 @@ def freeze_aur_lookup() -> None:
     _AUR_FROZEN = True
 
 
+def _is_tmpfs(path: str) -> bool:
+    """Is *path* a tmpfs mount?  Read from /proc, no subprocess."""
+    want = os.path.realpath(path).rstrip("/")
+    try:
+        with open("/proc/mounts", encoding="utf-8", errors="replace") as handle:
+            for line in handle:
+                parts = line.split()
+                if (len(parts) >= 3 and parts[2] == "tmpfs"
+                        and os.path.realpath(parts[1]).rstrip("/") == want):
+                    return True
+    except OSError:
+        pass
+    return False
+
+
+def _auto_scratch_root() -> str:
+    """The scratch base for `HARNESS_ENV_ROOT=auto`: a writable tmpfs, or "".
+
+    A restore is file churn, so keeping it in RAM removes the writeback
+    stall.  `$XDG_RUNTIME_DIR`, `/dev/shm` and `/tmp` are checked in that
+    order and the first tmpfs wins; when none is one, "" falls back to the
+    work tree rather than putting churn on a disk under a name that promised
+    a tmpfs.
+    """
+    for candidate in (os.environ.get("XDG_RUNTIME_DIR", ""), "/dev/shm", "/tmp"):
+        if candidate and os.path.isdir(candidate) and os.access(candidate, os.W_OK) \
+                and _is_tmpfs(candidate):
+            return str(Path(candidate) / "trustsight-harness")
+    return ""
+
+
 @dataclass
 class Environment:
     trustsight_version: str
@@ -183,6 +214,8 @@ class Environment:
             or "OFF")
         self._work = work
         scratch = os.environ.get("HARNESS_ENV_ROOT", "")
+        if scratch.strip().lower() == "auto":
+            scratch = _auto_scratch_root()
         if scratch:
             key = hashlib.sha256(str(work.resolve()).encode()).hexdigest()[:16]
             env_root = Path(scratch) / key
