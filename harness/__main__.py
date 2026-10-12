@@ -150,8 +150,8 @@ def main(argv: list[str] | None = None) -> int:
         from .matrix import build_matrix, save_matrix
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
         version = str(yaml.safe_load(env_path.read_text())["trustsight_version"])
-        archive = Archive.load(REPO_ROOT / "archive.json")
         try:
+            archive = Archive.load(REPO_ROOT / "archive.json")
             matrix = build_matrix(archive, version, RULE_CATEGORIES)
         except ValueError as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)

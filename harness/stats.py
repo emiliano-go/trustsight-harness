@@ -62,6 +62,7 @@ def campaign_summary(record: dict) -> dict:
         "cell_coverage": record.get("cell_coverage", {
             "filled": 0, "cells": [], "open": 0, "total": 0}),
         "duplicate_rate": record.get("duplicate_rate"),
+        "dedup_savings": record.get("dedup_savings"),
         "minimization_spend": record.get("minimization_spend"),
     }
 

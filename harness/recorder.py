@@ -127,6 +127,7 @@ class Recorder:
                      limitations: tuple = (),
                      cell_coverage: dict | None = None,
                      duplicate_rate: float | None = None,
+                     dedup_savings: dict | None = None,
                      minimization_spend: dict | None = None) -> dict:
         reached = sum(1 for t in self.traces if t.status in _REACHED)
         bypasses = sum(1 for t in self.traces if t.status is Status.BYPASS)
@@ -165,6 +166,9 @@ class Recorder:
             "cell_coverage": cell_coverage or {
                 "filled": 0, "cells": [], "open": 0, "total": 0},
             "duplicate_rate": duplicate_rate,
+            # Cost accounting: the analyses semantic dedup avoided.  The
+            # generator's own tokens are not saved (the call already ran).
+            "dedup_savings": dedup_savings,
             "minimization_spend": minimization_spend,
         }
         # Addendum 5 §4: the empirical layer-resilience numbers.  A layer is

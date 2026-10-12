@@ -11,7 +11,7 @@ from validators.behavior import BehaviorValidator
 from validators.constraints import build_checkers, validate_constraints
 from validators.syntax import resolve_bash, validate_syntax
 
-from .archive import Archive
+from .archive import Archive, ArchiveError
 from .config import CampaignConfig
 from .dedup import (
     Deduplicator,
@@ -27,7 +27,12 @@ from .minimize import minimize
 from .recorder import Recorder, Trace
 from .runner import AnalysisTimeout, Runner, RunnerError
 from .sanitizer import sanitize
-from .shape import shape_signature, technique_vocabulary
+from .shape import (
+    diff_shape_fp,
+    finding_techniques,
+    shape_signature,
+    technique_vocabulary,
+)
 from .status import Status
 
 __all__ = ["HARNESS_VERSION", "patch_verification", "run_campaign"]
@@ -99,10 +104,15 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     known = KnownBypasses(repo_root / "campaigns")
     semantic = SemanticDeduplicator()
     # The archive is the campaign suite's shared artifact: loaded from the
-    # repo root, extended by this run, written back at the end.  A new
+    # repo root, extended by this run, merged back at the end.  A new
     # TrustSight version reopens every cell (its occupancy is versioned).
-    archive = Archive.load(repo_root / "archive.json",
-                           saturation=config.archive.cell_saturation)
+    # The initial read only feeds the prompt map, so a corrupt shared file
+    # must not stop the run; the final merge is the one that must succeed.
+    try:
+        archive = Archive.load(repo_root / "archive.json",
+                               saturation=config.archive.cell_saturation)
+    except ArchiveError:
+        archive = Archive(saturation=config.archive.cell_saturation)
     recorder = Recorder(config.root, config.name, HARNESS_VERSION)
 
     prompt = Prompt(
@@ -235,6 +245,12 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 "report": result.body,
                 "config_fingerprint": getattr(report, "config_fingerprint", ""),
                 "wall_clock_ms": result.wall_clock_ms,
+                # The core's additive per-finding technique export, when the
+                # report carries it; empty when the export is absent, which is
+                # the graceful-degradation case the archive documents.
+                "techniques": list(finding_techniques(report.findings) or ()),
+                # An optional clustering signal kept beside the cell.
+                "diff_shape_fp": diff_shape_fp(diff_text),
             }
             # Addendum 5 §4: the layers this attempt passed and the layer
             # that stopped it, from the report's own `layers` projection.
@@ -366,10 +382,20 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         limitations=config.limitations,
         cell_coverage=_cell_coverage(filled_cells, archive, env.trustsight_version),
         duplicate_rate=semantic.duplicate_rate,
+        dedup_savings={
+            "attempts": semantic.observations,
+            "analyses_avoided": semantic.duplicates,
+        },
         minimization_spend=(dict(minimization) if minimization["attempts"] else None),
     )
     recorder.write_record(record)
-    archive.save(repo_root / "archive.json")
+    # Merge this run's cells into the shared grid under a lock, so parallel
+    # sweep workers cannot lose each other's updates; the merge is idempotent,
+    # so a re-run adds no duplicates.
+    archive.merge_into(repo_root / "archive.json")
+    # The campaign-level artifact: this run's own cells, beside the record.
+    archive.slice(filled_cells, env.trustsight_version).save(
+        config.root / "archive.json")
     return record
 
 
@@ -485,7 +511,7 @@ def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
     # (no new cell means nothing to measure).  The shape is read from the
     # *diff*: `crossfire_techniques` detects techniques on the added lines,
     # and the reconstructed file has none.
-    cells = cells_for(expected_rules, diff_text, proven.chain)
+    cells = cells_for(expected_rules, diff_text, proven.chain, proven.context)
     stages["_cells"] = [{"rule": rule, "shape": list(shape)}
                         for rule, shape, _key in cells]
     # The technique vocabulary being unreachable is a fact about the

@@ -199,7 +199,8 @@ def test_campaign_summary_reports_layer_resilience():
         "resilience_distribution": {1: 2}, "layers_fully_bypassed": 1,
         "limitations": ["no persistence shape"], "cofire_health": [],
         "cell_coverage": {"filled": 0, "cells": [], "open": 0, "total": 0},
-        "duplicate_rate": None, "minimization_spend": None}
+        "duplicate_rate": None, "dedup_savings": None,
+        "minimization_spend": None}
 
 
 def test_campaign_summary_carries_cofire_health_notes():

@@ -35,7 +35,8 @@ class _Behavior:
     version_hash = "fake"
 
     def validate(self, _text):
-        return types.SimpleNamespace(preserved=True, chain="curl -> sh", reason="")
+        return types.SimpleNamespace(preserved=True, chain="curl -> sh",
+                                     reason="", context="build")
 
 
 @pytest.fixture(autouse=True)
@@ -120,3 +121,38 @@ def test_the_regression_gate_leaves_a_degraded_replay_alone(tmp_path):
     _update_archive(tmp_path, env, BehaviorValidator(),
                     [item], [{"state": "degraded"}])
     assert not (Path(tmp_path) / "archive.json").exists()
+
+
+def test_replaying_a_committed_campaign_reproduces_the_cell_occupancy(tmp_path):
+    """The archive-survives-replay gate, on a real committed record."""
+    import json
+
+    from harness.archive import Archive
+    from harness.dedup import diff_hash
+    from harness.environment import Environment
+    from harness.regression import _committed_bypasses, _update_archive
+    from validators.behavior import BehaviorValidator
+
+    campaign = tmp_path / "campaigns" / "c1"
+    campaign.mkdir(parents=True)
+    digest = diff_hash(_DIFF)
+    (campaign / "record.json").write_text(json.dumps({
+        "campaign": "c1", "environment": {"trustsight_version": "0.18.1"},
+        "expected_rules": ["H016"], "bypass_hashes": [digest]}))
+    (campaign / "evidence.jsonl").write_text(json.dumps({
+        "attempt": 0, "diff_sha256": digest, "diff": _DIFF,
+        "analysed_text": _NEW}) + "\n")
+
+    items = _committed_bypasses(tmp_path / "campaigns")
+    assert len(items) == 1
+    env = Environment(trustsight_version="0.18.1")
+    behavior = BehaviorValidator()
+
+    def occupancy(root: Path) -> list:
+        _update_archive(root, env, behavior, items, [{"state": "open"}])
+        return sorted(Archive.load(root / "archive.json").cells)
+
+    first = occupancy(tmp_path / "run1")
+    assert occupancy(tmp_path / "run1") == first      # same replay, same grid
+    assert occupancy(tmp_path / "run2") == first      # fresh replay, same grid
+    assert first, "the committed bypass must occupy a cell"
