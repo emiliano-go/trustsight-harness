@@ -170,6 +170,9 @@ class BehaviorResult:
     preserved: bool
     chain: str = ""
     reason: str = ""
+    #: The entry point the chain was proven in (`build`, `package`, ...) or
+    #: `top-level`.  Part of the shape archive's behavioral signature.
+    context: str = ""
 
 
 def _strip_comments(text: str) -> str:
@@ -314,14 +317,19 @@ def _inline(name: str, bodies: dict[str, str], seen: frozenset[str],
     return body
 
 
-def _reachable_regions(text: str) -> list[str]:
-    """Text that runs: entry-point bodies, plus functions they call.
+def _reachable_regions(text: str) -> list[tuple[str, str]]:
+    """Text that runs, as ``(context, text)``: entry-point bodies and callees.
+
+    The context is the entry point the region belongs to (`build`, `package`,
+    ...) or `top-level`, and it is what the shape archive's behavioral
+    signature records alongside the chain: a fetch-to-execution proven in
+    `build()` and one proven in `package()` are not the same measurement.
 
     Brace matching is deliberate rather than regex-based; a nested `{` in a
     parameter expansion would otherwise close a function early and hide the
     rest of it.
     """
-    regions: list[str] = []
+    regions: list[tuple[str, str]] = []
     bodies: dict[str, str] = {}
     spans: dict[str, tuple[int, int]] = {}
     for match in _FUNCTION.finditer(text):
@@ -347,7 +355,7 @@ def _reachable_regions(text: str) -> list[str]:
     # string, in execution order.
     for name in sorted(bodies):
         if name in _ENTRY_POINTS:
-            regions.append(_inline(name, bodies, frozenset()))
+            regions.append((name, _inline(name, bodies, frozenset())))
 
     # `source=()` and top-level statements run at parse time.
     #
@@ -360,7 +368,7 @@ def _reachable_regions(text: str) -> list[str]:
     for start, end in spans.values():
         for index in range(start, min(end + 1, len(top_chars))):
             top_chars[index] = " "
-    regions.append("".join(top_chars))
+    regions.append(("top-level", "".join(top_chars)))
     return regions
 
 
@@ -393,7 +401,7 @@ class BehaviorValidator:
         declared_source = bool(_SOURCE_ARRAY.search(text))
         declared_bases = _declared_source_basenames(text)
 
-        for region in _reachable_regions(text):
+        for context, region in _reachable_regions(text):
             # Reachability first: a region that a terminator or a dead guard
             # ends is not evidence of anything, and every arm below would
             # otherwise read a chain out of code the shell never runs.
@@ -403,13 +411,15 @@ class BehaviorValidator:
 
             direct = self._direct_pipeline(region)
             if direct:
-                return BehaviorResult(True, chain=direct)
+                return BehaviorResult(True, chain=direct, context=context)
 
             fetch = _first_command_match(_FETCH, region)
             sink = _first_command_match(_EXEC_SINK, region)
             if fetch and sink and sink.start() > fetch.start():
                 return BehaviorResult(
-                    True, chain=f"{_tidy(fetch.group(0))} -> {_tidy(sink.group(0))}")
+                    True,
+                    chain=f"{_tidy(fetch.group(0))} -> {_tidy(sink.group(0))}",
+                    context=context)
 
             if (declared_source and sink and _BUILD_TREE.search(region)
                     and _sink_names_declared(sink.group(0), declared_bases)):
@@ -420,7 +430,8 @@ class BehaviorValidator:
                 # lua runme`) read as a live chain - the fabricated bypass
                 # this arm must never produce.
                 return BehaviorResult(
-                    True, chain=f"source= -> {_tidy(sink.group(0))}")
+                    True, chain=f"source= -> {_tidy(sink.group(0))}",
+                    context=context)
 
         return BehaviorResult(False, reason="no reachable fetch-to-execution chain")
 

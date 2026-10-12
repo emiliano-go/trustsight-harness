@@ -83,6 +83,14 @@ def test_behavioral_signature_canonicalizes_the_chain():
     assert behavioral_signature("") == ()
 
 
+def test_behavioral_signature_records_the_execution_context():
+    assert behavioral_signature("curl -> sh", "build") == ("curl", "sh", "build")
+    assert behavioral_signature("curl -> sh", "build") != behavioral_signature(
+        "curl -> sh", "package")
+    # Identifiers and literals normalize to slots.
+    assert behavioral_signature('wget -> sh "$srcdir"/setup') == ("wget", "sh")
+
+
 # -- semantic dedup (section 4) reuses these fixtures -----------------------
 
 
@@ -107,6 +115,40 @@ def test_unshaped_attempts_differ_by_their_chain():
 
     assert semantic_key("H016", shape_signature(_PLAIN), "curl -> sh") != (
         semantic_key("H016", shape_signature(_PLAIN), "wget -> python"))
+
+
+def test_finding_technique_tags_are_preferred_when_the_export_is_present():
+    import types
+
+    from harness.shape import finding_techniques
+
+    findings = [types.SimpleNamespace(techniques=["X002:partial-quote"]),
+                {"techniques": ["X008:U+00A0"]}]
+    assert finding_techniques(findings) == ("X002:partial-quote", "X008:U+00A0")
+    assert shape_signature(_PLAIN, findings=findings) == (
+        "X002:partial-quote", "X008:U+00A0")
+    # The export being absent is not the same as it naming nothing.
+    assert finding_techniques([types.SimpleNamespace()]) is None
+
+
+def test_finding_techniques_ignores_a_malformed_export():
+    import types
+
+    from harness.shape import MAX_TECHNIQUES, finding_techniques
+
+    # A bare string is iterable but is not a tag list.
+    assert finding_techniques([types.SimpleNamespace(techniques="X002")]) is None
+    # A huge list is capped rather than turned into an unbounded cell key.
+    many = [f"t{i}" for i in range(MAX_TECHNIQUES * 2)]
+    assert len(finding_techniques(
+        [types.SimpleNamespace(techniques=many)])) == MAX_TECHNIQUES
+
+
+def test_diff_shape_fp_clusters_cosmetic_variants():
+    from harness.shape import diff_shape_fp
+
+    assert diff_shape_fp(_IFS_A) == diff_shape_fp(_IFS_B)
+    assert diff_shape_fp(_PLAIN) != diff_shape_fp(_SPLICE)
 
 
 # -- the config knobs the archive declares before a run ---------------------

@@ -25,7 +25,8 @@ __all__ = [
 ]
 
 
-def cells_for(expected_rules, text: str, chain: str) -> list[tuple]:
+def cells_for(expected_rules, text: str, chain: str,
+              context: str = "") -> list[tuple]:
     """The cells a bypass of *expected_rules* by *text* fills.
 
     One cell per expected rule: a bypass that fires none of them is a
@@ -37,11 +38,12 @@ def cells_for(expected_rules, text: str, chain: str) -> list[tuple]:
     cells = []
     for rule in expected_rules:
         shape = shape_signature(text, excluding=frozenset({rule}))
-        cells.append((rule, shape, semantic_key(rule, shape, chain)))
+        cells.append((rule, shape, semantic_key(rule, shape, chain, context)))
     return cells
 
 
-def semantic_key(rule: str, shape: tuple[str, ...], chain: str) -> tuple:
+def semantic_key(rule: str, shape: tuple[str, ...], chain: str,
+                 context: str = "") -> tuple:
     """The identity of one measurement: a cell, or the chain that filled it.
 
     Cosmetic mutations leave this unchanged, so they collapse to one cell.
@@ -50,7 +52,7 @@ def semantic_key(rule: str, shape: tuple[str, ...], chain: str) -> tuple:
     bucket are two different measurements even though both are unnamed.
     """
     if shape == (UNSHAPED,):
-        return (rule, UNSHAPED, behavioral_signature(chain))
+        return (rule, UNSHAPED, behavioral_signature(chain, context))
     return (rule, shape, ())
 
 

@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import re
 
-__all__ = ["command_words", "in_command_position"]
+__all__ = ["chain_slots", "command_words", "in_command_position"]
 
 #: Bound the work.  Generated text is attacker-grade, and a shell parser
 #: fed a pathological line is the same resource risk every other gate here
@@ -90,3 +90,37 @@ def in_command_position(line: str, matched: str) -> bool:
         return True
     token = head.group(0)
     return token in words or token.rsplit("/", 1)[-1] in words
+
+
+#: Chain labels that name the same slot: the behavior validator's display
+#: spellings collapse to one canonical token.
+_CHAIN_SYNONYMS = {
+    "shell": "sh", "bash": "sh", "sh": "sh", "dash": "sh", "zsh": "sh",
+    "pipe": "pipe", "declared-source": "declared-source", "source=": "declared-source",
+}
+
+
+def chain_slots(chain: str, context: str = "") -> tuple[str, ...]:
+    """The canonical `(fetch, transforms, sink, context)` slots of a chain.
+
+    This is where the shape archive's behavioral signature is *extracted*:
+    the behavior validator proves a chain with this module's command-position
+    parse, and this turns that proven chain into the canonical tuple the
+    archive keys on.  Two attempts with the same slots - the same fetch
+    client, the same pipeline transforms, the same sink, in the same entry
+    point - are the same measurement even when the technique tags disagree.
+
+    Identifiers and literals are normalized to slots: only the leading
+    command token of each `->` segment survives, so `sh "$srcdir"/setup` is
+    the same sink slot as `sh x`.  `context` is the entry point the chain was
+    proven in and is appended last when known.
+    """
+    parts: list[str] = []
+    for segment in chain.split("->"):
+        words = segment.strip().lower().split()
+        if not words:
+            continue
+        parts.append(_CHAIN_SYNONYMS.get(words[0], words[0]))
+    if context:
+        parts.append(context.lower())
+    return tuple(parts)

