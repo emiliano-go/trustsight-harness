@@ -242,6 +242,12 @@ class Environment:
         `accumulate`.  Without it, attempt *i* teaches TrustSight the URL
         that attempt *i+1* is about to be scored on, and the campaign
         measures its own order.
+
+        The declared state is planted once, then snapshotted to a template;
+        every later restore is a file copy rather than a rerun of the schema
+        DDL, which on btrfs costs tens of milliseconds and dominated the run.
+        The template is keyed by the declaration, so a changed seed or
+        snapshot cannot reuse a stale one.
         """
         from trustsight import db
 
@@ -251,16 +257,20 @@ class Environment:
         if self._restore_delegate is not None:
             return self._restore_delegate()
 
-        # TrustSight caches one connection per (thread, path) and reuses it,
-        # so unlinking the file while that handle is open leaves the harness
-        # writing to a deleted inode: the "restore" would be a no-op and
-        # every attempt would inherit the previous one's observations.  Close
-        # first, then delete, then let init_db() open the fresh file.
+        template = self._template_path()
         db.close_connections()
-
         for stale in self._data_dir.glob("*.db*"):
             stale.unlink(missing_ok=True)
 
+        if template.exists():
+            shutil.copyfile(template, self._data_dir / "trustsight.db")
+            return self._db_hash()
+
+        # First restore this run: plant the declared state in full, then
+        # capture it.  TrustSight caches one connection per (thread, path)
+        # and reuses it, so unlinking the file while that handle is open
+        # leaves the harness writing to a deleted inode; the connections are
+        # closed above before the delete.
         if self.db_state == "seeded":
             self._import_seed()
         elif self.db_state == "snapshot":
@@ -274,7 +284,30 @@ class Environment:
         db.init_db()
         if self.ioc_baseline:
             self._import_ioc_baseline()
-        return self._db_hash()
+        digest = self._db_hash()          # checkpoints the WAL into the file
+        self._capture_template()
+        return digest
+
+    def _template_path(self) -> Path:
+        """Where this run's planted-state snapshot lives.
+
+        Keyed by the declared state, so a campaign that changes its seed or
+        snapshot gets a fresh template instead of a stale one.  It sits
+        beside `data/`, not inside it, so it is not swept by the restore's
+        `*.db*` unlink.
+        """
+        key = hashlib.sha256(
+            f"{self.db_state}|{self.seed_sha256}|{self.db_snapshot}|"
+            f"{self.ioc_baseline}".encode()).hexdigest()[:16]
+        return self._data_dir.parent / "template" / f"trustsight-{key}.db"
+
+    def _capture_template(self) -> None:
+        template = self._template_path()
+        source = self._data_dir / "trustsight.db"
+        if not source.exists():
+            return
+        template.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, template)
 
     def _import_ioc_baseline(self) -> None:
         """Import the declared federation baseline into the bound database."""

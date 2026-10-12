@@ -360,3 +360,28 @@ def test_bind_with_auto_scratch_root_uses_it(monkeypatch, tmp_path):
     env._root = ROOT
     env.bind(tmp_path / "work")
     assert str(tmp_path / "shm") in str(env._data_dir)
+
+
+def test_a_second_restore_reuses_the_planted_template(tmp_path):
+    """The declared state is planted once and copied thereafter, so a repeat
+    restore is a file copy and the fingerprint is unchanged."""
+    env = Environment(trustsight_version="x")
+    env._root = ROOT
+    env.bind(tmp_path)
+    first = env.restore()
+    template = env._template_path()
+    assert template.exists()
+    # The template lives beside data/, not in it, so the restore's unlink
+    # of `*.db*` cannot sweep it.
+    assert template.parent != env._data_dir
+    assert env.restore() == first
+
+
+def test_the_template_key_follows_the_declaration(tmp_path):
+    """A changed seed or snapshot must not reuse a stale planted state."""
+    a = Environment(trustsight_version="x", db_state="seeded", seed_sha256="sha256:a")
+    b = Environment(trustsight_version="x", db_state="seeded", seed_sha256="sha256:b")
+    a._root = b._root = ROOT
+    a.bind(tmp_path / "a")
+    b.bind(tmp_path / "b")
+    assert a._template_path().name != b._template_path().name
