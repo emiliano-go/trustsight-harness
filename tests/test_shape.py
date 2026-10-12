@@ -68,10 +68,13 @@ def test_absent_core_vocabulary_degrades_to_unshaped(monkeypatch):
     """If the core's technique call moves or raises, the cell degrades, not crashes."""
     from trustsight.analysis import crossfire
 
+    from harness import shape as shape_module
+
     def _boom(_text):
         raise RuntimeError("core moved")
 
     monkeypatch.setattr(crossfire, "crossfire_techniques", _boom)
+    shape_module._diff_techniques_cached.cache_clear()
     assert technique_vocabulary(_IFS_A) is None
     assert shape_signature(_IFS_A) == (UNSHAPED,)
 
@@ -176,13 +179,15 @@ def _config(tmp_path: Path, archive_block: str):
 
 def test_archive_defaults_come_from_the_specification(tmp_path):
     archive = _config(tmp_path, "")
+    assert archive.minimize is True
     assert archive.minimize_budget == 24
     assert archive.cell_saturation == 3
     assert archive.prompt_contract == 2
 
 
 def test_archive_can_be_declared(tmp_path):
-    archive = _config(tmp_path, "archive:\n  minimize_budget: 6\n  cell_saturation: 2\n")
+    archive = _config(tmp_path, "archive:\n  minimize: false\n  minimize_budget: 6\n  cell_saturation: 2\n")
+    assert archive.minimize is False
     assert archive.minimize_budget == 6
     assert archive.cell_saturation == 2
 

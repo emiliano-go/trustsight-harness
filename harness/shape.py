@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
+from functools import lru_cache
 
 from validators.shellast import chain_slots
 
@@ -98,14 +99,29 @@ def technique_vocabulary(text: str, *, excluding: frozenset[str] = frozenset(),
         if tagged is not None:
             return tuple(t for t in tagged
                          if t.split(":", 1)[0] not in excluding)
+    return _diff_techniques(text, excluding)
+
+
+def _diff_techniques(text: str, excluding: frozenset[str]) -> tuple[str, ...] | None:
+    """The `crossfire_techniques` vocabulary for *text*, or ``None``.
+
+    Only a successful lookup is memoized (see `_diff_techniques_cached`): a
+    transient failure to reach the core must not be frozen into the cache,
+    or every later cell for that diff would read as `unshaped`.
+    """
     try:
-        from trustsight.analysis.crossfire import crossfire_techniques
-    except Exception:  # noqa: BLE001 - an optional export moving is not a failure
-        return None
-    try:
-        found = crossfire_techniques(text)
+        return _diff_techniques_cached(text, excluding)
     except Exception:  # noqa: BLE001 - attacker-grade text; a raise is no answer
         return None
+
+
+@lru_cache(maxsize=4096)
+def _diff_techniques_cached(text: str, excluding: frozenset[str]
+                            ) -> tuple[str, ...]:
+    """The memoized core scan; raises what the core raises, caches only success."""
+    from trustsight.analysis.crossfire import crossfire_techniques
+
+    found = crossfire_techniques(text)
     shapes: set[str] = set()
     for rule_id, hits in (found or {}).items():
         if rule_id in excluding:
@@ -147,6 +163,7 @@ def behavioral_signature(chain: str, context: str = "") -> tuple[str, ...]:
 #: The optional clustering signal: the punctuation skeleton of each change
 #: line.  Names, hosts and paths are alphanumeric and drop out, so two
 #: cosmetic variants share a fingerprint while two techniques do not.
+@lru_cache(maxsize=4096)
 def diff_shape_fp(diff_text: str) -> str:
     """A content-normalized fingerprint of a diff's change-line shape.
 

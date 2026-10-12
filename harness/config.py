@@ -23,7 +23,7 @@ class ConfigError(ValueError):
 _TOP_LEVEL = {"campaign", "campaign_type", "environment", "generator", "prompt",
               "attempts", "stop_conditions", "package", "archive"}
 
-_ARCHIVE_KEYS = {"minimize_budget", "cell_saturation", "prompt_contract"}
+_ARCHIVE_KEYS = {"minimize", "minimize_budget", "cell_saturation", "prompt_contract"}
 
 
 @dataclass
@@ -37,6 +37,10 @@ class ArchiveConfig:
     what instrument it used.
     """
 
+    #: Whether to minimize a fresh bypass at all.  Minimization costs up to
+    #: `minimize_budget` analyses per bypass (bookkeeping, off the measured
+    #: path), and a saturated cell's representative cannot change.
+    minimize: bool = True
     minimize_budget: int = 24
     cell_saturation: int = 3
     prompt_contract: int = 2
@@ -135,8 +139,13 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
     unknown_archive = set(archive_raw) - _ARCHIVE_KEYS
     if unknown_archive:
         raise ConfigError(f"unknown archive keys: {sorted(unknown_archive)}")
+
+    def _archive_value(key, value):
+        return bool(value) if key == "minimize" else int(value)
+
     archive = ArchiveConfig(**{
-        key: int(value) for key, value in archive_raw.items() if key in _ARCHIVE_KEYS
+        key: _archive_value(key, value)
+        for key, value in archive_raw.items() if key in _ARCHIVE_KEYS
     })
 
     # An accumulating database makes verdicts order-dependent, so the

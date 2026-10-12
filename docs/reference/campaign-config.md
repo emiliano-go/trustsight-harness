@@ -146,6 +146,7 @@ the specification's values.
 
 | Key | Type | Default | Meaning |
 |---|---|---|---|
+| `minimize` | boolean | `true` | Whether to shrink a fresh bypass to a minimal repro. Costs up to `minimize_budget` analyses per bypass; skipped for a saturated cell. |
 | `minimize_budget` | integer | `24` | Analyses the minimizer may spend shrinking one bypass. |
 | `cell_saturation` | integer | `3` | Confirmed bypasses at one version that close a cell. |
 | `prompt_contract` | integer | `2` | The generator prompt version; 2 carries the open-cell map. |

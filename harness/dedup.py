@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from functools import lru_cache
 from pathlib import Path
 
 from .shape import UNSHAPED, behavioral_signature, shape_signature
@@ -56,12 +57,14 @@ def semantic_key(rule: str, shape: tuple[str, ...], chain: str,
     return (rule, shape, ())
 
 
+@lru_cache(maxsize=8192)
 def diff_hash(diff_text: str) -> str:
     """A stable identity for a diff.
 
     Trailing whitespace and line endings are normalised, because a model
     that emits the same attack with a different final newline has not found
-    a second attack.
+    a second attack.  Memoized: pure, content-keyed, and hashed repeatedly
+    (dedup, evidence, the regression gate's pairing).
     """
     normalised = "\n".join(line.rstrip() for line in diff_text.strip().split("\n"))
     return "sha256:" + hashlib.sha256(normalised.encode("utf-8")).hexdigest()

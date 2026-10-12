@@ -334,24 +334,32 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         # known-bypass rediscovery is a patch-verification event, not a new
         # cell, so it is skipped here.
         if verdict.status is Status.BYPASS and cells:
-            minimized = _minimize(diff_text, runner=runner, env=env, bash=bash,
-                                  checkers=checkers, behavior=behavior,
-                                  expected_rules=config.expected_rules,
-                                  cells=cells, budget=config.archive.minimize_budget)
-            if minimized is not None:
-                minimization["analyses"] += minimized.analyses
-                minimization["attempts"] += 1
-                minimization["partial"] += 1 if minimized.partial else 0
-                representative = minimized.diff
-                trace.minimized = {
-                    "status": "partial" if minimized.partial else "complete",
-                    "change_lines": minimized.change_lines,
-                    "original_change_lines": minimized.original_change_lines,
-                    "analyses": minimized.analyses,
-                    "partial": minimized.partial,
-                }
-            else:
-                representative = diff_text
+            # Minimization is bookkeeping; a cell that is already saturated
+            # will not take a new representative, so do not spend analyses on
+            # it (closed cells consume no budget).  `archive.minimize: false`
+            # disables it entirely.
+            worth_minimizing = config.archive.minimize and any(
+                not archive.is_closed(rule, shape, env.trustsight_version)
+                for rule, shape in cells)
+            representative = diff_text
+            if worth_minimizing:
+                minimized = _minimize(diff_text, runner=runner, env=env, bash=bash,
+                                      checkers=checkers, behavior=behavior,
+                                      expected_rules=config.expected_rules,
+                                      cells=cells,
+                                      budget=config.archive.minimize_budget)
+                if minimized is not None:
+                    minimization["analyses"] += minimized.analyses
+                    minimization["attempts"] += 1
+                    minimization["partial"] += 1 if minimized.partial else 0
+                    representative = minimized.diff
+                    trace.minimized = {
+                        "status": "partial" if minimized.partial else "complete",
+                        "change_lines": minimized.change_lines,
+                        "original_change_lines": minimized.original_change_lines,
+                        "analyses": minimized.analyses,
+                        "partial": minimized.partial,
+                    }
             for rule, shape in cells:
                 archive.observe(rule, shape, diff=representative,
                                 campaign=config.name, attempt=attempt,
