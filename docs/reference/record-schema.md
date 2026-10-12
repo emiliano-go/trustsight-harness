@@ -29,6 +29,7 @@ harness raises if any of those leak into a record.
 | `cost` | object | Tokens, API spend, ceiling, wall clock. |
 | `cell_coverage` | object | The primary metric: unique `(rule, shape)` cells this run filled, plus the shared grid's open/total counts. |
 | `duplicate_rate` | number \| null | Semantic duplicates over attempts that reached dedup; null when none did. The Goodhart canary for generator exploration. |
+| `dedup_savings` | object \| null | Analyses semantic dedup avoided (`analyses_avoided`) over attempts that reached it. |
 | `minimization_spend` | object \| null | Minimizer analyses, attempts and partials. Kept off the measured path; reported only so the cost is visible. |
 
 ## `environment`

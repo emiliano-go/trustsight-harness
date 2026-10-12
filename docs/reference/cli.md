@@ -207,11 +207,13 @@ cells for the TrustSight version in the environment file. Each cell is `open`
 (a bypass is confirmed), `closed` (a patch is verified), `unshaped` (attempts
 the catalog cannot name) or, per rule with no cells, `unproven`.
 
-Writes `regression/cellmatrix-<version>.json` and a markdown map beside it.
-The diff between two versions' matrices is the regression artifact: cells a
-patch closed, cells a new bypass opened, and newly named shapes. A row for a
-rule the pinned TrustSight does not ship is a configuration error, so the
-matrix can never claim a rule the instrument does not have.
+Writes `regression/matrix.json` and `regression/matrix.md` for the current
+version, plus the frozen `regression/cellmatrix-<version>.json`/`.md` snapshot
+the matrix is diffed against between releases. The diff between two versions'
+matrices is the regression artifact: cells a patch closed, cells a new bypass
+opened, and newly named shapes. A row for a rule the pinned TrustSight does
+not ship is a configuration error, so the matrix can never claim a rule the
+instrument does not have.
 
 ```bash
 uv run python -m harness matrix

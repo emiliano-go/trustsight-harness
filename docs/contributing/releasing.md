@@ -52,6 +52,22 @@ On a tag, CI:
 3. Generates `sbom.cyclonedx.json` from `uv.lock` and attaches it.
 4. Builds `site/llms.txt` and `site/llms-full.txt` from `zensical.toml`.
 
+## The hardness matrix
+
+The shape archive's publishable artifact is the hardness matrix. After the
+regression replay has moved every bypass's `patch_status` onto its cell, run
+
+```bash
+python -m harness matrix
+```
+
+and commit the refreshed `regression/matrix.json`/`matrix.md` and the frozen
+`regression/cellmatrix-<version>.json`/`.md` snapshot. This is the calibration
+job's per-release publication: rule R is "hardened as far as current knowledge
+goes" exactly when the matrix shows no open (or `unshaped`/`degraded`) cells
+for it. Diffing two versions' snapshots is the regression artifact - cells a
+patch closed, cells a new bypass opened, and newly named shapes.
+
 ## Docs companions
 
 `scripts/build_llms_txt.py` reads `zensical.toml` and writes two files:

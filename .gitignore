@@ -11,6 +11,8 @@ campaigns/*/thinking/
 regression/env/
 regression/.jobs/
 regression/cache.jsonl
+*.lock
+*.tmp.*
 .mcp-scratch/
 site/
 .seo-debug/
