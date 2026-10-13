@@ -40,11 +40,12 @@
     },
     "correlation": {
       "targeted": 0,
-      "total": 3,
+      "total": 4,
       "untargeted": [
         "G001",
         "G002",
-        "G003"
+        "G003",
+        "G004"
       ]
     },
     "count-based": {
@@ -153,10 +154,11 @@
     },
     "install-and-persist": {
       "targeted": 1,
-      "total": 20,
+      "total": 21,
       "untargeted": [
         "C017",
         "C029",
+        "C031",
         "H017",
         "H023",
         "H032",
@@ -318,7 +320,7 @@
     },
     "unverifiable": {
       "targeted": 1,
-      "total": 8,
+      "total": 9,
       "untargeted": [
         "W002",
         "W003",
@@ -326,7 +328,19 @@
         "W005",
         "W006",
         "W007",
-        "W008"
+        "W008",
+        "W009"
+      ]
+    },
+    "upstream-manifests": {
+      "targeted": 0,
+      "total": 5,
+      "untargeted": [
+        "U001",
+        "U002",
+        "U003",
+        "U004",
+        "U005"
       ]
     }
   },
@@ -1334,9 +1348,9 @@
   ],
   "rules": {
     "targeted": 34,
-    "total": 243,
+    "total": 251,
     "unknown_expected_rules": [],
-    "untargeted": 209,
+    "untargeted": 217,
     "untargeted_ids": [
       "A001",
       "A002",
@@ -1371,6 +1385,7 @@
       "C028",
       "C029",
       "C030",
+      "C031",
       "D001",
       "D002",
       "D003",
@@ -1381,6 +1396,7 @@
       "G001",
       "G002",
       "G003",
+      "G004",
       "H002",
       "H003",
       "H004",
@@ -1513,6 +1529,11 @@
       "T001",
       "T002",
       "T003",
+      "U001",
+      "U002",
+      "U003",
+      "U004",
+      "U005",
       "W002",
       "W003",
       "W004",
@@ -1520,6 +1541,7 @@
       "W006",
       "W007",
       "W008",
+      "W009",
       "X001",
       "X003",
       "X004",
