@@ -177,10 +177,28 @@ TrustSight matches, and the harness never acts on them. Pattern entries are
 validated by TrustSight's own loader, which refuses a pattern that risks
 catastrophic backtracking.
 
+The campaign *name* is confined too. It is an address that reaches the record,
+so it is validated as a lowercase kebab-case slug at load
+(`campaign_slug` in `harness/paths.py`) rather than only over the committed
+`campaigns/`: a name carrying shell substitution is not an address and is
+refused. This matters because the campaign directory itself is supplied by the
+operator and may be arbitrary, so its contents are not trusted either.
+
+Output is written through a path, and a path can be a symlink planted by
+whoever supplied the campaign. `record.json` and `evidence.jsonl` are therefore
+written with `write_atomic` (a fresh temp file followed by `os.replace`, which
+replaces the directory entry rather than opening the target) and appended with
+`O_NOFOLLOW`, so a `record.json` symlink aimed at a shell startup file is
+discarded rather than followed. The record is data: it is never sourced.
+
 **Enforcement.** Adversarial cases in `tests/test_mcp.py` drive `run_campaign`
-with a `directory`, `baseline` or `sources` value that escapes the tree and
-assert the configuration error, and the path confinement itself is a plain
-function with its own test.
+with a `manifest`, `sources`, `db_snapshot` or `ioc_baseline` value that
+escapes the tree and assert the configuration error, and the path confinement
+itself is a plain function with its own test. `tests/test_output_safety.py`
+drives `Recorder` with `record.json` and `evidence.jsonl` symlinked to victim
+files and asserts the victims are unchanged and the symlinks are replaced;
+`tests/test_config.py` asserts a hostile, uppercase or non-string campaign name
+is refused at load.
 
 ---
 

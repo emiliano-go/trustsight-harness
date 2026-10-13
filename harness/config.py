@@ -12,6 +12,7 @@ from pathlib import Path
 import yaml
 
 from .environment import Environment, load_environment
+from .paths import campaign_slug
 
 __all__ = ["ArchiveConfig", "CampaignConfig", "ConfigError", "load_campaign"]
 
@@ -117,6 +118,14 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
         if required not in raw:
             raise ConfigError(f"campaign.{required} is required")
 
+    # The name is an address and reaches the record, so it is validated here,
+    # not only over the committed campaigns: arbitrary campaign directories are
+    # accepted, and a name carrying shell substitution must not be one.
+    try:
+        name = campaign_slug(raw["campaign"])
+    except ValueError as exc:
+        raise ConfigError(str(exc)) from exc
+
     campaign_type = raw.get("campaign_type", "")
     if campaign_type not in ("deterministic", "stochastic"):
         raise ConfigError("campaign_type must be 'deterministic' or 'stochastic'")
@@ -158,7 +167,7 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
         )
 
     return CampaignConfig(
-        name=raw["campaign"],
+        name=name,
         campaign_type=campaign_type,
         environment=env,
         generator=generator,

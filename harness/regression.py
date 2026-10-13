@@ -19,6 +19,7 @@ from .dedup import cells_for
 from .environment import Environment, EnvironmentError_, load_environment
 from .evidence import analysed_text_by_hash, diff_by_hash
 from .judge import judge
+from .paths import write_atomic
 from .pool import run_pool
 from .regression_cache import (
     RegressionCache,
@@ -317,7 +318,7 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
         },
         "bypasses": results,
     }
-    (work / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))
+    write_atomic(work / "report.json", json.dumps(report, indent=2, sort_keys=True))
     return report
 
 

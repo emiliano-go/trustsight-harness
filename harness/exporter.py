@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .paths import write_atomic
 from .status import Status
 
 __all__ = ["ExportRefused", "Exporter"]
@@ -63,9 +64,9 @@ class Exporter:
     def _write(self, directory: Path, trace, diff_text: str, expected: dict) -> Path:
         stem = trace.diff_sha256.split(":", 1)[-1][:16]
         directory.mkdir(parents=True, exist_ok=True)
-        (directory / f"{stem}.diff").write_text(diff_text)
-        (directory / f"{stem}.expected.json").write_text(json.dumps(
+        write_atomic(directory / f"{stem}.diff", diff_text)
+        write_atomic(directory / f"{stem}.expected.json", json.dumps(
             {**expected, "provenance": self.provenance}, indent=2, sort_keys=True))
-        (directory / f"{stem}.trace.json").write_text(json.dumps(
+        write_atomic(directory / f"{stem}.trace.json", json.dumps(
             trace.to_dict(), indent=2, sort_keys=True))
         return directory / f"{stem}.diff"

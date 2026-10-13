@@ -14,6 +14,7 @@ from pathlib import Path
 
 from .environment import NamespaceUnavailableError
 from .factory import build_generator
+from .paths import write_atomic
 from .safe_text import clean
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -129,7 +130,7 @@ def main(argv: list[str] | None = None) -> int:
         report = build_coverage(REPO_ROOT)
         out = REPO_ROOT / "coverage" / "report.json"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        write_atomic(out, json.dumps(report, indent=2, sort_keys=True) + "\n")
         rules = report["rules"]
         # Two numbers, because "unprobed" and "unprobeable" are different
         # facts and only one of them is a gap in the suite.  Naming them
@@ -175,11 +176,11 @@ def main(argv: list[str] | None = None) -> int:
             return EXIT_CONFIG
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
         report = scan_benign(REPO_ROOT, corpus=corpus,
-                             environment=yaml.safe_load(env_path.read_text()),
+                             environment=environment,
                              sample=max(1, args.sample))
         out = REPO_ROOT / "benign" / "report.json"
         out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+        write_atomic(out, json.dumps(report, indent=2, sort_keys=True) + "\n")
         print(f"{report['flagged']} of {report['scanned']} benign diffs flagged at "
               f"threshold {report['threshold']} "
               f"(rate {report['flag_rate']['estimate']:.4f}).")
@@ -202,7 +203,7 @@ def main(argv: list[str] | None = None) -> int:
         dump = Path(args.dump_inputs)
         dump.mkdir(parents=True, exist_ok=True)
         for index, cell_id, text in generator.iter_inputs():
-            (dump / f"{index:05d}-{cell_id}.PKGBUILD").write_text(text)
+            write_atomic(dump / f"{index:05d}-{cell_id}.PKGBUILD", text)
         print(f"wrote {len(generator)} inputs to {dump}")
         return EXIT_OK
 

@@ -8,13 +8,13 @@ and MCP surface then disagree about which campaign they mean.
 """
 
 import json
-import re
 from pathlib import Path
 
 import yaml
 
+from harness.paths import KEBAB
+
 ROOT = Path(__file__).resolve().parent.parent
-KEBAB = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 
 
 def _campaigns():

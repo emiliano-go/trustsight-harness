@@ -12,6 +12,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .paths import open_append_nofollow, write_atomic
 from .stats import (
     bypass_rate,
     layers_fully_bypassed,
@@ -86,7 +87,8 @@ class Recorder:
         #: after each attempt so a crash mid-campaign leaves the attempts that
         #: did finish readable, exactly as the per-attempt files did.
         self._evidence_path = root / "evidence.jsonl"
-        self._evidence_path.write_text("")
+        # Atomic: a symlink planted at the name is replaced, not followed.
+        write_atomic(self._evidence_path, "")
 
     def add(self, trace: Trace, diff_text: str,
             analysed_text: str = "") -> None:
@@ -111,7 +113,7 @@ class Recorder:
             # when it is present and says so in the report when it is not.
             if analysed_text:
                 entry["analysed_text"] = analysed_text
-        with self._evidence_path.open("a", encoding="utf-8") as handle:
+        with open_append_nofollow(self._evidence_path) as handle:
             handle.write(json.dumps(entry, sort_keys=True) + "\n")
         if trace.status is Status.BYPASS:
             self.bypass_hashes.append(trace.diff_sha256)
@@ -206,5 +208,7 @@ class Recorder:
 
     def write_record(self, record: dict) -> Path:
         path = self.root / "record.json"
-        path.write_text(json.dumps(record, indent=2, sort_keys=True))
+        # Atomic: a symlink planted at `record.json` (the delivery shape in the
+        # H8 finding) is replaced, never opened and followed.
+        write_atomic(path, json.dumps(record, indent=2, sort_keys=True))
         return path

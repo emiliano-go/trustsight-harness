@@ -16,7 +16,7 @@ below needs the same scrutiny as a change to TrustSight's own security model.
 | Bounded reads | `harness/sanitizer.py`, `generators/llm.py` | Memory exhaustion or unbounded logs. |
 | Inert rendering | `harness/safe_text.py` | Terminal escape injection. |
 | Parameterized storage | `harness/environment.py`, `scripts/sbom.py` | SQL injection or command injection. |
-| Untrusted campaign config is confined | `within` in `harness/paths.py`, `tests/test_mcp.py` | Reading a recipe, template, baseline or price file from outside the tree. |
+| Untrusted campaign config is confined | `within` and `campaign_slug` in `harness/paths.py`; `write_atomic` for campaign output | Reading a recipe, template, baseline or price file from outside the tree, or writing campaign output through a planted symlink. |
 | Inputs are rendered, never evaluated | `generators/inputs.py` | A template engine executing expressions from campaign data (H1). |
 | Pinned dependencies | `uv.lock`, CI | Supply-chain drift. |
 | The image pins the same instrument | `.github/trustsight-commit`, `Dockerfile`, `docker.yml` | The image measuring a different TrustSight than CI. |
@@ -29,7 +29,8 @@ below needs the same scrutiny as a change to TrustSight's own security model.
 - [ ] Does it parse attacker-controlled text? Size bounds and escape handling
       must be present.
 - [ ] Does it accept a path from `campaign.yml` or a tool argument? It must be
-      confined to its allowed root.
+      confined to its allowed root. Does it write to a path under the campaign
+      directory? It must use `write_atomic`/`O_NOFOLLOW`, never open the target.
 - [ ] Does it add a new record field? Check it against `FORBIDDEN_RECORD_FIELDS`.
 - [ ] Does it change the Judge matrix? The change must map to a specification
       update and new tests.
