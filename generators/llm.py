@@ -114,8 +114,14 @@ class LLMGenerator(Generator):
         self.spent_usd += actual
 
         if self.thinking_dir is not None:
-            self.thinking_dir.mkdir(parents=True, exist_ok=True)
-            (self.thinking_dir / f"{attempt:05d}.txt").write_text(text[:MAX_RESPONSE_BYTES])
+            # The log is telemetry, never part of the measurement: a full or
+            # read-only disk must not discard a paid call and fail the run.
+            try:
+                self.thinking_dir.mkdir(parents=True, exist_ok=True)
+                (self.thinking_dir / f"{attempt:05d}.txt").write_text(
+                    text[:MAX_RESPONSE_BYTES], encoding="utf-8")
+            except OSError:
+                pass
 
         diff = extract_single_diff(strip_thinking(text))
         return Generated(diff=diff, cost={

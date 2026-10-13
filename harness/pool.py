@@ -94,7 +94,15 @@ async def _read_reply(worker: dict) -> dict:
                             f"reply: {buf[:200]!r}")
         buf += chunk
     line, _, _rest = buf.partition(b"\n")
-    return json.loads(line)
+    try:
+        reply = json.loads(line)
+    except json.JSONDecodeError as exc:
+        raise PoolError(f"pool worker {worker['pid']} sent a malformed "
+                        f"reply: {line[:200]!r}") from exc
+    if not isinstance(reply, dict):
+        raise PoolError(f"pool worker {worker['pid']} sent a non-object "
+                        f"reply: {line[:200]!r}")
+    return reply
 
 
 async def _pool_async(batches: list[list[dict]], kind: str,

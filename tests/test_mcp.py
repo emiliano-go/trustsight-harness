@@ -475,3 +475,19 @@ def test_load_config_does_not_read_outside_the_campaign(tmp_path):
     out = server.load_config(str(path))
     assert out["name"] == "t"
 
+
+@pytest.mark.parametrize("environment", [
+    {"trustsight_version": VERSION, "db_state": "snapshot",
+     "db_snapshot": "../.."},
+    {"trustsight_version": VERSION, "db_state": "snapshot",
+     "db_snapshot": "/etc"},
+    {"trustsight_version": VERSION, "ioc_baseline": "../.."},
+    {"trustsight_version": VERSION, "ioc_baseline": "/etc"},
+])
+def test_an_environment_path_cannot_escape_its_root(tmp_path, environment):
+    path = _campaign(tmp_path / "c", environment=environment)
+    out = server.run_campaign(str(path))
+    job = _wait(server._jobs[out["job_id"]])
+    assert job.status == "failed"
+    assert "escapes" in job.error
+

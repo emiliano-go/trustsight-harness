@@ -91,7 +91,13 @@ class RegressionCache:
         self.enabled = enabled
         self._entries: dict[str, dict] = {}
         if enabled and path.exists():
-            for line in path.read_text().splitlines():
+            try:
+                lines = path.read_text().splitlines()
+            except OSError:
+                # The cache is a convenience, never a published artefact: an
+                # unreadable file means no cache, not no gate.
+                lines = []
+            for line in lines:
                 line = line.strip()
                 if not line:
                     continue
@@ -109,21 +115,32 @@ class RegressionCache:
         return self._entries.get(key)
 
     def put(self, key: str, result: dict) -> None:
-        """Store one result.  Degraded entries are the caller's to skip."""
+        """Store one result.  Degraded entries are the caller's to skip.
+
+        A write failure disables the cache rather than failing the gate: the
+        verdicts were computed fresh regardless, and losing a cache entry must
+        not lose a finished replay run.
+        """
         if not self.enabled or result.get("state") == "degraded":
             return
         self._entries[key] = result
-        self.path.parent.mkdir(parents=True, exist_ok=True)
-        with self.path.open("a", encoding="utf-8") as handle:
-            handle.write(json.dumps({"key": key, "result": result},
-                                    sort_keys=True) + "\n")
-        if self.path.stat().st_size > MAX_CACHE_BYTES:
-            self.compact()
+        try:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            with self.path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps({"key": key, "result": result},
+                                        sort_keys=True) + "\n")
+            if self.path.stat().st_size > MAX_CACHE_BYTES:
+                self.compact()
+        except OSError:
+            self.enabled = False
 
     def compact(self) -> None:
         """Rewrite the file with one entry per key, atomically."""
-        temporary = self.path.with_name(self.path.name + ".tmp")
-        temporary.write_text("".join(
-            json.dumps({"key": key, "result": result}, sort_keys=True) + "\n"
-            for key, result in self._entries.items()))
-        temporary.replace(self.path)
+        try:
+            temporary = self.path.with_name(self.path.name + ".tmp")
+            temporary.write_text("".join(
+                json.dumps({"key": key, "result": result}, sort_keys=True) + "\n"
+                for key, result in self._entries.items()))
+            temporary.replace(self.path)
+        except OSError:
+            self.enabled = False

@@ -18,6 +18,8 @@ import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .paths import within
+
 __all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
            "NamespaceUnavailableError", "freeze_aur_lookup",
            "load_environment"]
@@ -274,7 +276,8 @@ class Environment:
         if self.db_state == "seeded":
             self._import_seed()
         elif self.db_state == "snapshot":
-            source = self._root / self.db_snapshot
+            source = within(self._root, self.db_snapshot,
+                            "environment.db_snapshot")
             if not source.exists():
                 raise EnvironmentError_(f"db_snapshot not found: {source}")
             target = self._data_dir / "trustsight.db"
@@ -313,7 +316,8 @@ class Environment:
         """Import the declared federation baseline into the bound database."""
         from trustsight.ioc_baseline import import_baseline
 
-        path = self._root / self.ioc_baseline
+        path = within(self._root, self.ioc_baseline,
+                      "environment.ioc_baseline")
         if not path.exists():
             raise EnvironmentError_(f"ioc_baseline not found: {path}")
         import_baseline(path, allow_unsigned=True)
@@ -490,6 +494,9 @@ class Environment:
 
 
 def load_environment(raw: dict, root: Path) -> Environment:
+    if not isinstance(raw, dict):
+        raise EnvironmentError_(
+            f"environment must be a mapping, got {type(raw).__name__}")
     known = {
         "trustsight_version", "trustsight_source", "python_version", "db_state",
         "seed_sha256", "db_snapshot", "ioc_baseline", "config_fingerprint",

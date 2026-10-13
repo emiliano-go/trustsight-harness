@@ -64,7 +64,14 @@ UNREACHABLE_BY_FORMAT = {
 def _campaigns(repo_root: Path) -> list[dict]:
     out = []
     for path in sorted((repo_root / "campaigns").glob("*/campaign.yml")):
-        raw = yaml.safe_load(path.read_text()) or {}
+        try:
+            raw = yaml.safe_load(path.read_text()) or {}
+        except (OSError, yaml.YAMLError):
+            # Best-effort overview: a campaign that cannot be read is
+            # reported by the campaign machinery itself, not here.
+            continue
+        if not isinstance(raw, dict):
+            continue
         rules = tuple((raw.get("prompt") or {}).get("expected_rules") or ())
         out.append({
             "campaign": raw.get("campaign", path.parent.name),

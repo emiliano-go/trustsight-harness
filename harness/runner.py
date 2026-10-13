@@ -156,7 +156,11 @@ async def _read_reply(sess: _Session) -> dict:
         sess.buf += chunk
     line, _, rest = sess.buf.partition(b"\n")
     sess.buf = rest
-    return json.loads(line)
+    try:
+        return json.loads(line)
+    except json.JSONDecodeError as exc:
+        raise _WorkerGone(f"analysis worker sent a malformed reply: "
+                          f"{line[:200]!r}") from exc
 
 
 async def _async_request(sess: _Session, payload: dict) -> dict:

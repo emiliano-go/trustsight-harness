@@ -166,6 +166,34 @@ def test_paths_escape_nothing(tmp_path):
                            "cells": [{"id": "a", "text": "pkgname=p\n"}]})
 
 
+def test_a_malformed_manifest_is_a_configuration_error(tmp_path):
+    """A YAML scanner error must surface as the manifest's own contract - a
+    named configuration error - not a raw parser traceback from a campaign
+    file the operator committed."""
+    campaign = tmp_path / "c"
+    campaign.mkdir(exist_ok=True)
+    (campaign / "inputs.yml").write_text("cells:\n  - id: a\n  text: [unclosed\n")
+    from generators.inputs import InputsGenerator
+    from harness.paths import within
+
+    with pytest.raises(ValueError, match="inputs.yml: not well-formed YAML"):
+        InputsGenerator(campaign / "inputs.yml", campaign_root=campaign,
+                        repo_root=tmp_path, resolve=within)
+
+
+def test_a_thinking_log_write_failure_does_not_discard_the_attempt(tmp_path):
+    """The log is telemetry: a full or read-only disk must not fail a run
+    that already paid for its call."""
+    gen = LLMGenerator(provider="kimi", model="kimi-k2", max_cost_usd=1.0,
+                       prices=PRICES, thinking_dir=tmp_path / "a-file")
+    (tmp_path / "a-file").write_text("not a directory")
+    gen._call = lambda prompt: ("```diff\n+a\n```", {
+        "tokens_in": 1, "tokens_out": 1, "wall_clock_ms": 1, "retries": 0})
+    produced = gen.generate(Prompt(text="x"), 0)
+    assert "+a" in produced.diff
+    assert gen.spent_usd > 0
+
+
 def test_dump_inputs_lists_every_cell(tmp_path):
     generator = _inputs(tmp_path, {"cells": [
         {"id": "a", "text": "pkgname=p\n"},

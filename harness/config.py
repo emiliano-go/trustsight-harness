@@ -92,7 +92,10 @@ class CampaignConfig:
         result is a harness health note, never a package finding.
         """
         pairs = self.prompt.get("cofire_pairs", ()) or ()
-        return tuple((str(p[0]), str(p[1])) for p in pairs if len(p) >= 2)
+        if not isinstance(pairs, (list, tuple)):
+            return ()
+        return tuple((str(p[0]), str(p[1])) for p in pairs
+                     if isinstance(p, (list, tuple)) and len(p) >= 2)
 
     @property
     def expected_iocs(self) -> tuple[dict, ...]:
@@ -109,7 +112,13 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
     path = directory / "campaign.yml"
     if not path.exists():
         raise ConfigError(f"no campaign.yml in {directory}")
-    raw = yaml.safe_load(path.read_text()) or {}
+    try:
+        raw = yaml.safe_load(path.read_text())
+    except yaml.YAMLError as exc:
+        raise ConfigError(f"campaign.yml is not valid YAML: {exc}") from exc
+    if not isinstance(raw, dict):
+        raise ConfigError(
+            f"campaign.yml must be a mapping, got {type(raw).__name__}")
     unknown = set(raw) - _TOP_LEVEL
     if unknown:
         raise ConfigError(f"unknown campaign keys: {sorted(unknown)}")
@@ -133,6 +142,8 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
     env = load_environment(raw["environment"], repo_root)
 
     prompt = raw.get("prompt", {}) or {}
+    if not isinstance(prompt, dict):
+        raise ConfigError("prompt must be a mapping")
     forbidden = prompt.get("forbidden_techniques")
     if forbidden is None:
         raise ConfigError(
@@ -141,10 +152,14 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
         )
 
     generator = raw["generator"]
+    if not isinstance(generator, dict):
+        raise ConfigError("generator must be a mapping")
     if generator.get("type") == "llm" and "max_cost_usd" not in generator:
         raise ConfigError("llm campaigns require generator.max_cost_usd")
 
     archive_raw = raw.get("archive", {}) or {}
+    if not isinstance(archive_raw, dict):
+        raise ConfigError("archive must be a mapping")
     unknown_archive = set(archive_raw) - _ARCHIVE_KEYS
     if unknown_archive:
         raise ConfigError(f"unknown archive keys: {sorted(unknown_archive)}")
@@ -166,6 +181,10 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
             "such a campaign is stochastic for verdict purposes"
         )
 
+    stop_conditions = raw.get("stop_conditions", {}) or {}
+    if not isinstance(stop_conditions, dict):
+        raise ConfigError("stop_conditions must be a mapping")
+
     return CampaignConfig(
         name=name,
         campaign_type=campaign_type,
@@ -173,7 +192,7 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
         generator=generator,
         prompt=prompt,
         attempts=int(raw["attempts"]),
-        stop_conditions=raw.get("stop_conditions", {}) or {},
+        stop_conditions=stop_conditions,
         package=str(raw.get("package", "harness-pkg")),
         root=directory,
         archive=archive,

@@ -514,3 +514,54 @@ def test_the_cache_key_separates_the_two_replays(tmp_path):
     other = cache_key({"diff_hash": "sha256:d", "analysed_text": "pkgname=x\n"},
                       env, "v", "j", "s")
     assert len({without, with_text, other}) == 3
+
+
+def test_a_corrupt_record_does_not_stop_the_gate(tmp_path):
+    """One campaign's unreadable record offers no replayable bypasses, but it
+    must not take down the other campaigns' replays either."""
+    bad = tmp_path / "bad"
+    bad.mkdir(parents=True)
+    (bad / "record.json").write_text("{ not json")
+    also_bad = tmp_path / "also-bad"
+    also_bad.mkdir(parents=True)
+    (also_bad / "record.json").write_text("[1, 2, 3]")
+
+    good = tmp_path / "good"
+    diff = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+x=1\n"
+    _record(good, bypass_hashes=[diff_hash(diff)])
+    _evidence(good, [{"attempt": 0, "status": "bypass",
+                      "diff_sha256": diff_hash(diff), "diff": diff}])
+
+    found = _committed_bypasses(tmp_path)
+    assert [item["campaign"] for item in found] == ["good"]
+
+
+def test_an_unreadable_cache_reads_as_empty(tmp_path):
+    from harness.regression_cache import RegressionCache
+
+    path = tmp_path / "cache.jsonl"
+    path.write_text('{"key": "k", "result": {"state": "closed"}}\n')
+    path.chmod(0o000)
+    try:
+        cache = RegressionCache(path)
+        assert cache.get("k") is None
+    finally:
+        path.chmod(0o644)
+
+
+def test_a_cache_write_failure_disables_the_cache(tmp_path, monkeypatch):
+    """Losing the cache must not lose the gate run that computed the verdicts."""
+    from harness.regression_cache import RegressionCache
+
+    path = tmp_path / "cache.jsonl"
+    real_open = Path.open
+
+    def denied(self, *args, **kwargs):
+        if self == path:
+            raise OSError("disk full")
+        return real_open(self, *args, **kwargs)
+
+    cache = RegressionCache(path)
+    monkeypatch.setattr(Path, "open", denied)
+    cache.put("k", {"state": "closed", "status": "detected"})
+    assert cache.enabled is False

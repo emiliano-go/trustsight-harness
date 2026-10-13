@@ -57,6 +57,10 @@ with `NamespaceUnavailableError` naming the fix). No fallback path remains.
   benign fixture that would have slipped through. FreeBSD `fetch` joins the
   fetch vocabulary, and the record's layer-level `bypasses` alias is
   replaced by `layers_fully_bypassed` (the verdict count keeps its name).
+- The measured build moves to TrustSight 0.19.0: the default pin in
+  `defaults/environment.yml` and every committed campaign move together, and
+  the README and CLI reference's coverage figures are re-derived from the
+  live taxonomy (34 of 252 rules targeted by 99 campaigns).
 
 ## 2.1.0
 

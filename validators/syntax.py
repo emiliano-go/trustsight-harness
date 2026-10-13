@@ -259,6 +259,13 @@ def validate_syntax(diff_text: str, bash: str) -> SyntaxResult:
     except BashTimeout:
         return SyntaxResult(False, reason="bash -n timed out",
                             old_text=old_text, new_text=new_text, bash_path=bash)
+    except NamespaceUnavailableError:
+        raise
+    except Exception as exc:  # noqa: BLE001 - a sandbox fault rejects the
+        # attempt; it must not crash the run.  Spawn and portal failures are
+        # infrastructure, not evidence the diff parses.
+        return SyntaxResult(False, reason=f"bash -n could not run: {exc}",
+                            old_text=old_text, new_text=new_text, bash_path=bash)
 
     if old_rc != 0 or new_rc != 0:
         side = "old" if old_rc != 0 else "new"

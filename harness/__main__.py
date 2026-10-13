@@ -84,7 +84,7 @@ def main(argv: list[str] | None = None) -> int:
         except NamespaceUnavailableError as exc:
             print(f"environment error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
-        except ValueError as exc:
+        except (yaml.YAMLError, ValueError) as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
         except Exception as exc:                       # noqa: BLE001
@@ -150,11 +150,16 @@ def main(argv: list[str] | None = None) -> int:
         from .archive import Archive
         from .matrix import build_matrix, save_matrix
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
-        version = str(yaml.safe_load(env_path.read_text())["trustsight_version"])
         try:
+            env_doc = yaml.safe_load(env_path.read_text())
+            if not isinstance(env_doc, dict) or "trustsight_version" not in env_doc:
+                raise ValueError(
+                    f"{env_path} is not an environment mapping with "
+                    "trustsight_version")
+            version = str(env_doc["trustsight_version"])
             archive = Archive.load(REPO_ROOT / "archive.json")
             matrix = build_matrix(archive, version, RULE_CATEGORIES)
-        except ValueError as exc:
+        except (ValueError, OSError) as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
         path = save_matrix(matrix, REPO_ROOT / "regression", version)
@@ -175,6 +180,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"corpus not found: {corpus}", file=sys.stderr)
             return EXIT_CONFIG
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
+        try:
+            environment = yaml.safe_load(env_path.read_text())
+        except (yaml.YAMLError, OSError) as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
+        if not isinstance(environment, dict):
+            print(f"configuration error: {env_path} is not an environment mapping",
+                  file=sys.stderr)
+            return EXIT_CONFIG
         report = scan_benign(REPO_ROOT, corpus=corpus,
                              environment=environment,
                              sample=max(1, args.sample))

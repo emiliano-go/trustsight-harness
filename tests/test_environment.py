@@ -385,3 +385,8 @@ def test_the_template_key_follows_the_declaration(tmp_path):
     a.bind(tmp_path / "a")
     b.bind(tmp_path / "b")
     assert a._template_path().name != b._template_path().name
+
+
+def test_a_non_mapping_environment_is_refused():
+    with pytest.raises(EnvironmentError_, match="must be a mapping"):
+        load_environment(["trustsight_version"], ROOT)

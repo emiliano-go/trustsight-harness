@@ -30,6 +30,10 @@ than trusted:
   network namespace (`CLONE_NEWUSER|CLONE_NEWNS|CLONE_NEWNET`) via
   rsyscall-ng — so even a bash that somehow executed something could not open a
   socket or touch a mount the harness did not intend;
+
+  The empty network namespace is not universal: `harness/pool.py` adds
+  `CLONE_NEWNET` only for regression shards; sweep workers keep the host
+  network (see the `pool.py` docstring).
 - the environment is **replaced, not inherited**, so a hostile `BASH_ENV` in the
   operator's own shell cannot turn a parse into an execution;
 - the call is bounded by a **kill-based deadline** (a `threading.Timer` that
@@ -109,9 +113,9 @@ may contain an escape sequence, which is the same threat TrustSight handles in
 its own renderer (its A10 invariant).
 
 `harness/safe_text.clean` strips ANSI CSI, OSC and two-character escapes,
-removes C0 and C1 control characters, collapses whitespace runs, and truncates
-to a caller-supplied limit. Every error path that prints a generated string
-passes through it.
+removes the C0 control characters except tab, newline and carriage return,
+removes DEL, collapses whitespace runs, and truncates to a caller-supplied
+limit. Every error path that prints a generated string passes through it.
 
 ## H5: Parameterised storage
 
@@ -163,11 +167,11 @@ key after it is pushed, which is after it is public.
 
 **The claim.** `campaign.yml` is input. An MCP client or a generated campaign
 hands one to the loader, so the paths inside it are not trusted: the harness
-resolves `generator.manifest`, `generator.template`, `generator.directory`,
-`generator.baseline`, `generator.sources` and `generator.prices_path` under
-their allowed root (`within` in `harness/paths.py`) and refuses the run when one
-escapes, rather than reading a PKGBUILD, template or price file from anywhere on
-disk. The inputs manifest is data: it cannot name a path, and its cells are
+resolves `generator.manifest`, `generator.template`, `generator.baseline`,
+`generator.sources`, `generator.prices_path`, `environment.db_snapshot` and
+`environment.ioc_baseline` under their allowed root (`within` in
+`harness/paths.py`) and refuses the run when one escapes, rather than reading a
+PKGBUILD, template, snapshot or price file from anywhere on disk. The inputs manifest is data: it cannot name a path, and its cells are
 substituted literally, never evaluated.
 
 `environment.ioc_baseline` imports a federation baseline into the campaign-local

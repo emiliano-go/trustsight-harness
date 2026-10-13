@@ -97,3 +97,22 @@ def test_missing_usernamespaces_are_refused_with_a_named_error(monkeypatch):
         get_portal().run(_async_spawn)
     assert "user namespaces" in str(excinfo.value)
     assert isinstance(excinfo.value, EnvironmentError_)
+
+
+def test_a_malformed_worker_reply_is_a_worker_gone_error():
+    """A corrupted reply line (worker noise on the protocol stream) must read
+    as a dead worker - a typed RunnerError at the request level - not escape
+    as a raw JSONDecodeError."""
+    import pytest
+
+    from harness import runner as runner_module
+    from harness.portal import get_portal
+    from harness.runner import _Session
+
+    class _Noise:
+        async def read_some_bytes(self, _max):
+            return b"garbage, not json\n"
+
+    sess = _Session(execd=None, req=None, resp=_Noise(), pgid=0)
+    with pytest.raises(runner_module._WorkerGone, match="malformed reply"):
+        get_portal().run(runner_module._read_reply, sess)

@@ -52,7 +52,15 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
     """
     found: dict[str, dict] = {}
     for record_path in sorted(campaigns.glob("*/record.json")):
-        record = json.loads(record_path.read_text())
+        try:
+            record = json.loads(record_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            # A campaign record that cannot be read offers no bypasses to
+            # replay; the gate skips it rather than letting one corrupt file
+            # take down every other campaign's replay.
+            continue
+        if not isinstance(record, dict):
+            continue
         version = record.get("environment", {}).get("trustsight_version", "")
         campaign = record.get("campaign", record_path.parent.name)
         candidates = [(digest, version, campaign)

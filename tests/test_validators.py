@@ -57,6 +57,37 @@ def test_constraints_read_the_new_recipe():
     assert validate_constraints("build() { make; }", checkers).ok
 
 
+def test_a_sandbox_fault_rejects_the_attempt_instead_of_crashing(monkeypatch):
+    """A spawn or portal failure while running `bash -n` is infrastructure,
+    not evidence the diff parses: the attempt is rejected, the run survives."""
+    from validators import syntax
+
+    def _boom(*args):
+        raise OSError("No child processes")
+
+    monkeypatch.setattr(syntax, "_bash_n_pair_sync", _boom)
+    result = syntax.validate_syntax(
+        "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1 @@\n-a\n+b\n", "/bin/bash")
+    assert result.ok is False
+    assert "bash -n could not run" in result.reason
+
+
+def test_a_missing_namespace_still_aborts_the_run(monkeypatch):
+    """The fail-closed catch must not swallow the fatal environment error:
+    without user namespaces no sandbox exists, and every attempt would be
+    rejected for a reason the operator must fix."""
+    from harness.environment import NamespaceUnavailableError
+    from validators import syntax
+
+    def _boom(*args):
+        raise NamespaceUnavailableError("no userns")
+
+    monkeypatch.setattr(syntax, "_bash_n_pair_sync", _boom)
+    with pytest.raises(NamespaceUnavailableError):
+        syntax.validate_syntax(
+            "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1 @@\n-a\n+b\n", "/bin/bash")
+
+
 def test_prose_around_a_diff_is_a_syntax_error():
     """A model that explains itself has not met the output contract, and
     guessing which lines it meant is how a harness starts measuring its own

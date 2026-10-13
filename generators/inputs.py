@@ -49,7 +49,11 @@ class InputsGenerator(Generator):
         raw = manifest_path.read_text(encoding="utf-8")
         if len(raw.encode("utf-8")) > MAX_MANIFEST_BYTES:
             raise ValueError(f"{manifest_path.name} exceeds {MAX_MANIFEST_BYTES} bytes")
-        data = yaml.safe_load(raw)
+        try:
+            data = yaml.safe_load(raw)
+        except yaml.YAMLError as exc:
+            raise ValueError(
+                f"{manifest_path.name}: not well-formed YAML: {exc}") from exc
         if not isinstance(data, dict):
             raise ValueError(  # noqa: TRY004 - a config error, not a Python type error
                 f"{manifest_path.name} must be a YAML mapping")
