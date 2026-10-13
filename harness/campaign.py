@@ -23,6 +23,7 @@ from .dedup import (
 from .environment import EnvironmentError_
 from .exporter import Exporter
 from .judge import judge
+from .layer_audit import audit as layer_audit
 from .minimize import minimize
 from .recorder import Recorder, Trace
 from .runner import AnalysisTimeout, Runner, RunnerError
@@ -271,6 +272,22 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                     parse_overrides(load_config()))
             except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
+            # Section 6: classify a bypass by the layers that never got a
+            # shot.  A projection of the report's own `layers` object and the
+            # run's recorded config; a ruleset hole (every layer exercised,
+            # none fired) is a different remediation from a configuration hole
+            # (a cold database, a disabled lane).
+            if trace.status is Status.BYPASS:
+                try:
+                    trace.trustsight["layer_audit"] = layer_audit(
+                        result.body.get("layers"),
+                        db_state=env.db_state,
+                        accumulate=env.accumulate,
+                        ioc_baseline=bool(env.ioc_baseline),
+                        verify_lane=False,
+                    )
+                except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
+                    pass
             # Addendum 5 §6.5 M004: a declared co-fire that did not happen is
             # a tool-health note, never a package finding.
             try:

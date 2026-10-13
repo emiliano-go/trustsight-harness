@@ -46,7 +46,13 @@ def campaign_summary(record: dict) -> dict:
     return {
         "attempts": record.get("attempts", 0),
         "outcomes": record.get("outcomes", {}),
-        "bypasses": record.get("layers_fully_bypassed", 0),
+        # Section 6: the headline counts FULL bypasses only; a bypass a cold
+        # database or a disabled lane blinded is a configuration hole, kept in
+        # `conditional_bypasses` as the remediation map.  A record without the
+        # field (pre-§6) falls back to the layer-level count it published.
+        "bypasses": record.get("bypasses_full",
+                               record.get("layers_fully_bypassed", 0)),
+        "conditional_bypasses": record.get("conditional_bypasses", {}),
         "minimum_layer_cut": record.get("minimum_layer_cut"),
         "single_layer_failure": record.get("single_layer_failure", {}),
         "resilience_distribution": record.get("resilience_distribution", {}),

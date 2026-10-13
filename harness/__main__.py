@@ -252,6 +252,12 @@ def main(argv: list[str] | None = None) -> int:
             f"{summary['minimum_layer_cut']}, single-layer failures "
             f"{summary['single_layer_failure'] or '{}'}, bypasses "
             f"{summary['bypasses']}")
+        # Section 6: the conditional bypasses are configuration holes, not
+        # ruleset holes; they render as their own table, never in the headline.
+        if summary["conditional_bypasses"]:
+            print("conditional bypasses: " + ", ".join(
+                f"{reason} {count}"
+                for reason, count in sorted(summary["conditional_bypasses"].items())))
         if summary["limitations"]:
             print("attack-set limitations: " + "; ".join(summary["limitations"]))
     return EXIT_OK

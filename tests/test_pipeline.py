@@ -195,6 +195,7 @@ def test_campaign_summary_reports_layer_resilience():
               "limitations": ["no persistence shape"]}
     assert campaign_summary(record) == {
         "attempts": 5, "outcomes": {"BYPASS": 1}, "bypasses": 1,
+        "conditional_bypasses": {},
         "minimum_layer_cut": 2, "single_layer_failure": {"L4": 1},
         "resilience_distribution": {1: 2}, "layers_fully_bypassed": 1,
         "limitations": ["no persistence shape"], "cofire_health": [],
