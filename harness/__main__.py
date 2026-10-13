@@ -43,8 +43,10 @@ def _calibration_status() -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
     parser.add_argument("target", help="a campaign directory, 'sweep', 'regression', "
-                                       "'coverage', 'matrix' or 'benign'")
-    parser.add_argument("--environment", help="environment YAML for regression runs")
+                                       "'coverage', 'matrix', 'benign' or 'reclassify'")
+    parser.add_argument("--environment", help="environment YAML for regression and reclassify runs")
+    parser.add_argument("--record", help="reclassify: the campaign directory whose "
+                                         "bypasses are warm re-measured")
     parser.add_argument("--corpus", help="directory of benign *.diff files for 'benign'")
     parser.add_argument("--sample", type=int, default=1,
                         help="scan every Nth benign diff (default: all)")
@@ -198,6 +200,30 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{report['flagged']} of {report['scanned']} benign diffs flagged at "
               f"threshold {report['threshold']} "
               f"(rate {report['flag_rate']['estimate']:.4f}).")
+        return EXIT_OK
+
+    if args.target == "reclassify":
+        if not args.record:
+            print("reclassify needs --record <campaign-dir>", file=sys.stderr)
+            return EXIT_CONFIG
+        from .reclassify import run_reclassify
+
+        env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
+        try:
+            environment = yaml.safe_load(env_path.read_text())
+        except (yaml.YAMLError, OSError) as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
+        if not isinstance(environment, dict):
+            print(f"configuration error: {env_path} is not an environment mapping",
+                  file=sys.stderr)
+            return EXIT_CONFIG
+        try:
+            report = run_reclassify(REPO_ROOT, Path(args.record), environment)
+        except Exception as exc:                       # noqa: BLE001
+            print(f"harness error: {clean(exc)}", file=sys.stderr)
+            return EXIT_HARNESS
+        print(json.dumps(report, indent=2, sort_keys=True))
         return EXIT_OK
 
     from .config import ConfigError, load_campaign
