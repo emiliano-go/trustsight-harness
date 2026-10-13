@@ -10,6 +10,18 @@ Process control moves to rsyscall-ng, and unprivileged user namespaces
 become a hard requirement (Linux x86_64; without them the harness exits 1
 with `NamespaceUnavailableError` naming the fix). No fallback path remains.
 
+- **Layer-depth classification of bypasses.** A bypass is classified FULL or
+  conditional from the report's own `layers` object and the run's recorded
+  configuration (`harness/layer_audit.py`): a bypass every layer was exercised
+  on and slept through is a *ruleset* hole; one a cold database or a disabled
+  lane blinded is a *configuration* hole. The classification is metadata on
+  the bypass, not a new status, and it never infers traversal - it is a
+  projection of observed layer status. The record gains `conditional_bypasses`
+  beside `layers_fully_bypassed`, the headline counts FULL bypasses only, and
+  `python -m harness reclassify --record <dir>` warm-replays a record's
+  bypasses, promoting a conditional bypass caught warm (a re-run, never a
+  remembered edit).
+
 - **Out-of-process analysis.** TrustSight runs in an exec'd worker
   (`harness/analysis_worker.py`) cloned into `CLONE_NEWUSER|CLONE_NEWNET`.
   The kill-based deadline is a `threading.Timer` that `killpg`s the
@@ -60,7 +72,7 @@ with `NamespaceUnavailableError` naming the fix). No fallback path remains.
 - The measured build moves to TrustSight 0.19.0: the default pin in
   `defaults/environment.yml` and every committed campaign move together, and
   the README and CLI reference's coverage figures are re-derived from the
-  live taxonomy (34 of 252 rules targeted by 99 campaigns).
+  live taxonomy (34 of 244 rules targeted by 99 campaigns).
 
 ## 2.1.0
 

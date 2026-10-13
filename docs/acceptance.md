@@ -27,6 +27,9 @@ checked. A criterion with no test is a claim, not a property.
 | A benign diff that is flagged is measured, and an unflagged one is not counted as a bypass | `harness/benign.py`, `python -m harness benign` | `tests/test_benign.py` |
 | An untrusted `campaign.yml` cannot read outside its roots through the generator | `within` in `harness/paths.py` | `tests/test_mcp.py` (generator and environment path escapes) |
 | A campaign can assert the federation IOC layer without touching the verdict | `prompt.expected_iocs`, `environment.ioc_baseline`, `Trace.trustsight["ioc_expectations"]` | `tests/test_config.py`, the `wave3-*` campaign traces |
+| A bypass is classified FULL or conditional as a projection of the report's `layers` object and the run's recorded config, never an inferred traversal | `harness/layer_audit.py`, `Trace.trustsight["layer_audit"]` | `tests/test_layer_audit.py` (projection-only; `shape_inapplicable` never counts toward N) |
+| A conditional bypass never enters the headline count; its reasons are the separate remediation table | `harness/recorder.py` (`bypasses_full`, `conditional_bypasses`), `harness/stats.py` | `tests/test_layer_audit.py`, `tests/test_pipeline.py` |
+| Warm re-measurement is re-run, not remembered: a promotion carries the warm run's firing layer and finding | `harness/reclassify.py`, `python -m harness reclassify` | `tests/test_reclassify.py` |
 | CI and the container image pin the same TrustSight commit | `.github/trustsight-commit`, read by `ci.yml` and `docker.yml` | the two workflows, which assert the checked-out SHA |
 | The published image measures the pinned build and runs the tool | `Dockerfile`, `.github/workflows/docker.yml` | the workflow smoke test (`--help`, `coverage`, `regression`) |
 
