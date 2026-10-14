@@ -1,5 +1,9 @@
 """`python -m harness <campaign-dir>`, `sweep`, `regression`, `coverage`, `benign`.
 
+Every operation the MCP server exposes is also a CLI subcommand:
+`python -m harness <operation> [--<param> ...]` (see `harness/surface.py`).
+The six classic spellings above keep working unchanged.
+
 Exit codes are part of the contract: 0 the run produced a record or report,
 1 a configuration or environment fault the operator must fix, 2 a harness
 error.  Whether the numbers are good news is never encoded in an exit code.
@@ -39,10 +43,59 @@ def _calibration_status() -> str:
     return "passed" if checked else "failed"
 
 
+def _dispatch_operation(name: str, argv: list[str]) -> int:
+    """Run MCP operation *name* from the CLI.
+
+    The implementation is the exact function the MCP tool wraps (see
+    `harness/surface.py`), so the two surfaces cannot diverge.  The two
+    long operations run synchronously here by delegating to the classic
+    commands; every other operation is invoked with keyword arguments
+    parsed from its own signature and prints the JSON result.
+    """
+    from . import surface
+
+    parser = surface.cli_parser(name)
+    args = parser.parse_args(argv)
+
+    if name == "run_campaign":
+        return main([args.campaign_dir])
+    if name == "run_regression":
+        cmd = ["regression"]
+        if args.environment_yaml:
+            cmd += ["--environment", args.environment_yaml]
+        return main(cmd)
+
+    kwargs = {k: v for k, v in vars(args).items() if k != "out"}
+    try:
+        result = surface.function(name)(**kwargs)
+    except Exception as exc:                           # noqa: BLE001
+        print(f"harness error: {clean(exc)}", file=sys.stderr)
+        return EXIT_HARNESS
+
+    text = json.dumps(result, indent=2, sort_keys=True, default=str)
+    if args.out:
+        Path(args.out).write_text(text + "\n")
+    else:
+        print(text)
+    if isinstance(result, dict) and result.get("error"):
+        print(f"{name}: {clean(result['error'])}", file=sys.stderr)
+        return EXIT_CONFIG
+    return EXIT_OK
+
+
 def main(argv: list[str] | None = None) -> int:
+    argv_list = list(sys.argv[1:] if argv is None else argv)
+    if argv_list:
+        from . import surface
+
+        if (argv_list[0] in surface.OPERATIONS
+                and argv_list[0] not in surface.LEGACY_CLI):
+            return _dispatch_operation(argv_list[0], argv_list[1:])
+
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
     parser.add_argument("target", help="a campaign directory, 'sweep', 'regression', "
-                                       "'coverage', 'matrix' or 'benign'")
+                                       "'coverage', 'matrix' or 'benign', or any "
+                                       "MCP operation name (see the reference)")
     parser.add_argument("--environment", help="environment YAML for regression runs")
     parser.add_argument("--corpus", help="directory of benign *.diff files for 'benign'")
     parser.add_argument("--sample", type=int, default=1,
@@ -57,7 +110,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--match", action="append", default=[],
                         help="sweep: only campaigns whose name matches this glob "
                              "(repeatable)")
-    args = parser.parse_args(argv)
+    args = parser.parse_args(argv_list)
 
     calibration = _calibration_status()
 

@@ -16,7 +16,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from mcp.server.mcpserver import MCPServer
+try:  # the `mcp` extra is optional: the CLI imports this module for the
+    # shared operation implementations (see `harness/surface.py`), and it
+    # must not require the extra just to run a command.
+    from mcp.server.mcpserver import MCPServer
+except ImportError:  # pragma: no cover - exercised only without the extra
+    MCPServer = None  # type: ignore[assignment]
 
 from ..evidence import iter_evidence
 
@@ -26,13 +31,40 @@ from ..evidence import iter_evidence
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
-mcp = MCPServer(
-    "trustsight-harness",
-    instructions=(
-        "Adversarial measurement harness for TrustSight. Run campaigns, "
-        "analyse diffs, validate attack chains, and replay regressions."
-    ),
-)
+
+class _NullMCP:
+    """Stand-in when the `mcp` extra is absent.
+
+    It makes the `@mcp.tool()` / `@mcp.resource(...)` decorators no-ops and
+    refuses `run()`, so every operation function stays importable and
+    callable (the CLI path) but no server can be started.
+    """
+
+    def tool(self, *args, **kwargs):
+        def decorator(fn):
+            return fn
+        return decorator
+
+    def resource(self, *args, **kwargs):
+        def decorator(fn):
+            return fn
+        return decorator
+
+    def run(self, *args, **kwargs):
+        raise RuntimeError(
+            "the MCP server needs the `mcp` extra: uv sync --extra mcp")
+
+
+if MCPServer is not None:
+    mcp = MCPServer(
+        "trustsight-harness",
+        instructions=(
+            "Adversarial measurement harness for TrustSight. Run campaigns, "
+            "analyse diffs, validate attack chains, and replay regressions."
+        ),
+    )
+else:  # pragma: no cover - exercised only without the extra
+    mcp = _NullMCP()
 
 # ---------------------------------------------------------------------------
 # Job queue (thread-safe, for long-running operations)
@@ -716,6 +748,298 @@ def diff_hash(diff_text: str) -> str:
     """
     from ..dedup import diff_hash as _diff_hash
     return _diff_hash(diff_text)
+
+
+# ---------------------------------------------------------------------------
+# Tools: external read-only sources (AUR, watcher feed)
+#
+# These are the only tools that reach the network, and the only two peers the
+# harness talks to: `aur.archlinux.org` (to fetch a package's build files) and
+# the configured watcher feed host (to read published alerts).  Both URLs are
+# built from validated names and fixed paths; a URL that appeared *inside* a
+# PKGBUILD is still never resolved (self-security H2).  `httpx` is an extra,
+# so each tool reports its absence instead of raising at import.
+# ---------------------------------------------------------------------------
+
+#: The clients are created once: their limiters pace calls across the server's
+#: lifetime, and the on-disk ledger carries the window across restarts.
+_NET_LOCK = threading.Lock()
+_AUR_CLIENT = None
+_FEED_CLIENT = None
+
+_HTTPX_HINT = (
+    "httpx is required for the AUR and feed tools; install the harness with "
+    "the mcp extra (uv sync --extra mcp)"
+)
+
+
+def _network_error_types():
+    from ..aur import AurError
+    from ..feed import FeedError
+    from ..net import NetworkError, RateLimited
+    return (NetworkError, RateLimited, AurError, FeedError)
+
+
+def _aur_client():
+    from ..aur import AurClient
+    global _AUR_CLIENT
+    with _NET_LOCK:
+        if _AUR_CLIENT is None:
+            _AUR_CLIENT = AurClient()
+    return _AUR_CLIENT
+
+
+def _feed_client():
+    from ..feed import FeedClient
+    global _FEED_CLIENT
+    with _NET_LOCK:
+        if _FEED_CLIENT is None:
+            _FEED_CLIENT = FeedClient()
+    return _FEED_CLIENT
+
+
+@mcp.tool()
+def aur_info(packages: list[str]) -> dict:
+    """Look up AUR package metadata (version, deps, maintainer) via the RPC.
+
+    One ``multiinfo`` request, split to fit the AUR's name and URI caps, paced
+    against half the published 4000-requests-a-day budget.
+
+    Args:
+        packages: Exact AUR package/base names to look up (non-empty).
+    """
+    if not isinstance(packages, list) or not packages:
+        return {"error": "packages must be a non-empty array of names"}
+    try:
+        client = _aur_client()
+    except ImportError:
+        return {"error": _HTTPX_HINT}
+    fields = ("Name", "PackageBase", "Version", "Description", "URL", "NumVotes",
+              "Popularity", "OutOfDate", "Maintainer", "LastModified")
+    try:
+        records = client.info(packages)
+    except _network_error_types() as exc:
+        return {"error": str(exc)}
+    found = {
+        name: {k: records[name][k] for k in fields if k in records[name]}
+        for name in packages if name in records
+    }
+    return {"count": len(found), "packages": found}
+
+
+@mcp.tool()
+def aur_pkgbuild(package: str) -> dict:
+    """Download a package's build files from the AUR snapshot tarball.
+
+    Returns the PKGBUILD text and the list of files in the snapshot, cached by
+    (base, version, LastModified). The tarball is read in memory and bounded;
+    nothing is extracted to disk and nothing is executed.
+
+    Args:
+        package: An AUR package/base name.
+    """
+    if not isinstance(package, str) or not package:
+        return {"error": "package must be a non-empty name"}
+    try:
+        client = _aur_client()
+    except ImportError:
+        return {"error": _HTTPX_HINT}
+    try:
+        return client.pkgbuild(package).to_dict()
+    except _network_error_types() as exc:
+        return {"error": str(exc)}
+
+
+def _feed_call(method: str, *args, **kwargs) -> dict:
+    try:
+        client = _feed_client()
+    except ImportError:
+        return {"error": _HTTPX_HINT}
+    try:
+        return getattr(client, method)(*args, **kwargs)
+    except _network_error_types() as exc:
+        return {"error": str(exc)}
+
+
+@mcp.tool()
+def feed_search(
+    q: str | None = None,
+    event: str | None = None,
+    day: str | None = None,
+    since: int | None = None,
+    until: int | None = None,
+    limit: int = 50,
+) -> dict:
+    """Search the watcher feed (newest first).
+
+    Args:
+        q: Search terms; all must match (prefix).
+        event: 'trustsight.alerts', 'trustsight.heartbeat', or 'all'.
+        day: The AUR day being replayed (exact match).
+        since: Unix seconds, inclusive lower bound.
+        until: Unix seconds, inclusive upper bound.
+        limit: Page size (1-200, default 50).
+    """
+    return _feed_call("search", q=q, event=event, day=day,
+                      since=since, until=until, limit=limit)
+
+
+@mcp.tool()
+def feed_latest(n: int | None = None) -> dict:
+    """The most recent notification, or the most recent *n*.
+
+    Args:
+        n: How many to return (1-200); omit for the single newest with its full document.
+    """
+    return _feed_call("latest", n)
+
+
+@mcp.tool()
+def feed_by_date(date: str, timeframe: str | None = None) -> dict:
+    """Everything the feed stored on one UTC day, or a window within it.
+
+    Args:
+        date: A UTC day, ``YYYY-MM-DD``.
+        timeframe: ``HH``, ``HH-HH`` or ``HHMM-HHMM`` (all UTC).
+    """
+    return _feed_call("by_date", date, timeframe)
+
+
+@mcp.tool()
+def feed_by_package(name: str) -> dict:
+    """Every stored notification that mentions a package.
+
+    Args:
+        name: The package name to search for.
+    """
+    return _feed_call("by_package", name)
+
+
+@mcp.tool()
+def feed_by_rule(rule_id: str) -> dict:
+    """Every stored notification a rule fired on.
+
+    Args:
+        rule_id: The TrustSight rule id (e.g. 'R010').
+    """
+    return _feed_call("by_rule", rule_id)
+
+
+@mcp.tool()
+def feed_message(slug: str) -> dict:
+    """One notification by slug, with its full TrustSight document.
+
+    Args:
+        slug: ``YYYY-MM-DD/HHMMSS`` (may carry a same-second ``-<ntfy-id>`` suffix).
+    """
+    return _feed_call("message", slug)
+
+
+@mcp.tool()
+def feed_stats() -> dict:
+    """Aggregate counts over the feed's alert documents."""
+    return _feed_call("stats")
+
+
+@mcp.tool()
+def feed_health() -> dict:
+    """The watcher's liveness and readiness, with the time of the last notification."""
+    return _feed_call("health")
+
+
+# ---------------------------------------------------------------------------
+# Tools: report generators (the CLI's other commands, for full parity)
+# ---------------------------------------------------------------------------
+
+
+def _environment_path(environment_yaml: str | None) -> Path:
+    if environment_yaml:
+        return Path(environment_yaml)
+    return _defaults_dir() / "environment.yml"
+
+
+@mcp.tool()
+def sweep(match: list[str] | None = None, jobs: str | None = None) -> dict:
+    """Run every campaign (or those matching *match*) through the namespaced pool.
+
+    Args:
+        match: Glob patterns; only campaigns whose name matches any are run.
+        jobs: Worker count: 'auto', a number, or '1' (default: auto).
+    """
+    from ..__main__ import _calibration_status
+    from ..environment import NamespaceUnavailableError
+    from ..sweep import run_sweep
+
+    try:
+        return run_sweep(_repo_root(), patterns=tuple(match or ()),
+                         jobs=jobs or "auto", calibration=_calibration_status())
+    except NamespaceUnavailableError as exc:
+        return {"error": str(exc)}
+    except (ValueError, OSError) as exc:
+        return {"error": f"{type(exc).__name__}: {exc}"}
+
+
+@mcp.tool()
+def coverage() -> dict:
+    """Which TrustSight rules the campaign suite targets, and which it cannot."""
+    from ..coverage import build_coverage
+
+    report = build_coverage(_repo_root())
+    out = _repo_root() / "coverage" / "report.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    return report
+
+
+@mcp.tool()
+def matrix(environment_yaml: str | None = None) -> dict:
+    """The per-version hardness matrix of (rule, shape) cells.
+
+    Args:
+        environment_yaml: Environment YAML naming the TrustSight version (defaults/environment.yml).
+    """
+    import yaml
+    from trustsight.categories import RULE_CATEGORIES
+
+    from ..archive import Archive
+    from ..matrix import build_matrix, save_matrix
+
+    env_path = _environment_path(environment_yaml)
+    version = str(yaml.safe_load(env_path.read_text())["trustsight_version"])
+    try:
+        archive = Archive.load(_repo_root() / "archive.json")
+        built = build_matrix(archive, version, RULE_CATEGORIES)
+    except ValueError as exc:
+        return {"error": str(exc)}
+    save_matrix(built, _repo_root() / "regression", version)
+    return built
+
+
+@mcp.tool()
+def benign(corpus: str, sample: int = 1,
+           environment_yaml: str | None = None) -> dict:
+    """The tool's false-positive rate over a benign corpus of *.diff files.
+
+    Args:
+        corpus: Directory holding benign ``*.diff`` files.
+        sample: Scan every Nth diff (default: all).
+        environment_yaml: Environment YAML (defaults to defaults/environment.yml).
+    """
+    import yaml
+
+    from ..benign import scan_benign
+
+    directory = Path(corpus)
+    if not directory.exists():
+        return {"error": f"corpus not found: {directory}"}
+    report = scan_benign(_repo_root(), corpus=directory,
+                         environment=yaml.safe_load(
+                             _environment_path(environment_yaml).read_text()),
+                         sample=max(1, int(sample)))
+    out = _repo_root() / "benign" / "report.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    return report
 
 
 # ---------------------------------------------------------------------------

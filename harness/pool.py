@@ -25,11 +25,11 @@ import sys
 import trio
 from rsyscall import Command, local_process
 from rsyscall.path import Path as RPath
-from rsyscall.sched import CLONE
 from rsyscall.sys.wait import W
 
 from .environment import NamespaceUnavailableError
 from .portal import get_portal
+from .sandbox import Limits, clone_child, pool_flags
 
 __all__ = ["PoolError", "run_pool"]
 
@@ -42,23 +42,17 @@ class PoolError(RuntimeError):
 
 
 async def _spawn(newnet: bool) -> dict:
-    flags = CLONE.NEWUSER | CLONE.NEWNS | CLONE.NEWPID
-    if newnet:
-        flags |= CLONE.NEWNET
     req = await local_process.pipe()
     resp = await local_process.pipe()
     try:
-        child = await local_process.clone(flags)
-    except PermissionError as exc:
+        child = await clone_child(pool_flags(newnet), limits=Limits.pool())
+    except NamespaceUnavailableError:
         for fd in (req.read, req.write, resp.read, resp.write):
             try:
                 await fd.close()
             except Exception:  # noqa: BLE001, S110
                 pass
-        raise NamespaceUnavailableError(
-            "unprivileged user namespaces are not available; the harness "
-            "requires them (on Ubuntu set "
-            "kernel.apparmor_restrict_unprivileged_userns=0)") from exc
+        raise
     await child.task.inherit_fd(req.read).dup2(child.stdin)
     await child.task.inherit_fd(resp.write).dup2(child.stdout)
     await req.read.close()

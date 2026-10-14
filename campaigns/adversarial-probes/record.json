@@ -4,54 +4,66 @@
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.299145
+      0.324408
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 9,
+    "denominator_value": 8,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "adversarial-probes",
-  "campaign_commit": "35eb1e98358ba5f8ba3a013b82c0a419ebb90344",
+  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
   "campaign_type": "deterministic",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 0,
+    "total": 0
+  },
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7157
+    "wall_clock_ms": 7461
   },
+  "dedup_savings": {
+    "analyses_avoided": 0,
+    "attempts": 0
+  },
+  "duplicate_rate": null,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:df3acb4dc501b1a52b6cf40617c4bc7330c6ac74397cb08aa09f0b2e63a377f9",
+    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
-    "locale": "",
+    "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.1"
+    "trustsight_version": "0.19.0"
   },
+  "expected_rules": [],
   "generator": {
     "cells": 18,
     "manifest": "inputs.yml",
+    "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "adversarial-probes",
     "template": "template.PKGBUILD",
     "type": "inputs"
   },
-  "harness_version": "2.1.0",
+  "harness_version": "2.5.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476",
@@ -59,7 +71,7 @@
       "original_campaign": "node-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
@@ -67,7 +79,7 @@
       "original_campaign": "php-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:53fed95fba98f2ec619d67f5e26dedff2518d3161768cb72ff61c06d12b826bd",
@@ -75,7 +87,7 @@
       "original_campaign": "lua-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:253d965e3aedc9662a5cc7012e0d66f9822c3ea41eacddba76e9455c5793c3e1",
@@ -83,7 +95,7 @@
       "original_campaign": "tclsh-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169",
@@ -91,7 +103,7 @@
       "original_campaign": "julia-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
@@ -99,14 +111,18 @@
       "original_campaign": "rscript-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     }
   ],
+  "layers_fully_bypassed": 0,
+  "limitations": [],
+  "minimization_spend": null,
+  "minimum_layer_cut": 1,
   "outcomes": {
-    "behavior_lost": 9,
+    "behavior_lost": 10,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 3,
+    "detected": 2,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -115,9 +131,16 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
+  "package": "harness-pkg",
+  "resilience_distribution": {
+    "1": 8
+  },
+  "single_layer_failure": {
+    "L5": 8
+  },
   "stop_reason": "18 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
+    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
   }
 }

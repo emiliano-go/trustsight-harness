@@ -43,7 +43,25 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
     from trustsight import config as ts_config
     from trustsight import db as ts_db
     from trustsight.analysis import scan_diff
+    from trustsight.diffdoc import parse_diff_lines
     from trustsight.rules import load_rules
+    from trustsight.tokenizer import split_lines
+
+    def _head_text(diff_text: str) -> str | None:
+        """The diff's post-image, as the watcher passes ``current_text``.
+
+        The watcher analyses a package with the full new recipe in hand, so
+        rules that read the head (C004's arch-split layout, H001's VCS source
+        outside the hunk) are exercised there.  The corpus stores diffs, so the
+        closest faithful head is the diff's post-image; without it those rules
+        would read a layout refactor as a removal and report false positives
+        the watcher never would.
+        """
+        try:
+            return "\n".join(
+                parse_diff_lines(split_lines(diff_text)).post_lines())
+        except Exception:  # noqa: BLE001 - an unparseable head is no head
+            return None
 
     # Mirror TrustSight's own calibration: freeze the host's pacman answer to
     # empty.  With a sync database present, `is_established_package` fires
@@ -83,8 +101,10 @@ def scan_benign(repo_root: Path, *, corpus: Path, environment: dict,
             index += 1
             if sample > 1 and index % sample:
                 continue
-            fact = scan_diff(path.read_text(errors="replace"), rules=rules,
-                             config=config, package_name=pkg, seen_urls=seen_urls)
+            text = path.read_text(errors="replace")
+            fact = scan_diff(text, rules=rules, config=config,
+                             package_name=pkg, seen_urls=seen_urls,
+                             current_text=_head_text(text))
             scanned += 1
             if fact.final_score > threshold:
                 flagged += 1

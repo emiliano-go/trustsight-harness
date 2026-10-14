@@ -87,13 +87,30 @@ def test_the_timeout_works_off_the_main_thread(tmp_path, canary_text):
 def test_missing_usernamespaces_are_refused_with_a_named_error(monkeypatch):
     """No user namespaces: refuse with the requirement named, never fall
     back to an unnamespaced child."""
-    from harness import runner as runner_module
+    from harness import sandbox
 
     async def denied(flags):
         raise PermissionError("operation not permitted")
 
-    monkeypatch.setattr(runner_module.local_process, "clone", denied)
+    monkeypatch.setattr(sandbox.local_process, "clone", denied)
     with pytest.raises(NamespaceUnavailableError) as excinfo:
         get_portal().run(_async_spawn)
     assert "user namespaces" in str(excinfo.value)
     assert isinstance(excinfo.value, EnvironmentError_)
+
+
+def test_the_deadline_watchdog_fires_once_and_disarms():
+    """One thread replaces the per-request `threading.Timer`, whose cancel
+    leaves the thread sleeping out the whole timeout (the leak that made a
+    thousands-of-attempts campaign unable to start new threads)."""
+    from harness.runner import _Watchdog
+
+    fired = threading.Event()
+    watchdog = _Watchdog()
+    watchdog.arm(0.05, fired.set)
+    assert fired.wait(5), "the watchdog did not fire"
+
+    fired.clear()
+    watchdog.arm(0.05, fired.set)
+    watchdog.disarm()
+    assert not fired.wait(0.2), "a disarmed watchdog still fired"

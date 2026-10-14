@@ -145,6 +145,9 @@ def test_the_server_registers_every_tool():
         "validate_diff", "judge_verdict", "list_campaigns", "load_config",
         "get_campaign_record", "list_campaign_traces", "check_calibration",
         "get_environment_info", "diff_hash",
+        "aur_info", "aur_pkgbuild",
+        "feed_search", "feed_latest", "feed_by_date", "feed_by_package",
+        "feed_by_rule", "feed_message", "feed_stats", "feed_health",
     } <= names
 
 
@@ -474,4 +477,99 @@ def test_load_config_does_not_read_outside_the_campaign(tmp_path):
     path = _campaign(tmp_path / "c", generator={"type": "inputs", "manifest": "../.."})
     out = server.load_config(str(path))
     assert out["name"] == "t"
+
+
+# ---------------------------------------------------------------------------
+# External read-only tools: AUR and the watcher feed
+#
+# These are the only network tools.  The tests never reach the network: they
+# replace the module-level clients, and check that bad input is refused
+# before a client is built and that a peer failure is an error dict, not a
+# raised exception.
+# ---------------------------------------------------------------------------
+
+
+class _FakeAur:
+    def info(self, packages):
+        return {name: {"Name": name, "PackageBase": name, "Version": "1-1",
+                       "Maintainer": "someone", "Ignored": "drop"} for name in packages}
+
+    def pkgbuild(self, package):
+        from harness.aur import PackageBuild
+
+        return PackageBuild(package=package, version="1-1", last_modified=1,
+                            files=["PKGBUILD"], pkgbuild="pkgname=x\n", cached=False)
+
+
+def test_aur_info_returns_a_compact_record(monkeypatch):
+    monkeypatch.setattr(server, "_aur_client", lambda: _FakeAur())
+    out = server.aur_info(["some-pkg"])
+    assert out["count"] == 1
+    assert out["packages"]["some-pkg"]["Version"] == "1-1"
+    assert "Ignored" not in out["packages"]["some-pkg"]
+
+
+def test_aur_info_rejects_a_bad_argument(monkeypatch):
+    monkeypatch.setattr(server, "_aur_client", lambda: _FakeAur())
+    assert "error" in server.aur_info([])
+    assert "error" in server.aur_info("some-pkg")
+
+
+def test_aur_pkgbuild_returns_the_build(monkeypatch):
+    monkeypatch.setattr(server, "_aur_client", lambda: _FakeAur())
+    out = server.aur_pkgbuild("some-pkg")
+    assert out["pkgbuild"] == "pkgname=x\n"
+    assert out["files"] == ["PKGBUILD"]
+
+
+def test_aur_pkgbuild_surfaces_a_peer_error(monkeypatch):
+    from harness.aur import AurError
+
+    class _Broken(_FakeAur):
+        def pkgbuild(self, package):
+            raise AurError("some-pkg: not found in the AUR")
+
+    monkeypatch.setattr(server, "_aur_client", lambda: _Broken())
+    out = server.aur_pkgbuild("some-pkg")
+    assert "not found" in out["error"]
+
+
+def test_a_network_tool_reports_missing_httpx(monkeypatch):
+    def _no_httpx():
+        raise ImportError("No module named 'httpx'")
+
+    monkeypatch.setattr(server, "_aur_client", _no_httpx)
+    monkeypatch.setattr(server, "_feed_client", _no_httpx)
+    assert "httpx" in server.aur_info(["x"])["error"]
+    assert "httpx" in server.feed_stats()["error"]
+
+
+def test_feed_tools_pass_through_to_the_client(monkeypatch):
+    calls = {}
+
+    class _FakeFeed:
+        def search(self, **kwargs):
+            calls["search"] = kwargs
+            return {"items": [], "count": 0}
+
+        def by_date(self, date, timeframe=None):
+            calls["by_date"] = (date, timeframe)
+            return {"items": [], "count": 0}
+
+    monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
+    out = server.feed_search(q="x", limit=7)
+    assert out["count"] == 0
+    assert calls["search"] == {"q": "x", "event": None, "day": None,
+                               "since": None, "until": None, "limit": 7}
+    server.feed_by_date("2026-05-02", "11-13")
+    assert calls["by_date"] == ("2026-05-02", "11-13")
+
+
+def test_feed_tool_surfaces_a_validation_error(monkeypatch):
+    from harness.feed import FeedClient
+
+    monkeypatch.setattr(server, "_feed_client", lambda: FeedClient.__new__(FeedClient))
+    out = server.feed_by_date("not-a-date")
+    assert "error" in out
+
 

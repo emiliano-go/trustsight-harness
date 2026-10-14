@@ -1,0 +1,8 @@
+# The confirmed-false-positive corpus is measured against the *watcher's*
+# alerting bar (score > 35, the benign p95), not the harness review threshold
+# (20).  A package the watcher would not alert on is not a false positive for
+# this check.
+trustsight_version: "0.19.0"
+trustsight_source: "local-path"
+db_state: "cold"
+flag_threshold: 35

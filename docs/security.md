@@ -24,10 +24,14 @@ any circumstances.
 is the sole shell interaction in the codebase, and it is treated formally rather
 than trusted:
 
-- the content goes to a **mode-0600 temporary file**, never through a shell string;
+- the content goes to an **anonymous, sealed memory file** — `memfd_create`
+  with `F_ADD_SEALS` (`WRITE|SHRINK|GROW`), read by bash through
+  `/proc/self/fd/N` — so it never touches disk and cannot be written or
+  resized;
 - the argument vector is a **literal list**; `[bash, "-n", path]`;
-- the child runs in a **kernel-enforced sandbox** — a fresh user, mount and
-  network namespace (`CLONE_NEWUSER|CLONE_NEWNS|CLONE_NEWNET`) via
+- the child runs in a **kernel-enforced sandbox** — a fresh user, mount,
+  network, IPC and UTS namespace
+  (`CLONE_NEWUSER|CLONE_NEWNS|CLONE_NEWNET|CLONE_NEWIPC|CLONE_NEWUTS`) via
   rsyscall-ng — so even a bash that somehow executed something could not open a
   socket or touch a mount the harness did not intend;
 - the environment is **replaced, not inherited**, so a hostile `BASH_ENV` in the
@@ -41,12 +45,15 @@ than trusted:
 `harness/`, `generators/` and `validators/`. No module may call `eval`, `exec`,
 `compile`, `__import__`, `os.system` or `os.popen`. No module may import
 `subprocess` at all: every process runs under rsyscall, and rsyscall itself may
-be imported only by the sandboxed exec sites (`validators/syntax.py`,
-`harness/runner.py`, `harness/portal.py`, later `harness/pool.py`). A separate
-test parses `syntax.py` to assert its one `Command()` takes a literal argv whose
-second element is `-n`, and that no `.args()` call appends anything to it. A
-third test execs Python through the same `NEWUSER|NEWNET` clone path and fails
-if the child can open a network socket.
+be imported only by the sandbox module (`harness/sandbox.py`), the trio portal
+(`harness/portal.py`), and the modules that exec into a child
+(`validators/syntax.py`, `harness/runner.py`, `harness/pool.py`). A separate gate
+asserts `harness/sandbox.py` is the **only** `local_process.clone` call site, so
+a resource bound or an isolation flag cannot reach one exec and miss another. A
+further test parses `syntax.py` to assert its one `Command()` takes a literal
+argv whose second element is `-n`, and that no `.args()` call appends anything to
+it. A third test execs Python through the same `NEWUSER|NEWNET` clone path and
+fails if the child can open a network socket.
 
 !!! danger "The sandbox wraps the instrument's own processes; generated code is still never executed"
 
@@ -62,15 +69,28 @@ if the child can open a network socket.
 **The claim.** A URL that appears in a generated PKGBUILD is text. The harness
 never resolves it, never requests it, never looks it up.
 
-The only permitted network peer is the LLM provider endpoint, and only during an
-LLM campaign.
+Three network peers are permitted, and only these:
+
+- the LLM provider endpoint, and only during an LLM campaign;
+- `aur.archlinux.org`, and only to fetch a package's build files for a name
+  the caller gave (`harness/aur.py`);
+- the configured watcher feed host (default `watcher.trustsight.org`), and only
+  to read the published-alert API (`harness/feed.py`).
+
+Every URL those clients request is built from a validated package name and a
+fixed path, so no attacker-controlled string becomes a peer. A URL *inside* a
+PKGBUILD is not among them: the AUR downloader fetches the package the caller
+named, never a host the recipe declares. Both clients are read-only, GET-only,
+size-bounded, and paced against their peer's published limit
+(`harness/net.py`).
 
 **Enforcement.** The same AST gate reads every module's imports and fails if any
-file outside `generators/llm.py` imports `httpx`, `requests`, `urllib`, `socket`,
-`http`, `ftplib` or `telnetlib`. Imports are read from the parse tree rather than
-by searching the text; an earlier version searched for the substring and
-reported `runner.py` for a *comment* explaining that it does not use a
-subprocess. A gate that cries wolf gets switched off.
+file outside `generators/llm.py`, `harness/net.py`, `harness/aur.py` and
+`harness/feed.py` imports `httpx`, `requests`, `urllib`, `socket`, `http`,
+`ftplib` or `telnetlib`. Imports are read from the parse tree rather than by
+searching the text; an earlier version searched for the substring and reported
+`runner.py` for a *comment* explaining that it does not use a subprocess. A gate
+that cries wolf gets switched off.
 
 TrustSight's own analysis is hermetic under the harness too. `analyze_text`
 walks the corpus dependency graph, and the walk asks the AUR RPC about the
@@ -97,10 +117,39 @@ Every generated artefact is size-capped before anything parses it.
 | `bash -n` diagnostic | — | discarded (`/dev/null`); only the exit status is used |
 | A parsed shell line | 8 KiB | not parsed; the regex verdict stands |
 | One analysis | 120 s | `harness_error`, exported to `fixtures-robustness/` |
+| One network response | 16 MiB (4 MiB for the AUR RPC) | `NetworkError` |
+| One AUR `info` call | 2000 names, 20000 records, 4 KiB per field | `AurError` |
+| A snapshot tarball | 16 MiB compressed, 512 members, 32 MiB decompressed | `AurError` |
+| One network call | a 60 s (RPC) or 120 s (snapshot) deadline | `NetworkError` |
+| One spawned child | `RLIMIT_AS`, `RLIMIT_FSIZE`, `RLIMIT_NOFILE`, and `RLIMIT_CPU` (short-lived only) | kernel `SIGKILL`/allocation failure, surfaced as a dead worker |
 
 The sanitizer rejects rather than repairs. A null byte, a path escaping the tree,
 or a size past the cap is not a stylistic problem to be normalised away; each
 one means the input is not the kind of thing the pipeline claims to handle.
+
+**Bounded compute.** Reads are not the only attacker-amplifiable cost, so every
+child is also bounded in memory, disk and descriptors at the kernel level
+(`harness/sandbox.py`). Its single clone site applies `RLIMIT_AS`,
+`RLIMIT_FSIZE` and `RLIMIT_NOFILE`, adds `CLONE_NEWPID` to the analysis worker
+so its death reaps anything it orphaned, sets `PR_SET_PDEATHSIG = SIGKILL` so a
+crashed harness cannot leave workers behind, and sets `PR_SET_NO_NEW_PRIVS`.
+`RLIMIT_CPU` is applied only to the short-lived `bash -n` child, because it is
+cumulative per process and a long-lived worker serves hundreds of campaigns;
+those keep the runner's kill-based wall-clock deadline. Every value is clamped
+to the limit the process already inherited and the address-space cap is floored
+above the interpreter's own VMS, so a bound can only ever be *lowered* onto a
+child, never make it fail to start.
+
+The two external clients ([H2](#h2-no-fetching-of-generated-urls)) are held to
+the same rule, because their peers are not trusted to be well behaved: a
+response is read through a byte cap, a snapshot is decompressed in memory under
+a member and total-size cap, a `429` is retried only within the deadline, and a
+whole call runs under a wall-clock deadline that also caps the rate-limit pause
+and the socket read. A namespace sandbox is deliberately not used for them: it
+would either keep the host network, adding nothing against a hostile *response*
+that the caps do not, or clone `NEWNET` and sever the peer. The guarantee that
+matters is that the work is bounded, and that is enforced in `harness/net.py`
+and `harness/aur.py` and tested in `tests/test_net.py` and `tests/test_aur.py`.
 
 ## H4: Inert rendering
 

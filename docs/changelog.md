@@ -4,6 +4,90 @@ description: Changes to trustsight-harness.
 
 # Changelog
 
+## 2.5.0
+
+The CLI and the MCP server now expose the same operations, and a test enforces
+it. Before this, only `run_campaign` and `run_regression` existed on both
+surfaces; 21 tools were MCP-only and four commands (`sweep`, `coverage`,
+`matrix`, `benign`) were CLI-only.
+
+- `harness/surface.py` is the single list of operations. The CLI accepts each
+  as `python -m harness <operation> [--<param> ...] [--out FILE]`, deriving the
+  flags from the operation's signature; the MCP server registers a tool for
+  each. Both surfaces call the **same** function in `harness/mcp/server.py`.
+- `sweep`, `coverage`, `matrix` and `benign` are now MCP tools too, so an agent
+  can reach the report generators.
+- `harness/mcp/server.py` imports without the optional `mcp` extra (a no-op
+  decorator stand-in), so the CLI reuses the tool implementations instead of a
+  second copy. `run_campaign` and `run_regression` run synchronously over the
+  CLI by delegating to the classic commands.
+- `get_job_status` is documented as MCP-only transport: it polls a long tool,
+  and the CLI is synchronous, so it is deliberately not an operation.
+- `tests/test_surface_parity.py` drives both the live MCP registry and the CLI
+  dispatcher and fails if either drifts from `harness/surface.py`.
+- Re-baselined the whole corpus to TrustSight **0.19.0** (all 99 campaigns,
+  the regression report, the coverage report and the matrix), completing the
+  pin move that the previous change left half-done.
+- Fixed a per-request `threading.Timer` in the runner: `Timer.cancel` leaves
+  the thread sleeping out the full timeout, so a campaign of a few thousand
+  fast attempts accumulated a few thousand live threads and could no longer
+  start one. One watchdog thread per runner tracks the in-flight deadline.
+- `Environment.bind` now writes a non-default `flag_threshold` into the
+  tool's `[review]` profile, so `check_fingerprint`'s "the tool and the Judge
+  agree on the threshold" claim is actually enforced (the C013 probe declares
+  `flag_threshold: 10`).
+
+## 2.4.0
+
+Every child the harness spawns is now bounded in compute, not only in reads.
+The four exec sites (`bash -n`, the analysis worker, the pool workers) were
+each cloning and configuring a namespace by hand; they now go through one
+module, `harness/sandbox.py`, so a bound cannot reach one exec and miss
+another.
+
+- **Kernel resource limits.** Each child gets `RLIMIT_AS`, `RLIMIT_FSIZE` and
+  `RLIMIT_NOFILE`, clamped to the limit the process already inherited, with the
+  address-space cap floored above the interpreter's own VMS so it can never
+  break a child's startup. `RLIMIT_CPU` is set only on the short-lived
+  `bash -n` child; the long-lived analysis and pool workers omit it (it is
+  cumulative, and a sweep worker serves hundreds of campaigns) and keep the
+  runner's kill-based wall-clock deadline. Overridable with `HARNESS_WORKER_*`.
+- **More namespaces.** The analysis worker gains `CLONE_NEWPID` (its death now
+  reaps anything it orphaned) and every child gains `CLONE_NEWIPC|NEWUTS`.
+- **`prctl` hardening.** `PR_SET_PDEATHSIG = SIGKILL` so a crashed harness
+  cannot leave namespaced workers behind, and `PR_SET_NO_NEW_PRIVS`.
+- **The parser input never touches disk.** `bash -n` now reads the PKGBUILD
+  through a sealed anonymous `memfd` (`/proc/self/fd/N`) instead of a
+  mode-0600 temp file.
+- A new self-security gate asserts `harness/sandbox.py` is the only
+  `local_process.clone` call site.
+
+## 2.3.0
+
+Two read-only external tools join the MCP surface: an AUR downloader and a
+watcher feed reader. This is the first time anything but the LLM provider may
+reach the network, so the self-security model's H2 boundary is widened
+deliberately and narrowly, and the AST gate that enforces it is updated in the
+same change.
+
+- **AUR.** `aur_info` looks up metadata through the v5 RPC and `aur_pkgbuild`
+  fetches a package's build files from its snapshot tarball. Calls are split to
+  fit the RPC's name and URI caps, names are validated before they become URLs,
+  and requests are paced at half the published 4000-a-day budget, with a ledger
+  that carries the window across restarts. Snapshots are read in memory,
+  size-bounded, and cached by (base, version, LastModified).
+- **Watcher feed.** `feed_search`, `feed_latest`, `feed_by_date`,
+  `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_stats` and
+  `feed_health` read the public JSON API at `watcher.trustsight.org`
+  (overridable with `WATCHER_FEED_URL`), paced at half its 120-a-minute limit.
+- **Network substrate.** `harness/net.py` holds the shared HTTP client, a
+  sliding-window limiter with an on-disk ledger, bounded reads, and 429/
+  `Retry-After` handling. The clients never fetch a URL that appeared inside a
+  PKGBUILD; they reach only `aur.archlinux.org` and the configured feed host.
+- `httpx` joins the `mcp` extra; the tools report its absence rather than
+  failing at import.
+- See [External Tools](reference/external-tools.md).
+
 ## 2.2.0
 
 Process control moves to rsyscall-ng, and unprivileged user namespaces

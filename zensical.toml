@@ -104,6 +104,7 @@ Reference = [
   {"Record Schema" = "reference/record-schema.md"},
   {"Terminal Statuses" = "reference/statuses.md"},
   {"Exit Codes" = "reference/exit-codes.md"},
+  {"External Tools" = "reference/external-tools.md"},
 ]
 
 [[project.nav]]

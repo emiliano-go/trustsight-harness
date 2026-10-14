@@ -19,13 +19,18 @@ SOURCES = sorted(
 )
 
 #: The only modules permitted to spawn a process, via rsyscall-ng.  The
-#: sandboxed exec sites: the namespaced `bash -n` (validators/syntax.py),
-#: the analysis worker (harness/runner.py), the trio portal it drives
-#: (harness/portal.py) and the namespaced pool (harness/pool.py).
-EXEC_ALLOWED = {"validators/syntax.py", "harness/runner.py",
-                "harness/portal.py", "harness/pool.py"}
-#: The one module permitted to talk to a network.
-NETWORK_ALLOWED = {"generators/llm.py"}
+#: single clone site (harness/sandbox.py), the trio portal it drives
+#: (harness/portal.py), and the modules that exec into a cloned child:
+#: validators/syntax.py (`bash -n`), harness/runner.py (the analysis worker)
+#: and harness/pool.py (the namespaced pool).
+EXEC_ALLOWED = {"harness/sandbox.py", "harness/portal.py",
+                "validators/syntax.py", "harness/runner.py", "harness/pool.py"}
+#: The modules permitted to talk to a network: the LLM generator, and the two
+#: read-only external clients (the AUR downloader, the watcher feed reader) and
+#: their shared HTTP substrate.  These reach exactly two peers, built from
+#: validated names and fixed paths - never a URL from generated content (H2).
+NETWORK_ALLOWED = {"generators/llm.py", "harness/net.py", "harness/aur.py",
+                   "harness/feed.py"}
 
 FORBIDDEN_CALLS = {"eval", "exec", "compile", "__import__"}
 FORBIDDEN_ATTRS = {("os", "system"), ("os", "popen")}
@@ -58,11 +63,31 @@ def test_no_module_imports_subprocess(path):
 
 @pytest.mark.parametrize("path", SOURCES, ids=_rel)
 def test_process_spawning_is_confined(path):
-    """Only the sandboxed exec sites may reach rsyscall."""
+    """Only the sandbox module may clone; the others only exec into a child.
+
+    One clone site means a resource bound or an isolation flag cannot reach
+    one exec and miss another (see `harness/sandbox.py`).
+    """
     if _rel(path) in EXEC_ALLOWED:
         return
     assert "rsyscall" not in _imported_modules(path), \
         f"{_rel(path)} imports rsyscall"
+
+
+def test_every_child_is_cloned_through_the_sandbox():
+    """The only `local_process.clone` call in the tree is the sandbox's."""
+    offenders: list[str] = []
+    for path in SOURCES:
+        if _rel(path) == "harness/sandbox.py":
+            continue
+        for node in ast.walk(ast.parse(path.read_text())):
+            if (isinstance(node, ast.Call)
+                    and isinstance(node.func, ast.Attribute)
+                    and node.func.attr == "clone"
+                    and isinstance(node.func.value, ast.Name)
+                    and node.func.value.id == "local_process"):
+                offenders.append(_rel(path))
+    assert not offenders, f"clone() outside harness/sandbox.py: {offenders}"
 
 
 def _imported_modules(path: Path) -> set[str]:
@@ -113,41 +138,50 @@ def test_the_syntax_validator_only_ever_runs_bash_n():
         assert argv[1] == "-n", f"unexpected bash flags: {argv}"
 
 
-def test_the_namespaced_exec_has_no_network():
-    """The clone flags the sandbox uses (NEWUSER|NEWNET) block sockets.
+def test_the_namespaced_exec_has_no_network_and_its_own_pid():
+    """The sandbox's clone flags block sockets and isolate the PID namespace.
 
-    ``bash -n`` executes nothing, so the socket probe is Python run through
-    the same clone path the analysis worker and the syntax validator take:
-    if the kernel did not enforce an empty network namespace, this child
-    could reach the LLM provider or the AUR, and H1/H2 would be promises
-    instead of boundaries.
+    ``bash -n`` executes nothing, so the probe is Python run through the
+    same clone path the analysis worker and the syntax validator take
+    (`harness.sandbox.clone_child` with ``ANALYSIS_FLAGS``): if the kernel
+    did not enforce an empty network namespace, this child could reach the
+    LLM provider or the AUR, and H1/H2 would be promises instead of
+    boundaries.  The same probe checks the child is PID 1 in its own
+    namespace, so the ``NEWPID`` flag is real and not just a constant in a
+    preset.
     """
     import sys
 
-    from rsyscall import Command, local_process
+    from rsyscall import Command
     from rsyscall.path import Path as RPath
-    from rsyscall.sched import CLONE
     from rsyscall.sys.wait import W
 
     from harness.portal import get_portal
+    from harness.sandbox import ANALYSIS_FLAGS, Limits, clone_child
 
     async def probe() -> int:
-        child = await local_process.clone(CLONE.NEWUSER | CLONE.NEWNET)
+        child = await clone_child(ANALYSIS_FLAGS, limits=Limits.analysis())
         script = (
-            "import socket\n"
+            "import socket,sys\n"
+            "ns=[l for l in open('/proc/self/status').read().splitlines()\n"
+            "    if l.startswith('NSpid')]\n"
+            "pid1 = bool(ns) and len(ns[0].split()) == 3\n"
             "try:\n"
             "    socket.socket().connect(('192.0.2.1', 80))\n"
             "except OSError:\n"
-            "    raise SystemExit(0)\n"
-            "raise SystemExit(1)\n")
+            "    sys.exit(0 if pid1 else 2)\n"
+            "sys.exit(1)\n")
         execd = await child.exec(
             Command(RPath(sys.executable),
                     [sys.executable, "-c", script], {}))
         state = await execd.waitpid(W.EXITED)
         return -1 if state.exit_status is None else state.exit_status
 
-    assert get_portal().run(probe) == 0, \
-        "a namespaced child could open a network socket"
+    status = get_portal().run(probe)
+    assert status == 0, (
+        "a namespaced child could open a network socket (1) or was not "
+        f"PID 1 in its namespace (2); got {status}"
+    )
 
 
 def test_generated_text_is_cleaned_before_display():

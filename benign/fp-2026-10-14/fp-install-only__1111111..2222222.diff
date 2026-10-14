@@ -1,0 +1,17 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 1111111..2222222 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,4 +1,4 @@
+ pkgname=demo
+-pkgver=1.0
++pkgver=1.1
+ pkgrel=1
+ install=demo.install
+diff --git a/demo.install b/demo.install
+index 3333333..4444444 100644
+--- a/demo.install
++++ b/demo.install
+@@ -1,1 +1,2 @@
+ post_install() { echo hi; }
++post_upgrade() { post_install; }

@@ -1319,7 +1319,7 @@ provides-extras = ["dev", "docs"]
 
 [[package]]
 name = "trustsight-harness"
-version = "2.2.0"
+version = "2.5.0"
 source = { editable = "." }
 dependencies = [
     { name = "bashlex" },
@@ -1341,6 +1341,7 @@ llm = [
     { name = "httpx" },
 ]
 mcp = [
+    { name = "httpx" },
     { name = "mcp" },
 ]
 
@@ -1348,6 +1349,7 @@ mcp = [
 requires-dist = [
     { name = "bashlex", specifier = ">=0.18" },
     { name = "httpx", marker = "extra == 'llm'", specifier = ">=0.27" },
+    { name = "httpx", marker = "extra == 'mcp'", specifier = ">=0.27" },
     { name = "mcp", marker = "extra == 'mcp'", specifier = ">=1.0.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pyyaml", specifier = ">=6.0" },

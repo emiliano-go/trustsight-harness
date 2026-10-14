@@ -41,11 +41,11 @@ from types import SimpleNamespace
 import trio
 from rsyscall import Command, local_process
 from rsyscall.path import Path as RPath
-from rsyscall.sched import CLONE
 from rsyscall.sys.wait import W
 
 from .environment import NamespaceUnavailableError
 from .portal import get_portal
+from .sandbox import ANALYSIS_FLAGS, Limits, clone_child
 
 __all__ = ["AnalysisTimeout", "NamespaceUnavailableError", "ReportView",
            "RunResult", "Runner", "RunnerError"]
@@ -98,10 +98,89 @@ class ReportView:
         self.config_fingerprint = body.get("config_fingerprint", "") or ""
         self.review_threshold = body.get("review_threshold")
         self.flagged = bool(body.get("flagged", False))
-        findings = body.get("findings") or ()
+        findings = [
+            f if isinstance(f, SimpleNamespace) else dict(f)
+            for f in (body.get("findings") or ())
+            if isinstance(f, (dict, SimpleNamespace))
+        ]
+        # The report body keeps ``weight`` out of ``findings``: it is
+        # arithmetic, not evidence, and travels in ``score_breakdown``.  The
+        # Judge filters findings on ``weight > 0``, so a body read without the
+        # breakdown weighed every catching rule at zero.  Attach the weights
+        # from the breakdown the worker already sends (``verbose=True``),
+        # matched by rule id in order, without adding the breakdown's synthetic
+        # entries (COVERAGE, SOURCE_BUCKET, ...) to the finding set.
+        weights: dict[str, list] = {}
+        for entry in body.get("score_breakdown") or ():
+            if isinstance(entry, dict):
+                weights.setdefault(str(entry.get("rule_id", "")), []).append(
+                    entry.get("weight", 0))
+        for finding in findings:
+            if not isinstance(finding, dict) or "weight" in finding:
+                continue
+            pool = weights.get(str(finding.get("rule_id", "")))
+            if pool:
+                finding["weight"] = pool.pop(0)
         self.findings = tuple(
             f if isinstance(f, SimpleNamespace) else SimpleNamespace(**f)
-            for f in findings if isinstance(f, dict))
+            for f in findings)
+
+
+class _Watchdog:
+    """One thread that fires the current request's kill deadline.
+
+    The runner used a fresh ``threading.Timer`` per request, and
+    ``Timer.cancel`` does not stop the thread - it sleeps out the whole
+    timeout before exiting.  A campaign of a few thousand fast attempts
+    therefore accumulated a few thousand live timer threads, and under the
+    worker's address-space limit the next ``threading.Thread`` could not be
+    created ("can't start new thread").  One long-lived thread per runner
+    tracks the single in-flight deadline instead, so the thread count is
+    independent of the attempt count.
+
+    It runs off the portal loop deliberately: the deadline fires while the
+    portal is blocked inside an rsyscall read, so only a plain thread can
+    run ``kill_sync``.
+    """
+
+    def __init__(self) -> None:
+        self._condition = threading.Condition()
+        self._deadline: float | None = None
+        self._fire = None
+        self._thread = threading.Thread(target=self._loop, daemon=True,
+                                        name="harness-deadline")
+        self._thread.start()
+
+    def arm(self, timeout: float, fire) -> None:
+        with self._condition:
+            self._deadline = time.monotonic() + timeout
+            self._fire = fire
+            self._condition.notify_all()
+
+    def disarm(self) -> None:
+        with self._condition:
+            self._deadline = None
+            self._fire = None
+            self._condition.notify_all()
+
+    def _loop(self) -> None:
+        with self._condition:
+            while True:
+                if self._deadline is None:
+                    self._condition.wait()
+                    continue
+                remaining = self._deadline - time.monotonic()
+                if remaining > 0:
+                    self._condition.wait(remaining)
+                    continue
+                fire = self._fire
+                self._deadline = None
+                self._fire = None
+                if fire is not None:
+                    try:
+                        fire()
+                    except Exception:  # noqa: BLE001, S110 - best-effort kill
+                        pass
 
 
 class _Session:
@@ -187,17 +266,14 @@ async def _async_spawn() -> _Session:
     req = await local_process.pipe()
     resp = await local_process.pipe()
     try:
-        child = await local_process.clone(CLONE.NEWUSER | CLONE.NEWNET)
-    except PermissionError as exc:
+        child = await clone_child(ANALYSIS_FLAGS, limits=Limits.analysis())
+    except NamespaceUnavailableError:
         for fd in (req.read, req.write, resp.read, resp.write):
             try:
                 await fd.close()
             except Exception:  # noqa: BLE001, S110
                 pass
-        raise NamespaceUnavailableError(
-            "unprivileged user namespaces are not available; the harness "
-            "requires them (on Ubuntu set "
-            "kernel.apparmor_restrict_unprivileged_userns=0)") from exc
+        raise
     await child.task.inherit_fd(req.read).dup2(child.stdin)
     await child.task.inherit_fd(resp.write).dup2(child.stdout)
     await req.read.close()
@@ -246,6 +322,7 @@ class Runner:
         self._env = env
         self._session: _Session | None = None
         self._lock = threading.Lock()
+        self._watchdog = _Watchdog()
         if env is not None:
             env._restore_delegate = self.restore
 
@@ -283,12 +360,12 @@ class Runner:
     def _request(self, payload: dict, timeout_s: float | None = None) -> dict:
         """One request/reply cycle, with respawn on a dead worker.  Lock held.
 
-        The deadline is a ``threading.Timer`` firing on the *calling*
-        thread, not a trio scope: the portal loop is blocked inside the
-        rsyscall read for the whole round trip and never reaches a
-        checkpoint, so any deadline scheduled on it would only run after
-        the reply it was supposed to beat.  ``kill_sync`` needs no event
-        loop at all - it is a raw ``killpg``, and the resulting EOF
+        The deadline is a plain thread (``_Watchdog``) firing on the
+        *calling* thread's behalf, not a trio scope: the portal loop is
+        blocked inside the rsyscall read for the whole round trip and never
+        reaches a checkpoint, so any deadline scheduled on it would only run
+        after the reply it was supposed to beat.  ``kill_sync`` needs no
+        event loop at all - it is a raw ``killpg``, and the resulting EOF
         unblocks the read.
         """
         timeout = self._timeout_s if timeout_s is None else timeout_s
@@ -299,8 +376,7 @@ class Runner:
             timed_out.set()
             sess.kill_sync()
 
-        timer = threading.Timer(timeout, _fire)
-        timer.start()
+        self._watchdog.arm(timeout, _fire)
         try:
             return get_portal().run(_async_request, sess, payload)
         except BaseException as exc:
@@ -313,7 +389,7 @@ class Runner:
                     f"analysis exceeded {timeout}s") from None
             raise RunnerError(f"analysis worker died: {exc}") from exc
         finally:
-            timer.cancel()
+            self._watchdog.disarm()
 
     def restore(self) -> str:
         """Put the database back to the declared state, inside the worker.

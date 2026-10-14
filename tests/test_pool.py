@@ -15,12 +15,12 @@ def test_no_entries_is_a_noop():
 def test_missing_usernamespaces_are_refused_with_a_named_error(monkeypatch):
     """No user namespaces: refuse with the requirement named, never fall
     back to an unnamespaced worker."""
-    from harness import pool
+    from harness import sandbox
 
     async def denied(flags):
         raise PermissionError("operation not permitted")
 
-    monkeypatch.setattr(pool.local_process, "clone", denied)
+    monkeypatch.setattr(sandbox.local_process, "clone", denied)
     with pytest.raises(NamespaceUnavailableError) as excinfo:
         run_pool([{"id": 0}], 1, kind="campaign", newnet=False)
     assert "user namespaces" in str(excinfo.value)

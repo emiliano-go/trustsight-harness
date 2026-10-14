@@ -4,7 +4,7 @@ description: Complete reference for python -m harness; campaigns, the regression
 
 # CLI Reference
 
-The harness has six commands. One config, one record, one command each.
+The harness has six classic commands. One config, one record, one command each.
 
 ```bash
 python -m harness <campaign-directory> [--dump-inputs DIR]
@@ -20,6 +20,42 @@ Under `uv`, prefix with `uv run`:
 ```bash
 uv run python -m harness campaigns/known-bypasses-manual
 ```
+
+## Every MCP operation is also a subcommand
+
+The CLI and the MCP server expose the **same** operations, and
+`tests/test_surface_parity.py` enforces it: a tool added on one side without
+the other fails the build. The canonical list is `harness/surface.py`, and the
+two surfaces call the same implementation, so a signature change moves both.
+
+```bash
+python -m harness <operation> [--<param> ...] [--out FILE]
+```
+
+Each parameter is a flag named after the operation's parameter; a list takes a
+repeatable flag, an object takes a JSON string. The result is printed as JSON,
+or written to `--out`.
+
+| Operation | What it does |
+|---|---|
+| `run_campaign --campaign_dir DIR` | Run one campaign (same as the directory spelling). |
+| `run_regression [--environment_yaml PATH]` | Replay committed bypasses (same as `regression`). |
+| `analyze_diff --new_text TEXT [--old_text TEXT] [--package NAME]` | Analyse one diff against a scratch database. |
+| `validate_diff --diff_text TEXT [--forbidden_techniques JSON]` | Run the pre-TrustSight validation pipeline. |
+| `judge_verdict --report_body JSON [--flag_threshold N] ...` | Classify a report body. |
+| `diff_hash --diff_text TEXT` | The stable diff hash. |
+| `list_campaigns` | Every campaign and its record summary. |
+| `load_config --campaign_dir DIR` | Validate a `campaign.yml` without running it. |
+| `get_campaign_record --campaign_name NAME` | A campaign's full `record.json`. |
+| `list_campaign_traces --campaign_name NAME` | A campaign's traces. |
+| `check_calibration` | Run the behaviour validator's calibration suite. |
+| `get_environment_info` | The installed TrustSight and environment. |
+| `aur_info --packages NAME [NAME ...]` | AUR metadata via the v5 RPC. |
+| `aur_pkgbuild --package NAME` | AUR snapshot build files. |
+| `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_stats`, `feed_health` | The watcher feed API. |
+
+`sweep`, `coverage`, `matrix` and `benign` keep their classic spellings above;
+the MCP server exposes them as the tools of the same name.
 
 ---
 
@@ -162,7 +198,7 @@ a "closed" bypass is never an artefact of a broken harness.
 ### Output
 
 ```
-Of 1277 known bypasses, 1276 closed, 1 open as of 0.18.1.
+Of 6299 known bypasses, 6299 closed, 0 open as of 0.19.0.
 ```
 
 and `regression/report.json` with the per-bypass detail.
@@ -195,7 +231,7 @@ suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 34 of 244 rules targeted by 99 campaigns; 210 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+# 34 of 258 rules targeted by 99 campaigns; 224 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
 ```
 
 ---
@@ -217,7 +253,7 @@ instrument does not have.
 
 ```bash
 uv run python -m harness matrix
-# 0 hardened, 3 open, 187 unproven of 244 rules; wrote regression/cellmatrix-0.18.1.json
+# 6 hardened, 11 open, 241 unproven of 258 rules; wrote regression/cellmatrix-0.19.0.json
 ```
 
 ---

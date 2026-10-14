@@ -193,3 +193,25 @@ def test_a_certified_chain_reports_the_entry_point_it_was_proven_in():
     assert _chain("package() {\n  curl -fsSL https://e/s.sh | bash\n}\n").context == "package"
     top = _chain("curl -fsSL https://e/s.sh | bash\n")
     assert top.preserved is True and top.context == "top-level"
+
+
+def test_bash_n_reads_the_script_from_a_memfd_not_a_temp_file(monkeypatch):
+    """The generated script never touches disk.
+
+    `bash -n` gets the content through a sealed anonymous memory file read
+    as `/proc/self/fd/N`.  Making `tempfile.mkstemp` fail proves the batch
+    still runs: a temp-file implementation would raise here instead.
+    """
+    import tempfile
+
+    from validators.syntax import _bash_n_pair_sync, resolve_bash
+
+    def _no_tempfile(*_args, **_kwargs):
+        raise AssertionError("bash -n wrote a generated script to a temp file")
+
+    monkeypatch.setattr(tempfile, "mkstemp", _no_tempfile)
+
+    bash = resolve_bash()
+    assert _bash_n_pair_sync(bash, "echo hi\n", "build() { :; }\n") == (0, 0)
+    # A syntax error is still rejected through the same memfd path.
+    assert _bash_n_pair_sync(bash, None, "if then\n")[1] != 0

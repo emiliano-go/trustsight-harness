@@ -12,47 +12,63 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "wave4",
-  "campaign_commit": "35eb1e98358ba5f8ba3a013b82c0a419ebb90344",
+  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
   "campaign_type": "deterministic",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 19,
+    "total": 19
+  },
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 193457
+    "wall_clock_ms": 171847
   },
+  "dedup_savings": {
+    "analyses_avoided": 0,
+    "attempts": 0
+  },
+  "duplicate_rate": null,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:6fece715f4997ae1295f2033f401fa4117f1823f3ded2aa7703b9ef3dadd6f2f",
+    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.1"
+    "trustsight_version": "0.19.0"
   },
+  "expected_rules": [],
   "generator": {
     "cells": 208,
     "manifest": "inputs.yml",
+    "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "wave4",
     "template": null,
     "type": "inputs"
   },
-  "harness_version": "2.1.0",
+  "harness_version": "2.5.0",
   "known_bypass_matches": [],
+  "layers_fully_bypassed": 0,
+  "limitations": [],
+  "minimization_spend": null,
+  "minimum_layer_cut": 1,
   "outcomes": {
     "behavior_lost": 0,
     "bypass": 0,
@@ -66,9 +82,16 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
+  "package": "harness-pkg",
+  "resilience_distribution": {
+    "1": 208
+  },
+  "single_layer_failure": {
+    "L5": 208
+  },
   "stop_reason": "",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:2d5dcbe19927d3d965946ffda010f88ac88840970de3609af7fd6f6972eaadf4"
+    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
   }
 }

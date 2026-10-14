@@ -1,0 +1,8 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 1111111..2222222 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,1 +1,3 @@
++pkgname=demo
++pkgver=1.0
++depends+=('tlottie')

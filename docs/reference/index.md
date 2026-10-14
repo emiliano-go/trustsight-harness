@@ -14,3 +14,4 @@ reasoning behind them, see [Explanation](../explanation/index.md).
 | [Record Schema](record-schema.md) | `record.json`, field by field, including the forbidden fields. |
 | [Terminal Statuses](statuses.md) | The eleven terminal statuses and the order the Judge applies them in. |
 | [Exit Codes](exit-codes.md) | 0, 1, 2; and why "bypasses found" is not among them. |
+| [External Tools](external-tools.md) | The AUR downloader and the watcher feed reader, and the limits they hold to. |

@@ -12,46 +12,65 @@
     "note": "lower bound (validator is conservative)"
   },
   "campaign": "form-evasions-b7",
-  "campaign_commit": "35eb1e98358ba5f8ba3a013b82c0a419ebb90344",
+  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
   "campaign_type": "deterministic",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 17,
+    "total": 17
+  },
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 2306
+    "wall_clock_ms": 2810
   },
+  "dedup_savings": {
+    "analyses_avoided": 0,
+    "attempts": 3
+  },
+  "duplicate_rate": 0.0,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:c4a1e81279bfff7fe9db5fe18eb455d83f0904168b09e78c93107c13ab67e541",
+    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
-    "locale": "",
+    "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.1"
+    "trustsight_version": "0.19.0"
   },
+  "expected_rules": [
+    "R001",
+    "R002",
+    "X009",
+    "H082",
+    "H016",
+    "H083"
+  ],
   "generator": {
     "cells": 3,
     "manifest": "inputs.yml",
+    "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "prompt_id": "form-evasions-b7-manual",
     "template": "template.PKGBUILD",
     "type": "inputs"
   },
-  "harness_version": "2.1.0",
+  "harness_version": "2.5.0",
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:0a76663e20742825133db34fce3f22f22b2cc306cd6f35063e95102037cac9dd",
@@ -59,7 +78,7 @@
       "original_campaign": "form-evasions-b7",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:f3d0498a065f5b2fd40db41145fe7a077bc214b2093d3ec3c515ea6995c39362",
@@ -67,7 +86,7 @@
       "original_campaign": "form-evasions-b7",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     },
     {
       "diff_hash": "sha256:01d074264f62ddd654e7bb5cde957b1d0fef131de5b616710ceaf2a1eab59eb9",
@@ -75,9 +94,13 @@
       "original_campaign": "form-evasions-b7",
       "original_trustsight_version": "0.17.1",
       "patch_status": "verified",
-      "trustsight_version": "0.18.1"
+      "trustsight_version": "0.19.0"
     }
   ],
+  "layers_fully_bypassed": 0,
+  "limitations": [],
+  "minimization_spend": null,
+  "minimum_layer_cut": 1,
   "outcomes": {
     "behavior_lost": 0,
     "bypass": 0,
@@ -91,9 +114,15 @@
     "sanitization_failure": 0,
     "syntax_error": 0
   },
+  "package": "harness-pkg",
+  "resilience_distribution": {
+    "4": 2,
+    "5": 1
+  },
+  "single_layer_failure": {},
   "stop_reason": "3 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:7989a784ea740b8f6cec6fb024afd7cc6d5b7514d5b30f55ab51e76d2a393ec1"
+    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
   }
 }

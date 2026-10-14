@@ -13,6 +13,7 @@ import gzip
 import hashlib
 import json
 import os
+import re
 import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -20,6 +21,9 @@ from pathlib import Path
 __all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
            "NamespaceUnavailableError", "freeze_aur_lookup",
            "load_environment"]
+
+#: The line in config.toml's [review] section that selects the profile.
+_REVIEW_PROFILE_LINE = re.compile(r'^(\s*profile\s*=\s*)"[^"]*"', re.MULTILINE)
 
 
 class EnvironmentError_(RuntimeError):
@@ -177,9 +181,38 @@ class Environment:
         config.DATA_DIR = self._data_dir
         db.DATA_DIR = self._data_dir
         config.ensure_default_configs()
+        self._apply_review_threshold(config_dir)
         if self.ioc_baseline:
             db.init_db()
             self._import_ioc_baseline()
+
+    def _apply_review_threshold(self, config_dir: Path) -> None:
+        """Point TrustSight's review policy at the campaign's flag threshold.
+
+        `check_fingerprint` refuses a report whose own threshold disagrees
+        with the campaign's `flag_threshold` - a "bypass" means the tool
+        returned UNFLAGGED, so the Judge's threshold and the tool's must be
+        the same.  That only holds if the harness *sets* the tool's policy,
+        which it previously did not: a probe like C013 (weight 15) declares
+        `flag_threshold: 10`, and this writes the matching `[review]` profile
+        into the campaign-local `config.toml` so the two agree.  The default
+        (`20`) is left untouched, so a default campaign's fingerprint is
+        unchanged.
+        """
+        if int(self.flag_threshold) == 20:
+            return
+        path = config_dir / "config.toml"
+        text = path.read_text()
+        marker = "[review.profiles]"
+        if "[review]" not in text or marker not in text:
+            return
+        head, tail = text.split(marker, 1)
+        head = _REVIEW_PROFILE_LINE.sub(r'\1"strict"', head, count=1)
+        # Idempotent: bind runs in both the parent and the worker on the same
+        # config dir, so drop any previous override before writing the current.
+        body = re.sub(r"(?m)^strict\s*=.*$", "", tail).lstrip("\n")
+        path.write_text(
+            head + f"{marker}\nstrict = {int(self.flag_threshold)}\n" + body)
 
     # -- per-attempt isolation ---------------------------------------
 

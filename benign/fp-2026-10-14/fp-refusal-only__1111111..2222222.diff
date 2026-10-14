@@ -1,0 +1,12 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 1111111..2222222 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -0,0 +1,7 @@
++pkgname=demo
++pkgver=1.0
++build() {
++  A=$(date +%s)
++  B=$(uname -m)
++  make "$A" "$B"
++}

@@ -1,0 +1,9 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index 1111111..2222222 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -0,0 +1,4 @@
++pkgname=demo-bin
++pkgver=1.0
++url="https://demo.example.com"
++source=("https://demo.example.com/demo.AppImage")

@@ -4,45 +4,54 @@
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.489891
+      0.561497
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 4,
+    "denominator_value": 3,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
-  "bypasses": 0,
   "campaign": "phantom-heredoc-opener",
-  "campaign_commit": "e9d6872a42fedce881fb4e5fea15f8f39d3dac0d",
+  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
   "campaign_type": "deterministic",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 20,
+    "total": 20
+  },
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 3120
+    "wall_clock_ms": 3248
   },
+  "dedup_savings": {
+    "analyses_avoided": 5,
+    "attempts": 8
+  },
+  "duplicate_rate": 0.625,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:91e7f68648b5a0f396e07b82e6b6e9b39b41f415f935024b2d02b886e2f62682",
+    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.18.1"
+    "trustsight_version": "0.19.0"
   },
   "expected_rules": [
     "H016",
@@ -54,21 +63,23 @@
   "generator": {
     "cells": 10,
     "manifest": "inputs.yml",
+    "prompt_contract": 2,
     "prompt_hash": "sha256:be1b6f26e2bdf2c079efd83bf4be5b29a6ac3f64ee162ad10c11fc1fcfbc236f",
     "prompt_id": "phantom-heredoc-opener",
     "template": "template.PKGBUILD",
     "type": "inputs"
   },
-  "harness_version": "2.2.0",
+  "harness_version": "2.5.0",
   "known_bypass_matches": [],
   "layers_fully_bypassed": 0,
   "limitations": [],
+  "minimization_spend": null,
   "minimum_layer_cut": 1,
   "outcomes": {
-    "behavior_lost": 1,
+    "behavior_lost": 2,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 4,
+    "detected": 3,
     "duplicate": 5,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -80,12 +91,13 @@
   "package": "harness-baseline",
   "resilience_distribution": {
     "2": 1,
-    "3": 3
+    "3": 1,
+    "4": 1
   },
   "single_layer_failure": {},
   "stop_reason": "10 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:0dc042221edc43a82a63be8d5f3f2a6261650c5081396b42e6905ead4224fb95"
+    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
   }
 }

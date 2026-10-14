@@ -321,3 +321,38 @@ def test_the_record_names_the_two_inputs_that_change_the_verdict(tmp_path):
         expected_rules=("H016", "H082"))
     assert record["package"] == "harness-payload-bin"
     assert record["expected_rules"] == ["H016", "H082"]
+
+
+def test_a_non_default_flag_threshold_configures_the_review_profile(tmp_path):
+    """The harness must *set* the tool's review threshold, not only check it.
+
+    A probe below the default 20-point threshold (C013 weighs 15) declares
+    `flag_threshold: 10`; `check_fingerprint` refuses a report whose own
+    threshold disagrees, so `bind` writes the matching profile.  It runs in
+    both the parent and the worker on one config dir, so it must be
+    idempotent.
+    """
+    config_dir = tmp_path / "config"
+    config_dir.mkdir()
+    (config_dir / "config.toml").write_text(
+        '[review]\nprofile = "default"\n\n[review.profiles]\n')
+
+    env = Environment(trustsight_version="0.19.0", db_state="cold",
+                      flag_threshold=10)
+    env._apply_review_threshold(config_dir)
+    text = (config_dir / "config.toml").read_text()
+    assert 'profile = "strict"' in text
+    assert "strict = 10" in text
+
+    env._apply_review_threshold(config_dir)  # the worker binds again
+    assert (config_dir / "config.toml").read_text().count("strict = 10") == 1
+
+
+def test_the_default_threshold_leaves_the_config_untouched(tmp_path):
+    config_dir = tmp_path / "config"
+    config_dir.mkdir()
+    original = '[review]\nprofile = "default"\n\n[review.profiles]\n'
+    (config_dir / "config.toml").write_text(original)
+    Environment(trustsight_version="0.19.0", db_state="cold",
+                flag_threshold=20)._apply_review_threshold(config_dir)
+    assert (config_dir / "config.toml").read_text() == original
