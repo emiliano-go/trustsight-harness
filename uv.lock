@@ -1290,11 +1290,12 @@ wheels = [
 
 [[package]]
 name = "trustsight"
-version = "0.19.0"
+version = "0.20.0"
 source = { editable = "../trustsight" }
 dependencies = [
     { name = "cryptography" },
     { name = "pygit2" },
+    { name = "pyyaml" },
     { name = "rich" },
     { name = "tldextract" },
     { name = "typer" },
@@ -1304,8 +1305,9 @@ dependencies = [
 requires-dist = [
     { name = "cryptography", specifier = ">=42.0" },
     { name = "hypothesis", marker = "extra == 'dev'" },
-    { name = "pygit2", specifier = ">=1.14" },
+    { name = "pygit2", specifier = ">=1.20.0" },
     { name = "pytest", marker = "extra == 'dev'" },
+    { name = "pyyaml", specifier = ">=6.0" },
     { name = "rich", specifier = ">=13.0" },
     { name = "ruff", marker = "extra == 'dev'" },
     { name = "seoslug", marker = "extra == 'docs'", specifier = "==2.3.0" },
