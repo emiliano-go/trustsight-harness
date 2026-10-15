@@ -101,10 +101,10 @@ one of them:
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025), the Atomic Arch
   build-time and install-hook shapes, the wave-3 obfuscated variants, and six shapes
-  this harness found against 0.20.0: the `openssl s_client` connect-port
+  this harness found against 0.20.1: the `openssl s_client` connect-port
   address, the parse-time fetch, the glued `#`, the undeclared source-array
   execution, the phantom heredoc opener, and the `::` source rename. Every
-  campaign pins TrustSight 0.20.0 and is deterministic.
+  campaign pins TrustSight 0.20.1 and is deterministic.
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
