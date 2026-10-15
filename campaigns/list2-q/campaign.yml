@@ -1,7 +1,7 @@
 campaign: list2-q
 campaign_type: deterministic
 environment:
-  trustsight_version: 0.19.0
+  trustsight_version: 0.20.0
   trustsight_source: local-path
   db_state: cold
   flag_threshold: 20
