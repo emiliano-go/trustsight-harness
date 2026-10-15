@@ -1,7 +1,7 @@
 campaign: bypass-tag-v0181
 campaign_type: deterministic
 environment:
-  trustsight_version: 0.20.1
+  trustsight_version: 0.20.2
   trustsight_source: local-path
   db_state: cold
   flag_threshold: 20

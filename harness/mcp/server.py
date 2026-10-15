@@ -165,6 +165,24 @@ def _scratch_dir() -> Path:
     return path
 
 
+def _refresh_scratch_rules() -> None:
+    """Regenerate the scratch ``rules.toml`` from the running build.
+
+    ``Environment.bind`` writes each config file only when it is absent
+    (``config.ensure_default_configs``), and ``sync_rules`` appends missing
+    rules but never replaces a drifted pattern.  A ``.mcp-scratch`` tree left
+    by an older core therefore keeps that core's ``rules.toml`` forever, and
+    every ``analyze_diff`` call reports the ``ruleset_drifted`` coverage gap
+    and skips the checks this build ships.  The scratch config is disposable,
+    so drop ``rules.toml`` and let ``ensure_default_configs`` rewrite it from
+    the shipped defaults; the caller-settled ``config.toml`` is left alone.
+    """
+    from trustsight import config
+
+    (config.CONFIG_DIR / "rules.toml").unlink(missing_ok=True)
+    config.ensure_default_configs()
+
+
 def _analysis_runner():
     """A module-level runner over an isolated scratch directory.
 
@@ -188,6 +206,7 @@ def _analysis_runner():
         )
         env.resolve()
         env.bind(_scratch_dir())
+        _refresh_scratch_rules()
         _ANALYSIS_RUNNER = Runner(env=env)
     return _ANALYSIS_RUNNER
 

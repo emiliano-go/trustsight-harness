@@ -108,6 +108,22 @@ uv lock && uv sync --locked
 
 `uv sync --locked --all-extras` installs all of them, which is what CI does.
 
+### Launching the MCP server
+
+The server needs the `mcp` extra, and a bare `uv sync` **prunes** any extra it
+is not asked for, so a one-time sync can leave `harness-mcp` exiting with
+*"the MCP server needs the `mcp` extra"*. Launch it through `uv run` instead,
+which re-asserts the extra on every start:
+
+```bash
+uv run --project <harness-checkout> --extra mcp harness-mcp
+```
+
+`analyze_diff` runs in an isolated `.mcp-scratch` config. The server regenerates
+that scratch `rules.toml` from the running build on startup, so upgrading
+TrustSight cannot leave a stale ruleset that makes every analysis report the
+`ruleset_drifted` coverage gap. No manual cleanup is needed.
+
 ## Pre-commit hook
 
 The secret scan runs in CI, but CI catches a key after it is pushed; which is
