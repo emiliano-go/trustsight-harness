@@ -45,6 +45,7 @@ import pytest
 from trustsight.analysis.buildfetch import _REGISTRY_RESOLVE
 from trustsight.config import (
     _SUBCOMMAND_OPTS,
+    EXEC_WRAPPER,
     NETWORK_CLIENT_ALTERNATIVES,
     PACKAGE_MANAGER_INSTALL,
 )
@@ -261,7 +262,6 @@ VALIDATOR_ONLY: dict[tuple[str, ...], tuple[str, str | None]] = {
 #: here with a reason; anything new in core fails the forward test until the
 #: validator grows it or it is whitelisted.
 CORE_ONLY_DELIBERATE: dict[str, str] = {
-    r"fetch(?!\()": "the no-call guard half of FreeBSD `fetch`; the validator matches `fetch(?=\\s+\\S)`",
     r"httpie": "the binary is `http`; a bare word would match every URL's scheme",
     r"elinks": "recall-limit: text-mode browser; no campaign chain fetches with one",
     r"links2?": "recall-limit: text-mode browser; same class as elinks",
@@ -310,11 +310,20 @@ CORE_ONLY_DELIBERATE: dict[str, str] = {
 }
 
 
+# Command boundaries and wrappers need a real command, not _example's
+# minimal rendering of lookarounds and alternations.
+CORE_PROBES = {
+    r"(?:\A|[;&|()`{}])\s*(?:" + EXEC_WRAPPER + r")*"
+    r"(?:/[^\s;&|]+/)?fetch(?!\()": "fetch https://example.invalid/payload.sh",
+}
+
+
 @pytest.mark.parametrize("alt", list(NETWORK_CLIENT_ALTERNATIVES))
 def test_every_core_fetch_client_is_matched_by_the_validator(alt):
     if alt in CORE_ONLY_DELIBERATE:
         pytest.skip(CORE_ONLY_DELIBERATE[alt])
-    probe = _example(alt)
+    probe = CORE_PROBES[alt] if alt in CORE_PROBES else _example(alt)
+    assert re.search(alt, probe), f"probe {probe!r} does not match core alternative {alt!r}"
     assert _FETCH.search(probe), (
         f"core alternative {alt!r} (probe {probe!r}) is not matched by the "
         "behavior validator's fetch pattern - the two fetch vocabularies "
@@ -347,6 +356,7 @@ def test_whitelists_stay_in_sync_with_the_source_lists():
     assert not stale, (
         f"CORE_ONLY_DELIBERATE names alternatives core no longer has: {stale}"
     )
+    assert not (set(CORE_PROBES) - core), "CORE_PROBES names alternatives core no longer has"
     fragments = [_leading_tokens(f) for f in _validator_fragments()]
     for tokens, (reason, equivalent) in VALIDATOR_ONLY.items():
         assert tokens in fragments, (

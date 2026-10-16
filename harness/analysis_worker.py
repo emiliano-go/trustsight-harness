@@ -81,6 +81,13 @@ def main() -> int:
                 return 0
             elif env is None:
                 raise RuntimeError("worker used before bind")
+            elif op == "refresh_rules":
+                from trustsight import config
+
+                (config.CONFIG_DIR / "rules.toml").unlink(missing_ok=True)
+                config.ensure_default_configs()
+                api = None
+                _reply({"op": "rules_refreshed"})
             elif op == "restore":
                 _reply({"op": "restored", "db_hash": env.restore()})
             elif op == "analyze":
@@ -88,8 +95,16 @@ def main() -> int:
                     from trustsight.api import TrustSight
                     api = TrustSight()
                 started = time.perf_counter()
-                report = api.analyze_text(req.get("package", package),
-                                          req["text"], req.get("old"))
+                text = req["text"]
+                old = req.get("old")
+                if old is None and (
+                    text.startswith("diff --git ")
+                    or (text.startswith("--- ") and text.partition("\n")[2].startswith("+++ "))
+                ):
+                    # The diff API preserves companion filenames and hunk context.
+                    report = api.analyze_diff(text, package=req.get("package", package))
+                else:
+                    report = api.analyze_text(req.get("package", package), text, old)
                 _reply({"op": "analyzed",
                         "body": report.to_dict(include_score=True, verbose=True),
                         "wall_clock_ms": int((time.perf_counter() - started)

@@ -121,6 +121,48 @@ one of them:
   calls the same implementation, and a test enforces the two surfaces stay
   identical.
 
+## False-Positive Triage
+
+The agent supplies judgments and minimal synthetic diffs; the harness gathers
+evidence and writes drafts, without making LLM calls or opening pull requests.
+The same three operations are available over MCP and the CLI:
+
+```bash
+python -m harness fp_triage --alert-slug 2026-10-16/142307 --out evidence.json
+python -m harness fp_report --evidence evidence.json --verdicts verdicts.json
+python -m harness fp_verify --report-path benign/fp-2026-10-16/triage.json
+```
+
+`fp_triage` compares alert findings with the **current** AUR snapshot, resolves
+split-package bases, and records both versions and staleness. Absence from that
+snapshot does not prove historical absence. Unresolved checks remain unknown.
+
+`verdicts.json` contains `findings` with `package`, zero-based `index`, `rule_id`,
+`verdict`, `confidence`, `root_cause`, `reasoning`, and `suggested_fix`; a sole
+package may omit `package`. Verdicts are `FP`, `TP`, `TP-but-benign`,
+`overweighted`, or `uncertain`. Optional `summary` and `root_causes` describe the
+draft. JSON arguments also accept inline objects.
+
+To register a reproducer, supply its literal unified diff as `--synthetic-diff`
+(or the MCP `synthetic_diff` argument). One call associates a diff with one
+package and requires complete benign adjudication of its findings. Reports,
+evidence, and explicitly supplied reproducers live under `benign/fp-<date>/`.
+Updates merge finding judgments; they cannot silently reclassify an existing
+benign corpus entry as suspicious.
+
+`fp_verify` restarts the isolated analysis worker and regenerates its rules so
+editable TrustSight fixes are loaded. Verification means the reproducer scored
+**at or below 35**, not that the package was proved safe or every finding was
+removed. Errors and incomplete analysis cannot verify a fix. Residual findings
+are returned for review. FP artifacts never enter the bypass/gap archive.
+
+Measure a generated corpus separately, with its recorded environment:
+
+```bash
+python -m harness benign --corpus benign/fp-2026-10-16/ \
+  --environment benign/fp-2026-10-16/environment.yml
+```
+
 ## Container
 
 `ghcr.io/emiliano-go/trustsight-harness` carries both the harness and a pinned

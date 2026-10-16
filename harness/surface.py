@@ -24,6 +24,7 @@ import inspect
 import json
 import types
 import typing
+from pathlib import Path
 from typing import Any, get_args, get_origin
 
 __all__ = [
@@ -68,6 +69,9 @@ OPERATIONS: tuple[str, ...] = (
     "feed_message",
     "feed_stats",
     "feed_health",
+    "fp_triage",
+    "fp_report",
+    "fp_verify",
 )
 
 #: MCP-only transport, not a parity operation (the CLI is synchronous).
@@ -105,24 +109,35 @@ def _strip_optional(annotation: Any) -> Any:
     return annotation
 
 
+def _json_object(value: str) -> dict:
+    try:
+        text = value if value.lstrip().startswith(("{", "[")) else Path(value).read_text()
+        result = json.loads(text)
+        if not isinstance(result, dict):
+            raise TypeError("JSON must be an object")
+        return result
+    except (OSError, ValueError, TypeError) as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from exc
+
+
 def _argument(parser: argparse.ArgumentParser, param: inspect.Parameter) -> None:
     annotation = _strip_optional(param.annotation)
     origin = get_origin(annotation)
     has_default = param.default is not inspect.Parameter.empty
     default = param.default if has_default else None
 
-    flag = f"--{param.name}"
+    flags = list(dict.fromkeys((f"--{param.name}", f"--{param.name.replace('_', '-')}")))
     if annotation is bool:
-        parser.add_argument(flag, action="store_true", default=bool(default))
+        parser.add_argument(*flags, action="store_true", default=bool(default))
     elif annotation is int:
-        parser.add_argument(flag, type=int, default=default)
+        parser.add_argument(*flags, type=int, default=default)
     elif origin in (list, tuple) or annotation in (list, tuple):
-        parser.add_argument(flag, action="append", default=None,
+        parser.add_argument(*flags, action="append", default=None,
                             metavar=param.name.upper())
     elif origin is dict or annotation is dict:
-        parser.add_argument(flag, type=json.loads, default=None, metavar="JSON")
+        parser.add_argument(*flags, type=_json_object, default=default, metavar="JSON_OR_FILE")
     else:
-        parser.add_argument(flag, type=str, default=default)
+        parser.add_argument(*flags, type=str, default=default)
 
     if not has_default:
         # Mirror the operation's contract: a parameter without a default is
@@ -138,6 +153,7 @@ def cli_parser(name: str) -> argparse.ArgumentParser:
         description=(inspect.getdoc(fn) or "").split("\n\n")[0],
     )
     parser.add_argument("--out", help="write the JSON result to this file")
+    hints = typing.get_type_hints(fn)
     for param in inspect.signature(fn).parameters.values():
-        _argument(parser, param)
+        _argument(parser, param.replace(annotation=hints.get(param.name, param.annotation)))
     return parser

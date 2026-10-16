@@ -213,13 +213,22 @@ class _Session:
                 return
 
     async def kill(self) -> None:
-        """Kill the worker's whole process group, then reap it."""
-        self.kill_sync()
-        with trio.move_on_after(KILL_WAIT_S):
-            try:
-                await self.execd.waitpid(W.EXITED)
-            except Exception:  # noqa: BLE001, S110
-                pass
+        """Kill and reap the worker, then release its parent pipe handles."""
+        try:
+            self.kill_sync()
+            with trio.move_on_after(KILL_WAIT_S):
+                try:
+                    await self.execd.waitpid(W.EXITED)
+                except Exception:  # noqa: BLE001, S110
+                    pass
+        finally:
+            # Reaping does not close our pipes or remove their epoll registrations.
+            with trio.CancelScope(shield=True):
+                for pipe in (self.req, self.resp):
+                    try:
+                        await pipe.close()
+                    except Exception:  # noqa: BLE001, S110 - close both even if one fails
+                        pass
 
 
 class _WorkerGone(RuntimeError):
@@ -400,6 +409,15 @@ class Runner:
         """
         with self._lock:
             return self._request({"op": "restore"})["db_hash"]
+
+    def restart(self) -> None:
+        """Exec a fresh analyzer and regenerate its shipped scratch rules."""
+        with self._lock:
+            if self._session is not None:
+                self._drop(self._session)
+            reply = self._request({"op": "refresh_rules"})
+            if reply.get("op") != "rules_refreshed":
+                raise RunnerError(f"worker failed to refresh rules: {reply}")
 
     def rebind(self, env, package: str | None = None) -> None:
         """Point this runner at a different campaign environment in place.

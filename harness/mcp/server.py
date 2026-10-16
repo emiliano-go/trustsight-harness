@@ -1250,6 +1250,62 @@ def harness_version() -> str:
 
 
 # ---------------------------------------------------------------------------
+# Tools: false-positive triage and verification
+# ---------------------------------------------------------------------------
+
+
+@mcp.tool()
+def fp_triage(alert_slug: str) -> dict:
+    """Gather deterministic evidence for an alert, without judging findings.
+
+    Args:
+        alert_slug: UTC feed alert slug, YYYY-MM-DD/HHMMSS (optional suffix).
+    """
+    from ..fp_triage import triage_alert
+
+    try:
+        return triage_alert(alert_slug, feed_client=_feed_client(), aur_client=_aur_client())
+    except ImportError:
+        return {"error": _HTTPX_HINT}
+    except (*_network_error_types(), ValueError, TypeError, OSError) as exc:
+        return {"error": str(exc)}
+
+
+@mcp.tool()
+def fp_report(evidence: dict, verdicts: dict, synthetic_diff: str | None = None) -> dict:
+    """Write a false-positive report and optional synthetic diff text.
+
+    Args:
+        evidence: Evidence bundle returned by fp_triage.
+        verdicts: Agent-provided finding verdicts and reasoning.
+        synthetic_diff: Optional unified diff text, not a file path.
+    """
+    from ..fp_report import write_report
+
+    try:
+        return write_report(_repo_root(), evidence, verdicts, synthetic_diff=synthetic_diff)
+    except (ValueError, TypeError, OSError) as exc:
+        return {"error": str(exc)}
+
+
+@mcp.tool()
+def fp_verify(report_path: str) -> dict:
+    """Verify registered FP reproducers using freshly exec'd analyzer code and rules.
+
+    Args:
+        report_path: Markdown report or triage.json inside benign/fp-YYYY-MM-DD/.
+    """
+    from ..fp_fix import verify_report
+
+    with _analysis_lock:
+        try:
+            _analysis_runner().restart()
+            return verify_report(_repo_root(), report_path, analyze=analyze_diff)
+        except (RuntimeError, ValueError, TypeError, OSError) as exc:
+            return {"error": str(exc), "all_verified": False}
+
+
+# ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------
 
