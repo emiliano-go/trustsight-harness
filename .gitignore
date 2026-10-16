@@ -26,3 +26,4 @@ fixtures-out/
 # `python -m harness regression`; the committed matrix files are the snapshot.
 /archive.json
 campaigns/*/archive.json
+.kimi-code/
