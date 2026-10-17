@@ -236,3 +236,93 @@ def test_multi_tp_is_not_supported():
               "packages": [MULTI_FP_RESULT["packages"][0]]}
     with pytest.raises(ValueError):
         render_pr_content(result, target_repo="trustsight", date=DAY)
+
+
+FIX_DIFF = """--- a/src/trustsight/rules/r007.py
++++ b/src/trustsight/rules/r007.py
+@@ -1,3 +1,4 @@
+ def check(files):
+     # header noise filter
++    allow = ("README", "CHANGELOG")
+     return files
+"""
+
+
+@pytest.fixture()
+def fix_repo(tmp_path):
+    rule = tmp_path / "src" / "trustsight" / "rules"
+    rule.mkdir(parents=True)
+    (rule / "r007.py").write_text(
+        "def check(files):\n    # header noise filter\n    return files\n")
+    return tmp_path
+
+
+def _fp_result_with_fix(package="demo-bin"):
+    return {"kind": "FP", "verified": True, "package": package,
+            "findings_table": [{"finding": "f", "false_trigger": "t",
+                                "fix": "x"}],
+            "code_fixes": [{"path": "src/trustsight/rules/r007.py",
+                            "diff": FIX_DIFF,
+                            "summary": "allow header files",
+                            "linked_finding": "f"}],
+            "suppression": {"rule_id": "C024", "package": package},
+            "report_entry": {"package": package}}
+
+
+def test_fp_pr_ships_applied_code_fix(fix_repo):
+    out = render_pr_content(_fp_result_with_fix(), target_repo="trustsight",
+                            date=DAY, repo_root=str(fix_repo))
+    fix_path = "src/trustsight/rules/r007.py"
+    assert fix_path in out["files"]
+    assert 'allow = ("README", "CHANGELOG")' in out["files"][fix_path]
+    assert "Code fixes:" in out["body"]
+    assert "- src/trustsight/rules/r007.py: allow header files" in out["body"]
+    # suppression still present alongside the fix
+    assert f"data/fp-suppressions/{DAY}-demo-bin.json" in out["files"]
+
+
+def test_fp_pr_rejected_fix_listed_in_body(fix_repo):
+    result = _fp_result_with_fix()
+    result["code_fixes"].append({
+        "path": "data/evil.json",
+        "diff": "--- a/data/evil.json\n+++ b/data/evil.json\n@@ -0,0 +1 @@\n+{}\n",
+        "summary": "sneaky", "linked_finding": "f"})
+    out = render_pr_content(result, target_repo="trustsight", date=DAY,
+                            repo_root=str(fix_repo))
+    assert "data/evil.json" not in out["files"]
+    assert "rejected" in out["body"]
+
+
+def test_multi_fp_pr_merges_fixes_and_dedups(fix_repo):
+    a = _fp_result_with_fix("pkg-a")
+    b = _fp_result_with_fix("pkg-b")  # identical fix: deduped
+    c = _fp_result_with_fix("pkg-c")
+    c["code_fixes"][0]["diff"] = c["code_fixes"][0]["diff"].replace(
+        'allow = ("README", "CHANGELOG")', "allow = ()")
+    result = {"kind": "FP", "verified": True, "packages": [a, b, c]}
+    out = render_pr_content(result, target_repo="trustsight", date=DAY,
+                            repo_root=str(fix_repo))
+    assert list(out["files"]).count("src/trustsight/rules/r007.py") == 1
+    assert 'allow = ("README", "CHANGELOG")' in out["files"][
+        "src/trustsight/rules/r007.py"]
+    assert "package: pkg-a" in out["body"]
+    assert "conflicting diff" in out["body"]
+
+
+def test_fixes_only_target_trustsight_repo(fix_repo):
+    out = render_pr_content(_fp_result_with_fix(),
+                            target_repo="trustsight-harness", date=DAY,
+                            repo_root=str(fix_repo))
+    assert all("rules" not in path for path in out["files"])
+
+
+def test_repo_file_op(fix_repo, monkeypatch):
+    from harness.mcp import server
+
+    monkeypatch.setenv("TRUSTSIGHT_REPO_ROOT", str(fix_repo))
+    ok = server.repo_file("src/trustsight/rules/r007.py")
+    assert ok["path"] == "src/trustsight/rules/r007.py"
+    assert "def check" in ok["content"]
+    assert "error" in server.repo_file("data/x.json")
+    assert "error" in server.repo_file("src/trustsight/rules/missing.py")
+    assert "error" in server.repo_file("../escape.py")

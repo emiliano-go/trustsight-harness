@@ -37,7 +37,17 @@ def fp_verdict(**overrides):
                              "reason": "demo.install is shipped but not declared",
                              "finding": "demo.install is shipped but not declared",
                              "false_trigger": "install file is declared in PKGBUILD",
-                             "fix": "declare the install file"}]}
+                             "fix": "declare the install file"}],
+               "code_fixes": [{
+                   "path": "src/trustsight/rules/demo.py",
+                   "diff": ("--- a/src/trustsight/rules/demo.py\n"
+                            "+++ b/src/trustsight/rules/demo.py\n"
+                            "@@ -1,2 +1,3 @@\n"
+                            " x = 1\n"
+                            "+# declared install files are not phantoms\n"
+                            " y = 2\n"),
+                   "summary": "skip declared install files",
+                   "linked_finding": "demo.install is shipped but not declared"}]}
     verdict.update(overrides)
     return verdict
 

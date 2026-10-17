@@ -42,6 +42,16 @@ decides; a maintainer merges.
    `repos:pull_requests`. A verified TP goes to `fp_agent_alert`, which
    renders the alert envelope; the triage pipeline delivers it to its
    notification sinks.
+   An FP verdict must also carry `code_fixes`: unified diffs implementing
+   the rule fixes. The agent reads the rule source through the read-only
+   `repo_file` operation (allowlisted to `src/trustsight/` and `tests/`)
+   and proposes minimal diffs; the `fp_agent_pr` render gates them (path
+   allowlist, charset checks on added lines, size caps) and applies each
+   surviving diff with `git apply` in a sandboxed throwaway tree seeded
+   from the trustsight checkout, so the PR's file map carries the full
+   post-fix sources and the body gains a "Code fixes" section. Rejected
+   fixes are listed in the body with their reasons; the suppression
+   proposal still lands.
 5. After a verified FP, the triage agent's own **PR backstop** re-renders
    the expected title and body with the same `fp_agent_pr` operation
    (over the CLI: `harness fp_agent_pr --result <file> --target-repo trustsight
@@ -77,6 +87,11 @@ pipeline passes documents that approach the 1 MiB verdict cap.
   `| Type | Value | Confidence |` table. Shape only, never truth: only
   verified results should be rendered, and the operation never re-gathers
   evidence.
+- **`repo_file`** (`harness repo_file --path src/trustsight/... --max-bytes N`).
+  Read one watcher repo file (rule code or tests; the only readable areas
+  are `src/trustsight/` and `tests/`) so the sandboxed agent can ground
+  its `code_fixes` diffs in the real source. Read-only, size-capped, no
+  symlinks.
 - **`fp_agent_alert`** (`harness fp_agent_alert --result JSON_OR_FILE`).
   Render a verified TP result as the `trustsight.confirmed-ioc` alert
   envelope: fixed event name, fixed `default` priority, the IOC entries,

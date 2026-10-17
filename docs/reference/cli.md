@@ -54,7 +54,8 @@ or written to `--out`.
 | `aur_pkgbuild --package NAME` | AUR snapshot build files. |
 | `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_stats`, `feed_health` | The watcher feed API. |
 | `fp_agent_verify --verdict JSON_OR_FILE` | Cross-check an agent-proposed FP/TP verdict against deterministic, current-snapshot evidence; malformed input raises, unverifiable evidence returns `verified: false`. |
-| `fp_agent_pr --result JSON_OR_FILE --target-repo trustsight\|trustsight-harness --date YYYY-MM-DD` | Render a verified FP/TP result as branch, title, body, and a files map of inert artifact proposals. |
+| `fp_agent_pr --result JSON_OR_FILE --target-repo trustsight\|trustsight-harness --date YYYY-MM-DD [--repo-root PATH]` | Render a verified FP/TP result as branch, title, body, and a files map of inert artifact proposals. FP results carrying `code_fixes` have those diffs gated (allowlist, charset, size caps) and applied with `git apply` in a sandboxed temp tree, so the files map ships the full post-fix sources. |
+| `repo_file --path PATH [--max-bytes N]` | Read one watcher rule/test file (`src/trustsight/` or `tests/` only) for grounding FP `code_fixes` diffs. Read-only and size-capped. |
 | `fp_agent_alert --result JSON_OR_FILE` | Render a verified TP result as the `trustsight.confirmed-ioc` alert envelope (fixed `default` priority). |
 
 `sweep`, `coverage`, `matrix` and `benign` keep their classic spellings above;

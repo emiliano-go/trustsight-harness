@@ -75,6 +75,7 @@ OPERATIONS: tuple[str, ...] = (
     "fp_agent_verify",
     "fp_agent_pr",
     "fp_agent_alert",
+    "repo_file",
 )
 
 #: MCP-only transport, not a parity operation (the CLI is synchronous).

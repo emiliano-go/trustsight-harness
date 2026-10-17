@@ -34,6 +34,7 @@ import re
 import string
 from datetime import date
 
+from .code_fixes import resolve_repo_root, validate_and_apply
 from .fp_triage import _NAME
 
 _ALLOWED = frozenset(string.ascii_letters + string.digits + " \t\n\r;:,()-./'_\"|[]+")
@@ -114,7 +115,53 @@ def _date(date_str: str) -> str:
     return date_str
 
 
-def _fp_files(result, target_repo, day):
+def _code_fix_section(fix_result):
+    """Render the "Code fixes" body section; "" when nothing was accepted."""
+
+    from .code_fixes import _sanitize_reason
+
+    lines = []
+    for fix in fix_result["fixes"]:
+        who = f"package: {fix['package']}, " if fix.get("package") else ""
+        lines.append("- " + _cell(
+            f"{fix['path']}: {fix['summary']} ({who}finding:"
+            f" {fix['linked_finding']})"))
+    for rej in fix_result["rejected"]:
+        # Rejected paths/reasons quote raw agent text: sanitize before the
+        # cell gate so one hostile label cannot sink the whole render.
+        lines.append("- " + _cell(
+            f"{_sanitize_reason(str(rej['path']))}: rejected:"
+            f" {_sanitize_reason(str(rej['reason']))}"))
+    if not lines:
+        return ""
+    return "\n".join(["Code fixes:", *lines])
+
+
+def _merge_code_fixes(results, target_repo, day, repo_root):
+    """Validate and apply the code fixes of one or more FP results.
+
+    Every result's ``code_fixes`` entries are gated together (one cap set
+    per PR), applied against the trustsight checkout in a temp tree, and
+    the changed files' full post-fix contents are returned for the PR file
+    map, alongside the "Code fixes" body section.
+    """
+
+    raw = []
+    for result in results:
+        package = result.get("package", "")
+        for fix in result.get("code_fixes") or []:
+            if isinstance(fix, dict):
+                raw.append({**fix, "package": package})
+            else:
+                raw.append(fix)
+    if not raw:
+        return "", {}
+    fix_result = validate_and_apply(raw, repo_root=repo_root)
+    return _code_fix_section(fix_result), fix_result["files"]
+
+
+def _fp_files(result, target_repo, day, repo_root=None,
+              include_fixes=True):
     package = _require(result, "package")
     if not _NAME.fullmatch(package):
         raise ValueError("invalid package name")
@@ -137,10 +184,17 @@ def _fp_files(result, target_repo, day):
         files = {f"benign/fp-{day}/{package}.triage.json": _checked_json(report_entry)}
     else:
         raise ValueError("unsupported target_repo for an FP verdict")
+    fix_section, fix_files = ("", {})
+    if include_fixes and target_repo == "trustsight":
+        fix_section, fix_files = _merge_code_fixes([result], target_repo, day,
+                                                   repo_root)
+    if fix_files:
+        files.update(fix_files)
+        body = body.rstrip("\n") + "\n\n" + fix_section + "\n"
     return title, body, files
 
 
-def _fp_files_multi(results, target_repo, day):
+def _fp_files_multi(results, target_repo, day, repo_root=None):
     """Render one aggregated FP PR covering every verified FP package.
 
     *results* is a non-empty list of single-package FP result dicts, each
@@ -157,7 +211,8 @@ def _fp_files_multi(results, target_repo, day):
     for item in results:
         if not isinstance(item, dict):
             raise TypeError("packages entries must be objects")
-        title, body, item_files = _fp_files(item, target_repo, day)
+        title, body, item_files = _fp_files(
+            item, target_repo, day, include_fixes=False)
         titles.append(title)
         files.update(item_files)
         bodies.append(body)
@@ -172,6 +227,14 @@ def _fp_files_multi(results, target_repo, day):
         lines.append(f"Package: {name}")
         lines.extend(table)
         lines.append("")
+    fix_section, fix_files = ("", {})
+    if target_repo == "trustsight":
+        fix_section, fix_files = _merge_code_fixes(
+            [r for r in results if isinstance(r, dict)],
+            target_repo, day, repo_root)
+    if fix_files:
+        files.update(fix_files)
+        lines.extend(["", *fix_section.splitlines()])
     return title, "\n".join(lines), files
 
 
@@ -198,18 +261,28 @@ def _tp_files(result, target_repo, day):
     return title, body, files
 
 
-def render_pr_content(result: dict, *, target_repo: str, date: str) -> dict:
-    """Render a verified verdict result as branch, title, body, and file map."""
+def render_pr_content(result: dict, *, target_repo: str, date: str,
+                      repo_root: str | None = None) -> dict:
+    """Render a verified verdict result as branch, title, body, and file map.
+
+    FP results carrying ``code_fixes`` have those diffs gated and applied
+    (see :mod:`harness.code_fixes`) against the trustsight checkout at
+    *repo_root* (explicit path, ``$TRUSTSIGHT_REPO_ROOT``, or the editable
+    install location); the changed files ship in the PR's file map and the
+    body gains a "Code fixes" section.  Fixes only ever target the
+    ``trustsight`` repo."""
     if not isinstance(result, dict):
         raise ValueError("result must be an object")  # noqa: TRY004 - malformed envelopes use ValueError consistently
     if not isinstance(target_repo, str):
         raise ValueError("target_repo must be a string")  # noqa: TRY004 - malformed envelopes use ValueError consistently
     day = _date(date)
+    root = resolve_repo_root(repo_root)
     kind = result.get("kind")
     if kind == "FP":
         packages = result.get("packages")
         if packages is not None:
-            title, body, files = _fp_files_multi(packages, target_repo, day)
+            title, body, files = _fp_files_multi(
+                packages, target_repo, day, repo_root=root)
             names = sorted(_require(item, "package") for item in packages)
             identity = json.dumps([day, names, "FP"], sort_keys=True)
             branch = _branch("fp", "multi", identity)
@@ -217,7 +290,8 @@ def render_pr_content(result: dict, *, target_repo: str, date: str) -> dict:
                 raise ValueError("generated branch failed its own contract")
             return {"branch": branch, "title": title, "body": body,
                     "files": files}
-        title, body, files = _fp_files(result, target_repo, day)
+        title, body, files = _fp_files(result, target_repo, day,
+                                       repo_root=root)
         branch_kind = "fp"
         identity = json.dumps([day, result.get("package"), "FP"], sort_keys=True)
     elif kind == "TP":

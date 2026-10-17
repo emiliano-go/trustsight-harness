@@ -23,8 +23,11 @@ SOURCES = sorted(
 #: (harness/portal.py), and the modules that exec into a cloned child:
 #: validators/syntax.py (`bash -n`), harness/runner.py (the analysis worker)
 #: and harness/pool.py (the namespaced pool).
+#: code_fixes execs a fixed-argv `git apply` inside the parser sandbox, on
+#: a sealed memfd patch, chdired into a throwaway temp tree.
 EXEC_ALLOWED = {"harness/sandbox.py", "harness/portal.py",
-                "validators/syntax.py", "harness/runner.py", "harness/pool.py"}
+                "validators/syntax.py", "harness/runner.py", "harness/pool.py",
+                "harness/code_fixes.py"}
 #: The modules permitted to talk to a network: the LLM generator, and the two
 #: read-only external clients (the AUR downloader, the watcher feed reader) and
 #: their shared HTTP substrate.  These reach exactly two peers, built from

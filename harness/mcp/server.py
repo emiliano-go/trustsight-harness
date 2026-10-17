@@ -8,6 +8,7 @@ ID for polling rather than blocking.
 from __future__ import annotations
 
 import json
+import os
 import threading
 import time
 import traceback
@@ -1325,18 +1326,53 @@ def fp_agent_verify(verdict: dict) -> dict:
 
 
 @mcp.tool()
-def fp_agent_pr(result: dict, target_repo: str, date: str) -> dict:
+def fp_agent_pr(result: dict, target_repo: str, date: str,
+                repo_root: str = "") -> dict:
     """Render a verified verdict result as PR branch, title, body, and files.
 
     Args:
         result: A verified result from fp_agent_verify (kind FP or TP).
         target_repo: "trustsight" or "trustsight-harness".
         date: Artifact date, YYYY-MM-DD.
+        repo_root: Optional trustsight checkout for validating and applying
+            FP code_fixes; defaults to $TRUSTSIGHT_REPO_ROOT or the
+            editable-install location.
     """
     from ..fp_agent_pr import render_pr_content
 
     try:
-        return render_pr_content(result, target_repo=target_repo, date=date)
+        return render_pr_content(result, target_repo=target_repo, date=date,
+                                 repo_root=repo_root or None)
+    except (ValueError, TypeError, OSError) as exc:
+        return {"error": str(exc)}
+
+
+@mcp.tool()
+def repo_file(path: str, max_bytes: int = 65536) -> dict:
+    """Read one watcher repo file (rule code or tests) for FP code fixes.
+
+    Args:
+        path: Repo-relative path; only src/trustsight/ and tests/ are
+            readable, so the agent can ground its proposed code_fixes diff
+            in the real rule source without any write capability.
+        max_bytes: Size cap on the returned content.
+    """
+    from ..code_fixes import check_fix_path, resolve_repo_root
+
+    try:
+        rel = check_fix_path(path)
+        root = resolve_repo_root()
+        if root is None:
+            return {"error": "trustsight repo root unavailable"}
+        target = (root / rel).resolve()
+        if not str(target).startswith(str(root) + os.sep):
+            return {"error": "path escapes the repo root"}
+        if not target.is_file() or target.is_symlink():
+            return {"error": f"not a file: {rel}"}
+        if target.stat().st_size > max(1024, min(max_bytes, 1 << 20)):
+            return {"error": f"file exceeds {max_bytes} bytes"}
+        return {"path": rel,
+                "content": target.read_text(encoding="utf-8", errors="strict")}
     except (ValueError, TypeError, OSError) as exc:
         return {"error": str(exc)}
 

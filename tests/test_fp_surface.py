@@ -51,8 +51,9 @@ def test_wrappers_delegate(monkeypatch, tmp_path):
     def verify(verdict, *, aur_client, feed_client):
         assert (verdict, aur_client, feed_client) == ({}, aur, feed)
         return {"verified": True}
-    def render(result, *, target_repo, date):
+    def render(result, *, target_repo, date, repo_root=None):
         assert (result, target_repo, date) == ({}, "trustsight", "2026-10-16")
+        assert repo_root in (None, "")  # default: resolved from the env
         return {"branch": "b"}
     monkeypatch.setattr(fp_triage, "triage_alert", triage)
     monkeypatch.setattr(fp_report, "write_report", report)

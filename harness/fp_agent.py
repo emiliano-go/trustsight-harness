@@ -25,6 +25,7 @@ from trustsight.recipedoc import parse_recipe
 from trustsight.tokenizer import resolve_added_lines, split_lines
 
 from .aur import _MAX_MEMBERS, _MAX_PKGBUILD_BYTES
+from .code_fixes import FixError, validate_fix_shape
 from .fp_report import _report_name
 from .fp_triage import (
     _NAME,
@@ -153,8 +154,35 @@ def _suppression(table, package, rationale):
             "requires_clear_indicators": True}
 
 
+def _code_fixes(verdict, kind):
+    """Validate the verdict's code_fixes list; FP requires at least one.
+
+    An FP adjudication is only actionable if it ships the concrete rule
+    fix as a unified diff, so a verified-FP verdict with zero code_fixes
+    is invalid.  TP and uncertain verdicts must carry none.
+    """
+
+    raw = verdict.get("code_fixes", [])
+    if kind != "FP":
+        if raw:
+            raise ValidationError("code_fixes are only allowed for FP verdicts")
+        return []
+    if not isinstance(raw, list):
+        raise ValidationError("code_fixes must be a list")
+    fixes = []
+    for item in raw:
+        try:
+            fixes.append(validate_fix_shape(item))
+        except FixError as exc:
+            raise ValidationError(f"invalid code_fixes entry: {exc}") from exc
+    if not fixes:
+        raise ValidationError("an FP verdict requires at least one code fix")
+    return fixes
+
+
 def _fp(verdict, package, rationale, aur_client):
     table = _findings_table(verdict)
+    fixes = _code_fixes(verdict, "FP")
     try:
         build = aur_client.pkgbuild(package)
         evidence = _fp_evidence(build, table)
@@ -168,6 +196,7 @@ def _fp(verdict, package, rationale, aur_client):
             "reason": None if verified else "cross-check evidence contradicts the FP claim",
             "findings_table": [{"finding": r["finding"], "false_trigger": r["false_trigger"],
                                 "fix": r["fix"]} for r in table],
+            "code_fixes": fixes,
             "suppression": _suppression(table, package, rationale),
             "report_entry": {"alert_slug": slug, "package": package,
                              "evidence": {"package": package, "findings": [],
@@ -233,7 +262,9 @@ def verify_agent_verdict(verdict: dict, *, aur_client, feed_client) -> dict:
     """Cross-check an agent's FP/TP claim; malformed input raises, evidence fails closed.
 
     Args:
-        verdict: Agent-proposed adjudication (untrusted, size-capped).
+        verdict: Agent-proposed adjudication (untrusted, size-capped). FP
+            verdicts must carry at least one ``code_fixes`` entry: a
+            concrete, allowlisted unified diff implementing the rule fix.
         aur_client: The same client fp_triage takes; used read-only.
         feed_client: Reserved for feed-side evidence; accepted for parity
             with fp_triage and never required to verify a claim.
@@ -241,6 +272,7 @@ def verify_agent_verdict(verdict: dict, *, aur_client, feed_client) -> dict:
     kind, package, rationale, transition = _validated(verdict)
     if kind == "FP":
         return _fp(verdict, package, rationale, aur_client)
+    _code_fixes(verdict, kind)
     if kind == "TP":
         return _tp(verdict, package, rationale, transition, aur_client)
     return {"kind": "uncertain", "verified": False, "package": package,
