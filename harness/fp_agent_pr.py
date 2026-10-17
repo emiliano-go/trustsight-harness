@@ -15,7 +15,12 @@ All violations raise :class:`FormatError` (a ``ValueError`` subclass).
 Cell values that are not strings (``None``, numbers) are coerced with
 ``str()`` before the gate runs, so rendering stays deterministic.  Only
 *verified* results should be rendered; this module validates shapes, not
-truth, and never re-gathers evidence.  File paths are built only from the
+truth, and never re-gathers evidence.  An FP result may instead carry a
+``packages`` list of per-package FP results, in which case one aggregated PR
+is rendered covering every package: the title names the first two packages
+plus a ``(+N more)`` suffix, the body holds one ``Package: <name>`` section
+with the standard findings table per package, and the file map merges every
+package's artifact.  File paths are built only from the
 strict ``YYYY-MM-DD`` date, the two literal target repos, and a package name
 that must match the fp_triage ``_NAME`` pattern, so path traversal through
 these arguments is impossible by construction.
@@ -135,6 +140,41 @@ def _fp_files(result, target_repo, day):
     return title, body, files
 
 
+def _fp_files_multi(results, target_repo, day):
+    """Render one aggregated FP PR covering every verified FP package.
+
+    *results* is a non-empty list of single-package FP result dicts, each
+    shaped exactly like the argument :func:`_fp_files` takes.  The PR body
+    carries one section per package (a ``Package: <name>`` line followed by
+    the standard ``| Finding | False trigger | Fix |`` table) and the file
+    map merges every package's artifact, so one PR suppresses all packages
+    flagged by the same alert.
+    """
+
+    if not isinstance(results, list) or not results:
+        raise ValueError("packages must be a non-empty list")
+    titles, bodies, files = [], [], {}
+    for item in results:
+        if not isinstance(item, dict):
+            raise TypeError("packages entries must be objects")
+        title, body, item_files = _fp_files(item, target_repo, day)
+        titles.append(title)
+        files.update(item_files)
+        bodies.append(body)
+    names = [t.removeprefix("FP triage: ") for t in titles]
+    head = ", ".join(names[:2])
+    if len(names) > 2:
+        head += f" (+{len(names) - 2} more)"
+    title = _enforce_text_format(f"FP triage: {head}")
+    lines = [title, ""]
+    for name, body in zip(names, bodies, strict=True):
+        table = body.splitlines()[2:]  # drop the per-package title and blank
+        lines.append(f"Package: {name}")
+        lines.extend(table)
+        lines.append("")
+    return title, "\n".join(lines), files
+
+
 def _tp_files(result, target_repo, day):
     if target_repo != "trustsight":
         raise ValueError("TP IOC files target the trustsight repo only")
@@ -167,6 +207,16 @@ def render_pr_content(result: dict, *, target_repo: str, date: str) -> dict:
     day = _date(date)
     kind = result.get("kind")
     if kind == "FP":
+        packages = result.get("packages")
+        if packages is not None:
+            title, body, files = _fp_files_multi(packages, target_repo, day)
+            names = sorted(_require(item, "package") for item in packages)
+            identity = json.dumps([day, names, "FP"], sort_keys=True)
+            branch = _branch("fp", "multi", identity)
+            if not _BRANCH_RE.fullmatch(branch):
+                raise ValueError("generated branch failed its own contract")
+            return {"branch": branch, "title": title, "body": body,
+                    "files": files}
         title, body, files = _fp_files(result, target_repo, day)
         branch_kind = "fp"
         identity = json.dumps([day, result.get("package"), "FP"], sort_keys=True)

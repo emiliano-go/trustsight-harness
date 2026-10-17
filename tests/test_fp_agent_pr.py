@@ -159,3 +159,80 @@ def test_target_repo_is_an_exact_literal(repo):
         render_pr_content(FP_RESULT, target_repo=repo, date=DAY)
     with pytest.raises(ValueError):
         render_pr_content(TP_RESULT, target_repo=repo, date=DAY)
+
+
+def _fp_result_for(package):
+    return {"kind": "FP", "verified": True, "package": package,
+            "findings_table": [
+                {"finding": f"{package} noise", "false_trigger": "t", "fix": "f"},
+            ],
+            "suppression": {"rule_id": "C024", "reason": "benign",
+                            "package": package, "created_at": "t",
+                            "created_at_obs": 0, "ttl_observations": None,
+                            "requires_clear_indicators": True},
+            "report_entry": {"alert_slug": "s", "package": package,
+                             "evidence": {}, "verdicts": {}, "report_path": "r",
+                             "corpus_paths": []}}
+
+
+MULTI_FP_RESULT = {"kind": "FP", "verified": True,
+                   "packages": [_fp_result_for(p)
+                                for p in ("pkg-a", "pkg-b", "pkg-c")]}
+
+
+def test_multi_fp_pr_covers_every_package():
+    out = render_pr_content(MULTI_FP_RESULT, target_repo="trustsight", date=DAY)
+    assert out["title"] == "FP triage: pkg-a, pkg-b (+1 more)"
+    assert list(out["files"]) == [
+        f"data/fp-suppressions/{DAY}-pkg-a.json",
+        f"data/fp-suppressions/{DAY}-pkg-b.json",
+        f"data/fp-suppressions/{DAY}-pkg-c.json",
+    ]
+    for pkg in ("pkg-a", "pkg-b", "pkg-c"):
+        assert f"Package: {pkg}" in out["body"]
+        assert f"| {pkg} noise |" in out["body"]
+    assert out["body"].count("| Finding | False trigger | Fix |") == 3
+    import re
+    assert re.fullmatch(r"triage/fp-[a-z0-9+._-]+-[0-9a-f]{8}", out["branch"])
+
+
+def test_multi_fp_pr_two_packages_has_no_more_suffix():
+    result = {"kind": "FP", "verified": True,
+              "packages": MULTI_FP_RESULT["packages"][:2]}
+    out = render_pr_content(result, target_repo="trustsight", date=DAY)
+    assert out["title"] == "FP triage: pkg-a, pkg-b"
+
+
+def test_multi_fp_pr_harness_target_merges_report_entries():
+    out = render_pr_content(MULTI_FP_RESULT, target_repo="trustsight-harness",
+                            date=DAY)
+    assert list(out["files"]) == [
+        f"benign/fp-{DAY}/pkg-a.triage.json",
+        f"benign/fp-{DAY}/pkg-b.triage.json",
+        f"benign/fp-{DAY}/pkg-c.triage.json",
+    ]
+
+
+def test_multi_fp_pr_gate_applies_to_every_package():
+    bad = {"kind": "FP", "verified": True,
+           "packages": [MULTI_FP_RESULT["packages"][0],
+                        dict(MULTI_FP_RESULT["packages"][1],
+                             findings_table=[{"finding": "em \u2014 dash",
+                                              "false_trigger": "t",
+                                              "fix": "f"}])]}
+    with pytest.raises(FormatError):
+        render_pr_content(bad, target_repo="trustsight", date=DAY)
+
+
+@pytest.mark.parametrize("packages", [[], "nope", [42], None])
+def test_multi_fp_pr_rejects_bad_packages(packages):
+    result = {"kind": "FP", "verified": True, "packages": packages}
+    with pytest.raises((ValueError, TypeError)):
+        render_pr_content(result, target_repo="trustsight", date=DAY)
+
+
+def test_multi_tp_is_not_supported():
+    result = {"kind": "TP", "verified": True,
+              "packages": [MULTI_FP_RESULT["packages"][0]]}
+    with pytest.raises(ValueError):
+        render_pr_content(result, target_repo="trustsight", date=DAY)
