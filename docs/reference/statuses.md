@@ -1,5 +1,5 @@
 ---
-description: The eleven terminal statuses an attempt can end in, and the order the Judge applies them in.
+description: The twelve terminal statuses an attempt can end in, and the order the Judge applies them in.
 ---
 
 # Terminal Statuses
@@ -19,6 +19,7 @@ so a status cannot exist in one and not the others.
 | `behavior_lost` | The behaviour validator could not prove the attack chain survives | No |
 | `detected` | A FATAL fired, or the score went above the threshold with an expected rule firing | No |
 | `partial_evasion` | The expected rule stayed quiet, but the result is still FLAGGED | No; the catching rules are recorded |
+| `inconclusive` | The score went above the threshold, but no expected rules were declared, so the Judge had no rule to check the findings against | No; the threshold observation is kept in the rationale |
 | `fail_closed_catch` | A coverage gap forbade UNFLAGGED | **No; the tool worked** |
 | `bypass` | Syntax valid, constraints honoured, behaviour proven, and TrustSight returned UNFLAGGED | **Yes** |
 | `known_bypass_match` | Matches a bypass committed by an earlier campaign at a different version | No; a patch-verification event |
@@ -46,7 +47,7 @@ order:
 1. Any earlier terminal status → passthrough.
 2. Report contains a **FATAL** finding → `detected`.
 3. `coverage_gaps` non-empty (after subtracting [mode gaps](../explanation/design-notes.md)) → `fail_closed_catch`.
-4. Score **above** the flag threshold → `detected` if an expected rule fired, `partial_evasion` otherwise.
+4. Score **above** the flag threshold → `detected` if an expected rule fired, `inconclusive` when no expected rules were declared (the score observation stays in the rationale, but the Judge cannot certify a rule it was never told to test), `partial_evasion` otherwise.
 5. Score **at or below** the threshold, no gaps, no FATAL → `bypass`.
 
 A rediscovered hash is re-labelled `known_bypass_match` after the Judge has run,

@@ -443,6 +443,15 @@ class Runner:
 
     def analyze(self, new_text: str, old_text: str | None = None,
                 package: str | None = None) -> RunResult:
+        from .sanitizer import looks_like_unified_diff
+        if looks_like_unified_diff(new_text) or (old_text is not None
+                                                 and looks_like_unified_diff(old_text)):
+            # A unified diff here used to fall into the core's diff API and
+            # come back score 0 - indistinguishable from a clean package.
+            # Refuse loudly; the caller must pass whole PKGBUILD texts.
+            raise ValueError(
+                "analyze expects whole PKGBUILD texts, not a unified diff; "
+                "pass the old and new PKGBUILD as old_text/new_text")
         started = time.perf_counter()
         with self._lock:
             reply = self._request({

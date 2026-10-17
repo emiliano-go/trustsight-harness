@@ -23,6 +23,7 @@ class Status(StrEnum):
     BEHAVIOR_LOST = "behavior_lost"
     DETECTED = "detected"
     PARTIAL_EVASION = "partial_evasion"
+    INCONCLUSIVE = "inconclusive"
     FAIL_CLOSED_CATCH = "fail_closed_catch"
     BYPASS = "bypass"
     KNOWN_BYPASS_MATCH = "known_bypass_match"

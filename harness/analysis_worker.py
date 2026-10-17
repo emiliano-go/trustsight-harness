@@ -97,14 +97,19 @@ def main() -> int:
                 started = time.perf_counter()
                 text = req["text"]
                 old = req.get("old")
-                if old is None and (
-                    text.startswith("diff --git ")
-                    or (text.startswith("--- ") and text.partition("\n")[2].startswith("+++ "))
-                ):
-                    # The diff API preserves companion filenames and hunk context.
-                    report = api.analyze_diff(text, package=req.get("package", package))
-                else:
-                    report = api.analyze_text(req.get("package", package), text, old)
+                from .sanitizer import looks_like_unified_diff
+                if looks_like_unified_diff(text) or (old is not None
+                                                     and looks_like_unified_diff(old)):
+                    # A unified diff fed in as whole-file text used to reach
+                    # the core's diff API, which reconstructs each side from
+                    # its hunks and can come back score 0 - a clean-looking
+                    # answer to a question the caller did not ask.  Refuse
+                    # loudly instead: the caller must pass the old and new
+                    # PKGBUILD texts.
+                    raise ValueError(
+                        "analyze expects whole PKGBUILD texts, not a unified "
+                        "diff; pass the old and new PKGBUILD as old_text/new_text")
+                report = api.analyze_text(req.get("package", package), text, old)
                 _reply({"op": "analyzed",
                         "body": report.to_dict(include_score=True, verbose=True),
                         "wall_clock_ms": int((time.perf_counter() - started)

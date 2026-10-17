@@ -8,7 +8,7 @@ import pytest
 from harness.dedup import Deduplicator, KnownBypasses, diff_hash
 from harness.exporter import Exporter, ExportRefused
 from harness.recorder import FORBIDDEN_RECORD_FIELDS, Recorder, Trace
-from harness.sanitizer import MAX_DIFF_BYTES, sanitize
+from harness.sanitizer import MAX_DIFF_BYTES, looks_like_unified_diff, sanitize
 from harness.stats import bypass_rate, wilson_interval
 from harness.status import Status
 
@@ -29,6 +29,27 @@ def test_an_oversized_diff_is_refused():
 def test_dev_null_is_a_legal_side():
     diff = "--- /dev/null\n+++ b/PKGBUILD\n@@ -0,0 +1 @@\n+pkgname=p\n"
     assert sanitize(diff).ok is True
+
+
+@pytest.mark.parametrize("text", [
+    "diff --git a/PKGBUILD b/PKGBUILD\nindex abc..def 100644\n--- a/PKGBUILD\n+++ b/PKGBUILD\n",
+    "\ndiff --git a/PKGBUILD b/PKGBUILD\n",
+    "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,1 +1,1 @@\n",
+    "--- /dev/null\n+++ b/demo.install\n@@ -0,0 +1,3 @@\n+post_install() { :; }\n",
+    "pkgname=x\n@@ -1,1 +1,1 @@\n",
+])
+def test_diff_shaped_text_is_recognised(text):
+    assert looks_like_unified_diff(text) is True
+
+
+@pytest.mark.parametrize("text", [
+    "pkgname=x\npkgver=1\npkgrel=1\n",
+    "",
+    "source=('https://example.invalid/x.tar.gz')\n# --- not a header\n+++ hmm\n",
+    123,
+])
+def test_whole_file_text_is_not_diff_shaped(text):
+    assert looks_like_unified_diff(text) is False
 
 
 def test_the_hash_ignores_trailing_whitespace():

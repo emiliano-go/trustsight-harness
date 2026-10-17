@@ -128,14 +128,15 @@ def judge(
     if score > flag_threshold:
         fired = {str(getattr(f, "rule_id", "")) for f in findings}
         if not expected_rules:
-            # A campaign that declares no expected rules has no rule to test,
-            # so nothing can have failed the test.  The status is still
-            # `detected` - the payload was caught and the score says so - but
-            # the rationale has to say which branch produced it, because the
-            # record carries no expected_rules to check it against.
-            return Verdict(Status.DETECTED,
-                           f"score {score} > threshold {flag_threshold}; the "
-                           f"campaign declares no expected rules")
+            # A caller that declares no expected rules has no rule to test,
+            # so the Judge cannot say the rule under test fired.  Reporting
+            # `detected` here would be a threshold repass dressed as a second
+            # opinion: the score is kept in the rationale, but the status
+            # says the measurement is inconclusive.
+            return Verdict(Status.INCONCLUSIVE,
+                           f"score {score} > threshold {flag_threshold}, but no "
+                           "expected rules were declared, so the findings "
+                           "cannot be checked against the rule under test")
         if fired & set(expected_rules):
             return Verdict(Status.DETECTED,
                            f"score {score} > threshold {flag_threshold}")

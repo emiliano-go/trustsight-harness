@@ -40,7 +40,7 @@ or written to `--out`.
 |---|---|
 | `run_campaign --campaign_dir DIR` | Run one campaign (same as the directory spelling). |
 | `run_regression [--environment_yaml PATH]` | Replay committed bypasses (same as `regression`). |
-| `analyze_diff --new_text TEXT [--old_text TEXT] [--package NAME]` | Analyse one diff against a scratch database. |
+| `analyze_diff --new_text TEXT [--old_text TEXT] [--package NAME]` | Analyse whole PKGBUILD texts against a scratch database (unified diffs are rejected — pass old/new file texts, not a diff). |
 | `validate_diff --diff_text TEXT [--forbidden_techniques JSON]` | Run the pre-TrustSight validation pipeline. |
 | `judge_verdict --report_body JSON [--flag_threshold N] ...` | Classify a report body. |
 | `diff_hash --diff_text TEXT` | The stable diff hash. |
@@ -51,7 +51,7 @@ or written to `--out`.
 | `check_calibration` | Run the behaviour validator's calibration suite. |
 | `get_environment_info` | The installed TrustSight and environment. |
 | `aur_info --packages NAME [NAME ...]` | AUR metadata via the v5 RPC. |
-| `aur_pkgbuild --package NAME` | AUR snapshot build files. |
+| `aur_pkgbuild --package NAME` | AUR snapshot build files (PKGBUILD plus other text files). |
 | `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_stats`, `feed_health` | The watcher feed API. |
 | `fp_agent_verify --verdict JSON_OR_FILE` | Cross-check an agent-proposed FP/TP verdict against deterministic, current-snapshot evidence; malformed input raises, unverifiable evidence returns `verified: false`. |
 | `fp_agent_pr --result JSON_OR_FILE --target-repo trustsight\|trustsight-harness --date YYYY-MM-DD [--repo-root PATH]` | Render a verified FP/TP result as branch, title, body, and a files map of inert artifact proposals. FP results carrying `code_fixes` have those diffs gated (allowlist, charset, size caps) and applied with `git apply` in a sandboxed temp tree, so the files map ships the full post-fix sources. |

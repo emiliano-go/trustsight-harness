@@ -10,7 +10,8 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-__all__ = ["MAX_DIFF_BYTES", "SanitizeResult", "sanitize"]
+__all__ = ["MAX_DIFF_BYTES", "SanitizeResult", "looks_like_unified_diff",
+           "sanitize"]
 
 #: Bounded reads.  A generator that emits ten megabytes has failed the
 #: output contract, and parsing it to discover that costs more than
@@ -20,6 +21,8 @@ MAX_DIFF_BYTES = 512 * 1024
 _NULL = "\x00"
 _TRAVERSAL = re.compile(r"(?:\A|/)\.\.(?:/|\Z)")
 _PATH_LINE = re.compile(r"^(?:---|\+\+\+)\s+(\S+)")
+_DIFF_GIT = re.compile(r"^diff --git ")
+_HUNK_HEADER = re.compile(r"^@@ -\d+(?:,\d+)? \+\d+(?:,\d+)? @@")
 
 
 @dataclass(frozen=True)
@@ -62,3 +65,26 @@ def sanitize(raw: str) -> SanitizeResult:
             return SanitizeResult(False, f"path escapes the tree: {stripped}")
 
     return SanitizeResult(True, text=raw)
+
+
+def looks_like_unified_diff(text: object) -> bool:
+    """Whether *text* is shaped like a unified diff rather than a whole file.
+
+    `analyze_diff` takes whole PKGBUILD texts.  A unified diff handed in as
+    ``new_text`` used to reach the core's diff API, which reconstructs each
+    side from its hunks and can come back score 0 with no findings -
+    indistinguishable from a genuinely clean package.  The shapes below are
+    unambiguous diff markers that ordinary PKGBUILD text never produces: a
+    ``diff --git`` header, a ``---``/``+++`` file-header pair on adjacent
+    lines, or a hunk header.
+    """
+    if not isinstance(text, str) or not text:
+        return False
+    lines = text.split("\n")
+    first = next((line for line in lines if line.strip()), "")
+    if _DIFF_GIT.match(first):
+        return True
+    for index in range(len(lines) - 1):
+        if lines[index].startswith("--- ") and lines[index + 1].startswith("+++ "):
+            return True
+    return any(_HUNK_HEADER.match(line) for line in lines)

@@ -354,18 +354,29 @@ def get_job_status(job_id: str) -> dict:
 
 @mcp.tool()
 def analyze_diff(new_text: str, old_text: str | None = None, package: str = "mcp-pkg") -> dict:
-    """Analyse a single PKGBUILD text (or diff) through TrustSight's analysis pipeline.
+    """Analyse whole PKGBUILD texts through TrustSight's analysis pipeline.
 
     Runs against an isolated, cold scratch database, never the operator's,
     and serialised through one analysis worker: TrustSight's config and
     database paths are process-wide globals inside that worker.
 
+    Unified diffs are rejected: pass the complete old and new PKGBUILD
+    texts instead.  Feeding a diff here used to return a clean-looking
+    zero report, indistinguishable from a genuinely clean package.
+
     Args:
-        new_text: The new PKGBUILD text or unified diff.
-        old_text: Optional old PKGBUILD text (for diff-based analysis).
+        new_text: The complete new PKGBUILD text.
+        old_text: Optional complete old PKGBUILD text (for a two-sided analysis).
         package: Package name label (default: "mcp-pkg").
     """
     from ..runner import RunnerError
+    from ..sanitizer import looks_like_unified_diff
+
+    if looks_like_unified_diff(new_text) or (old_text is not None
+                                             and looks_like_unified_diff(old_text)):
+        return {"error": "new_text/old_text look like a unified diff; pass "
+                         "the complete old and new PKGBUILD texts as "
+                         "old_text/new_text instead"}
 
     with _analysis_lock:
         try:
@@ -851,9 +862,12 @@ def aur_info(packages: list[str]) -> dict:
 def aur_pkgbuild(package: str) -> dict:
     """Download a package's build files from the AUR snapshot tarball.
 
-    Returns the PKGBUILD text and the list of files in the snapshot, cached by
-    (base, version, LastModified). The tarball is read in memory and bounded;
-    nothing is extracted to disk and nothing is executed.
+    Returns the PKGBUILD text, the list of files in the snapshot, and the text
+    of every other build file (``.SRCINFO``, ``*.install`` hooks, service
+    units, patches, ...) under ``files_text``; cached by (base, version,
+    LastModified). Binary members are listed but not decoded. The tarball is
+    read in memory and bounded; nothing is extracted to disk and nothing is
+    executed.
 
     Args:
         package: An AUR package/base name.
@@ -957,7 +971,14 @@ def feed_message(slug: str) -> dict:
 
 @mcp.tool()
 def feed_stats() -> dict:
-    """Aggregate counts over the feed's alert documents."""
+    """Aggregate counts over the feed's alert documents.
+
+    The watcher's `alerts` and `over_threshold` count rule firings across
+    all stored alert documents, while `total` counts the documents
+    themselves: one document that trips three rules adds three to `alerts`
+    but one to `total`, so `alerts` and `over_threshold` can each exceed
+    `total`.
+    """
     return _feed_call("stats")
 
 
@@ -1152,6 +1173,7 @@ def status_definitions() -> str:
             "behavior_lost": "No reachable fetch-to-execution chain found",
             "detected": "TrustSight flagged the diff (score > threshold or FATAL finding)",
             "partial_evasion": "Score > threshold but wrong rule fired",
+            "inconclusive": "Score > threshold but no expected rules declared; nothing to check the findings against",
             "fail_closed_catch": "Coverage gaps present; tool declined to answer",
             "bypass": "Score <= threshold, no gaps, no FATAL finding",
             "known_bypass_match": "Rediscovered bypass from an earlier campaign",

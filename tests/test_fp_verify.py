@@ -34,7 +34,7 @@ def test_raw_diff_threshold_and_original_score(corpus, score, verified, filename
     assert row["score_before"] == 70
     assert row["score_after"] == score
     assert row["still_flagged"] is (not verified)
-    analyze.assert_called_once_with(DIFF, old_text=None, package="demo")
+    analyze.assert_called_once_with("true\n", old_text=None, package="demo")
 
 
 @pytest.mark.parametrize("response", [None, {}, {"error": "failed"},
@@ -354,7 +354,7 @@ def test_repeated_worker_restarts_do_not_leak_descriptors(tmp_path):
 
 
 @pytest.mark.parametrize("git_header", [False, True])
-def test_real_worker_scans_raw_companion_diff(tmp_path, git_header):
+def test_real_worker_rejects_raw_companion_diff(tmp_path, git_header):
     import trustsight
 
     from harness.environment import Environment
@@ -371,12 +371,12 @@ def test_real_worker_scans_raw_companion_diff(tmp_path, git_header):
     try:
         runner.restart()
         runner.restore()
-        body = runner.analyze(diff, package="demo").body
-        assert body["score"] > 35, body
-        assert any(finding.get("rule_id") == "R001" and finding.get("file") == "demo.install"
-                   for finding in body["findings"]), body
-        assert body["file_changes"] == [{"path": "demo.install", "status": "added"}]
-        assert "tree_not_analyzed" in body["coverage_gaps"]
+        # A unified diff fed in as whole-file text used to reach the core's
+        # diff API and could come back score 0 - a clean-looking answer
+        # indistinguishable from a genuinely clean package.  It must now be
+        # refused loudly, telling the caller to pass whole PKGBUILD texts.
+        with pytest.raises(ValueError, match="old_text/new_text"):
+            runner.analyze(diff, package="demo")
         runner.restore()
         recipe = "pkgname=demo\npkgver=1\npkgrel=1\n"
         normal = runner.analyze(recipe, package="demo").body

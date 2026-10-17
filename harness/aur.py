@@ -27,8 +27,9 @@ named cap:
 * at most ``_INFO_MAX_BYTES`` per RPC response and ``_MAX_RESULTS`` parsed
   records, and every string field is truncated to ``_MAX_FIELD_BYTES``;
 * a snapshot tarball is read in memory, bounded in compressed bytes, member
-  count and decompressed total, and only the ``PKGBUILD`` text is retained
-  (itself capped);
+  count and decompressed total, and the text of every build file
+  (``PKGBUILD``, ``.SRCINFO``, ``*.install``, hooks, patches, ...) is
+  retained, each capped;
 * a whole call runs under a wall-clock :class:`~harness.net.Deadline`, which
   caps the pacing pause, the retry sleep and the socket read together.
 
@@ -47,7 +48,7 @@ import io
 import json
 import re
 import tarfile
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import quote
 
@@ -88,6 +89,7 @@ _SNAPSHOT_MAX_BYTES = 16 * 1024 * 1024
 _MAX_MEMBERS = 512
 _MAX_TOTAL_UNCOMPRESSED = 32 * 1024 * 1024
 _MAX_PKGBUILD_BYTES = 512 * 1024
+_MAX_FILE_BYTES = 512 * 1024
 
 #: A cache entry is written by us, but read back defensively: a tampered or
 #: truncated file must not allocate without limit.
@@ -112,6 +114,7 @@ class PackageBuild:
     files: list[str]
     pkgbuild: str
     cached: bool
+    files_text: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return {
@@ -120,6 +123,7 @@ class PackageBuild:
             "last_modified": self.last_modified,
             "files": self.files,
             "pkgbuild": self.pkgbuild,
+            "files_text": self.files_text,
             "cached": self.cached,
         }
 
@@ -171,14 +175,17 @@ def _reject_unsafe(path: str) -> None:
         raise AurError(f"snapshot member escapes the archive: {path!r}")
 
 
-def _read_snapshot(data: bytes) -> tuple[list[str], str]:
-    """Return (file names, PKGBUILD text) from one snapshot tarball.
+def _read_snapshot(data: bytes) -> tuple[list[str], str, dict[str, str]]:
+    """Return (file names, PKGBUILD text, other build files' text).
 
     The tarball is read in memory; nothing is extracted to disk, and the
     decompressed total is bounded so a hostile archive cannot exhaust RAM.
+    Every text member (``.SRCINFO``, ``*.install``, hooks, patches, ...) is
+    retained, each capped; binary members are listed but not decoded.
     """
     files: list[str] = []
     pkgbuild = ""
+    files_text: dict[str, str] = {}
     total = 0
     try:
         with tarfile.open(fileobj=io.BytesIO(data), mode="r:gz") as tar:
@@ -196,17 +203,23 @@ def _read_snapshot(data: bytes) -> tuple[list[str], str]:
                 name = raw.split("/", 1)[1] if "/" in raw else raw
                 _reject_unsafe(name)
                 files.append(name)
+                handle = tar.extractfile(member)
+                if handle is None:
+                    continue
                 if name == "PKGBUILD":
-                    handle = tar.extractfile(member)
-                    if handle is not None:
-                        pkgbuild = handle.read(_MAX_PKGBUILD_BYTES).decode(
-                            "utf-8", errors="replace"
-                        )
+                    pkgbuild = handle.read(_MAX_PKGBUILD_BYTES).decode(
+                        "utf-8", errors="replace"
+                    )
+                    continue
+                blob = handle.read(_MAX_FILE_BYTES)
+                if b"\x00" in blob:  # binary; list it but do not decode
+                    continue
+                files_text[name] = blob.decode("utf-8", errors="replace")
     except tarfile.TarError as exc:
         raise AurError(f"snapshot is not a readable tarball: {exc}") from exc
     if "PKGBUILD" not in files:
         raise AurError("snapshot has no PKGBUILD")
-    return sorted(files), pkgbuild
+    return sorted(files), pkgbuild, files_text
 
 
 class AurClient:
@@ -321,6 +334,7 @@ class AurClient:
                     package=data["package"], version=data["version"],
                     last_modified=data.get("last_modified"),
                     files=list(data["files"]), pkgbuild=data["pkgbuild"],
+                    files_text=dict(data.get("files_text", {})),
                     cached=True,
                 )
 
@@ -334,10 +348,10 @@ class AurClient:
         if result.status != 200:
             raise AurError(f"snapshot returned HTTP {result.status}")
 
-        files, pkgbuild = _read_snapshot(result.content)
+        files, pkgbuild, files_text = _read_snapshot(result.content)
         build = PackageBuild(
             package=base, version=version, last_modified=last_modified,
-            files=files, pkgbuild=pkgbuild, cached=False,
+            files=files, pkgbuild=pkgbuild, files_text=files_text, cached=False,
         )
         try:
             cached.write_text(json.dumps({**build.to_dict(), "cached": False}))
@@ -360,6 +374,7 @@ class AurClient:
             return None
         if not isinstance(data, dict):
             return None
-        if not all(k in data for k in ("package", "version", "files", "pkgbuild")):
-            return None
+        if not all(k in data for k in
+                   ("package", "version", "files", "pkgbuild", "files_text")):
+            return None  # a pre-``files_text`` cache entry; refetch
         return data

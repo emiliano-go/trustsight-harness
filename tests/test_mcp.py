@@ -169,6 +169,27 @@ def test_call_tool_analyze_diff_works_end_to_end(monkeypatch, tmp_path):
     assert "report" in payload, payload
 
 
+@pytest.mark.parametrize("prefix", [
+    "diff --git a/PKGBUILD b/PKGBUILD\nindex abc123..def456 100644\n",
+    "--- a/PKGBUILD\n+++ b/PKGBUILD\n",
+    "@@ -1,1 +1,1 @@\n",
+])
+def test_analyze_diff_rejects_diff_shaped_input(prefix):
+    """A unified diff used to return a clean-looking zero report,
+    indistinguishable from a genuinely clean package.  It must now come back
+    as an explicit error telling the caller to pass whole PKGBUILD texts."""
+    out = server.analyze_diff(prefix + "+pkgname=x\n")
+    assert "error" in out, out
+    assert "old_text/new_text" in out["error"]
+
+
+def test_analyze_diff_rejects_diff_shaped_old_text():
+    out = server.analyze_diff(
+        "pkgname=x\npkgver=1\npkgrel=1\n",
+        old_text="--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,1 +1,1 @@\n")
+    assert "error" in out, out
+
+
 def test_call_tool_returns_a_structured_error_for_a_bad_call(monkeypatch):
     monkeypatch.setattr(server, "_jobs", {})
     result = _call("get_job_status", {"job_id": "missing"})
@@ -244,6 +265,23 @@ def test_judge_fatal_outranks_the_score():
     out = server.judge_verdict(report_body=body)
     assert out["status"] == str(Status.DETECTED)
     assert out["fatal"] is True
+
+
+def test_judge_without_expected_rules_is_inconclusive():
+    """With no expected rules the Judge cannot examine the findings, so it
+    must not present a bare threshold pass as a second opinion."""
+    body = _body(score=65, findings=[{"rule_id": "R001", "severity": "CRITICAL"}],
+                 breakdown=[{"rule_id": "R001", "severity": "CRITICAL", "weight": 25}])
+    out = server.judge_verdict(report_body=body)
+    assert out["status"] == str(Status.INCONCLUSIVE)
+    assert "65 > threshold 20" in out["rationale"]
+
+
+def test_judge_with_expected_rules_still_detects():
+    body = _body(score=65, findings=[{"rule_id": "R001", "severity": "CRITICAL"}],
+                 breakdown=[{"rule_id": "R001", "severity": "CRITICAL", "weight": 25}])
+    out = server.judge_verdict(report_body=body, expected_rules=["R001"])
+    assert out["status"] == str(Status.DETECTED)
 
 
 # ---------------------------------------------------------------------------
@@ -520,6 +558,7 @@ def test_aur_pkgbuild_returns_the_build(monkeypatch):
     out = server.aur_pkgbuild("some-pkg")
     assert out["pkgbuild"] == "pkgname=x\n"
     assert out["files"] == ["PKGBUILD"]
+    assert out["files_text"] == {}
 
 
 def test_aur_pkgbuild_surfaces_a_peer_error(monkeypatch):

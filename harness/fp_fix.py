@@ -182,7 +182,15 @@ def verify_report(repo_root: Path, report_path: str, *, analyze) -> dict:
                         marker in text for marker in ("--- ", "+++ ", "@@")
                     ):
                         raise ValueError("corpus must contain a unified diff")
-                    response = analyze(text, old_text=None, package=entry["package"])
+                    # `analyze` takes whole PKGBUILD texts, not unified diffs;
+                    # a diff fed there is rejected loudly rather than analysed.
+                    # Reconstruct each side from the hunks and analyse that.
+                    from validators.syntax import parse_unified_diff
+
+                    old_text, new_text = parse_unified_diff(text)
+                    response = analyze(new_text,
+                                       old_text=old_text or None,
+                                       package=entry["package"])
                     if not isinstance(response, dict) or "error" in response:
                         raise ValueError(f"analysis failed: {response}")
                     after = _score(response["report"]["score"])

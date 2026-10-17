@@ -115,8 +115,23 @@ def test_pkgbuild_reads_the_snapshot(tmp_path):
     assert build.version == "1.2-1"
     assert build.pkgbuild == "pkgname=some-pkg\n"
     assert build.files == ["PKGBUILD", "some-pkg.install"]
+    assert build.files_text == {"some-pkg.install": "true\n"}
     assert build.cached is False
     assert all(u.startswith("https://aur.archlinux.org/") for u in server.urls)
+
+
+def test_pkgbuild_keeps_the_other_build_files(tmp_path):
+    server = _AurServer(snapshot=_snapshot({
+        "PKGBUILD": "pkgname=x\n",
+        ".SRCINFO": "pkgbase = x\n",
+        "x.install": "post_install() { :; }\n",
+        "blob.bin": "\x00\x01\x02",
+    }))
+    build = _client(server, tmp_path).pkgbuild("some-pkg")
+    assert build.files_text[".SRCINFO"] == "pkgbase = x\n"
+    assert build.files_text["x.install"] == "post_install() { :; }\n"
+    assert "blob.bin" in build.files
+    assert "blob.bin" not in build.files_text
 
 
 def test_pkgbuild_is_cached_by_version(tmp_path):

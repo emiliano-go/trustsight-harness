@@ -41,7 +41,7 @@ RPC.
 | Tool | What it does |
 |---|---|
 | `aur_info(packages)` | Metadata (version, deps, maintainer, votes) via the v5 RPC. Batches are split to fit the name and URI caps. |
-| `aur_pkgbuild(package)` | The build files from the package's snapshot tarball: the `PKGBUILD` text and the list of files in the snapshot. |
+| `aur_pkgbuild(package)` | The build files from the package's snapshot tarball: the `PKGBUILD` text, the list of files, and the text of every other build file (`files_text` for `.SRCINFO`, `*.install` hooks, service units, patches, ...). |
 
 Both validate the name against the Arch package charset before it becomes part
 of a URL. `aur_pkgbuild` reads the tarball in memory, bounds its decompressed
@@ -72,6 +72,12 @@ minute** per client, answering `429` with a `Retry-After` header.
 `date` is `YYYY-MM-DD`; `timeframe` is `HH`, `HH-HH` or `HHMM-HHMM`, all UTC.
 The base URL is `https://watcher.trustsight.org` unless `WATCHER_FEED_URL` is
 set. The client paces itself at half the cap (60 a minute).
+
+`feed_stats()` returns the watcher's aggregates verbatim. Its `alerts` and
+`over_threshold` count rule firings across all stored alert documents, while
+`total` counts the documents themselves: a document that trips three rules
+adds three to `alerts` but one to `total`, so `alerts` and `over_threshold`
+can each exceed `total`. They are firing counts, not document counts.
 
 A notification means a published rule matched a package change. It is evidence,
 not a verdict, and it is not permission to install.

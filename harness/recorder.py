@@ -34,6 +34,7 @@ FORBIDDEN_RECORD_FIELDS = frozenset({
 #: Statuses that reached TrustSight, and so belong in the rate denominator.
 _REACHED = frozenset({
     Status.DETECTED, Status.PARTIAL_EVASION, Status.FAIL_CLOSED_CATCH,
+    Status.INCONCLUSIVE,
     Status.BYPASS, Status.KNOWN_BYPASS_MATCH,
 })
 

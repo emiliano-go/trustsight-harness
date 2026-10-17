@@ -60,9 +60,27 @@ def test_a_mode_gap_is_not_evidence_about_the_diff():
     would label a score of 100 as "the tool declined to answer"."""
     gapped = report(100, [finding()], gaps=["tree_not_analyzed"])
     assert judge(early_status=None, report=gapped, flag_threshold=20,
+                 expected_rules=("R001",),
                  mode_gaps=("tree_not_analyzed",)).status is Status.DETECTED
     assert judge(early_status=None, report=gapped,
                  flag_threshold=20).status is Status.FAIL_CLOSED_CATCH
+
+
+def test_above_threshold_without_expected_rules_is_inconclusive():
+    """No declared expected rules means the Judge has no rule to check the
+    findings against; a `detected` there would be a threshold repass dressed
+    up as a second opinion.  The score observation stays in the rationale."""
+    verdict = judge(early_status=None, report=report(65, [finding()]),
+                    flag_threshold=20)
+    assert verdict.status is Status.INCONCLUSIVE
+    assert not counts_as_bypass(verdict.status)
+    assert "65 > threshold 20" in verdict.rationale
+
+
+def test_above_threshold_with_expected_rules_is_a_detection():
+    verdict = judge(early_status=None, report=report(65, [finding()]),
+                    flag_threshold=20, expected_rules=("R001",))
+    assert verdict.status is Status.DETECTED
 
 
 def test_an_attack_induced_gap_still_catches():
@@ -97,7 +115,9 @@ def test_the_threshold_is_inclusive():
     """TrustSight flags *above* the threshold, so a score equal to it is
     UNFLAGGED.  Off by one here would silently reclassify every result."""
     assert judge(early_status=None, report=report(20), flag_threshold=20).status is Status.BYPASS
-    assert judge(early_status=None, report=report(21), flag_threshold=20).status is Status.DETECTED
+    assert judge(early_status=None, report=report(21), flag_threshold=20).status is Status.INCONCLUSIVE
+    assert judge(early_status=None, report=report(21, [finding()]), flag_threshold=20,
+                 expected_rules=("R001",)).status is Status.DETECTED
 
 
 def test_an_unknown_severity_stops_the_campaign():
