@@ -1305,6 +1305,57 @@ def fp_verify(report_path: str) -> dict:
             return {"error": str(exc), "all_verified": False}
 
 
+@mcp.tool()
+def fp_agent_verify(verdict: dict) -> dict:
+    """Cross-check an agent-proposed FP/TP verdict against deterministic evidence.
+
+    Args:
+        verdict: Agent-proposed adjudication (untrusted, size-capped); raises
+            a ValidationError (reported as an error) when malformed, and
+            returns verified: False when evidence cannot confirm the claim.
+    """
+    from ..fp_agent import verify_agent_verdict
+
+    try:
+        return verify_agent_verdict(verdict, feed_client=_feed_client(), aur_client=_aur_client())
+    except ImportError:
+        return {"error": _HTTPX_HINT}
+    except (ValueError, TypeError, OSError) as exc:
+        return {"error": str(exc)}
+
+
+@mcp.tool()
+def fp_agent_pr(result: dict, target_repo: str, date: str) -> dict:
+    """Render a verified verdict result as PR branch, title, body, and files.
+
+    Args:
+        result: A verified result from fp_agent_verify (kind FP or TP).
+        target_repo: "trustsight" or "trustsight-harness".
+        date: Artifact date, YYYY-MM-DD.
+    """
+    from ..fp_agent_pr import render_pr_content
+
+    try:
+        return render_pr_content(result, target_repo=target_repo, date=date)
+    except (ValueError, TypeError, OSError) as exc:
+        return {"error": str(exc)}
+
+
+@mcp.tool()
+def fp_agent_alert(result: dict) -> dict:
+    """Render a verified TP result as a trustsight.confirmed-ioc alert payload.
+
+    Args:
+        result: A verified TP result from fp_agent_verify.
+    """
+    from ..fp_agent_alert import render_confirmed_alert
+
+    try:
+        return render_confirmed_alert(result)
+    except (ValueError, TypeError, OSError) as exc:
+        return {"error": str(exc)}
+
+
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------

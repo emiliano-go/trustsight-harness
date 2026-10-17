@@ -53,6 +53,9 @@ or written to `--out`.
 | `aur_info --packages NAME [NAME ...]` | AUR metadata via the v5 RPC. |
 | `aur_pkgbuild --package NAME` | AUR snapshot build files. |
 | `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_stats`, `feed_health` | The watcher feed API. |
+| `fp_agent_verify --verdict JSON_OR_FILE` | Cross-check an agent-proposed FP/TP verdict against deterministic, current-snapshot evidence; malformed input raises, unverifiable evidence returns `verified: false`. |
+| `fp_agent_pr --result JSON_OR_FILE --target-repo trustsight\|trustsight-harness --date YYYY-MM-DD` | Render a verified FP/TP result as branch, title, body, and a files map of inert artifact proposals. |
+| `fp_agent_alert --result JSON_OR_FILE` | Render a verified TP result as the `trustsight.confirmed-ioc` alert envelope (fixed `default` priority). |
 
 `sweep`, `coverage`, `matrix` and `benign` keep their classic spellings above;
 the MCP server exposes them as the tools of the same name.

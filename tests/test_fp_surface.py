@@ -36,7 +36,7 @@ def test_postponed_type_conversions():
 
 
 def test_wrappers_delegate(monkeypatch, tmp_path):
-    from harness import fp_report, fp_triage
+    from harness import fp_agent, fp_agent_pr, fp_report, fp_triage
 
     monkeypatch.setattr(server, "REPO_ROOT", tmp_path)
     feed, aur = object(), object()
@@ -48,10 +48,32 @@ def test_wrappers_delegate(monkeypatch, tmp_path):
     def report(root, evidence, verdicts, synthetic_diff=None):
         assert (root, evidence, verdicts, synthetic_diff) == (tmp_path, {}, {}, "diff text")
         return {"report_path": "report"}
+    def verify(verdict, *, aur_client, feed_client):
+        assert (verdict, aur_client, feed_client) == ({}, aur, feed)
+        return {"verified": True}
+    def render(result, *, target_repo, date):
+        assert (result, target_repo, date) == ({}, "trustsight", "2026-10-16")
+        return {"branch": "b"}
     monkeypatch.setattr(fp_triage, "triage_alert", triage)
     monkeypatch.setattr(fp_report, "write_report", report)
+    monkeypatch.setattr(fp_agent, "verify_agent_verdict", verify)
+    monkeypatch.setattr(fp_agent_pr, "render_pr_content", render)
     assert server.fp_triage("slug") == {"packages": []}
     assert server.fp_report({}, {}, "diff text") == {"report_path": "report"}
+    assert server.fp_agent_verify({}) == {"verified": True}
+    assert server.fp_agent_pr({}, "trustsight", "2026-10-16") == {"branch": "b"}
+    assert server.fp_agent_alert({"kind": "TP", "verified": True, "package": "x",
+                                  "ioc_entries": []})["event"] == "trustsight.confirmed-ioc"
+
+
+def test_agent_wrappers_report_errors(monkeypatch):
+    from harness import fp_agent
+
+    def boom(verdict, *, aur_client, feed_client):
+        raise fp_agent.ValidationError("bad verdict")
+    monkeypatch.setattr(fp_agent, "verify_agent_verdict", boom)
+    result = server.fp_agent_verify({})
+    assert result["error"] == "bad verdict"
 
 
 def test_module_entrypoint_registers_fp_tools_before_running(monkeypatch):
@@ -72,7 +94,8 @@ def test_module_entrypoint_registers_fp_tools_before_running(monkeypatch):
             return lambda fn: fn
 
         def run(self, **kwargs):
-            assert {"fp_triage", "fp_report", "fp_verify"} <= names
+            assert {"fp_triage", "fp_report", "fp_verify", "fp_agent_verify",
+                    "fp_agent_pr", "fp_agent_alert"} <= names
 
     monkeypatch.setattr("mcp.server.mcpserver.MCPServer", FakeMCP)
     with pytest.warns(RuntimeWarning, match="found in sys.modules"):

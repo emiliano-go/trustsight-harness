@@ -72,6 +72,9 @@ OPERATIONS: tuple[str, ...] = (
     "fp_triage",
     "fp_report",
     "fp_verify",
+    "fp_agent_verify",
+    "fp_agent_pr",
+    "fp_agent_alert",
 )
 
 #: MCP-only transport, not a parity operation (the CLI is synchronous).

@@ -98,6 +98,7 @@ error, not a convenience.
 | [Measurement and Maturity](explanation/measurement-and-maturity.md) | Deterministic versus stochastic campaigns, lower bounds, and what a record can claim. |
 | [What the Harness Cannot Prove](explanation/what-the-harness-cannot-prove.md) | The reasoned ceiling of the instrument. |
 | [Design Notes](explanation/design-notes.md) | Where the specification was open, and where reality contradicted it. |
+| [Agent Triage](explanation/agent-triage.md) | The FP/TP triage flow: untrusted agent, deterministic verification, inert PR artifacts. |
 
 ## Contributing
 
