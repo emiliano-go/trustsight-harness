@@ -37,6 +37,7 @@ from __future__ import annotations
 
 import os
 import resource
+import signal
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -53,6 +54,7 @@ __all__ = [
     "PARSER_FLAGS",
     "Limits",
     "clone_child",
+    "kill_group",
     "pool_flags",
 ]
 
@@ -193,20 +195,49 @@ async def _apply_limits(child, limits: Limits) -> None:
 
 
 async def clone_child(flags: CLONE, *, limits: Limits,
-                      pdeathsig: bool = True, no_new_privs: bool = True):
+                      pdeathsig: bool = True, no_new_privs: bool = True,
+                      box: dict | None = None):
     """Clone a bounded, isolated child and return it, before any ``exec``.
 
     The caller still owns the fd setup, environment replacement and exec;
     this only guarantees the clone flags, the resource limits and the two
     ``prctl`` hardenings are applied the same way everywhere.
+
+    When *box* is given, the child's pid is published in it the instant the
+    clone returns - before the limits and ``prctl`` calls are awaited.  That
+    window is the one a caller's deadline thread can kill: publishing only
+    after this function returned left a child that hung inside ``_apply_limits``
+    or ``prctl`` with no known pid, so the deadline killed nothing and the
+    caller wedged in the portal forever.
     """
     try:
         child = await local_process.clone(flags)
     except PermissionError as exc:
         raise NamespaceUnavailableError(_NAMESPACE_HINT) from exc
+    if box is not None:
+        box["pid"] = child.pid.pid.near.id
     await _apply_limits(child, limits)
     if pdeathsig:
         await child.task.prctl_set_pdeathsig(PR.SET_PDEATHSIG, SIG.KILL)
     if no_new_privs:
         await child.task.prctl(_PR_SET_NO_NEW_PRIVS, 1)
     return child
+
+
+def kill_group(pid: int) -> None:
+    """SIGKILL *pid* and its process group, with plain os calls.
+
+    Deliberately not a portal call: a deadline fires on a timer thread while
+    the portal loop is blocked in an rsyscall read, so the kill has to run
+    without that loop.  ``NEWPID`` workers are the init of their own pid
+    namespace, so killing the pid reaches the whole tree it orphaned.
+    """
+    for send in (lambda: os.killpg(pid, signal.SIGKILL),
+                 lambda: os.kill(pid, signal.SIGKILL)):
+        try:
+            send()
+            return
+        except ProcessLookupError:
+            continue
+        except PermissionError:
+            return

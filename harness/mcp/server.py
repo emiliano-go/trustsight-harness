@@ -81,6 +81,7 @@ class Job:
     finished_at: float | None = None
     result: dict | None = None
     error: str | None = None
+    _timer: threading.Timer | None = None
 
 
 _jobs: dict[str, Job] = {}
@@ -89,6 +90,13 @@ _jobs_lock = threading.Lock()
 #: Finished jobs are kept for polling; the queue is bounded so a long-lived
 #: server does not grow without limit.
 _MAX_JOBS = 256
+
+#: A job that has not finished in this long is declared failed rather than
+#: left "running" forever.  A wedged worker thread cannot be killed from
+#: Python, but its job must not pin a poller: a hung clone left the job
+#: indistinguishable from a slow campaign.  Generous by default, because a
+#: slow campaign is not a hang; override for genuinely long runs.
+JOB_TIMEOUT_S = float(os.environ.get("HARNESS_MCP_JOB_TIMEOUT_S", "21600"))
 
 #: TrustSight's config and database paths are process-wide module globals
 #: (`Environment.bind` patches them), so two analyses running at once would
@@ -118,14 +126,28 @@ def _create_job(kind: str) -> Job:
 
 
 def _finish_job(job: Job, result: dict | None = None, error: str | None = None) -> None:
+    # Idempotent: the deadline thread and the worker can both race to finish
+    # one job, and only the first outcome is the truth.
     with _jobs_lock:
+        if job.status != "running":
+            return
         job.status = "completed" if result is not None else "failed"
         job.finished_at = time.time()
         job.result = result
         job.error = error
+        if job._timer is not None:
+            job._timer.cancel()
+            job._timer = None
 
 
-def _run_in_thread(fn, job: Job, *args, **kwargs) -> None:
+def _expire_job(job: Job, limit: float) -> None:
+    _finish_job(job, error=(
+        f"{job.kind} job exceeded the {limit:.0f}s deadline; the worker did "
+        "not return and was abandoned"))
+
+
+def _run_in_thread(fn, job: Job, *args, timeout_s: float | None = None,
+                   **kwargs) -> None:
     def _worker():
         # Always finish the job.  Catching only the exception types the old
         # worker knew about left any other failure as a job stuck in
@@ -137,6 +159,18 @@ def _run_in_thread(fn, job: Job, *args, **kwargs) -> None:
             _finish_job(job, error=f"{type(exc).__name__}: {exc}\n{traceback.format_exc()}")
         else:
             _finish_job(job, result=result)
+
+    # A worker that never returns (a hung clone, say) cannot be killed from
+    # Python, so the job gets its own deadline: after *limit* seconds the job
+    # is finished as failed even though its thread lives on.  The timer stops
+    # sleeping when the job finishes normally.  A handful of these at most -
+    # one per MCP job, not per attempt - so the per-timer thread is cheap.
+    limit = JOB_TIMEOUT_S if timeout_s is None else float(timeout_s)
+    if limit > 0:
+        timer = threading.Timer(limit, _expire_job, args=(job, limit))
+        timer.daemon = True
+        job._timer = timer
+        timer.start()
 
     t = threading.Thread(target=_worker, daemon=True)
     t.start()

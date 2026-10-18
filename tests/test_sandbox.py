@@ -130,3 +130,28 @@ def test_pool_flags_toggle_the_network():
     assert not (sandbox.pool_flags(False) & sandbox.CLONE.NEWNET)
     assert sandbox.PARSER_FLAGS & sandbox.CLONE.NEWNET
     assert sandbox.ANALYSIS_FLAGS & sandbox.CLONE.NEWPID
+
+
+def test_clone_child_publishes_the_pid_before_it_applies_limits(monkeypatch):
+    """The pid must be known before the (slow) limit and prctl calls: a spawn
+    that hangs there used to have no pid for a caller's deadline to kill, so
+    the caller wedged in the portal with no working deadline."""
+    box: dict = {}
+    observed: list = []
+
+    async def observe(child, limits):
+        observed.append(box.get("pid"))
+
+    monkeypatch.setattr(sandbox, "_apply_limits", observe)
+
+    async def spawn():
+        return await sandbox.clone_child(
+            sandbox.ANALYSIS_FLAGS, limits=sandbox.Limits.analysis(), box=box)
+
+    child = get_portal().run(spawn)
+    pid = child.pid.pid.near.id
+    try:
+        assert observed == [pid]
+        assert box["pid"] == pid
+    finally:
+        sandbox.kill_group(pid)

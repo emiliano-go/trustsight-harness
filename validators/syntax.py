@@ -123,18 +123,18 @@ async def _spawn_bash_n(bash: str, text: str, box: dict):
 
     Only the exit status will be read: bash's diagnostic echoes the
     offending line, which is generated text, so stderr goes straight to
-    /dev/null.  The pid is published in *box* as soon as the child exists
-    so the caller's timer can kill it even while this coroutine is blocked
-    in a wait - the portal loop holds no checkpoint during a wait, so a
-    trio-side deadline could never fire.
+    /dev/null.  The pid is published in *box* by ``clone_child`` the instant
+    the clone returns, before the limits and prctls, so the caller's timer
+    can kill it even while this coroutine is blocked in that setup or in a
+    wait - the portal loop holds no checkpoint during either, so a trio-side
+    deadline could never fire.
 
     The script never touches disk: it lives in an anonymous, sealed memory
     file, and ``bash`` reads it through ``/proc/self/fd/N``.  The memfd is
     kept in *box* so it is not collected (and the fd closed) before bash
     has opened it.
     """
-    child = await clone_child(PARSER_FLAGS, limits=Limits.parser())
-    box["pid"] = child.pid.pid.near.id
+    child = await clone_child(PARSER_FLAGS, limits=Limits.parser(), box=box)
     # Replace, not inherit: a hostile BASH_ENV in the operator's own shell
     # must not turn a parse into an execution.
     child.environ.data = {"PATH": "/usr/bin:/bin", "LC_ALL": "C"}

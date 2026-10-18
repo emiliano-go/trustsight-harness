@@ -28,8 +28,6 @@ because TrustSight's config paths are process-wide inside the worker.
 from __future__ import annotations
 
 import json
-import os
-import signal
 import sys
 import tempfile
 import threading
@@ -45,7 +43,7 @@ from rsyscall.sys.wait import W
 
 from .environment import NamespaceUnavailableError
 from .portal import get_portal
-from .sandbox import ANALYSIS_FLAGS, Limits, clone_child
+from .sandbox import ANALYSIS_FLAGS, Limits, clone_child, kill_group
 
 __all__ = ["AnalysisTimeout", "NamespaceUnavailableError", "ReportView",
            "RunResult", "Runner", "RunnerError"]
@@ -72,6 +70,12 @@ DEFAULT_TIMEOUT_S = 120
 #: A killed worker is waited on for at most this long before the runner
 #: gives up and lets the OS reap it.
 KILL_WAIT_S = 5
+
+#: Cold-start ceiling for the worker spawn itself, separate from the
+#: per-request ``timeout_s``.  A caller may set ``timeout_s`` tiny to test a
+#: request deadline; the spawn must not be killed for that, or the worker
+#: never starts.  Only a genuinely stuck clone or exec trips this.
+SPAWN_TIMEOUT_S = 120
 
 
 @dataclass
@@ -202,15 +206,7 @@ class _Session:
         would never run.  This one runs on the timer thread; the kill closes
         the worker's end of the pipe, which unblocks the read with EOF.
         """
-        for send in (lambda: os.killpg(self.pgid, signal.SIGKILL),
-                     lambda: os.kill(self.pgid, signal.SIGKILL)):
-            try:
-                send()
-                return
-            except ProcessLookupError:
-                continue
-            except PermissionError:
-                return
+        kill_group(self.pgid)
 
     async def kill(self) -> None:
         """Kill and reap the worker, then release its parent pipe handles."""
@@ -265,17 +261,20 @@ async def _async_request(sess: _Session, payload: dict) -> dict:
     return reply
 
 
-async def _async_spawn() -> _Session:
+async def _async_spawn(box: dict | None = None) -> _Session:
     """Clone a NEWUSER|NEWNET child and exec the worker on it.
 
-    Bind is *not* done here: it goes through ``_request`` so the same
-    kill-based deadline that guards every other request guards the cold
-    start too.
+    *box*, when given, receives the worker's pid the instant the clone
+    returns, so a caller's deadline thread can kill a spawn that hangs in
+    the post-clone setup.  Bind is *not* done here: it goes through
+    ``_request`` so the same kill-based deadline that guards every other
+    request guards the cold start too.
     """
     req = await local_process.pipe()
     resp = await local_process.pipe()
     try:
-        child = await clone_child(ANALYSIS_FLAGS, limits=Limits.analysis())
+        child = await clone_child(ANALYSIS_FLAGS, limits=Limits.analysis(),
+                                  box=box)
     except NamespaceUnavailableError:
         for fd in (req.read, req.write, resp.read, resp.write):
             try:
@@ -355,7 +354,23 @@ class Runner:
         if self._session is None:
             payload = (self._env.worker_payload() if self._env is not None
                        else _cold_payload())
-            sess = get_portal().run(_async_spawn)
+            # The spawn carries the same kill-based deadline as a request: a
+            # clone that hung in the post-clone setup used to block here with
+            # no deadline at all, pinning whatever MCP job called the runner
+            # "running" forever.  The pid lands in *box* the instant the clone
+            # returns, so the deadline can reach a spawn stuck after it.
+            box: dict = {}
+
+            def _kill_spawn() -> None:
+                pid = box.get("pid")
+                if pid is not None:
+                    kill_group(pid)
+
+            self._watchdog.arm(SPAWN_TIMEOUT_S, _kill_spawn)
+            try:
+                sess = get_portal().run(_async_spawn, box)
+            finally:
+                self._watchdog.disarm()
             self._session = sess
             try:
                 reply = self._request({"op": "bind", **payload}, timeout_s=60)

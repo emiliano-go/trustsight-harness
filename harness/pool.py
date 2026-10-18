@@ -18,8 +18,6 @@ fully concurrently as separate processes; the parent only collects.
 from __future__ import annotations
 
 import json
-import os
-import signal
 import sys
 
 import trio
@@ -29,7 +27,7 @@ from rsyscall.sys.wait import W
 
 from .environment import NamespaceUnavailableError
 from .portal import get_portal
-from .sandbox import Limits, clone_child, pool_flags
+from .sandbox import Limits, clone_child, kill_group, pool_flags
 
 __all__ = ["PoolError", "run_pool"]
 
@@ -64,19 +62,6 @@ async def _spawn(newnet: bool) -> dict:
             "req": await local_process.make_afd(req.write),
             "resp": await local_process.make_afd(resp.read),
             "execd": execd}
-
-
-def _kill(pid: int) -> None:
-    """SIGKILL the worker's process group; plain os, no event loop."""
-    for send in (lambda: os.killpg(pid, signal.SIGKILL),
-                 lambda: os.kill(pid, signal.SIGKILL)):
-        try:
-            send()
-            return
-        except ProcessLookupError:
-            continue
-        except PermissionError:
-            return
 
 
 async def _read_reply(worker: dict) -> dict:
@@ -117,7 +102,7 @@ async def _pool_async(batches: list[list[dict]], kind: str,
         return collected
     finally:
         for worker in workers:
-            _kill(worker["pid"])
+            kill_group(worker["pid"])
             with trio.move_on_after(REAP_WAIT_S):
                 try:
                     await worker["execd"].waitpid(W.EXITED)

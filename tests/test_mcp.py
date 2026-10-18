@@ -84,6 +84,33 @@ def test_a_worker_that_raises_always_finishes_the_job():
     assert "KeyError" in (job.error or "")
 
 
+def test_a_hung_job_is_declared_failed_not_left_running():
+    """A worker that never returns cannot be killed from Python, so the job
+    carries its own deadline: a wedged clone must not pin the job at
+    "running" where a poller cannot tell it from a slow run."""
+    job = server.Job(id="j2", kind="regression")
+    release = threading.Event()
+    server._run_in_thread(release.wait, job, timeout_s=0.05)
+    deadline = time.monotonic() + 5
+    while job.status == "running" and time.monotonic() < deadline:
+        time.sleep(0.01)
+    try:
+        assert job.status == "failed", job.status
+        assert "deadline" in (job.error or "")
+    finally:
+        release.set()
+
+
+def test_a_finished_job_is_not_overwritten_by_its_deadline():
+    """The deadline and the worker race to finish one job; only the first
+    outcome is the truth, so a completed job stays completed."""
+    job = server.Job(id="j3", kind="campaign")
+    server._finish_job(job, result={"ok": True})
+    server._expire_job(job, 1.0)
+    assert job.status == "completed"
+    assert job.result == {"ok": True}
+
+
 def test_unknown_job_id_is_an_error(monkeypatch):
     monkeypatch.setattr(server, "_jobs", {})
     assert "error" in server.get_job_status("missing")
