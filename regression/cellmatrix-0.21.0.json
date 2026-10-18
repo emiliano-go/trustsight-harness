@@ -1,0 +1,1680 @@
+{
+  "rules": [
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A008",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "C001",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C015",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C016",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C017",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C018",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C019",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C020",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C021",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C022",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C023",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C024",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C025",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C026",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C027",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C028",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C029",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C030",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C031",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C032",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "D001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "D002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "D003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "D004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "E001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "E002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "E003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H015",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "H016",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H017",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H018",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H019",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H020",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H021",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H022",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H023",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H024",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H025",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H026",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H027",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H028",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H029",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H030",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H031",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H032",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H033",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H034",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H035",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H036",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H037",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H038",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H039",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H040",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H041",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H042",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H043",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H044",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H045",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H046",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H047",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H048",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H049",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H050",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H051",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H052",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H053",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H054",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H055",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H056",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H057",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H058",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H059",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H060",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H061",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H062",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H063",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H064",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H065",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H066",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H067",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H068",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H069",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H070",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H071",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H072",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H073",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H074",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H075",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H076",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H077",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H078",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H079",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H080",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H081",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "H082",
+      "state": "hardened"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "H083",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H084",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H085",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H086",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H087",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H088",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H089",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H090",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H091",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H092",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H093",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H094",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H095",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H096",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H097",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H098",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H099",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H100",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H101",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H102",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H103",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "M001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "M002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "M003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "M004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "M005",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "R001",
+      "state": "hardened"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "R002",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R017",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R039",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R040",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R041",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R042",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R043",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R044",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R045",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R046",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R047",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R048",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R049",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R050",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "R051",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R052",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R053",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R054",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R055",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R056",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R057",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R058",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R059",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R078",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R091",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R099",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R104",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R144",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "R152",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X001",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X002",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X008",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "X009",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X015",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": true,
+      "rule": "X016",
+      "state": "hardened"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X017",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X018",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X019",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X020",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X021",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X022",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X023",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X024",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X025",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X026",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X027",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X028",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X029",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X030",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X031",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X032",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X033",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "X034",
+      "state": "unproven"
+    }
+  ],
+  "summary": {
+    "degraded_cells": 0,
+    "hardened": 9,
+    "open": 0,
+    "rules": 260,
+    "unproven": 251
+  },
+  "trustsight_version": "0.21.0"
+}

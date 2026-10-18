@@ -1,6 +1,6 @@
-# Hardness matrix - TrustSight 0.19.0
+# Hardness matrix - TrustSight 0.21.0
 
-6 hardened, 11 open, 241 unproven of 258 rules.
+9 hardened, 0 open, 251 unproven of 260 rules.
 
 | Rule | State | Open shapes |
 |---|---|---|
@@ -26,7 +26,7 @@
 | C012 | unproven |  |
 | C013 | unproven |  |
 | C014 | unproven |  |
-| C015 | open | unshaped |
+| C015 | unproven |  |
 | C016 | unproven |  |
 | C017 | unproven |  |
 | C018 | unproven |  |
@@ -43,6 +43,7 @@
 | C029 | unproven |  |
 | C030 | unproven |  |
 | C031 | unproven |  |
+| C032 | unproven |  |
 | D001 | unproven |  |
 | D002 | unproven |  |
 | D003 | unproven |  |
@@ -57,7 +58,7 @@
 | G005 | unproven |  |
 | G006 | unproven |  |
 | G007 | unproven |  |
-| H001 | open | unshaped |
+| H001 | unproven |  |
 | H002 | unproven |  |
 | H003 | unproven |  |
 | H004 | unproven |  |
@@ -125,15 +126,15 @@
 | H066 | unproven |  |
 | H067 | unproven |  |
 | H068 | unproven |  |
-| H069 | open | unshaped |
+| H069 | unproven |  |
 | H070 | unproven |  |
 | H071 | unproven |  |
-| H072 | open | unshaped |
+| H072 | unproven |  |
 | H073 | unproven |  |
 | H074 | unproven |  |
 | H075 | unproven |  |
 | H076 | unproven |  |
-| H077 | open | unshaped |
+| H077 | unproven |  |
 | H078 | unproven |  |
 | H079 | unproven |  |
 | H080 | unproven |  |
@@ -147,7 +148,7 @@
 | H088 | unproven |  |
 | H089 | unproven |  |
 | H090 | unproven |  |
-| H091 | open | unshaped |
+| H091 | unproven |  |
 | H092 | unproven |  |
 | H093 | unproven |  |
 | H094 | unproven |  |
@@ -165,12 +166,12 @@
 | M003 | unproven |  |
 | M004 | unproven |  |
 | M005 | unproven |  |
-| R001 | open | X009:uncatalogued fetch to a shell |
-| R002 | open | X009:uncatalogued fetch to a shell |
+| R001 | hardened |  |
+| R002 | hardened |  |
 | R003 | unproven |  |
 | R007 | unproven |  |
 | R008 | unproven |  |
-| R010 | open | unshaped |
+| R010 | unproven |  |
 | R011 | unproven |  |
 | R012 | unproven |  |
 | R013 | unproven |  |
@@ -219,7 +220,7 @@
 | U004 | unproven |  |
 | U005 | unproven |  |
 | U006 | unproven |  |
-| W001 | open | unshaped |
+| W001 | unproven |  |
 | W002 | unproven |  |
 | W003 | unproven |  |
 | W004 | unproven |  |
@@ -244,7 +245,7 @@
 | X013 | unproven |  |
 | X014 | unproven |  |
 | X015 | unproven |  |
-| X016 | open | X009:uncatalogued fetch to a shell |
+| X016 | hardened |  |
 | X017 | unproven |  |
 | X018 | unproven |  |
 | X019 | unproven |  |
@@ -262,3 +263,4 @@
 | X031 | unproven |  |
 | X032 | unproven |  |
 | X033 | unproven |  |
+| X034 | unproven |  |
