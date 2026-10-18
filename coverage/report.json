@@ -64,7 +64,7 @@
     },
     "crossfire": {
       "targeted": 6,
-      "total": 33,
+      "total": 34,
       "untargeted": [
         "X001",
         "X003",
@@ -92,7 +92,8 @@
         "X030",
         "X031",
         "X032",
-        "X033"
+        "X033",
+        "X034"
       ]
     },
     "deception": {
@@ -157,11 +158,12 @@
     },
     "install-and-persist": {
       "targeted": 1,
-      "total": 21,
+      "total": 22,
       "untargeted": [
         "C017",
         "C029",
         "C031",
+        "C032",
         "H017",
         "H023",
         "H032",
@@ -1355,9 +1357,9 @@
   ],
   "rules": {
     "targeted": 34,
-    "total": 258,
+    "total": 260,
     "unknown_expected_rules": [],
-    "untargeted": 224,
+    "untargeted": 226,
     "untargeted_ids": [
       "A001",
       "A002",
@@ -1393,6 +1395,7 @@
       "C029",
       "C030",
       "C031",
+      "C032",
       "D001",
       "D002",
       "D003",
@@ -1582,7 +1585,8 @@
       "X030",
       "X031",
       "X032",
-      "X033"
+      "X033",
+      "X034"
     ]
   },
   "stage_map_available": true,

