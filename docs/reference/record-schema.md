@@ -15,7 +15,7 @@ harness raises if any of those leak into a record.
 |---|---|---|
 | `harness_version` | string | Harness version that produced the record. |
 | `campaign` | string | Campaign name, from `campaign.yml`. |
-| `campaign_type` | string | `deterministic` or `stochastic`. |
+| `campaign_type` | string | `deterministic`, `stochastic` or `rule-probe`. |
 | `campaign_commit` | string | Git commit hash of `campaign.yml` at run time, or empty if not in git. |
 | `environment` | object | The resolved environment descriptor. |
 | `generator` | object | Generator type, model, prompt hash, etc. |
@@ -31,6 +31,7 @@ harness raises if any of those leak into a record.
 | `duplicate_rate` | number \| null | Semantic duplicates over attempts that reached dedup; null when none did. The Goodhart canary for generator exploration. |
 | `dedup_savings` | object \| null | Analyses semantic dedup avoided (`analyses_avoided`) over attempts that reached it. |
 | `minimization_spend` | object \| null | Minimizer analyses, attempts and partials. Kept off the measured path; reported only so the cost is visible. |
+| `probe` | object \| absent | Rule probes only: expected rules, cells measured, every rule that fired and any expected rule that did not. |
 
 ## `environment`
 

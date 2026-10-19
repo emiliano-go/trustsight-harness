@@ -40,7 +40,7 @@
     },
     "correlation": {
       "targeted": 0,
-      "total": 7,
+      "total": 10,
       "untargeted": [
         "G001",
         "G002",
@@ -48,7 +48,10 @@
         "G004",
         "G005",
         "G006",
-        "G007"
+        "G007",
+        "G008",
+        "G009",
+        "G010"
       ]
     },
     "count-based": {
@@ -245,13 +248,14 @@
     },
     "meta": {
       "targeted": 0,
-      "total": 5,
+      "total": 6,
       "untargeted": [
         "M001",
         "M002",
         "M003",
         "M004",
-        "M005"
+        "M005",
+        "M006"
       ]
     },
     "naming-and-dependency": {
@@ -315,19 +319,21 @@
     },
     "temporal": {
       "targeted": 0,
-      "total": 6,
+      "total": 8,
       "untargeted": [
         "H020",
         "H021",
         "H022",
         "T001",
         "T002",
-        "T003"
+        "T003",
+        "T006",
+        "T007"
       ]
     },
     "unverifiable": {
       "targeted": 1,
-      "total": 10,
+      "total": 12,
       "untargeted": [
         "W002",
         "W003",
@@ -337,7 +343,9 @@
         "W007",
         "W008",
         "W009",
-        "W010"
+        "W010",
+        "W011",
+        "W012"
       ]
     },
     "upstream-manifests": {
@@ -351,16 +359,23 @@
         "U005",
         "U006"
       ]
+    },
+    "upstream-release": {
+      "targeted": 4,
+      "total": 4,
+      "untargeted": []
     }
   },
   "campaigns": [
     {
       "campaign": "adversarial-probes",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "benign-name-sweep-h072",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H072",
         "H082",
@@ -371,21 +386,25 @@
     },
     {
       "campaign": "bun-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "bypass-tag-v0181",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "bypass-tag-v0181-b",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "context-composites",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -398,6 +417,7 @@
     },
     {
       "campaign": "cross-function-chains",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -410,6 +430,7 @@
     },
     {
       "campaign": "decl-option-resolver",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H082",
@@ -419,11 +440,13 @@
     },
     {
       "campaign": "deno-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "dlagents-override-h096",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H096"
       ],
@@ -431,16 +454,19 @@
     },
     {
       "campaign": "dprobe",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "evasion-matrix-1500",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "evasions-stacked",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H069",
@@ -452,6 +478,7 @@
     },
     {
       "campaign": "exec-and-heredoc",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -464,6 +491,7 @@
     },
     {
       "campaign": "exotic-interpreter-sinks",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -476,6 +504,7 @@
     },
     {
       "campaign": "fetch-spec-in-file",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -488,6 +517,7 @@
     },
     {
       "campaign": "fork-divergence-c013",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "C013"
       ],
@@ -495,6 +525,7 @@
     },
     {
       "campaign": "form-evasions-b6",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -507,6 +538,7 @@
     },
     {
       "campaign": "form-evasions-b7",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -519,6 +551,7 @@
     },
     {
       "campaign": "form-evasions-b8",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -531,6 +564,7 @@
     },
     {
       "campaign": "form-evasions-c1",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -543,6 +577,7 @@
     },
     {
       "campaign": "freehosting-source-r152",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R152"
       ],
@@ -550,6 +585,7 @@
     },
     {
       "campaign": "function-shadow-h097",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H097"
       ],
@@ -557,6 +593,7 @@
     },
     {
       "campaign": "git-no-url-fetch",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -569,6 +606,7 @@
     },
     {
       "campaign": "glued-hash-comment",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H069",
@@ -581,6 +619,7 @@
     },
     {
       "campaign": "h077-client-sweep",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H069",
@@ -592,6 +631,7 @@
     },
     {
       "campaign": "indirect-assignment-x024",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "X024"
       ],
@@ -599,6 +639,7 @@
     },
     {
       "campaign": "installhook-foreign-pm-h035",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H035"
       ],
@@ -606,11 +647,13 @@
     },
     {
       "campaign": "julia-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "known-bypasses-manual",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -621,6 +664,7 @@
     },
     {
       "campaign": "list2-a",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -634,6 +678,7 @@
     },
     {
       "campaign": "list2-b",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -647,6 +692,7 @@
     },
     {
       "campaign": "list2-c",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -660,6 +706,7 @@
     },
     {
       "campaign": "list2-d",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -673,6 +720,7 @@
     },
     {
       "campaign": "list2-e",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -686,6 +734,7 @@
     },
     {
       "campaign": "list2-f",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -699,6 +748,7 @@
     },
     {
       "campaign": "list2-g",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -712,6 +762,7 @@
     },
     {
       "campaign": "list2-h",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -726,6 +777,7 @@
     },
     {
       "campaign": "list2-i",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -740,6 +792,7 @@
     },
     {
       "campaign": "list2-j",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -754,6 +807,7 @@
     },
     {
       "campaign": "list2-k",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -768,6 +822,7 @@
     },
     {
       "campaign": "list2-l",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -782,6 +837,7 @@
     },
     {
       "campaign": "list2-m",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -796,6 +852,7 @@
     },
     {
       "campaign": "list2-n",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -810,6 +867,7 @@
     },
     {
       "campaign": "list2-o",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -824,6 +882,7 @@
     },
     {
       "campaign": "list2-p",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -838,6 +897,7 @@
     },
     {
       "campaign": "list2-q",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -852,6 +912,7 @@
     },
     {
       "campaign": "list2-r",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -866,6 +927,7 @@
     },
     {
       "campaign": "list2-s",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -880,6 +942,7 @@
     },
     {
       "campaign": "list2-t",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -894,6 +957,7 @@
     },
     {
       "campaign": "list2-u",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -908,6 +972,7 @@
     },
     {
       "campaign": "list2-v",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -922,6 +987,7 @@
     },
     {
       "campaign": "list2-w",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -936,11 +1002,13 @@
     },
     {
       "campaign": "lua-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "matrix-e1-a",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -953,6 +1021,7 @@
     },
     {
       "campaign": "matrix-e1-b",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -965,6 +1034,7 @@
     },
     {
       "campaign": "matrix-e1-c",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -977,6 +1047,7 @@
     },
     {
       "campaign": "mcp-probe-wave1",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -987,6 +1058,7 @@
     },
     {
       "campaign": "mcp-probe-wave2",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -997,6 +1069,7 @@
     },
     {
       "campaign": "mcp-probe-wave3",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1007,6 +1080,7 @@
     },
     {
       "campaign": "mcp-probe-wave4",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1017,6 +1091,7 @@
     },
     {
       "campaign": "mcp-probe-wave5",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1027,6 +1102,7 @@
     },
     {
       "campaign": "mcp-probe-wave6",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1037,6 +1113,7 @@
     },
     {
       "campaign": "misc-vectors-d1",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1049,6 +1126,7 @@
     },
     {
       "campaign": "multiline-shadow-x025",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "X025"
       ],
@@ -1056,6 +1134,7 @@
     },
     {
       "campaign": "no-url-fetch-clients",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1068,6 +1147,7 @@
     },
     {
       "campaign": "no-url-fetch-exotic",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1080,6 +1160,7 @@
     },
     {
       "campaign": "no-url-fetch-exotic2",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1092,11 +1173,13 @@
     },
     {
       "campaign": "node-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "object-store-positional",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1109,6 +1192,7 @@
     },
     {
       "campaign": "openssl-connect-port-h016",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H069",
@@ -1120,6 +1204,7 @@
     },
     {
       "campaign": "output-flag-evasions",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1132,6 +1217,7 @@
     },
     {
       "campaign": "override-compress-r078",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R078"
       ],
@@ -1139,6 +1225,7 @@
     },
     {
       "campaign": "override-pacman-auth-r091",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R091"
       ],
@@ -1146,6 +1233,7 @@
     },
     {
       "campaign": "parsetime-fetch-h077",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H069",
@@ -1157,6 +1245,7 @@
     },
     {
       "campaign": "parsetime-phase-split",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "C015",
         "H016",
@@ -1166,6 +1255,7 @@
     },
     {
       "campaign": "phantom-heredoc-opener",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H016",
         "H069",
@@ -1177,11 +1267,13 @@
     },
     {
       "campaign": "php-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "pkgmanager-build-x011",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "X011"
       ],
@@ -1189,6 +1281,7 @@
     },
     {
       "campaign": "prebuilt-host-divergence-c011",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "C011"
       ],
@@ -1196,6 +1289,7 @@
     },
     {
       "campaign": "rename-source-exec",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1208,6 +1302,7 @@
     },
     {
       "campaign": "round7-unmeasured-clients",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H082",
         "H016",
@@ -1218,11 +1313,13 @@
     },
     {
       "campaign": "rscript-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "sftp-write-then-exec",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1235,6 +1332,7 @@
     },
     {
       "campaign": "source-array-undeclared-exec",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H001",
         "H016",
@@ -1247,6 +1345,7 @@
     },
     {
       "campaign": "source-rename-benign-h083",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "H001",
         "H016",
@@ -1259,6 +1358,7 @@
     },
     {
       "campaign": "stdin-execution",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1271,6 +1371,7 @@
     },
     {
       "campaign": "stdin-exotic-c2",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1283,11 +1384,13 @@
     },
     {
       "campaign": "tclsh-solo",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "trap-statement-r099",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R099"
       ],
@@ -1295,13 +1398,47 @@
     },
     {
       "campaign": "trap-suppressed-r104",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R104"
       ],
       "package": "harness-pkg"
     },
     {
+      "campaign": "upstream-probe-u007",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "U007"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "upstream-probe-u008",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "U008"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "upstream-probe-u009",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "U009"
+      ],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "upstream-probe-u010",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "U010"
+      ],
+      "package": "harness-pkg"
+    },
+    {
       "campaign": "upstream-typosquat-c012",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "C012"
       ],
@@ -1309,6 +1446,7 @@
     },
     {
       "campaign": "vcs-implicit-rename",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "R001",
         "R002",
@@ -1321,11 +1459,13 @@
     },
     {
       "campaign": "wave3",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "wave3-nextfile-js",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "X011"
       ],
@@ -1333,6 +1473,7 @@
     },
     {
       "campaign": "wave3-obfuscated",
+      "campaign_type": "deterministic",
       "expected_rules": [
         "X002",
         "H065"
@@ -1341,25 +1482,28 @@
     },
     {
       "campaign": "wave4",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "wave5",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     },
     {
       "campaign": "wave6",
+      "campaign_type": "deterministic",
       "expected_rules": [],
       "package": "harness-pkg"
     }
   ],
   "rules": {
-    "targeted": 34,
-    "total": 260,
+    "targeted": 38,
+    "total": 272,
     "unknown_expected_rules": [],
-    "untargeted": 226,
+    "untargeted": 234,
     "untargeted_ids": [
       "A001",
       "A002",
@@ -1410,6 +1554,9 @@
       "G005",
       "G006",
       "G007",
+      "G008",
+      "G009",
+      "G010",
       "H002",
       "H003",
       "H004",
@@ -1505,6 +1652,7 @@
       "M003",
       "M004",
       "M005",
+      "M006",
       "R003",
       "R007",
       "R008",
@@ -1544,6 +1692,8 @@
       "T001",
       "T002",
       "T003",
+      "T006",
+      "T007",
       "U001",
       "U002",
       "U003",
@@ -1559,6 +1709,8 @@
       "W008",
       "W009",
       "W010",
+      "W011",
+      "W012",
       "X001",
       "X003",
       "X004",

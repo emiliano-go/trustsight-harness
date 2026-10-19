@@ -93,6 +93,7 @@ to a file for review.
 |---|---|---|
 | `deterministic` | Every attempt is a committed input; replay produces the same diff hashes. | Verdicts are reproducible for the pinned triple. |
 | `stochastic` | LLM or mutation generator; output varies between runs. | Bypass rate is a binomial proportion with Wilson interval. |
+| `rule-probe` | Committed shapes that should make one named rule fire. | Classified by expected-rule presence; kept out of the adversarial bypass count. |
 
 A deterministic generator with `environment.accumulate: true` is still
 stochastic for verdict purposes, because the database state depends on run
@@ -119,6 +120,7 @@ configuration, not a judgement made while watching results.
 ## Generators
 
 - **inputs**; the committed `inputs.yml` manifest, fully deterministic.
+- **raw-diff**; committed unified diffs, for rules that need a second file.
 - **mutation**; semantic-preserving variations of committed bypasses.
 - **llm**; OpenAI-compatible provider, with a mandatory `max_cost_usd` ceiling.
 

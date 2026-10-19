@@ -56,6 +56,7 @@ def run_one_campaign(repo_root_raw: str, directory_raw: str,
                 "error": f"{type(exc).__name__}: {exc}"}
     return {
         "campaign": record["campaign"],
+        "campaign_type": record["campaign_type"],
         "attempts": record["attempts"],
         "outcomes": {key: value for key, value in record["outcomes"].items()
                      if value},
@@ -86,15 +87,23 @@ def run_sweep(repo_root: Path, *, patterns: tuple[str, ...] = (), jobs=1,
         summaries = [by_id[index] for index in range(len(entries))]
 
     errors = [summary for summary in summaries if "error" in summary]
+    probes = [summary for summary in summaries
+              if summary.get("campaign_type") == "rule-probe"]
+    adversarial = [summary for summary in summaries
+                   if summary.get("campaign_type") != "rule-probe"]
     bypassing = [{"campaign": summary["campaign"],
                   "bypasses": summary["outcomes"].get("bypass", 0)}
-                 for summary in summaries
+                 for summary in adversarial
                  if summary.get("outcomes", {}).get("bypass")]
     return {
         "campaigns": len(directories),
         "attempts": sum(summary.get("attempts", 0) for summary in summaries),
+        # A probe's miss is a rule gap, not an adversarial bypass, so it
+        # must not enter the bypass count a reader compares across versions.
         "bypasses": sum(entry["bypasses"] for entry in bypassing),
         "bypassing": bypassing,
+        "probe_campaigns": len(probes),
+        "probes": probes,
         "errors": errors,
         "results": summaries,
     }

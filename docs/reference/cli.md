@@ -235,7 +235,7 @@ suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 34 of 260 rules targeted by 99 campaigns; 226 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+# 38 of 272 rules targeted by 103 campaigns; 234 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
 ```
 
 ---

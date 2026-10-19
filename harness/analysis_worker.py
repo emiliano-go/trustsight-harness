@@ -114,6 +114,17 @@ def main() -> int:
                         "body": report.to_dict(include_score=True, verbose=True),
                         "wall_clock_ms": int((time.perf_counter() - started)
                                              * 1000)})
+            elif op == "analyze_diff":
+                if api is None:
+                    from trustsight.api import TrustSight
+                    api = TrustSight()
+                started = time.perf_counter()
+                report = api.analyze_diff(
+                    req["text"], package=req.get("package", package))
+                _reply({"op": "analyzed",
+                        "body": report.to_dict(include_score=True, verbose=True),
+                        "wall_clock_ms": int((time.perf_counter() - started)
+                                             * 1000)})
             elif op == "parity":
                 if api is None:
                     from trustsight.api import TrustSight

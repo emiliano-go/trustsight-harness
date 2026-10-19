@@ -68,6 +68,7 @@ def _campaigns(repo_root: Path) -> list[dict]:
         rules = tuple((raw.get("prompt") or {}).get("expected_rules") or ())
         out.append({
             "campaign": raw.get("campaign", path.parent.name),
+            "campaign_type": raw.get("campaign_type", "deterministic"),
             "expected_rules": list(rules),
             "package": raw.get("package", "harness-pkg"),
         })

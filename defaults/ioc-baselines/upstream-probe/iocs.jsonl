@@ -1,0 +1,2 @@
+{"added":"","campaign":"probe","confidence":"confirmed","expires_at":"","provenance":"harness probe fixture","shape":"exfil","source":"harness-upstream-probe","type":"upstream_repo","value":"github.com/probe-owner/exfil-repo"}
+{"added":"","campaign":"probe","confidence":"confirmed","expires_at":"","provenance":"harness probe fixture","shape":"history_sweep","source":"harness-upstream-probe","type":"upstream_repo","value":"github.com/probe-owner/history-repo"}

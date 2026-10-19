@@ -28,6 +28,14 @@ def build_generator(config, repo_root: Path):
             raise ValueError(f"unknown generator keys for inputs: {sorted(spec)}")
         return InputsGenerator(manifest, campaign_root=config.root,
                                repo_root=repo_root, resolve=within)
+    if kind == "raw-diff":
+        from generators.rawdiff import RawDiffGenerator
+
+        manifest = within(config.root, spec.pop("manifest", "inputs.yml"),
+                          "generator.manifest")
+        if spec:
+            raise ValueError(f"unknown generator keys for raw-diff: {sorted(spec)}")
+        return RawDiffGenerator(manifest, campaign_root=config.root)
     if kind == "mutation":
         from generators.mutation import MutationGenerator
 

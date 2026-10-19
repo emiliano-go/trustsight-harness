@@ -480,6 +480,26 @@ class Runner:
                          int((time.perf_counter() - started) * 1000))
         return RunResult(report=ReportView(body), body=body, wall_clock_ms=wall)
 
+    def analyze_diff(self, diff_text: str,
+                     package: str | None = None) -> RunResult:
+        """Analyse a unified diff directly.
+
+        Rule probes need the diff entry point: rules that read a second file
+        (U009's added workflow) see nothing through ``analyze``, which takes
+        only the two PKGBUILD texts and builds a one-file delta.
+        """
+        started = time.perf_counter()
+        with self._lock:
+            reply = self._request({
+                "op": "analyze_diff",
+                "text": diff_text,
+                "package": package or self._package,
+            })
+        body = reply["body"]
+        wall = reply.get("wall_clock_ms",
+                         int((time.perf_counter() - started) * 1000))
+        return RunResult(report=ReportView(body), body=body, wall_clock_ms=wall)
+
     def parity_check(self, new_text: str) -> bool:
         """Assert the API body equals what the CLI would emit.
 

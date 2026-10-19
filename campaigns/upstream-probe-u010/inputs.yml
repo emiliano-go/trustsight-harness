@@ -1,0 +1,106 @@
+cells:
+- id: git-ssh
+  text: |
+    pkgname=harness-baseline
+    pkgver=1.0.0
+    pkgrel=1
+    pkgdesc="Baseline package for harness campaigns"
+    arch=('any')
+    url="https://github.com/example/harness-baseline"
+    license=('MIT')
+    source=("git+ssh://git@github.com/owner/repo.git")
+    sha256sums=('SKIP')
+
+    build() {
+      cd "$srcdir/repo"
+      make
+    }
+
+    package() {
+      cd "$srcdir/repo"
+      make DESTDIR="$pkgdir" install
+    }
+- id: scp-style
+  text: |
+    pkgname=harness-baseline
+    pkgver=1.0.0
+    pkgrel=1
+    pkgdesc="Baseline package for harness campaigns"
+    arch=('any')
+    url="https://github.com/example/harness-baseline"
+    license=('MIT')
+    source=("git@github.com:owner/repo.git")
+    sha256sums=('SKIP')
+
+    build() {
+      cd "$srcdir/repo"
+      make
+    }
+
+    package() {
+      cd "$srcdir/repo"
+      make DESTDIR="$pkgdir" install
+    }
+- id: file-uri
+  text: |
+    pkgname=harness-baseline
+    pkgver=1.0.0
+    pkgrel=1
+    pkgdesc="Baseline package for harness campaigns"
+    arch=('any')
+    url="https://github.com/example/harness-baseline"
+    license=('MIT')
+    source=("file:///srv/pkg.tar.gz")
+    sha256sums=('SKIP')
+
+    build() {
+      cd "$srcdir"
+      tar xf pkg.tar.gz
+    }
+
+    package() {
+      cd "$srcdir"
+      make DESTDIR="$pkgdir" install
+    }
+- id: rfc1918
+  text: |
+    pkgname=harness-baseline
+    pkgver=1.0.0
+    pkgrel=1
+    pkgdesc="Baseline package for harness campaigns"
+    arch=('any')
+    url="https://github.com/example/harness-baseline"
+    license=('MIT')
+    source=("http://192.168.1.10/pkg.tar.gz")
+    sha256sums=('SKIP')
+
+    build() {
+      cd "$srcdir"
+      tar xf pkg.tar.gz
+    }
+
+    package() {
+      cd "$srcdir"
+      make DESTDIR="$pkgdir" install
+    }
+- id: embedded-credentials
+  text: |
+    pkgname=harness-baseline
+    pkgver=1.0.0
+    pkgrel=1
+    pkgdesc="Baseline package for harness campaigns"
+    arch=('any')
+    url="https://github.com/example/harness-baseline"
+    license=('MIT')
+    source=("ftp://deploy:secret@mirror.example.com/pkg.tar.gz")
+    sha256sums=('SKIP')
+
+    build() {
+      cd "$srcdir"
+      tar xf pkg.tar.gz
+    }
+
+    package() {
+      cd "$srcdir"
+      make DESTDIR="$pkgdir" install
+    }

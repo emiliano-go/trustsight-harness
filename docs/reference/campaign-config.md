@@ -48,7 +48,7 @@ stop_conditions:
 | Key | Type | Required | Meaning |
 |---|---|---|---|
 | `campaign` | string | **yes** | The campaign's name; appears in the record and in fixture provenance. |
-| `campaign_type` | `deterministic` \| `stochastic` | **yes** | How the results may be compared. Anything else is refused. |
+| `campaign_type` | `deterministic` \| `stochastic` \| `rule-probe` | **yes** | How the results may be compared. Anything else is refused. A `rule-probe` asks whether the expected rules fire, not whether a chain survived. |
 | `package` | string | no | The package name TrustSight is asked to analyse. Defaults to `harness-pkg`. |
 | `environment` | mapping | **yes** | See [Record Schema &rarr; environment](record-schema.md#environment). |
 | `generator` | mapping | **yes** | See [Writing a Campaign &rarr; generators](../guides/writing-a-campaign.md#generators). |
@@ -109,6 +109,7 @@ the *new* PKGBUILD text before TrustSight runs.
 | `type` | Keys | Meaning |
 |---|---|---|
 | `inputs` | `manifest` (default `inputs.yml`) | Strict recipes manifest, one cell per attempt. The deterministic default. |
+| `raw-diff` | `manifest` (default `inputs.yml`) | Committed unified diffs, one cell per attempt. For rules that read a second file, which a recipe diff cannot express. |
 | `mutation` | `sources`, `seed`, `operators` | Semantic-preserving variations of committed diffs. |
 | `llm` | provider/model/`max_cost_usd`, … | OpenAI-compatible provider with a mandatory ceiling. |
 
@@ -164,7 +165,7 @@ The loader refuses, with exit code 1, when:
 |---|---|
 | Unknown top-level key | `unknown campaign keys: [...]` |
 | Missing `campaign`, `environment`, `generator` or `attempts` | `campaign.<key> is required` |
-| `campaign_type` is neither value | `campaign_type must be 'deterministic' or 'stochastic'` |
+| `campaign_type` is none of the three | `campaign_type must be 'deterministic', 'stochastic' or 'rule-probe'` |
 | `forbidden_techniques` absent | `declare {} explicitly for an unconstrained campaign` |
 | A forbidden technique has no pattern | `forbidden technique 'x' has no checker` *(checked at campaign start, not by the loader)* |
 | An LLM generator without `max_cost_usd` | `llm campaigns require generator.max_cost_usd` |

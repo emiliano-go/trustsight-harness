@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import time
 from dataclasses import replace
 from pathlib import Path
@@ -159,6 +160,10 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     stop_after_bypasses = int(stop.get("bypasses", 0) or 0)
     stop_after_seconds = int(stop.get("wall_clock_seconds", 0) or 0)
     started_at = time.monotonic()
+
+    if config.campaign_type == "rule-probe":
+        return _run_probe(config, generator, prompt, runner, env, recorder,
+                          bash, repo_root, calibration, started_at)
 
     for attempt in range(config.attempts):
         # Pre-registered stop conditions.  Declared in the committed
@@ -396,6 +401,149 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     # The campaign-level artifact: this run's own cells, beside the record.
     archive.slice(filled_cells, env.trustsight_version).save(
         config.root / "archive.json")
+    return record
+
+
+#: A real rule id (``U009``), as distinct from the report's synthetic
+#: breakdown entries (``COVERAGE``, ``SOURCE_BUCKET``).
+_RULE_ID = re.compile(r"^[A-Z]\d{3}$")
+
+
+def _probe_fired(report) -> list[str]:
+    """Every rule that fired, including weight-0 rules.
+
+    ``findings`` carries only scored evidence; U009 and the W-series are
+    weight 0 and live in the score breakdown alone.  A probe that read
+    ``findings`` would report a working rule as absent.
+    """
+    fired = {str(f.rule_id) for f in report.findings}
+    for entry in report.body.get("score_breakdown") or ():
+        if not isinstance(entry, dict):
+            continue
+        rule_id = str(entry.get("rule_id", ""))
+        if _RULE_ID.match(rule_id):
+            fired.add(rule_id)
+    return sorted(fired)
+
+
+def _run_probe(config, generator, prompt, runner, env, recorder, bash,
+               repo_root, calibration, started_at) -> dict:
+    """Measure whether the expected rules fire, not whether a chain exists.
+
+    An adversarial campaign asks "did the payload survive".  A rule probe
+    asks a narrower question: given a committed shape, does the rule named
+    for it fire.  The BehaviorValidator, the shape archive and minimization
+    are therefore off the measured path; syntax is checked for recipe
+    cells, and a raw multi-file diff goes straight to the diff entry point.
+    """
+    expected = tuple(sorted(set(config.expected_rules)))
+    for attempt in range(config.attempts):
+        try:
+            produced = generator.generate(prompt, attempt)
+        except Exhausted as stop:
+            recorder.stop_reason = str(stop)
+            break
+
+        diff_text = produced.diff
+        digest = diff_hash(diff_text)
+        trace = Trace(attempt=attempt, diff_sha256=digest,
+                      generator=generator.describe(), status=Status.HARNESS_ERROR,
+                      cost=produced.cost)
+
+        clean = sanitize(diff_text)
+        trace.stages["sanitization"] = {"passed": clean.ok, "reason": clean.reason}
+        if not clean.ok:
+            trace.status = Status.SANITIZATION_FAILURE
+            recorder.add(trace, diff_text)
+            continue
+
+        if produced.new_text is not None:
+            syntax = validate_syntax(diff_text, bash)
+            trace.stages["syntax"] = {
+                "bash_n_old": syntax.bash_n_old, "bash_n_new": syntax.bash_n_new,
+                "bash_path": syntax.bash_path, "reason": syntax.reason}
+            if not syntax.ok:
+                trace.status = Status.SYNTAX_ERROR
+                recorder.add(trace, diff_text)
+                continue
+        else:
+            trace.stages["syntax"] = {"skipped": "raw diff"}
+
+        trace.db_hash = env.restore()
+        if not env.accumulate:
+            env.check_canary(lambda name, text: runner.analyze(text).report)
+            env.restore()
+        try:
+            if produced.new_text is None:
+                result = runner.analyze_diff(diff_text, package=config.package)
+            else:
+                result = runner.analyze(produced.new_text, produced.old_text)
+        except (AnalysisTimeout, RunnerError) as exc:
+            trace.status = Status.HARNESS_ERROR
+            trace.judge = {"verdict": str(Status.HARNESS_ERROR),
+                           "rationale": str(exc)}
+            recorder.add(trace, diff_text)
+            continue
+
+        report = result.report
+        env.check_fingerprint(report)
+        fired = _probe_fired(report)
+        missing = sorted(set(expected) - set(fired))
+        gaps = [gap for gap in report.coverage_gaps if gap not in env.mode_gaps]
+        if gaps:
+            status = Status.FAIL_CLOSED_CATCH
+        elif expected and not missing:
+            status = Status.DETECTED
+        elif set(expected) & set(fired):
+            status = Status.PARTIAL_EVASION
+        else:
+            status = Status.BYPASS
+        trace.status = status
+        trace.trustsight = {
+            "report": result.body,
+            "config_fingerprint": getattr(report, "config_fingerprint", ""),
+            "wall_clock_ms": result.wall_clock_ms,
+        }
+        trace.judge = {
+            "verdict": str(status),
+            "expected_rules": list(expected),
+            "fired_rules": fired,
+            "missing_rules": missing,
+            "coverage_gaps": gaps,
+        }
+        recorder.add(trace, diff_text,
+                     produced.new_text if produced.new_text is not None else "")
+
+    cost = {
+        "tokens_in": getattr(generator, "tokens_in", 0),
+        "tokens_out": getattr(generator, "tokens_out", 0),
+        "api_cost_usd": round(getattr(generator, "spent_usd", 0.0), 6),
+        "ceiling_usd": getattr(generator, "max_cost_usd", None),
+        "retries": getattr(generator, "retries", 0),
+        "wall_clock_ms": int((time.monotonic() - started_at) * 1000),
+    }
+    record = recorder.build_record(
+        campaign_type=config.campaign_type,
+        environment=env.to_record(),
+        generator={**generator.describe(), "prompt_id": prompt.prompt_id,
+                   "prompt_hash": prompt.hash,
+                   "prompt_contract": prompt.contract},
+        validator={"version_hash": "", "calibration": calibration},
+        cost=cost,
+        campaign_commit=_git_commit(repo_root),
+        package=config.package,
+        expected_rules=expected,
+        limitations=config.limitations,
+    )
+    union = sorted({rule for trace in recorder.traces
+                    for rule in trace.judge.get("fired_rules", ())})
+    record["probe"] = {
+        "expected_rules": list(expected),
+        "cells": len(recorder.traces),
+        "fired_rules": union,
+        "missing_rules": sorted(set(expected) - set(union)),
+    }
+    recorder.write_record(record)
     return record
 
 
