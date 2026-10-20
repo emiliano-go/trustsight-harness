@@ -49,6 +49,9 @@ KNOWN_GAPS = frozenset({
     "partial_hunk",
     "partial_file_analysis",
     "parent_baseline",
+    # Added with the upstream-manifest rules: a committed manifest was read
+    # but could not be fully resolved.  Fail-closed like the rest.
+    "upstream_manifest_incomplete",
 })
 
 
