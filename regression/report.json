@@ -63002,15 +63002,14 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:67a840d0f13ffa3a6da426d6ab852bee5ba3bd24f7842d94e9336a7ec671df2e",
+    "config_fingerprint": "sha256:a0a14f9c2dfe37010edc458ca13c8cbee89a00b3c4acad217a7a8dab1c27a33d",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
