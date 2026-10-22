@@ -91,6 +91,48 @@ def test_a_rediscovered_bypass_keeps_its_diff_for_replay(tmp_path):
     assert found[0]["campaign"] == "c0"
 
 
+def test_a_known_match_inherits_the_originating_campaigns_rules(tmp_path):
+    """A re-baseline records the match, not the rule set.  The replay must
+    ask the question the originating campaign asked; otherwise a bypass that
+    a rule campaign found is checked against no rule."""
+    diff = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+m=1\n"
+    digest = diff_hash(diff)
+    origin = tmp_path / "c0"
+    _record(origin, expected_rules=["R001"])
+    campaign = tmp_path / "c5"
+    _record(campaign, expected_rules=[], known_bypass_matches=[{
+        "diff_hash": digest,
+        "original_campaign": "c0",
+        "original_trustsight_version": "0.13.2",
+    }])
+    _evidence(campaign, [{"attempt": 0, "status": "known_bypass_match",
+                          "diff_sha256": digest, "diff": diff}])
+
+    found = _committed_bypasses(tmp_path)
+    assert len(found) == 1
+    assert found[0]["expected_rules"] == ["R001"]
+
+
+def test_rules_are_unioned_across_duplicate_records(tmp_path):
+    """One campaign declaring no rules must not erase another's attribution
+    just because its directory sorts first."""
+    diff = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+n=1\n"
+    digest = diff_hash(diff)
+    first = tmp_path / "a-no-rules"
+    _record(first, expected_rules=[], bypass_hashes=[digest])
+    _evidence(first, [{"attempt": 0, "status": "bypass",
+                       "diff_sha256": digest, "diff": diff}])
+    second = tmp_path / "z-with-rules"
+    _record(second, expected_rules=["R002", "R001"],
+            bypass_hashes=[digest])
+    _evidence(second, [{"attempt": 0, "status": "bypass",
+                        "diff_sha256": digest, "diff": diff}])
+
+    found = _committed_bypasses(tmp_path)
+    assert len(found) == 1
+    assert found[0]["expected_rules"] == ["R001", "R002"]
+
+
 def test_the_same_diff_found_by_two_campaigns_is_replayed_once(tmp_path):
     diff = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+z=1\n"
     digest = diff_hash(diff)
@@ -454,6 +496,69 @@ def test_a_record_without_the_text_replays_and_says_it_reconstructed(tmp_path,
     assert "url=" not in analysed[-1]
 
 
+def _replay_with(tmp_path, expected_rules, findings, score=60):
+    diff = "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+r=1\n"
+    digest = diff_hash(diff)
+    campaign = tmp_path / "c1"
+    _record(campaign, expected_rules=expected_rules, bypass_hashes=[digest])
+    _evidence(campaign, [{"attempt": 0, "status": "bypass",
+                          "diff_sha256": digest, "diff": diff}])
+
+    class _Report:
+        pass
+
+    report = _Report()
+    report.score = score
+    report.coverage_gaps = ()
+    report.findings = tuple(findings)
+
+    class _Runner:
+        def analyze(self, text, old=None):
+            return type("R", (), {"report": report})()
+
+    class _Env:
+        flag_threshold = 20
+        mode_gaps = ("tree_not_analyzed",)
+        trustsight_version = "0.22.0"
+
+        def restore(self):
+            pass
+
+        def check_canary(self, fn):
+            pass
+
+        def check_fingerprint(self, report):
+            pass
+
+    return _replay_item(tmp_path, _Env(), _Runner(), "/usr/bin/bash",
+                        _committed_bypasses(tmp_path)[0])
+
+
+def _finding(rule_id, severity="HIGH", weight=40):
+    from types import SimpleNamespace
+
+    return SimpleNamespace(rule_id=rule_id, severity=severity, weight=weight)
+
+
+def test_a_replay_attributes_a_detection_to_the_expected_rule(tmp_path):
+    row = _replay_with(tmp_path, ["R001"], [_finding("R001")])
+    assert row["status"] == "detected"
+    assert row["state"] == "closed"
+
+
+def test_a_replay_names_the_rule_that_caught_an_unexpected_diff(tmp_path):
+    row = _replay_with(tmp_path, ["R002"], [_finding("R001")])
+    assert row["status"] == "partial_evasion"
+    assert row["state"] == "closed"
+    assert row["catching_rules"][0]["rule_id"] == "R001"
+
+
+def test_a_replay_without_expected_rules_is_inconclusive(tmp_path):
+    row = _replay_with(tmp_path, [], [_finding("R001")])
+    assert row["status"] == "inconclusive"
+    assert row["state"] == "closed"
+
+
 def test_a_record_with_the_text_replays_that_text(tmp_path):
     campaign = tmp_path / "c1"
     digest = diff_hash(_LOSSY_DIFF)
@@ -506,3 +611,23 @@ def test_the_cache_key_separates_the_two_replays(tmp_path):
     other = cache_key({"diff_hash": "sha256:d", "analysed_text": "pkgname=x\n"},
                       env, "v", "j", "s")
     assert len({without, with_text, other}) == 3
+
+    # Expected rules decide `detected` vs `partial_evasion`/`inconclusive`.
+    # Leaving them out of the key would serve the old no-rules verdict.
+    with_rules = cache_key({"diff_hash": "sha256:d",
+                            "expected_rules": ["R001"]}, env, "v", "j", "s")
+    other_rules = cache_key({"diff_hash": "sha256:d",
+                             "expected_rules": ["R002"]}, env, "v", "j", "s")
+    assert len({without, with_rules, other_rules}) == 3
+
+
+def test_a_result_carries_the_rules_it_was_checked_against():
+    from harness.regression import _ref
+
+    ref = _ref({
+        "diff_hash": "sha256:x",
+        "campaign": "c",
+        "original_trustsight_version": "0.17.1",
+        "expected_rules": ["R001", "X009"],
+    })
+    assert ref["expected_rules"] == ["R001", "X009"]

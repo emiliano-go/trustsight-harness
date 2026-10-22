@@ -109,7 +109,7 @@ one of them:
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's rule taxonomy, so the untested surface is a number. 38 of 272
+  TrustSight's rule taxonomy, so the untested surface is a number. 38 of 277
   rules are targeted, and the ones a cold campaign cannot reach are named with
   the reason. Rule probes (U007-U010) measure whether a rule fires without
   entering the adversarial bypass rate.

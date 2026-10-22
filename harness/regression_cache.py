@@ -120,6 +120,13 @@ def cache_key(item: dict, environment: dict, validator_hash: str,
         judge_hash,
         source_hash,
     ]
+    # The expected rules are the only input separating `detected` from
+    # `partial_evasion`/`inconclusive`.  Appended only when present, so the
+    # thousands of rule-less probe rows keep their cache entries: their
+    # verdict cannot change, and a full corpus re-run buys nothing.
+    rules = ",".join(item.get("expected_rules") or ())
+    if rules:
+        fields.append(rules)
     payload = "\x1f".join(fields)
     return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 

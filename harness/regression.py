@@ -49,17 +49,29 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
     the campaign's `evidence.jsonl`, so both can be replayed.  Duplicates are
     collapsed: the same diff can be rediscovered by more than one campaign.
     """
-    found: dict[str, dict] = {}
+    records = []
+    rules_by_campaign: dict[str, list[str]] = {}
     for record_path in sorted(campaigns.glob("*/record.json")):
         record = json.loads(record_path.read_text())
-        version = record.get("environment", {}).get("trustsight_version", "")
         campaign = record.get("campaign", record_path.parent.name)
-        candidates = [(digest, version, campaign)
+        rules = list(record.get("expected_rules", []) or [])
+        records.append((record_path, record, campaign, rules))
+        known = rules_by_campaign.setdefault(campaign, [])
+        for rule in rules:
+            if rule not in known:
+                known.append(rule)
+
+    found: dict[str, dict] = {}
+    for record_path, record, campaign, record_rules in records:
+        version = record.get("environment", {}).get("trustsight_version", "")
+        candidates = [(digest, version, campaign, record_rules)
                       for digest in record.get("bypass_hashes", [])]
         candidates += [
             (match.get("diff_hash", ""),
              match.get("original_trustsight_version", version),
-             match.get("original_campaign", campaign))
+             match.get("original_campaign", campaign),
+             rules_by_campaign.get(
+                 match.get("original_campaign", campaign), record_rules))
             for match in record.get("known_bypass_matches", [])
         ]
         if not candidates:
@@ -68,8 +80,19 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
         # embedded diff does not hash to its own `diff_sha256` is not served.
         diffs = diff_by_hash(record_path.parent)
         texts = analysed_text_by_hash(record_path.parent)
-        for digest, original_version, original_campaign in candidates:
-            if not digest or digest in found:
+        for digest, original_version, original_campaign, expected in candidates:
+            if not digest:
+                continue
+            if digest in found:
+                # The same diff can be recorded by several campaigns, some of
+                # which declare no rules.  Union the rules rather than keeping
+                # whichever record happened to sort first: the alternative is
+                # a bypass that a rule campaign found being replayed with no
+                # rule to check it against.
+                existing = found[digest]["expected_rules"]
+                for rule in expected:
+                    if rule not in existing:
+                        existing.append(rule)
                 continue
             diff = diffs.get(digest)
             if diff is None:
@@ -85,8 +108,10 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
                 # The rules the bypass was meant to exercise; the cell it
                 # filled is keyed on them, so the gate can move `patch_status`
                 # onto the archive cell it re-ran.
-                "expected_rules": list(record.get("expected_rules", []) or []),
+                "expected_rules": list(expected),
             }
+    for item in found.values():
+        item["expected_rules"] = sorted(item["expected_rules"])
     return list(found.values())
 
 
@@ -150,12 +175,22 @@ def _classify(verdict, trustsight_version: str) -> dict:
                  else "inconclusive")
     else:
         state = "closed"
-    return {
+    out = {
         "state": state,
         "status": str(verdict.status),
         "rationale": verdict.rationale,
         "closing_version": (trustsight_version if state == "closed" else ""),
     }
+    # `partial_evasion` means something caught the diff, just not the rule
+    # the campaign set out to test.  Naming it is what turns the report from
+    # "closed" into an attributable measurement.
+    catching = getattr(verdict, "catching_rules", ()) or ()
+    if catching:
+        out["catching_rules"] = [
+            dict(rule) if isinstance(rule, dict) else str(rule)
+            for rule in catching
+        ]
+    return out
 
 
 def _replay_item(repo_root: Path, env: Environment, runner: Runner,
@@ -186,6 +221,7 @@ def _replay_item(repo_root: Path, env: Environment, runner: Runner,
     env.check_fingerprint(result.report)
     verdict = judge(early_status=None, report=result.report,
                     flag_threshold=env.flag_threshold,
+                    expected_rules=tuple(item.get("expected_rules") or ()),
                     mode_gaps=env.mode_gaps)
     return {**_ref(item), **_classify(verdict, env.trustsight_version),
             "analysed_from": source}
@@ -245,7 +281,10 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
     for index, item in enumerate(items):
         cached = cache.get(keys[index])
         if cached is not None:
-            results[index] = cached
+            # A cached verdict is the analysis, not the item it belongs to.
+            # Merge the current reference (including the rules it was checked
+            # against) so a cache hit cannot report an unattributed row.
+            results[index] = {**cached, **_ref(item)}
         else:
             pending.append((index, item))
     hits = len(items) - len(pending)
@@ -283,6 +322,15 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
     if stats is not None:
         stats.update({"hits": hits, "misses": len(pending), "enabled": use_cache})
 
+    # A cache entry written before these fields were omitted carries empty
+    # lists.  Drop them here so a cache hit produces the same report shape as
+    # a fresh replay; otherwise every rule-less probe adds noise to the
+    # committed artifact.
+    for result in results:
+        for key in ("catching_rules", "expected_rules"):
+            if result.get(key) == []:
+                result.pop(key)
+
     # Moves each replayed bypass's `patch_status` onto its archive cell: a
     # patch that closed the bypass closes the cell, a still-open one marks it
     # a regression.  Runs on cached results too - the cell key is derived from
@@ -317,8 +365,16 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
 
 
 def _ref(item: dict) -> dict:
-    return {"diff_hash": item["diff_hash"], "campaign": item["campaign"],
-            "original_trustsight_version": item["original_trustsight_version"]}
+    ref = {"diff_hash": item["diff_hash"], "campaign": item["campaign"],
+           "original_trustsight_version": item["original_trustsight_version"]}
+    # The rules the replay was checked against.  Without them a `detected`
+    # row cannot be attributed to the rule it proves, and a reader cannot
+    # tell an attributed closure from a threshold repass.  Omitted when
+    # empty: a rule-less probe is the common case and does not need 5,700
+    # empty lists in the committed report.
+    if item.get("expected_rules"):
+        ref["expected_rules"] = list(item["expected_rules"])
+    return ref
 
 
 def _update_archive(repo_root: Path, env: Environment, behavior: BehaviorValidator,
