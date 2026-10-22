@@ -102,6 +102,7 @@ class Environment:
     mode_gaps: tuple[str, ...] = ()
     _root: Path = field(default=Path("."), repr=False)
     _data_dir: Path = field(default=Path("."), repr=False)
+    _config_dir: Path = field(default=Path("."), repr=False)
     #: The ``work`` argument of the last ``bind`` call, kept so a runner can
     #: hand the worker the same directory to bind.
     _work: Path = field(default=Path("."), repr=False)
@@ -161,9 +162,13 @@ class Environment:
 
         The operator's real database is never opened.  This is not only
         courtesy: a campaign that read the operator's history would produce
-        a number nobody else could reproduce.
+        a number nobody else could reproduce.  The same applies to the
+        overrides file, which TrustSight binds once at import: it is rebound
+        under *work* here so a suppression configured on the operator's
+        machine cannot change a measurement.
         """
         from trustsight import config, db
+        from trustsight import override as ts_override
 
         freeze_aur_lookup()
         self._work = work
@@ -180,11 +185,35 @@ class Environment:
         config.CONFIG_DIR = config_dir
         config.DATA_DIR = self._data_dir
         db.DATA_DIR = self._data_dir
+        # The TOML cache is keyed by filename, not full path, and override
+        # binds its file once at import.  Rebind both so no parsed table or
+        # path from a previous environment (or the operator's real config)
+        # leaks into this one.
+        config._toml_cache.clear()
+        ts_override.OVERRIDES_PATH = config_dir / "overrides.json"
+        self._config_dir = config_dir
         config.ensure_default_configs()
         self._apply_review_threshold(config_dir)
         if self.ioc_baseline:
             db.init_db()
             self._import_ioc_baseline()
+
+    def config_dir_hash(self) -> str:
+        """Content hash of the bound config directory.
+
+        The cache key uses this rather than TrustSight's fingerprint: the
+        files are what the scan actually reads, and the hash is stable
+        across two fresh bindings of the same pinned config.
+        """
+        digest = hashlib.sha256()
+        for path in sorted(self._config_dir.iterdir()):
+            if not path.is_file():
+                continue
+            digest.update(path.name.encode("utf-8"))
+            digest.update(b"\0")
+            digest.update(path.read_bytes())
+            digest.update(b"\0")
+        return "sha256:" + digest.hexdigest()
 
     def _apply_review_threshold(self, config_dir: Path) -> None:
         """Point TrustSight's review policy at the campaign's flag threshold.

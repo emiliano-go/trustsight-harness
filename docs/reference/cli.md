@@ -12,7 +12,7 @@ python -m harness sweep [--jobs N] [--match GLOB]
 python -m harness regression [--environment PATH]
 python -m harness coverage
 python -m harness matrix [--environment PATH]
-python -m harness benign --corpus <dir> [--sample N]
+python -m harness benign --corpus <dir> [--sample N] [--jobs auto|N] [--no-cache]
 ```
 
 Under `uv`, prefix with `uv run`:
@@ -275,12 +275,21 @@ exporter must not file it as one. This path calls `trustsight.analysis.scan_diff
 directly, with the host's pacman answer frozen to the cold-machine value so the
 number is reproducible.
 
+The scan is parallel by default. Packages are independent once each is handed
+the global-URL prefix the serial walk would have accumulated before it, so
+`--jobs auto` and `--jobs 1` produce the same report. A successful report is
+also cached in `benign/cache.jsonl` (gitignored) keyed on the corpus content,
+the instrument's source and config fingerprint, the environment, and the scan
+parameters; a repeat over unchanged inputs returns without scanning.
+
 ### Arguments
 
 | Argument | Required | Meaning |
 |---|---|---|
 | `--corpus DIR` | yes | Directory of benign `*.diff` files, searched recursively. |
 | `--sample N` | no | Scan every Nth diff (default: all). Do not compare a sample's rate to a whole-corpus one. |
+| `--jobs N\|auto` | no | Package worker processes (default: `auto`, capped at 8). Results do not depend on this. |
+| `--no-cache` | no | Ignore the stored report and do not write one. |
 | `--environment PATH` | no | Environment YAML. Defaults to `defaults/environment.yml`. |
 
 ### Output

@@ -19,7 +19,10 @@ import hashlib
 import json
 from pathlib import Path
 
-__all__ = ["MAX_CACHE_BYTES", "RegressionCache", "cache_key", "judge_source_hash"]
+__all__ = [
+    "MAX_CACHE_BYTES", "RegressionCache", "benign_cache_key", "cache_key",
+    "corpus_content_hash", "judge_source_hash",
+]
 
 #: Rewrite the file once it grows past this.  The key includes the installed
 #: source hash, so every development edit adds a full generation of entries;
@@ -52,6 +55,44 @@ def trustsight_source_hash() -> str:
         digest.update(path.read_bytes())
         digest.update(b"\0")
     return "sha256:" + digest.hexdigest()
+
+
+def corpus_content_hash(corpus: Path) -> str:
+    """Hash a corpus by relative path and bytes, in sorted order.
+
+    The path is included because the benign scan groups diffs by the package
+    prefix in the filename: two byte-identical files renamed into different
+    packages are a different measurement.
+    """
+    digest = hashlib.sha256()
+    corpus = Path(corpus)
+    for path in sorted(corpus.rglob("*.diff")):
+        digest.update(path.relative_to(corpus).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return "sha256:" + digest.hexdigest()
+
+
+def benign_cache_key(*, corpus_hash: str, sample: int, threshold: int,
+                     environment: dict, config_hash: str,
+                     source_hash: str, script_hash: str) -> str:
+    """Key a benign report on every input that can move a verdict.
+
+    ``jobs`` is deliberately absent: the parallel scan reproduces the serial
+    rows exactly, so a serial run may serve a parallel run's result.
+    """
+    fields = [
+        corpus_hash,
+        str(sample),
+        str(threshold),
+        json.dumps(environment, sort_keys=True),
+        config_hash,
+        source_hash,
+        script_hash,
+    ]
+    payload = "\x1f".join(fields)
+    return "sha256:" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def cache_key(item: dict, environment: dict, validator_hash: str,

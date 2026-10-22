@@ -1091,13 +1091,18 @@ def matrix(environment_yaml: str | None = None) -> dict:
 
 
 @mcp.tool()
-def benign(corpus: str, sample: int = 1,
+def benign(corpus: str, sample: int = 1, jobs: int | str = "auto",
+           use_cache: bool = True,
            environment_yaml: str | None = None) -> dict:
     """The tool's false-positive rate over a benign corpus of *.diff files.
 
     Args:
         corpus: Directory holding benign ``*.diff`` files.
         sample: Scan every Nth diff (default: all).
+        jobs: Worker processes, or 'auto' (default).  Serial and parallel
+            runs produce the same report.
+        use_cache: Reuse a stored report for the same corpus, instrument and
+            environment (default).  False forces a rescan.
         environment_yaml: Environment YAML (defaults to defaults/environment.yml).
     """
     import yaml
@@ -1110,7 +1115,8 @@ def benign(corpus: str, sample: int = 1,
     report = scan_benign(_repo_root(), corpus=directory,
                          environment=yaml.safe_load(
                              _environment_path(environment_yaml).read_text()),
-                         sample=max(1, int(sample)))
+                         sample=max(1, int(sample)), jobs=jobs,
+                         use_cache=use_cache)
     out = _repo_root() / "benign" / "report.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")

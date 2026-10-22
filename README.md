@@ -115,6 +115,8 @@ one of them:
   entering the adversarial bypass rate.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the
   benign flag rate with a Wilson interval, the other side of the measurement.
+  The scan is parallel by default (`--jobs auto`) and a repeat over the same
+  corpus and instrument comes from a local cache (`--no-cache` forces a rescan).
 - **An MCP server.** `harness-mcp` exposes the campaign, regression, analysis and
   reference tools to an agent, with the same path confinement as the CLI. It also
   reads two external peers within their published limits: the AUR (package

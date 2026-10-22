@@ -136,6 +136,24 @@ def test_binding_never_touches_the_operators_database(tmp_path):
         assert str(module_dir).startswith(str(tmp_path))
 
 
+def test_binding_rebinds_the_overrides_and_clears_the_parsed_config(tmp_path):
+    """A stale override path or TOML entry would leak the operator's state."""
+    from trustsight import config, override
+
+    env = Environment(trustsight_version="x")
+    env.bind(tmp_path / "a")
+    assert str(override.OVERRIDES_PATH).startswith(str(tmp_path / "a"))
+
+    first = env.config_dir_hash()
+    (tmp_path / "a" / "env" / "config" / "config.toml").write_text("[x]\n")
+    assert env.config_dir_hash() != first
+
+    config._toml_cache["config.toml"] = ((0, 0), {"stale": True})
+    env.bind(tmp_path / "b")
+    entry = config._toml_cache.get("config.toml")
+    assert entry is None or entry[1] != {"stale": True}
+
+
 def test_the_aur_lookup_is_frozen(tmp_path, monkeypatch):
     """`analyze_text` asks the AUR about the analysed package name.  Every
     name this corpus asks about is absent from the AUR, so the endpoint's

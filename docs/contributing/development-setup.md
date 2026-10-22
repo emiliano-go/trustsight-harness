@@ -55,6 +55,8 @@ uv run python -m harness benign --corpus ../trustsight/tests/fixtures/benign-cor
 
 `regression` and `coverage` run against the sibling checkout. `benign` needs a
 directory of benign `*.diff` files; TrustSight's own corpus is the natural one.
+It scans packages in parallel by default (`--jobs auto`) and caches the report
+in `benign/cache.jsonl`; pass `--no-cache` to force a fresh measurement.
 
 ## Build the container
 

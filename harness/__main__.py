@@ -106,7 +106,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="workers: 1, N, or 'auto' "
                              "(default: 1 for regression, auto for sweep)")
     parser.add_argument("--no-cache", action="store_true",
-                        help="regression: ignore and do not write the result cache")
+                        help="regression or benign: ignore and do not write "
+                             "the result cache")
     parser.add_argument("--match", action="append", default=[],
                         help="sweep: only campaigns whose name matches this glob "
                              "(repeatable)")
@@ -229,7 +230,9 @@ def main(argv: list[str] | None = None) -> int:
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
         report = scan_benign(REPO_ROOT, corpus=corpus,
                              environment=yaml.safe_load(env_path.read_text()),
-                             sample=max(1, args.sample))
+                             sample=max(1, args.sample),
+                             jobs=args.jobs or "auto",
+                             use_cache=not args.no_cache)
         out = REPO_ROOT / "benign" / "report.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")

@@ -70,7 +70,8 @@ def test_triage_report_verify_and_benign_scan(tmp_path, monkeypatch):
 
     corpus = Path(paths["corpus_path"]).parent
     measured = scan_benign(tmp_path, corpus=corpus,
-                           environment=yaml.safe_load((corpus / "environment.yml").read_text()))
+                           environment=yaml.safe_load((corpus / "environment.yml").read_text()),
+                           use_cache=False)
     assert measured["scanned"] == 1
     assert measured["flagged"] == 0
     assert measured["threshold"] == 35
