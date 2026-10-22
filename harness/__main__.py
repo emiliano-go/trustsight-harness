@@ -94,9 +94,13 @@ def main(argv: list[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser(prog="harness", description=__doc__)
     parser.add_argument("target", help="a campaign directory, 'sweep', 'regression', "
-                                       "'coverage', 'matrix' or 'benign', or any "
-                                       "MCP operation name (see the reference)")
-    parser.add_argument("--environment", help="environment YAML for regression runs")
+                                       "'coverage', 'matrix', 'benign' or "
+                                       "'reclassify', or any MCP operation name "
+                                       "(see the reference)")
+    parser.add_argument("--environment", help="environment YAML for regression and "
+                                             "reclassify runs")
+    parser.add_argument("--record", help="reclassify: the campaign directory whose "
+                                         "bypasses are warm re-measured")
     parser.add_argument("--corpus", help="directory of benign *.diff files for 'benign'")
     parser.add_argument("--sample", type=int, default=1,
                         help="scan every Nth benign diff (default: all)")
@@ -241,6 +245,42 @@ def main(argv: list[str] | None = None) -> int:
               f"(rate {report['flag_rate']['estimate']:.4f}).")
         return EXIT_OK
 
+    if args.target == "reclassify":
+        if not args.record:
+            print("reclassify needs --record <campaign-dir>", file=sys.stderr)
+            return EXIT_CONFIG
+        from .reclassify import run_reclassify
+
+        env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
+        try:
+            environment = yaml.safe_load(env_path.read_text())
+        except (yaml.YAMLError, OSError) as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
+        if not isinstance(environment, dict):
+            print(f"configuration error: {env_path} is not an environment mapping",
+                  file=sys.stderr)
+            return EXIT_CONFIG
+        if calibration != "passed":
+            print("the behaviour validator's calibration suite failed; "
+                  "no warm re-measurement may be published from this build",
+                  file=sys.stderr)
+            return EXIT_CONFIG
+        try:
+            report = run_reclassify(REPO_ROOT, Path(args.record), environment)
+        except (ValueError, OSError) as exc:
+            print(f"configuration error: {clean(exc)}", file=sys.stderr)
+            return EXIT_CONFIG
+        except Exception as exc:                       # noqa: BLE001
+            print(f"harness error: {clean(exc)}", file=sys.stderr)
+            return EXIT_HARNESS
+        summary = {key: value for key, value in report.items()
+                   if key != "artifact"}
+        print(json.dumps(summary, indent=2, sort_keys=True))
+        if report.get("artifact"):
+            print(f"wrote {report['artifact']}")
+        return EXIT_OK
+
     from .config import ConfigError, load_campaign
     directory = Path(args.target)
     try:
@@ -292,7 +332,14 @@ def main(argv: list[str] | None = None) -> int:
             "layer resilience: minimum layer-cut "
             f"{summary['minimum_layer_cut']}, single-layer failures "
             f"{summary['single_layer_failure'] or '{}'}, bypasses "
-            f"{summary['bypasses']}")
+            f"{summary['bypasses']} ({summary['bypasses_full']} full)")
+        # Section 6: conditional bypasses are configuration holes, not
+        # ruleset holes; they render as their own remediation table.
+        if summary["conditional_bypasses"]:
+            print("conditional bypasses: " + ", ".join(
+                f"{reason} {count}"
+                for reason, count in sorted(
+                    summary["conditional_bypasses"].items())))
         if summary["limitations"]:
             print("attack-set limitations: " + "; ".join(summary["limitations"]))
     return EXIT_OK

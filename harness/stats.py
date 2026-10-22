@@ -46,7 +46,14 @@ def campaign_summary(record: dict) -> dict:
     return {
         "attempts": record.get("attempts", 0),
         "outcomes": record.get("outcomes", {}),
-        "bypasses": record.get("layers_fully_bypassed", 0),
+        # The hard number is every bypass verdict; `bypasses_full` is the
+        # subset no configuration reason blinded.  The conditional map is the
+        # remediation table beside them.
+        "bypasses": record.get("bypasses",
+                               record.get("layers_fully_bypassed", 0)),
+        "bypasses_full": record.get(
+            "bypasses_full", record.get("layers_fully_bypassed", 0)),
+        "conditional_bypasses": record.get("conditional_bypasses", {}),
         "minimum_layer_cut": record.get("minimum_layer_cut"),
         "single_layer_failure": record.get("single_layer_failure", {}),
         "resilience_distribution": record.get("resilience_distribution", {}),

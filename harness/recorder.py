@@ -12,6 +12,7 @@ from collections import Counter
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .layer_audit import is_conditional, reason_summary
 from .stats import (
     bypass_rate,
     layers_fully_bypassed,
@@ -90,7 +91,7 @@ class Recorder:
         self._evidence_path.write_text("")
 
     def add(self, trace: Trace, diff_text: str,
-            analysed_text: str = "") -> None:
+            analysed_text: str = "", old_text: str = "") -> None:
         self.traces.append(trace)
         entry = trace.to_dict()
         # A rediscovered bypass is patch-verification evidence, not a fresh
@@ -112,6 +113,8 @@ class Recorder:
             # when it is present and says so in the report when it is not.
             if analysed_text:
                 entry["analysed_text"] = analysed_text
+            if old_text:
+                entry["old_text"] = old_text
         with self._evidence_path.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(entry, sort_keys=True) + "\n")
         if trace.status is Status.BYPASS:
@@ -132,6 +135,19 @@ class Recorder:
                      minimization_spend: dict | None = None) -> dict:
         reached = sum(1 for t in self.traces if t.status in _REACHED)
         bypasses = sum(1 for t in self.traces if t.status is Status.BYPASS)
+        # Section 6: a bypass every layer was exercised on and slept through
+        # is a ruleset hole; one a cold database or a disabled lane blinded is
+        # a configuration hole.  The headline `bypasses` stays the full
+        # verdict count (the hard number); the conditional table is the
+        # remediation map beside it.  A trace with no audit (a stored record
+        # predating the field) counts as FULL, so historical records keep the
+        # number they published.
+        bypass_audits = [
+            (t.trustsight or {}).get("layer_audit")
+            for t in self.traces if t.status is Status.BYPASS
+        ]
+        conditional_bypasses = reason_summary(a for a in bypass_audits if a)
+        bypasses_full = sum(1 for a in bypass_audits if not is_conditional(a))
         record = {
             "harness_version": self.harness_version,
             "campaign": self.campaign,
@@ -156,6 +172,9 @@ class Recorder:
             # numbers are only meaningful beside this.
             "limitations": list(limitations),
             "bypass_rate": dict(bypass_rate(bypasses, reached)),
+            "bypasses": bypasses,
+            "bypasses_full": bypasses_full,
+            "conditional_bypasses": conditional_bypasses,
             "bypass_hashes": sorted(self.bypass_hashes),
             "known_bypass_matches": self.known_matches,
             "cost": cost,

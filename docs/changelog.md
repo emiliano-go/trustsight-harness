@@ -4,6 +4,25 @@ description: Changes to trustsight-harness.
 
 # Changelog
 
+## Unreleased
+
+- **Layer-depth classification of bypasses (harness spec §6).** A bypass is
+  classified FULL or conditional from the report's own `layers` object and
+  the run's recorded configuration (`harness/layer_audit.py`): a bypass every
+  layer was exercised on and slept through is a *ruleset* hole; one a cold
+  database or a disabled lane blinded is a *configuration* hole. The
+  classification is metadata on the bypass, not a new status, and it never
+  infers traversal - it is a projection of observed layer status. The record
+  gains `bypasses_full` and `conditional_bypasses` beside the unchanged
+  headline `bypasses` count, and the CLI renders the conditional reasons as a
+  separate remediation table.
+- **Warm re-measurement.** `python -m harness reclassify --record <dir>
+  --environment <warm.yml>` replays a record's bypass attempts with the
+  recorded old/new PKGBUILD text and package against a warm instrument. A
+  bypass caught warm is a promotion carrying the warm firing layer and
+  finding; one that stays silent warm is the confirmed FULL worst case. The
+  cold record is never edited; the result is written to `reclassify.json`.
+
 ## 2.5.0
 
 The CLI and the MCP server now expose the same operations, and a test enforces

@@ -216,6 +216,7 @@ def test_campaign_summary_reports_layer_resilience():
               "limitations": ["no persistence shape"]}
     assert campaign_summary(record) == {
         "attempts": 5, "outcomes": {"BYPASS": 1}, "bypasses": 1,
+        "bypasses_full": 1, "conditional_bypasses": {},
         "minimum_layer_cut": 2, "single_layer_failure": {"L4": 1},
         "resilience_distribution": {1: 2}, "layers_fully_bypassed": 1,
         "limitations": ["no persistence shape"], "cofire_health": [],
@@ -240,3 +241,43 @@ def test_config_reads_cofire_pairs():
         name="c", campaign_type="t", environment=None, generator={},
         prompt={"cofire_pairs": [["H091", "H024"], "x"]}, attempts=1)
     assert config.cofire_pairs == (("H091", "H024"),)
+
+
+def test_the_record_splits_full_and_conditional_bypasses(tmp_path):
+    """Section 6: the headline stays every bypass; the conditional map is
+    the remediation table beside it, never a new status."""
+    from harness.recorder import Recorder, Trace
+    from harness.status import Status
+
+    recorder = Recorder(tmp_path, "c", "2.5.0")
+    full = Trace(attempt=0, diff_sha256="sha256:" + "a" * 64,
+                 generator={}, status=Status.BYPASS)
+    full.trustsight["layer_audit"] = {
+        "classification": "full", "conditional_reasons": {}}
+    conditional = Trace(attempt=1, diff_sha256="sha256:" + "b" * 64,
+                        generator={}, status=Status.BYPASS)
+    conditional.trustsight["layer_audit"] = {
+        "classification": "conditional",
+        "conditional_reasons": {"L9": "lane_disabled"}}
+    recorder.traces = [full, conditional]
+    record = recorder.build_record(
+        campaign_type="deterministic", environment={}, generator={},
+        validator={}, cost={})
+    assert record["bypasses"] == 2
+    assert record["bypasses_full"] == 1
+    assert record["conditional_bypasses"] == {"lane_disabled": 1}
+
+
+def test_bypass_evidence_records_the_old_side_for_warm_replay(tmp_path):
+    from harness.recorder import Recorder, Trace
+    from harness.status import Status
+
+    recorder = Recorder(tmp_path, "c", "2.5.0")
+    trace = Trace(attempt=0, diff_sha256="sha256:" + "a" * 64,
+                  generator={}, status=Status.BYPASS)
+    recorder.add(trace, "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1 @@\n-a\n+b\n",
+                 "new\n", old_text="old\n")
+    import json
+    entry = json.loads((tmp_path / "evidence.jsonl").read_text().strip())
+    assert entry["analysed_text"] == "new\n"
+    assert entry["old_text"] == "old\n"

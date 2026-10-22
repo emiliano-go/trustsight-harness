@@ -24,6 +24,7 @@ from .dedup import (
 from .environment import EnvironmentError_
 from .exporter import Exporter
 from .judge import judge
+from .layer_audit import audit as layer_audit
 from .minimize import minimize
 from .recorder import Recorder, Trace
 from .runner import AnalysisTimeout, Runner, RunnerError
@@ -254,8 +255,10 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 # report carries it; empty when the export is absent, which is
                 # the graceful-degradation case the archive documents.
                 "techniques": list(finding_techniques(report.findings) or ()),
-                # An optional clustering signal kept beside the cell.
-                "diff_shape_fp": diff_shape_fp(diff_text),
+                # The core's additive shape fingerprint when the report
+                # carries it; the local projection is the degradation path.
+                "diff_shape_fp": (result.body.get("diff_shape_fp")
+                                  or diff_shape_fp(diff_text)),
             }
             # Addendum 5 §4: the layers this attempt passed and the layer
             # that stopped it, from the report's own `layers` projection.
@@ -296,6 +299,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                     "missing": missing,
                 }
 
+        old_text = stages.get("_old_text") or ""
         stages.pop("_new_text", None)
         stages.pop("_old_text", None)
 
@@ -329,6 +333,46 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             "fatal": verdict.fatal, "coverage_gaps": list(verdict.coverage_gaps),
             "catching_rules": list(verdict.catching_rules),
         }
+        # Section 6: classify a bypass by the layers that never got a
+        # shot.  A projection of the report's own `layers` object and the
+        # run's recorded config; a ruleset hole (every layer exercised,
+        # none fired) is a different remediation from a configuration
+        # hole (a cold database, a disabled lane).
+        if trace.status is Status.BYPASS:
+            try:
+                from trustsight.config import load_config
+                from trustsight.layers import (
+                    LAYER_ORDER,
+                    layer_of,
+                    parse_overrides,
+                    rules_in_layer,
+                )
+
+                overrides = parse_overrides(load_config())
+                suppressed = {
+                    layer for layer in (
+                        layer_of(str(row.get("rule_id", "")), overrides)
+                        for row in result.body.get("suppressed_rules", ())
+                        if isinstance(row, dict)
+                    ) if layer is not None
+                }
+                empty = {
+                    layer for layer in LAYER_ORDER
+                    if not rules_in_layer(layer, overrides)
+                }
+                trace.trustsight["layer_audit"] = layer_audit(
+                    result.body.get("layers"),
+                    db_state=env.db_state,
+                    accumulate=env.accumulate,
+                    ioc_baseline=bool(env.ioc_baseline),
+                    # The harness has no L9 build lane; the audit records
+                    # that honestly rather than claiming a FULL result.
+                    verify_lane=False,
+                    suppressed_layers=[layer.value for layer in suppressed],
+                    empty_layers=[layer.value for layer in empty],
+                )
+            except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
+                pass
         # A fresh bypass fills cells.  Minimize first (off the measured path),
         # then record the smallest repro as each cell's representative.  A
         # known-bypass rediscovery is a patch-verification event, not a new
@@ -359,7 +403,7 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                                 cost=float(produced.cost.get("api_cost_usd", 0.0) or 0.0),
                                 degraded=cell_degraded)
                 filled_cells.add((rule, shape))
-        recorder.add(trace, diff_text, analysed_text)
+        recorder.add(trace, diff_text, analysed_text, old_text=old_text)
         exporter.export(trace, diff_text)
 
     cost = {

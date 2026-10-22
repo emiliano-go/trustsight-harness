@@ -78,6 +78,14 @@ Everything else has its own name:
 | `harness_error` | Runner crash, API failure, or analysis timeout. |
 | `known_bypass_match` | A committed bypass rediscovered at a different TrustSight version. |
 
+A bypass is further classified as **FULL** or **conditional**, as metadata
+rather than a new status: a layer the run's configuration never exercised
+(cold observation history, a disabled build lane, a suppressed sensor) makes
+it conditional, and the record carries the reasons as a remediation map.
+The headline bypass count stays the full verdict count; `bypasses_full` is
+the subset no such reason blinded. `python -m harness reclassify` warm-replays
+a record's bypasses and promotes the ones a warm instrument catches.
+
 ## How a campaign runs
 
 Each attempt goes through fixed stages, and the record keeps the outcome of every

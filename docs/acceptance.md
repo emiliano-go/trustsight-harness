@@ -31,6 +31,9 @@ checked. A criterion with no test is a claim, not a property.
 | CI and the container image pin the same TrustSight commit | `.github/trustsight-commit`, read by `ci.yml` and `docker.yml` | the two workflows, which assert the checked-out SHA |
 | The published image measures the pinned build and runs the tool | `Dockerfile`, `.github/workflows/docker.yml` | the workflow smoke test (`--help`, `coverage`, `regression`) |
 
+| A bypass is classified FULL or conditional as a projection of the report's `layers` object and the run's recorded config, never an inferred traversal | `harness/layer_audit.py`, `Trace.trustsight["layer_audit"]` | `tests/test_layer_audit.py` (projection-only; `shape_inapplicable` never counts toward N) |
+| The headline bypass count stays every bypass verdict; conditional reasons are the separate remediation map | `harness/recorder.py` (`bypasses`, `bypasses_full`, `conditional_bypasses`), `harness/stats.py` | `tests/test_layer_audit.py`, `tests/test_pipeline.py` |
+| Warm re-measurement is re-run, not remembered: a promotion carries the warm run's firing layer and finding, and the replay uses the recorded old/new text and package | `harness/reclassify.py`, `python -m harness reclassify` | `tests/test_reclassify.py` |
 ## Where the validator stops
 
 Two campaign inputs are discarded as `behavior_lost` while containing a live

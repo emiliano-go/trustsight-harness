@@ -4,7 +4,7 @@ description: Complete reference for python -m harness; campaigns, the regression
 
 # CLI Reference
 
-The harness has six classic commands. One config, one record, one command each.
+The harness has seven classic commands. One config, one record, one command each.
 
 ```bash
 python -m harness <campaign-directory> [--dump-inputs DIR]
@@ -13,6 +13,7 @@ python -m harness regression [--environment PATH]
 python -m harness coverage
 python -m harness matrix [--environment PATH]
 python -m harness benign --corpus <dir> [--sample N] [--jobs auto|N] [--no-cache]
+python -m harness reclassify --record <campaign-dir> [--environment <warm.yml>]
 ```
 
 Under `uv`, prefix with `uv run`:
@@ -219,6 +220,30 @@ have to distinguish "misconfigured" from "broken" to know whether a report
 exists. A missing environment file is therefore exit 2, not exit 1.
 
 ---
+
+## `python -m harness reclassify`
+
+Warm-replays a committed record's bypass attempts. The environment must be
+warm (`db_state: seeded` or `snapshot`, or `accumulate: true`); the pinned
+TrustSight version is resolved and checked like every other command.
+
+| Argument | Required | Meaning |
+|---|---|---|
+| `--record DIR` | yes | The campaign directory whose `evidence.jsonl` is replayed. `record.json` supplies the package label. |
+| `--environment PATH` | no | Warm environment YAML. Defaults to `defaults/environment.yml`, which is cold and is refused. |
+
+The replay asks the same old/new-text question the cold run asked (using
+`old_text` when the record carries it, otherwise reconstructing it from the
+embedded diff and saying so per result). A bypass caught warm is a
+promotion carrying the warm firing layer and finding. One that stays
+UNFLAGGED warm is `confirmed_full` only when the warm audit says every layer
+ran; if the warm instrument is still blinded it is `still_conditional` with
+its remaining reasons. The cold `record.json` is never edited; the result is
+written to `<campaign-dir>/reclassify.json`.
+
+The harness has no L9 build lane, so a campaign bypass is honestly
+`lane_disabled` until a verify lane exists; `reclassify` cannot promote that
+reason and reports it rather than overclaiming a FULL result.
 
 ## `python -m harness coverage`
 

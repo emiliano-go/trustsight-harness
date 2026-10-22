@@ -23,7 +23,10 @@ harness raises if any of those leak into a record.
 | `attempts` | integer | Number of attempts actually recorded. |
 | `stop_reason` | string | Why the campaign ended, including early stops. |
 | `outcomes` | object | Count per terminal status. |
-| `bypass_rate` | object | Wilson-scored binomial proportion over attempts that reached TrustSight. |
+| `bypass_rate` | object | Wilson-scored binomial proportion over attempts that reached TrustSight (every `bypass` verdict). |
+| `bypasses` | integer | Every attempt whose status is `bypass`. The hard number; it does not shrink for a configuration hole. |
+| `bypasses_full` | integer | The subset whose layer audit classified FULL: every assurance layer was exercised (L9 included) and none fired. |
+| `conditional_bypasses` | object | Remediation map: reason (`cold_state`, `lane_disabled`, `config`) → number of bypasses carrying it. A bypass counts once per distinct reason. `shape_inapplicable` never appears here. |
 | `bypass_hashes` | list | Diff hashes classified as `bypass`. |
 | `known_bypass_matches` | list | Rediscovered bypasses, with `patch_status`. |
 | `cost` | object | Tokens, API spend, ceiling, wall clock. |
@@ -55,6 +58,23 @@ See [Campaign Configuration](campaign-config.md) for how these are declared.
 | `canary_score` | The canary's committed score. |
 | `mode_gaps` | Gaps derived from the canary, subtracted before the gap test. |
 | `aur_lookup` | `frozen-empty` when TrustSight's AUR lookups were answered from the frozen empty reply (the hermetic default), `live` otherwise. |
+
+## Layer audit
+
+Each `bypass` trace in `evidence.jsonl` carries `trustsight.layer_audit`:
+
+| Field | Meaning |
+|---|---|
+| `exercised` | Layer ids with readable, applicable evidence, plus `L9` only when the optional build lane ran. |
+| `not_exercised` | Layer id → `cold_state`, `lane_disabled`, `shape_inapplicable` or `config`. |
+| `classification` | `full` when no conditional reason remains; `conditional` otherwise. |
+| `conditional_count` | Number of layers carrying a conditional reason. |
+| `conditional_reasons` | The conditional subset of `not_exercised`. |
+
+The audit is a projection of the report's own `layers` object plus the run's
+recorded configuration. It never infers traversal from a path. A
+`shape_inapplicable` layer is not a blind sensor and never makes a bypass
+conditional; `cold_state`, `lane_disabled` and `config` do.
 
 ## `bypass_rate`
 
