@@ -175,6 +175,47 @@ class FeedClient:
         """``/api/messages/{slug}`` - one notification with its full document."""
         return self._get(f"/api/messages/{quote(slug, safe='')}")
 
+    def package_history(self, name: str) -> dict:
+        """``/api/package/{name}/history`` - the package's alert timeline.
+
+        Includes every rule, maintainer-change signal and upstream URL the
+        stored analyses recorded, so one call answers "was this always this
+        maintainer, and what else fired".
+        """
+        return self._get(f"/api/package/{quote(name, safe='')}/history")
+
+    def package_diff(self, name: str) -> dict:
+        """``/api/diff/{package}`` - the package's latest AUR commit as a diff.
+
+        Removed lines are present, so a review can see what a change took
+        away as well as what it added.  This is the commit the watcher
+        alerted on, not an arbitrary historical revision.
+        """
+        return self._get(f"/api/diff/{quote(name, safe='')}")
+
+    def package_source(self, name: str, file: str = "PKGBUILD") -> dict:
+        """``/api/source/{package}?file=`` - one AUR repository file, verbatim.
+
+        Only files in the AUR repository resolve; a file inside a downloaded
+        source tarball does not.
+        """
+        return self._get(
+            f"/api/source/{quote(name, safe='')}", {"file": file})
+
+    def maintainers(self, packages: list[str]) -> dict:
+        """``/api/maintainers?packages=`` - current AUR maintainers, batched."""
+        names = [str(name) for name in packages
+                 if isinstance(name, str) and name]
+        if not names:
+            return {"maintainers": {}}
+        # The worker caps the batch at 100; refuse here rather than letting
+        # it silently answer for the first 100.
+        if len(names) > 100:
+            raise FeedError(f"too many packages: {len(names)} (max 100)")
+        return self._get(
+            "/api/maintainers",
+            {"packages": ",".join(quote(name, safe="") for name in names)})
+
     def stats(self) -> dict:
         """``/api/stats`` - aggregate counts over alert documents."""
         return self._get("/api/stats")

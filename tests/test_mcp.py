@@ -175,6 +175,8 @@ def test_the_server_registers_every_tool():
         "aur_info", "aur_pkgbuild",
         "feed_search", "feed_latest", "feed_by_date", "feed_by_package",
         "feed_by_rule", "feed_message", "feed_stats", "feed_health",
+        "feed_package_history", "feed_package_diff", "feed_package_source",
+        "feed_maintainers",
     } <= names
 
 
@@ -622,6 +624,22 @@ def test_feed_tools_pass_through_to_the_client(monkeypatch):
             calls["by_date"] = (date, timeframe)
             return {"items": [], "count": 0}
 
+        def package_history(self, name):
+            calls["history"] = name
+            return {"package": name}
+
+        def package_diff(self, name):
+            calls["diff"] = name
+            return {"package": name, "diff": ""}
+
+        def package_source(self, name, file="PKGBUILD"):
+            calls["source"] = (name, file)
+            return {"package": name, "file": file, "content": ""}
+
+        def maintainers(self, packages):
+            calls["maintainers"] = packages
+            return {"maintainers": {}}
+
     monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
     out = server.feed_search(q="x", limit=7)
     assert out["count"] == 0
@@ -629,6 +647,14 @@ def test_feed_tools_pass_through_to_the_client(monkeypatch):
                                "since": None, "until": None, "limit": 7}
     server.feed_by_date("2026-05-02", "11-13")
     assert calls["by_date"] == ("2026-05-02", "11-13")
+    server.feed_package_history("pkg")
+    server.feed_package_diff("pkg")
+    server.feed_package_source("pkg", "pkg.install")
+    server.feed_maintainers(["pkg"])
+    assert calls["history"] == "pkg"
+    assert calls["diff"] == "pkg"
+    assert calls["source"] == ("pkg", "pkg.install")
+    assert calls["maintainers"] == ["pkg"]
 
 
 def test_feed_tool_surfaces_a_validation_error(monkeypatch):

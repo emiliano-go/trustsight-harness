@@ -66,6 +66,10 @@ minute** per client, answering `429` with a `Retry-After` header.
 | `feed_by_package(name)` | `/api/package/{name}` |
 | `feed_by_rule(rule_id)` | `/api/rule/{id}` |
 | `feed_message(slug)` | `/api/messages/{slug}` |
+| `feed_package_history(name)` | `/api/package/{name}/history` |
+| `feed_package_diff(name)` | `/api/diff/{package}` |
+| `feed_package_source(name, file)` | `/api/source/{package}?file=` |
+| `feed_maintainers(packages)` | `/api/maintainers?packages=` (max 100) |
 | `feed_stats()` | `/api/stats` |
 | `feed_health()` | `/health` (not rate limited) |
 

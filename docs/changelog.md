@@ -6,6 +6,15 @@ description: Changes to trustsight-harness.
 
 ## Unreleased
 
+- **The feed facets a triage actually needs.** Four MCP tools wrap the
+  watcher endpoints that were previously reachable only by hand:
+  `feed_package_history` (timeline, maintainer signals and upstreams),
+  `feed_package_diff` (the latest AUR commit with removals),
+  `feed_package_source` (one repository file verbatim) and
+  `feed_maintainers` (current owner for up to 100 packages). Together they
+  let an H044 review see the transition, the recipe before and after, and
+  the owner without shelling out. The client keeps the same pacing and
+  bounds as the rest of `harness/feed.py`.
 - **Layer-depth classification of bypasses (harness spec §6).** A bypass is
   classified FULL or conditional from the report's own `layers` object and
   the run's recorded configuration (`harness/layer_audit.py`): a bypass every

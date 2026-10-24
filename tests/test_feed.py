@@ -92,6 +92,29 @@ def test_message_slug_encodes_the_slash():
     assert rec.last.url.raw_path == b"/api/messages/2026-05-02%2F120000"
 
 
+def test_package_facets_build_their_paths():
+    rec = _Recorder()
+    client = _client(rec)
+    client.package_history("pgadmin4-server")
+    assert rec.last.url.path == "/api/package/pgadmin4-server/history"
+    client.package_diff("a b")
+    assert rec.last.url.path == "/api/diff/a b"
+    client.package_source("pkg", "pkg.install")
+    assert rec.last.url.path == "/api/source/pkg"
+    assert dict(rec.last.url.params) == {"file": "pkg.install"}
+
+
+def test_maintainers_batches_and_bounds_the_request():
+    rec = _Recorder({"maintainers": {}})
+    client = _client(rec)
+    client.maintainers(["a", "b", "", None])
+    assert rec.last.url.path == "/api/maintainers"
+    assert dict(rec.last.url.params) == {"packages": "a,b"}
+    assert client.maintainers([]) == {"maintainers": {}}
+    with pytest.raises(FeedError, match="too many"):
+        client.maintainers([f"p{i}" for i in range(101)])
+
+
 def test_stats_and_health_paths():
     rec = _Recorder()
     client = _client(rec)

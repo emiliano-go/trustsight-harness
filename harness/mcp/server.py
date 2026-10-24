@@ -1004,6 +1004,47 @@ def feed_message(slug: str) -> dict:
 
 
 @mcp.tool()
+def feed_package_history(name: str) -> dict:
+    """A package's full alert history: timeline, rules, maintainer signals.
+
+    Args:
+        name: The AUR package name.
+    """
+    return _feed_call("package_history", name)
+
+
+@mcp.tool()
+def feed_package_diff(name: str) -> dict:
+    """The package's latest AUR commit as a unified diff (removals included).
+
+    Args:
+        name: The AUR package name.
+    """
+    return _feed_call("package_diff", name)
+
+
+@mcp.tool()
+def feed_package_source(name: str, file: str = "PKGBUILD") -> dict:
+    """One file from the package's AUR repository, verbatim.
+
+    Args:
+        name: The AUR package name.
+        file: Repository-relative path, default ``PKGBUILD``.
+    """
+    return _feed_call("package_source", name, file)
+
+
+@mcp.tool()
+def feed_maintainers(packages: list[str]) -> dict:
+    """Current AUR maintainers for a batch of packages (max 100).
+
+    Args:
+        packages: Package names to resolve.
+    """
+    return _feed_call("maintainers", packages)
+
+
+@mcp.tool()
 def feed_stats() -> dict:
     """Aggregate counts over the feed's alert documents.
 
