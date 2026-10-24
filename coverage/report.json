@@ -1259,6 +1259,14 @@
       "package": "harness-baseline"
     },
     {
+      "campaign": "path-qualified-npm-resolve",
+      "campaign_type": "deterministic",
+      "expected_rules": [
+        "X011"
+      ],
+      "package": "harness-baseline"
+    },
+    {
       "campaign": "phantom-heredoc-opener",
       "campaign_type": "deterministic",
       "expected_rules": [
@@ -1461,6 +1469,14 @@
         "H083"
       ],
       "package": "harness-pkg"
+    },
+    {
+      "campaign": "venv-pip-registry-resolve",
+      "campaign_type": "deterministic",
+      "expected_rules": [
+        "X011"
+      ],
+      "package": "harness-baseline"
     },
     {
       "campaign": "wave3",

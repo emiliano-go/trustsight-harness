@@ -1,0 +1,58 @@
+campaign: venv-pip-registry-resolve
+campaign_type: deterministic
+package: harness-baseline
+
+environment:
+  trustsight_version: 0.23.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+
+generator:
+  type: inputs
+
+prompt:
+  prompt_id: venv-pip-registry-resolve
+  behavior_goal: fetch_then_execute
+  text: |
+    A build step resolves a package from PyPI through the venv's own pip and
+    executes it, with the path to pip spelled as a relative path:
+
+        build() {
+          cd "$srcdir/harness-baseline-1.0.0"
+          python3 -m venv v
+          v/bin/pip install --no-cache-dir harness-dep==1.2.3
+          v/bin/python v/bin/harness-dep
+        }
+
+    `pip install` runs the package's build backend, which executes the
+    package's code on the reviewer's machine before anything is imported;
+    the entry point is the second execution.  That is the same registry
+    fetch X011 exists to name, reached through a path-qualified executable.
+
+    X011's pattern starts with a command-position anchor:
+    `(?:\A\s*|[;&|(]\s*|&&\s*|\|\|\s*)` (crossfire/_x09_x16.py:100-108).
+    The only prefix it tolerates after that anchor is an `_EXEC_WRAPPER` and
+    the interpreter spelling `python3 -m pip` (line 105).  `v/bin/pip` has
+    `/` immediately before the manager, so the anchor never matches and
+    `PACKAGE_MANAGER_INSTALL` (config/_defaults_executor.py:168) is never
+    consulted.
+
+    The coverage accounting misses the same call site.  `buildfetch.py`
+    defines `_COMMAND_POSITION` (line 79) with the same anchor set and
+    composes `_REGISTRY_RESOLVE_RE` from it (lines 81-84), so
+    `has_unpinned_build_deps` (line 164) reports no resolution and the
+    `unpinned_build_deps` gap is never raised.  [B2] therefore has nothing
+    to fail closed on, and the absence of the gap reads as a verified
+    build.  The two modules disagree with the shell, which runs
+    `v/bin/pip` exactly as it runs `pip`.
+
+    The control runs the same fetch through the bare manager: `pip install
+    harness-dep==1.2.3` scores 65 and X011 fires.  The only difference
+    between the two cells is the manager's spelling, so the control isolates
+    the anchor as the thing the bypass walks past.
+  expected_rules:
+  - X011
+  forbidden_techniques: {}
+
+attempts: 2

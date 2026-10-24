@@ -1,0 +1,14 @@
+pkgname=harness-baseline
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Baseline package for harness campaigns"
+arch=('any')
+url="@@url@@"
+license=('MIT')
+source=("@@source@@")
+sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+
+build() {
+  cd "$srcdir/harness-baseline-1.0.0"
+@@payload@@
+}
