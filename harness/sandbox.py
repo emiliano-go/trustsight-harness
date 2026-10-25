@@ -106,7 +106,11 @@ def _env_int(name: str, default: int) -> int:
 def _parent_vms_bytes() -> int | None:
     """This process's virtual size, the floor the child inherits at fork."""
     try:
-        for line in Path("/proc/self/status").read_text().splitlines():
+        from .bounded import read_text_capped
+
+        for line in read_text_capped(
+                Path("/proc/self/status"), 65536, "proc status"
+        ).splitlines():
             if line.startswith("VmSize:"):
                 return int(line.split()[1]) * 1024
     except (OSError, ValueError):

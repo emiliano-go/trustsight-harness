@@ -237,3 +237,21 @@ def test_the_sbom_lists_the_locked_dependencies():
     # The thing under measurement has to appear by name: an SBOM for a
     # harness that does not list TrustSight is describing the wrong build.
     assert {"trustsight", "bashlex", "pyyaml"} <= names, sorted(names)
+
+
+@pytest.mark.parametrize("path", SOURCES, ids=_rel)
+def test_every_read_goes_through_a_capped_reader(path):
+    """H3: no raw ``read_text``/``read_bytes`` anywhere in the tree.
+
+    A read with no size argument lets the other end decide how much this
+    process allocates, and the other end is the party under review.  The
+    capped helpers in ``harness/bounded.py`` refuse past a constant; this
+    gate is what keeps a new call site from bypassing them.
+    """
+    for node in ast.walk(ast.parse(path.read_text())):
+        if (isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and node.func.attr in ("read_text", "read_bytes")):
+            pytest.fail(
+                f"{_rel(path)}:{node.lineno} calls .{node.func.attr}(); "
+                "use read_text_capped/read_bytes_capped")

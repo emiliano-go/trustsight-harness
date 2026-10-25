@@ -11,6 +11,7 @@ from pathlib import Path
 
 import yaml
 
+from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 from .environment import Environment, load_environment
 
 __all__ = ["ArchiveConfig", "CampaignConfig", "ConfigError", "load_campaign"]
@@ -104,7 +105,8 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
     path = directory / "campaign.yml"
     if not path.exists():
         raise ConfigError(f"no campaign.yml in {directory}")
-    raw = yaml.safe_load(path.read_text()) or {}
+    raw = yaml.safe_load(
+        read_text_capped(path, MAX_ARTIFACT_BYTES, "campaign.yml")) or {}
     unknown = set(raw) - _TOP_LEVEL
     if unknown:
         raise ConfigError(f"unknown campaign keys: {sorted(unknown)}")

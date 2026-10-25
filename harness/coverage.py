@@ -18,6 +18,8 @@ from pathlib import Path
 
 import yaml
 
+from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
+
 __all__ = ["build_coverage"]
 
 
@@ -64,7 +66,8 @@ UNREACHABLE_BY_FORMAT = {
 def _campaigns(repo_root: Path) -> list[dict]:
     out = []
     for path in sorted((repo_root / "campaigns").glob("*/campaign.yml")):
-        raw = yaml.safe_load(path.read_text()) or {}
+        raw = yaml.safe_load(
+            read_text_capped(path, MAX_ARTIFACT_BYTES, "campaign.yml")) or {}
         rules = tuple((raw.get("prompt") or {}).get("expected_rules") or ())
         out.append({
             "campaign": raw.get("campaign", path.parent.name),

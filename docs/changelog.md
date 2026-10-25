@@ -6,6 +6,17 @@ description: Changes to trustsight-harness.
 
 ## Unreleased
 
+- **Self-security hardening.** Every `read_text`/`read_bytes` in `harness/`,
+  `generators/` and `validators/` now goes through `harness/bounded.py`, which
+  refuses past a constant instead of allocating whatever the artifact
+  declares; a source gate fails a raw call. The inspection tools open the
+  operator database `mode=ro` only (H9) and refuse artifact reads past their
+  cap. Responses are bounded: `triage_alert` omits the raw ntfy copy unless
+  asked and degrades to a summary past 256 KiB, `feed_rule_stats` names the
+  top packages, and at most two jobs may run at once. `HARNESS_MCP_ALLOWED_ROOTS`
+  optionally confines path arguments for a less-trusted client.
+
+
 - **Read-only triage and corpus inspection tools.** The MCP surface now
   exposes `maintainer_transitions` (the local corpus's old/new owner records,
   which the feed never publishes), `rule_info`/`rules_list` (the installed

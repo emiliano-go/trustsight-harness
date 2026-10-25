@@ -14,6 +14,7 @@ import sqlite3
 from pathlib import Path
 from typing import Any
 
+from .bounded import read_json_capped
 from .dedup import KnownBypasses, diff_hash
 from .evidence import diff_by_hash, iter_evidence
 from .sanitizer import MAX_DIFF_BYTES
@@ -71,21 +72,30 @@ def _db():
 
 
 def maintainer_transitions(package: str, limit: int = 50) -> dict:
-    """Recorded maintainer changes for one package, oldest first."""
+    """Recorded maintainer changes for one package, oldest first.
+
+    Reads the operator corpus through a ``mode=ro`` connection: this tool
+    must never initialise, migrate or repair the database it inspects (H9).
+    """
     name = _clean_name(package)
     if not name:
         return {"error": "package must be a non-empty name"}
+    context, error = _db()
+    if context is None:
+        return {"package": name, "available": False,
+                "error": error, "transitions": []}
     try:
-        from trustsight.db import get_db_path, get_property_transitions
-
-        if not Path(get_db_path()).exists():
-            return {"package": name, "available": False,
-                    "error": "database not found", "transitions": []}
-        rows = get_property_transitions(
-            name, property_key="maintainer",
-            limit=max(1, min(MAX_LIST, int(limit))),
-        )
-    except (ImportError, sqlite3.Error, OSError) as exc:
+        with context as conn:
+            rows = conn.execute(
+                """SELECT old_value, new_value, observed_at FROM (
+                       SELECT id, old_value, new_value, observed_at
+                       FROM property_transitions
+                       WHERE package_name = ? AND property_key = 'maintainer'
+                       ORDER BY id DESC LIMIT ?)
+                   ORDER BY id""",
+                (name, max(1, min(MAX_LIST, int(limit)))),
+            ).fetchall()
+    except (sqlite3.Error, OSError) as exc:
         return {"package": name, "available": False,
                 "error": f"{type(exc).__name__}: {exc}", "transitions": []}
 
@@ -99,9 +109,9 @@ def maintainer_transitions(package: str, limit: int = 50) -> dict:
 
     transitions = [
         {
-            "old": decode(row.get("old_value")),
-            "new": decode(row.get("new_value")),
-            "observed_at": row.get("observed_at", ""),
+            "old": decode(row["old_value"]),
+            "new": decode(row["new_value"]),
+            "observed_at": row["observed_at"],
         }
         for row in rows
     ]
@@ -167,11 +177,23 @@ def rules_list(category: str | None = None, status: str | None = None) -> dict:
     return {"count": len(rules), "rules": rules}
 
 
-def ioc_lookup(ioc_type: str, value: str) -> dict:
-    """Match one value against the active local IOC entries."""
+def _row_get(row, key: str, default: str = "") -> str:
+    """A column value, tolerant of a database created before it existed."""
     try:
-        from trustsight.db import get_db_path
-        from trustsight.ioc_baseline import match_ioc
+        return row[key] or default
+    except (IndexError, KeyError):
+        return default
+
+
+def ioc_lookup(ioc_type: str, value: str) -> dict:
+    """Match one value against the active local IOC entries.
+
+    The match is the same normalization and expiry rule TrustSight applies,
+    but read through a ``mode=ro`` connection: inspection never opens the
+    corpus for writing (H9).
+    """
+    try:
+        from trustsight.ioc_baseline import _is_expired, _normalize_value
         from trustsight.iocs import IOC_TYPES
     except ImportError as exc:
         return {"error": f"trustsight is not importable: {exc}"}
@@ -179,59 +201,72 @@ def ioc_lookup(ioc_type: str, value: str) -> dict:
     if wanted not in IOC_TYPES:
         return {"error": f"not an IOC type: {ioc_type!r}",
                 "valid_types": sorted(IOC_TYPES)}
-    if not Path(get_db_path()).exists():
-        return {"available": False, "error": "database not found",
-                "matches": []}
+    normalized = _normalize_value(wanted, value)
+    if normalized is None:
+        return {"available": True, "type": ioc_type, "value": value,
+                "count": 0, "matches": []}
+    context, error = _db()
+    if context is None:
+        return {"available": False, "error": error, "matches": []}
     try:
-        matches = match_ioc(wanted, value)
-    except (sqlite3.Error, OSError, ValueError) as exc:
+        with context as conn:
+            rows = conn.execute(
+                "SELECT type, value, source, confidence, provenance, campaign, "
+                "added, expires_at, shape FROM ioc_entries "
+                "WHERE type = ? AND value = ?",
+                (wanted, normalized),
+            ).fetchall()
+    except (sqlite3.Error, OSError) as exc:
         return {"available": False, "error": f"{type(exc).__name__}: {exc}",
                 "matches": []}
-    return {
-        "available": True,
-        "type": ioc_type,
-        "value": value,
-        "count": len(matches),
-        "matches": [
-            {"type": m.type, "value": m.value, "source": m.source,
-             "confidence": m.confidence, "provenance": m.provenance,
-             "campaign": m.campaign, "added": m.added, "surface": m.surface,
-             "expired": m.expired, "shape": m.shape}
-            for m in matches
-        ],
-    }
+    matches = [
+        {"type": row["type"], "value": row["value"], "source": row["source"],
+         "confidence": row["confidence"] or "",
+         "provenance": row["provenance"] or "",
+         "campaign": row["campaign"] or "", "added": row["added"] or "",
+         "expired": _is_expired(row["expires_at"]),
+         "shape": _row_get(row, "shape")}
+        for row in rows if not _is_expired(row["expires_at"])
+    ]
+    return {"available": True, "type": ioc_type, "value": value,
+            "count": len(matches), "matches": matches}
 
 
 def ioc_status() -> dict:
     """Counts and sources for the local IOC store, or a cold report."""
     try:
-        from trustsight.db import get_db_path
-        from trustsight.ioc_baseline import (
-            active_iocs,
-            all_ioc_sources,
-            has_upstream_repo_entries,
-        )
+        from trustsight.ioc_baseline import _is_expired
     except ImportError as exc:
         return {"available": False, "error": f"trustsight is not importable: {exc}"}
-    if not Path(get_db_path()).exists():
-        return {"available": False, "error": "database not found",
+    context, error = _db()
+    if context is None:
+        return {"available": False, "error": error,
                 "active": 0, "by_type": {}, "by_source": {}, "sources": []}
     try:
-        entries = active_iocs()
+        with context as conn:
+            rows = conn.execute(
+                "SELECT type, source, expires_at FROM ioc_entries").fetchall()
     except (sqlite3.Error, OSError) as exc:
         return {"available": False, "error": f"{type(exc).__name__}: {exc}"}
     by_type: dict[str, int] = {}
     by_source: dict[str, int] = {}
-    for entry in entries:
-        by_type[entry.type] = by_type.get(entry.type, 0) + 1
-        by_source[entry.source] = by_source.get(entry.source, 0) + 1
+    sources = set()
+    active = 0
+    for row in rows:
+        sources.add(row["source"])
+        if _is_expired(row["expires_at"]):
+            continue
+        active += 1
+        by_type[row["type"]] = by_type.get(row["type"], 0) + 1
+        by_source[row["source"]] = by_source.get(row["source"], 0) + 1
     return {
         "available": True,
-        "active": len(entries),
+        "active": active,
         "by_type": dict(sorted(by_type.items())),
         "by_source": dict(sorted(by_source.items())),
-        "sources": all_ioc_sources(),
-        "upstream_repo_channel": has_upstream_repo_entries(),
+        "sources": sorted(sources),
+        "upstream_repo_channel": any(row["type"] == "upstream_repo"
+                                     for row in rows),
     }
 
 
@@ -294,11 +329,11 @@ def list_bypasses(root: Path, rule: str | None = None, since: str | None = None,
     by_hash: dict[str, dict] = {}
     if report_path.exists():
         try:
-            report = json.loads(report_path.read_text())
+            report = read_json_capped(report_path, what="report.json")
             for row in report.get("bypasses", []):
                 if isinstance(row, dict) and row.get("diff_hash"):
                     by_hash[row["diff_hash"]] = row
-        except (OSError, json.JSONDecodeError):
+        except (OSError, ValueError, json.JSONDecodeError):
             by_hash = {}
 
     wanted_rule = str(rule or "").strip().upper()
@@ -408,8 +443,12 @@ def campaign_evidence(root: Path, campaign: str, rule: str | None = None,
     if not campaign_dir.is_dir():
         return {"available": False, "error": f"no such campaign: {name}",
                 "count": 0, "attempts": []}
-    entries = iter_evidence(campaign_dir)
-    diffs = diff_by_hash(campaign_dir) if include_diff else {}
+    try:
+        entries = iter_evidence(campaign_dir)
+        diffs = diff_by_hash(campaign_dir) if include_diff else {}
+    except (OSError, ValueError) as exc:
+        return {"available": False, "error": f"{type(exc).__name__}: {exc}",
+                "count": 0, "attempts": []}
     wanted_rule = str(rule or "").strip().upper()
     wanted_status = str(status or "").strip().lower()
     out = []
@@ -469,8 +508,8 @@ def run_history(root: Path, kind: str = "regression", limit: int = 20) -> dict:
         path = root / "regression" / "report.json"
         if path.exists():
             try:
-                data = json.loads(path.read_text())
-            except (OSError, json.JSONDecodeError) as exc:
+                data = read_json_capped(path, what="report.json")
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
                 return {"available": False, "error": str(exc), "runs": []}
             runs.append({
                 "kind": "regression",
@@ -487,8 +526,8 @@ def run_history(root: Path, kind: str = "regression", limit: int = 20) -> dict:
         path = root / "benign" / "report.json"
         if path.exists():
             try:
-                data = json.loads(path.read_text())
-            except (OSError, json.JSONDecodeError) as exc:
+                data = read_json_capped(path, what="report.json")
+            except (OSError, ValueError, json.JSONDecodeError) as exc:
                 return {"available": False, "error": str(exc), "runs": []}
             runs.append({
                 "kind": "benign",
@@ -503,8 +542,8 @@ def run_history(root: Path, kind: str = "regression", limit: int = 20) -> dict:
     if wanted in ("campaign", "campaigns", "all"):
         for record_path in sorted((root / "campaigns").glob("*/record.json")):
             try:
-                data = json.loads(record_path.read_text())
-            except (OSError, json.JSONDecodeError):
+                data = read_json_capped(record_path, what="record.json")
+            except (OSError, ValueError, json.JSONDecodeError):
                 continue
             runs.append({
                 "kind": "campaign",

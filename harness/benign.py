@@ -28,6 +28,7 @@ from collections import defaultdict
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
+from .bounded import MAX_ARTIFACT_BYTES, MAX_REPO_FILE_BYTES, read_bytes_capped
 from .environment import load_environment
 from .regression_cache import (
     RegressionCache,
@@ -110,7 +111,9 @@ def _plan(corpus: Path, sample: int, config: dict):
             if sample > 1 and index % sample:
                 continue
             selected.append(path)
-            text = path.read_text(errors="replace")
+            text = read_bytes_capped(
+                path, MAX_ARTIFACT_BYTES, "benign diff"
+            ).decode("utf-8", "replace")
             additions.extend(
                 normalize_url(url)
                 for url in scored_source_urls(text, config, pkg)
@@ -132,7 +135,9 @@ def _scan_task(task, rules, config, threshold: int) -> list[dict]:
     rows: list[dict] = []
     for path_str in paths:
         path = Path(path_str)
-        text = path.read_text(errors="replace")
+        text = read_bytes_capped(
+            path, MAX_ARTIFACT_BYTES, "benign diff"
+        ).decode("utf-8", "replace")
         fact = scan_diff(
             text, rules=rules, config=config, package_name=package,
             seen_urls={package: pkg_seen, _GLOBAL_URL_KEY: global_seen},
@@ -194,7 +199,8 @@ def _script_hash() -> str:
     digest = hashlib.sha256()
     here = Path(__file__).resolve().parent
     for name in ("benign.py", "environment.py", "stats.py"):
-        digest.update((here / name).read_bytes())
+        digest.update(read_bytes_capped(
+            here / name, MAX_REPO_FILE_BYTES, "benign module"))
         digest.update(b"\0")
     return "sha256:" + digest.hexdigest()
 

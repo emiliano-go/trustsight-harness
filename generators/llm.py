@@ -12,6 +12,8 @@ import re
 import tomllib
 from pathlib import Path
 
+from harness.bounded import MAX_ARTIFACT_BYTES, read_text_capped
+
 from .base import Exhausted, Generated, Generator, Prompt
 
 __all__ = [
@@ -34,7 +36,8 @@ class CostCeilingReached(Exhausted):
 def load_prices(path: Path) -> dict:
     if not path.exists():
         raise FileNotFoundError(f"price table missing: {path}")
-    return tomllib.loads(path.read_text())
+    return tomllib.loads(read_text_capped(path, MAX_ARTIFACT_BYTES,
+                                          "prices.toml"))
 
 
 _THINKING = re.compile(r"<(think|thinking|reasoning)>.*?</\1>", re.DOTALL | re.IGNORECASE)

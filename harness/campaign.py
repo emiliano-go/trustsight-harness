@@ -13,6 +13,7 @@ from validators.constraints import build_checkers, validate_constraints
 from validators.syntax import resolve_bash, validate_syntax
 
 from .archive import Archive, ArchiveError
+from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 from .config import CampaignConfig
 from .dedup import (
     Deduplicator,
@@ -62,15 +63,16 @@ def _git_commit(directory: Path) -> str:
     if not git_dir.is_dir():
         return ""
     try:
-        head = (git_dir / "HEAD").read_text().strip()
+        head = read_text_capped(git_dir / "HEAD", 4096, "git HEAD").strip()
         if head.startswith("ref:"):
             ref_path = git_dir / head[4:].strip()
             if ref_path.exists():
-                return ref_path.read_text().strip()
+                return read_text_capped(ref_path, 4096, "git ref").strip()
             packed = git_dir / "packed-refs"
             if packed.exists():
                 target = head[4:].strip()
-                for line in packed.read_text().splitlines():
+                for line in read_text_capped(
+                        packed, 65536, "packed-refs").splitlines():
                     if line.startswith("#"):
                         continue
                     parts = line.split()
@@ -129,7 +131,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 
     # The environment is verified before a single attempt is charged for.
     env.restore()
-    canary_text = (repo_root / "defaults/canary.PKGBUILD").read_text()
+    canary_text = read_text_capped(
+        repo_root / "defaults/canary.PKGBUILD", MAX_ARTIFACT_BYTES,
+        "canary.PKGBUILD")
     env.check_canary(lambda name, text: runner.analyze(text).report)
     # Adopt the fingerprint from the canary, not from the first attempt.
     # `check_fingerprint` takes whatever it is shown first and refuses every

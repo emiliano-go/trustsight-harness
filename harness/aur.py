@@ -52,6 +52,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import quote
 
+from .bounded import read_json_capped
 from .net import Deadline, Fetcher, NetworkError, SlidingWindowLimiter, cache_dir
 
 __all__ = ["AUR_READ_PER_DAY", "MAX_INFO_NAMES", "AurClient", "AurError"]
@@ -367,9 +368,7 @@ class AurClient:
         or truncated file must fall back to a refetch, never allocate.
         """
         try:
-            if path.stat().st_size > _CACHE_READ_MAX_BYTES:
-                return None
-            data = json.loads(path.read_text())
+            data = read_json_capped(path, _CACHE_READ_MAX_BYTES, "aur cache")
         except (OSError, ValueError):
             return None
         if not isinstance(data, dict):

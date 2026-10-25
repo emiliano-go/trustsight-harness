@@ -11,9 +11,9 @@ not be replayed under the identity of the one that was recorded.
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
+from .bounded import iter_jsonl_capped
 from .dedup import diff_hash
 
 __all__ = ["analysed_text_by_hash", "diff_by_hash", "iter_evidence"]
@@ -24,17 +24,7 @@ def iter_evidence(campaign_dir: Path) -> list[dict]:
     path = campaign_dir / "evidence.jsonl"
     if not path.exists():
         return []
-    entries = []
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            entry = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(entry, dict):
-            entries.append(entry)
+    entries = list(iter_jsonl_capped(path, what="evidence.jsonl"))
     return sorted(entries, key=lambda e: e.get("attempt", 0))
 
 

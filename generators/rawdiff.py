@@ -12,6 +12,8 @@ from pathlib import Path
 
 import yaml
 
+from harness.bounded import read_text_capped
+
 from .base import Exhausted, Generated, Generator, Prompt
 
 __all__ = ["MAX_DIFF_BYTES", "MAX_MANIFEST_BYTES", "RawDiffGenerator"]
@@ -26,7 +28,8 @@ class RawDiffGenerator(Generator):
     type = "raw-diff"
 
     def __init__(self, manifest_path: Path, campaign_root: Path) -> None:
-        raw = manifest_path.read_text(encoding="utf-8")
+        raw = read_text_capped(manifest_path, MAX_MANIFEST_BYTES,
+                               manifest_path.name)
         if len(raw.encode("utf-8")) > MAX_MANIFEST_BYTES:
             raise ValueError(f"{manifest_path.name} exceeds {MAX_MANIFEST_BYTES} bytes")
         data = yaml.safe_load(raw)

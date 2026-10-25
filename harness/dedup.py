@@ -14,9 +14,9 @@ metric itself.
 from __future__ import annotations
 
 import hashlib
-import json
 from pathlib import Path
 
+from .bounded import read_json_capped
 from .shape import UNSHAPED, behavioral_signature, shape_signature
 
 __all__ = [
@@ -125,8 +125,8 @@ class KnownBypasses:
         self._index: dict[str, dict] = {}
         for record in sorted(campaigns_dir.glob("*/record.json")):
             try:
-                data = json.loads(record.read_text())
-            except (OSError, json.JSONDecodeError):
+                data = read_json_capped(record, what="record.json")
+            except (OSError, ValueError):
                 continue
             version = data.get("environment", {}).get("trustsight_version", "")
             campaign = data.get("campaign", record.parent.name)

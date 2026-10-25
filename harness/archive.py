@@ -21,6 +21,8 @@ import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .bounded import BoundedReadError, read_json_capped
+
 __all__ = ["Archive", "ArchiveError", "CellEntry", "archive_key"]
 
 _SEP = "\x1f"
@@ -317,15 +319,10 @@ class Archive:
         if not path.exists():
             return cls(saturation=saturation if saturation is not None else 3)
         try:
-            size = path.stat().st_size
-        except OSError as exc:
-            raise ArchiveError(f"cannot stat archive {path}: {exc}") from exc
-        if size > MAX_ARCHIVE_BYTES:
-            raise ArchiveError(
-                f"archive {path} is {size} bytes, over the {MAX_ARCHIVE_BYTES} cap")
-        try:
-            data = json.loads(path.read_text())
-        except (OSError, json.JSONDecodeError) as exc:
+            data = read_json_capped(path, MAX_ARCHIVE_BYTES, "archive")
+        except BoundedReadError as exc:
+            raise ArchiveError(f"archive {path}: {exc}") from exc
+        except (ValueError, json.JSONDecodeError) as exc:
             raise ArchiveError(f"archive {path} is not valid JSON: {exc}") from exc
         archive = cls.from_dict(data)
         # A caller that passes a saturation overrides the file's (a campaign's

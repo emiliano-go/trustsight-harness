@@ -24,8 +24,9 @@ import inspect
 import json
 import types
 import typing
-from pathlib import Path
 from typing import Any, get_args, get_origin
+
+from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 
 __all__ = [
     "OPERATIONS",
@@ -138,7 +139,8 @@ def _strip_optional(annotation: Any) -> Any:
 
 def _json_object(value: str) -> dict:
     try:
-        text = value if value.lstrip().startswith(("{", "[")) else Path(value).read_text()
+        text = (value if value.lstrip().startswith(("{", "["))
+                else read_text_capped(value, MAX_ARTIFACT_BYTES, "JSON input"))
         result = json.loads(text)
         if not isinstance(result, dict):
             raise TypeError("JSON must be an object")

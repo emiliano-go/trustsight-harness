@@ -26,6 +26,8 @@ from pathlib import Path
 
 import yaml
 
+from harness.bounded import read_text_capped
+
 from .base import Exhausted, Generated, Generator, Prompt
 from .baseline import DEFAULT_BASELINE, diff_against_baseline
 
@@ -46,7 +48,8 @@ class InputsGenerator(Generator):
 
     def __init__(self, manifest_path: Path, campaign_root: Path, repo_root: Path,
                  resolve) -> None:
-        raw = manifest_path.read_text(encoding="utf-8")
+        raw = read_text_capped(manifest_path, MAX_MANIFEST_BYTES,
+                               manifest_path.name)
         if len(raw.encode("utf-8")) > MAX_MANIFEST_BYTES:
             raise ValueError(f"{manifest_path.name} exceeds {MAX_MANIFEST_BYTES} bytes")
         data = yaml.safe_load(raw)
@@ -70,7 +73,8 @@ class InputsGenerator(Generator):
                 raise ValueError("template must be a non-empty path string")
             self.template_name = template_rel
             template_path = resolve(campaign_root, template_rel, "manifest.template")
-            template = template_path.read_text(encoding="utf-8")
+            template = read_text_capped(template_path, MAX_RECIPE_BYTES,
+                                       template_path.name)
             if len(template.encode("utf-8")) > MAX_RECIPE_BYTES:
                 raise ValueError(f"template exceeds {MAX_RECIPE_BYTES} bytes")
 
@@ -78,7 +82,8 @@ class InputsGenerator(Generator):
         if not isinstance(baseline_rel, str) or not baseline_rel:
             raise ValueError("baseline must be a non-empty path string")
         baseline_path = resolve(repo_root, baseline_rel, "manifest.baseline")
-        self.baseline = baseline_path.read_text(encoding="utf-8")
+        self.baseline = read_text_capped(baseline_path, MAX_RECIPE_BYTES,
+                                        baseline_path.name)
 
         self._ids: list[str] = []
         self._texts: list[str] = []

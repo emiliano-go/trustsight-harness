@@ -75,7 +75,10 @@ minute** per client, answering `429` with a `Retry-After` header.
 
 `date` is `YYYY-MM-DD`; `timeframe` is `HH`, `HH-HH` or `HHMM-HHMM`, all UTC.
 The base URL is `https://watcher.trustsight.org` unless `WATCHER_FEED_URL` is
-set. The client paces itself at half the cap (60 a minute).
+set. The client paces itself at half the cap (60 a minute). Composite
+readers stay inside the same budget: `feed_many` is capped at 20
+packages, `feed_rule_stats` names at most 200 (25 by default), and
+`triage_alert` returns at most 25 dossiers (5 by default).
 
 `feed_stats()` returns the watcher's aggregates verbatim. Its `alerts` and
 `over_threshold` count rule firings across all stored alert documents, while

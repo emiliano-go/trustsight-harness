@@ -20,6 +20,8 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from trustsight.bounded_io import read_file_capped
+
 from .shellast import in_command_position
 
 __all__ = ["VALIDATOR_SOURCE", "BehaviorResult", "BehaviorValidator"]
@@ -385,8 +387,11 @@ class BehaviorValidator:
     def version_hash(self) -> str:
         """A change to behavior.py or its AST helper is a new instrument."""
         digest = hashlib.sha256()
-        digest.update(VALIDATOR_SOURCE.read_bytes())
-        digest.update(Path(__file__).with_name("shellast.py").read_bytes())
+        digest.update(read_file_capped(
+            VALIDATOR_SOURCE, 4 * 1024 * 1024, "behavior.py"))
+        digest.update(read_file_capped(
+            Path(__file__).with_name("shellast.py"), 4 * 1024 * 1024,
+            "shellast.py"))
         return f"sha256:{digest.hexdigest()}"
 
     def validate(self, new_text: str) -> BehaviorResult:

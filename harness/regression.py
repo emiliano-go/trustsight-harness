@@ -15,6 +15,7 @@ from validators.behavior import BehaviorValidator
 from validators.syntax import resolve_bash, validate_syntax
 
 from .archive import Archive
+from .bounded import MAX_ARTIFACT_BYTES, read_json_capped, read_text_capped
 from .dedup import cells_for
 from .environment import Environment, EnvironmentError_, load_environment
 from .evidence import analysed_text_by_hash, diff_by_hash
@@ -52,7 +53,7 @@ def _committed_bypasses(campaigns: Path) -> list[dict]:
     records = []
     rules_by_campaign: dict[str, list[str]] = {}
     for record_path in sorted(campaigns.glob("*/record.json")):
-        record = json.loads(record_path.read_text())
+        record = read_json_capped(record_path, what="record.json")
         campaign = record.get("campaign", record_path.parent.name)
         rules = list(record.get("expected_rules", []) or [])
         records.append((record_path, record, campaign, rules))
@@ -143,7 +144,9 @@ def _preflight(env: Environment, runner: Runner, repo_root: Path) -> None:
     serial run - and every later attempt's fingerprint is verified against it.
     """
     env.restore()
-    canary = (repo_root / "defaults/canary.PKGBUILD").read_text()
+    canary = read_text_capped(
+        repo_root / "defaults/canary.PKGBUILD", MAX_ARTIFACT_BYTES,
+        "canary.PKGBUILD")
     report = runner.analyze(canary).report
     env.check_canary(lambda name, text: report)
     env.check_fingerprint(report)

@@ -263,3 +263,29 @@ def test_oversized_diffs_are_refused():
     huge = "+x\n" * (MAX_DIFF_BYTES // 3 + 10)
     assert "error" in introspect.shape_of(huge)
     assert "error" in introspect.match_bypass(huge, Path("."))
+
+
+def test_inspection_never_writes_the_operator_database(corpus):
+    """H9: the read-only tools open the corpus mode=ro and change nothing."""
+    import trustsight.db as db_module
+
+    db_module.record_property_transition(
+        "adopted", "maintainer", "oldm", "newm", "2026-05-01T00:00:00")
+    with db_module.get_connection() as conn:
+        conn.commit()
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        conn.execute("PRAGMA journal_mode=DELETE")
+    db_module.close_connections()
+
+    path = corpus / "trustsight.db"
+    before = path.read_bytes()
+    path.chmod(0o444)
+    try:
+        assert introspect.maintainer_transitions("adopted")["available"] is True
+        assert introspect.ioc_status()["available"] is True
+        assert introspect.data_status()["available"] is True
+    finally:
+        path.chmod(0o644)
+    assert path.read_bytes() == before
+    assert not (corpus / "trustsight.db-wal").exists()
+    assert not (corpus / "trustsight.db-shm").exists()

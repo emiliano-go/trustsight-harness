@@ -18,6 +18,15 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .bounded import (
+    MAX_ARTIFACT_BYTES,
+    MAX_CACHE_BYTES,
+    MAX_DB_BYTES,
+    MAX_REPO_FILE_BYTES,
+    read_bytes_capped,
+    read_text_capped,
+)
+
 __all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
            "NamespaceUnavailableError", "freeze_aur_lookup",
            "load_environment"]
@@ -211,7 +220,8 @@ class Environment:
                 continue
             digest.update(path.name.encode("utf-8"))
             digest.update(b"\0")
-            digest.update(path.read_bytes())
+            digest.update(read_bytes_capped(
+                path, MAX_REPO_FILE_BYTES, "config file"))
             digest.update(b"\0")
         return "sha256:" + digest.hexdigest()
 
@@ -231,7 +241,7 @@ class Environment:
         if int(self.flag_threshold) == 20:
             return
         path = config_dir / "config.toml"
-        text = path.read_text()
+        text = read_text_capped(path, MAX_ARTIFACT_BYTES, "config.toml")
         marker = "[review.profiles]"
         if "[review]" not in text or marker not in text:
             return
@@ -311,12 +321,14 @@ class Environment:
         if not seed_path.exists():
             raise EnvironmentError_(
                 f"db_state 'seeded' declared but no seed at {seed_path}")
-        digest = "sha256:" + hashlib.sha256(seed_path.read_bytes()).hexdigest()
+        digest = "sha256:" + hashlib.sha256(
+            read_bytes_capped(seed_path, MAX_CACHE_BYTES, "seed.json")).hexdigest()
         if digest != self.seed_sha256:
             raise EnvironmentError_(
                 f"seed digest mismatch: campaign declares {self.seed_sha256}, "
                 f"{seed_path.name} hashes to {digest}")
-        payload = json.loads(seed_path.read_text())
+        payload = json.loads(read_text_capped(
+            seed_path, MAX_CACHE_BYTES, "seed.json"))
         with db.get_connection() as conn:
             for row in payload.get("urls", []):
                 conn.execute(
@@ -327,7 +339,8 @@ class Environment:
     def _db_hash(self) -> str:
         digest = hashlib.sha256()
         for path in sorted(self._data_dir.glob("*.db")):
-            digest.update(path.read_bytes())
+            digest.update(read_bytes_capped(
+                path, MAX_DB_BYTES, "analysis database"))
         return f"sha256:{digest.hexdigest()}"
 
     # -- verification -------------------------------------------------
@@ -342,7 +355,8 @@ class Environment:
         path = self._root / CANARY_DIFF
         if not path.exists():
             raise EnvironmentError_(f"canary recipe missing: {path}")
-        report = run_text("canary", path.read_text())
+        report = run_text("canary", read_text_capped(
+            path, MAX_ARTIFACT_BYTES, "canary.PKGBUILD"))
         if self.canary_score is None:
             self.canary_score = report.score
             self.mode_gaps = tuple(getattr(report, "coverage_gaps", ()) or ())

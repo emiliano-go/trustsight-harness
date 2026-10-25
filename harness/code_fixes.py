@@ -42,6 +42,7 @@ import tempfile
 import threading
 from pathlib import Path
 
+from .bounded import MAX_REPO_FILE_BYTES, read_bytes_capped
 from .sandbox import NamespaceUnavailableError
 
 #: Paths an agent fix may touch, relative to the trustsight repo root.
@@ -405,8 +406,10 @@ def validate_and_apply(
 
         changed: set[str] = set()
         for fix, label in accepted:
-            before = {t: (root / t).read_bytes() if (root / t).is_file()
-                      else None for t in all_targets}
+            before = {t: (read_bytes_capped(root / t, MAX_REPO_FILE_BYTES,
+                                            "apply target")
+                          if (root / t).is_file() else None)
+                      for t in all_targets}
             ok, reason = _apply_one(root, fix["diff"])
             if not ok:
                 for target, data in before.items():
@@ -414,7 +417,8 @@ def validate_and_apply(
                     if data is None:
                         if dst.exists():
                             dst.unlink()
-                    elif dst.read_bytes() != data:
+                    elif read_bytes_capped(
+                            dst, MAX_REPO_FILE_BYTES, "apply target") != data:
                         dst.parent.mkdir(parents=True, exist_ok=True)
                         dst.write_bytes(data)
                 out["rejected"].append({"path": fix["path"],
@@ -428,7 +432,8 @@ def validate_and_apply(
                                  "linked_finding": fix["linked_finding"],
                                  "package": label})
         for target in sorted(changed):
-            data = (root / target).read_bytes()
+            data = read_bytes_capped(root / target, MAX_REPO_FILE_BYTES,
+                                     "apply target")
             try:
                 out["files"][target] = data.decode("utf-8", "strict")
             except UnicodeDecodeError:

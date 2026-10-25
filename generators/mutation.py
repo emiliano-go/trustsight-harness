@@ -13,6 +13,8 @@ import random
 import re
 from pathlib import Path
 
+from harness.bounded import MAX_ARTIFACT_BYTES, read_text_capped
+
 from .base import Exhausted, Generated, Generator, Prompt
 
 __all__ = ["OPERATORS", "MutationGenerator"]
@@ -77,7 +79,8 @@ class MutationGenerator(Generator):
         unknown = set(self.operator_names) - set(OPERATORS)
         if unknown:
             raise ValueError(f"unknown mutation operators: {sorted(unknown)}")
-        self._texts = [p.read_text() for p in sources]
+        self._texts = [read_text_capped(p, MAX_ARTIFACT_BYTES, "mutation source")
+                       for p in sources]
 
     @property
     def operators_hash(self) -> str:

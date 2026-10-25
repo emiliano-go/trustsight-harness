@@ -16,6 +16,7 @@ import json
 import sys
 from pathlib import Path
 
+from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 from .environment import NamespaceUnavailableError
 from .factory import build_generator
 from .safe_text import clean
@@ -37,7 +38,9 @@ def _calibration_status() -> str:
     for kind, expected in (("known_malicious", True), ("known_benign", False)):
         for path in sorted((base / kind).glob("*.PKGBUILD")):
             checked += 1
-            if validator.validate(path.read_text()).preserved is not expected:
+            if validator.validate(read_text_capped(
+                    path, MAX_ARTIFACT_BYTES, "calibration PKGBUILD")
+            ).preserved is not expected:
                 return "failed"
     # An empty suite calibrates nothing, so the build cannot publish a rate.
     return "passed" if checked else "failed"
@@ -134,7 +137,8 @@ def main(argv: list[str] | None = None) -> int:
             return EXIT_HARNESS
         stats: dict = {}
         try:
-            report = run_regression(REPO_ROOT, yaml.safe_load(env_path.read_text()),
+            report = run_regression(REPO_ROOT, yaml.safe_load(read_text_capped(
+                env_path, MAX_ARTIFACT_BYTES, "environment.yml")),
                                     jobs=args.jobs or "1",
                                     use_cache=not args.no_cache,
                                     stats=stats)
@@ -207,7 +211,8 @@ def main(argv: list[str] | None = None) -> int:
         from .archive import Archive
         from .matrix import build_matrix, save_matrix
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
-        version = str(yaml.safe_load(env_path.read_text())["trustsight_version"])
+        version = str(yaml.safe_load(read_text_capped(
+                env_path, MAX_ARTIFACT_BYTES, "environment.yml"))["trustsight_version"])
         try:
             archive = Archive.load(REPO_ROOT / "archive.json")
             matrix = build_matrix(archive, version, RULE_CATEGORIES)
@@ -233,7 +238,8 @@ def main(argv: list[str] | None = None) -> int:
             return EXIT_CONFIG
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
         report = scan_benign(REPO_ROOT, corpus=corpus,
-                             environment=yaml.safe_load(env_path.read_text()),
+                             environment=yaml.safe_load(read_text_capped(
+                env_path, MAX_ARTIFACT_BYTES, "environment.yml")),
                              sample=max(1, args.sample),
                              jobs=args.jobs or "auto",
                              use_cache=not args.no_cache)
@@ -253,7 +259,8 @@ def main(argv: list[str] | None = None) -> int:
 
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
         try:
-            environment = yaml.safe_load(env_path.read_text())
+            environment = yaml.safe_load(read_text_capped(
+                env_path, MAX_ARTIFACT_BYTES, "environment.yml"))
         except (yaml.YAMLError, OSError) as exc:
             print(f"configuration error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG

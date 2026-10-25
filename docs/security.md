@@ -231,16 +231,32 @@ with a `directory`, `baseline` or `sources` value that escapes the tree and
 assert the configuration error, and the path confinement itself is a plain
 function with its own test.
 
+## H9: Read-only corpus
+
+**The claim.** The inspection tools (`maintainer_transitions`, `ioc_lookup`,
+`ioc_status`, `data_status`) may read the operator's TrustSight database, but
+only through a `mode=ro` connection. They never create it, initialise a schema,
+run a migration, checkpoint a WAL or write a row. A missing or unreadable
+database is reported, never repaired.
+
+**Enforcement.** `tests/test_introspect.py`
+(`test_inspection_never_writes_the_operator_database`) runs every DB-backed
+tool against a `0444` database, asserts the file is byte-identical afterwards,
+and asserts no `-wal`/`-shm` sidecar appears. The tools use
+`trustsight.db.get_read_only_connection`, the same path TrustSight's own
+`--allow-uninstalled` reader uses.
+
 ---
 
 ## What the harness never does
 
 These are not defaults to be overridden. There is no flag for any of them.
 
-- **It never opens your TrustSight database.** Every campaign binds
+- **A campaign never opens your TrustSight database.** Every campaign binds
   `config.DATA_DIR` to a campaign-local path before the first attempt. This is not
   only courtesy: a campaign that read the operator's own history would produce a
-  number nobody else could reproduce.
+  number nobody else could reproduce. Read-only *inspection* may open it, under
+  [H9](#h9-read-only-corpus) and never for writing.
 - **It never opens a pull request.** Fixtures are written to a local directory for
   a human to review, classify and submit. The harness's output is evidence for a
   decision, not the decision.
@@ -261,3 +277,22 @@ These are not defaults to be overridden. There is no flag for any of them.
 | A13b: IOC baselines are attributed, non-scoring data | [H8](#h8-an-untrusted-campaign-file-is-confined) |
 | B11: one pipeline behind the API and the CLI | the runner's per-campaign parity check |
 | "Evidence, not verdicts" | the record schema's [forbidden fields](reference/record-schema.md#forbidden-fields) |
+
+## H10: An inspection response is bounded too
+
+**The claim.** Reading is only half of it: returning also allocates. The
+read-only MCP tools cap the rows, packages and bytes they return, and a
+composite (`triage_alert`) degrades the document to a summary instead of
+streaming a multi-megabyte one. The raw ntfy copy is omitted unless the
+caller asks for it.
+
+Two limits sit beside it. At most `MAX_RUNNING_JOBS` (2) jobs may run at once,
+so a client cannot queue unbounded worker threads, and `JOB_TIMEOUT_S` is
+clamped to 24 hours regardless of the environment. Path arguments are
+unconfined by default because the server is a trusted-local stdio process; a
+deployment that drives it from a less-trusted client sets
+`HARNESS_MCP_ALLOWED_ROOTS` (colon-separated) and every path argument must
+then resolve under one of those roots, with symlinks refused.
+
+**Enforcement.** `tests/test_mcp_hardening.py` covers the row caps, the job
+cap, the response summary, and the opt-in confinement (escape and symlink).

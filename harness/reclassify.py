@@ -16,6 +16,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from .bounded import MAX_ARTIFACT_BYTES, read_json_capped
 from .evidence import iter_evidence
 from .layer_audit import audit as layer_audit
 from .paths import write_atomic
@@ -148,7 +149,8 @@ def run_reclassify(repo_root: Path, campaign_dir: Path, environment: dict,
     record = {}
     if record_path.exists():
         try:
-            record = json.loads(record_path.read_text())
+            record = read_json_capped(record_path, MAX_ARTIFACT_BYTES,
+                                      "record.json")
         except (OSError, json.JSONDecodeError):
             record = {}
     package = str(record.get("package", "harness-pkg"))

@@ -19,6 +19,8 @@ import hashlib
 import json
 from pathlib import Path
 
+from .bounded import MAX_REPO_FILE_BYTES, read_bytes_capped, read_text_capped
+
 __all__ = [
     "MAX_CACHE_BYTES", "RegressionCache", "benign_cache_key", "cache_key",
     "corpus_content_hash", "judge_source_hash",
@@ -32,7 +34,8 @@ MAX_CACHE_BYTES = 8 * 1024 * 1024
 
 def judge_source_hash(repo_root: Path) -> str:
     """Content hash of the Judge, so a matrix edit invalidates every entry."""
-    digest = hashlib.sha256((repo_root / "harness" / "judge.py").read_bytes())
+    digest = hashlib.sha256(read_bytes_capped(
+        repo_root / "harness" / "judge.py", MAX_REPO_FILE_BYTES, "judge.py"))
     return "sha256:" + digest.hexdigest()
 
 
@@ -52,7 +55,8 @@ def trustsight_source_hash() -> str:
     for path in sorted(root.rglob("*.py")):
         digest.update(str(path.relative_to(root)).encode("utf-8"))
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        digest.update(read_bytes_capped(
+            path, MAX_REPO_FILE_BYTES, "source file"))
         digest.update(b"\0")
     return "sha256:" + digest.hexdigest()
 
@@ -69,7 +73,8 @@ def corpus_content_hash(corpus: Path) -> str:
     for path in sorted(corpus.rglob("*.diff")):
         digest.update(path.relative_to(corpus).as_posix().encode("utf-8"))
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        digest.update(read_bytes_capped(
+            path, MAX_REPO_FILE_BYTES, "corpus diff"))
         digest.update(b"\0")
     return "sha256:" + digest.hexdigest()
 
@@ -139,7 +144,8 @@ class RegressionCache:
         self.enabled = enabled
         self._entries: dict[str, dict] = {}
         if enabled and path.exists():
-            for line in path.read_text().splitlines():
+            for line in read_text_capped(
+                    path, MAX_CACHE_BYTES, "regression cache").splitlines():
                 line = line.strip()
                 if not line:
                     continue

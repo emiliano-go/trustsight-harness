@@ -24,6 +24,11 @@ try:  # the `mcp` extra is optional: the CLI imports this module for the
 except ImportError:  # pragma: no cover - exercised only without the extra
     MCPServer = None  # type: ignore[assignment]
 
+from ..bounded import (
+    MAX_ARTIFACT_BYTES,
+    read_json_capped,
+    read_text_capped,
+)
 from ..evidence import iter_evidence
 
 # ---------------------------------------------------------------------------
@@ -96,7 +101,19 @@ _MAX_JOBS = 256
 #: Python, but its job must not pin a poller: a hung clone left the job
 #: indistinguishable from a slow campaign.  Generous by default, because a
 #: slow campaign is not a hang; override for genuinely long runs.
-JOB_TIMEOUT_S = float(os.environ.get("HARNESS_MCP_JOB_TIMEOUT_S", "21600"))
+JOB_TIMEOUT_S = min(
+    float(os.environ.get("HARNESS_MCP_JOB_TIMEOUT_S", "21600")),
+    24 * 3600,
+)
+
+#: At most this many jobs may be running at once.  Each one holds a worker
+#: thread and, for campaigns, the one analysis lock; an unbounded queue is a
+#: cheap way for a client to hold memory it never uses.
+MAX_RUNNING_JOBS = 2
+
+#: The biggest serialized result any inspection tool returns before it
+#: degrades to a summary.
+MAX_TOOL_RESPONSE_BYTES = 256 * 1024
 
 #: TrustSight's config and database paths are process-wide module globals
 #: (`Environment.bind` patches them), so two analyses running at once would
@@ -114,6 +131,12 @@ _ANALYSIS_RUNNER = None
 def _create_job(kind: str) -> Job:
     job = Job(id=str(uuid.uuid4()), kind=kind)
     with _jobs_lock:
+        running = sum(1 for existing in _jobs.values()
+                      if existing.status == "running")
+        if running >= MAX_RUNNING_JOBS:
+            raise RuntimeError(
+                f"at most {MAX_RUNNING_JOBS} jobs may run at once; "
+                "poll the running jobs before starting another")
         if len(_jobs) >= _MAX_JOBS:
             finished = sorted(
                 (j for j in _jobs.values() if j.status != "running"),
@@ -165,7 +188,8 @@ def _run_in_thread(fn, job: Job, *args, timeout_s: float | None = None,
     # is finished as failed even though its thread lives on.  The timer stops
     # sleeping when the job finishes normally.  A handful of these at most -
     # one per MCP job, not per attempt - so the per-timer thread is cheap.
-    limit = JOB_TIMEOUT_S if timeout_s is None else float(timeout_s)
+    limit = JOB_TIMEOUT_S if timeout_s is None else min(float(timeout_s),
+                                                       JOB_TIMEOUT_S)
     if limit > 0:
         timer = threading.Timer(limit, _expire_job, args=(job, limit))
         timer.daemon = True
@@ -267,7 +291,7 @@ def _load_record(campaign_dir: Path) -> dict | None:
     if not record_path.exists():
         return None
     try:
-        data = json.loads(record_path.read_text())
+        data = read_json_capped(record_path, what="record.json")
     except (OSError, json.JSONDecodeError):
         return None
     return data if isinstance(data, dict) else None
@@ -295,10 +319,12 @@ def run_campaign(campaign_dir: str) -> dict:
     from ..config import ConfigError, load_campaign
     from ..environment import EnvironmentError_
     from ..factory import build_generator
+    from .paths import confine
 
-    path = Path(campaign_dir)
-    if not path.is_absolute():
-        path = _repo_root() / path
+    try:
+        path = confine(campaign_dir, _repo_root())
+    except ValueError as exc:
+        return {"error": str(exc)}
 
     calibration = _calibration_status()
     if calibration != "passed":
@@ -310,7 +336,10 @@ def run_campaign(campaign_dir: str) -> dict:
     except (ConfigError, EnvironmentError_, YAMLError, ValueError, OSError) as exc:
         return {"error": f"configuration error: {exc}"}
 
-    job = _create_job("campaign")
+    try:
+        job = _create_job("campaign")
+    except RuntimeError as exc:
+        return {"error": str(exc)}
 
     def _execute():
         with _analysis_lock:
@@ -331,21 +360,30 @@ def run_regression(environment_yaml: str | None = None) -> dict:
         environment_yaml: Optional path to environment YAML (defaults to defaults/environment.yml).
     """
     from ..regression import run_regression as _run_regression
+    from .paths import confine
 
-    env_path = Path(environment_yaml) if environment_yaml else _repo_root() / "defaults" / "environment.yml"
+    try:
+        env_path = confine(environment_yaml,
+                           _repo_root() / "defaults" / "environment.yml")
+    except ValueError as exc:
+        return {"error": str(exc)}
     if not env_path.exists():
         return {"error": f"environment file not found: {env_path}"}
 
     import yaml as _yaml
 
     try:
-        environment = _yaml.safe_load(env_path.read_text())
+        environment = _yaml.safe_load(read_text_capped(
+            env_path, MAX_ARTIFACT_BYTES, "environment.yml"))
     except (_yaml.YAMLError, OSError) as exc:
         return {"error": f"failed to parse environment YAML: {exc}"}
     if not isinstance(environment, dict):
         return {"error": "environment YAML must be a mapping"}
 
-    job = _create_job("regression")
+    try:
+        job = _create_job("regression")
+    except RuntimeError as exc:
+        return {"error": str(exc)}
 
     def _execute():
         with _analysis_lock:
@@ -375,10 +413,30 @@ def get_job_status(job_id: str) -> dict:
         "finished_at": job.finished_at,
     }
     if job.status == "completed":
-        result["result"] = job.result
+        result["result"] = _bounded_value(job.result)
     elif job.status == "failed":
-        result["error"] = job.error
+        result["error"] = _clean_error(job.error)
     return result
+
+
+def _json_size(value: Any) -> int:
+    try:
+        return len(json.dumps(value, default=str).encode("utf-8"))
+    except (TypeError, ValueError):
+        return MAX_TOOL_RESPONSE_BYTES + 1
+
+
+def _bounded_value(value: Any) -> Any:
+    """*value* when it fits the tool budget, otherwise a summary."""
+    if _json_size(value) <= MAX_TOOL_RESPONSE_BYTES:
+        return value
+    keys = sorted(value) if isinstance(value, dict) else []
+    return {"truncated": True, "bytes": _json_size(value), "keys": keys}
+
+
+def _clean_error(value: Any) -> str:
+    text = value if isinstance(value, str) else str(value)
+    return text[:8192] + ("…" if len(text) > 8192 else "")
 
 
 # ---------------------------------------------------------------------------
@@ -675,10 +733,12 @@ def load_config(campaign_dir: str) -> dict:
 
     from ..config import ConfigError, load_campaign
     from ..environment import EnvironmentError_
+    from .paths import confine
 
-    path = Path(campaign_dir)
-    if not path.is_absolute():
-        path = _repo_root() / path
+    try:
+        path = confine(campaign_dir, _repo_root())
+    except ValueError as exc:
+        return {"error": str(exc)}
 
     try:
         config = load_campaign(path, _repo_root())
@@ -765,7 +825,8 @@ def check_calibration() -> dict:
 
     for kind, expected in (("known_malicious", True), ("known_benign", False)):
         for path in sorted((base / kind).glob("*.PKGBUILD")):
-            preserved = validator.validate(path.read_text()).preserved
+            preserved = validator.validate(read_text_capped(
+                path, MAX_ARTIFACT_BYTES, "calibration PKGBUILD")).preserved
             ok = preserved is expected
             if not ok:
                 overall = "failed"
@@ -1078,7 +1139,9 @@ def feed_health() -> dict:
 
 
 def _root_path(root: str | None) -> Path:
-    return Path(root) if root else _repo_root()
+    from .paths import confine
+
+    return confine(root, _repo_root())
 
 
 @mcp.tool()
@@ -1168,7 +1231,11 @@ def list_bypasses(
     """
     from ..introspect import list_bypasses as _list_bypasses
 
-    return _list_bypasses(_root_path(root), rule, since, campaign)
+    try:
+        base = _root_path(root)
+    except ValueError as exc:
+        return {"error": str(exc)}
+    return _list_bypasses(base, rule, since, campaign)
 
 
 @mcp.tool()
@@ -1181,7 +1248,11 @@ def match_bypass(diff_text: str, root: str | None = None) -> dict:
     """
     from ..introspect import match_bypass as _match_bypass
 
-    return _match_bypass(diff_text, _root_path(root))
+    try:
+        base = _root_path(root)
+    except ValueError as exc:
+        return {"error": str(exc)}
+    return _match_bypass(diff_text, base)
 
 
 @mcp.tool()
@@ -1201,7 +1272,11 @@ def archive_report(
     """
     from ..introspect import archive_report as _archive_report
 
-    return _archive_report(_root_path(root), version, rule, only_open)
+    try:
+        base = _root_path(root)
+    except ValueError as exc:
+        return {"error": str(exc)}
+    return _archive_report(base, version, rule, only_open)
 
 
 @mcp.tool()
@@ -1225,7 +1300,11 @@ def campaign_evidence(
     """
     from ..introspect import campaign_evidence as _campaign_evidence
 
-    return _campaign_evidence(_root_path(root), campaign, rule, status,
+    try:
+        base = _root_path(root)
+    except ValueError as exc:
+        return {"error": str(exc)}
+    return _campaign_evidence(base, campaign, rule, status,
                               limit, include_diff)
 
 
@@ -1254,7 +1333,11 @@ def run_history(kind: str = "regression", limit: int = 20,
     """
     from ..introspect import run_history as _run_history
 
-    return _run_history(_root_path(root), kind, limit)
+    try:
+        base = _root_path(root)
+    except ValueError as exc:
+        return {"error": str(exc)}
+    return _run_history(base, kind, limit)
 
 
 # ---------------------------------------------------------------------------
@@ -1290,7 +1373,8 @@ def triage_alert(
     alert_slug: str,
     include_diff: bool = False,
     include_source: bool = False,
-    max_packages: int = 10,
+    max_packages: int = 5,
+    raw: bool = False,
 ) -> dict:
     """Assemble a per-package dossier for one stored notification.
 
@@ -1303,13 +1387,16 @@ def triage_alert(
         alert_slug: YYYY-MM-DD/HHMMSS (may carry an ntfy suffix).
         include_diff: Include each package's latest AUR commit diff.
         include_source: Include each package's current PKGBUILD.
-        max_packages: Package cap (default 10, hard max 25).
+        max_packages: Package cap (default 5, hard max 25).
+        raw: Include the raw ntfy message copy in the document.
     """
     if not isinstance(alert_slug, str) or not alert_slug.strip():
         return {"error": "alert_slug must be a non-empty slug"}
     document = _feed_call("message", alert_slug.strip())
     if "error" in document:
         return document
+    if not raw:
+        document.pop("message_raw", None)
     payload = document.get("payload") or {}
     names: list[str] = []
     for key in ("alerts", "over_threshold"):
@@ -1335,7 +1422,7 @@ def triage_alert(
         if include_source:
             dossier["source"] = _feed_call("package_source", name)
         packages.append(dossier)
-    return {
+    out = {
         "alert_slug": alert_slug,
         "document": document,
         "packages": packages,
@@ -1343,6 +1430,21 @@ def triage_alert(
         "truncated": truncated,
         "note": "evidence assembly; fp_triage remains the verdict path",
     }
+    if _json_size(out) > MAX_TOOL_RESPONSE_BYTES:
+        out["document"] = {
+            key: document.get(key)
+            for key in ("slug", "iso", "title", "headline", "counts",
+                        "packages", "rules", "ioc_packages")
+        }
+        out["document"]["payload"] = {
+            key: payload.get(key) for key in
+            ("alerts", "over_threshold", "campaign_cluster", "impersonation",
+             "ioc_matches", "refusals", "cycle")
+        }
+        out["truncated"] = True
+        out["note"] = ("document reduced to fit the tool budget; "
+                       "evidence assembly only, fp_triage is the verdict path")
+    return out
 
 
 @mcp.tool()
@@ -1374,6 +1476,7 @@ def feed_rule_stats(
     rule_id: str,
     since: int | None = None,
     until: int | None = None,
+    top_packages: int = 25,
 ) -> dict:
     """Firings of one rule over the stored feed, aggregated.
 
@@ -1381,6 +1484,7 @@ def feed_rule_stats(
         rule_id: TrustSight rule id (e.g. 'H044').
         since: Unix seconds, inclusive lower bound.
         until: Unix seconds, inclusive upper bound.
+        top_packages: Packages to name (default 25, max 200).
     """
     data = _feed_call("by_rule", rule_id)
     if "error" in data:
@@ -1399,14 +1503,16 @@ def feed_rule_stats(
         by_day[day] = by_day.get(day, 0) + 1
         for name in item.get("packages", []) or []:
             by_package[name] = by_package.get(name, 0) + 1
+    ranked = sorted(by_package.items(), key=lambda pair: (-pair[1], pair[0]))
+    limit = max(1, min(200, int(top_packages)))
     return {
         "rule_id": rule_id,
         "total": len(items),
         "first": min(times) if times else None,
         "last": max(times) if times else None,
         "by_day": dict(sorted(by_day.items())),
-        "by_package": dict(sorted(by_package.items(),
-                                  key=lambda pair: (-pair[1], pair[0]))),
+        "by_package": dict(ranked[:limit]),
+        "by_package_truncated": len(ranked) > limit,
     }
 
 
@@ -1439,7 +1545,8 @@ def preflight(package: str | None = None, deep: bool = False) -> dict:
     if defaults_path.exists():
         try:
             import yaml
-            declared = (yaml.safe_load(defaults_path.read_text()) or {}).get(
+            declared = (yaml.safe_load(read_text_capped(
+                defaults_path, MAX_ARTIFACT_BYTES, "environment.yml")) or {}).get(
                 "trustsight_version")
         except (OSError, ValueError) as exc:
             add("defaults_readable", False, str(exc))
@@ -1466,9 +1573,17 @@ def preflight(package: str | None = None, deep: bool = False) -> dict:
         add("aur_reachable", True, "skipped (no package given)", skipped=True)
 
     if deep:
-        calibration = check_calibration()
-        add("calibration", calibration.get("status") == "passed",
-            calibration.get("status"))
+        # Calibration spawns the validator and analysis workers; it must not
+        # race a campaign that is already holding the analysis lock.
+        if not _analysis_lock.acquire(blocking=False):
+            add("calibration", False, "another analysis is running")
+        else:
+            try:
+                calibration = check_calibration()
+            finally:
+                _analysis_lock.release()
+            add("calibration", calibration.get("status") == "passed",
+                calibration.get("status"))
     else:
         add("calibration", True, "skipped (deep=False)", skipped=True)
 
@@ -1539,7 +1654,8 @@ def matrix(environment_yaml: str | None = None) -> dict:
     from ..matrix import build_matrix, save_matrix
 
     env_path = _environment_path(environment_yaml)
-    version = str(yaml.safe_load(env_path.read_text())["trustsight_version"])
+    version = str(yaml.safe_load(read_text_capped(
+        env_path, MAX_ARTIFACT_BYTES, "environment.yml"))["trustsight_version"])
     try:
         archive = Archive.load(_repo_root() / "archive.json")
         built = build_matrix(archive, version, RULE_CATEGORIES)
@@ -1572,8 +1688,9 @@ def benign(corpus: str, sample: int = 1, jobs: int | str = "auto",
     if not directory.exists():
         return {"error": f"corpus not found: {directory}"}
     report = scan_benign(_repo_root(), corpus=directory,
-                         environment=yaml.safe_load(
-                             _environment_path(environment_yaml).read_text()),
+                         environment=yaml.safe_load(read_text_capped(
+                             _environment_path(environment_yaml),
+                             MAX_ARTIFACT_BYTES, "environment.yml")),
                          sample=max(1, int(sample)), jobs=jobs,
                          use_cache=use_cache)
     out = _repo_root() / "benign" / "report.json"
@@ -1705,7 +1822,8 @@ def environment_defaults() -> str:
     env_path = _defaults_dir() / "environment.yml"
     env_content = ""
     if env_path.exists():
-        env_content = env_path.read_text()
+        env_content = read_text_capped(
+            env_path, MAX_ARTIFACT_BYTES, "environment.yml")
 
     return json.dumps({
         "defaults_file": str(env_path),
@@ -1728,7 +1846,8 @@ def price_list() -> str:
     prices_path = _defaults_dir() / "prices.toml"
     content = ""
     if prices_path.exists():
-        content = prices_path.read_text()
+        content = read_text_capped(
+            prices_path, MAX_ARTIFACT_BYTES, "prices.toml")
     return json.dumps({
         "path": str(prices_path),
         "content": content,
@@ -1893,7 +2012,8 @@ def repo_file(path: str, max_bytes: int = 65536) -> dict:
         if target.stat().st_size > max(1024, min(max_bytes, 1 << 20)):
             return {"error": f"file exceeds {max_bytes} bytes"}
         return {"path": rel,
-                "content": target.read_text(encoding="utf-8", errors="strict")}
+                "content": read_text_capped(
+                    target, max(1024, min(max_bytes, 1 << 20)), rel)}
     except (ValueError, TypeError, OSError) as exc:
         return {"error": str(exc)}
 

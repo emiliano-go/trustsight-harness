@@ -29,6 +29,8 @@ from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
 
+from .bounded import MAX_LEDGER_BYTES, read_json_capped
+
 __all__ = [
     "USER_AGENT",
     "Deadline",
@@ -173,7 +175,8 @@ class SlidingWindowLimiter:
         if self._state_path is None or not self._state_path.exists():
             return
         try:
-            raw = json.loads(self._state_path.read_text())
+            raw = read_json_capped(self._state_path, MAX_LEDGER_BYTES,
+                                   "rate-limit ledger")
             self._times = deque(float(t) for t in raw if isinstance(t, (int, float)))
         except (OSError, ValueError, TypeError):
             self._times = deque()
