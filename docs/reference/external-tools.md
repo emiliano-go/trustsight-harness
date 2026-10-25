@@ -86,6 +86,35 @@ can each exceed `total`. They are firing counts, not document counts.
 A notification means a published rule matched a package change. It is evidence,
 not a verdict, and it is not permission to install.
 
+## Read-only inspection
+
+These tools read the operator corpus, the installed registry, or a committed
+artifact. They never write and never fetch, and report `available: false`
+rather than raising when the source is absent.
+
+| Tool | Reads |
+|---|---|
+| `maintainer_transitions(package, limit)` | `property_transitions` (old/new owner, observed_at) |
+| `rule_info(ids)` / `rules_list(category, status)` | the installed rule registry (uid, name, severity, category, aliases) |
+| `ioc_lookup(ioc_type, value)` / `ioc_status()` | the local IOC store |
+| `data_status()` | corpus maturity, imported seed/baseline versions, retained observations |
+| `list_bypasses(rule, since, campaign)` | committed bypasses + the regression report's state |
+| `match_bypass(diff_text)` | exact hash against every committed bypass, plus the shape |
+| `archive_report(version, rule, only_open)` | the `(rule, shape)` archive cells |
+| `campaign_evidence(campaign, rule, status, limit, include_diff)` | a campaign's `evidence.jsonl` |
+| `shape_of(diff_text, chain)` | technique shape and clustering fingerprint |
+| `run_history(kind)` | committed regression/benign/campaign reports |
+
+## Composite tools
+
+| Tool | Does |
+|---|---|
+| `analyze_aur_package(package)` | fetch the current PKGBUILD and analyse it as a whole-recipe review |
+| `triage_alert(slug, include_diff, include_source, max_packages)` | per-package dossier for one notification; evidence only, `fp_triage` stays the verdict path |
+| `feed_many(packages)` | notifications for up to 20 packages, one paced call each |
+| `feed_rule_stats(rule_id, since, until)` | firings aggregated by day and package |
+| `preflight(package, deep)` | version/canary/DB/feed/AUR checks before trusting a run; `deep` adds the calibration suite |
+
 ## Environment
 
 | Variable | Effect |

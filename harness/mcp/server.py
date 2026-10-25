@@ -937,6 +937,8 @@ def feed_search(
     since: int | None = None,
     until: int | None = None,
     limit: int = 50,
+    before: int | None = None,
+    before_row: int | None = None,
 ) -> dict:
     """Search the watcher feed (newest first).
 
@@ -947,9 +949,12 @@ def feed_search(
         since: Unix seconds, inclusive lower bound.
         until: Unix seconds, inclusive upper bound.
         limit: Page size (1-200, default 50).
+        before: Keyset cursor from a previous response `next.before`.
+        before_row: Keyset cursor from a previous response `next.beforeRow`.
     """
     return _feed_call("search", q=q, event=event, day=day,
-                      since=since, until=until, limit=limit)
+                      since=since, until=until, limit=limit,
+                      before=before, before_row=before_row)
 
 
 @mcp.tool()
@@ -1061,6 +1066,419 @@ def feed_stats() -> dict:
 def feed_health() -> dict:
     """The watcher's liveness and readiness, with the time of the last notification."""
     return _feed_call("health")
+
+
+# ---------------------------------------------------------------------------
+# Tools: read-only registry, corpus and artifact inspection
+#
+# These never write and never fetch.  The DB-backed ones read the operator's
+# corpus, not a campaign's isolated environment, and report `available:false`
+# instead of raising when that database is absent.
+# ---------------------------------------------------------------------------
+
+
+def _root_path(root: str | None) -> Path:
+    return Path(root) if root else _repo_root()
+
+
+@mcp.tool()
+def maintainer_transitions(package: str, limit: int = 50) -> dict:
+    """Recorded maintainer changes for a package, oldest first.
+
+    The watcher feed never publishes the old and new owner; the local
+    corpus does.  Read-only, and empty when the database is absent.
+
+    Args:
+        package: AUR package name.
+        limit: Newest transitions to return (default 50, max 500).
+    """
+    from ..introspect import maintainer_transitions as _transitions
+
+    return _transitions(package, limit)
+
+
+@mcp.tool()
+def rule_info(ids: list[str]) -> dict:
+    """Resolve rule ids (current, former, or uid) to their registry entry.
+
+    Args:
+        ids: Rule ids, historical ids, or uids.
+    """
+    from ..introspect import rule_info as _rule_info
+
+    return _rule_info(ids)
+
+
+@mcp.tool()
+def rules_list(category: str | None = None, status: str | None = None) -> dict:
+    """Every rule the installed build knows, optionally filtered.
+
+    Args:
+        category: Registry category slug (e.g. 'maintainer-and-metadata').
+        status: 'live' or 'anchor'.
+    """
+    from ..introspect import rules_list as _rules_list
+
+    return _rules_list(category, status)
+
+
+@mcp.tool()
+def ioc_lookup(ioc_type: str, value: str) -> dict:
+    """Match one value against the active local IOC entries.
+
+    Args:
+        ioc_type: package, domain, hash, file_path, pkgbuild_pattern or upstream_repo.
+        value: The value to look up.
+    """
+    from ..introspect import ioc_lookup as _ioc_lookup
+
+    return _ioc_lookup(ioc_type, value)
+
+
+@mcp.tool()
+def ioc_status() -> dict:
+    """Counts, sources and channel readiness of the local IOC store."""
+    from ..introspect import ioc_status as _ioc_status
+
+    return _ioc_status()
+
+
+@mcp.tool()
+def data_status() -> dict:
+    """Corpus maturity, imported artifacts and retained observations."""
+    from ..introspect import data_status as _data_status
+
+    return _data_status()
+
+
+@mcp.tool()
+def list_bypasses(
+    rule: str | None = None,
+    since: str | None = None,
+    campaign: str | None = None,
+    root: str | None = None,
+) -> dict:
+    """Every committed bypass, with the regression state where it has one.
+
+    Args:
+        rule: Only bypasses meant to exercise this rule.
+        since: Only bypasses whose closing/original version is >= this one.
+        campaign: Only this campaign.
+        root: Repository root (defaults to the harness checkout).
+    """
+    from ..introspect import list_bypasses as _list_bypasses
+
+    return _list_bypasses(_root_path(root), rule, since, campaign)
+
+
+@mcp.tool()
+def match_bypass(diff_text: str, root: str | None = None) -> dict:
+    """Whether a diff is a committed bypass, and the shape it belongs to.
+
+    Args:
+        diff_text: A unified diff.
+        root: Repository root (defaults to the harness checkout).
+    """
+    from ..introspect import match_bypass as _match_bypass
+
+    return _match_bypass(diff_text, _root_path(root))
+
+
+@mcp.tool()
+def archive_report(
+    version: str | None = None,
+    rule: str | None = None,
+    only_open: bool = False,
+    root: str | None = None,
+) -> dict:
+    """The (rule, shape) archive cells, filtered and closed-state aware.
+
+    Args:
+        version: Pinned TrustSight version to judge closure against.
+        rule: Only cells for this rule.
+        only_open: Exclude cells the version already closed.
+        root: Repository root (defaults to the harness checkout).
+    """
+    from ..introspect import archive_report as _archive_report
+
+    return _archive_report(_root_path(root), version, rule, only_open)
+
+
+@mcp.tool()
+def campaign_evidence(
+    campaign: str,
+    rule: str | None = None,
+    status: str | None = None,
+    limit: int = 50,
+    include_diff: bool = False,
+    root: str | None = None,
+) -> dict:
+    """Attempts a committed campaign recorded, filtered.
+
+    Args:
+        campaign: Campaign directory name.
+        rule: Only attempts whose judge named this catching rule.
+        status: Only this terminal status.
+        limit: Attempts to return (default 50, max 200).
+        include_diff: Include each attempt's diff (large; default off).
+        root: Repository root (defaults to the harness checkout).
+    """
+    from ..introspect import campaign_evidence as _campaign_evidence
+
+    return _campaign_evidence(_root_path(root), campaign, rule, status,
+                              limit, include_diff)
+
+
+@mcp.tool()
+def shape_of(diff_text: str, chain: str = "") -> dict:
+    """The technique shape and clustering fingerprint of one diff.
+
+    Args:
+        diff_text: A unified diff.
+        chain: Optional proven command chain; adds its behavioral signature.
+    """
+    from ..introspect import shape_of as _shape_of
+
+    return _shape_of(diff_text, chain)
+
+
+@mcp.tool()
+def run_history(kind: str = "regression", limit: int = 20,
+                root: str | None = None) -> dict:
+    """Summaries of the committed run artifacts, newest first.
+
+    Args:
+        kind: regression, benign, campaigns, or all.
+        limit: Artifacts to return (default 20, max 500).
+        root: Repository root (defaults to the harness checkout).
+    """
+    from ..introspect import run_history as _run_history
+
+    return _run_history(_root_path(root), kind, limit)
+
+
+# ---------------------------------------------------------------------------
+# Tools: composite triage and preflight
+# ---------------------------------------------------------------------------
+
+
+@mcp.tool()
+def analyze_aur_package(package: str) -> dict:
+    """Fetch a package's current PKGBUILD and analyse it through TrustSight.
+
+    One AUR request.  This is a whole-recipe review, not a change analysis:
+    no previous revision is supplied, so change-only rules cannot fire.
+
+    Args:
+        package: An AUR package/base name.
+    """
+    build = aur_pkgbuild(package)
+    if "error" in build:
+        return build
+    result = analyze_diff(new_text=build.get("pkgbuild", ""), package=package)
+    result.update({
+        "package": package,
+        "version": build.get("version"),
+        "last_modified": build.get("last_modified"),
+        "files": build.get("files", []),
+    })
+    return result
+
+
+@mcp.tool()
+def triage_alert(
+    alert_slug: str,
+    include_diff: bool = False,
+    include_source: bool = False,
+    max_packages: int = 10,
+) -> dict:
+    """Assemble a per-package dossier for one stored notification.
+
+    Evidence assembly, never a verdict: use fp_triage for the deterministic
+    FP/TP path.  This fills the gap where an alert-only document (H044) has
+    no findings.  Budget: one maintainer batch plus up to three calls per
+    package, so the package count is capped.
+
+    Args:
+        alert_slug: YYYY-MM-DD/HHMMSS (may carry an ntfy suffix).
+        include_diff: Include each package's latest AUR commit diff.
+        include_source: Include each package's current PKGBUILD.
+        max_packages: Package cap (default 10, hard max 25).
+    """
+    if not isinstance(alert_slug, str) or not alert_slug.strip():
+        return {"error": "alert_slug must be a non-empty slug"}
+    document = _feed_call("message", alert_slug.strip())
+    if "error" in document:
+        return document
+    payload = document.get("payload") or {}
+    names: list[str] = []
+    for key in ("alerts", "over_threshold"):
+        for entry in payload.get(key) or []:
+            if isinstance(entry, dict):
+                name = entry.get("package")
+                if isinstance(name, str) and name and name not in names:
+                    names.append(name)
+    cap = max(1, min(25, int(max_packages)))
+    truncated = len(names) > cap
+    names = names[:cap]
+    maintainers = (_feed_call("maintainers", names).get("maintainers", {})
+                   if names else {})
+    packages = []
+    for name in names:
+        dossier = {
+            "package": name,
+            "maintainer": maintainers.get(name, ""),
+            "history": _feed_call("package_history", name),
+        }
+        if include_diff:
+            dossier["diff"] = _feed_call("package_diff", name)
+        if include_source:
+            dossier["source"] = _feed_call("package_source", name)
+        packages.append(dossier)
+    return {
+        "alert_slug": alert_slug,
+        "document": document,
+        "packages": packages,
+        "package_count": len(packages),
+        "truncated": truncated,
+        "note": "evidence assembly; fp_triage remains the verdict path",
+    }
+
+
+@mcp.tool()
+def feed_many(packages: list[str]) -> dict:
+    """Every stored notification for a batch of packages.
+
+    The worker has no batch summaries endpoint, so this is one paced request
+    per package; the batch is capped.
+
+    Args:
+        packages: Package names (maximum 20).
+    """
+    if not isinstance(packages, list):
+        return {"error": "packages must be an array of names"}
+    names = []
+    for name in packages:
+        if isinstance(name, str) and name and name not in names:
+            names.append(name)
+    if not names:
+        return {"error": "packages must be a non-empty array of names"}
+    if len(names) > 20:
+        return {"error": "at most 20 distinct packages per call"}
+    return {"count": len(names),
+            "packages": {name: _feed_call("by_package", name) for name in names}}
+
+
+@mcp.tool()
+def feed_rule_stats(
+    rule_id: str,
+    since: int | None = None,
+    until: int | None = None,
+) -> dict:
+    """Firings of one rule over the stored feed, aggregated.
+
+    Args:
+        rule_id: TrustSight rule id (e.g. 'H044').
+        since: Unix seconds, inclusive lower bound.
+        until: Unix seconds, inclusive upper bound.
+    """
+    data = _feed_call("by_rule", rule_id)
+    if "error" in data:
+        return data
+    items = [item for item in data.get("items", [])
+             if isinstance(item, dict)
+             and (since is None or int(item.get("time", 0)) >= since)
+             and (until is None or int(item.get("time", 0)) <= until)]
+    by_day: dict[str, int] = {}
+    by_package: dict[str, int] = {}
+    times = []
+    for item in items:
+        time_value = int(item.get("time", 0) or 0)
+        times.append(time_value)
+        day = time.strftime("%Y-%m-%d", time.gmtime(time_value))
+        by_day[day] = by_day.get(day, 0) + 1
+        for name in item.get("packages", []) or []:
+            by_package[name] = by_package.get(name, 0) + 1
+    return {
+        "rule_id": rule_id,
+        "total": len(items),
+        "first": min(times) if times else None,
+        "last": max(times) if times else None,
+        "by_day": dict(sorted(by_day.items())),
+        "by_package": dict(sorted(by_package.items(),
+                                  key=lambda pair: (-pair[1], pair[0]))),
+    }
+
+
+@mcp.tool()
+def preflight(package: str | None = None, deep: bool = False) -> dict:
+    """Check the local instrument before trusting a run, without writing.
+
+    Args:
+        package: Optional AUR package for a reachability lookup.
+        deep: Also run the (slow) calibration suite.
+    """
+    import platform
+
+    checks = []
+
+    def add(name: str, ok: bool, detail: Any = None, skipped: bool = False):
+        checks.append({"check": name, "ok": ok, "skipped": skipped,
+                       "detail": detail})
+
+    try:
+        import trustsight
+        installed = getattr(trustsight, "__version__", "unknown")
+    except ImportError as exc:
+        installed = f"not importable: {exc}"
+    add("trustsight_importable", not installed.startswith("not importable"),
+        installed)
+
+    defaults_path = _defaults_dir() / "environment.yml"
+    declared = None
+    if defaults_path.exists():
+        try:
+            import yaml
+            declared = (yaml.safe_load(defaults_path.read_text()) or {}).get(
+                "trustsight_version")
+        except (OSError, ValueError) as exc:
+            add("defaults_readable", False, str(exc))
+    add("version_matches_default", installed == declared,
+        {"installed": installed, "declared": declared})
+    add("canary_present", (_defaults_dir() / "canary.PKGBUILD").exists())
+
+    status = data_status()
+    add("corpus_database", bool(status.get("available")), {
+        "path": status.get("path"),
+        "packages": status.get("packages"),
+        "analyses": status.get("analyses"),
+    })
+
+    health = _feed_call("health")
+    add("watcher_feed", "error" not in health,
+        health.get("error") or health.get("ok", True))
+
+    if package:
+        info = aur_info([package])
+        add("aur_reachable", "error" not in info,
+            info.get("error") or {"found": package in (info.get("packages") or {})})
+    else:
+        add("aur_reachable", True, "skipped (no package given)", skipped=True)
+
+    if deep:
+        calibration = check_calibration()
+        add("calibration", calibration.get("status") == "passed",
+            calibration.get("status"))
+    else:
+        add("calibration", True, "skipped (deep=False)", skipped=True)
+
+    failed = [c for c in checks if not c["ok"] and not c["skipped"]]
+    return {
+        "ok": not failed,
+        "failed": [c["check"] for c in failed],
+        "platform": platform.platform(),
+        "checks": checks,
+    }
 
 
 # ---------------------------------------------------------------------------

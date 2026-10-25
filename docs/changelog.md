@@ -6,6 +6,21 @@ description: Changes to trustsight-harness.
 
 ## Unreleased
 
+- **Read-only triage and corpus inspection tools.** The MCP surface now
+  exposes `maintainer_transitions` (the local corpus's old/new owner records,
+  which the feed never publishes), `rule_info`/`rules_list` (the installed
+  registry, including renamed ids), `ioc_lookup`/`ioc_status`, `data_status`,
+  `list_bypasses`/`match_bypass`, `archive_report`, `campaign_evidence`,
+  `shape_of` and `run_history`. Composite helpers add `analyze_aur_package`
+  (fetch + whole-recipe analysis), `triage_alert` (per-package dossier for
+  alert-only documents where `fp_triage` has no findings), `feed_many`,
+  `feed_rule_stats` and `preflight`. `feed_search` now passes the keyset
+  cursors. Every reader is bounded and returns `available: false` on a cold
+  machine; none writes or fetches except the explicitly network-backed
+  composites. Bad input is refused rather than silently treated as a miss:
+  an unknown IOC type, a malformed `since`, an `only_open` request without a
+  version, an unknown run kind, and a diff over the 512 KiB analysis bound
+  each return an error naming the problem.
 - **The feed facets a triage actually needs.** Four MCP tools wrap the
   watcher endpoints that were previously reachable only by hand:
   `feed_package_history` (timeline, maintainer signals and upstreams),

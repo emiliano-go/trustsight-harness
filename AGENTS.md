@@ -67,6 +67,13 @@ The `trustsight-harness` MCP server exposes the same operations as the CLI.
   paced, capped, and must never be used as campaign evidence.
 - `repo_file` reads only `src/trustsight/` and `tests/`; use it to ground
   `code_fixes` diffs.
+- Read-only inspection tools: `maintainer_transitions`, `rule_info`,
+  `rules_list`, `ioc_lookup`, `ioc_status`, `data_status`, `list_bypasses`,
+  `match_bypass`, `archive_report`, `campaign_evidence`, `shape_of`,
+  `run_history`, plus the composite `analyze_aur_package`, `triage_alert`,
+  `feed_many`, `feed_rule_stats` and `preflight`. They never write and return
+  `available: false` on a cold machine; the network-backed composites are the
+  only exception.
 
 ## Reading results
 

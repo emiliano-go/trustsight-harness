@@ -53,7 +53,10 @@ or written to `--out`.
 | `get_environment_info` | The installed TrustSight and environment. |
 | `aur_info --packages NAME [NAME ...]` | AUR metadata via the v5 RPC. |
 | `aur_pkgbuild --package NAME` | AUR snapshot build files (PKGBUILD plus other text files). |
-| `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_package_history`, `feed_package_diff`, `feed_package_source`, `feed_maintainers`, `feed_stats`, `feed_health` | The watcher feed API. |
+| `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_package_history`, `feed_package_diff`, `feed_package_source`, `feed_maintainers`, `feed_many`, `feed_rule_stats`, `feed_stats`, `feed_health` | The watcher feed API. |
+| `maintainer_transitions`, `rule_info`, `rules_list`, `ioc_lookup`, `ioc_status`, `data_status` | Read-only registry and corpus inspection. |
+| `list_bypasses`, `match_bypass`, `archive_report`, `campaign_evidence`, `shape_of`, `run_history` | Read-only committed-artifact inspection. |
+| `analyze_aur_package`, `triage_alert`, `preflight` | Composite triage and environment checks. |
 | `fp_agent_verify --verdict JSON_OR_FILE` | Cross-check an agent-proposed FP/TP verdict against deterministic, current-snapshot evidence; malformed input raises, unverifiable evidence returns `verified: false`. |
 | `fp_agent_pr --result JSON_OR_FILE --target-repo trustsight\|trustsight-harness --date YYYY-MM-DD [--repo-root PATH]` | Render a verified FP/TP result as branch, title, body, and a files map of inert artifact proposals. FP results carrying `code_fixes` have those diffs gated (allowlist, charset, size caps) and applied with `git apply` in a sandboxed temp tree, so the files map ships the full post-fix sources. |
 | `repo_file --path PATH [--max-bytes N]` | Read one watcher rule/test file (`src/trustsight/` or `tests/` only) for grounding FP `code_fixes` diffs. Read-only and size-capped. |

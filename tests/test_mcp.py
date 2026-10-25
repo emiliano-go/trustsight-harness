@@ -644,7 +644,8 @@ def test_feed_tools_pass_through_to_the_client(monkeypatch):
     out = server.feed_search(q="x", limit=7)
     assert out["count"] == 0
     assert calls["search"] == {"q": "x", "event": None, "day": None,
-                               "since": None, "until": None, "limit": 7}
+                               "since": None, "until": None, "limit": 7,
+                               "before": None, "before_row": None}
     server.feed_by_date("2026-05-02", "11-13")
     assert calls["by_date"] == ("2026-05-02", "11-13")
     server.feed_package_history("pkg")
@@ -665,3 +666,115 @@ def test_feed_tool_surfaces_a_validation_error(monkeypatch):
     assert "error" in out
 
 
+
+
+def test_triage_alert_builds_a_dossier(monkeypatch):
+    calls = {}
+
+    class _FakeFeed:
+        def message(self, slug):
+            calls["message"] = slug
+            return {"payload": {
+                "alerts": [{"package": "adopted", "rule_id": "H044",
+                            "old": "oldm", "new": "newm"}],
+                "over_threshold": [],
+            }}
+
+        def maintainers(self, packages):
+            calls["maintainers"] = packages
+            return {"maintainers": {"adopted": "newm"}}
+
+        def package_history(self, name):
+            calls.setdefault("history", []).append(name)
+            return {"package": name}
+
+        def package_diff(self, name):
+            calls.setdefault("diff", []).append(name)
+            return {"package": name, "diff": ""}
+
+        def package_source(self, name, file="PKGBUILD"):
+            calls.setdefault("source", []).append(name)
+            return {"package": name, "content": ""}
+
+    monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
+    out = server.triage_alert("2026-05-01/120000", include_diff=True,
+                              include_source=True)
+    assert out["package_count"] == 1
+    dossier = out["packages"][0]
+    assert dossier["package"] == "adopted"
+    assert dossier["maintainer"] == "newm"
+    assert "history" in dossier and "diff" in dossier and "source" in dossier
+    assert calls["message"] == "2026-05-01/120000"
+
+
+def test_feed_many_is_bounded(monkeypatch):
+    class _FakeFeed:
+        def by_package(self, name):
+            return {"count": 1, "items": [], "name": name}
+
+    monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
+    out = server.feed_many(["a", "b"])
+    assert out["count"] == 2
+    assert "error" in server.feed_many([f"p{i}" for i in range(21)])
+
+
+def test_feed_rule_stats_aggregates(monkeypatch):
+    class _FakeFeed:
+        def by_rule(self, rule_id):
+            return {"items": [
+                {"time": 1777593600, "packages": ["a", "b"]},
+                {"time": 1777593660, "packages": ["a"]},
+            ]}
+
+    monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
+    out = server.feed_rule_stats("H044")
+    assert out["total"] == 2
+    assert out["by_package"]["a"] == 2
+    assert out["by_package"]["b"] == 1
+
+
+def test_analyze_aur_package_combines_fetch_and_analysis(monkeypatch):
+    monkeypatch.setattr(server, "aur_pkgbuild", lambda package: {
+        "package": package, "pkgbuild": "pkgname=x\n", "version": "1-1",
+        "last_modified": 1, "files": ["PKGBUILD"]})
+    monkeypatch.setattr(server, "analyze_diff", lambda **kwargs: {
+        "report": {"score": 0}, "wall_clock_ms": 1})
+    out = server.analyze_aur_package("x")
+    assert out["package"] == "x"
+    assert out["version"] == "1-1"
+    assert out["report"]["score"] == 0
+
+
+def test_preflight_reports_a_failed_check(monkeypatch):
+    monkeypatch.setattr(server, "data_status", lambda: {
+        "available": False, "path": "/none", "error": "database not found"})
+    monkeypatch.setattr(server, "_feed_call", lambda method: {"error": "down"})
+    out = server.preflight()
+    assert out["ok"] is False
+    assert "corpus_database" in out["failed"]
+    assert "watcher_feed" in out["failed"]
+
+
+def test_feed_many_deduplicates_and_rejects_non_lists(monkeypatch):
+    calls = []
+
+    class _FakeFeed:
+        def by_package(self, name):
+            calls.append(name)
+            return {"count": 0, "items": []}
+
+    monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
+    out = server.feed_many(["a", "a", "b"])
+    assert out["count"] == 2
+    assert calls == ["a", "b"]
+    assert "error" in server.feed_many("a")
+
+
+def test_triage_alert_rejects_an_empty_slug(monkeypatch):
+    class _FakeFeed:
+        def message(self, slug):
+            raise AssertionError("must not be called")
+
+    monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
+    assert "error" in server.triage_alert("")
+    assert "error" in server.triage_alert("   ")
