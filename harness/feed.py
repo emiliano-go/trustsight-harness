@@ -14,6 +14,7 @@ matched a package change.  This client returns that evidence unchanged.
 from __future__ import annotations
 
 import re
+from datetime import date as _date
 from pathlib import Path
 from urllib.parse import quote
 
@@ -30,8 +31,16 @@ FEED_PER_MINUTE = 60
 FEED_DEADLINE = 90.0
 
 MAX_LIMIT = 200
+MAX_TRIGGER_LIMIT = 1000
+MAX_RULES_LIMIT = 500
+MAX_CAMPAIGNS_LIMIT = 200
 
 _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+_RULE_ID = re.compile(r"^[A-Za-z]\d{3}$")
+_PACKAGE = re.compile(r"^[A-Za-z0-9@._+-]{1,255}$")
+_PUBLIC_ID = re.compile(r"^[^\x00-\x1f\x7f/\\]{1,255}$")
+_SEVERITIES = frozenset({"CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"})
+_TRIGGER_SOURCES = frozenset({"finding", "refusal", "alert", "campaign"})
 #: Timeframes: `HH` (one hour), `HH-HH` (whole hours), `HHMM-HHMM` (a range).
 _TIMEFRAME = re.compile(r"^(\d{2})(\d{2})?-(\d{2})(\d{2})?$")
 _HOUR = re.compile(r"^(\d{2})$")
@@ -44,7 +53,69 @@ class FeedError(NetworkError):
 def _require_date(date: str) -> str:
     if not isinstance(date, str) or not _DATE.match(date):
         raise FeedError(f"not a YYYY-MM-DD date: {date!r}")
+    try:
+        _date.fromisoformat(date)
+    except ValueError as exc:
+        raise FeedError(f"not a YYYY-MM-DD date: {date!r}") from exc
     return date
+
+
+def _require_int(value, name: str) -> int | None:
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise FeedError(f"not an integer {name}: {value!r}")
+    return value
+
+
+def _require_rule_ids(value) -> str | None:
+    if value is None:
+        return None
+    raw = value if isinstance(value, (list, tuple)) else str(value).split(",")
+    rules = []
+    for item in raw:
+        rule = str(item).strip().upper()
+        if not rule:
+            continue
+        if not _RULE_ID.match(rule):
+            raise FeedError(f"not a rule id: {item!r}")
+        if rule not in rules:
+            rules.append(rule)
+    return ",".join(rules) or None
+
+
+def _require_public_id(value, name: str) -> str:
+    if not isinstance(value, str) or not _PUBLIC_ID.match(value.strip()):
+        raise FeedError(f"not a valid {name}: {value!r}")
+    return value.strip()
+
+
+def _require_package(value, name: str = "package") -> str:
+    if not isinstance(value, str) or not _PACKAGE.match(value):
+        raise FeedError(f"not a valid {name}: {value!r}")
+    return value
+
+
+def _require_severity(value) -> str | None:
+    if value is None:
+        return None
+    severity = str(value).strip().upper()
+    if not severity:
+        return None
+    if severity not in _SEVERITIES:
+        raise FeedError(f"not a valid severity: {value!r}")
+    return severity
+
+
+def _require_source(value) -> str | None:
+    if value is None:
+        return None
+    source = str(value).strip().lower()
+    if not source:
+        return None
+    if source not in _TRIGGER_SOURCES:
+        raise FeedError(f"not a valid source: {value!r}")
+    return source
 
 
 def _require_timeframe(timeframe: str) -> str:
@@ -170,6 +241,96 @@ class FeedClient:
     def by_rule(self, rule_id: str) -> dict:
         """``/api/rule/{id}`` - everything a rule fired on."""
         return self._get(f"/api/rule/{quote(rule_id, safe='')}")
+
+    def _trigger_params(
+        self,
+        *,
+        rule=None,
+        campaign=None,
+        package=None,
+        maintainer=None,
+        severity=None,
+        source=None,
+        day=None,
+        since=None,
+        until=None,
+        include_evidence=False,
+        include_summary=False,
+        limit=MAX_TRIGGER_LIMIT,
+        before=None,
+    ) -> dict:
+        include = []
+        if include_evidence:
+            include.append("evidence")
+        if include_summary:
+            include.append("summary")
+        return {
+            "rule": _require_rule_ids(rule),
+            "campaign": _require_public_id(campaign, "campaign") if campaign else None,
+            "package": _require_package(package) if package else None,
+            "maintainer": (
+                _require_public_id(maintainer, "maintainer") if maintainer else None
+            ),
+            "severity": _require_severity(severity),
+            "source": _require_source(source),
+            "day": _require_date(day) if day else None,
+            "since": _require_int(since, "since"),
+            "until": _require_int(until, "until"),
+            "include": ",".join(include) or None,
+            "limit": max(1, min(MAX_TRIGGER_LIMIT, int(limit))),
+            "before": _require_int(before, "before"),
+        }
+
+    def triggers(
+        self,
+        *,
+        rule=None,
+        campaign=None,
+        package=None,
+        maintainer=None,
+        severity=None,
+        source=None,
+        day=None,
+        since=None,
+        until=None,
+        include_evidence=False,
+        include_summary=False,
+        limit=MAX_TRIGGER_LIMIT,
+        before=None,
+    ) -> dict:
+        """``/api/triggers`` - normalized rule firings, with optional evidence."""
+        return self._get("/api/triggers", self._trigger_params(
+            rule=rule, campaign=campaign, package=package, maintainer=maintainer,
+            severity=severity, source=source, day=day, since=since, until=until,
+            include_evidence=include_evidence, include_summary=include_summary,
+            limit=limit, before=before,
+        ))
+
+    def rule_triggers(self, rule_id: str, **kwargs) -> dict:
+        """``/api/rule/{id}/triggers`` - normalized firings of one rule."""
+        rule = _require_rule_ids(rule_id)
+        if not rule or "," in rule:
+            raise FeedError(f"not a single rule id: {rule_id!r}")
+        params = self._trigger_params(**kwargs)
+        return self._get(
+            f"/api/rule/{quote(rule, safe='')}/triggers", params)
+
+    def rules(self, limit: int = 100) -> dict:
+        """``/api/rules`` - observed rules with firing and package counts."""
+        return self._get(
+            "/api/rules", {"limit": max(1, min(MAX_RULES_LIMIT, int(limit)))})
+
+    def campaigns(self, limit: int = 50) -> dict:
+        """``/api/campaigns`` - watcher campaign summaries, newest first."""
+        return self._get(
+            "/api/campaigns",
+            {"limit": max(1, min(MAX_CAMPAIGNS_LIMIT, int(limit)))},
+        )
+
+    def campaign(self, campaign_id: str) -> dict:
+        """``/api/campaign/{id}`` - members, timeline and trigger evidence."""
+        campaign = _require_public_id(campaign_id, "campaign")
+        return self._get(f"/api/campaign/{quote(campaign, safe='')}")
 
     def message(self, slug: str) -> dict:
         """``/api/messages/{slug}`` - one notification with its full document."""

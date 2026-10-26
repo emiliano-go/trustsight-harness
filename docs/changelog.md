@@ -6,6 +6,14 @@ description: Changes to trustsight-harness.
 
 ## Unreleased
 
+- **Normalized watcher triggers.** The feed client and MCP/CLI surface now
+  consume `/api/triggers`, `/api/rules`, `/api/campaigns` and
+  `/api/campaign/{id}` through `feed_triggers`, `feed_rules`,
+  `feed_campaigns` and `feed_campaign`. `feed_rule_stats` reads
+  `/api/rule/{id}/triggers` and aggregates normalized firings instead of
+  notification documents; `by_day_complete` reports whether its bounded
+  day window saw every firing.
+
 - **Self-security hardening.** Every `read_text`/`read_bytes` in `harness/`,
   `generators/` and `validators/` now goes through `harness/bounded.py`, which
   refuses past a constant instead of allocating whatever the artifact

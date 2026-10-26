@@ -101,9 +101,18 @@ def test_feed_rule_stats_bounds_the_package_list(monkeypatch):
     from harness.mcp import server
 
     class _FakeFeed:
-        def by_rule(self, rule_id):
-            return {"items": [{"time": 1777593600,
-                               "packages": [f"p{i}" for i in range(50)]}]}
+        def rule_triggers(self, rule_id, **kwargs):
+            return {
+                "items": [{"time": 1777593600, "package": f"p{i}"}
+                          for i in range(50)],
+                "summary": {
+                    "rules": [{"rule_id": "H044", "count": 50,
+                               "first": 1777593600, "last": 1777593600}],
+                    "packages": [{"package": f"p{i}", "count": 1}
+                                 for i in range(50)],
+                },
+                "next": None,
+            }
 
     monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
     out = server.feed_rule_stats("H044", top_packages=5)

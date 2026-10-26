@@ -65,6 +65,10 @@ minute** per client, answering `429` with a `Retry-After` header.
 | `feed_by_date(date, timeframe)` | `/api/date/{date}[/{timeframe}]` |
 | `feed_by_package(name)` | `/api/package/{name}` |
 | `feed_by_rule(rule_id)` | `/api/rule/{id}` |
+| `feed_triggers(rule, campaign, package, maintainer, severity, source, day, since, until, include_evidence, include_summary, limit, before)` | `/api/triggers` |
+| `feed_rules(limit)` | `/api/rules` |
+| `feed_campaigns(limit)` | `/api/campaigns` |
+| `feed_campaign(campaign_id)` | `/api/campaign/{id}` |
 | `feed_message(slug)` | `/api/messages/{slug}` |
 | `feed_package_history(name)` | `/api/package/{name}/history` |
 | `feed_package_diff(name)` | `/api/diff/{package}` |
@@ -77,8 +81,11 @@ minute** per client, answering `429` with a `Retry-After` header.
 The base URL is `https://watcher.trustsight.org` unless `WATCHER_FEED_URL` is
 set. The client paces itself at half the cap (60 a minute). Composite
 readers stay inside the same budget: `feed_many` is capped at 20
-packages, `feed_rule_stats` names at most 200 (25 by default), and
-`triage_alert` returns at most 25 dossiers (5 by default).
+packages, `feed_rule_stats` names at most 100 observed packages (25 by default), and
+`triage_alert` returns at most 25 dossiers (5 by default). `feed_triggers`
+pages at 200 rows; an evidence page is capped at 50 so file/line/reason text
+cannot make one MCP response unbounded. `feed_by_rule` remains the
+notification timeline; `feed_triggers` is the normalized firing extraction.
 
 `feed_stats()` returns the watcher's aggregates verbatim. Its `alerts` and
 `over_threshold` count rule firings across all stored alert documents, while
@@ -115,7 +122,7 @@ rather than raising when the source is absent.
 | `analyze_aur_package(package)` | fetch the current PKGBUILD and analyse it as a whole-recipe review |
 | `triage_alert(slug, include_diff, include_source, max_packages)` | per-package dossier for one notification; evidence only, `fp_triage` stays the verdict path |
 | `feed_many(packages)` | notifications for up to 20 packages, one paced call each |
-| `feed_rule_stats(rule_id, since, until)` | firings aggregated by day and package |
+| `feed_rule_stats(rule_id, since, until)` | firings aggregated from `/api/rule/{id}/triggers`; `by_day_complete` marks a truncated day window |
 | `preflight(package, deep)` | version/canary/DB/feed/AUR checks before trusting a run; `deep` adds the calibration suite |
 
 ## Environment

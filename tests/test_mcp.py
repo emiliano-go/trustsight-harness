@@ -174,7 +174,8 @@ def test_the_server_registers_every_tool():
         "get_environment_info", "diff_hash",
         "aur_info", "aur_pkgbuild",
         "feed_search", "feed_latest", "feed_by_date", "feed_by_package",
-        "feed_by_rule", "feed_message", "feed_stats", "feed_health",
+        "feed_by_rule", "feed_triggers", "feed_rules", "feed_campaigns",
+        "feed_campaign", "feed_message", "feed_stats", "feed_health",
         "feed_package_history", "feed_package_diff", "feed_package_source",
         "feed_maintainers",
     } <= names
@@ -640,6 +641,22 @@ def test_feed_tools_pass_through_to_the_client(monkeypatch):
             calls["maintainers"] = packages
             return {"maintainers": {}}
 
+        def triggers(self, **kwargs):
+            calls["triggers"] = kwargs
+            return {"count": 0, "items": []}
+
+        def rules(self, limit):
+            calls["rules"] = limit
+            return {"items": []}
+
+        def campaigns(self, limit):
+            calls["campaigns"] = limit
+            return {"items": []}
+
+        def campaign(self, campaign_id):
+            calls["campaign"] = campaign_id
+            return {"id": campaign_id}
+
     monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
     out = server.feed_search(q="x", limit=7)
     assert out["count"] == 0
@@ -656,6 +673,15 @@ def test_feed_tools_pass_through_to_the_client(monkeypatch):
     assert calls["diff"] == "pkg"
     assert calls["source"] == ("pkg", "pkg.install")
     assert calls["maintainers"] == ["pkg"]
+    server.feed_triggers(rule=["R010"], include_evidence=True, limit=500)
+    assert calls["triggers"]["limit"] == 50
+    assert calls["triggers"]["rule"] == ["R010"]
+    server.feed_rules(7)
+    server.feed_campaigns(3)
+    server.feed_campaign("g003:m")
+    assert calls["rules"] == 7
+    assert calls["campaigns"] == 3
+    assert calls["campaign"] == "g003:m"
 
 
 def test_feed_tool_surfaces_a_validation_error(monkeypatch):
@@ -719,18 +745,37 @@ def test_feed_many_is_bounded(monkeypatch):
 
 
 def test_feed_rule_stats_aggregates(monkeypatch):
+    calls = {}
+
     class _FakeFeed:
-        def by_rule(self, rule_id):
-            return {"items": [
-                {"time": 1777593600, "packages": ["a", "b"]},
-                {"time": 1777593660, "packages": ["a"]},
-            ]}
+        def rule_triggers(self, rule_id, **kwargs):
+            calls["rule_id"] = rule_id
+            calls["kwargs"] = kwargs
+            return {
+                "items": [
+                    {"time": 1777593600, "package": "a"},
+                    {"time": 1777593660, "package": "a"},
+                    {"time": 1777680000, "package": "b"},
+                ],
+                "summary": {
+                    "rules": [{"rule_id": "H044", "count": 3,
+                               "first": 1777593600, "last": 1777680000}],
+                    "packages": [{"package": "a", "count": 2},
+                                 {"package": "b", "count": 1}],
+                },
+                "next": None,
+            }
 
     monkeypatch.setattr(server, "_feed_client", lambda: _FakeFeed())
     out = server.feed_rule_stats("H044")
-    assert out["total"] == 2
+    assert calls["rule_id"] == "H044"
+    assert calls["kwargs"] == {"since": None, "until": None,
+                               "include_summary": True, "limit": 1000}
+    assert out["total"] == 3
     assert out["by_package"]["a"] == 2
     assert out["by_package"]["b"] == 1
+    assert out["by_day"] == {"2026-05-01": 2, "2026-05-02": 1}
+    assert out["by_day_complete"] is True
 
 
 def test_analyze_aur_package_combines_fetch_and_analysis(monkeypatch):
