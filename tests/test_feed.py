@@ -86,6 +86,78 @@ def test_package_and_rule_names_are_path_encoded():
     assert rec.last.url.path == "/api/rule/R010"
 
 
+def test_trigger_filters_build_path_and_params():
+    rec = _Recorder({"count": 0, "items": []})
+    client = _client(rec)
+    client.triggers(rule=["r010", "H044"], campaign="g003:m", package="yay",
+                    maintainer="New <new@example.com>", severity="high",
+                    source="FINDING", day="2026-05-01", since=10, until=20,
+                    include_evidence=True, include_summary=True, limit=5,
+                    before=9)
+    assert rec.last.url.path == "/api/triggers"
+    assert dict(rec.last.url.params) == {
+        "rule": "R010,H044", "campaign": "g003:m", "package": "yay",
+        "maintainer": "New <new@example.com>", "severity": "HIGH",
+        "source": "finding", "day": "2026-05-01", "since": "10",
+        "until": "20", "include": "evidence,summary", "limit": "5",
+        "before": "9",
+    }
+
+
+def test_rule_triggers_uses_its_named_endpoint():
+    rec = _Recorder({"count": 0, "items": []})
+    client = _client(rec)
+    client.rule_triggers("h044", include_summary=True, limit=7)
+    assert rec.last.url.path == "/api/rule/H044/triggers"
+    assert dict(rec.last.url.params) == {"include": "summary", "limit": "7"}
+
+
+def test_rule_campaign_and_campaign_paths():
+    rec = _Recorder({"items": []})
+    client = _client(rec)
+    client.rules(7)
+    assert rec.last.url.path == "/api/rules"
+    assert dict(rec.last.url.params) == {"limit": "7"}
+    client.campaigns(3)
+    assert rec.last.url.path == "/api/campaigns"
+    assert dict(rec.last.url.params) == {"limit": "3"}
+    client.campaign("g003:m")
+    assert rec.last.url.path == "/api/campaign/g003:m"
+
+
+def test_trigger_limits_are_clamped():
+    rec = _Recorder({"items": []})
+    client = _client(rec)
+    client.triggers(limit=9999)
+    assert dict(rec.last.url.params)["limit"] == "1000"
+    client.rules(9999)
+    assert dict(rec.last.url.params)["limit"] == "500"
+    client.campaigns(9999)
+    assert dict(rec.last.url.params)["limit"] == "200"
+
+
+def test_trigger_filters_reject_bad_values():
+    rec = _Recorder()
+    client = _client(rec)
+    with pytest.raises(FeedError):
+        client.triggers(rule="NOT-A-RULE")
+    with pytest.raises(FeedError):
+        client.triggers(severity="urgent")
+    with pytest.raises(FeedError):
+        client.triggers(source="guess")
+    with pytest.raises(FeedError):
+        client.triggers(day="2026-02-31")
+    with pytest.raises(FeedError):
+        client.triggers(package="../etc")
+    with pytest.raises(FeedError):
+        client.triggers(campaign="a/b")
+    with pytest.raises(FeedError):
+        client.triggers(before="9")
+    with pytest.raises(FeedError):
+        client.rule_triggers("R010,H044")
+    assert not rec.requests
+
+
 def test_message_slug_encodes_the_slash():
     rec = _Recorder()
     _client(rec).message("2026-05-02/120000")

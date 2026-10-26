@@ -1060,6 +1060,86 @@ def feed_by_rule(rule_id: str) -> dict:
 
 
 @mcp.tool()
+def feed_triggers(
+    rule: list[str] | None = None,
+    campaign: str | None = None,
+    package: str | None = None,
+    maintainer: str | None = None,
+    severity: str | None = None,
+    source: str | None = None,
+    day: str | None = None,
+    since: int | None = None,
+    until: int | None = None,
+    include_evidence: bool = False,
+    include_summary: bool = False,
+    limit: int = 200,
+    before: int | None = None,
+) -> dict:
+    """Normalized rule firings across the watcher feed.
+
+    One row per package, rule and located finding, independent of which
+    notification carried it. `include_evidence` adds file, line and reason;
+    `include_summary` adds per-rule, per-package and per-campaign counts.
+
+    Args:
+        rule: Exact rule ids (e.g. ['R010', 'H044']).
+        campaign: Watcher campaign id.
+        package: Exact AUR package name.
+        maintainer: Maintainer display name or email, matched by identity.
+        severity: CRITICAL, HIGH, MEDIUM, LOW or INFO.
+        source: finding, refusal, alert or campaign.
+        day: Replay day, YYYY-MM-DD.
+        since: Unix seconds, inclusive lower bound.
+        until: Unix seconds, inclusive upper bound.
+        include_evidence: Add file, line and reason (capped at 50 rows).
+        include_summary: Add aggregate rule/package/campaign counts.
+        limit: Page size (default 200; evidence pages cap at 50).
+        before: Trigger id from a previous response `next.before`.
+    """
+    cap = 50 if include_evidence else 200
+    return _feed_call(
+        "triggers", rule=rule, campaign=campaign, package=package,
+        maintainer=maintainer, severity=severity, source=source, day=day,
+        since=since, until=until, include_evidence=include_evidence,
+        include_summary=include_summary, limit=max(1, min(cap, int(limit))),
+        before=before,
+    )
+
+
+@mcp.tool()
+def feed_rules(limit: int = 100) -> dict:
+    """Rules observed in the watcher trigger index, with firing counts.
+
+    This is the watcher's observed rules, not the locally installed registry;
+    use `rules_list` for rule definitions and aliases.
+
+    Args:
+        limit: Number of rules to return (1-500, default 100).
+    """
+    return _feed_call("rules", limit)
+
+
+@mcp.tool()
+def feed_campaigns(limit: int = 50) -> dict:
+    """Watcher campaign summaries, newest first.
+
+    Args:
+        limit: Number of campaigns to return (1-200, default 50).
+    """
+    return _feed_call("campaigns", limit)
+
+
+@mcp.tool()
+def feed_campaign(campaign_id: str) -> dict:
+    """One watcher campaign, with members, timeline and trigger evidence.
+
+    Args:
+        campaign_id: Published campaign id, or a deterministic `legacy:` id.
+    """
+    return _feed_call("campaign", campaign_id)
+
+
+@mcp.tool()
 def feed_message(slug: str) -> dict:
     """One notification by slug, with its full TrustSight document.
 
@@ -1486,33 +1566,40 @@ def feed_rule_stats(
         until: Unix seconds, inclusive upper bound.
         top_packages: Packages to name (default 25, max 200).
     """
-    data = _feed_call("by_rule", rule_id)
+    data = _feed_call(
+        "rule_triggers", rule_id, since=since, until=until,
+        include_summary=True, limit=1000,
+    )
     if "error" in data:
         return data
+    summary = data.get("summary") if isinstance(data.get("summary"), dict) else {}
+    rule_rows = [row for row in summary.get("rules", [])
+                 if isinstance(row, dict) and row.get("rule_id") == rule_id.upper()]
+    rule_row = rule_rows[0] if rule_rows else {}
     items = [item for item in data.get("items", [])
              if isinstance(item, dict)
              and (since is None or int(item.get("time", 0)) >= since)
              and (until is None or int(item.get("time", 0)) <= until)]
     by_day: dict[str, int] = {}
-    by_package: dict[str, int] = {}
-    times = []
     for item in items:
         time_value = int(item.get("time", 0) or 0)
-        times.append(time_value)
         day = time.strftime("%Y-%m-%d", time.gmtime(time_value))
         by_day[day] = by_day.get(day, 0) + 1
-        for name in item.get("packages", []) or []:
-            by_package[name] = by_package.get(name, 0) + 1
-    ranked = sorted(by_package.items(), key=lambda pair: (-pair[1], pair[0]))
+    packages = [row for row in summary.get("packages", [])
+                if isinstance(row, dict) and row.get("package")]
+    ranked = sorted(((row["package"], int(row.get("count", 0) or 0))
+                     for row in packages),
+                    key=lambda pair: (-pair[1], pair[0]))
     limit = max(1, min(200, int(top_packages)))
     return {
-        "rule_id": rule_id,
-        "total": len(items),
-        "first": min(times) if times else None,
-        "last": max(times) if times else None,
+        "rule_id": rule_id.upper(),
+        "total": int(rule_row.get("count", 0) or 0),
+        "first": rule_row.get("first"),
+        "last": rule_row.get("last"),
         "by_day": dict(sorted(by_day.items())),
+        "by_day_complete": data.get("next") is None,
         "by_package": dict(ranked[:limit]),
-        "by_package_truncated": len(ranked) > limit,
+        "by_package_truncated": len(ranked) > limit or len(packages) >= 100,
     }
 
 
