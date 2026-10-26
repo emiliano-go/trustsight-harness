@@ -105,7 +105,7 @@ one of them:
 
 ## What ships
 
-- **A campaign suite.** 105 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 106 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025, U007, U008, U009,
   U010), the Atomic Arch
@@ -117,7 +117,7 @@ one of them:
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's rule taxonomy, so the untested surface is a number. 38 of 279
+  TrustSight's rule taxonomy, so the untested surface is a number. 39 of 279
   rules are targeted, and the ones a cold campaign cannot reach are named with
   the reason. Rule probes (U007-U010) measure whether a rule fires without
   entering the adversarial bypass rate.

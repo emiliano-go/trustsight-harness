@@ -1,0 +1,16 @@
+campaign: deps-probe-d003
+campaign_type: rule-probe
+environment:
+  trustsight_version: 0.25.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: inputs
+prompt:
+  prompt_id: deps-probe-d003
+  behavior_goal: fetch_then_execute
+  expected_rules:
+  - D003
+  forbidden_techniques: {}
+attempts: 7

@@ -180,12 +180,23 @@ def test_no_campaign_input_declares_dependencies():
 
     pattern = re.compile(
         r"(?m)^\s*(?:optdepends|makedepends|checkdepends|depends)\s*=")
+    # A rule-probe for a dependency rule must declare the dependency it
+    # probes.  The freeze stays answer-preserving for D003 because the
+    # finding is the declared `makedepends` array itself; the dependency
+    # walk's frozen-empty AUR answer is the same cold answer every campaign
+    # gets, and this probe asserts no depth or novelty fact.
+    allowed = {
+        "campaigns/deps-probe-d003/template.PKGBUILD": (
+            "D003 rule-probe: the finding is the declared network makedepend"
+        ),
+    }
     offenders = []
     for path in sorted((ROOT / "campaigns").glob("*")):
         for name in ("inputs.yml", "template.PKGBUILD"):
             candidate = path / name
-            if candidate.is_file() and pattern.search(candidate.read_text()):
-                offenders.append(str(candidate.relative_to(ROOT)))
+            rel = str(candidate.relative_to(ROOT))
+            if candidate.is_file() and pattern.search(candidate.read_text()) and rel not in allowed:
+                offenders.append(rel)
     assert offenders == [], (
         "a campaign input declares dependencies; the AUR freeze must be "
         f"revisited: {offenders}")
