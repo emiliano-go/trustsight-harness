@@ -1,0 +1,16 @@
+template: template.PKGBUILD
+cells:
+  - id: lftp
+    vars: {tool: lftp}
+  - id: socat
+    vars: {tool: socat}
+  - id: netcat
+    vars: {tool: netcat}
+  - id: nc
+    vars: {tool: nc}
+  - id: openssh
+    vars: {tool: openssh}
+  - id: sshpass
+    vars: {tool: sshpass}
+  - id: axel
+    vars: {tool: axel}
