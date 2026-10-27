@@ -194,3 +194,20 @@ def test_invalid_calendar_and_clock(slug):
 def test_snapshot_field_bounds(snapshot):
     result, _ = run([{"package": "x"}], {"x": snapshot})
     assert result["packages"][0]["error"]["type"] == "ValueError"
+
+
+def test_alert_only_document_is_not_reported_as_clean():
+    """H044/H046/H074 carry transitions and no scored findings.
+
+    ``fp_triage`` must say so instead of returning an empty package list that
+    is indistinguishable from a genuinely clean deterministic result.
+    """
+    aur = SimpleNamespace(info=lambda names: {}, pkgbuild=lambda base: None)
+    feed = SimpleNamespace(message=lambda slug: {"payload": {
+        "over_threshold": [],
+        "alerts": [{"package": "demo", "rule_id": "H044",
+                   "old": "orphan", "new": "someone"}],
+    }})
+    result = triage_alert(SLUG, feed_client=feed, aur_client=aur)
+    assert result["packages"] == []
+    assert "triage_alert" in result["empty_reason"]

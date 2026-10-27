@@ -147,6 +147,13 @@ def triage_alert(alert_slug: str, *, feed_client, aur_client) -> dict:
     packages = message["payload"].get("over_threshold")
     if not isinstance(packages, list) or len(packages) > MAX_PACKAGES:
         raise ValueError("invalid or oversized over_threshold")
+    # Alert-only documents (H044/H046/H074) carry transitions, not scored
+    # findings.  They must not look like a clean deterministic result: the
+    # caller gets an explicit reason to run the dossier path instead.
+    alerts = message["payload"].get("alerts")
+    if alerts is not None and (not isinstance(alerts, list)
+                               or len(alerts) > MAX_PACKAGES):
+        raise ValueError("invalid or oversized alerts")
     output, snapshots = [], {}
     for package in packages:
         row = {"package": None, "package_base": None, "findings": []}
@@ -240,6 +247,12 @@ def triage_alert(alert_slug: str, *, feed_client, aur_client) -> dict:
                     checks["skip_context"] = skip
         except Exception as exc:  # noqa: BLE001 - per-package evidence boundary isolates client and parser failures
             row["error"] = {"type": type(exc).__name__, "message": str(exc)[:MAX_FIELD]}
-    return {"alert_slug": alert_slug,
-            "fetched_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
-            "packages": output}
+    result = {"alert_slug": alert_slug,
+              "fetched_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+              "packages": output}
+    if not output and alerts:
+        result["empty_reason"] = (
+            "alert-only document: it carries transitions and no scored "
+            "findings; use triage_alert for the per-package dossier"
+        )
+    return result
