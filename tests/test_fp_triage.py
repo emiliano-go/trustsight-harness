@@ -211,3 +211,11 @@ def test_alert_only_document_is_not_reported_as_clean():
     result = triage_alert(SLUG, feed_client=feed, aur_client=aur)
     assert result["packages"] == []
     assert "triage_alert" in result["empty_reason"]
+
+
+def test_a_transport_prefix_is_not_a_misclassification():
+    # The finding prints the bare URL; the source entry keeps `git+`.
+    recipe = parse_recipe('source=("git+https://github.com/o/r.git")\n')
+    check = check_url_in_source(finding("NOVELTY", "first seen: https://github.com/o/r.git"), recipe)
+    assert check["in_source_array"] is True
+    assert check["misclassified"] is False
