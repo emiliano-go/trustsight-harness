@@ -16,6 +16,16 @@ MAX_SOURCE_ENTRIES = 20000
 _NAME = re.compile(r"[A-Za-z0-9@_+][A-Za-z0-9@._+-]{0,254}\Z")
 _SUM = re.compile(r"(md5|sha1|sha224|sha256|sha384|sha512|b2)sums(_.*)?\Z")
 _URL = re.compile(r"[A-Za-z][A-Za-z0-9+.-]*://[^\s\"'<>`]+")
+#: A transport prefix (`git+`, `hg+`, `bzr+`, ...) is spelling, not the
+#: address.  The finding prints the bare URL while the `source=` entry keeps
+#: the prefix, so comparing them verbatim reported "misclassified" on every
+#: VCS source.
+_TRANSPORT_PREFIX = re.compile(
+    r"^(?:[A-Za-z][A-Za-z0-9.-]*\+)+(?=[A-Za-z][A-Za-z0-9+.-]*://)")
+
+
+def _without_transport(url: str) -> str:
+    return _TRANSPORT_PREFIX.sub("", url)
 
 
 def _dynamic(value):
@@ -66,8 +76,10 @@ def _source_unknown(recipe):
 
 def check_url_in_source(finding, recipe):
     """Compare literal URLs; unresolved recipes cannot establish absence."""
-    urls = [m.group().rstrip(".,;:)]}") for m in _URL.finditer(finding.get("reason", ""))]
-    entries = [v.split("::", 1)[-1] for values in _sources(recipe).values() for v in values]
+    urls = [_without_transport(m.group().rstrip(".,;:)]}"))
+            for m in _URL.finditer(finding.get("reason", ""))]
+    entries = [_without_transport(v.split("::", 1)[-1])
+               for values in _sources(recipe).values() for v in values]
     matches = [{"url": url, "in_source_array": True if url in entries else
                 None if _source_unknown(recipe) or any(_dynamic(v) for v in entries)
                 else False} for url in urls]
