@@ -14,7 +14,6 @@ import hashlib
 import json
 import os
 import re
-import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -26,6 +25,7 @@ from .bounded import (
     read_bytes_capped,
     read_text_capped,
 )
+from .paths import within, within_workspace
 
 __all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
            "NamespaceUnavailableError", "freeze_aur_lookup",
@@ -284,13 +284,23 @@ class Environment:
         if self.db_state == "seeded":
             self._import_seed()
         elif self.db_state == "snapshot":
-            source = self._root / self.db_snapshot
-            if not source.exists():
+            source = within(self._root, self.db_snapshot,
+                            "environment.db_snapshot")
+            if not source.is_file():
                 raise EnvironmentError_(f"db_snapshot not found: {source}")
             target = self._data_dir / "trustsight.db"
             opener = gzip.open if source.suffix == ".gz" else open
+            written = 0
             with opener(source, "rb") as src, open(target, "wb") as dst:
-                shutil.copyfileobj(src, dst)
+                while True:
+                    chunk = src.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    written += len(chunk)
+                    if written > MAX_DB_BYTES:
+                        raise EnvironmentError_(
+                            f"db_snapshot exceeds {MAX_DB_BYTES} bytes")
+                    dst.write(chunk)
         db.init_db()
         if self.ioc_baseline:
             self._import_ioc_baseline()
@@ -300,7 +310,8 @@ class Environment:
         """Import the declared federation baseline into the bound database."""
         from trustsight.ioc_baseline import import_baseline
 
-        path = self._root / self.ioc_baseline
+        path = within_workspace(self._root, self.ioc_baseline,
+                                "environment.ioc_baseline")
         if not path.exists():
             raise EnvironmentError_(f"ioc_baseline not found: {path}")
         import_baseline(path, allow_unsigned=True)
@@ -459,4 +470,10 @@ def load_environment(raw: dict, root: Path) -> Environment:
         raise EnvironmentError_("db_state 'snapshot' requires db_snapshot")
     if env.db_state == "seeded" and not env.seed_sha256:
         raise EnvironmentError_("db_state 'seeded' requires seed_sha256")
+    # A campaign file is input (H8): a path it names is resolved under the
+    # repository root, never the filesystem at large.
+    if env.db_snapshot:
+        within(root, env.db_snapshot, "environment.db_snapshot")
+    if env.ioc_baseline:
+        within_workspace(root, env.ioc_baseline, "environment.ioc_baseline")
     return env

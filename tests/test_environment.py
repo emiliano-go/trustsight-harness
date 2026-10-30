@@ -385,3 +385,64 @@ def test_the_default_threshold_leaves_the_config_untouched(tmp_path):
     Environment(trustsight_version="0.19.0", db_state="cold",
                 flag_threshold=20)._apply_review_threshold(config_dir)
     assert (config_dir / "config.toml").read_text() == original
+
+
+def test_a_snapshot_path_cannot_escape_the_repository(tmp_path):
+    """A campaign file is input (H8): its paths resolve under the repository,
+    so ``db_snapshot`` cannot name a file anywhere else on the host."""
+    with pytest.raises(ValueError, match="escapes its allowed root"):
+        load_environment(
+            {"trustsight_version": "1.0", "db_state": "snapshot",
+             "db_snapshot": "../outside.db"},
+            tmp_path,
+        )
+
+
+def test_an_absolute_snapshot_path_is_refused(tmp_path):
+    with pytest.raises(ValueError, match="escapes its allowed root"):
+        load_environment(
+            {"trustsight_version": "1.0", "db_state": "snapshot",
+             "db_snapshot": str(tmp_path.parent / "outside.db")},
+            tmp_path,
+        )
+
+
+def test_an_ioc_baseline_path_cannot_escape_the_repository(tmp_path):
+    with pytest.raises(ValueError, match="escapes its allowed root"):
+        load_environment(
+            {"trustsight_version": "1.0", "db_state": "cold",
+             "ioc_baseline": "../../outside/baseline"},
+            tmp_path,
+        )
+
+
+def test_an_ioc_baseline_may_come_from_a_sibling_checkout(tmp_path):
+    """The published baselines live in the sibling ``trustsight`` repo."""
+    root = tmp_path / "trustsight-harness"
+    root.mkdir()
+    baseline = tmp_path / "trustsight" / "ioc-baselines" / "b"
+    baseline.mkdir(parents=True)
+    env = load_environment(
+        {"trustsight_version": "1.0", "db_state": "cold",
+         "ioc_baseline": "../trustsight/ioc-baselines/b"},
+        root,
+    )
+    assert env.ioc_baseline == "../trustsight/ioc-baselines/b"
+
+
+def test_a_snapshot_larger_than_the_database_cap_is_refused(tmp_path, monkeypatch):
+    """The copy was unbounded, so a snapshot could fill the scratch tree."""
+    from harness import environment
+
+    root = tmp_path / "repo"
+    (root / "defaults").mkdir(parents=True)
+    (root / "defaults" / "huge.db").write_bytes(b"x" * 4096)
+    env = load_environment(
+        {"trustsight_version": "1.0", "db_state": "snapshot",
+         "db_snapshot": "defaults/huge.db"},
+        root,
+    )
+    env.bind(tmp_path / "work")
+    monkeypatch.setattr(environment, "MAX_DB_BYTES", 1024)
+    with pytest.raises(EnvironmentError_, match="exceeds"):
+        env.restore()
