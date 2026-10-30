@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-__all__ = ["within", "write_atomic"]
+__all__ = ["within", "within_workspace", "write_atomic"]
 
 
 def within(base: Path, rel: str, what: str) -> Path:
@@ -20,6 +20,26 @@ def within(base: Path, rel: str, what: str) -> Path:
     if candidate != base and base not in candidate.parents:
         raise ValueError(f"{what} escapes its allowed root: {rel!r}")
     return candidate
+
+
+def within_workspace(base: Path, rel: str, what: str) -> Path:
+    """Resolve *rel* under *base* or one of *base*'s sibling checkouts.
+
+    The harness is developed beside ``trustsight``; a campaign may point at
+    a baseline shipped in that sibling (``../trustsight/ioc-baselines/...``).
+    That is the one exception to the repository confinement, and it is still
+    a workspace boundary: an absolute path or a traversal past the workspace
+    parent is refused.
+    """
+    base = base.resolve()
+    candidate = (base / rel).resolve()
+    workspace = base.parent
+    if candidate == base or base in candidate.parents:
+        return candidate
+    if workspace != base and (candidate == workspace
+                              or workspace in candidate.parents):
+        return candidate
+    raise ValueError(f"{what} escapes its allowed root: {rel!r}")
 
 
 def write_atomic(path, text: str) -> None:
