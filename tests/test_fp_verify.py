@@ -381,13 +381,13 @@ def test_real_worker_rejects_raw_companion_diff(tmp_path, git_header):
         recipe = "pkgname=demo\npkgver=1\npkgrel=1\n"
         normal = runner.analyze(recipe, package="demo").body
         assert normal["first_seen"] is True
-        assert normal["new_version"] == "1"
+        assert normal["new_version"] == "1-1"
         runner.restore()
         paired = runner.analyze(recipe.replace("pkgver=1", "pkgver=2"),
                                 recipe, package="demo").body
         assert paired["first_seen"] is False
-        assert paired["old_version"] == "1"
-        assert paired["new_version"] == "2"
+        assert paired["old_version"] == "1-1"
+        assert paired["new_version"] == "2-1"
         assert runner.parity_check(recipe)
     finally:
         if runner._session is not None:
