@@ -53,7 +53,7 @@ or written to `--out`.
 | `get_environment_info` | The installed TrustSight and environment. |
 | `aur_info --packages NAME [NAME ...]` | AUR metadata via the v5 RPC. |
 | `aur_pkgbuild --package NAME` | AUR snapshot build files (PKGBUILD plus other text files). |
-| `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_message`, `feed_package_history`, `feed_package_diff`, `feed_package_source`, `feed_maintainers`, `feed_many`, `feed_rule_stats`, `feed_stats`, `feed_health` | The watcher feed API. |
+| `feed_search`, `feed_latest`, `feed_by_date`, `feed_by_package`, `feed_by_rule`, `feed_triggers`, `feed_rules`, `feed_campaigns`, `feed_campaign`, `feed_message`, `feed_package_history`, `feed_package_diff`, `feed_package_source`, `feed_maintainers`, `feed_many`, `feed_rule_stats`, `feed_stats`, `feed_health` | The watcher feed API. |
 | `maintainer_transitions`, `rule_info`, `rules_list`, `ioc_lookup`, `ioc_status`, `data_status` | Read-only registry and corpus inspection. |
 | `list_bypasses`, `match_bypass`, `archive_report`, `campaign_evidence`, `shape_of`, `run_history` | Read-only committed-artifact inspection. |
 | `analyze_aur_package`, `triage_alert`, `preflight` | Composite triage and environment checks. |
@@ -281,7 +281,7 @@ suite can produce — every generator diffs one PKGBUILD against one baseline.
 
 ```bash
 uv run python -m harness coverage
-# 38 of 279 rules targeted by 105 campaigns; 241 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
+# 39 of 284 rules targeted by 106 campaigns; 241 untargeted, 23 with a reason and all 23 unreachable by this harness's format.
 ```
 
 ---
