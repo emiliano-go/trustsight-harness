@@ -25,7 +25,7 @@ from .bounded import (
     read_bytes_capped,
     read_text_capped,
 )
-from .paths import within, within_workspace
+from .paths import within, within_workspace, write_atomic
 
 __all__ = ["CANARY_DIFF", "Environment", "EnvironmentError_",
            "NamespaceUnavailableError", "freeze_aur_lookup",
@@ -250,8 +250,8 @@ class Environment:
         # Idempotent: bind runs in both the parent and the worker on the same
         # config dir, so drop any previous override before writing the current.
         body = re.sub(r"(?m)^strict\s*=.*$", "", tail).lstrip("\n")
-        path.write_text(
-            head + f"{marker}\nstrict = {int(self.flag_threshold)}\n" + body)
+        write_atomic(
+            path, head + f"{marker}\nstrict = {int(self.flag_threshold)}\n" + body)
 
     # -- per-attempt isolation ---------------------------------------
 

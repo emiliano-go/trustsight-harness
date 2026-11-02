@@ -88,7 +88,8 @@ class Recorder:
         #: after each attempt so a crash mid-campaign leaves the attempts that
         #: did finish readable, exactly as the per-attempt files did.
         self._evidence_path = root / "evidence.jsonl"
-        self._evidence_path.write_text("")
+        from .paths import write_atomic
+        write_atomic(self._evidence_path, "")
 
     def add(self, trace: Trace, diff_text: str,
             analysed_text: str = "", old_text: str = "") -> None:
@@ -115,7 +116,11 @@ class Recorder:
                 entry["analysed_text"] = analysed_text
             if old_text:
                 entry["old_text"] = old_text
-        with self._evidence_path.open("a", encoding="utf-8") as handle:
+        import os
+        fd = os.open(self._evidence_path,
+                     os.O_WRONLY | os.O_CREAT | os.O_APPEND | os.O_NOFOLLOW,
+                     0o600)
+        with os.fdopen(fd, "a", encoding="utf-8") as handle:
             handle.write(json.dumps(entry, sort_keys=True) + "\n")
         if trace.status is Status.BYPASS:
             self.bypass_hashes.append(trace.diff_sha256)

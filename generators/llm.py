@@ -69,8 +69,8 @@ class LLMGenerator(Generator):
     type = "llm"
 
     def __init__(self, *, provider: str, model: str, max_cost_usd: float,
-                 prices: dict, base_url: str = "", api_key_env: str = "LLM_API_KEY",
-                 temperature: float = 1.0, thinking_dir: Path | None = None) -> None:
+                 prices: dict, temperature: float = 1.0,
+                 thinking_dir: Path | None = None) -> None:
         if max_cost_usd is None or max_cost_usd <= 0:
             raise ValueError("llm campaigns require a positive max_cost_usd")
         self.provider = provider
@@ -78,8 +78,10 @@ class LLMGenerator(Generator):
         self.max_cost_usd = float(max_cost_usd)
         self.temperature = temperature
         self.thinking_dir = thinking_dir
-        self.base_url = base_url or os.environ.get("LLM_BASE_URL", "")
-        self._api_key_env = api_key_env
+        # A campaign file is untrusted input.  It may choose a model and a
+        # cost ceiling, never the network peer or which secret is sent.
+        self.base_url = os.environ.get("LLM_BASE_URL", "")
+        self._api_key_env = "LLM_API_KEY"
         price = (prices.get(provider, {}) or {}).get(model)
         if not price:
             raise ValueError(f"no pinned price for {provider}/{model} in prices.toml")

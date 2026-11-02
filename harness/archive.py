@@ -17,7 +17,6 @@ from __future__ import annotations
 import contextlib
 import fcntl
 import json
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -333,11 +332,8 @@ class Archive:
 
     def save(self, path: Path) -> None:
         """Write atomically: a crash mid-write cannot truncate the artifact."""
-        path = Path(path)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        temporary = path.with_name(path.name + f".tmp.{os.getpid()}")
-        temporary.write_text(json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n")
-        os.replace(temporary, path)
+        from .paths import write_atomic
+        write_atomic(path, json.dumps(self.to_dict(), indent=2, sort_keys=True) + "\n")
 
     def merge_into(self, path: Path) -> Archive:
         """Merge this grid into the shared archive at *path*, under a lock.
