@@ -707,9 +707,39 @@ def test_merge_refuses_an_incomplete_shard_set(tmp_path, monkeypatch):
         "shard": [0, 2],
         "environment": {},
         "validator": {"version_hash": "sha256:x"},
-        "results": [[0, {"state": "closed"}], [2, {"state": "closed"}]],
+        "results": [[0, {"state": "closed", "diff_hash": "sha256:a"}],
+                    [2, {"state": "closed", "diff_hash": "sha256:c"}]],
     }) + "\n")
 
     with pytest.raises(ValueError, match="missing shards"):
+        regression.merge_regression_shards(repo, env, shard_dir,
+                                           work_dir=tmp_path / "merged")
+
+
+def test_merge_refuses_a_result_at_the_wrong_position(tmp_path, monkeypatch):
+    """The index must still name the same bypass, or a shard from another
+    commit would attach its verdicts to the wrong diffs."""
+    from harness import regression
+
+    import trustsight
+
+    items = [_cache_item(f"sha256:{letter}") for letter in "abcd"]
+    monkeypatch.setattr(regression, "_committed_bypasses", lambda _root: items)
+    monkeypatch.setattr(regression, "_update_archive",
+                        lambda *_args, **_kwargs: None)
+
+    repo = Path(__file__).resolve().parent.parent
+    env = {"trustsight_version": trustsight.__version__}
+    shard_dir = tmp_path / "shards"
+    shard_dir.mkdir()
+    (shard_dir / "shard-0.json").write_text(json.dumps({
+        "shard": [0, 1],
+        "environment": {},
+        "validator": {"version_hash": "sha256:x"},
+        "results": [[index, {"state": "closed", "diff_hash": "sha256:" + letter}]
+                    for index, letter in enumerate("abcd")],
+    }).replace('"sha256:b"', '"sha256:wrong"') + "\n")
+
+    with pytest.raises(ValueError, match="not the committed bypass"):
         regression.merge_regression_shards(repo, env, shard_dir,
                                            work_dir=tmp_path / "merged")

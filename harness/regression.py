@@ -502,6 +502,12 @@ def merge_regression_shards(repo_root: Path, environment: dict,
                     f"shard {part}/{total}")
             if results[index] is not None:
                 raise ValueError(f"duplicate result for index {index}")
+            expected_hash = items[index]["diff_hash"]
+            actual_hash = result.get("diff_hash") if isinstance(result, dict) else None
+            if actual_hash != expected_hash:
+                raise ValueError(
+                    f"{path.name}: result at index {index} is not the committed "
+                    f"bypass at that position")
             results[index] = result
 
     missing = sorted(set(range(total)) - seen) if total is not None else []
