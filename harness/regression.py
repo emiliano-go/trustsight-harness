@@ -447,9 +447,9 @@ def merge_regression_shards(repo_root: Path, environment: dict,
     env.bind(work)
     behavior = BehaviorValidator()
 
-    files = sorted(Path(shard_dir).glob("*.json"))
+    files = sorted(Path(shard_dir).glob("shard-*.json"))
     if not files:
-        raise ValueError(f"no shard files in {shard_dir}")
+        raise ValueError(f"no shard-*.json files in {shard_dir}")
 
     items = _committed_bypasses(repo_root / "campaigns")
     results: list = [None] * len(items)
