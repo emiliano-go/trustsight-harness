@@ -30,7 +30,8 @@ from .regression_cache import (
 from .runner import Runner
 from .status import Status
 
-__all__ = ["resolve_jobs", "run_regression"]
+__all__ = ["merge_regression_shards", "parse_shard", "resolve_jobs",
+           "run_regression"]
 
 #: Upper bound for `--jobs auto`.  Each namespaced worker is its own
 #: process tree carrying an analysis worker plus TrustSight's tokenizer
@@ -134,6 +135,26 @@ def resolve_jobs(value, item_count: int) -> int:
 def _shard(items: list, jobs: int) -> list[list]:
     """Round-robin shards, each preserving the element's original position."""
     return [items[offset::jobs] for offset in range(jobs)]
+
+
+def parse_shard(value: str) -> tuple[int, int]:
+    """Parse a CLI ``I/N`` shard selection.
+
+    A cross-machine shard indexes the *whole* item list, not one worker's
+    slice: the merge stitches the per-shard results back into the global
+    order by that index.
+    """
+    raw = str(value).strip()
+    try:
+        part, total = raw.split("/", 1)
+        part, total = int(part), int(total)
+    except (ValueError, AttributeError) as exc:
+        raise ValueError(
+            f"shard must be I/N, got {value!r}") from exc
+    if total < 1 or not (0 <= part < total):
+        raise ValueError(
+            f"shard must be I/N with N >= 1 and 0 <= I < N, got {value!r}")
+    return part, total
 
 
 def _preflight(env: Environment, runner: Runner, repo_root: Path) -> None:
@@ -248,101 +269,12 @@ def replay_shard(repo_root: Path, environment: dict, work: Path,
             for index, item in indexed]
 
 
-def run_regression(repo_root: Path, environment: dict, jobs=1,
-                   use_cache: bool = True, cache_path: Path | None = None,
-                   work_dir: Path | None = None,
-                   stats: dict | None = None) -> dict:
-    """Replay every committed bypass; return the report.
-
-    `stats`, when given, is filled with this run's cache counters.  They are
-    not part of the report: hits and misses describe the machine that ran,
-    not the corpus, and the report is an artifact people commit.
-    """
-    env: Environment = load_environment(environment, repo_root)
-    env.resolve()
-    work = work_dir or repo_root / "regression"
-    work.mkdir(parents=True, exist_ok=True)
-    env.bind(work)
-
-    runner = Runner(env=env)
-    bash = resolve_bash()
-    behavior = BehaviorValidator()
-
-    _preflight(env, runner, repo_root)
-
-    environment_record = env.to_record()
-    items = _committed_bypasses(repo_root / "campaigns")
-    source_hash = trustsight_source_hash()
-    keys = [cache_key(item, environment_record, behavior.version_hash,
-                      judge_source_hash(repo_root), source_hash)
-            for item in items]
-    cache = RegressionCache(cache_path or work / "cache.jsonl",
-                            enabled=use_cache)
-
-    results: list = [None] * len(items)
-    pending: list[tuple[int, dict]] = []
-    for index, item in enumerate(items):
-        cached = cache.get(keys[index])
-        if cached is not None:
-            # A cached verdict is the analysis, not the item it belongs to.
-            # Merge the current reference (including the rules it was checked
-            # against) so a cache hit cannot report an unattributed row.
-            results[index] = {**cached, **_ref(item)}
-        else:
-            pending.append((index, item))
-    hits = len(items) - len(pending)
-
-    if pending:
-        worker_count = resolve_jobs(jobs, len(pending))
-        if worker_count == 1:
-            for index, item in pending:
-                results[index] = _replay_item(repo_root, env, runner, bash, item)
-        else:
-            shards = _shard(pending, worker_count)
-            entries = [
-                {"id": offset,
-                 "repo_root": str(repo_root),
-                 "environment": environment,
-                 "work": str(work / ".jobs" / f"{offset}"),
-                 "items": [[index, item] for index, item in shard]}
-                for offset, shard in enumerate(shards)
-            ]
-            for _entry_id, shard_results in run_pool(
-                    entries, len(entries), kind="regression", newnet=True):
-                for index, result in shard_results:
-                    results[index] = result
-
-        # A degraded analysis is retried once with the parent's
-        # less-contended environment; whatever is still degraded stays
-        # visible in the counts rather than being recorded as a closure.
-        for index, _item in pending:
-            if results[index]["state"] == "degraded":
-                results[index] = _replay_item(repo_root, env, runner, bash,
-                                              items[index])
-        for index, _item in pending:
-            cache.put(keys[index], results[index])
-
-    if stats is not None:
-        stats.update({"hits": hits, "misses": len(pending), "enabled": use_cache})
-
-    # A cache entry written before these fields were omitted carries empty
-    # lists.  Drop them here so a cache hit produces the same report shape as
-    # a fresh replay; otherwise every rule-less probe adds noise to the
-    # committed artifact.
-    for result in results:
-        for key in ("catching_rules", "expected_rules"):
-            if result.get(key) == []:
-                result.pop(key)
-
-    # Moves each replayed bypass's `patch_status` onto its archive cell: a
-    # patch that closed the bypass closes the cell, a still-open one marks it
-    # a regression.  Runs on cached results too - the cell key is derived from
-    # the analysed text and the chain, both pure, so no analysis is repeated.
-    _update_archive(repo_root, env, behavior, items, results)
-
-    report = {
+def _build_report(environment_record: dict, validator_hash: str,
+                  results: list) -> dict:
+    """The report shape shared by a whole run, a shard and a merge."""
+    return {
         "environment": environment_record,
-        "validator": {"version_hash": behavior.version_hash},
+        "validator": {"version_hash": validator_hash},
         "total": len(results),
         "closed": sum(1 for r in results if r["state"] == "closed"),
         "open": sum(1 for r in results if r["state"] == "open"),
@@ -363,6 +295,228 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
         },
         "bypasses": results,
     }
+
+
+def _drop_empty_rule_lists(results: list) -> None:
+    """A cache entry written before these fields were omitted carries empty
+    lists.  Drop them so a cache hit produces the same report shape as a
+    fresh replay; otherwise every rule-less probe adds noise to the committed
+    artifact."""
+    for result in results:
+        for key in ("catching_rules", "expected_rules"):
+            if result.get(key) == []:
+                result.pop(key)
+
+
+def run_regression(repo_root: Path, environment: dict, jobs=1,
+                   use_cache: bool = True, cache_path: Path | None = None,
+                   work_dir: Path | None = None,
+                   stats: dict | None = None,
+                   shard: tuple[int, int] | None = None) -> dict:
+    """Replay every committed bypass; return the report.
+
+    `stats`, when given, is filled with this run's cache counters.  They are
+    not part of the report: hits and misses describe the machine that ran,
+    not the corpus, and the report is an artifact people commit.
+
+    ``shard=(I, N)`` replays only the items whose global position satisfies
+    ``position % N == I`` and writes ``shard-I.json`` beside the report.
+    Shards run on separate machines; :func:`merge_regression_shards` stitches
+    them back into the whole-corpus report.  The archive is updated by the
+    merge, not by a shard, because a shard's checkout is disposable.
+    """
+    env: Environment = load_environment(environment, repo_root)
+    env.resolve()
+    work = work_dir or repo_root / "regression"
+    work.mkdir(parents=True, exist_ok=True)
+    env.bind(work)
+
+    runner = Runner(env=env)
+    bash = resolve_bash()
+    behavior = BehaviorValidator()
+
+    _preflight(env, runner, repo_root)
+
+    environment_record = env.to_record()
+    all_items = _committed_bypasses(repo_root / "campaigns")
+    if shard is None:
+        indexed = list(enumerate(all_items))
+    else:
+        part, total = shard
+        if not (0 <= part < total):
+            raise ValueError(
+                f"shard must be I/N with 0 <= I < N, got {part}/{total}")
+        indexed = [(index, item) for index, item in enumerate(all_items)
+                   if index % total == part]
+    items = [item for _index, item in indexed]
+    global_indices = [index for index, _item in indexed]
+
+    source_hash = trustsight_source_hash()
+    keys = [cache_key(item, environment_record, behavior.version_hash,
+                      judge_source_hash(repo_root), source_hash)
+            for item in items]
+    cache = RegressionCache(cache_path or work / "cache.jsonl",
+                            enabled=use_cache)
+
+    results: list = [None] * len(items)
+    pending: list[tuple[int, dict]] = []
+    for local, item in enumerate(items):
+        cached = cache.get(keys[local])
+        if cached is not None:
+            # A cached verdict is the analysis, not the item it belongs to.
+            # Merge the current reference (including the rules it was checked
+            # against) so a cache hit cannot report an unattributed row.
+            results[local] = {**cached, **_ref(item)}
+        else:
+            pending.append((local, item))
+    hits = len(items) - len(pending)
+
+    if pending:
+        worker_count = resolve_jobs(jobs, len(pending))
+        if worker_count == 1:
+            for local, item in pending:
+                results[local] = _replay_item(repo_root, env, runner, bash, item)
+        else:
+            shards = _shard(pending, worker_count)
+            entries = [
+                {"id": offset,
+                 "repo_root": str(repo_root),
+                 "environment": environment,
+                 "work": str(work / ".jobs" / f"{offset}"),
+                 "items": [[local, item] for local, item in batch]}
+                for offset, batch in enumerate(shards)
+            ]
+            for _entry_id, shard_results in run_pool(
+                    entries, len(entries), kind="regression", newnet=True):
+                for local, result in shard_results:
+                    results[local] = result
+
+        # A degraded analysis is retried once with the parent's
+        # less-contended environment; whatever is still degraded stays
+        # visible in the counts rather than being recorded as a closure.
+        for local, _item in pending:
+            if results[local]["state"] == "degraded":
+                results[local] = _replay_item(repo_root, env, runner, bash,
+                                              items[local])
+        for local, _item in pending:
+            cache.put(keys[local], results[local])
+
+    if stats is not None:
+        stats.update({"hits": hits, "misses": len(pending), "enabled": use_cache})
+
+    _drop_empty_rule_lists(results)
+
+    # Moves each replayed bypass's `patch_status` onto its archive cell: a
+    # patch that closed the bypass closes the cell, a still-open one marks it
+    # a regression.  Runs on cached results too - the cell key is derived from
+    # the analysed text and the chain, both pure, so no analysis is repeated.
+    # A shard skips this: its checkout is thrown away, and the merge runs it
+    # once over the whole corpus instead.
+    if shard is None:
+        _update_archive(repo_root, env, behavior, items, results)
+
+    report = _build_report(environment_record, behavior.version_hash, results)
+    (work / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))
+    if shard is not None:
+        part, total = shard
+        (work / f"shard-{part}.json").write_text(json.dumps({
+            "shard": [part, total],
+            "environment": environment_record,
+            "validator": {"version_hash": behavior.version_hash},
+            "results": [[global_indices[local], result]
+                        for local, result in enumerate(results)],
+        }, sort_keys=True) + "\n")
+    return report
+
+
+def merge_regression_shards(repo_root: Path, environment: dict,
+                            shard_dir: Path,
+                            work_dir: Path | None = None) -> dict:
+    """Stitch per-shard result files into the whole-corpus report.
+
+    Every shard is checked to own the indices it claims and the set of shards
+    must be complete: a merge that silently dropped a shard would report a
+    smaller corpus as a full one, which is the failure this gate exists to
+    catch in the tool.
+    """
+    env: Environment = load_environment(environment, repo_root)
+    env.resolve()
+    work = work_dir or repo_root / "regression"
+    work.mkdir(parents=True, exist_ok=True)
+    env.bind(work)
+    behavior = BehaviorValidator()
+
+    files = sorted(Path(shard_dir).glob("*.json"))
+    if not files:
+        raise ValueError(f"no shard files in {shard_dir}")
+
+    items = _committed_bypasses(repo_root / "campaigns")
+    results: list = [None] * len(items)
+    environment_record: dict | None = None
+    validator_hash: str | None = None
+    total: int | None = None
+    seen: set[int] = set()
+
+    for path in files:
+        data = read_json_capped(path, what="shard results")
+        shard = data.get("shard")
+        if not (isinstance(shard, list) and len(shard) == 2
+                and all(isinstance(value, int) for value in shard)):
+            raise ValueError(f"{path.name}: missing [I, N] shard selection")
+        part, count = shard
+        if count < 1 or not (0 <= part < count):
+            raise ValueError(f"{path.name}: invalid shard {part}/{count}")
+        if total is None:
+            total = count
+        elif count != total:
+            raise ValueError(
+                f"{path.name}: shard count {count} disagrees with {total}")
+        if part in seen:
+            raise ValueError(f"{path.name}: duplicate shard {part}/{total}")
+        seen.add(part)
+
+        env_here = data.get("environment") or {}
+        validator_here = (data.get("validator") or {}).get("version_hash", "")
+        if environment_record is None:
+            environment_record = env_here
+            validator_hash = validator_here
+        elif (validator_here != validator_hash
+              or env_here.get("config_fingerprint")
+              != environment_record.get("config_fingerprint")
+              or env_here.get("trustsight_version")
+              != environment_record.get("trustsight_version")):
+            raise ValueError(
+                f"{path.name}: shard was measured under a different instrument")
+
+        for entry in data.get("results") or []:
+            if not (isinstance(entry, list) and len(entry) == 2):
+                raise ValueError(f"{path.name}: malformed result entry")
+            index, result = entry
+            if not isinstance(index, int) or not (0 <= index < len(items)):
+                raise ValueError(
+                    f"{path.name}: result index {index!r} is out of range")
+            if index % total != part:
+                raise ValueError(
+                    f"{path.name}: index {index} does not belong to "
+                    f"shard {part}/{total}")
+            if results[index] is not None:
+                raise ValueError(f"duplicate result for index {index}")
+            results[index] = result
+
+    missing = sorted(set(range(total)) - seen) if total is not None else []
+    if missing:
+        raise ValueError(f"missing shards {missing} of {total}")
+    if any(result is None for result in results):
+        raise ValueError("a shard did not produce every result it owns")
+
+    _drop_empty_rule_lists(results)
+    _update_archive(repo_root, env, behavior, items, results)
+
+    report = _build_report(
+        environment_record or env.to_record(),
+        validator_hash or behavior.version_hash,
+        results,
+    )
     (work / "report.json").write_text(json.dumps(report, indent=2, sort_keys=True))
     return report
 

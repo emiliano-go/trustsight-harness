@@ -9,7 +9,7 @@ The harness has seven classic commands. One config, one record, one command each
 ```bash
 python -m harness <campaign-directory> [--dump-inputs DIR]
 python -m harness sweep [--jobs N] [--match GLOB]
-python -m harness regression [--environment PATH]
+python -m harness regression [--environment PATH] [--shard I/N | --merge-shards DIR]
 python -m harness coverage
 python -m harness matrix [--environment PATH]
 python -m harness benign --corpus <dir> [--sample N] [--jobs auto|N] [--no-cache]
@@ -157,6 +157,8 @@ current environment.
 | `--environment PATH` | no | Environment YAML. Defaults to `defaults/environment.yml`. |
 | `--jobs N` \| `auto` | no | Replay workers (default `1`; `auto` caps at 8). Each worker binds its own database; the merged report is identical to the serial one. |
 | `--no-cache` | no | Ignore and do not write `regression/cache.jsonl`. A result is cached only when every verdict input is in the key (diff, instrument pin, config fingerprint, validator and Judge sources, canary gaps, threshold, database state). Degraded results are never cached. |
+| `--shard I/N` | no | Replay only the bypasses whose global position is `I` modulo `N` and write `regression/shard-I.json` beside the (partial) report. Use one machine per shard. |
+| `--merge-shards DIR` | no | Stitch every `*.json` in `DIR` back into the whole-corpus `regression/report.json`. Refuses an incomplete or duplicated shard set. Mutually exclusive with `--shard`. |
 
 ### Behaviour
 
@@ -191,6 +193,21 @@ before the field existed still replays, on the reconstruction, and the report's
 
 The gate also replays the canary and one API/CLI parity check per environment, so
 a "closed" bypass is never an artefact of a broken harness.
+
+**Sharding across machines.** `--shard I/N` selects a deterministic slice by
+global position, and each shard writes its verdicts keyed by that position.
+`--merge-shards DIR` restores the whole-corpus order, verifies that every index
+is present exactly once and that every shard was measured under the same
+instrument, then updates the archive and writes the usual `report.json`. A
+shard skips the archive update because its checkout is disposable. This is the
+same partition `--jobs` uses inside one process; it simply multiplies the
+machines.
+
+```bash
+# Four CI jobs, then one merge job.
+python -m harness regression --shard 0/4 --jobs auto
+python -m harness regression --merge-shards regression/shards
+```
 
 !!! tip "A full replay writes gigabytes"
 

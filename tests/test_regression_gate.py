@@ -631,3 +631,82 @@ def test_a_result_carries_the_rules_it_was_checked_against():
         "expected_rules": ["R001", "X009"],
     })
     assert ref["expected_rules"] == ["R001", "X009"]
+
+
+def test_parse_shard_accepts_only_a_valid_slice():
+    from harness.regression import parse_shard
+
+    assert parse_shard("3/8") == (3, 8)
+    assert parse_shard("0/1") == (0, 1)
+    for bad in ("8/8", "-1/8", "3/0", "3", "x/y", ""):
+        with pytest.raises(ValueError):
+            parse_shard(bad)
+
+
+def test_shards_merge_back_to_the_whole_report(tmp_path, monkeypatch):
+    """The per-shard reports are a partition of the whole-corpus report."""
+    from harness import regression
+
+    import trustsight
+
+    items = [_cache_item(f"sha256:{letter}") for letter in "abcde"]
+    monkeypatch.setattr(regression, "_committed_bypasses", lambda _root: items)
+
+    def fake_replay(_repo_root, _env, _runner, _bash, item, **_kwargs):
+        return {"diff_hash": item["diff_hash"], "campaign": item["campaign"],
+                "original_trustsight_version": "0.13.0",
+                "state": "closed", "status": "detected",
+                "rationale": "caught", "closing_version": "0.17.4"}
+
+    monkeypatch.setattr(regression, "_replay_item", fake_replay)
+    monkeypatch.setattr(regression, "_update_archive",
+                        lambda *_args, **_kwargs: None)
+
+    repo = Path(__file__).resolve().parent.parent
+    env = {"trustsight_version": trustsight.__version__}
+    shard_dir = tmp_path / "shards"
+    shard_dir.mkdir()
+    totals = []
+    for part in range(2):
+        work = tmp_path / f"w{part}"
+        report = regression.run_regression(
+            repo, env, use_cache=False, work_dir=work, shard=(part, 2))
+        totals.append(report["total"])
+        (shard_dir / f"shard-{part}.json").write_text(
+            (work / f"shard-{part}.json").read_text())
+
+    assert totals == [3, 2]
+    merged = regression.merge_regression_shards(
+        repo, env, shard_dir, work_dir=tmp_path / "merged")
+    assert merged["total"] == 5
+    assert merged["closed"] == 5
+    assert merged["open"] == 0
+    assert (tmp_path / "merged" / "report.json").exists()
+
+
+def test_merge_refuses_an_incomplete_shard_set(tmp_path, monkeypatch):
+    """A merge that dropped a shard would report a smaller corpus as whole."""
+    from harness import regression
+
+    import trustsight
+
+    items = [_cache_item(f"sha256:{letter}") for letter in "abcd"]
+    monkeypatch.setattr(regression, "_committed_bypasses", lambda _root: items)
+    monkeypatch.setattr(regression, "_update_archive",
+                        lambda *_args, **_kwargs: None)
+
+    repo = Path(__file__).resolve().parent.parent
+    env = {"trustsight_version": trustsight.__version__}
+    shard_dir = tmp_path / "shards"
+    shard_dir.mkdir()
+    shard_file = shard_dir / "shard-0.json"
+    shard_file.write_text(json.dumps({
+        "shard": [0, 2],
+        "environment": {},
+        "validator": {"version_hash": "sha256:x"},
+        "results": [[0, {"state": "closed"}], [2, {"state": "closed"}]],
+    }) + "\n")
+
+    with pytest.raises(ValueError, match="missing shards"):
+        regression.merge_regression_shards(repo, env, shard_dir,
+                                           work_dir=tmp_path / "merged")
