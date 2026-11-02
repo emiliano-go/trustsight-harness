@@ -30,10 +30,18 @@ def write_atomic(path, text: str) -> None:
     must not leave a truncated record.
     """
     import os
+    import tempfile
     from pathlib import Path
 
     target = Path(path)
-    target.parent.mkdir(parents=True, exist_ok=True)
-    temporary = target.with_name(target.name + f".tmp.{os.getpid()}")
-    temporary.write_text(text, encoding="utf-8")
-    os.replace(temporary, target)
+    target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    fd, name = tempfile.mkstemp(
+        prefix=target.name + ".", suffix=".tmp", dir=str(target.parent))
+    temporary = Path(name)
+    try:
+        os.fchmod(fd, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            handle.write(text)
+        os.replace(temporary, target)
+    finally:
+        temporary.unlink(missing_ok=True)

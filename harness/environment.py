@@ -18,6 +18,7 @@ import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .paths import write_atomic
 from .bounded import (
     MAX_ARTIFACT_BYTES,
     MAX_CACHE_BYTES,
@@ -250,8 +251,8 @@ class Environment:
         # Idempotent: bind runs in both the parent and the worker on the same
         # config dir, so drop any previous override before writing the current.
         body = re.sub(r"(?m)^strict\s*=.*$", "", tail).lstrip("\n")
-        path.write_text(
-            head + f"{marker}\nstrict = {int(self.flag_threshold)}\n" + body)
+        write_atomic(
+            path, head + f"{marker}\nstrict = {int(self.flag_threshold)}\n" + body)
 
     # -- per-attempt isolation ---------------------------------------
 

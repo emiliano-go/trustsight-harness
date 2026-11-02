@@ -49,6 +49,12 @@ def build_generator(config, repo_root: Path):
         prices = load_prices(within(repo_root,
                                     spec.pop("prices_path", "defaults/prices.toml"),
                                     "generator.prices_path"))
+        allowed = {"provider", "model", "max_cost_usd", "temperature"}
+        unknown = sorted(set(spec) - allowed)
+        if unknown:
+            raise ValueError(
+                "llm generator may not choose network or secret keys: "
+                + ", ".join(unknown))
         return LLMGenerator(prices=prices,
                             thinking_dir=config.root / "thinking", **spec)
     raise ValueError(f"unknown generator type {kind!r}")
