@@ -431,7 +431,8 @@ def run_regression(repo_root: Path, environment: dict, jobs=1,
 
 def merge_regression_shards(repo_root: Path, environment: dict,
                             shard_dir: Path,
-                            work_dir: Path | None = None) -> dict:
+                            work_dir: Path | None = None,
+                            update_archive: bool = True) -> dict:
     """Stitch per-shard result files into the whole-corpus report.
 
     Every shard is checked to own the indices it claims and the set of shards
@@ -510,7 +511,11 @@ def merge_regression_shards(repo_root: Path, environment: dict,
         raise ValueError("a shard did not produce every result it owns")
 
     _drop_empty_rule_lists(results)
-    _update_archive(repo_root, env, behavior, items, results)
+    # A CI merge runs in a disposable checkout and never publishes
+    # archive.json, so re-validating every bypass here is pure cost.  The
+    # default keeps the side effect for a local, committed run.
+    if update_archive:
+        _update_archive(repo_root, env, behavior, items, results)
 
     report = _build_report(
         environment_record or env.to_record(),

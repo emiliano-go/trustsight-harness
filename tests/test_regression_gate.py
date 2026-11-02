@@ -659,8 +659,9 @@ def test_shards_merge_back_to_the_whole_report(tmp_path, monkeypatch):
                 "rationale": "caught", "closing_version": "0.17.4"}
 
     monkeypatch.setattr(regression, "_replay_item", fake_replay)
+    archive_calls = []
     monkeypatch.setattr(regression, "_update_archive",
-                        lambda *_args, **_kwargs: None)
+                        lambda *_args, **_kwargs: archive_calls.append(1))
 
     repo = Path(__file__).resolve().parent.parent
     env = {"trustsight_version": trustsight.__version__}
@@ -677,8 +678,10 @@ def test_shards_merge_back_to_the_whole_report(tmp_path, monkeypatch):
 
     assert totals == [3, 2]
     merged = regression.merge_regression_shards(
-        repo, env, shard_dir, work_dir=tmp_path / "merged")
+        repo, env, shard_dir, work_dir=tmp_path / "merged",
+        update_archive=False)
     assert merged["total"] == 5
+    assert archive_calls == [], "a disposable merge must not touch the archive"
     assert merged["closed"] == 5
     assert merged["open"] == 0
     assert (tmp_path / "merged" / "report.json").exists()

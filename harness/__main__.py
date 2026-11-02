@@ -124,6 +124,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--merge-shards", metavar="DIR",
                         help="regression: merge the shard-*.json files in DIR "
                              "into the whole-corpus report.json")
+    parser.add_argument("--no-archive", action="store_true",
+                        help="regression merge: do not update archive.json "
+                             "(a disposable CI checkout never publishes it)")
     args = parser.parse_args(argv_list)
 
     calibration = _calibration_status()
@@ -154,7 +157,8 @@ def main(argv: list[str] | None = None) -> int:
                 env_path, MAX_ARTIFACT_BYTES, "environment.yml"))
             if args.merge_shards:
                 report = merge_regression_shards(
-                    REPO_ROOT, environment, Path(args.merge_shards))
+                    REPO_ROOT, environment, Path(args.merge_shards),
+                    update_archive=not args.no_archive)
                 prefix = "Merged shards: "
             else:
                 shard = parse_shard(args.shard) if args.shard else None

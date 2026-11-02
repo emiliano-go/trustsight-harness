@@ -159,6 +159,7 @@ current environment.
 | `--no-cache` | no | Ignore and do not write `regression/cache.jsonl`. A result is cached only when every verdict input is in the key (diff, instrument pin, config fingerprint, validator and Judge sources, canary gaps, threshold, database state). Degraded results are never cached. |
 | `--shard I/N` | no | Replay only the bypasses whose global position is `I` modulo `N` and write `regression/shard-I.json` beside the (partial) report. Use one machine per shard. |
 | `--merge-shards DIR` | no | Stitch every `*.json` in `DIR` back into the whole-corpus `regression/report.json`. Refuses an incomplete or duplicated shard set. Mutually exclusive with `--shard`. |
+| `--no-archive` | no | With `--merge-shards`, skip the `archive.json` update. A disposable CI checkout never publishes it. |
 
 ### Behaviour
 
