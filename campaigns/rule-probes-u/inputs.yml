@@ -1,0 +1,33 @@
+cells:
+- id: U002-positive
+  path: fixtures/rule-probes/diffs/073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f.diff
+  expect_fire:
+  - U002
+- id: U002-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - U002
+- id: U003-positive
+  path: fixtures/rule-probes/diffs/073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f.diff
+  expect_fire:
+  - U003
+- id: U003-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - U003
+- id: U006-positive
+  path: fixtures/rule-probes/diffs/073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f.diff
+  expect_fire:
+  - U006
+- id: U006-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - U006
+- id: U010-positive
+  path: fixtures/rule-probes/diffs/b59b940fa93cc9d513e4b3ecc86f22e3f1126446f84ba9ded82f4624d86d8931.diff
+  expect_fire:
+  - U010
+- id: U010-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - U010

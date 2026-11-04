@@ -1,0 +1,34 @@
+campaign: rule-probes-r
+campaign_type: rule-probe
+environment:
+  trustsight_version: 0.27.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: raw-diff
+prompt:
+  prompt_id: rule-probes-r
+  expected_rules:
+  - R001
+  - R002
+  - R003
+  - R007
+  - R008
+  - R010
+  - R011
+  - R012
+  - R013
+  - R039
+  - R043
+  - R047
+  - R051
+  - R052
+  - R053
+  - R054
+  - R058
+  - R059
+  - R099
+  - R152
+  forbidden_techniques: {}
+attempts: 40

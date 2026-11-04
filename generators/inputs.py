@@ -90,7 +90,8 @@ class InputsGenerator(Generator):
         self._generated: list[Generated] = []
         seen: set[str] = set()
         for index, cell in enumerate(cells):
-            cell_id, text = self._render_cell(cell, index, template)
+            cell_id, text, expect_fire, expect_absent = self._render_cell(
+                cell, index, template)
             if cell_id in seen:
                 raise ValueError(f"duplicate cell id {cell_id!r}")
             seen.add(cell_id)
@@ -100,25 +101,43 @@ class InputsGenerator(Generator):
             self._texts.append(text)
             self._generated.append(Generated(
                 diff=diff_against_baseline(text, self.baseline),
-                new_text=text, old_text=self.baseline))
+                new_text=text, old_text=self.baseline,
+                expect_fire=expect_fire, expect_absent=expect_absent))
 
-    def _render_cell(self, cell, index: int, template: str | None) -> tuple[str, str]:
+    @staticmethod
+    def _expect_list(cell: dict, key: str, cell_id: str) -> tuple[str, ...]:
+        value = cell.get(key)
+        if value is None:
+            return ()
+        if not isinstance(value, list) or not all(
+                isinstance(item, str) and item for item in value):
+            raise ValueError(f"cell {cell_id!r}: {key} must be a list of rule ids")
+        return tuple(value)
+
+    def _render_cell(self, cell, index: int, template: str | None
+                     ) -> tuple[str, str, tuple[str, ...], tuple[str, ...]]:
         where = f"cell {index}"
         if not isinstance(cell, dict):
             raise ValueError(  # noqa: TRY004 - a config error, not a Python type error
                 f"{where} must be a mapping")
-        allowed = {"id", "vars"} if template is not None else {"id", "text"}
+        allowed = {"id", "vars", "expect_fire", "expect_absent"} if template is not None \
+            else {"id", "text", "expect_fire", "expect_absent"}
         unknown = set(cell) - allowed
         if unknown:
             raise ValueError(f"{where}: unknown keys {sorted(unknown)}")
         cell_id = cell.get("id")
         if not isinstance(cell_id, str) or not _ID.match(cell_id):
             raise ValueError(f"{where}: id must match [A-Za-z0-9][A-Za-z0-9._-]*")
+        expect_fire = self._expect_list(cell, "expect_fire", cell_id)
+        expect_absent = self._expect_list(cell, "expect_absent", cell_id)
+        if set(expect_fire) & set(expect_absent):
+            raise ValueError(f"cell {cell_id!r}: a rule cannot be both expected "
+                             "and absent")
         if template is None:
             text = cell.get("text")
             if not isinstance(text, str) or not text:
                 raise ValueError(f"cell {cell_id!r}: text must be a non-empty string")
-            return cell_id, text
+            return cell_id, text, expect_fire, expect_absent
         variables = cell.get("vars")
         if not isinstance(variables, dict):
             raise ValueError(  # noqa: TRY004 - a config error, not a Python type error
@@ -137,7 +156,7 @@ class InputsGenerator(Generator):
                              f"{sorted(provided - expected)}")
         # One pass, so a value that itself contains an @@token@@ is data.
         text = _PLACEHOLDER.sub(lambda m: variables[m.group(1)], template)
-        return cell_id, text
+        return cell_id, text, expect_fire, expect_absent
 
     def __len__(self) -> int:
         return len(self._generated)

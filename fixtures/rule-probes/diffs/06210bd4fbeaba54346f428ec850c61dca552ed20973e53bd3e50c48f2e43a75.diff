@@ -1,0 +1,210 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index fdec4cbfe988..17f99b7f4c50 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,45 +1,45 @@
+ pkgbase = megasync
+ 	pkgdesc = Official MEGA desktop application for syncing with MEGA Cloud Drive
+-	pkgver = 5.6.1.0
++	pkgver = 5.7.0.0
+ 	pkgrel = 1
+ 	url = https://github.com/meganz/MEGAsync/
+ 	arch = x86_64
+ 	license = LicenseRef-Mega-Limited-Code-License
+ 	makedepends = git
+ 	makedepends = cmake
+ 	makedepends = qt5-tools
+ 	depends = c-ares
+ 	depends = crypto++
+ 	depends = curl
+ 	depends = ffmpeg
+ 	depends = freeimage
+ 	depends = hicolor-icon-theme
+ 	depends = icu
+ 	depends = libmediainfo
+ 	depends = libpdfium
+ 	depends = libsodium
+ 	depends = libuv
+ 	depends = libxcb
+ 	depends = libzen
+ 	depends = openssl
+ 	depends = qt5-base
+ 	depends = qt5-declarative
+ 	depends = qt5-graphicaleffects
+ 	depends = qt5-quickcontrols
+ 	depends = qt5-quickcontrols2
+ 	depends = qt5-svg
+ 	depends = qt5-x11extras
+ 	depends = sqlite
+ 	depends = zlib
+-	source = git+https://github.com/meganz/MEGAsync.git#tag=v5.6.1.0_Linux
++	source = git+https://github.com/meganz/MEGAsync.git#tag=v5.7.0.0_OSX
+ 	source = meganz-sdk::git+https://github.com/meganz/sdk.git
+ 	source = 010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch
+ 	source = 020-megasync-sdk-fix-cmake-dependencies-detection.patch
+ 	source = 030-megasync-app-fix-cmake-dependencies-detection.patch
+-	sha256sums = 0a25283efac4088acd2eb1ba2ec60dcd7064ca81d3cae2e1a816b56e94477a11
++	sha256sums = a9741ea6051c69e1d62359d06f4d0025401002d44f1edcc43e5793a2b2418abe
+ 	sha256sums = SKIP
+-	sha256sums = bbb7483b2257ff3c1bea4f771b424d2976c5884930d8ebd71101306ff89429c0
+-	sha256sums = 2da83bb6a20aa19b58b4115646bacb9d76e2504b45b5094abeba94beac2301fb
++	sha256sums = ed191eba0bf731827d546fd93383267429a8e911faf30b98bf022ad1f9ce0bcb
++	sha256sums = a2d4c9040282f51e81a9d37d9875d4a9febb1ff1f6af452210be581f0eaa63a7
+ 	sha256sums = a5883be2d00dbacaacf78231bfeeac27f4e8a471c3256370e94fec3e55b1d171
+ 
+ pkgname = megasync
+diff --git a/010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch b/010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch
+index 782e1b7a4d21..c5669abf7c07 100644
+--- a/010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch
++++ b/010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch
+@@ -1,26 +1,26 @@
+ --- a/src/gfx/freeimage.cpp
+ +++ b/src/gfx/freeimage.cpp
+-@@ -202,12 +202,6 @@ bool GfxProviderFreeImage::readbitmapFre
++@@ -216,12 +216,6 @@ bool GfxProviderFreeImage::readbitmapFre
+  
+  #ifdef HAVE_FFMPEG
+  
+ -#ifdef AV_CODEC_CAP_TRUNCATED
+ -#define CAP_TRUNCATED AV_CODEC_CAP_TRUNCATED
+ -#else
+ -#define CAP_TRUNCATED CODEC_CAP_TRUNCATED
+ -#endif
+ -
+  const char *GfxProviderFreeImage::supportedformatsFfmpeg()
+  {
+      return  ".264.265.3g2.3gp.3gpa.3gpp.3gpp2.mp3"
+-@@ -309,10 +303,6 @@ bool GfxProviderFreeImage::readbitmapFfm
++@@ -323,10 +317,6 @@ bool GfxProviderFreeImage::readbitmapFfm
+  
+      // Force seeking to key frames
+      formatContext->seek2any = false;
+ -    if (decoder->capabilities & CAP_TRUNCATED)
+ -    {
+ -        codecContext->flags |= CAP_TRUNCATED;
+ -    }
+  
+      AVPixelFormat sourcePixelFormat = static_cast<AVPixelFormat>(codecParm->format);
+      AVPixelFormat targetPixelFormat = AV_PIX_FMT_BGR24; //raw data expected by freeimage is in this format
+diff --git a/020-megasync-sdk-fix-cmake-dependencies-detection.patch b/020-megasync-sdk-fix-cmake-dependencies-detection.patch
+index 260e33f1860a..87f64a2a9b11 100644
+--- a/020-megasync-sdk-fix-cmake-dependencies-detection.patch
++++ b/020-megasync-sdk-fix-cmake-dependencies-detection.patch
+@@ -1,20 +1,20 @@
+---- a/contrib/cmake/modules/sdklib_libraries.cmake
+-+++ b/contrib/cmake/modules/sdklib_libraries.cmake
++--- a/cmake/modules/sdklib_libraries.cmake
+++++ b/cmake/modules/sdklib_libraries.cmake
+ @@ -95,7 +95,7 @@ macro(load_sdklib_libraries)
+  
+          find_package(PkgConfig REQUIRED) # For libraries loaded using pkg-config
+  
+ -        pkg_check_modules(cryptopp REQUIRED IMPORTED_TARGET libcrypto++)
+ +        pkg_check_modules(cryptopp REQUIRED IMPORTED_TARGET libcryptopp)
+          target_link_libraries(SDKlib PUBLIC PkgConfig::cryptopp) # TODO: Private for SDK core
+  
+          pkg_check_modules(sodium REQUIRED IMPORTED_TARGET libsodium)
+ @@ -139,7 +139,7 @@ macro(load_sdklib_libraries)
+          endif()
+  
+          if(USE_PDFIUM)
+ -            pkg_check_modules(pdfium REQUIRED IMPORTED_TARGET pdfium)
+ +            pkg_check_modules(pdfium REQUIRED IMPORTED_TARGET libpdfium)
+              target_link_libraries(SDKlib PRIVATE PkgConfig::pdfium)
+              set(HAVE_PDFIUM 1)
+          endif()
+diff --git a/PKGBUILD b/PKGBUILD
+index cc0bc9026cf7..6e0202739fbf 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,81 +1,79 @@
+ # Maintainer : Daniel Bermond <dbermond@archlinux.org>
+ # Contributor: Rafał Kozdrój <kozeid2+aur@gmail.com>
+ # Contributor: kikadf <kikadf.01@gmail.com>
+ # Contributor: Daniel Henry <d at hackr dot pl>
+ # Contributor: Miguel Revilla <yo at  miguelrevilla dot com>
+ # Contributor: Alfonso Saavedra "Son Link" <sonlink.dourden@gmail.com>
+ # Contributor: Hexchain Tong <i at hexchain dot org>
+ 
+ pkgname=megasync
+-pkgver=5.6.1.0
++pkgver=5.7.0.0
+ pkgrel=1
+ pkgdesc='Official MEGA desktop application for syncing with MEGA Cloud Drive'
+ arch=('x86_64')
+ url='https://github.com/meganz/MEGAsync/'
+ license=('LicenseRef-Mega-Limited-Code-License')
+ depends=('c-ares'
+          'crypto++'
+          'curl'
+          'ffmpeg'
+          'freeimage'
+          'hicolor-icon-theme'
+          'icu'
+          'libmediainfo'
+          'libpdfium'
+          'libsodium'
+          'libuv'
+          'libxcb'
+          'libzen'
+          'openssl'
+          'qt5-base'
+          'qt5-declarative'
+          'qt5-graphicaleffects'
+          'qt5-quickcontrols'
+          'qt5-quickcontrols2'
+          'qt5-svg'
+          'qt5-x11extras'
+          'sqlite'
+          'zlib'
+ )
+ makedepends=('git' 'cmake' 'qt5-tools')
+-source=("git+https://github.com/meganz/MEGAsync.git#tag=v${pkgver}_Linux"
++source=("git+https://github.com/meganz/MEGAsync.git#tag=v${pkgver}_OSX"
+         'meganz-sdk'::'git+https://github.com/meganz/sdk.git'
+         '010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch'
+         '020-megasync-sdk-fix-cmake-dependencies-detection.patch'
+         '030-megasync-app-fix-cmake-dependencies-detection.patch')
+-sha256sums=('0a25283efac4088acd2eb1ba2ec60dcd7064ca81d3cae2e1a816b56e94477a11'
++sha256sums=('a9741ea6051c69e1d62359d06f4d0025401002d44f1edcc43e5793a2b2418abe'
+             'SKIP'
+-            'bbb7483b2257ff3c1bea4f771b424d2976c5884930d8ebd71101306ff89429c0'
+-            '2da83bb6a20aa19b58b4115646bacb9d76e2504b45b5094abeba94beac2301fb'
++            'ed191eba0bf731827d546fd93383267429a8e911faf30b98bf022ad1f9ce0bcb'
++            'a2d4c9040282f51e81a9d37d9875d4a9febb1ff1f6af452210be581f0eaa63a7'
+             'a5883be2d00dbacaacf78231bfeeac27f4e8a471c3256370e94fec3e55b1d171')
+ 
+ prepare() {
+     #git -C MEGAsync submodule init
+     #git -C MEGAsync config --local submodule.src/MEGASync/mega.url "${srcdir}/meganz-sdk"
+     #git -C MEGAsync -c protocol.file.allow='always' submodule update
+     
+     # https://github.com/meganz/MEGAsync/issues/1010
+-    # https://github.com/meganz/MEGAsync/blob/v5.6.1.0_Linux/src/MEGASync/control/Version.h
+-    # https://github.com/meganz/MEGAsync/commit/8bc07bd1762c483a5626895ef5614c624cb527f4
+-    # besides upstream issue #1010, there is no public commit ecc873026fcc0355f6d490b8529c9f22d5a4fd8c in the sdk git repository, using nearest tag
++    # https://github.com/meganz/MEGAsync/blob/v5.7.0.0_OSX/src/MEGASync/control/Version.h#L20-L21
+     git -C meganz-sdk config advice.detachedHead false
+-    git -C meganz-sdk checkout v7.12.0
++    git -C meganz-sdk checkout 81f2d1cde975859ff264c66b808cfa855f79ae82
+     rm -r MEGAsync/src/MEGASync/mega
+     ln -sf ../../../meganz-sdk MEGAsync/src/MEGASync/mega
+     
+     patch -d MEGAsync/src/MEGASync/mega -Np1 -i "${srcdir}/010-megasync-freeimage-remove-obsolete-ffmpeg-macros.patch"
+     patch -d MEGAsync/src/MEGASync/mega -Np1 -i "${srcdir}/020-megasync-sdk-fix-cmake-dependencies-detection.patch"
+     patch -d MEGAsync -Np1 -i "${srcdir}/030-megasync-app-fix-cmake-dependencies-detection.patch"
+ }
+ 
+ build() {
+-    export CXXFLAGS+=' -DNDEBUG'
++    export CXXFLAGS+=' -DNDEBUG -isystem/usr/include/pdfium'
+     cmake -B build -S MEGAsync \
+         -G 'Unix Makefiles' \
+         -DCMAKE_BUILD_TYPE:STRING='None' \
+-        -DCMAKE_MODULE_PATH:PATH="${srcdir}/MEGAsync/src/MEGASync/mega/contrib/cmake/modules/packages" \
++        -DCMAKE_MODULE_PATH:PATH="${srcdir}/MEGAsync/src/MEGASync/mega/cmake/modules/packages" \
+         -DCMAKE_SKIP_INSTALL_RPATH:BOOL='YES' \
+         -DENABLE_DESIGN_TOKENS_IMPORTER:BOOL='OFF' \
+         -Wno-dev
+     cmake --build build --target MEGAsync
+ }

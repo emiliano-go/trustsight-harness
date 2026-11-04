@@ -30,3 +30,33 @@ def test_raw_diff_generator_yields_committed_diffs(tmp_path):
     assert produced.new_text is None
     assert produced.diff == "diff --git a/x b/x\n"
     assert generator.describe()["cells"] == 1
+
+
+def test_raw_diff_generator_reads_a_committed_multi_file_diff(tmp_path):
+    from harness.paths import within
+
+    fixture = tmp_path / "fixtures" / "rule.diff"
+    fixture.parent.mkdir()
+    fixture.write_text(
+        "diff --git a/PKGBUILD b/PKGBUILD\n"
+        "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1 @@\n-pkgrel=1\n+pkgrel=2\n"
+        "diff --git a/demo.service b/demo.service\n"
+        "--- /dev/null\n+++ b/demo.service\n@@ -0,0 +1 @@\n+[Unit]\n")
+    manifest = tmp_path / "inputs.yml"
+    manifest.write_text(
+        "cells:\n"
+        "- id: positive\n"
+        "  path: fixtures/rule.diff\n"
+        "  expect_fire: [H027]\n"
+        "- id: negative\n"
+        "  path: fixtures/rule.diff\n"
+        "  expect_absent: [H027]\n")
+    generator = RawDiffGenerator(manifest, campaign_root=tmp_path,
+                                 repo_root=tmp_path, resolve=within)
+    positive = generator.generate(SimpleNamespace(), 0)
+    negative = generator.generate(SimpleNamespace(), 1)
+    assert positive.expect_fire == ("H027",)
+    assert positive.expect_absent == ()
+    assert negative.expect_fire == ()
+    assert negative.expect_absent == ("H027",)
+    assert "demo.service" in positive.diff

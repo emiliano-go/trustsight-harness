@@ -1,0 +1,125 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 1813226f0939..fa0d723a737e 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,15 +1,16 @@
+ pkgbase = abook
+ 	pkgdesc = Text-based addressbook designed for use with Mutt
+-	pkgver = 0.6.1
+-	pkgrel = 7
++	pkgver = 0.6.2+r8+gb5e4a4daec1c
++	pkgrel = 1
+ 	url = http://abook.sourceforge.net/
+ 	arch = x86_64
+-	license = GPL-2.0-only
++	arch = aarch64
++	license = GPL-3.0-only
+ 	makedepends = git
++	depends = glibc
++	depends = ncurses
+ 	depends = readline
+-	source = http://abook.sourceforge.net/devel/abook-0.6.1.tar.gz
+-	source = gcc5.patch
+-	sha256sums = f0a90df8694fb34685ecdd45d97db28b88046c15c95e7b0700596028bd8bc0f9
+-	sha256sums = 1eb89bc9ec6d4baed8a44d1ac9a8fb57742423e0699f26f354e810dfc63052cb
++	source = abook::git+https://git.code.sf.net/p/abook/git#commit=b5e4a4daec1c7842e214b50a0f267e07d9792311
++	b2sums = 6f2e844d5f506928155b031417ea34636e45efe71ecb6efbc51c56406ecbf939acaae050ff8e0da644a0dc19a71b515f7023e34972d25df92407d854bbadcf8a
+ 
+ pkgname = abook
+diff --git a/PKGBUILD b/PKGBUILD
+index 91cc7333d3a0..fddb01e81773 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,38 +1,41 @@
+ # Contributor: Gaetan Bisson <bisson@archlinux.org>
+ # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
+ # Contributor: Thayer Williams <thayer@archlinux.org>
+ # Contributor: damir <damir@archlinux.org>
+ 
+ pkgname=abook
+-pkgver=0.6.1
+-pkgrel=7
++pkgver=0.6.2+r8+gb5e4a4daec1c
++_commit=b5e4a4daec1c7842e214b50a0f267e07d9792311
++pkgrel=1
+ pkgdesc='Text-based addressbook designed for use with Mutt'
+ url='http://abook.sourceforge.net/'
+-arch=('x86_64')
+-license=('GPL-2.0-only')
+-makedepends=('git')
+-depends=('readline')
+-source=("http://abook.sourceforge.net/devel/${pkgname}-${pkgver}.tar.gz"
+-        'gcc5.patch')
+-sha256sums=('f0a90df8694fb34685ecdd45d97db28b88046c15c95e7b0700596028bd8bc0f9'
+-            '1eb89bc9ec6d4baed8a44d1ac9a8fb57742423e0699f26f354e810dfc63052cb')
++arch=(x86_64 aarch64)
++license=(GPL-3.0-only)
++makedepends=(git)
++depends=(glibc ncurses readline)
++source=("$pkgname::git+https://git.code.sf.net/p/abook/git#commit=${_commit}")
++b2sums=('6f2e844d5f506928155b031417ea34636e45efe71ecb6efbc51c56406ecbf939acaae050ff8e0da644a0dc19a71b515f7023e34972d25df92407d854bbadcf8a')
++
++pkgver() {
++  cd "$pkgname"
++  git describe --abbrev=12 --tags | sed 's/[^_]*_//;s/_/./g;s/[^-]*-/&r/;s/-/+/g'
++}
+ 
+ prepare() {
+-	cd "${srcdir}/${pkgname}-${pkgver}"
+-	# update gettext infrastructure
+-	cp -Rv /usr/share/gettext/po .
+-	aclocal && automake --add-missing && autoconf
+-	patch -p1 -i ../gcc5.patch
++  cd "$pkgname"
++  # update gettext infrastructure
++  cp -Rv /usr/share/gettext/po .
++  aclocal && automake --add-missing && autoconf
+ }
+ 
+ build() {
+-	cd "${srcdir}/${pkgname}-${pkgver}"
+-	./configure --prefix=/usr --mandir=/usr/share/man
+-	make
+-	cd po && make update-po
++  cd "$pkgname"
++  ./configure --prefix=/usr --mandir=/usr/share/man
++  make
++  cd po && make update-po
+ }
+ 
+ package() {
+-	cd "${srcdir}/${pkgname}-${pkgver}"
+-	make DESTDIR="${pkgdir}" install
++  cd "$pkgname"
++  make DESTDIR="$pkgdir" install
+ }
+diff --git a/gcc5.patch b/gcc5.patch
+deleted file mode 100644
+index e7422187e3db..000000000000
+--- a/gcc5.patch
++++ /dev/null
+@@ -1,24 +0,0 @@
+-diff -up abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.c.gcc5 abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.c
+---- abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.c.gcc5	2014-11-28 16:29:52.000000000 +0100
+-+++ abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.c	2015-02-11 16:02:15.837789303 +0100
+-@@ -859,7 +859,7 @@ item_merge(list_item dest, list_item src
+-  */
+- 
+- /* quick lookup by "standard" field number */
+--inline int
+-+extern inline int
+- field_id(int i)
+- {
+- 	assert((i >= 0) && (i < ITEM_FIELDS));
+-diff -up abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.h.gcc5 abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.h
+---- abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.h.gcc5	2014-11-28 16:29:52.000000000 +0100
+-+++ abook-git-6e550af8a907a680dc845c22a7d6c36d89e900c1/database.h	2015-02-11 16:02:23.465818915 +0100
+-@@ -61,7 +61,7 @@ struct db_enumerator {
+- /*
+-  * Field operations
+-  */
+--inline int field_id(int i);
+-+extern inline int field_id(int i);
+- abook_field *find_standard_field(char *key, int do_declare);
+- abook_field *real_find_field(char *key, abook_field_list *list, int *nb);
+- #define find_field(key, list)		real_find_field(key, list, NULL)

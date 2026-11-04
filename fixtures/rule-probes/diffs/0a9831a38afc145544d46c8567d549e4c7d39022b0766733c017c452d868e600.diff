@@ -1,0 +1,520 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 169472974652..3db1da9b7bc6 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,19 +1,28 @@
+ pkgbase = autofirma
+-	pkgdesc = Spanish Government digital signature client
++	pkgdesc = Cliente de firma electrónica ofrecido por la Administración Pública
+ 	pkgver = 1.6.5
+-	pkgrel = 2
+-	url = http://firmaelectronica.gob.es
+-	arch = i686
+-	arch = x86_64
++	pkgrel = 3
++	url = https://firmaelectronica.gob.es/
++	arch = any
+ 	license = GPL
+-	license = EUPL
+-	makedepends = binutils
+-	depends = java-runtime=8
++	license = custom:EUPL
++	makedepends = jdk11-openjdk
++	makedepends = maven
++	depends = java-runtime
+ 	depends = nss
+-	depends = firefox
+-	source = http://estaticos.redsara.es/comunes/autofirma/currentversion/AutoFirma_Linux.zip
+-	md5sums = 35622984239cad1b959a998b88224a02
+-	sha512sums = 927b67a93c111f1d040e38d26122f7a9d7b8d41599da776fa2895fd97409696d4a97663f4b5b4fea32e6d613e21f104cabd2c860f719954cf954e081dc3a727d
++	conflicts = autofirma-bin
++	source = autofirma-1.6.5.tar.gz::https://github.com/ctt-gob-es/clienteafirma/archive/v1.6.5.tar.gz
++	source = autofirma
++	source = autofirma.desktop
++	source = autofirma.js
++	source = autofirma.svg
++	source = eupl-1.1.txt
++	sha256sums = 0a7c931dae09f947c513865095ee4195d76bc91831533aee8cdcc4dea58b6b41
++	sha256sums = ab40c32a083bf6429580b057b21ab8341f8d819cedd91cd52b92fe5ae40212c9
++	sha256sums = 062cf72219e592e06218e47ea2a212d6517be66f0d4c58dcd03ef18d5c39300b
++	sha256sums = 428c5b7300dde7158a1a0918c8d2e8188f042dbc143d991c03f51d1c8a40efa4
++	sha256sums = f7e525586103db08a2a38ccefdef93cc02407728de8b214e53ae3dc0631bab75
++	sha256sums = aca6223a4e13f5470a575f6efe83b784127a8f2373cbe407938b45543daf2995
+ 
+ pkgname = autofirma
+ 
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 000000000000..d13e9402090d
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,9 @@
++*
++!autofirma
++!autofirma.desktop
++!autofirma.js
++!autofirma.svg
++!eupl-1.1.txt
++!.gitignore
++!PKGBUILD
++!.SRCINFO
+diff --git a/PKGBUILD b/PKGBUILD
+index 9f5d62f60907..917fa3fa95dd 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,36 +1,47 @@
+-# Maintainer: Miguel Revilla <yo at miguelrevilla dot com>
++# Maintainer: "Amhairghin" Oscar Garcia Amor (https://ogarcia.me)
++# Contributor: Miguel Revilla <yo at miguelrevilla dot com>
+ # Contributor: Musikolo <musikolo at protonmail dot com>
+ 
++_pkgname=clienteafirma
+ pkgname=autofirma
+ pkgver=1.6.5
+-pkgrel=2
+-pkgdesc='Spanish Government digital signature client'
+-arch=('i686' 'x86_64')
+-url='http://firmaelectronica.gob.es'
+-license=('GPL' 'EUPL')
+-depends=('java-runtime=8' 'nss' 'firefox')
+-makedepends=('binutils')
+-source=('http://estaticos.redsara.es/comunes/autofirma/currentversion/AutoFirma_Linux.zip')
+-md5sums=('35622984239cad1b959a998b88224a02')
+-sha512sums=('927b67a93c111f1d040e38d26122f7a9d7b8d41599da776fa2895fd97409696d4a97663f4b5b4fea32e6d613e21f104cabd2c860f719954cf954e081dc3a727d')
+-
+-prepare() {
+-	ar -x AutoFirma_`echo "${pkgver}"| tr '.' '_'`.deb
+-	tar -xf data.tar.xz
++pkgrel=3
++pkgdesc='Cliente de firma electrónica ofrecido por la Administración Pública'
++arch=('any')
++url='https://firmaelectronica.gob.es/'
++license=('GPL' 'custom:EUPL')
++depends=('java-runtime' 'nss')
++makedepends=('jdk11-openjdk' 'maven')
++conflicts=('autofirma-bin')
++source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ctt-gob-es/${_pkgname}/archive/v${pkgver}.tar.gz"
++        "autofirma"
++        "autofirma.desktop"
++        "autofirma.js"
++        "autofirma.svg"
++        "eupl-1.1.txt")
++sha256sums=('0a7c931dae09f947c513865095ee4195d76bc91831533aee8cdcc4dea58b6b41'
++            'ab40c32a083bf6429580b057b21ab8341f8d819cedd91cd52b92fe5ae40212c9'
++            '062cf72219e592e06218e47ea2a212d6517be66f0d4c58dcd03ef18d5c39300b'
++            '428c5b7300dde7158a1a0918c8d2e8188f042dbc143d991c03f51d1c8a40efa4'
++            'f7e525586103db08a2a38ccefdef93cc02407728de8b214e53ae3dc0631bab75'
++            'aca6223a4e13f5470a575f6efe83b784127a8f2373cbe407938b45543daf2995')
++build() {
++  cd "${_pkgname}-${pkgver}"
++  export PATH="/usr/lib/jvm/java-11-openjdk/bin/:$PATH"
++  mvn clean install -Denv=install -Dmaven.test.skip=true
+ }
+ 
+ package() {
+-	mkdir -p "${pkgdir}"/usr/lib/firefox/defaults/pref/
+-	cp -d --no-preserve=ownership etc/firefox/pref/AutoFirma.js "${pkgdir}"/usr/lib/firefox/defaults/pref/
+-	cp -dr --no-preserve=ownership usr "${pkgdir}"/
+-
+-	mkdir -p "${pkgdir}"/usr/share/licenses/autofirma/
+-	ln -s /usr/share/doc/AutoFirma/copyright "${pkgdir}"/usr/share/licenses/autofirma/LICENSE
+-
+-    java -jar "${pkgdir}"/usr/lib/AutoFirma/AutoFirmaConfigurador.jar
+-	mkdir -p "${pkgdir}"/usr/share/ca-certificates/trust-source/anchors
+-	mv "${pkgdir}"/usr/lib/AutoFirma/AutoFirma_ROOT.cer "${pkgdir}"/usr/share/ca-certificates/trust-source/anchors/AutoFirma_ROOT.cer
+-
+-	chmod 644 "${pkgdir}"/usr/share/applications/afirma.desktop
+-	chmod 644 "${pkgdir}"/usr/share/doc/AutoFirma/copyright
++  install -Dm755 "autofirma" \
++    "${pkgdir}/usr/bin/autofirma"
++  install -Dm644 "autofirma.js" \
++    "${pkgdir}/usr/lib/firefox/defaults/pref/autofirma.js"
++  install -Dm644 "${_pkgname}-${pkgver}/afirma-simple/target/AutoFirma.jar" \
++    "${pkgdir}/usr/share/java/autofirma/autofirma.jar"
++  install -Dm644 "autofirma.svg" \
++    "${pkgdir}/usr/share/pixmaps/autofirma.svg"
++  install -Dm644 "autofirma.desktop" \
++    "${pkgdir}/usr/share/applications/autofirma.desktop"
++  install -Dm644 "eupl-1.1.txt" \
++    "${pkgdir}/usr/share/licenses/autofirma/EUPL"
+ }
+diff --git a/autofirma b/autofirma
+new file mode 100644
+index 000000000000..21ae146d9ef4
+--- /dev/null
++++ b/autofirma
+@@ -0,0 +1,135 @@
++#! /bin/bash
++_autofirma_dir="${HOME}/.afirma/AutoFirma"
++_autofirma_ca="${_autofirma_dir}/AutoFirma_ROOT.cer"
++_autofirma_pfx="${_autofirma_dir}/autofirma.pfx"
++_cert_days="3650"
++_cert_cn="AutoFirma ROOT"
++_firefox_profiles_ini="${HOME}/.mozilla/firefox/profiles.ini"
++_nssdb="sql:${HOME}/.pki/nssdb"
++
++function _make_ca_config {
++  cat << EOF > "${_temp_dir}/openssl.cnf"
++[ ca ]
++default_ca=CA_autofirma
++[ CA_autofirma ]
++dir=${_temp_dir}
++new_certs_dir=\$dir
++database=\$dir/index.txt
++serial=\$dir/serial
++crlnumber=\$dir/crlnumber
++default_days=${_cert_days}
++default_crl_days=30
++default_md=sha256
++preserve=no
++x509_extensions=usr_cert
++email_in_dn=no
++copy_extensions=copy
++[ policy_ca ]
++countryName=optional
++stateOrProvinceName=optional
++localityName=optional
++organizationName=optional
++organizationalUnitName=optional
++commonName=supplied
++emailAddress=optional
++[ req ]
++default_bits=4096
++x509_extensions=v3_ca
++distinguished_name=req_distinguished_name
++[ req_distinguished_name ]
++commonName_default=${_cert_cn}
++[ usr_cert ]
++basicConstraints=CA:FALSE
++subjectKeyIdentifier=hash
++authorityKeyIdentifier=keyid:always,issuer:always
++subjectAltName=IP:127.0.0.1
++[ v3_ca ]
++basicConstraints=critical,CA:TRUE
++subjectKeyIdentifier=hash
++authorityKeyIdentifier=keyid:always,issuer:always
++keyUsage=cRLSign,digitalSignature,keyCertSign,keyEncipherment,dataEncipherment
++extendedKeyUsage=serverAuth,clientAuth,anyExtendedKeyUsage
++EOF
++touch "${_temp_dir}/index.txt"
++echo "01" > "${_temp_dir}/crlnumber"
++}
++
++function trust_ca {
++  # Add CA in shared user database
++  certutil -d "${_nssdb}" -D -n "${_cert_cn}" > /dev/null 2>&1
++  certutil -d "${_nssdb}" -A -i "${_autofirma_ca}" -n "${_cert_cn}" -t C,,
++  # Add CA in all firefox profiles (if any)
++  if [ -r "${_firefox_profiles_ini}" ]; then
++    _firefox_profile_paths=($(grep Path ${_firefox_profiles_ini}))
++    for _firefox_profile_path in ${_firefox_profile_paths[@]}; do
++      _firefox_profile_path="${_firefox_profile_path##*=}"
++      # Check if profile path is absolute or relative
++      [ ! -d "${_firefox_profile_path}" ] && \
++        _firefox_profile_path="${HOME}/.mozilla/firefox/${_firefox_profile_path}"
++      # Add CA in current firefox profile
++      if [ -d "${_firefox_profile_path}" ]; then
++        certutil -d "${_firefox_profile_path}" -D -n "${_cert_cn}" > /dev/null 2>&1
++        certutil -d "${_firefox_profile_path}" -A -i "${_autofirma_ca}" -n "${_cert_cn}" -t C,,
++      fi
++    done
++  unset _autofirma_ca _autofirma_pfx _cert_cn _nssdb \
++    _firefox_profiles_ini _firefox_profile_paths _firefox_profile_path
++fi
++}
++
++function do_init {
++  mkdir -p "${_autofirma_dir}"
++  _temp_dir="$(mktemp -d)"
++  _ca="openssl ca -config ${_temp_dir}/openssl.cnf"
++  _req="openssl req -config ${_temp_dir}/openssl.cnf"
++  rm -f "${_autofirma_ca}" "${_autofirma_pfx}"
++  _make_ca_config
++  openssl rand -base64 48 > "${_temp_dir}/randomkey.txt"
++  # Make local CA
++  ${_req} -new -passout file:"${_temp_dir}/randomkey.txt" \
++    -keyout "${_temp_dir}/autofirma.key" \
++    -subj "/CN=${_cert_cn}" \
++    -out "${_temp_dir}/autofirma.csr"
++  ${_ca} -batch -create_serial -notext -selfsign \
++    -extensions v3_ca \
++    -policy policy_ca \
++    -out "${_autofirma_ca}" \
++    -days ${_cert_days} \
++    -passin file:"${_temp_dir}/randomkey.txt" \
++    -keyfile "${_temp_dir}/autofirma.key" \
++    -infiles "${_temp_dir}/autofirma.csr"
++  # Make user certificate and key
++  ${_req} -new -passout file:"${_temp_dir}/randomkey.txt" \
++    -keyout "${_temp_dir}/user.key" \
++    -subj "/CN=127.0.0.1" \
++    -out "${_temp_dir}/user.csr"
++  ${_ca} -batch -notext \
++    -extensions usr_cert \
++    -policy policy_ca \
++    -out "${_temp_dir}/user.cer" \
++    -cert "${_autofirma_ca}" \
++    -keyfile "${_temp_dir}/autofirma.key" \
++    -passin file:"${_temp_dir}/randomkey.txt" \
++    -infiles "${_temp_dir}/user.csr"
++  # Make user pfx from certificate and key
++  openssl pkcs12 -export -passin file:"${_temp_dir}/randomkey.txt" \
++    -inkey "${_temp_dir}/user.key" \
++    -certfile "${_autofirma_ca}" \
++    -in "${_temp_dir}/user.cer" \
++    -name "socketautofirma" \
++    -passout pass:654321 \
++    -out "${_autofirma_pfx}"
++  rm -rf ${_temp_dir}
++  unset _ca _req _temp_dir
++}
++
++# If any required cert or key is missing rebuild it
++{ [ ! -r "${_autofirma_ca}" ] || [ ! -r "${_autofirma_pfx}" ]; } && \
++  do_init
++unset _autofirma_dir _cert_days
++
++# Always update CA in profiles
++trust_ca
++
++# Run app
++java -jar /usr/share/java/autofirma/autofirma.jar $@
+diff --git a/autofirma.desktop b/autofirma.desktop
+new file mode 100644
+index 000000000000..13e938a55ef3
+--- /dev/null
++++ b/autofirma.desktop
+@@ -0,0 +1,10 @@
++[Desktop Entry]
++Type=Application
++Name=AutoFirma
++Comment=Cliente @firma
++Icon=autofirma
++Exec=autofirma %U
++Categories=Utility;Java;
++StartupNotify=true
++StartupWMClass=autofirma
++MimeType=x-scheme-handler/afirma;
+diff --git a/autofirma.js b/autofirma.js
+new file mode 100644
+index 000000000000..dbbdb899e411
+--- /dev/null
++++ b/autofirma.js
+@@ -0,0 +1,3 @@
++pref("network.protocol-handler.app.afirma","/usr/bin/autofirma");
++pref("network.protocol-handler.warn-external.afirma",false);
++pref("network.protocol-handler.external.afirma",true);
+diff --git a/autofirma.svg b/autofirma.svg
+new file mode 100644
+index 000000000000..84b3fdbb40ad
+--- /dev/null
++++ b/autofirma.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 178.39 176.69"><path d="M89.235 168.45c-44.702 0-80.919-34.75-80.919-79.37S44.534 8.242 89.235 8.242c44.62 0 80.838 36.218 80.838 80.838s-36.218 79.37-80.838 79.37z" fill="#98141b" fill-rule="evenodd"/><path d="M89.195 43.67c22.32 0 36.72 2.809 43.272 8.28 6.552 5.544 9.864 17.784 9.864 36.576v4.104H89.195V80.607h38.88c-.648-10.368-2.664-16.92-6.049-19.729-4.031-3.456-15.047-5.184-32.832-5.184V43.67zm0 77.4c16.344 0 27-.937 31.824-2.88 4.896-1.944 7.272-6.049 7.272-12.456h14.04c0 11.447-3.313 18.863-9.864 22.248s-20.952 5.04-43.272 5.04zm-.072 11.952c-22.32 0-36.72-2.736-43.272-8.208s-9.792-17.641-9.792-36.36c0-18.792 3.24-30.96 9.792-36.504 6.552-5.472 20.952-8.28 43.272-8.28h.072v12.024h-.072c-17.784 0-28.8 1.728-32.976 5.184-3.24 2.809-5.256 9.36-5.904 19.729h38.952V92.63H50.027c.432 12.313 2.448 20.088 6.264 23.328 4.104 3.384 15.048 5.112 32.832 5.112h.072v11.952z" fill="#fff"/><path d="M89.239 176.19C40.218 176.19.5 138.081.5 89.148S40.218.498 89.239.498c48.932 0 88.65 39.718 88.65 88.65s-39.718 87.042-88.65 87.042z" fill="none" stroke="#98141b" stroke-miterlimit="10"/></svg>
+diff --git a/eupl-1.1.txt b/eupl-1.1.txt
+new file mode 100644
+index 000000000000..522f4259a742
+--- /dev/null
++++ b/eupl-1.1.txt
+@@ -0,0 +1,201 @@
++
++European Union Public Licence
++V. 1.1
++
++
++EUPL � the European Community 2007
++
++
++This European Union Public Licence (the �EUPL�) applies to the Work or Software (as defined below) which is provided under the terms of this Licence. Any use of the Work, other than as authorised under this Licence is prohibited (to the extent such use is covered by a right of the copyright holder of the Work).
++
++The Original Work is provided under the terms of this Licence when the Licensor (as defined below) has placed the following notice immediately following the copyright notice for the Original Work:
++
++Licensed under the EUPL V.1.1
++
++or has expressed by any other mean his willingness to license under the EUPL.
++
++
++
++1. Definitions
++
++In this Licence, the following terms have the following meaning:
++
++- The Licence: this Licence.
++
++- The Original Work or the Software: the software distributed and/or communicated by the Licensor under this Licence, available as Source Code and also as Executable Code as the case may be.
++
++- Derivative Works: the works or software that could be created by the Licensee, based upon the Original Work or modifications thereof. This Licence does not define the extent of modification or dependence on the Original Work required in order to classify a work as a Derivative Work; this extent is determined by copyright law applicable in the country mentioned in Article 15. 
++
++- The Work: the Original Work and/or its Derivative Works.
++
++- The Source Code: the human-readable form of the Work which is the most convenient for people to study and modify.
++
++- The Executable Code: any code which has generally been compiled and which is meant to be interpreted by a computer as a program.
++
++- The Licensor: the natural or legal person that distributes and/or communicates the Work under the Licence.
++
++- Contributor(s): any natural or legal person who modifies the Work under the Licence, or otherwise contributes to the creation of a Derivative Work.
++
++- The Licensee or �You�: any natural or legal person who makes any usage of the Software under the terms of the Licence.
++
++- Distribution and/or Communication: any act of selling, giving, lending, renting, distributing, communicating, transmitting, or otherwise making available, on-line or off-line, copies of the Work or providing access to its essential functionalities at the disposal of any other natural or legal person.
++
++
++
++2. Scope of the rights granted by the Licence
++
++The Licensor hereby grants You a world-wide, royalty-free, non-exclusive, sub-licensable licence to do the following, for the duration of copyright vested in the Original Work:
++
++- use the Work in any circumstance and for all usage,
++- reproduce the Work,
++- modify the Original Work, and make Derivative Works based upon the Work,
++- communicate to the public, including the right to make available or display the Work or copies thereof to the public and perform publicly, as the case may be, the Work,
++- distribute the Work or copies thereof,
++- lend and rent the Work or copies thereof,
++- sub-license rights in the Work or copies thereof.
++
++Those rights can be exercised on any media, supports and formats, whether now known or later invented, as far as the applicable law permits so.
++
++In the countries where moral rights apply, the Licensor waives his right to exercise his moral right to the extent allowed by law in order to make effective the licence of the economic rights here above listed.
++
++The Licensor grants to the Licensee royalty-free, non exclusive usage rights to any patents held by the Licensor, to the extent necessary to make use of the rights granted on the Work under this Licence.
++
++
++
++3. Communication of the Source Code
++
++The Licensor may provide the Work either in its Source Code form, or as Executable Code. If the Work is provided as Executable Code, the Licensor provides in addition a machine-readable copy of the Source Code of the Work along with each copy of the Work that the Licensor distributes or indicates, in a notice following the copyright notice attached to the Work, a repository where the Source Code is easily and freely accessible for as long as the Licensor continues to distribute and/or communicate the Work.
++
++
++
++4. Limitations on copyright
++
++Nothing in this Licence is intended to deprive the Licensee of the benefits from any exception or limitation to the exclusive rights of the rights owners in the Original Work or Software, of the exhaustion of those rights or of other applicable limitations thereto.
++
++
++
++5. Obligations of the Licensee
++
++The grant of the rights mentioned above is subject to some restrictions and obligations imposed on the Licensee. Those obligations are the following:
++
++Attribution right: the Licensee shall keep intact all copyright, patent or trademarks notices and all notices that refer to the Licence and to the disclaimer of warranties. The Licensee must include a copy of such notices and a copy of the Licence with every copy of the Work he/she distributes and/or communicates. The Licensee must cause any Derivative Work to carry prominent notices stating that the Work has been modified and the date of modification.
++
++Copyleft clause: If the Licensee distributes and/or communicates copies of the Original Works or Derivative Works based upon the Original Work, this Distribution and/or Communication will be done under the terms of this Licence or of a later version of this Licence unless the Original Work is expressly distributed only under this version of the Licence. The Licensee (becoming Licensor) cannot offer or impose any additional terms or conditions on the Work or Derivative Work that alter or restrict the terms of the Licence.
++
++Compatibility clause: If the Licensee Distributes and/or Communicates Derivative Works or copies thereof based upon both the Original Work and another work  licensed under a Compatible Licence, this Distribution and/or Communication can be done under the terms of this Compatible Licence. For the sake of this clause, �Compatible Licence� refers to the licences listed in the appendix attached to this Licence. Should the Licensee�s obligations under the Compatible Licence conflict with his/her obligations under this Licence, the obligations of the Compatible Licence shall prevail. 
++
++Provision of Source Code: When distributing and/or communicating copies of the Work, the Licensee will provide a machine-readable copy of the Source Code or indicate a repository where this Source will be easily and freely available for as long as the Licensee continues to distribute and/or communicate the Work.
++
++Legal Protection: This Licence does not grant permission to use the trade names, trademarks, service marks, or names of the Licensor, except as required for reasonable and customary use in describing the origin of the Work and reproducing the content of the copyright notice.
++
++
++
++6. Chain of Authorship
++
++The original Licensor warrants that the copyright in the Original Work granted hereunder is owned by him/her or licensed to him/her and that he/she has the power and authority to grant the Licence.
++
++Each Contributor warrants that the copyright in the modifications he/she brings to the Work are owned by him/her or licensed to him/her and that he/she has the power and authority to grant the Licence.
++
++Each time You accept the Licence, the original Licensor and subsequent Contributors grant You a licence to their contributions to the Work, under the terms of this Licence.
++
++
++
++7. Disclaimer of Warranty
++
++The Work is a work in progress, which is continuously improved by numerous contributors. It is not a finished work and may therefore contain defects or �bugs� inherent to this type of software development.
++
++For the above reason, the Work is provided under the Licence on an �as is� basis and without warranties of any kind concerning the Work, including without limitation merchantability, fitness for a particular purpose, absence of defects or errors, accuracy, non-infringement of intellectual property rights other than copyright as stated in Article 6 of this Licence.
++
++This disclaimer of warranty is an essential part of the Licence and a condition for the grant of any rights to the Work.
++
++
++
++8. Disclaimer of Liability
++
++Except in the cases of wilful misconduct or damages directly caused to natural persons, the Licensor will in no event be liable for any direct or indirect, material or moral, damages of any kind, arising out of the Licence or of the use of the Work, including without limitation, damages for loss of goodwill, work stoppage, computer failure or malfunction, loss of data or any commercial damage, even if the Licensor has been advised of the possibility of such damage. However, the Licensor will be liable under statutory product liability laws as far such laws apply to the Work.
++
++
++
++9. Additional agreements
++
++While distributing the Original Work or Derivative Works, You may choose to conclude an additional agreement to offer, and charge a fee for, acceptance of support, warranty, indemnity, or other liability obligations and/or services consistent with this Licence. However, in accepting such obligations, You may act only on your own behalf and on your sole responsibility, not on behalf of the original Licensor or any other Contributor, and only if You agree to indemnify, defend, and hold each Contributor harmless for any liability incurred by, or claims asserted against such Contributor by the fact You have accepted any such warranty or additional liability.
++
++
++
++10. Acceptance of the Licence
++
++The provisions of this Licence can be accepted by clicking on an icon �I agree� placed under the bottom of a window displaying the text of this Licence or by affirming consent in any other similar way, in accordance with the rules of applicable law. Clicking on that icon indicates your clear and irrevocable acceptance of this Licence and all of its terms and conditions. 
++
++Similarly, you irrevocably accept this Licence and all of its terms and conditions by exercising any rights granted to You by Article 2 of this Licence, such as the use of the Work, the creation by You of a Derivative Work or the Distribution and/or Communication by You of the Work or copies thereof. 
++
++
++
++11. Information to the public
++
++In case of any Distribution and/or Communication of the Work by means of electronic communication by You (for example, by offering to download the Work from a remote location) the distribution channel or media (for example, a website) must at least provide to the public the information requested by the applicable law regarding the Licensor, the Licence and the way it may be accessible, concluded, stored and reproduced by the Licensee.
++
++
++
++12. Termination of the Licence
++
++The Licence and the rights granted hereunder will terminate automatically upon any breach by the Licensee of the terms of the Licence.
++
++Such a termination will not terminate the licences of any person who has received the Work from the Licensee under the Licence, provided such persons remain in full compliance with the Licence. 
++
++
++
++13. Miscellaneous
++
++Without prejudice of Article 9 above, the Licence represents the complete agreement between the Parties as to the Work licensed hereunder.
++
++If any provision of the Licence is invalid or unenforceable under applicable law, this will not affect the validity or enforceability of the Licence as a whole. Such provision will be construed and/or reformed so as necessary to make it valid and enforceable.
++
++The European Commission may publish other linguistic versions and/or new versions of this Licence, so far this is required and reasonable, without reducing the scope of the rights granted by the Licence. New versions of the Licence will be published with a unique version number.
++
++All linguistic versions of this Licence, approved by the European Commission, have identical value. Parties can take advantage of the linguistic version of their choice.
++
++
++
++14. Jurisdiction
++
++Any litigation resulting from the interpretation of this License, arising between the European Commission, as a Licensor, and any Licensee, will be subject to the jurisdiction of the Court of Justice of the European Communities, as laid down in article 238 of the Treaty establishing the European Community.
++
++Any litigation arising between Parties, other than the European Commission, and resulting from the interpretation of this License, will be subject to the exclusive jurisdiction of the competent court where the Licensor resides or conducts its primary business.
++
++
++
++15. Applicable Law
++
++This Licence shall be governed by the law of the European Union country where the Licensor resides or has his registered office.
++
++This licence shall be governed by the Belgian law if:
++
++- a litigation arises between the European Commission, as a Licensor, and any Licensee;
++- the Licensor, other than the European Commission, has no residence or registered office inside a European Union country. 
++
++
++===
++
++
++Appendix
++
++
++
++�Compatible Licences� according to article 5 EUPL are:
++
++
++- GNU General Public License (GNU GPL) v. 2
++
++- Open Software License (OSL) v. 2.1, v. 3.0
++
++- Common Public License v. 1.0
++
++- Eclipse Public License v. 1.0
++
++- Cecill v. 2.0
++
++
++
++
++		
++

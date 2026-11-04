@@ -1,0 +1,9 @@
+cells:
+- id: SOURCE_BUCKET-positive
+  path: fixtures/rule-probes/diffs/b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c.diff
+  expect_fire:
+  - SOURCE_BUCKET
+- id: SOURCE_BUCKET-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - SOURCE_BUCKET

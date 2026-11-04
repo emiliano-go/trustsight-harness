@@ -118,6 +118,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--match", action="append", default=[],
                         help="sweep: only campaigns whose name matches this glob "
                              "(repeatable)")
+    parser.add_argument("--check", action="store_true",
+                        help="coverage: exit 1 when any rule is untargeted")
     args = parser.parse_args(argv_list)
 
     calibration = _calibration_status()
@@ -202,6 +204,10 @@ def main(argv: list[str] | None = None) -> int:
               f"{len(report['campaigns'])} campaigns; {rules['untargeted']} "
               f"untargeted, {len(report['untargeted_reasons'])} with a reason "
               f"and all {untriable} unreachable by this harness's format.")
+        if args.check and rules["untargeted"]:
+            print("untargeted rules: " + " ".join(rules["untargeted_ids"]),
+                  file=sys.stderr)
+            return EXIT_CONFIG
         return EXIT_OK
 
     if args.target == "matrix":

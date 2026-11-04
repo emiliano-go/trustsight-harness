@@ -1,0 +1,1166 @@
+{
+  "rules": {
+    "C001": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/708385fa60f3dd444f42110ca7add42379a8f194a7e27c53be64cad3dbc4e608.diff",
+      "positive_sha256": "708385fa60f3dd444f42110ca7add42379a8f194a7e27c53be64cad3dbc4e608",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/appimagelauncher__5908af096dc6..1e015b4c5575.diff"
+    },
+    "C002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/52724856b79bb496d74d6c5fbcb2d8734c55976985b283bf6fa330fa77c6363f.diff",
+      "positive_sha256": "52724856b79bb496d74d6c5fbcb2d8734c55976985b283bf6fa330fa77c6363f",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/abook__bd848af1aabe..355724de912d.diff"
+    },
+    "C003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/0f3301e3a283ccb122a40aa5ef4bd2a3d6fe32ab181af91d92e8cf5cd0e6601e.diff",
+      "positive_sha256": "0f3301e3a283ccb122a40aa5ef4bd2a3d6fe32ab181af91d92e8cf5cd0e6601e",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/acroread-2018-07.diff"
+    },
+    "C004": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/247056654ed8e441a126ac4ed0b10a120a5543beff6ae504c0cbccecfadb2d1d.diff",
+      "positive_sha256": "247056654ed8e441a126ac4ed0b10a120a5543beff6ae504c0cbccecfadb2d1d",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/ente-desktop-bin__4345c32f1339..33c614ed9d77.diff"
+    },
+    "C005": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c.diff",
+      "positive_sha256": "b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/control-bin-package-declared-source.diff"
+    },
+    "C007": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d3452893cdc7c210bf5f649b9de1017cb40b9d13bc0e4aba44a13393e04a0984.diff",
+      "positive_sha256": "d3452893cdc7c210bf5f649b9de1017cb40b9d13bc0e4aba44a13393e04a0984",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/chatgpt-desktop-bin__74baa1056689..8c4ed3c7b804.diff"
+    },
+    "C012": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/13a13fff1bd770a4e0d1dfd35da1e900500c7be9738f2048ebf65e8a8a50d067.diff",
+      "positive_sha256": "13a13fff1bd770a4e0d1dfd35da1e900500c7be9738f2048ebf65e8a8a50d067",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/C012-upstream-typosquat.diff"
+    },
+    "C013": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b390b2fd65f9bd0b7b5f97d8f770a3083aa98eb6b14e24164892b0edf2b1894d.diff",
+      "positive_sha256": "b390b2fd65f9bd0b7b5f97d8f770a3083aa98eb6b14e24164892b0edf2b1894d",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/C013-fork-swap.diff"
+    },
+    "C014": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/34ad494627e398f573c9861002f0e40acf9ea5be425f708bc262f1043c0b441a.diff",
+      "positive_sha256": "34ad494627e398f573c9861002f0e40acf9ea5be425f708bc262f1043c0b441a",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/dms-shell-git__b17248182c2a..fbdb8b69ff38.diff"
+    },
+    "C015": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/766168bb7d52b3de72078237a5ee589427638afa6a3b80adf62c671fbece3df3.diff",
+      "positive_sha256": "766168bb7d52b3de72078237a5ee589427638afa6a3b80adf62c671fbece3df3",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/amneziawg-dkms__10c75be38309..dec70d05284b.diff"
+    },
+    "C018": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6eea170df17fc8906e74f31d1cf6b7dc17239cfd6ea2531cc098783d6e68de39.diff",
+      "positive_sha256": "6eea170df17fc8906e74f31d1cf6b7dc17239cfd6ea2531cc098783d6e68de39",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/amneziawg-dkms-git__1e9538cdda87..a103b8e62977.diff"
+    },
+    "C019": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6eea170df17fc8906e74f31d1cf6b7dc17239cfd6ea2531cc098783d6e68de39.diff",
+      "positive_sha256": "6eea170df17fc8906e74f31d1cf6b7dc17239cfd6ea2531cc098783d6e68de39",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/amneziawg-dkms-git__1e9538cdda87..a103b8e62977.diff"
+    },
+    "C021": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/777e82bccc66401174d14c0377a722e0226458568edbcf7993375a937909ebee.diff",
+      "positive_sha256": "777e82bccc66401174d14c0377a722e0226458568edbcf7993375a937909ebee",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/amethyst-mod-manager__6e08db2ef6ff..b2cb5bb605d2.diff"
+    },
+    "C022": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/0a9831a38afc145544d46c8567d549e4c7d39022b0766733c017c452d868e600.diff",
+      "positive_sha256": "0a9831a38afc145544d46c8567d549e4c7d39022b0766733c017c452d868e600",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/autofirma__688310a1a467..60346938ba19.diff"
+    },
+    "C024": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/7267f45b01e87c5de467ac28c3b0548b88aac7ce97454fda5271bc6187a451dc.diff",
+      "positive_sha256": "7267f45b01e87c5de467ac28c3b0548b88aac7ce97454fda5271bc6187a451dc",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S006-lookalike.diff"
+    },
+    "C025": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive_sha256": "021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/brave-typosquat-install-hook.diff"
+    },
+    "C026": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/f2fda3ef6753c5434e53e199700a1e50098f4ab72d47beda6fe4e08842d49bef.diff",
+      "positive_sha256": "f2fda3ef6753c5434e53e199700a1e50098f4ab72d47beda6fe4e08842d49bef",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/arch-manwarn__664e45576f90..7b5c6a3c505c.diff"
+    },
+    "C028": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/162471b9e8b750da56e281f331aa53dad41490d9d95ed998bfe27c9788541772.diff",
+      "positive_sha256": "162471b9e8b750da56e281f331aa53dad41490d9d95ed998bfe27c9788541772",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/june-w1-install-hook-foreign-fetch.diff"
+    },
+    "C029": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/72a7832a4ac98f3f00ba5d4cb8be5730c0998a207fd8a50c491fe25b7d44df36.diff",
+      "positive_sha256": "72a7832a4ac98f3f00ba5d4cb8be5730c0998a207fd8a50c491fe25b7d44df36",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/chatgpt-desktop-bin__23cb3300d6f1..f128eae4e78d.diff"
+    },
+    "C030": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/7d0aa383ec6398c8afa1eef44cf53611d71c779cbe0b6931c1d189985736b1da.diff",
+      "positive_sha256": "7d0aa383ec6398c8afa1eef44cf53611d71c779cbe0b6931c1d189985736b1da",
+      "series": "C",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/ntfsplus-dkms-git__36ebbd09837d..3f2b99509f21.diff"
+    },
+    "C031": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a017bb6756c57dfaa739ca5ecde26057d307b4c59a63cc90124455a3f55041dc.diff",
+      "positive_sha256": "a017bb6756c57dfaa739ca5ecde26057d307b4c59a63cc90124455a3f55041dc",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/C031-boot-tool-in-build.diff"
+    },
+    "C033": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/4d7b7a05839e7bec9f37ac5d946ea5ed7f32e543bfff08758998afb321ad0a1c.diff",
+      "positive_sha256": "4d7b7a05839e7bec9f37ac5d946ea5ed7f32e543bfff08758998afb321ad0a1c",
+      "series": "C",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/C033-comment-gutting.diff"
+    },
+    "D003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/53a5327a952a34cce4f535c74f5c07dc456ab5e33b00667c19225b96e56f922d.diff",
+      "positive_sha256": "53a5327a952a34cce4f535c74f5c07dc456ab5e33b00667c19225b96e56f922d",
+      "series": "D",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/yay-typosquat-install-hook.diff"
+    },
+    "D004": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/3509a6e3bb45ada61e1b32b509c14d9cd20e862683c18f8c5b07163aca0aa6e1.diff",
+      "positive_sha256": "3509a6e3bb45ada61e1b32b509c14d9cd20e862683c18f8c5b07163aca0aa6e1",
+      "series": "D",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/chatgpt-desktop-bin__de8ca408c302..3ebc3af787aa.diff"
+    },
+    "H001": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/0f3301e3a283ccb122a40aa5ef4bd2a3d6fe32ab181af91d92e8cf5cd0e6601e.diff",
+      "positive_sha256": "0f3301e3a283ccb122a40aa5ef4bd2a3d6fe32ab181af91d92e8cf5cd0e6601e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/acroread-2018-07.diff"
+    },
+    "H002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/e848c4d5407fd3b0cebb6e5245d9c116a409ba9060bff8fec7e29a687a566ebb.diff",
+      "positive_sha256": "e848c4d5407fd3b0cebb6e5245d9c116a409ba9060bff8fec7e29a687a566ebb",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H002-empty-checksum.diff"
+    },
+    "H003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/58c7438059c94827ae3a1a3166bd3308f88c01f4f55f7acaf3933954a00d99d6.diff",
+      "positive_sha256": "58c7438059c94827ae3a1a3166bd3308f88c01f4f55f7acaf3933954a00d99d6",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H003-http-url.diff"
+    },
+    "H004": {
+      "negative": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "H015": {
+      "negative": "fixtures/rule-probes/diffs/162471b9e8b750da56e281f331aa53dad41490d9d95ed998bfe27c9788541772.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "H016": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352.diff",
+      "positive_sha256": "a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-generate-then-execute.diff"
+    },
+    "H017": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/69af4df61748508ce909502a4f1d194cc8c4f30ad38b08e98391a5281c46e829.diff",
+      "positive_sha256": "69af4df61748508ce909502a4f1d194cc8c4f30ad38b08e98391a5281c46e829",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/june-w2-install-hook-remote-script.diff"
+    },
+    "H018": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b573edd9c99feda4ed9e471972bec179ce343ad6292bc19e9efdd0d1a805b2a1.diff",
+      "positive_sha256": "b573edd9c99feda4ed9e471972bec179ce343ad6292bc19e9efdd0d1a805b2a1",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/linux-cachyos-bore__6751a8cf575f..5dd89a16477d.diff"
+    },
+    "H019": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/ad8abec7442974dad9b07e40f05c79cc47e5e38fd395dc53e0681458b1f9620a.diff",
+      "positive_sha256": "ad8abec7442974dad9b07e40f05c79cc47e5e38fd395dc53e0681458b1f9620a",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/transset-df__408f7118c6a3..41e66e6c552d.diff"
+    },
+    "H023": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d3369e8c79069105e235166bd0c8c4ce7792c4230d4e66f01edcbb4f77f37ca0.diff",
+      "positive_sha256": "d3369e8c79069105e235166bd0c8c4ce7792c4230d4e66f01edcbb4f77f37ca0",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/1password__1043e10c425e..535222b18412.diff"
+    },
+    "H024": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/747b229c9b31e94fbb79534932d68daf336fce054f20f51d827709784e53bf4a.diff",
+      "positive_sha256": "747b229c9b31e94fbb79534932d68daf336fce054f20f51d827709784e53bf4a",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/libjpeg-turbo-skid.diff"
+    },
+    "H025": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/c28c41145a8fc389be4daaca125b19824d5a7ad32c963b5768b3c503a719baf6.diff",
+      "positive_sha256": "c28c41145a8fc389be4daaca125b19824d5a7ad32c963b5768b3c503a719baf6",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/auracle-git__764cc3b058eb..9ec447128daf.diff"
+    },
+    "H027": {
+      "negative": "fixtures/rule-probes/diffs/1be8d519de790c98866ce3ff944f38675cb4136155e6e909f4955be537be4816.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "H030": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/11c51e411856334345b9c2d133349009f18e32144d37f0b677dc1ea9c1b8c80e.diff",
+      "positive_sha256": "11c51e411856334345b9c2d133349009f18e32144d37f0b677dc1ea9c1b8c80e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/evasion/evasion-depends-via-plus-eq.diff"
+    },
+    "H031": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/e1f8e7676809e371ed6ff9d6fab5a6e6f2e1f2ce0617d1e95db3141b3c41af94.diff",
+      "positive_sha256": "e1f8e7676809e371ed6ff9d6fab5a6e6f2e1f2ce0617d1e95db3141b3c41af94",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/bdf2psf__568c153a18b1..570f8bb62552.diff"
+    },
+    "H032": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/228ab8aa20cc1094d3af1c795cbe5dc234ce2d129395c8bd915e5955569f435e.diff",
+      "positive_sha256": "228ab8aa20cc1094d3af1c795cbe5dc234ce2d129395c8bd915e5955569f435e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/russian-spam-2026-06.diff"
+    },
+    "H033": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/3c38a124e4ecfc464dd21c94b5658e3661c41bd3e6127039a7d31b16dbb33184.diff",
+      "positive_sha256": "3c38a124e4ecfc464dd21c94b5658e3661c41bd3e6127039a7d31b16dbb33184",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H101-source-pinning-lost.diff"
+    },
+    "H034": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/f03be93ae5a1304c60c4b6afeaaff01c648532dd74ecdc24e77b9b2e94def654.diff",
+      "positive_sha256": "f03be93ae5a1304c60c4b6afeaaff01c648532dd74ecdc24e77b9b2e94def654",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/advcpmv__4d1cd56d0872..d340ebc96878.diff"
+    },
+    "H035": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "H036": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098.diff",
+      "positive_sha256": "6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X007-clustered-evasion.diff"
+    },
+    "H038": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/72b34a970bff531763b6b37dbaa14d9d4df5371f28d97831d19a2b2faf897685.diff",
+      "positive_sha256": "72b34a970bff531763b6b37dbaa14d9d4df5371f28d97831d19a2b2faf897685",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-write-then-execute.diff"
+    },
+    "H039": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/11540a4808b8a08712b5a8f774f4832a14cfe54e529de7e7115a5c5a3a58322a.diff",
+      "positive_sha256": "11540a4808b8a08712b5a8f774f4832a14cfe54e529de7e7115a5c5a3a58322a",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-systemd-persistence.diff"
+    },
+    "H041": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/089c68897d234fef072bd9cac0922b0c2f1cbcd1d532f2e5feb58208c765f96c.diff",
+      "positive_sha256": "089c68897d234fef072bd9cac0922b0c2f1cbcd1d532f2e5feb58208c765f96c",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-exfil-to-drop-host.diff"
+    },
+    "H043": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "H062": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "H063": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/66b4d1728ad6c726060122ad00074a87a92b4369a8a483e6302cc33f18efc4c2.diff",
+      "positive_sha256": "66b4d1728ad6c726060122ad00074a87a92b4369a8a483e6302cc33f18efc4c2",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/bdf2psf__2e3e256ad8a7..752d0ed0bc5f.diff"
+    },
+    "H065": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "H067": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/9dfece9b3e5a7f76cc7b88c16a3fff4e340c068f0f57a63b4a367c0a83085dab.diff",
+      "positive_sha256": "9dfece9b3e5a7f76cc7b88c16a3fff4e340c068f0f57a63b4a367c0a83085dab",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-anti-analysis-guard.diff"
+    },
+    "H068": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "H069": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352.diff",
+      "positive_sha256": "a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-generate-then-execute.diff"
+    },
+    "H072": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/72b34a970bff531763b6b37dbaa14d9d4df5371f28d97831d19a2b2faf897685.diff",
+      "positive_sha256": "72b34a970bff531763b6b37dbaa14d9d4df5371f28d97831d19a2b2faf897685",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-write-then-execute.diff"
+    },
+    "H075": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive_sha256": "021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/brave-typosquat-install-hook.diff"
+    },
+    "H076": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/34ed20c6d454041e29c005ebfabd447cc8819d9bb38ec58e91ba90cdf671508e.diff",
+      "positive_sha256": "34ed20c6d454041e29c005ebfabd447cc8819d9bb38ec58e91ba90cdf671508e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-build-write-outside-staging.diff"
+    },
+    "H077": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive_sha256": "021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/brave-typosquat-install-hook.diff"
+    },
+    "H078": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/5ef53df3abf8dcbccc673e36ac603d0d0a40adc9e4cd88fcd976745e50572021.diff",
+      "positive_sha256": "5ef53df3abf8dcbccc673e36ac603d0d0a40adc9e4cd88fcd976745e50572021",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H001-skip-validpgpkeys.diff"
+    },
+    "H079": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/9ad684f1752042156068b9ebb8aa9835c26690a4fef7a8ebcc1327ce398a534c.diff",
+      "positive_sha256": "9ad684f1752042156068b9ebb8aa9835c26690a4fef7a8ebcc1327ce398a534c",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H008-cflags-suspicious.diff"
+    },
+    "H080": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6e6f3db91fe0a62aa95a96e8194f29ff922c856828e9d1f765a560a24ece7de3.diff",
+      "positive_sha256": "6e6f3db91fe0a62aa95a96e8194f29ff922c856828e9d1f765a560a24ece7de3",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/evasion/evasion-fetch-via-indirect.diff"
+    },
+    "H081": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/1620fefbfb3c77c9ae8cc09f5810db45faa0f4d353fc806534d4c287c75382fd.diff",
+      "positive_sha256": "1620fefbfb3c77c9ae8cc09f5810db45faa0f4d353fc806534d4c287c75382fd",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/gamescope-nvidia-git__f6612d3a64b1..674a0db98e84.diff"
+    },
+    "H082": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d06a65fae7f78f019ff97c6b3d4df223cc81732cf6693b62f70529e351a70659.diff",
+      "positive_sha256": "d06a65fae7f78f019ff97c6b3d4df223cc81732cf6693b62f70529e351a70659",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/herdr-bin__879cfd322e94..3ef02ce786e7.diff"
+    },
+    "H083": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/0f3301e3a283ccb122a40aa5ef4bd2a3d6fe32ab181af91d92e8cf5cd0e6601e.diff",
+      "positive_sha256": "0f3301e3a283ccb122a40aa5ef4bd2a3d6fe32ab181af91d92e8cf5cd0e6601e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/acroread-2018-07.diff"
+    },
+    "H085": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6e1397ca7c5dd4846815f2ab8e367c9b353df09299c447f424e6fde45d0005a0.diff",
+      "positive_sha256": "6e1397ca7c5dd4846815f2ab8e367c9b353df09299c447f424e6fde45d0005a0",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/open-orpheus__5f4f0ea29eb8..2fb753baac02.diff"
+    },
+    "H087": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/1cf6cc22fe30ffa6add63e721e16e52893a66ab6383607b9b807785612cb426e.diff",
+      "positive_sha256": "1cf6cc22fe30ffa6add63e721e16e52893a66ab6383607b9b807785612cb426e",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H087-recipe-only-npm.diff"
+    },
+    "H089": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/16895587803d7c714d39cec163c4f332a2d9431cb37e00ae018d9fb16e3352e6.diff",
+      "positive_sha256": "16895587803d7c714d39cec163c4f332a2d9431cb37e00ae018d9fb16e3352e6",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/dota2-minify-rc-bin__373f5dff7fb6..128cb0336ebf.diff"
+    },
+    "H091": {
+      "negative": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "H096": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/42bf4272f10c638b45534cd4a3537e61c7465b87c37edde73995cc67e877cdb3.diff",
+      "positive_sha256": "42bf4272f10c638b45534cd4a3537e61c7465b87c37edde73995cc67e877cdb3",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/dell-command-configure__0c7111fafa5f..0448da0fb1b8.diff"
+    },
+    "H097": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/910c8717665a8dbd96a043c68e695dfd290db3381038d95bb65046d9a41c8358.diff",
+      "positive_sha256": "910c8717665a8dbd96a043c68e695dfd290db3381038d95bb65046d9a41c8358",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/discord_arch_electron__64360355932c..321647467f5e.diff"
+    },
+    "H099": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/84f79ee1ef6bcc11a32d6d13aa8f1bb78333fd07dcfd2227d3951b74e6189ffd.diff",
+      "positive_sha256": "84f79ee1ef6bcc11a32d6d13aa8f1bb78333fd07dcfd2227d3951b74e6189ffd",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H099-quiet-source-host-swap.diff"
+    },
+    "H100": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "H101": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/0f4f16998495b19eec49172c6e7df999a34ad67542c3691c028bd7a67aafb2c1.diff",
+      "positive_sha256": "0f4f16998495b19eec49172c6e7df999a34ad67542c3691c028bd7a67aafb2c1",
+      "series": "H",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/holdout/signed-commit-dropped-to-unsigned.diff"
+    },
+    "H108": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/add55ecc70d79e2e52ced8b5001b8970b35e163697981b7710358bda3930f4fd.diff",
+      "positive_sha256": "add55ecc70d79e2e52ced8b5001b8970b35e163697981b7710358bda3930f4fd",
+      "series": "H",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/mullvad-vpn-bin__77203db7b1fb..7053192705a1.diff"
+    },
+    "M001": {
+      "negative": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "M",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "M002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/ac3046c5e018f8990562410256fc68f2c0257876b30b48aff5ba8186fc617943.diff",
+      "positive_sha256": "ac3046c5e018f8990562410256fc68f2c0257876b30b48aff5ba8186fc617943",
+      "series": "M",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/chaos-rat-2025-07.diff"
+    },
+    "M003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c.diff",
+      "positive_sha256": "b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c",
+      "series": "M",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/control-bin-package-declared-source.diff"
+    },
+    "P001": {
+      "negative": "fixtures/rule-probes/diffs/1be8d519de790c98866ce3ff944f38675cb4136155e6e909f4955be537be4816.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "P",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "P002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/1f1b63140f017d57212282d006d02cb4bedbad11df4aa927cdc54b82fc49c513.diff",
+      "positive_sha256": "1f1b63140f017d57212282d006d02cb4bedbad11df4aa927cdc54b82fc49c513",
+      "series": "P",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/T004-partial-key-removal.diff"
+    },
+    "P005": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/2e4f759be2a54bd97138fda1a74505bec3209830a0094ee5b91201667325e8a9.diff",
+      "positive_sha256": "2e4f759be2a54bd97138fda1a74505bec3209830a0094ee5b91201667325e8a9",
+      "series": "P",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/abook__652431d0b544..c4f7bba9e2e6.diff"
+    },
+    "P006": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/13a13fff1bd770a4e0d1dfd35da1e900500c7be9738f2048ebf65e8a8a50d067.diff",
+      "positive_sha256": "13a13fff1bd770a4e0d1dfd35da1e900500c7be9738f2048ebf65e8a8a50d067",
+      "series": "P",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/C012-upstream-typosquat.diff"
+    },
+    "P007": {
+      "negative": "fixtures/rule-probes/diffs/1be8d519de790c98866ce3ff944f38675cb4136155e6e909f4955be537be4816.diff",
+      "positive": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive_sha256": "da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573",
+      "series": "P",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/aug-fsearch-bin-source-without-checksum.diff"
+    },
+    "P008": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/ac3046c5e018f8990562410256fc68f2c0257876b30b48aff5ba8186fc617943.diff",
+      "positive_sha256": "ac3046c5e018f8990562410256fc68f2c0257876b30b48aff5ba8186fc617943",
+      "series": "P",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/chaos-rat-2025-07.diff"
+    },
+    "R001": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/69af4df61748508ce909502a4f1d194cc8c4f30ad38b08e98391a5281c46e829.diff",
+      "positive_sha256": "69af4df61748508ce909502a4f1d194cc8c4f30ad38b08e98391a5281c46e829",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/june-w2-install-hook-remote-script.diff"
+    },
+    "R002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d74acbda6b6dff83a6706256a9cf73363dedfee0b777541850923fe49b7352a6.diff",
+      "positive_sha256": "d74acbda6b6dff83a6706256a9cf73363dedfee0b777541850923fe49b7352a6",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R001-wget-pipe-bash.diff"
+    },
+    "R003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/8a9b9e0f201dfce5e503ef7f40fec2c0c9dcc67a31bd22091bca8ab1764c0a3d.diff",
+      "positive_sha256": "8a9b9e0f201dfce5e503ef7f40fec2c0c9dcc67a31bd22091bca8ab1764c0a3d",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/fake-browser-bin.diff"
+    },
+    "R007": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive_sha256": "021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/brave-typosquat-install-hook.diff"
+    },
+    "R008": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/998eae22b8bb40552efb46ffb43bda50e6a9b88084a8e4ebe23ae0aa234f2eac.diff",
+      "positive_sha256": "998eae22b8bb40552efb46ffb43bda50e6a9b88084a8e4ebe23ae0aa234f2eac",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R008-python-c-url.diff"
+    },
+    "R010": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/089c68897d234fef072bd9cac0922b0c2f1cbcd1d532f2e5feb58208c765f96c.diff",
+      "positive_sha256": "089c68897d234fef072bd9cac0922b0c2f1cbcd1d532f2e5feb58208c765f96c",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-exfil-to-drop-host.diff"
+    },
+    "R011": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/766168bb7d52b3de72078237a5ee589427638afa6a3b80adf62c671fbece3df3.diff",
+      "positive_sha256": "766168bb7d52b3de72078237a5ee589427638afa6a3b80adf62c671fbece3df3",
+      "series": "R",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/amneziawg-dkms__10c75be38309..dec70d05284b.diff"
+    },
+    "R012": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/381cf6fde30fe1dd33f0dc18a268f0996360c76a0655d8754c6c0fdecfa3fa78.diff",
+      "positive_sha256": "381cf6fde30fe1dd33f0dc18a268f0996360c76a0655d8754c6c0fdecfa3fa78",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R012-v0.diff"
+    },
+    "R013": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/dd773fe231b0082969a0356f5c76a791b51232968b03fce7a6bc3ee0a75bb50b.diff",
+      "positive_sha256": "dd773fe231b0082969a0356f5c76a791b51232968b03fce7a6bc3ee0a75bb50b",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R013-v0.diff"
+    },
+    "R039": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/1a80fda69fea2a9c59f6b2fc099279b6be1f940985eb606f5a3dcc7675526562.diff",
+      "positive_sha256": "1a80fda69fea2a9c59f6b2fc099279b6be1f940985eb606f5a3dcc7675526562",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H014-eval.diff"
+    },
+    "R043": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/770bc2bc3b716c6a206935f7ab9d0955b5a464e725120d8540db3edab869a27b.diff",
+      "positive_sha256": "770bc2bc3b716c6a206935f7ab9d0955b5a464e725120d8540db3edab869a27b",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R003-base64-decode-sh.diff"
+    },
+    "R047": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/3509a6e3bb45ada61e1b32b509c14d9cd20e862683c18f8c5b07163aca0aa6e1.diff",
+      "positive_sha256": "3509a6e3bb45ada61e1b32b509c14d9cd20e862683c18f8c5b07163aca0aa6e1",
+      "series": "R",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/chatgpt-desktop-bin__de8ca408c302..3ebc3af787aa.diff"
+    },
+    "R051": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/dff4ee58d811018eb0a7519fc2f988ec8542ff89f43c78f1f97f1528c5966bef.diff",
+      "positive_sha256": "dff4ee58d811018eb0a7519fc2f988ec8542ff89f43c78f1f97f1528c5966bef",
+      "series": "R",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/bdf2psf__e95195280d56..c2b5295df16d.diff"
+    },
+    "R052": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a7cfe7f4b9e7057ee26b9946f31ab2961e2e509811d2d6a789e2c8386958321d.diff",
+      "positive_sha256": "a7cfe7f4b9e7057ee26b9946f31ab2961e2e509811d2d6a789e2c8386958321d",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X005-home-alias-write.diff"
+    },
+    "R053": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive_sha256": "021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/brave-typosquat-install-hook.diff"
+    },
+    "R054": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d3fe95d0c69ee6456341f67a9ecd0bbce9afc4d0d8600e17199e950d512c59a8.diff",
+      "positive_sha256": "d3fe95d0c69ee6456341f67a9ecd0bbce9afc4d0d8600e17199e950d512c59a8",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/kernel-dkms-backdoor.diff"
+    },
+    "R058": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/8ebbe787c2174d0819014f6c94112f3a868ce43e1ba8832d1b7188bcfba0bc05.diff",
+      "positive_sha256": "8ebbe787c2174d0819014f6c94112f3a868ce43e1ba8832d1b7188bcfba0bc05",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H004-sudo-in-build.diff"
+    },
+    "R059": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d3fe95d0c69ee6456341f67a9ecd0bbce9afc4d0d8600e17199e950d512c59a8.diff",
+      "positive_sha256": "d3fe95d0c69ee6456341f67a9ecd0bbce9afc4d0d8600e17199e950d512c59a8",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/historical/kernel-dkms-backdoor.diff"
+    },
+    "R099": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/587b54d943587fb077b632a12cf476f4fa1443c7e8d8328c689905e5d951e5b7.diff",
+      "positive_sha256": "587b54d943587fb077b632a12cf476f4fa1443c7e8d8328c689905e5d951e5b7",
+      "series": "R",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/chatgpt-desktop-bin__8c4ed3c7b804..ef5cc131e476.diff"
+    },
+    "R152": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/147b3e1b4feda469957a7d36a51c80449c3f6955e5d2c5024d7eb16d613c546a.diff",
+      "positive_sha256": "147b3e1b4feda469957a7d36a51c80449c3f6955e5d2c5024d7eb16d613c546a",
+      "series": "R",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R152-free-hosting-source.diff"
+    },
+    "S001": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b9b5d920230ca5ffebc83ecb72e53f378fe3f78065b0028e2b752c198bedb78f.diff",
+      "positive_sha256": "b9b5d920230ca5ffebc83ecb72e53f378fe3f78065b0028e2b752c198bedb78f",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S001-fork-bomb.diff"
+    },
+    "S002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/4fe4323b3c97e3e7799fe454a69262ad03dc2b57044ff9dd28bc72f4cef24f85.diff",
+      "positive_sha256": "4fe4323b3c97e3e7799fe454a69262ad03dc2b57044ff9dd28bc72f4cef24f85",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S002-recursive-and-find.diff"
+    },
+    "S003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/4ec5465607a14e8220ac480959779c984ec7bad36714ebe48b2f774998a1b578.diff",
+      "positive_sha256": "4ec5465607a14e8220ac480959779c984ec7bad36714ebe48b2f774998a1b578",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S003-block-device-write.diff"
+    },
+    "S004": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a849913fd71db06090eb8b9447fc73fcbda4a0f42aeb7848f7dfd8185e352f0b.diff",
+      "positive_sha256": "a849913fd71db06090eb8b9447fc73fcbda4a0f42aeb7848f7dfd8185e352f0b",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S004-shred-home.diff"
+    },
+    "S005": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/ebca648031ba9cb04e73b3cd6b7955997d98ca390628a8b47850d4011d04e4b3.diff",
+      "positive_sha256": "ebca648031ba9cb04e73b3cd6b7955997d98ca390628a8b47850d4011d04e4b3",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S005-chmod-system.diff"
+    },
+    "S006": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/5cb03a952be0423647b524865b24213b106e4166eb4fb662719b6c78c9a3b9a9.diff",
+      "positive_sha256": "5cb03a952be0423647b524865b24213b106e4166eb4fb662719b6c78c9a3b9a9",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S006-service-disruption.diff"
+    },
+    "S007": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/dbce3353850954c4f37597c9beead349ac1171a1f3b63342cb2783fba90b7774.diff",
+      "positive_sha256": "dbce3353850954c4f37597c9beead349ac1171a1f3b63342cb2783fba90b7774",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S007-crypto-miner.diff"
+    },
+    "S008": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/f1c440675b27d65c114db873a035042a4aeabaab561dc1b31aa3699e61b38814.diff",
+      "positive_sha256": "f1c440675b27d65c114db873a035042a4aeabaab561dc1b31aa3699e61b38814",
+      "series": "S",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/S008-history-destruction.diff"
+    },
+    "SOURCE_BUCKET": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c.diff",
+      "positive_sha256": "b9b4145e58ad973b533672c686283620aea7e3fc81e49f5269748b98b13f118c",
+      "series": "pseudo",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/control-bin-package-declared-source.diff"
+    },
+    "T004": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/1f1b63140f017d57212282d006d02cb4bedbad11df4aa927cdc54b82fc49c513.diff",
+      "positive_sha256": "1f1b63140f017d57212282d006d02cb4bedbad11df4aa927cdc54b82fc49c513",
+      "series": "T",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/T004-partial-key-removal.diff"
+    },
+    "T005": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/60b2e1b1bb93eee45a949604f9811b912a8e656613949c9655526bfe859147cd.diff",
+      "positive_sha256": "60b2e1b1bb93eee45a949604f9811b912a8e656613949c9655526bfe859147cd",
+      "series": "T",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/T005-path-changed-downgrade.diff"
+    },
+    "U002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f.diff",
+      "positive_sha256": "073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f",
+      "series": "U",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/U003-manifest-git-dep.diff"
+    },
+    "U003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f.diff",
+      "positive_sha256": "073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f",
+      "series": "U",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/U003-manifest-git-dep.diff"
+    },
+    "U006": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f.diff",
+      "positive_sha256": "073f6d49c4ce3e8a6e3bfeda21eca41ef5b6adb59a095d37c865d0a030f8bc3f",
+      "series": "U",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/U003-manifest-git-dep.diff"
+    },
+    "U010": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/b59b940fa93cc9d513e4b3ecc86f22e3f1126446f84ba9ded82f4624d86d8931.diff",
+      "positive_sha256": "b59b940fa93cc9d513e4b3ecc86f22e3f1126446f84ba9ded82f4624d86d8931",
+      "series": "U",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/davinci-resolve__0d5fdcc12337..7351177b553a.diff"
+    },
+    "W001": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352.diff",
+      "positive_sha256": "a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352",
+      "series": "W",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-generate-then-execute.diff"
+    },
+    "W002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/1cf6cc22fe30ffa6add63e721e16e52893a66ab6383607b9b807785612cb426e.diff",
+      "positive_sha256": "1cf6cc22fe30ffa6add63e721e16e52893a66ab6383607b9b807785612cb426e",
+      "series": "W",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/H087-recipe-only-npm.diff"
+    },
+    "W003": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/52724856b79bb496d74d6c5fbcb2d8734c55976985b283bf6fa330fa77c6363f.diff",
+      "positive_sha256": "52724856b79bb496d74d6c5fbcb2d8734c55976985b283bf6fa330fa77c6363f",
+      "series": "W",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/abook__bd848af1aabe..355724de912d.diff"
+    },
+    "W005": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/2e4f759be2a54bd97138fda1a74505bec3209830a0094ee5b91201667325e8a9.diff",
+      "positive_sha256": "2e4f759be2a54bd97138fda1a74505bec3209830a0094ee5b91201667325e8a9",
+      "series": "W",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/abook__652431d0b544..c4f7bba9e2e6.diff"
+    },
+    "W006": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/da0965d61df331b1b91c47f2caaf405c281f388210a335a4942e52c592345b9c.diff",
+      "positive_sha256": "da0965d61df331b1b91c47f2caaf405c281f388210a335a4942e52c592345b9c",
+      "series": "W",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/ente-desktop-bin__5ab37019773c..8eb73d199db4.diff"
+    },
+    "W008": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/04e8ae8226f9ae4cd4682021499613aa3fb411c34c071f38cb90127956c20c2a.diff",
+      "positive_sha256": "04e8ae8226f9ae4cd4682021499613aa3fb411c34c071f38cb90127956c20c2a",
+      "series": "W",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/evasion/evasion-command-via-command-subst.diff"
+    },
+    "W011": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/53a5327a952a34cce4f535c74f5c07dc456ab5e33b00667c19225b96e56f922d.diff",
+      "positive_sha256": "53a5327a952a34cce4f535c74f5c07dc456ab5e33b00667c19225b96e56f922d",
+      "series": "W",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/yay-typosquat-install-hook.diff"
+    },
+    "X001": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/772d84096e01fa5516d3ae7d080b17894dbdeb7732529310bca8a2cb97c2b4c5.diff",
+      "positive_sha256": "772d84096e01fa5516d3ae7d080b17894dbdeb7732529310bca8a2cb97c2b4c5",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X001-hex-decoded-to-shell.diff"
+    },
+    "X002": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff",
+      "positive_sha256": "02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/july-full-kill-chain.diff"
+    },
+    "X004": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098.diff",
+      "positive_sha256": "6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X007-clustered-evasion.diff"
+    },
+    "X005": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/a7cfe7f4b9e7057ee26b9946f31ab2961e2e509811d2d6a789e2c8386958321d.diff",
+      "positive_sha256": "a7cfe7f4b9e7057ee26b9946f31ab2961e2e509811d2d6a789e2c8386958321d",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X005-home-alias-write.diff"
+    },
+    "X006": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098.diff",
+      "positive_sha256": "6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X007-clustered-evasion.diff"
+    },
+    "X007": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/5b7a3372877e20f993ce8c345e4ad014ecfb2dc6f21a95b7e7b379e846aa1cd0.diff",
+      "positive_sha256": "5b7a3372877e20f993ce8c345e4ad014ecfb2dc6f21a95b7e7b379e846aa1cd0",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/june-w3-empty-quote-concat-hook.diff"
+    },
+    "X010": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/998eae22b8bb40552efb46ffb43bda50e6a9b88084a8e4ebe23ae0aa234f2eac.diff",
+      "positive_sha256": "998eae22b8bb40552efb46ffb43bda50e6a9b88084a8e4ebe23ae0aa234f2eac",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/R008-python-c-url.diff"
+    },
+    "X011": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/162471b9e8b750da56e281f331aa53dad41490d9d95ed998bfe27c9788541772.diff",
+      "positive_sha256": "162471b9e8b750da56e281f331aa53dad41490d9d95ed998bfe27c9788541772",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/june-w1-install-hook-foreign-fetch.diff"
+    },
+    "X012": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/06210bd4fbeaba54346f428ec850c61dca552ed20973e53bd3e50c48f2e43a75.diff",
+      "positive_sha256": "06210bd4fbeaba54346f428ec850c61dca552ed20973e53bd3e50c48f2e43a75",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/megasync__970773900466..ff5978003969.diff"
+    },
+    "X013": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/3c828fb69f0ee24d05f3e7bb947de488f911da333ac09f5a2010fd7df3379bcf.diff",
+      "positive_sha256": "3c828fb69f0ee24d05f3e7bb947de488f911da333ac09f5a2010fd7df3379bcf",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/vmware-workstation__89162397be89..025986460edc.diff"
+    },
+    "X015": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/add55ecc70d79e2e52ced8b5001b8970b35e163697981b7710358bda3930f4fd.diff",
+      "positive_sha256": "add55ecc70d79e2e52ced8b5001b8970b35e163697981b7710358bda3930f4fd",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/mullvad-vpn-bin__77203db7b1fb..7053192705a1.diff"
+    },
+    "X016": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/2c64a8d228aae2bd401de25b07abb83e5a41f4edbb753c8b1d1fe0c78bfe2e0c.diff",
+      "positive_sha256": "2c64a8d228aae2bd401de25b07abb83e5a41f4edbb753c8b1d1fe0c78bfe2e0c",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/evasion/evasion-shell-via-indirect.diff"
+    },
+    "X021": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/6a6f1b3961fbe7f3746963c19f6e162aadc927440ed083290d0c01eb02bbdacd.diff",
+      "positive_sha256": "6a6f1b3961fbe7f3746963c19f6e162aadc927440ed083290d0c01eb02bbdacd",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/octopi__0be5ea32f1be..e156e53f9583.diff"
+    },
+    "X023": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/04e8ae8226f9ae4cd4682021499613aa3fb411c34c071f38cb90127956c20c2a.diff",
+      "positive_sha256": "04e8ae8226f9ae4cd4682021499613aa3fb411c34c071f38cb90127956c20c2a",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/evasion/evasion-command-via-command-subst.diff"
+    },
+    "X024": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/c28c41145a8fc389be4daaca125b19824d5a7ad32c963b5768b3c503a719baf6.diff",
+      "positive_sha256": "c28c41145a8fc389be4daaca125b19824d5a7ad32c963b5768b3c503a719baf6",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/auracle-git__764cc3b058eb..9ec447128daf.diff"
+    },
+    "X026": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/f9bd7016afcc9b4c8115d4882c56a06695dfd1803d186f56fb4207179105f9ab.diff",
+      "positive_sha256": "f9bd7016afcc9b4c8115d4882c56a06695dfd1803d186f56fb4207179105f9ab",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/electron31__9d630723459e..59a9f5a9447f.diff"
+    },
+    "X027": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/003053e26f46ddcc320d7e7d2932c3a7a81bebc73d336689c7c4873eac710ae5.diff",
+      "positive_sha256": "003053e26f46ddcc320d7e7d2932c3a7a81bebc73d336689c7c4873eac710ae5",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/wine-osu-spectator-wow64__861468efe21e..3835c7e7701e.diff"
+    },
+    "X032": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/243e8564cf0b24b58c9ef45a82daf441924c181666c84afec1a2cc07be382438.diff",
+      "positive_sha256": "243e8564cf0b24b58c9ef45a82daf441924c181666c84afec1a2cc07be382438",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/synthetic/X002-partial-quote-command.diff"
+    },
+    "X033": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/d06a65fae7f78f019ff97c6b3d4df223cc81732cf6693b62f70529e351a70659.diff",
+      "positive_sha256": "d06a65fae7f78f019ff97c6b3d4df223cc81732cf6693b62f70529e351a70659",
+      "series": "X",
+      "source": "corpus",
+      "source_path": "tests/fixtures/benign-corpus/herdr-bin__879cfd322e94..3ef02ce786e7.diff"
+    },
+    "X034": {
+      "negative": "fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff",
+      "positive": "fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff",
+      "positive_sha256": "021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e",
+      "series": "X",
+      "source": "malicious",
+      "source_path": "tests/fixtures/malicious/campaign/brave-typosquat-install-hook.diff"
+    }
+  },
+  "source_sha256": "c163ebbbc810e1203d2712f983e6402abeaa26e580b73158a465c9a2d7f5fe23",
+  "trustsight_version": "0.27.0"
+}

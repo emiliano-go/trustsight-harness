@@ -1,0 +1,1757 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index d4bf4479800b..d02a2b3dc66c 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,48 +1,60 @@
+ pkgbase = chatgpt-desktop-bin
+-	pkgdesc = ChatGPT desktop app repackaged from the upstream macOS release archive for Arch Linux
+-	pkgver = 26.727.51351
++	pkgdesc = Official ChatGPT desktop app for Linux
++	pkgver = 26.803.81509
+ 	pkgrel = 1
+ 	url = https://chatgpt.com/download
+-	install = chatgpt-desktop-bin.install
+ 	arch = x86_64
+ 	license = custom
+-	makedepends = imagemagick
+-	makedepends = libarchive
+-	makedepends = node-gyp
+-	makedepends = nodejs
+-	depends = electron42
+-	depends = openai-codex
+-	depends = python
+-	depends = hicolor-icon-theme
++	depends = alsa-lib
++	depends = at-spi2-core
++	depends = cairo
++	depends = dbus
++	depends = expat
++	depends = gcc-libs
++	depends = gdk-pixbuf2
++	depends = glib2
++	depends = glibc
++	depends = graphite
++	depends = gtk3
++	depends = libcups
++	depends = libdrm
++	depends = libglvnd
++	depends = libnotify
++	depends = libusb
++	depends = libx11
++	depends = libxcb
++	depends = libxcomposite
++	depends = libxdamage
++	depends = libxext
++	depends = libxfixes
++	depends = libxkbcommon
++	depends = libxrandr
++	depends = mesa
++	depends = nspr
++	depends = nss
++	depends = openssl
++	depends = pango
++	depends = systemd-libs
++	depends = sh
+ 	depends = xdg-utils
+-	provides = openai-codex-desktop
++	optdepends = apparmor: support the bundled user-namespace profile
++	optdepends = git: Git repository integration
++	optdepends = gnome-keyring: Secret Service backend for credential storage
++	optdepends = kde-cli-tools: file deletion support under KDE Plasma
++	optdepends = libsecret: Secret Service credential storage support
++	optdepends = pipewire: screen sharing under Wayland
++	provides = chatgpt=26.803.81509
++	provides = openai-codex-desktop=26.803.81509
++	conflicts = chatgpt
+ 	conflicts = openai-codex-desktop
+ 	replaces = openai-codex-desktop
+-	noextract = ChatGPT-26.727.51351.zip
+-	noextract = better-sqlite3-12.11.1.tgz
+-	noextract = node-pty-1.1.0.tgz
+-	noextract = electron-v42.3.0-headers.tar.gz
++	noextract = chatgpt_26.803.81509_amd64.deb
+ 	options = !strip
+ 	options = !debug
+-	source = ChatGPT-26.727.51351.zip::https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-26.727.51351.zip
+-	source = better-sqlite3-12.11.1.tgz::https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-12.11.1.tgz
+-	source = node-pty-1.1.0.tgz::https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz
+-	source = electron-v42.3.0-headers.tar.gz::https://electronjs.org/headers/v42.3.0/node-v42.3.0-headers.tar.gz
+-	source = chatgpt-desktop.sh
+-	source = ChatGPT.desktop
+-	source = asar-tools.mjs
+-	source = patch-linux-runtime.mjs
+-	source = patch-linux-open-targets.mjs
+-	source = patch-linux-window-chrome.mjs
+-	sha256sums = 8f3fc87e634332fddc711e5221eb2af554f5f6ecb04e6a69b3d10e01f4f196c8
+-	sha256sums = ebf0ed75a7a59dbcb3b24bbd014ef49d9f15bc328e4adcbf516f2a8fadfa2835
+-	sha256sums = c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60
+-	sha256sums = 821009f9c1830050d894aef9e61906cb0a537b2000b2d9bbed9985fff1d5e0d0
+-	sha256sums = 04a5f786a2389eb408b2be71ce0fe1cb0052e4820e32462af9ccb19c76cdff6e
+-	sha256sums = 5657944f83faffcb6051a7f8de00f1a10ff11fcdee382fd7c7a921119124124d
+-	sha256sums = 6b14d89c0a7907ce988bec8cb38a00d1df74833bec92961f585d41ac8e243c56
+-	sha256sums = ec3657bd7e40acd1a267fb5b5b4328af91799e33f9242bc41cd970027ef04e38
+-	sha256sums = 5808061449ca8026cc387e8efc2c79f26ffba746c9f326c92162bb573c1f6e43
+-	sha256sums = 330b6e09ba8fa8d9cc02fc83b85ed300381a4c8c0341e1eca52adc4f5398de1b
++	backup = etc/apparmor.d/chatgpt
++	source = chatgpt-launcher.sh
++	sha256sums = aab6b1105d7273443234e77412fbaa35ff9e04098ac63c2f73ae8e87afb43bd2
++	source_x86_64 = chatgpt_26.803.81509_amd64.deb::https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.803.81509_amd64.deb
++	sha256sums_x86_64 = a9bf91a368f9f7c4eea38082a9fb8fb46b8d005b719a6d7715d2e5a1982c38eb
+ 
+ pkgname = chatgpt-desktop-bin
+diff --git a/.gitignore b/.gitignore
+index b73905529f23..f754f369d011 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,10 +1,11 @@
+ *.tar
+ *.tar.*
+ *.jar
+ *.exe
+ *.msi
+ *.zip
+ *.tgz
++*.deb
+ *.log
+ *.log.*
+ *.sig
+diff --git a/ChatGPT.desktop b/ChatGPT.desktop
+deleted file mode 100644
+index 1069adc0ac5d..000000000000
+--- a/ChatGPT.desktop
++++ /dev/null
+@@ -1,11 +0,0 @@
+-[Desktop Entry]
+-Name=ChatGPT
+-Comment=ChatGPT desktop app
+-Exec=chatgpt-desktop %U
+-Icon=chatgpt-desktop
+-Terminal=false
+-Type=Application
+-Categories=Development;Utility;
+-MimeType=x-scheme-handler/codex;
+-StartupNotify=true
+-StartupWMClass=ChatGPT
+diff --git a/PKGBUILD b/PKGBUILD
+index c8be84725062..6af89b9db84d 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,202 +1,89 @@
+ # Maintainer: Akira <akira.uestc at gmail dot com>
+-# Releases: https://persistent.oaistatic.com/codex-app-prod/appcast.xml
++# Releases: https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main/binary-amd64/Packages
+ 
+ pkgname=chatgpt-desktop-bin
+-pkgver=26.727.51351
++pkgver=26.803.81509
+ pkgrel=1
+-pkgdesc="ChatGPT desktop app repackaged from the upstream macOS release archive for Arch Linux"
++pkgdesc="Official ChatGPT desktop app for Linux"
+ arch=('x86_64')
+ url="https://chatgpt.com/download"
+ license=('custom')
+ options=('!strip' '!debug')
+-install="${pkgname}.install"
+-provides=('openai-codex-desktop')
+-conflicts=('openai-codex-desktop')
++provides=(
++  "chatgpt=${pkgver}"
++  "openai-codex-desktop=${pkgver}"
++)
++conflicts=(
++  'chatgpt'
++  'openai-codex-desktop'
++)
+ replaces=('openai-codex-desktop')
+ 
+ depends=(
+-  'electron42'
+-  'openai-codex'
+-  'python'
+-  'hicolor-icon-theme'
++  'alsa-lib'
++  'at-spi2-core'
++  'cairo'
++  'dbus'
++  'expat'
++  'gcc-libs'
++  'gdk-pixbuf2'
++  'glib2'
++  'glibc'
++  'graphite'
++  'gtk3'
++  'libcups'
++  'libdrm'
++  'libglvnd'
++  'libnotify'
++  'libusb'
++  'libx11'
++  'libxcb'
++  'libxcomposite'
++  'libxdamage'
++  'libxext'
++  'libxfixes'
++  'libxkbcommon'
++  'libxrandr'
++  'mesa'
++  'nspr'
++  'nss'
++  'openssl'
++  'pango'
++  'systemd-libs'
++  'sh'
+   'xdg-utils'
+ )
+ 
+-makedepends=(
+-  'imagemagick'
+-  'libarchive'
+-  'node-gyp'
+-  'nodejs'
++optdepends=(
++  'apparmor: support the bundled user-namespace profile'
++  'git: Git repository integration'
++  'gnome-keyring: Secret Service backend for credential storage'
++  'kde-cli-tools: file deletion support under KDE Plasma'
++  'libsecret: Secret Service credential storage support'
++  'pipewire: screen sharing under Wayland'
+ )
+ 
+-source=(
+-  "ChatGPT-${pkgver}.zip::https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-${pkgver}.zip"
+-  'better-sqlite3-12.11.1.tgz::https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-12.11.1.tgz'
+-  'node-pty-1.1.0.tgz::https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz'
+-  'electron-v42.3.0-headers.tar.gz::https://electronjs.org/headers/v42.3.0/node-v42.3.0-headers.tar.gz'
+-  'chatgpt-desktop.sh'
+-  'ChatGPT.desktop'
+-  'asar-tools.mjs'
+-  'patch-linux-runtime.mjs'
+-  'patch-linux-open-targets.mjs'
+-  'patch-linux-window-chrome.mjs'
++backup=('etc/apparmor.d/chatgpt')
++
++source_x86_64=(
++  "chatgpt_${pkgver}_amd64.deb::https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_${pkgver}_amd64.deb"
+ )
+-
+-noextract=(
+-  "ChatGPT-${pkgver}.zip"
+-  'better-sqlite3-12.11.1.tgz'
+-  'node-pty-1.1.0.tgz'
+-  'electron-v42.3.0-headers.tar.gz'
+-)
+-
+-sha256sums=('8f3fc87e634332fddc711e5221eb2af554f5f6ecb04e6a69b3d10e01f4f196c8'
+-            'ebf0ed75a7a59dbcb3b24bbd014ef49d9f15bc328e4adcbf516f2a8fadfa2835'
+-            'c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60'
+-            '821009f9c1830050d894aef9e61906cb0a537b2000b2d9bbed9985fff1d5e0d0'
+-            '04a5f786a2389eb408b2be71ce0fe1cb0052e4820e32462af9ccb19c76cdff6e'
+-            '5657944f83faffcb6051a7f8de00f1a10ff11fcdee382fd7c7a921119124124d'
+-            '6b14d89c0a7907ce988bec8cb38a00d1df74833bec92961f585d41ac8e243c56'
+-            'ec3657bd7e40acd1a267fb5b5b4328af91799e33f9242bc41cd970027ef04e38'
+-            '5808061449ca8026cc387e8efc2c79f26ffba746c9f326c92162bb573c1f6e43'
+-            '330b6e09ba8fa8d9cc02fc83b85ed300381a4c8c0341e1eca52adc4f5398de1b')
+-
+-prepare() {
+-  cd "${srcdir}"
+-
+-  rm -rf dmg app-extracted app.asar app.asar.unpacked icon native-build
+-  mkdir -p dmg icon native-build
+-
+-  bsdtar -xf "ChatGPT-${pkgver}.zip" -C "${srcdir}/dmg"
+-
+-  local appdir
+-  appdir="$(find dmg -maxdepth 4 -type d -name '*.app' ! -path '*/__MACOSX/*' -print -quit)"
+-  [[ -n "${appdir}" ]] || {
+-    echo "Could not find .app bundle in ChatGPT archive"
+-    return 1
+-  }
+-
+-  local resources_dir="${appdir}/Contents/Resources"
+-  [[ -f "${resources_dir}/app.asar" ]] || {
+-    echo "Could not find app.asar in ChatGPT archive"
+-    return 1
+-  }
+-
+-  node "${srcdir}/asar-tools.mjs" extract \
+-    "${resources_dir}/app.asar" \
+-    app-extracted \
+-    "${resources_dir}/app.asar.unpacked"
+-
+-  tar -xzf "${srcdir}/electron-v42.3.0-headers.tar.gz" -C native-build
+-  mkdir -p native-build/node_modules
+-
+-  tar -xzf "${srcdir}/better-sqlite3-12.11.1.tgz" -C native-build/node_modules
+-  mv native-build/node_modules/package native-build/node_modules/better-sqlite3
+-
+-  tar -xzf "${srcdir}/node-pty-1.1.0.tgz" -C native-build/node_modules
+-  mv native-build/node_modules/package native-build/node_modules/node-pty
+-
+-  cp -a --no-preserve=ownership app-extracted/node_modules/node-addon-api \
+-    native-build/node_modules/
+-
+-  (
+-    cd native-build/node_modules/better-sqlite3
+-    node-gyp configure --release --nodedir="${srcdir}/native-build/node_headers"
+-    mkdir -p \
+-      build/Release/.deps/Release/obj.target/sqlite3/gen/sqlite3 \
+-      build/Release/.deps/Release/obj.target/better_sqlite3/src \
+-      build/Release/.deps/Release/obj.target/better_sqlite3/src/objects \
+-      build/Release/.deps/Release/obj.target/better_sqlite3/src/util \
+-      build/Release/.deps/Release/obj.target/test_extension/deps
+-    node-gyp build --release
+-  )
+-
+-  (
+-    cd native-build/node_modules/node-pty
+-    node-gyp configure --release --nodedir="${srcdir}/native-build/node_headers"
+-    mkdir -p build/Release/.deps/Release/obj.target/pty/src/unix
+-    node-gyp build --release
+-  )
+-
+-  rm -rf app-extracted/node_modules/better-sqlite3/build
+-  cp -a --no-preserve=ownership \
+-    native-build/node_modules/better-sqlite3/LICENSE \
+-    native-build/node_modules/better-sqlite3/README.md \
+-    native-build/node_modules/better-sqlite3/binding.gyp \
+-    native-build/node_modules/better-sqlite3/lib \
+-    native-build/node_modules/better-sqlite3/package.json \
+-    app-extracted/node_modules/better-sqlite3/
+-  mkdir -p app-extracted/node_modules/better-sqlite3/build/Release
+-  cp -a --no-preserve=ownership \
+-    native-build/node_modules/better-sqlite3/build/Release/better_sqlite3.node \
+-    native-build/node_modules/better-sqlite3/build/Release/test_extension.node \
+-    app-extracted/node_modules/better-sqlite3/build/Release/
+-
+-  rm -rf app-extracted/node_modules/node-pty/build
+-  mkdir -p app-extracted/node_modules/node-pty/build/Release
+-  cp -a --no-preserve=ownership \
+-    native-build/node_modules/node-pty/build/Release/pty.node \
+-    app-extracted/node_modules/node-pty/build/Release/
+-
+-  rm -f app-extracted/node_modules/better-sqlite3/.codex-native-module-build.json
+-  rm -f app-extracted/node_modules/node-pty/.codex-native-module-build.json
+-  rm -rf app-extracted/node_modules/node-mac-permissions
+-  rm -rf app-extracted/node_modules/objc-js/prebuilds
+-  find app-extracted -type f \( -name '*.dylib' -o -name 'sparkle.node' \) -delete
+-  find app-extracted -type d -name '*.dSYM' -prune -exec rm -rf {} +
+-  find app-extracted -path '*/prebuilds/*' -type f -name '*.node' \
+-    ! \( -path '*/linux-x64/*' -o -path '*/HID-linux-x64/*' -o -path '*/HID_hidraw-linux-x64/*' \) \
+-    -delete
+-  find app-extracted -path '*/prebuilds/*' -type f -name '*musl*.node' -delete
+-
+-  node "${srcdir}/patch-linux-runtime.mjs" app-extracted
+-  node "${srcdir}/patch-linux-open-targets.mjs" app-extracted
+-  node "${srcdir}/patch-linux-window-chrome.mjs" app-extracted
+-
+-  node "${srcdir}/asar-tools.mjs" pack app-extracted app.asar app.asar.unpacked
+-
+-  cp "${resources_dir}/icon-chatgpt.png" icon/icon-chatgpt.png
+-  magick icon/icon-chatgpt.png -resize 512x512 icon/chatgpt-desktop.png
+-}
++source=('chatgpt-launcher.sh')
++noextract=("chatgpt_${pkgver}_amd64.deb")
++sha256sums_x86_64=('a9bf91a368f9f7c4eea38082a9fb8fb46b8d005b719a6d7715d2e5a1982c38eb')
++sha256sums=('aab6b1105d7273443234e77412fbaa35ff9e04098ac63c2f73ae8e87afb43bd2')
+ 
+ package() {
+-  cd "${srcdir}"
++  bsdtar -xOf "${srcdir}/chatgpt_${pkgver}_amd64.deb" data.tar.xz |
++    bsdtar --no-same-owner -xJf - -C "${pkgdir}"
+ 
+-  install -Dm644 app.asar \
+-    "${pkgdir}/usr/lib/${pkgname}/resources/app.asar"
++  install -Dm755 "${srcdir}/chatgpt-launcher.sh" \
++    "${pkgdir}/usr/lib/chatgpt/codex-launcher"
+ 
+-  install -Dm644 icon/icon-chatgpt.png \
+-    "${pkgdir}/usr/lib/${pkgname}/resources/icon-chatgpt.png"
++  install -Dm644 "${pkgdir}/usr/share/doc/chatgpt/copyright" \
++    "${pkgdir}/usr/share/licenses/${pkgname}/copyright"
++  ln -s /usr/lib/chatgpt/LICENSES.chromium.html \
++    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSES.chromium.html"
+ 
+-  if [[ -d app.asar.unpacked ]]; then
+-    cp -a --no-preserve=ownership app.asar.unpacked \
+-      "${pkgdir}/usr/lib/${pkgname}/resources/"
+-  fi
+-
+-  if [[ -d app-extracted/webview ]]; then
+-    mkdir -p "${pkgdir}/usr/lib/${pkgname}/content"
+-    cp -a --no-preserve=ownership app-extracted/webview \
+-      "${pkgdir}/usr/lib/${pkgname}/content/"
+-  fi
+-
+-  ln -s /usr/lib/electron42/electron \
+-    "${pkgdir}/usr/lib/${pkgname}/chatgpt"
+-
+-  install -Dm755 chatgpt-desktop.sh \
+-    "${pkgdir}/usr/bin/chatgpt-desktop"
+-
+-  install -Dm644 icon/chatgpt-desktop.png \
+-    "${pkgdir}/usr/share/icons/hicolor/512x512/apps/chatgpt-desktop.png"
+-
+-  install -Dm644 ChatGPT.desktop \
+-    "${pkgdir}/usr/share/applications/ChatGPT.desktop"
+-
+-  local notices
+-  notices="$(find dmg -path '*/Contents/Resources/THIRD_PARTY_NOTICES.txt' ! -path '*/__MACOSX/*' -print -quit)"
+-  [[ -n "${notices}" ]] || {
+-    echo "Could not find THIRD_PARTY_NOTICES.txt"
+-    return 1
+-  }
+-
+-  install -Dm644 "${notices}" \
+-    "${pkgdir}/usr/share/licenses/${pkgname}/THIRD_PARTY_NOTICES.txt"
++  rm -rf "${pkgdir}/usr/share/doc" "${pkgdir}/usr/share/lintian"
+ }
+diff --git a/asar-tools.mjs b/asar-tools.mjs
+deleted file mode 100644
+index 104336ab2262..000000000000
+--- a/asar-tools.mjs
++++ /dev/null
+@@ -1,223 +0,0 @@
+-#!/usr/bin/env node
+-// SPDX-FileCopyrightText: 2026 Arch Linux Contributors
+-// SPDX-License-Identifier: 0BSD
+-
+-import {
+-  chmodSync,
+-  closeSync,
+-  copyFileSync,
+-  existsSync,
+-  mkdirSync,
+-  openSync,
+-  readFileSync,
+-  readSync,
+-  readdirSync,
+-  rmSync,
+-  statSync,
+-  writeFileSync,
+-} from "node:fs";
+-import { createHash } from "node:crypto";
+-import { dirname, join, relative, sep } from "node:path";
+-
+-const BLOCK_SIZE = 4 * 1024 * 1024;
+-
+-function fail(message) {
+-  console.error(`asar-tools: ${message}`);
+-  process.exit(1);
+-}
+-
+-function toAsarPath(path) {
+-  return path.split(sep).join("/");
+-}
+-
+-function readHeader(asarPath) {
+-  const fd = openSync(asarPath, "r");
+-  const sizes = Buffer.alloc(16);
+-  readSync(fd, sizes, 0, 16, 0);
+-  const pickleSize = sizes.readUInt32LE(4);
+-  const headerSize = sizes.readUInt32LE(12);
+-  const header = Buffer.alloc(headerSize);
+-  readSync(fd, header, 0, headerSize, 16);
+-  closeSync(fd);
+-  return {
+-    dataOffset: 8 + pickleSize,
+-    files: JSON.parse(header.toString("utf8")).files,
+-  };
+-}
+-
+-function readAsarFile(asarPath, dataOffset, entry) {
+-  const buffer = Buffer.alloc(entry.size);
+-  const fd = openSync(asarPath, "r");
+-  readSync(fd, buffer, 0, entry.size, dataOffset + Number(entry.offset));
+-  closeSync(fd);
+-  return buffer;
+-}
+-
+-function ensureParent(path) {
+-  mkdirSync(dirname(path), { recursive: true });
+-}
+-
+-function copyWithMode(source, target) {
+-  ensureParent(target);
+-  copyFileSync(source, target);
+-  chmodSync(target, statSync(source).mode);
+-}
+-
+-function extractTree({ asarPath, dataOffset, files, outDir, relPath, unpackedDir }) {
+-  for (const [name, entry] of Object.entries(files)) {
+-    const childRelPath = relPath ? `${relPath}/${name}` : name;
+-    const target = join(outDir, ...childRelPath.split("/"));
+-    if (entry.files) {
+-      mkdirSync(target, { recursive: true });
+-      extractTree({
+-        asarPath,
+-        dataOffset,
+-        files: entry.files,
+-        outDir,
+-        relPath: childRelPath,
+-        unpackedDir,
+-      });
+-      continue;
+-    }
+-
+-    if (entry.link) {
+-      fail(`link entries are not supported: ${childRelPath}`);
+-    }
+-
+-    if (entry.unpacked) {
+-      const source = join(unpackedDir, ...childRelPath.split("/"));
+-      if (!existsSync(source)) {
+-        fail(`missing unpacked file: ${source}`);
+-      }
+-      copyWithMode(source, target);
+-    } else {
+-      ensureParent(target);
+-      writeFileSync(target, readAsarFile(asarPath, dataOffset, entry));
+-      if (entry.executable) {
+-        chmodSync(target, 0o755);
+-      }
+-    }
+-  }
+-}
+-
+-function sha256(buffer) {
+-  return createHash("sha256").update(buffer).digest("hex");
+-}
+-
+-function integrityFor(buffer) {
+-  const blocks = [];
+-  if (buffer.length === 0) {
+-    blocks.push(sha256(Buffer.alloc(0)));
+-  } else {
+-    for (let offset = 0; offset < buffer.length; offset += BLOCK_SIZE) {
+-      blocks.push(sha256(buffer.subarray(offset, offset + BLOCK_SIZE)));
+-    }
+-  }
+-  return {
+-    algorithm: "SHA256",
+-    hash: sha256(buffer),
+-    blockSize: BLOCK_SIZE,
+-    blocks,
+-  };
+-}
+-
+-function shouldUnpack(path) {
+-  return path.endsWith(".node") || path.endsWith(".so");
+-}
+-
+-function buildTree({ rootDir, unpackedDir, dir, dataParts, offsetRef }) {
+-  const files = {};
+-  const entries = readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
+-    a.name.localeCompare(b.name),
+-  );
+-
+-  for (const entry of entries) {
+-    const fullPath = join(dir, entry.name);
+-    const relPath = toAsarPath(relative(rootDir, fullPath));
+-
+-    if (entry.isDirectory()) {
+-      files[entry.name] = {
+-        files: buildTree({ rootDir, unpackedDir, dir: fullPath, dataParts, offsetRef }),
+-      };
+-      continue;
+-    }
+-
+-    if (!entry.isFile()) {
+-      fail(`unsupported filesystem entry: ${fullPath}`);
+-    }
+-
+-    const buffer = readFileSync(fullPath);
+-    const mode = statSync(fullPath).mode;
+-    const metadata = {
+-      size: buffer.length,
+-      integrity: integrityFor(buffer),
+-    };
+-
+-    if ((mode & 0o111) !== 0) {
+-      metadata.executable = true;
+-    }
+-
+-    if (shouldUnpack(relPath)) {
+-      metadata.unpacked = true;
+-      const unpackedTarget = join(unpackedDir, ...relPath.split("/"));
+-      copyWithMode(fullPath, unpackedTarget);
+-    } else {
+-      metadata.offset = String(offsetRef.value);
+-      dataParts.push(buffer);
+-      offsetRef.value += buffer.length;
+-    }
+-
+-    files[entry.name] = metadata;
+-  }
+-
+-  return files;
+-}
+-
+-function headerPrefix(jsonLength) {
+-  const pad = (4 - (jsonLength % 4)) % 4;
+-  const payloadSize = 4 + jsonLength + pad;
+-  const pickleSize = 4 + payloadSize;
+-  const prefix = Buffer.alloc(16);
+-  prefix.writeUInt32LE(4, 0);
+-  prefix.writeUInt32LE(pickleSize, 4);
+-  prefix.writeUInt32LE(payloadSize, 8);
+-  prefix.writeUInt32LE(jsonLength, 12);
+-  return { prefix, pad };
+-}
+-
+-function extract(asarPath, outDir, unpackedDir = `${asarPath}.unpacked`) {
+-  const { dataOffset, files } = readHeader(asarPath);
+-  rmSync(outDir, { force: true, recursive: true });
+-  mkdirSync(outDir, { recursive: true });
+-  extractTree({ asarPath, dataOffset, files, outDir, relPath: "", unpackedDir });
+-}
+-
+-function pack(inDir, asarPath, unpackedDir = `${asarPath}.unpacked`) {
+-  rmSync(asarPath, { force: true });
+-  rmSync(unpackedDir, { force: true, recursive: true });
+-  mkdirSync(unpackedDir, { recursive: true });
+-
+-  const dataParts = [];
+-  const offsetRef = { value: 0 };
+-  const root = {
+-    files: buildTree({ rootDir: inDir, unpackedDir, dir: inDir, dataParts, offsetRef }),
+-  };
+-  const header = Buffer.from(JSON.stringify(root), "utf8");
+-  const { prefix, pad } = headerPrefix(header.length);
+-  writeFileSync(asarPath, Buffer.concat([prefix, header, Buffer.alloc(pad), ...dataParts]));
+-}
+-
+-const [command, first, second, third] = process.argv.slice(2);
+-
+-switch (command) {
+-  case "extract":
+-    if (!first || !second) fail("usage: asar-tools.mjs extract <app.asar> <out-dir> [app.asar.unpacked]");
+-    extract(first, second, third);
+-    break;
+-  case "pack":
+-    if (!first || !second) fail("usage: asar-tools.mjs pack <in-dir> <app.asar> [app.asar.unpacked]");
+-    pack(first, second, third);
+-    break;
+-  default:
+-    fail("usage: asar-tools.mjs <extract|pack> ...");
+-}
+diff --git a/chatgpt-desktop-bin.install b/chatgpt-desktop-bin.install
+deleted file mode 100644
+index 46d39d9d5d58..000000000000
+--- a/chatgpt-desktop-bin.install
++++ /dev/null
+@@ -1,15 +0,0 @@
+-_tray_behavior_notice() {
+-  printf '%s\n' \
+-    ':: ChatGPT Desktop now follows the upstream Linux tray behavior:' \
+-    '   - Closing the last window hides it in the system tray; Electron remains running.' \
+-    '   - Launching ChatGPT Desktop again restores and focuses the existing instance.' \
+-    '   - Use Quit from the tray menu to fully exit and stop the local webview bridge.'
+-}
+-
+-post_install() {
+-  [[ $1 == '26.727.51351-1' ]] && _tray_behavior_notice
+-}
+-
+-post_upgrade() {
+-  [[ $1 == '26.727.51351-1' ]] && _tray_behavior_notice
+-}
+diff --git a/chatgpt-desktop.sh b/chatgpt-desktop.sh
+deleted file mode 100644
+index 1c762ef846a0..000000000000
+--- a/chatgpt-desktop.sh
++++ /dev/null
+@@ -1,222 +0,0 @@
+-#!/bin/bash
+-# SPDX-FileCopyrightText: 2026 Arch Linux Contributors
+-# SPDX-License-Identifier: 0BSD
+-set -euo pipefail
+-
+-appdir="/usr/lib/chatgpt-desktop-bin"
+-electron="${appdir}/chatgpt"
+-webview_dir="${appdir}/content/webview"
+-user_flags=()
+-
+-[[ -x "${electron}" ]] || {
+-  echo "Missing Electron runtime: ${electron}" >&2
+-  exit 1
+-}
+-
+-config_home="${XDG_CONFIG_HOME:-}"
+-if [[ -z "${config_home}" && -n "${HOME:-}" ]]; then
+-  config_home="${HOME}/.config"
+-fi
+-
+-if [[ -n "${config_home}" && -f "${config_home}/chatgpt-flags.conf" ]]; then
+-  while IFS= read -r flag_line || [[ -n "${flag_line}" ]]; do
+-    flag_line="${flag_line%%#*}"
+-    read -r -a flag_parts <<<"${flag_line}"
+-    user_flags+=("${flag_parts[@]}")
+-  done <"${config_home}/chatgpt-flags.conf"
+-fi
+-
+-if [[ -n "${config_home}" && -f "${config_home}/codex-flags.conf" ]]; then
+-  while IFS= read -r flag_line || [[ -n "${flag_line}" ]]; do
+-    flag_line="${flag_line%%#*}"
+-    read -r -a flag_parts <<<"${flag_line}"
+-    user_flags+=("${flag_parts[@]}")
+-  done <"${config_home}/codex-flags.conf"
+-fi
+-
+-export CODEX_CLI_PATH="${CODEX_CLI_PATH:-$(command -v codex || true)}"
+-export BUILD_FLAVOR="${BUILD_FLAVOR:-prod}"
+-export NODE_ENV="${NODE_ENV:-production}"
+-
+-http_pid=""
+-electron_pid=""
+-electron_pgid=""
+-tmpdir=""
+-
+-terminate_electron_group() {
+-  local sig="${1:-TERM}"
+-
+-  [[ -n "${electron_pgid}" ]] || return 0
+-  kill -"${sig}" -- "-${electron_pgid}" 2>/dev/null || true
+-}
+-
+-cleanup() {
+-  local status=$?
+-
+-  trap - EXIT HUP INT TERM
+-  [[ -n "${http_pid}" ]] && kill "${http_pid}" 2>/dev/null || true
+-  terminate_electron_group TERM
+-  [[ -n "${http_pid}" ]] && wait "${http_pid}" 2>/dev/null || true
+-  [[ -n "${electron_pid}" ]] && wait "${electron_pid}" 2>/dev/null || true
+-
+-  if [[ -n "${electron_pgid}" ]]; then
+-    for _ in {1..20}; do
+-      kill -0 -- "-${electron_pgid}" 2>/dev/null || break
+-      sleep 0.05
+-    done
+-    if kill -0 -- "-${electron_pgid}" 2>/dev/null; then
+-      terminate_electron_group KILL
+-    fi
+-  fi
+-
+-  [[ -n "${tmpdir}" ]] && rm -rf "${tmpdir}"
+-
+-  return "${status}"
+-}
+-
+-forward_signal() {
+-  local sig="$1"
+-
+-  terminate_electron_group "${sig}"
+-  if [[ -n "${http_pid}" ]] && kill -0 "${http_pid}" 2>/dev/null; then
+-    kill -"${sig}" "${http_pid}" 2>/dev/null || true
+-  fi
+-
+-  exit 0
+-}
+-
+-trap cleanup EXIT
+-trap 'forward_signal HUP' HUP
+-trap 'forward_signal INT' INT
+-trap 'forward_signal TERM' TERM
+-
+-if [[ -d "${webview_dir}" ]] && find "${webview_dir}" -mindepth 1 -maxdepth 1 -print -quit | grep -q .; then
+-  tmpdir="$(mktemp -d)"
+-  ready_file="${tmpdir}/ready"
+-  fail_file="${tmpdir}/fail"
+-  electron_pid_file="${tmpdir}/electron.pid"
+-
+-  python - "${webview_dir}" "${ready_file}" "${fail_file}" "$$" "${electron_pid_file}" >/dev/null 2>&1 <<'PY' &
+-import ctypes
+-import http.server
+-import os
+-import signal
+-import socketserver
+-import sys
+-import threading
+-import time
+-
+-root = sys.argv[1]
+-ready_file = sys.argv[2]
+-fail_file = sys.argv[3]
+-launcher_pid = int(sys.argv[4])
+-electron_pid_file = sys.argv[5]
+-
+-os.chdir(root)
+-
+-def terminate_self():
+-    os.kill(os.getpid(), signal.SIGTERM)
+-
+-def bind_to_launcher():
+-    libc = ctypes.CDLL(None, use_errno=True)
+-    if libc.prctl(1, signal.SIGTERM, 0, 0, 0) != 0:
+-        errno = ctypes.get_errno()
+-        raise OSError(errno, os.strerror(errno))
+-    if os.getppid() != launcher_pid:
+-        raise RuntimeError("launcher exited before webview bridge initialization")
+-
+-def monitor_lifecycle():
+-    electron_pid = None
+-    while True:
+-        if os.getppid() != launcher_pid:
+-            terminate_self()
+-            return
+-
+-        if electron_pid is None:
+-            try:
+-                with open(electron_pid_file) as f:
+-                    electron_pid = int(f.read().strip())
+-            except (FileNotFoundError, ValueError):
+-                time.sleep(0.1)
+-                continue
+-
+-        try:
+-            os.kill(electron_pid, 0)
+-        except ProcessLookupError:
+-            terminate_self()
+-            return
+-        except PermissionError:
+-            pass
+-
+-        time.sleep(0.25)
+-
+-class Handler(http.server.SimpleHTTPRequestHandler):
+-    def log_message(self, fmt, *args):
+-        pass
+-
+-    def end_headers(self):
+-        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
+-        self.send_header("Pragma", "no-cache")
+-        self.send_header("Expires", "0")
+-        super().end_headers()
+-
+-class TCPServer(socketserver.TCPServer):
+-    allow_reuse_address = True
+-
+-try:
+-    bind_to_launcher()
+-    with TCPServer(("127.0.0.1", 0), Handler) as httpd:
+-        threading.Thread(target=monitor_lifecycle, daemon=True).start()
+-        ready_tmp = f"{ready_file}.tmp"
+-        with open(ready_tmp, "w") as f:
+-            f.write(f"{httpd.server_address[1]}\n")
+-        os.replace(ready_tmp, ready_file)
+-        httpd.serve_forever()
+-except Exception as e:
+-    with open(fail_file, "w") as f:
+-        f.write(str(e))
+-    raise
+-PY
+-  http_pid=$!
+-
+-  for _ in {1..50}; do
+-    [[ -f "${ready_file}" ]] && break
+-    if [[ -f "${fail_file}" ]]; then
+-      echo "Failed to start local webview server" >&2
+-      cat "${fail_file}" >&2
+-      exit 1
+-    fi
+-    kill -0 "${http_pid}" 2>/dev/null || {
+-      echo "Local webview server exited before becoming ready" >&2
+-      exit 1
+-    }
+-    sleep 0.1
+-  done
+-
+-  [[ -f "${ready_file}" ]] || {
+-    echo "Timed out waiting for local webview server" >&2
+-    exit 1
+-  }
+-
+-  read -r webview_port <"${ready_file}"
+-  if [[ ! "${webview_port}" =~ ^[0-9]+$ ]] ||
+-    ((webview_port < 1 || webview_port > 65535)); then
+-    echo "Local webview server returned an invalid port: ${webview_port}" >&2
+-    exit 1
+-  fi
+-
+-  export ELECTRON_RENDERER_URL="${ELECTRON_RENDERER_URL:-http://127.0.0.1:${webview_port}/}"
+-fi
+-
+-setsid "${electron}" \
+-  --enable-sandbox \
+-  --class=ChatGPT \
+-  "${user_flags[@]}" \
+-  "${appdir}/resources/app.asar" \
+-  "$@" &
+-electron_pid=$!
+-electron_pgid="${electron_pid}"
+-if [[ -n "${electron_pid_file:-}" ]]; then
+-  printf '%s\n' "${electron_pid}" >"${electron_pid_file}"
+-fi
+-wait "${electron_pid}"
+diff --git a/chatgpt-launcher.sh b/chatgpt-launcher.sh
+new file mode 100644
+index 000000000000..46b910595032
+--- /dev/null
++++ b/chatgpt-launcher.sh
+@@ -0,0 +1,33 @@
++#!/bin/sh
++
++flags_file="${XDG_CONFIG_HOME:-${HOME}/.config}/chatgpt-flags.conf"
++carriage_return="$(printf '\r')"
++
++if [ -r "${flags_file}" ]; then
++  original_argc=$#
++
++  while IFS= read -r flag || [ -n "${flag}" ]; do
++    flag=${flag%"${carriage_return}"}
++    leading_space=${flag%%[![:space:]]*}
++    flag=${flag#"${leading_space}"}
++    trailing_space=${flag##*[![:space:]]}
++    flag=${flag%"${trailing_space}"}
++
++    case ${flag} in
++      ''|'#'*) continue ;;
++    esac
++
++    set -- "$@" "${flag}"
++  done < "${flags_file}"
++
++  # Move the original command-line arguments behind the flags read above.
++  while [ "${original_argc}" -gt 0 ]; do
++    original_arg=$1
++    shift
++    set -- "$@" "${original_arg}"
++    original_argc=$((original_argc - 1))
++  done
++fi
++
++launcher_dir="$(dirname "$(readlink -f "$0")")"
++exec "${launcher_dir}/ChatGPT" "$@"
+diff --git a/patch-linux-open-targets.mjs b/patch-linux-open-targets.mjs
+deleted file mode 100644
+index d78a84cbb0bd..000000000000
+--- a/patch-linux-open-targets.mjs
++++ /dev/null
+@@ -1,209 +0,0 @@
+-#!/usr/bin/env node
+-// SPDX-FileCopyrightText: 2026 Arch Linux Contributors
+-// SPDX-License-Identifier: 0BSD
+-
+-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+-import { join, resolve } from "node:path";
+-
+-const TAG = "patch-linux-open-targets";
+-const appRoot = resolve(process.argv[2] ?? "app-extracted");
+-const buildRoot = join(appRoot, ".vite", "build");
+-
+-function fail(message) {
+-  console.error(`${TAG}: ${message}`);
+-  process.exit(1);
+-}
+-
+-function readJsFiles(dir) {
+-  return readdirSync(dir, { withFileTypes: true })
+-    .filter((entry) => entry.isFile() && entry.name.endsWith(".js"))
+-    .map((entry) => join(dir, entry.name));
+-}
+-
+-if (!existsSync(buildRoot) || !statSync(buildRoot).isDirectory()) {
+-  fail(`could not find Vite build directory: ${buildRoot}`);
+-}
+-
+-const requiredMarkers = [
+-  "id:`vscode`",
+-  "id:`vscodeInsiders`",
+-  "id:`cursor`",
+-  "id:`windsurf`",
+-  "id:`zed`",
+-  "id:`fileManager`",
+-];
+-
+-const codeArgsPattern =
+-  /(?:var |,)([A-Za-z_$][\w$]*)=\(([A-Za-z_$][\w$]*),([A-Za-z_$][\w$]*),([A-Za-z_$][\w$]*),([A-Za-z_$][\w$]*),([A-Za-z_$][\w$]*)\)=>.{0,400}?\{hostConfig:\4,location:\3,remotePath:\6,remoteWorkspaceRoot:\5\}/;
+-
+-const openPathPatterns = [
+-  /async function ([A-Za-z_$][\w$]*)\(e\)\{let t=await [A-Za-z_$][\w$]*\.shell\.openPath\(e\);if\(t\)throw Error\(t\)\}/,
+-  /async function ([A-Za-z_$][\w$]*)\(e\)\{let\{shell:[A-Za-z_$][\w$]*\}=await import\(`electron`\),[A-Za-z_$][\w$]*=await [A-Za-z_$][\w$]*\.openPath\(e\);if\([A-Za-z_$][\w$]*\)throw Error\([A-Za-z_$][\w$]*\)\}/,
+-  /async function ([A-Za-z_$][\w$]*)\(e\)\{let\{shell:[A-Za-z_$][\w$]*\}=await import\(`electron`\),.{0,500}?\.openPath\(/,
+-];
+-
+-const legacyRegistryPattern =
+-  /var ([A-Za-z_$][\w$]*)=\[([A-Za-z_$][\w$]*(?:,[A-Za-z_$][\w$]*)*)\],([A-Za-z_$][\w$]*)=([A-Za-z_$][\w$]*)\.([A-Za-z_$][\w$]*)\(`open-in-targets`\);/;
+-
+-const viteRegistryArrayPattern =
+-  /var ([A-Za-z_$][\w$]*)=\[([A-Za-z_$][\w$]*(?:,[A-Za-z_$][\w$]*)*)\];([A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*\(`open-in-targets`\);)/;
+-
+-const viteRegistryMapPattern =
+-  /var ([A-Za-z_$][\w$]*)=new Map\(\[([A-Za-z_$][\w$]*(?:,[A-Za-z_$][\w$]*)*)\]\.flatMap\(/;
+-
+-const targetFiles = readJsFiles(buildRoot).filter((file) => {
+-  const source = readFileSync(file, "utf8");
+-  return (
+-    source.includes("function linuxResolveEditorTarget(") ||
+-    requiredMarkers.every((marker) => source.includes(marker))
+-  );
+-});
+-
+-if (targetFiles.length === 0) {
+-  fail("could not find an open-in-targets bundle");
+-}
+-
+-function findRequireBinding(source, moduleName) {
+-  const escapedModuleName = moduleName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+-  const pattern = new RegExp(
+-    String.raw`(?:^|[;,])(?:let |const |var )?([A-Za-z_$][\w$]*)=require\(["'\`]node:${escapedModuleName}["'\`]\)`,
+-  );
+-  return source.match(pattern)?.[1] ?? null;
+-}
+-
+-function buildLinuxPatch({ codeArgsName, fsName, openPathName, osName, pathName }) {
+-  return [
+-    `function linuxResolveAbsoluteCommand(e){if(!(0,${pathName}.isAbsolute)(e))return null;try{let t=(0,${fsName}.statSync)(e);return t.isFile()?e:null}catch{return null}}`,
+-    `function linuxPathSearch(e){if(!e)return null;if(e.includes(\`/\`))return linuxResolveAbsoluteCommand(e);for(let t of(process.env.PATH??\`\`).split(\`:\`)){if(!t)continue;let n=linuxResolveAbsoluteCommand((0,${pathName}.join)(t,e));if(n)return n}return null}`,
+-    `function linuxDesktopEntrySearchRoots(){let e=(0,${osName}.homedir)();return[(0,${pathName}.join)(e,\`.local\`,\`share\`,\`applications\`),\`/usr/share/applications\`]}`,
+-    `function linuxOpenTargetSearchRoots(){let e=(0,${osName}.homedir)();return[(0,${pathName}.join)(e,\`Applications\`),(0,${pathName}.join)(e,\`Downloads\`),\`/opt\`]}`,
+-    "function linuxSplitDesktopExec(e){return e.match(/\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"|'([^']*)'|\\S+/g)?.map(e=>e.replace(/^\"|\"$/g,``).replace(/^'|'$/g,``))??[]}",
+-    "function linuxResolveDesktopExec(e){let t=linuxSplitDesktopExec(e.replace(/%.?/g,``).trim());for(;t[0]===`env`;){t.shift();for(;t[0]?.includes(`=`)&&!t[0].startsWith(`/`);)t.shift()}let n=t[0];if(!n)return null;return linuxResolveAbsoluteCommand(n)??linuxPathSearch(n)}",
+-    `function linuxFindDesktopEntryExec(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxDesktopEntrySearchRoots()){let n;try{n=(0,${fsName}.readdirSync)(e)}catch{continue}for(let r of n){let a=r.toLowerCase();if(!a.endsWith(\`.desktop\`)||!t.some(e=>a.includes(e)))continue;let i=(0,${pathName}.join)(e,r),c=null;try{c=(0,${fsName}.readFileSync)(i,\`utf8\`)}catch{continue}let l=c.match(/^Exec=(.+)$/m)?.[1]?.trim();if(!l)continue;let u=linuxResolveDesktopExec(l.replace(/%.?/g,\`\`).trim());if(u)return u}}return null}`,
+-    `function linuxFindAppImage(e){let t=e.map(e=>e.toLowerCase());for(let e of linuxOpenTargetSearchRoots()){let n;try{n=(0,${fsName}.readdirSync)(e,{withFileTypes:!0})}catch{continue}for(let r of n){if(!r.isFile())continue;let n=r.name.toLowerCase();if(!n.endsWith(\`.appimage\`)||!t.some(e=>n.includes(e)))continue;let a=linuxResolveAbsoluteCommand((0,${pathName}.join)(e,r.name));if(a)return a}}return null}`,
+-    "function linuxResolveEditorTarget(e,t=[],n=[]){for(let t of e){let e=linuxPathSearch(t);if(e)return e}for(let e of t){let t=linuxResolveAbsoluteCommand(e);if(t)return t}let r=n.length>0?linuxFindDesktopEntryExec(n):null;return r??(n.length>0?linuxFindAppImage(n):null)}",
+-    "function linuxFileManagerDetect(){return linuxPathSearch(`xdg-open`)??linuxResolveAbsoluteCommand(`/usr/bin/xdg-open`)}",
+-    `function linuxOpenFileManagerPath(e){let t=e;for(;;){if((0,${fsName}.existsSync)(t))break;let e=(0,${pathName}.dirname)(t);if(e===t){t=null;break}t=e}let n=t??e;if((0,${fsName}.existsSync)(n)&&(0,${fsName}.statSync)(n).isFile())n=(0,${pathName}.dirname)(n);return ${openPathName}(n)}`,
+-    "function linuxZedArgs(e,t){return t?[`${e}:${t.line}:${t.column}`]:[e]}",
+-    `var linuxVscode={id:\`vscode\`,platforms:{linux:{label:\`VS Code\`,icon:\`apps/vscode.png\`,kind:\`editor\`,detect:()=>linuxResolveEditorTarget([\`code\`,\`code-oss\`],[\`/usr/bin/code\`,\`/usr/bin/code-oss\`,\`/snap/bin/code\`],[\`visual studio code\`,\`code\`,\`code-oss\`]),args:${codeArgsName},supportsSsh:!0}}},`,
+-    `linuxVscodeInsiders={id:\`vscodeInsiders\`,platforms:{linux:{label:\`VS Code Insiders\`,icon:\`apps/vscode-insiders.png\`,kind:\`editor\`,detect:()=>linuxResolveEditorTarget([\`code-insiders\`],[\`/usr/bin/code-insiders\`,\`/snap/bin/code-insiders\`],[\`insiders\`,\`code-insiders\`]),args:${codeArgsName},supportsSsh:!0}}},`,
+-    `linuxCursor={id:\`cursor\`,platforms:{linux:{label:\`Cursor\`,icon:\`apps/cursor.png\`,kind:\`editor\`,detect:()=>linuxResolveEditorTarget([\`cursor\`],[\`/usr/bin/cursor\`,\`/opt/Cursor/cursor\`,\`/opt/cursor/cursor\`],[\`cursor\`]),args:${codeArgsName},supportsSsh:!0}}},`,
+-    `linuxWindsurf={id:\`windsurf\`,platforms:{linux:{label:\`Windsurf\`,icon:\`apps/windsurf.png\`,kind:\`editor\`,detect:()=>linuxResolveEditorTarget([\`windsurf\`],[\`/usr/bin/windsurf\`,\`/opt/Windsurf/windsurf\`,\`/opt/windsurf/windsurf\`],[\`windsurf\`]),args:${codeArgsName},supportsSsh:!0}}},`,
+-    "linuxZed={id:`zed`,platforms:{linux:{label:`Zed`,icon:`apps/zed.png`,kind:`editor`,detect:()=>linuxResolveEditorTarget([`zed`],[`/usr/bin/zed`,`/opt/zed/zed`,`/opt/Zed/zed`],[`zed`]),args:linuxZedArgs}}},",
+-    "linuxFileManager={id:`fileManager`,platforms:{linux:{label:`File Manager`,icon:`apps/file-explorer.png`,kind:`fileManager`,detect:linuxFileManagerDetect,args:e=>[e],open:async({path:e})=>linuxOpenFileManagerPath(e)}}};",
+-  ].join("");
+-}
+-
+-function replaceRegistry(source, linuxPatch, linuxTargets) {
+-  const legacyMatch = source.match(legacyRegistryPattern);
+-  if (legacyMatch) {
+-    const [
+-      registrySource,
+-      registryName,
+-      registryEntries,
+-      loggerName,
+-      loggerFactoryObjectName,
+-      loggerFactoryName,
+-    ] = legacyMatch;
+-    return source.replace(
+-      registrySource,
+-      `${linuxPatch}var ${registryName}=[${linuxTargets},${registryEntries}],${loggerName}=${loggerFactoryObjectName}.${loggerFactoryName}(\`open-in-targets\`);`,
+-    );
+-  }
+-
+-  const viteArrayMatch = source.match(viteRegistryArrayPattern);
+-  if (viteArrayMatch) {
+-    const [registrySource, registryName, registryEntries, loggerCall] = viteArrayMatch;
+-    return source.replace(
+-      registrySource,
+-      `${linuxPatch}var ${registryName}=[${linuxTargets},${registryEntries}];${loggerCall}`,
+-    );
+-  }
+-
+-  const viteMapMatch = source.match(viteRegistryMapPattern);
+-  if (viteMapMatch) {
+-    const [registrySource, registryName, registryEntries] = viteMapMatch;
+-    return source.replace(
+-      registrySource,
+-      `${linuxPatch}var ${registryName}=new Map([${linuxTargets},${registryEntries}].flatMap(`,
+-    );
+-  }
+-
+-  return null;
+-}
+-
+-function patchTargetFile(targetFile) {
+-  let source = readFileSync(targetFile, "utf8");
+-
+-  if (source.includes("function linuxResolveEditorTarget(")) {
+-    console.log(`${TAG}: ${targetFile} already patched`);
+-    return "already";
+-  }
+-
+-  for (const marker of requiredMarkers) {
+-    if (!source.includes(marker)) {
+-      fail(`upstream bundle layout changed in ${targetFile}; missing marker: ${marker}`);
+-    }
+-  }
+-
+-  const codeArgsMatch = source.match(codeArgsPattern);
+-  if (!codeArgsMatch) {
+-    fail(`could not find VS Code-compatible open-target args helper in ${targetFile}`);
+-  }
+-  const codeArgsName = codeArgsMatch[1];
+-
+-  const openPathMatch = openPathPatterns.map((pattern) => source.match(pattern)).find(Boolean);
+-  if (!openPathMatch) {
+-    fail(`could not find Electron shell.openPath helper in ${targetFile}`);
+-  }
+-  const openPathName = openPathMatch[1];
+-
+-  const fsName = findRequireBinding(source, "fs");
+-  const osName = findRequireBinding(source, "os");
+-  const pathName = findRequireBinding(source, "path");
+-  if (!fsName || !osName || !pathName) {
+-    fail(`could not find required Node module bindings in ${targetFile}`);
+-  }
+-
+-  const linuxTargets = [
+-    "linuxVscode",
+-    "linuxVscodeInsiders",
+-    "linuxCursor",
+-    "linuxWindsurf",
+-    "linuxZed",
+-    "linuxFileManager",
+-  ].join(",");
+-
+-  const linuxPatch = buildLinuxPatch({ codeArgsName, fsName, openPathName, osName, pathName });
+-  const patched = replaceRegistry(source, linuxPatch, linuxTargets);
+-  if (patched == null) {
+-    fail(`could not find open-in-targets registry declaration in ${targetFile}`);
+-  }
+-  source = patched;
+-
+-  for (const marker of ["linuxResolveEditorTarget", "linuxFileManager", "code-oss"]) {
+-    if (!source.includes(marker)) {
+-      fail(`patch verification failed in ${targetFile}; missing marker after patch: ${marker}`);
+-    }
+-  }
+-
+-  writeFileSync(targetFile, source);
+-  console.log(`${TAG}: patched ${targetFile}`);
+-  return "patched";
+-}
+-
+-let patchedCount = 0;
+-let alreadyCount = 0;
+-
+-for (const targetFile of targetFiles) {
+-  const result = patchTargetFile(targetFile);
+-  if (result === "patched") {
+-    patchedCount += 1;
+-  } else if (result === "already") {
+-    alreadyCount += 1;
+-  }
+-}
+-
+-if (patchedCount === 0 && alreadyCount === 0) {
+-  fail("did not patch any open-in-targets bundles");
+-}
+diff --git a/patch-linux-runtime.mjs b/patch-linux-runtime.mjs
+deleted file mode 100644
+index 84c2e5e9efab..000000000000
+--- a/patch-linux-runtime.mjs
++++ /dev/null
+@@ -1,159 +0,0 @@
+-#!/usr/bin/env node
+-// SPDX-FileCopyrightText: 2026 Arch Linux Contributors
+-// SPDX-License-Identifier: 0BSD
+-//
+-// Adapts the macOS application bundle to the stock Arch Electron runtime:
+-//   - sets the Wayland desktop identity used for icon lookup;
+-//   - keeps the upstream single-instance lifecycle enabled;
+-//   - makes upstream Linux tray support work with stock Electron.
+-
+-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-
+-const TAG = "patch-linux-runtime";
+-const appRoot = process.argv[2] ?? "app-extracted";
+-const buildRoot = join(appRoot, ".vite", "build");
+-
+-function fail(message) {
+-  console.error(`${TAG}: ${message}`);
+-  process.exit(1);
+-}
+-
+-function findBundle(prefix) {
+-  if (!existsSync(buildRoot) || !statSync(buildRoot).isDirectory()) {
+-    fail(`could not find Vite build directory: ${buildRoot}`);
+-  }
+-
+-  const files = readdirSync(buildRoot, { withFileTypes: true })
+-    .filter(
+-      (entry) => entry.isFile() && entry.name.startsWith(`${prefix}-`) && entry.name.endsWith(".js"),
+-    )
+-    .map((entry) => join(buildRoot, entry.name));
+-
+-  if (files.length !== 1) {
+-    fail(`expected one ${prefix}-*.js bundle, found ${files.length}`);
+-  }
+-  return files[0];
+-}
+-
+-function replaceRegex(source, regex, replacement, marker, description) {
+-  const matches = [...source.matchAll(regex)];
+-  if (matches.length === 0) {
+-    if (source.includes(marker)) {
+-      console.log(`${TAG}: ${description} already patched`);
+-      return { source, patched: false };
+-    }
+-    fail(`could not find ${description}`);
+-  }
+-  if (matches.length !== 1) {
+-    fail(`expected one ${description}, found ${matches.length}`);
+-  }
+-  console.log(`${TAG}: patched ${description}`);
+-  return { source: source.replace(regex, replacement), patched: true };
+-}
+-
+-function patchDesktopIdentity() {
+-  const packagePath = join(appRoot, "package.json");
+-  if (!existsSync(packagePath)) {
+-    fail(`could not find application package metadata: ${packagePath}`);
+-  }
+-
+-  const packageJson = JSON.parse(readFileSync(packagePath, "utf8"));
+-  if (packageJson.desktopName === "ChatGPT.desktop") {
+-    console.log(`${TAG}: Wayland desktop identity already patched`);
+-    return;
+-  }
+-
+-  packageJson.desktopName = "ChatGPT.desktop";
+-  writeFileSync(packagePath, `${JSON.stringify(packageJson, null, 2)}\n`);
+-  console.log(`${TAG}: patched Wayland desktop identity`);
+-}
+-
+-function patchSingleInstance() {
+-  const bootstrapFile = findBundle("bootstrap");
+-  let source = readFileSync(bootstrapFile, "utf8");
+-  const marker = "/*linuxSingleInstance*/";
+-
+-  if (source.includes(marker)) {
+-    console.log(`${TAG}: Linux single-instance lifecycle already patched`);
+-    return;
+-  }
+-  if (!source.includes(".app.requestSingleInstanceLock()")) {
+-    fail("upstream requestSingleInstanceLock flow is unavailable");
+-  }
+-  if (!source.includes(".app.on(`second-instance`")) {
+-    fail("upstream second-instance handler is unavailable");
+-  }
+-
+-  const predicate =
+-    /([A-Za-z_$][\w$]*)\.f\(\{isMacOS:([A-Za-z_$][\w$]*),isPackaged:([A-Za-z_$][\w$]*)\.app\.isPackaged\}\)/g;
+-  const matches = [...source.matchAll(predicate)];
+-  if (matches.length !== 1) {
+-    fail(`expected one upstream single-instance predicate, found ${matches.length}`);
+-  }
+-
+-  source = source.replace(
+-    predicate,
+-    "$1.f({isMacOS:$2,isPackaged:$3.app.isPackaged||/*linuxSingleInstance*/process.platform===`linux`})",
+-  );
+-  writeFileSync(bootstrapFile, source);
+-  console.log(`${TAG}: patched Linux single-instance lifecycle in ${bootstrapFile}`);
+-}
+-
+-function patchTray() {
+-  const mainFile = findBundle("main");
+-  let source = readFileSync(mainFile, "utf8");
+-  let patchedAny = false;
+-
+-  // Stock Electron exposes Tray.isDestroyed(), but not the custom isReady()
+-  // and whenReady() methods used by the upstream runtime.
+-  {
+-    const result = replaceRegex(
+-      source,
+-      /async function ([A-Za-z_$][\w$]*)\(e\)\{let t=e;if\(typeof t\.whenReady!=`function`\)return process\.platform!==`linux`;try\{return await t\.whenReady\(\),!0\}catch\{return!1\}\}/g,
+-      "async function $1(e){let t=e;if(typeof t.whenReady!=`function`)return!t.isDestroyed();try{return await t.whenReady(),!0}catch{return!1}}",
+-      "if(typeof t.whenReady!=`function`)return!t.isDestroyed()",
+-      "stock Electron asynchronous tray readiness fallback",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-
+-  {
+-    const result = replaceRegex(
+-      source,
+-      /function ([A-Za-z_$][\w$]*)\(e\)\{let t=e;return typeof t\.isReady==`function`\?t\.isReady\(\):process\.platform!==`linux`\}/g,
+-      "function $1(e){let t=e;return typeof t.isReady==`function`?t.isReady():!t.isDestroyed()}",
+-      "typeof t.isReady==`function`?t.isReady():!t.isDestroyed()",
+-      "stock Electron synchronous tray readiness fallback",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-
+-  // app.isPackaged is false under the system Electron launcher and
+-  // process.resourcesPath belongs to Electron. Use the icon installed beside
+-  // app.asar; the archive's computed Codex icon filename is not shipped.
+-  {
+-    const result = replaceRegex(
+-      source,
+-      /([A-Za-z_$][\w$]*)\.nativeImage\.createFromPath\(\1\.app\.isPackaged\?\(0,([A-Za-z_$][\w$]*)\.join\)\(process\.resourcesPath,([A-Za-z_$][\w$]*)\):\(0,\2\.join\)\(([A-Za-z_$][\w$]*),`electron`,`src`,`icons`,\3\)\)/g,
+-      "$1.nativeImage.createFromPath(/*linuxTrayIcon*/(0,$2.join)((0,$2.dirname)($1.app.getAppPath()),`icon-chatgpt.png`))",
+-      "/*linuxTrayIcon*/",
+-      "Linux packaged tray icon path",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-
+-  if (patchedAny) {
+-    writeFileSync(mainFile, source);
+-    console.log(`${TAG}: patched tray runtime in ${mainFile}`);
+-  } else {
+-    console.log(`${TAG}: tray runtime already patched in ${mainFile}`);
+-  }
+-}
+-
+-patchDesktopIdentity();
+-patchSingleInstance();
+-patchTray();
+diff --git a/patch-linux-window-chrome.mjs b/patch-linux-window-chrome.mjs
+deleted file mode 100644
+index c8e98686cf9d..000000000000
+--- a/patch-linux-window-chrome.mjs
++++ /dev/null
+@@ -1,447 +0,0 @@
+-#!/usr/bin/env node
+-// SPDX-FileCopyrightText: 2026 Arch Linux Contributors
+-// SPDX-License-Identifier: 0BSD
+-//
+-// Patches the Codex desktop app to integrate its complete window surface on
+-// Linux: opaque backgrounds, custom chrome, native controls, menus, and
+-// titlebar tooltip placement.
+-//
+-// The packaged app is built for macOS and Windows-style custom chrome. On KDE,
+-// Electron's default Linux frame adds a native title bar above the app chrome,
+-// and the application menu appears as an Electron menu bar. This patch makes
+-// the primary Linux window frameless and hides Electron's native menu
+-// presentation on Linux. It also keeps the Window Controls Overlay colors in
+-// sync with the app's selected chrome theme.
+-
+-import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-
+-const TAG = "patch-linux-window-chrome";
+-const appRoot = process.argv[2] ?? "app-extracted";
+-const buildRoot = join(appRoot, ".vite", "build");
+-const webviewAssets = join(appRoot, "webview", "assets");
+-
+-function fail(message) {
+-  console.error(`${TAG}: ${message}`);
+-  process.exit(1);
+-}
+-
+-function countOccurrences(source, needle) {
+-  return source.split(needle).length - 1;
+-}
+-
+-function replaceExact(source, before, after, alreadyMarker, description) {
+-  const count = countOccurrences(source, before);
+-  if (count === 0) {
+-    if (source.includes(alreadyMarker)) {
+-      console.log(`${TAG}: ${description} already patched`);
+-      return { source, patched: false };
+-    }
+-    fail(`could not find ${description}`);
+-  }
+-  if (count !== 1) {
+-    fail(`expected one ${description}, found ${count}`);
+-  }
+-  console.log(`${TAG}: patched ${description}`);
+-  return { source: source.replace(before, after), patched: true };
+-}
+-
+-function replaceRegex(source, regex, replacement, alreadyMarker, description) {
+-  const matches = [...source.matchAll(regex)];
+-  if (matches.length === 0) {
+-    if (source.includes(alreadyMarker)) {
+-      console.log(`${TAG}: ${description} already patched`);
+-      return { source, patched: false };
+-    }
+-    fail(`could not find ${description}`);
+-  }
+-  if (matches.length !== 1) {
+-    fail(`expected one ${description}, found ${matches.length}`);
+-  }
+-  console.log(`${TAG}: patched ${description}`);
+-  return { source: source.replace(regex, replacement), patched: true };
+-}
+-
+-function replaceOptionalRegex(source, regex, replacement, alreadyRegex, description) {
+-  const matches = [...source.matchAll(regex)];
+-  if (matches.length === 0) {
+-    if (alreadyRegex.test(source)) {
+-      console.log(`${TAG}: ${description} already patched`);
+-      return { source, matched: true, patched: false };
+-    }
+-    return { source, matched: false, patched: false };
+-  }
+-  if (matches.length !== 1) {
+-    fail(`expected one ${description}, found ${matches.length}`);
+-  }
+-  console.log(`${TAG}: patched ${description}`);
+-  return { source: source.replace(regex, replacement), matched: true, patched: true };
+-}
+-
+-function patchLegacyBackgroundFunction(source) {
+-  const backgroundFunction = new RegExp(
+-    "function\\s+([A-Za-z_$][\\w$]*)\\(" +
+-      "\\{platform:([A-Za-z_$][\\w$]*)," +
+-      "appearance:([A-Za-z_$][\\w$]*)," +
+-      "opaqueWindowsEnabled:([A-Za-z_$][\\w$]*)," +
+-      "prefersDarkColors:([A-Za-z_$][\\w$]*)\\}\\)" +
+-      "\\{return\\s*\\4&&!([A-Za-z_$][\\w$]*)\\(\\3\\)&&" +
+-      "\\(\\2===`darwin`\\|\\|\\2===`win32`\\)" +
+-      "\\?\\{backgroundColor:\\5\\?([A-Za-z_$][\\w$]*):([A-Za-z_$][\\w$]*)," +
+-      "backgroundMaterial:\\2===`win32`\\?`none`:null\\}" +
+-      ":(\\2===`win32`&&!\\6\\(\\3\\)\\?" +
+-      "\\{backgroundColor:([A-Za-z_$][\\w$]*)," +
+-      "backgroundMaterial:`mica`\\})" +
+-      ":\\{backgroundColor:\\10,backgroundMaterial:null\\}\\}",
+-  );
+-  const match = source.match(backgroundFunction);
+-  if (!match) {
+-    return { source, matched: false };
+-  }
+-
+-  const [fullMatch, , platform, appearance, , darkMode, predicate, dark, light, win32Branch] =
+-    match;
+-  const linuxBranch =
+-    `${platform}===\`linux\`&&!${predicate}(${appearance})` +
+-    `?{backgroundColor:${darkMode}?${dark}:${light},backgroundMaterial:null}:`;
+-  return {
+-    source: source.replace(fullMatch, fullMatch.replace(win32Branch, `${linuxBranch}${win32Branch}`)),
+-    matched: true,
+-  };
+-}
+-
+-function patchOpaqueSurfacePredicates(source) {
+-  let matchedAny = false;
+-  let patchedAny = false;
+-  let result = replaceOptionalRegex(
+-    source,
+-    /function ([A-Za-z_$][\w$]*)\(\{appearance:([A-Za-z_$][\w$]*),opaqueWindowsEnabled:([A-Za-z_$][\w$]*),platform:([A-Za-z_$][\w$]*)\}\)\{return \3&&!([A-Za-z_$][\w$]*)\(\2\)&&\(\4===`darwin`\|\|\4===`win32`\)\}/g,
+-    "function $1({appearance:$2,opaqueWindowsEnabled:$3,platform:$4}){return $3&&!$5($2)&&($4===`darwin`||$4===`win32`||$4===`linux`)}",
+-    /function [A-Za-z_$][\w$]*\(\{appearance:[A-Za-z_$][\w$]*,opaqueWindowsEnabled:[A-Za-z_$][\w$]*,platform:[A-Za-z_$][\w$]*\}\)\{return [A-Za-z_$][\w$]*&&![A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)&&\([A-Za-z_$][\w$]*===`darwin`\|\|[A-Za-z_$][\w$]*===`win32`\|\|[A-Za-z_$][\w$]*===`linux`\)\}/,
+-    "always-opaque Linux surface predicate",
+-  );
+-  source = result.source;
+-  matchedAny ||= result.matched;
+-  patchedAny ||= result.patched;
+-
+-  result = replaceOptionalRegex(
+-    source,
+-    /function ([A-Za-z_$][\w$]*)\(\{appearance:([A-Za-z_$][\w$]*),isFocused:([A-Za-z_$][\w$]*),platform:([A-Za-z_$][\w$]*)\}\)\{return!\3&&!([A-Za-z_$][\w$]*)\(\2\)&&\(\4===`darwin`\|\|\4===`win32`\)\}/g,
+-    "function $1({appearance:$2,isFocused:$3,platform:$4}){return!$3&&!$5($2)&&($4===`darwin`||$4===`win32`||$4===`linux`)}",
+-    /function [A-Za-z_$][\w$]*\(\{appearance:[A-Za-z_$][\w$]*,isFocused:[A-Za-z_$][\w$]*,platform:[A-Za-z_$][\w$]*\}\)\{return![A-Za-z_$][\w$]*&&![A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)&&\([A-Za-z_$][\w$]*===`darwin`\|\|[A-Za-z_$][\w$]*===`win32`\|\|[A-Za-z_$][\w$]*===`linux`\)\}/,
+-    "unfocused opaque Linux surface predicate",
+-  );
+-  source = result.source;
+-  matchedAny ||= result.matched;
+-  patchedAny ||= result.patched;
+-
+-  return { source, matched: matchedAny, patched: patchedAny };
+-}
+-
+-if (!existsSync(buildRoot) || !statSync(buildRoot).isDirectory()) {
+-  fail(`could not find Vite build directory: ${buildRoot}`);
+-}
+-
+-const mainFiles = readdirSync(buildRoot, { withFileTypes: true })
+-  .filter((e) => e.isFile() && e.name.startsWith("main-") && e.name.endsWith(".js"))
+-  .map((e) => join(buildRoot, e.name));
+-
+-if (mainFiles.length !== 1) {
+-  fail(`expected one main-*.js bundle, found ${mainFiles.length}`);
+-}
+-
+-const mainFile = mainFiles[0];
+-let source = readFileSync(mainFile, "utf8");
+-let patchedAny = false;
+-
+-// 1. Use opaque Linux surfaces. The macOS bundle otherwise supplies
+-// transparent backgrounds intended for vibrancy and mica effects, which can
+-// produce compositor artifacts on Wayland.
+-{
+-  const legacyResult = patchLegacyBackgroundFunction(source);
+-  if (legacyResult.matched) {
+-    source = legacyResult.source;
+-    patchedAny = true;
+-    console.log(`${TAG}: patched legacy Linux background function`);
+-  } else if (source.includes("===`linux`&&!") && source.includes("backgroundMaterial:null}:")) {
+-    console.log(`${TAG}: legacy Linux background function already patched`);
+-  } else {
+-    const surfaceResult = patchOpaqueSurfacePredicates(source);
+-    if (!surfaceResult.matched) {
+-      fail("could not find BrowserWindow background function or opaque surface predicates");
+-    }
+-    source = surfaceResult.source;
+-    patchedAny ||= surfaceResult.patched;
+-  }
+-}
+-
+-// 2. Make the primary Linux app window use app-controlled chrome so KDE does
+-// not add a native title bar above the app's own chrome. Older bundles need an
+-// explicit frameless Linux branch; newer bundles already include Linux in the
+-// hidden titlebar branch.
+-{
+-  const primaryChromeRe =
+-    /case`primary`:return ([A-Za-z_$][\w$]*)===`darwin`\?([A-Za-z_$][\w$]*)\?\{titleBarStyle:`hiddenInset`,trafficLightPosition:([A-Za-z_$][\w$]*)\(([A-Za-z_$][\w$]*)\)\}:\{vibrancy:`menu`,titleBarStyle:`hiddenInset`,trafficLightPosition:\3\(\4\)\}:\1===`win32`\?\{titleBarStyle:`hidden`,titleBarOverlay:([A-Za-z_$][\w$]*)\(\4\)\}:\{titleBarStyle:`default`\};case`secondary`/g;
+-  const primaryHiddenLinuxRe =
+-    /case`primary`:return [A-Za-z_$][\w$]*===`darwin`\?[A-Za-z_$][\w$]*\?\{titleBarStyle:`hiddenInset`,trafficLightPosition:[A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)\}:\{vibrancy:`menu`,titleBarStyle:`hiddenInset`,trafficLightPosition:[A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)\}:[A-Za-z_$][\w$]*===`win32`\|\|[A-Za-z_$][\w$]*===`linux`\?\{titleBarStyle:`hidden`,titleBarOverlay:[A-Za-z_$][\w$]*\([A-Za-z_$][\w$]*\)\}:\{titleBarStyle:`default`\};case`secondary`/;
+-  const quickChatPrimaryHiddenLinux =
+-    source.includes("case`quickChat`:case`primary`:return") &&
+-    source.includes("===`linux`?{titleBarStyle:`hidden`,titleBarOverlay:");
+-
+-  if (primaryHiddenLinuxRe.test(source) || quickChatPrimaryHiddenLinux) {
+-    console.log(`${TAG}: primary Linux hidden titlebar branch already patched upstream`);
+-  } else {
+-    const result = replaceRegex(
+-      source,
+-      primaryChromeRe,
+-      "case`primary`:return $1===`darwin`?$2?{titleBarStyle:`hiddenInset`,trafficLightPosition:$3($4)}:{vibrancy:`menu`,titleBarStyle:`hiddenInset`,trafficLightPosition:$3($4)}:$1===`win32`?{titleBarStyle:`hidden`,titleBarOverlay:$5($4)}:$1===`linux`?{frame:!1}:{titleBarStyle:`default`};case`secondary`",
+-      "===`linux`?{frame:!1}:{titleBarStyle:`default`};case`secondary`",
+-      "primary Linux frameless window branch",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-}
+-
+-// 3. Hide/remove per-window Electron menus for Linux windows created through
+-// the shared window manager.
+-{
+-  const result = replaceExact(
+-    source,
+-    "...process.platform===`win32`?{autoHideMenuBar:!0}:{}",
+-    "...process.platform===`win32`||process.platform===`linux`?{autoHideMenuBar:!0}:{}",
+-    "...process.platform===`win32`||process.platform===`linux`?{autoHideMenuBar:!0}:{}",
+-    "Linux autoHideMenuBar BrowserWindow option",
+-  );
+-  source = result.source;
+-  patchedAny ||= result.patched;
+-}
+-
+-{
+-  const upstreamRemoveMenuRe =
+-    /\(process\.platform===`win32`\|\|process\.platform===`linux`\)&&[A-Za-z_$][\w$]*\.removeMenu\(\)/;
+-  if (upstreamRemoveMenuRe.test(source)) {
+-    console.log(`${TAG}: Linux per-window menu removal already patched upstream`);
+-  } else {
+-    const windowCreateRe =
+-      /webPreferences:([A-Za-z_$][\w$]*)\}\);this\.applyWindowBackdrop\(([A-Za-z_$][\w$]*),([A-Za-z_$][\w$]*),!0\);/g;
+-    const result = replaceRegex(
+-      source,
+-      windowCreateRe,
+-      "webPreferences:$1});process.platform===`linux`&&($2.setMenuBarVisibility(!1),$2.removeMenu()),this.applyWindowBackdrop($2,$3,!0);",
+-      "process.platform===`linux`&&(",
+-      "Linux per-window menu removal",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-}
+-
+-// 4. Keep application menu refreshes from recreating a visible Linux menu bar.
+-// Do not remove the per-window menu here: Electron registers Linux menu-item
+-// accelerators through that menu, even while its menu bar is hidden.
+-{
+-  const hideAllWindowMenus =
+-    "process.platform===`linux`&&$1.BrowserWindow.getAllWindows().forEach(e=>{e.isDestroyed()||e.setMenuBarVisibility(!1)})";
+-  const replacement =
+-    `$1.Menu.setApplicationMenu($2),${hideAllWindowMenus},$3($4)`;
+-  const alreadyMarker = "BrowserWindow.getAllWindows().forEach(e=>{e.isDestroyed()||e.setMenuBarVisibility(!1)})";
+-  if (source.includes(alreadyMarker)) {
+-    console.log(`${TAG}: Linux application menu refresh hiding already patched`);
+-  } else {
+-    const oldAppMenuSuppressionRe =
+-      /process\.platform===`linux`\?([A-Za-z_$][\w$]*)\.Menu\.setApplicationMenu\(null\):\1\.Menu\.setApplicationMenu\(([A-Za-z_$][\w$]*)\),([A-Za-z_$][\w$]*)\(([A-Za-z_$][\w$]*)\)/g;
+-    const appMenuRe =
+-      /([A-Za-z_$][\w$]*)\.Menu\.setApplicationMenu\(([A-Za-z_$][\w$]*)\),([A-Za-z_$][\w$]*)\(([A-Za-z_$][\w$]*)\)/g;
+-    const menuRefreshRe = source.match(oldAppMenuSuppressionRe)?.length
+-      ? oldAppMenuSuppressionRe
+-      : appMenuRe;
+-    const result = replaceRegex(
+-      source,
+-      menuRefreshRe,
+-      replacement,
+-      alreadyMarker,
+-      "Linux application menu refresh hiding",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-}
+-
+-// 5. Browser comment popup windows already hide the menu bar; remove the menu
+-// itself on Linux too.
+-{
+-  const result = replaceExact(
+-    source,
+-    "process.platform===`win32`&&e.removeMenu()",
+-    "(process.platform===`win32`||process.platform===`linux`)&&e.removeMenu()",
+-    "(process.platform===`win32`||process.platform===`linux`)&&e.removeMenu()",
+-    "Linux popup menu removal",
+-  );
+-  source = result.source;
+-  patchedAny ||= result.patched;
+-}
+-
+-// 6. Match the minimize, maximize, and close controls to the app chrome theme.
+-// The upstream overlay uses a transparent background and derives only the
+-// symbol color from nativeTheme. That leaves Linux compositors with controls
+-// whose background does not match custom app themes. Read the active chrome
+-// theme's surface/ink colors and refresh the overlay whenever those settings
+-// or the native light/dark mode change.
+-{
+-  const overlayMarker = "linuxTitleBarOverlay(e=1)";
+-  if (source.includes(overlayMarker)) {
+-    console.log(`${TAG}: Linux titlebar overlay theme sync already patched`);
+-  } else {
+-    const appearanceResolverMatch = source.match(
+-      /isOpaqueWindowsEnabled\(\)\{return\(([A-Za-z_$][\w$]*)\(this\.options\.settingsStore\.getEffective\(([A-Za-z_$][\w$]*\.[A-Za-z_$][\w$]*)\.theme\.key\)\?\?`system`\)===`light`/,
+-    );
+-    if (!appearanceResolverMatch) {
+-      fail("could not find active appearance resolver");
+-    }
+-    const appearanceResolver = appearanceResolverMatch[1];
+-    const settingsKeys = appearanceResolverMatch[2];
+-    const installOverlayMatch = source.match(
+-      /installApplicationMenuTitleBarOverlaySync\(e,t\)\{if\(process\.platform!==`win32`&&process\.platform!==`linux`\|\|t!==`primary`&&t!==`quickChat`\)return;let ([A-Za-z_$][\w$]*)=\(\)=>\{e\.isDestroyed\(\)\|\|e\.setTitleBarOverlay\(([A-Za-z_$][\w$]*)\(this\.windowZooms\.get\(e\.id\)\)\)\};return ([A-Za-z_$][\w$]*)\.nativeTheme\.on\(`updated`,\1\),\1\(\),\(\)=>\{\3\.nativeTheme\.off\(`updated`,\1\)\}\}/,
+-    );
+-    if (!installOverlayMatch) {
+-      fail("could not find Linux titlebar overlay theme listeners");
+-    }
+-    const installOverlayBefore = installOverlayMatch[0];
+-    const overlayFactory = installOverlayMatch[2];
+-    const electronBinding = installOverlayMatch[3];
+-    const setWindowZoomRe =
+-      /([A-Za-z_$][\w$]*)\.setTitleBarOverlay\(([A-Za-z_$][\w$]*)\(([A-Za-z_$][\w$]*)\)\)/g;
+-    const setWindowZoomAfter =
+-      `$1.setTitleBarOverlay(process.platform===\`linux\`?this.linuxTitleBarOverlay($3):$2($3))`;
+-    const overlayMethod =
+-      `linuxTitleBarOverlay(e=1){let t=${appearanceResolver}(this.options.settingsStore.getEffective(${settingsKeys}.theme.key)??\`system\`),r=t===\`light\`?this.options.settingsStore.getEffective(${settingsKeys}.lightChromeTheme.key):this.options.settingsStore.getEffective(${settingsKeys}.darkChromeTheme.key),i=r?.surface,a=r?.ink;return{...${overlayFactory}(e),color:typeof i===\`string\`?i:${electronBinding}.nativeTheme.shouldUseDarkColors?\`#000000\`:\`#f9f9f9\`,symbolColor:typeof a===\`string\`?a:${electronBinding}.nativeTheme.shouldUseDarkColors?\`#ffffff\`:\`#1f1f1f\`}}`;
+-    const installOverlayAfter =
+-      `${overlayMethod}installApplicationMenuTitleBarOverlaySync(e,t){if(process.platform!==\`win32\`&&process.platform!==\`linux\`||t!==\`primary\`&&t!==\`quickChat\`)return;let r=()=>{e.isDestroyed()||e.setTitleBarOverlay(process.platform===\`linux\`?this.linuxTitleBarOverlay(this.windowZooms.get(e.id)):${overlayFactory}(this.windowZooms.get(e.id)))},i=process.platform===\`linux\`?[this.options.settingsStore.onDidChange(${settingsKeys}.theme.key,r),this.options.settingsStore.onDidChange(${settingsKeys}.lightChromeTheme.key,r),this.options.settingsStore.onDidChange(${settingsKeys}.darkChromeTheme.key,r)]:[];return ${electronBinding}.nativeTheme.on(\`updated\`,r),r(),()=>{${electronBinding}.nativeTheme.off(\`updated\`,r),i.forEach(e=>e())}}`;
+-
+-    let result = replaceRegex(
+-      source,
+-      setWindowZoomRe,
+-      setWindowZoomAfter,
+-      "setTitleBarOverlay(process.platform===`linux`?this.linuxTitleBarOverlay(",
+-      "Linux zoom-aware titlebar overlay theme sync",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-
+-    result = replaceExact(
+-      source,
+-      installOverlayBefore,
+-      installOverlayAfter,
+-      overlayMarker,
+-      "Linux titlebar overlay theme listeners",
+-    );
+-    source = result.source;
+-    patchedAny ||= result.patched;
+-  }
+-}
+-
+-if (patchedAny) {
+-  writeFileSync(mainFile, source);
+-  console.log(`${TAG}: patched ${mainFile}`);
+-} else {
+-  console.log(`${TAG}: ${mainFile} already patched`);
+-}
+-
+-if (!existsSync(webviewAssets) || !statSync(webviewAssets).isDirectory()) {
+-  fail(`could not find webview assets directory: ${webviewAssets}`);
+-}
+-
+-const webviewJsFiles = readdirSync(webviewAssets, { withFileTypes: true })
+-  .filter((entry) => entry.isFile() && entry.name.endsWith(".js"))
+-  .map((entry) => join(webviewAssets, entry.name));
+-
+-// 7. Keep the renderer theme opaque as well as the native BrowserWindow.
+-{
+-  const themeFiles = webviewJsFiles.filter((file) =>
+-    readFileSync(file, "utf8").includes("opaqueWindows:!1"),
+-  );
+-  let themePatched = 0;
+-  for (const file of themeFiles) {
+-    const original = readFileSync(file, "utf8");
+-    const updated = original.replaceAll("opaqueWindows:!1", "opaqueWindows:!0");
+-    if (updated !== original) {
+-      writeFileSync(file, updated);
+-      themePatched++;
+-      console.log(`${TAG}: patched opaque theme defaults in ${file}`);
+-    }
+-  }
+-  if (themePatched === 0) {
+-    console.log(`${TAG}: opaque theme defaults already patched`);
+-  }
+-}
+-
+-// 8. Keep titlebar tooltips below Electron's Window Controls Overlay. The
+-// native controls sit above web contents and are invisible to Floating UI's
+-// collision detection, so top-side tooltips otherwise overlap them.
+-{
+-  const placementMarker = "linuxTooltipOverlayBottom";
+-  const nativeTitleMarker = ".removeAttribute(`title`)";
+-  const tooltipFiles = webviewJsFiles.filter((file) => {
+-    const fileSource = readFileSync(file, "utf8");
+-    return (
+-      fileSource.includes("--radix-tooltip-content-available-height") &&
+-      fileSource.includes("referenceElementRef:") &&
+-      fileSource.includes("positioningElement:")
+-    );
+-  });
+-
+-  if (tooltipFiles.length !== 1) {
+-    fail(`expected one tooltip positioning bundle, found ${tooltipFiles.length}`);
+-  }
+-
+-  const tooltipFile = tooltipFiles[0];
+-  let tooltipSource = readFileSync(tooltipFile, "utf8");
+-  let tooltipPatched = false;
+-
+-  if (tooltipSource.includes(placementMarker)) {
+-    console.log(`${TAG}: titlebar tooltip placement already patched`);
+-  } else {
+-    const tooltipFunctionStart =
+-      /(function [A-Za-z_$][\w$]*\(\{[^{}]{0,700}positioningElement:[A-Za-z_$][\w$]*,referenceElementRef:([A-Za-z_$][\w$]*),side:([A-Za-z_$][\w$]*),sideOffset:[A-Za-z_$][\w$]*,variant:[A-Za-z_$][\w$]*\}\)\{)let /g;
+-    const matches = [...tooltipSource.matchAll(tooltipFunctionStart)];
+-    if (matches.length !== 1) {
+-      fail(`expected one tooltip positioning function, found ${matches.length}`);
+-    }
+-
+-    const [match, functionStart, referenceRef, side] = matches[0];
+-    const titlebarPlacement =
+-      `let linuxTooltipReferenceTop=${referenceRef}.current?.getBoundingClientRect().top,` +
+-      `linuxTooltipOverlayBottom=typeof navigator===\`undefined\`?64:` +
+-      `Math.max(navigator.windowControlsOverlay?.getTitlebarAreaRect?.().bottom??0,64);` +
+-      `${side}=${side}===\`top\`&&linuxTooltipReferenceTop!=null&&` +
+-      `linuxTooltipReferenceTop<linuxTooltipOverlayBottom?\`bottom\`:${side};let `;
+-    tooltipSource = tooltipSource.replace(match, `${functionStart}${titlebarPlacement}`);
+-    tooltipPatched = true;
+-  }
+-
+-  if (tooltipSource.includes(nativeTitleMarker)) {
+-    console.log(`${TAG}: redundant native tooltip suppression already patched`);
+-  } else {
+-    const triggerRefCallback =
+-      /([A-Za-z_$][\w$]*)=([A-Za-z_$][\w$]*)=>\{([A-Za-z_$][\w$]*)\(\2\),([A-Za-z_$][\w$]*)\(([A-Za-z_$][\w$]*),\2\)\},([A-Za-z_$][\w$]*);return \6=/g;
+-    const matches = [...tooltipSource.matchAll(triggerRefCallback)];
+-    if (matches.length !== 1) {
+-      fail(`expected one tooltip trigger ref callback, found ${matches.length}`);
+-    }
+-
+-    const [match, callback, element, setReference, mergeRef, externalRef, renderedTrigger] =
+-      matches[0];
+-    const replacement =
+-      `${callback}=${element}=>{${element}?.removeAttribute(\`title\`),` +
+-      `${setReference}(${element}),${mergeRef}(${externalRef},${element})},` +
+-      `${renderedTrigger};return ${renderedTrigger}=`;
+-    tooltipSource = tooltipSource.replace(match, replacement);
+-    tooltipPatched = true;
+-  }
+-
+-  if (tooltipPatched) {
+-    writeFileSync(tooltipFile, tooltipSource);
+-    console.log(`${TAG}: patched titlebar tooltip behavior in ${tooltipFile}`);
+-  }
+-}

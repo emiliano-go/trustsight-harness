@@ -1,0 +1,587 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 038dfc6b7937..ef968a541a38 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,50 +1,58 @@
+ pkgbase = gamescope-nvidia-git
+ 	pkgdesc = SteamOS session compositing window manager (NVIDIA patch)
+-	pkgver = 3.14.3.r8.gf88723f
++	pkgver = 3.14.29.r9.g94271f31
+ 	pkgrel = 1
+ 	url = https://github.com/sharkautarch/gamescope/tree/nvidia-fix
+ 	install = gamescope.install
+ 	arch = x86_64
+ 	license = BSD-2-Clause
++	license = BSD-3-Clause
++	license = LicenseRef-Reshade
+ 	makedepends = git
+ 	makedepends = glm
+ 	makedepends = glslang
+ 	makedepends = meson
++	makedepends = cmake
+ 	makedepends = ninja
+ 	makedepends = vulkan-headers
+ 	makedepends = wayland-protocols
+ 	depends = libpipewire
+ 	depends = libcap
+-	depends = libliftoff
+ 	depends = libxcomposite
+ 	depends = libxdamage
+ 	depends = libxkbcommon
+ 	depends = libxmu
+ 	depends = libxres
+ 	depends = libxxf86vm
++	depends = lcms2
++	depends = libei
++	depends = libxi
+ 	depends = seatd
+ 	depends = xcb-util-errors
+-	depends = libdisplay-info
+ 	depends = sdl2
+ 	depends = vulkan-icd-loader
+ 	depends = xorg-xwayland
+ 	provides = gamescope
+ 	conflicts = gamescope
+-	source = git+https://github.com/ValveSoftware/gamescope.git
+-	source = git+https://github.com/ValveSoftware/openvr.git
+-	source = git+https://github.com/Joshua-Ashton/reshade.git
+-	source = git+https://github.com/KhronosGroup/SPIRV-Headers.git
+-	source = git+https://github.com/Joshua-Ashton/vkroots.git
+-	source = git+https://github.com/Joshua-Ashton/wlroots.git
+-	source = git+https://github.com/nothings/stb.git
++	source = gamescope::git+https://github.com/ValveSoftware/gamescope.git
++	source = subprojects|stb::git+https://github.com/nothings/stb.git#commit=5736b15f7ea0ffb08dd38af21067c314d6a3aae9
+ 	source = reverts-bd722f7.patch
+-	sha1sums = SKIP
+-	sha1sums = SKIP
+-	sha1sums = SKIP
+-	sha1sums = SKIP
+-	sha1sums = SKIP
+-	sha1sums = SKIP
+-	sha1sums = SKIP
+-	sha1sums = 6573136d575068266dcb67459545ab06db58758a
++	source = thirdparty|SPIRV-Headers::git+https://github.com/KhronosGroup/SPIRV-Headers/#commit=d790ced752b5bfc06b6988baadef6eb2d16bdf96
++	source = subprojects|vkroots::git+https://github.com/Joshua-Ashton/vkroots#commit=5106d8a0df95de66cc58dc1ea37e69c99afc9540
++	source = subprojects|openvr::git+https://github.com/ValveSoftware/openvr.git#commit=ebd425331229365dc3ec42d1bb8b2cc3c2332f81
++	source = src|reshade::git+https://github.com/Joshua-Ashton/reshade#commit=696b14cd6006ae9ca174e6164450619ace043283
++	source = subprojects|libdisplay-info::git+https://gitlab.freedesktop.org/emersion/libdisplay-info#commit=66b802d05b374cd8f388dc6ad1e7ae4f08cb3300
++	source = subprojects|libliftoff::git+https://gitlab.freedesktop.org/emersion/libliftoff.git#commit=8b08dc1c14fd019cc90ddabe34ad16596b0691f4
++	source = subprojects|wlroots::git+https://github.com/Joshua-Ashton/wlroots.git#commit=4bc5333a2cbba0b0b88559f281dbde04b849e6ef
++	sha512sums = SKIP
++	sha512sums = 53ff8f7a4ae987b84398bf6b35bccb5aec5337d4e57660f599776eb62f692aa40be671e2c456f24de16c07d27272431b807ca3fd4a97d297bb2a8f35c3df665f
++	sha512sums = 52a7c6670c2ceb2110b1a374db152abf8697e731665ceed9b651f94f95300579d6488c931a29c11d08bf2dc11af5859b0189757a6ebcc4ec494d10c65a088b27
++	sha512sums = 65490f89498b351e737eb79fe498dd428af84ad85e28f41fdf1f62d31dc90f29836be5f3eb754f58353dca63a9ffa858073a97fea0a69cf0e07185fb62b6adc0
++	sha512sums = 0a6fc80fd713c86117fab40e1b92ba8953bb8e68c4ac933fa8f6c04a4b10edba6ebb19cfc74d560c6007d5bcb3ca9d4de63d6cae800f1d426a97ff25f0b7f0fc
++	sha512sums = fd02c3aab84bc2ff8b3210fad0d83aaa5c6807f90e3672d87c5429da305860c88a3f3dd059233ce899fb4f4431a44b63fd194a91fcbffb3bc9293242c13a0256
++	sha512sums = 5629b847abdab649a205470e9128ffc104231f5cf248bbeb01fe555429f24206760c3aea8139d8b18e41ce5f423fd177515eb21f31b2d9b0a2fd19dfe20062ea
++	sha512sums = 69cc98e1f4e8b9949a15f80f8d05f0b143f3fee544357d097d5e0d6634f381ce853b8be83770b96545e782686b824ae77f8dc3a9946344341d6464463125db55
++	sha512sums = f947f3a52f0d6aa4b2762f646cf785cea90c299d7116692120ebe2fc703ea79f52bc98d71631a07a87695addf2d8fd0e7c39d6690e0b18148c8652cf155cf17f
++	sha512sums = 5b91669bb41c38fd83b6f8da5788fb42caa5781b4c20fbc712108eaf88c1f982436b7a8a0de782d2d2a31cd69c35114c39cdb7f5c9ab6da46d22fadcfa00f448
+ 
+ pkgname = gamescope-nvidia-git
+diff --git a/.gitignore b/.gitignore
+index 682a0804e43a..b83a8bcc3a1b 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,6 +1,7 @@
+ *
+ !*.patch
+ !PKGBUILD
+ !.SRCINFO
+ !.gitignore
+-!*.install
+\ No newline at end of file
++!*.install
++!updpkgsrc.sh
+\ No newline at end of file
+diff --git a/PKGBUILD b/PKGBUILD
+index 7b6375446e7e..94a8bf511bb5 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,106 +1,122 @@
+ # Maintainer: detiam <dehe_tian@outlook.com>
+ # Contributor: Maxime Gauduin <alucryd@archlinux.org>
+ # Contributor: Giancarlo Razzolini <grazzolini@archlinux.org>
+ # Contributor: Samuel "scrufulufugus" Monson <smonson@irbash.net>
+ # Contributor: PedroHLC <root@pedrohlc.com>
+ 
+ pkgname=gamescope-nvidia-git
+ _pkgname=gamescope
+-pkgver=3.14.3.r8.gf88723f
++pkgver=3.14.29.r9.g94271f31
+ pkgrel=1
+ pkgdesc='SteamOS session compositing window manager (NVIDIA patch)'
+ arch=(x86_64)
+ url=https://github.com/sharkautarch/gamescope/tree/nvidia-fix
+-license=('BSD-2-Clause')
++license=(
++  'BSD-2-Clause'
++  'BSD-3-Clause'
++  'LicenseRef-Reshade')
+ install="$_pkgname.install"
+ depends=(
+   'libpipewire'
+   'libcap'
+-  'libliftoff'
+   'libxcomposite'
+   'libxdamage'
+   'libxkbcommon'
+   'libxmu'
+   'libxres'
+   'libxxf86vm'
++  'lcms2'
++  'libei'
++  'libxi'
+   'seatd' # wlroots deps
+   'xcb-util-errors' # wlroots deps
+-  'libdisplay-info' # wlroots deps
+   'sdl2'
+   'vulkan-icd-loader'
+   'xorg-xwayland')
+ makedepends=(
+   'git'
+-  'glm'
++  'glm' # tested work version v1.0.1
+   'glslang'
+   'meson'
++  'cmake'
+   'ninja'
+   'vulkan-headers'
+   'wayland-protocols')
+ provides=("$_pkgname")
+ conflicts=("$_pkgname")
+ source=(
+-  "git+https://github.com/ValveSoftware/gamescope.git"
+-  "git+https://github.com/ValveSoftware/openvr.git"
+-  "git+https://github.com/Joshua-Ashton/reshade.git"
+-  "git+https://github.com/KhronosGroup/SPIRV-Headers.git"
+-  "git+https://github.com/Joshua-Ashton/vkroots.git"
+-  "git+https://github.com/Joshua-Ashton/wlroots.git"
+-  "git+https://github.com/nothings/stb.git"
+-  "reverts-bd722f7.patch")
+-sha1sums=('SKIP'
+-          'SKIP'
+-          'SKIP'
+-          'SKIP'
+-          'SKIP'
+-          'SKIP'
+-          'SKIP'
+-          '6573136d575068266dcb67459545ab06db58758a')
++  "$_pkgname::git+https://github.com/ValveSoftware/gamescope.git"
++  "subprojects|stb::git+https://github.com/nothings/stb.git#commit=5736b15f7ea0ffb08dd38af21067c314d6a3aae9"
++  "reverts-bd722f7.patch") # https://github.com/sharkautarch/gamescope/tree/nvidia-fix
+ 
+ prepare() {
+-  # apply nvidia-fix patchs from
+-  # https://github.com/sharkautarch/gamescope/tree/nvidia-fix
+   for patch in "${source[@]}"; do
++    patch="${patch%%::*}"
++    patch="${patch##*/}"
+     if [[ $patch == *.patch ]]; then
+       msg2 "Applying $patch"
+-      patch --no-backup-if-mismatch -d gamescope -Np1 -i "$srcdir/$patch"
++      patch --no-backup-if-mismatch -d "$_pkgname" -Np1 -i "$srcdir/$patch"
+     fi
+   done
+ 
+-  cd gamescope
++  cd $_pkgname
+ 
+   msg2 'Retrieving git build dependencies...'
+-  # configure build deps
+-  git -c submodule.src/reshade.url="$srcdir/reshade" \
+-      -c submodule.subprojects/vkroots.url="$srcdir/vkroots" \
+-      -c submodule.subprojects/wlroots.url="$srcdir/wlroots" \
+-      -c submodule.thirdparty/SPIRV-Headers.url="$srcdir/SPIRV-Headers" \
+-      -c submodule.subprojects/openvr.url="$srcdir/openvr" \
+-      -c submodule.subprojects/libdisplay-info.update=none \
+-      -c submodule.subprojects/libliftoff.update=none \
+-      -c protocol.file.allow=always submodule update --init --progress
++  bash -c '
++    startdir='"$startdir"'
++    srcdir='"$srcdir"'
++    source "$startdir/updpkgsrc.sh"
++    message=$(updateBuildScriptForSubModule "$startdir/PKGBUILD"); code=$?
++    # shellcheck disable=SC2181
++    if [[ $code == 0 ]]; then
++      echo "$message"
++    else
++      echo "$message"
++      exit $code
++    fi
++    eval "$(echoGitCMDForSubModule)"
++  '
+ 
+   msg2 'Retrieving meson build dependencies...'
+-  # meson wrap deps that can't be replaced with system one
+-  sed -i "s|^url =.*|url = file://$srcdir/stb|" subprojects/stb.wrap
++  sed -i "s#^url =.*#url = file://$srcdir/subprojects|stb#" subprojects/stb.wrap
+   meson subprojects download stb
+ }
+ 
+ pkgver() {
+-  git -C "${_pkgname}" describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
++  git -C "$_pkgname" describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+ }
+ 
+ build() {
+-  arch-meson gamescope build \
+-    -Dforce_fallback_for=stb,vkroots \
++  arch-meson "$_pkgname" build \
++    --auto-features=enabled \
+     -Dbenchmark=disabled \
+     -Dpipewire=enabled
+   meson compile -C build
+ }
+ 
+ package() {
+-  DESTDIR="${pkgdir}" meson install -C build --skip-subprojects
+-  install -Dm 644 gamescope/LICENSE -t "${pkgdir}"/usr/share/licenses/gamescope/
++  DESTDIR="$pkgdir" meson install -C build --skip-subprojects
++  install -Dm 644 "$_pkgname/LICENSE" -t "$pkgdir/usr/share/licenses/$_pkgname/"
+ }
+ 
++# Auto generate, do not edit.
++source+=('thirdparty|SPIRV-Headers::git+https://github.com/KhronosGroup/SPIRV-Headers/#commit=d790ced752b5bfc06b6988baadef6eb2d16bdf96'
++         'subprojects|vkroots::git+https://github.com/Joshua-Ashton/vkroots#commit=5106d8a0df95de66cc58dc1ea37e69c99afc9540'
++         'subprojects|openvr::git+https://github.com/ValveSoftware/openvr.git#commit=ebd425331229365dc3ec42d1bb8b2cc3c2332f81'
++         'src|reshade::git+https://github.com/Joshua-Ashton/reshade#commit=696b14cd6006ae9ca174e6164450619ace043283'
++         'subprojects|libdisplay-info::git+https://gitlab.freedesktop.org/emersion/libdisplay-info#commit=66b802d05b374cd8f388dc6ad1e7ae4f08cb3300'
++         'subprojects|libliftoff::git+https://gitlab.freedesktop.org/emersion/libliftoff.git#commit=8b08dc1c14fd019cc90ddabe34ad16596b0691f4'
++         'subprojects|wlroots::git+https://github.com/Joshua-Ashton/wlroots.git#commit=4bc5333a2cbba0b0b88559f281dbde04b849e6ef') # End
++
++sha512sums=('SKIP'
++            '53ff8f7a4ae987b84398bf6b35bccb5aec5337d4e57660f599776eb62f692aa40be671e2c456f24de16c07d27272431b807ca3fd4a97d297bb2a8f35c3df665f'
++            '52a7c6670c2ceb2110b1a374db152abf8697e731665ceed9b651f94f95300579d6488c931a29c11d08bf2dc11af5859b0189757a6ebcc4ec494d10c65a088b27'
++            '65490f89498b351e737eb79fe498dd428af84ad85e28f41fdf1f62d31dc90f29836be5f3eb754f58353dca63a9ffa858073a97fea0a69cf0e07185fb62b6adc0'
++            '0a6fc80fd713c86117fab40e1b92ba8953bb8e68c4ac933fa8f6c04a4b10edba6ebb19cfc74d560c6007d5bcb3ca9d4de63d6cae800f1d426a97ff25f0b7f0fc'
++            'fd02c3aab84bc2ff8b3210fad0d83aaa5c6807f90e3672d87c5429da305860c88a3f3dd059233ce899fb4f4431a44b63fd194a91fcbffb3bc9293242c13a0256'
++            '5629b847abdab649a205470e9128ffc104231f5cf248bbeb01fe555429f24206760c3aea8139d8b18e41ce5f423fd177515eb21f31b2d9b0a2fd19dfe20062ea'
++            '69cc98e1f4e8b9949a15f80f8d05f0b143f3fee544357d097d5e0d6634f381ce853b8be83770b96545e782686b824ae77f8dc3a9946344341d6464463125db55'
++            'f947f3a52f0d6aa4b2762f646cf785cea90c299d7116692120ebe2fc703ea79f52bc98d71631a07a87695addf2d8fd0e7c39d6690e0b18148c8652cf155cf17f'
++            '5b91669bb41c38fd83b6f8da5788fb42caa5781b4c20fbc712108eaf88c1f982436b7a8a0de782d2d2a31cd69c35114c39cdb7f5c9ab6da46d22fadcfa00f448')
++
+ # vim: ts=2 sw=2 et:
+diff --git a/reverts-bd722f7.patch b/reverts-bd722f7.patch
+index 7e82ef0b39dd..c53f41fef4a4 100644
+--- a/reverts-bd722f7.patch
++++ b/reverts-bd722f7.patch
+@@ -1,6 +1,6 @@
+-From bf6cdd3c09a432c42b0d424d4c0123d29f2e5b82 Mon Sep 17 00:00:00 2001
++From 6384251e5d547059f4839008aa4a34217c9be556 Mon Sep 17 00:00:00 2001
+ From: detiam <dehe_tian@outlook.com>
+-Date: Fri, 26 Jan 2024 22:53:40 +0800
++Date: Sun, 11 Aug 2024 17:56:18 +0800
+ Subject: [PATCH] reverts bd722f7
+ 
+ ---
+@@ -10,179 +10,179 @@ Subject: [PATCH] reverts bd722f7
+  3 files changed, 14 insertions(+), 60 deletions(-)
+ 
+ diff --git a/src/rendervulkan.cpp b/src/rendervulkan.cpp
+-index 3570186..db49b57 100644
++index 01b8e94..f4a1ee7 100644
+ --- a/src/rendervulkan.cpp
+ +++ b/src/rendervulkan.cpp
+-@@ -353,7 +353,6 @@ bool CVulkanDevice::selectPhysDev(VkSurfaceKHR surface)
++@@ -375,7 +375,6 @@ bool CVulkanDevice::selectPhysDev(VkSurfaceKHR surface)
+  				}
+  
+  				m_queueFamily = computeOnlyIndex == ~0u ? generalIndex : computeOnlyIndex;
+ -				m_generalQueueFamily = generalIndex;
+  				m_physDev = cphysDev;
+  
+  				if ( env_to_bool( getenv( "GAMESCOPE_FORCE_GENERAL_QUEUE" ) ) )
+-@@ -370,7 +369,7 @@ bool CVulkanDevice::selectPhysDev(VkSurfaceKHR surface)
++@@ -392,7 +391,7 @@ bool CVulkanDevice::selectPhysDev(VkSurfaceKHR surface)
+  
+  	VkPhysicalDeviceProperties props;
+  	vk.GetPhysicalDeviceProperties( m_physDev, &props );
+ -	vk_log.infof( "selecting physical device '%s': queue family %x (general queue family %x)", props.deviceName, m_queueFamily, m_generalQueueFamily );
+ +	vk_log.infof( "selecting physical device '%s': queue family %x", props.deviceName, m_queueFamily );
+  
+  	return true;
+  }
+-@@ -480,22 +479,12 @@ bool CVulkanDevice::createDevice()
++@@ -512,22 +511,12 @@ bool CVulkanDevice::createDevice()
+  		.globalPriority = VK_QUEUE_GLOBAL_PRIORITY_REALTIME_EXT
+  	};
+  
+ -	VkDeviceQueueCreateInfo queueCreateInfos[2] = 
+ -	{
+ -		{
+ -			.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+--			.pNext = g_bNiceCap ? &queueCreateInfoEXT : nullptr,
++-			.pNext = gamescope::Process::HasCapSysNice() ? &queueCreateInfoEXT : nullptr,
+ -			.queueFamilyIndex = m_queueFamily,
+ -			.queueCount = 1,
+ -			.pQueuePriorities = &queuePriorities
+ -		},
+ -		{
+ -			.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+--			.pNext = g_bNiceCap ? &queueCreateInfoEXT : nullptr,
++-			.pNext = gamescope::Process::HasCapSysNice() ? &queueCreateInfoEXT : nullptr,
+ -			.queueFamilyIndex = m_generalQueueFamily,
+ -			.queueCount = 1,
+ -			.pQueuePriorities = &queuePriorities
+ -		},
+ +	VkDeviceQueueCreateInfo queueCreateInfo = {
+ +		.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO,
+-+		.pNext = g_bNiceCap ? &queueCreateInfoEXT : nullptr,
+++		.pNext = gamescope::Process::HasCapSysNice() ? &queueCreateInfoEXT : nullptr,
+ +		.queueFamilyIndex = m_queueFamily,
+ +		.queueCount = 1,
+ +		.pQueuePriorities = &queuePriorities
+  	};
+  
+  	std::vector< const char * > enabledExtensions;
+-@@ -571,8 +560,8 @@ bool CVulkanDevice::createDevice()
++@@ -599,8 +588,8 @@ bool CVulkanDevice::createDevice()
+  	VkDeviceCreateInfo deviceCreateInfo = {
+  		.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
+  		.pNext = &features2,
+ -		.queueCreateInfoCount = m_queueFamily == m_generalQueueFamily ? 1u : 2u,
+ -		.pQueueCreateInfos = queueCreateInfos,
+ +		.queueCreateInfoCount = 1,
+ +		.pQueueCreateInfos = &queueCreateInfo,
+  		.enabledExtensionCount = (uint32_t)enabledExtensions.size(),
+  		.ppEnabledExtensionNames = enabledExtensions.data(),
+  	};
+-@@ -601,17 +590,9 @@ bool CVulkanDevice::createDevice()
++@@ -628,17 +617,9 @@ bool CVulkanDevice::createDevice()
+  	VkResult res = vk.CreateDevice(physDev(), &deviceCreateInfo, nullptr, &m_device);
+- 	if ( res == VK_ERROR_NOT_PERMITTED_KHR && g_bNiceCap )
++ 	if ( res == VK_ERROR_NOT_PERMITTED_KHR && gamescope::Process::HasCapSysNice() )
+  	{
+ -		fprintf(stderr, "vkCreateDevice failed with a high-priority queue (general + compute). Falling back to regular priority (general).\n");
+ -		queueCreateInfos[1].pNext = nullptr;
+ +		fprintf(stderr, "vkCreateDevice failed with a high-priority queue. Falling back to regular priority.\n");
+ +		queueCreateInfo.pNext = nullptr;
+  		res = vk.CreateDevice(physDev(), &deviceCreateInfo, nullptr, &m_device);
+ -
+ -
+--		if ( res == VK_ERROR_NOT_PERMITTED_KHR && g_bNiceCap )
++-		if ( res == VK_ERROR_NOT_PERMITTED_KHR && gamescope::Process::HasCapSysNice() )
+ -		{
+ -			fprintf(stderr, "vkCreateDevice failed with a high-priority queue (compute). Falling back to regular priority (all).\n");
+ -			queueCreateInfos[0].pNext = nullptr;
+ -			res = vk.CreateDevice(physDev(), &deviceCreateInfo, nullptr, &m_device);
+ -		}
+  	}
+  
+  	if ( res != VK_SUCCESS )
+-@@ -625,10 +606,6 @@ bool CVulkanDevice::createDevice()
++@@ -652,10 +633,6 @@ bool CVulkanDevice::createDevice()
+  	#undef VK_FUNC
+  
+  	vk.GetDeviceQueue(device(), m_queueFamily, 0, &m_queue);
+ -	if ( m_queueFamily == m_generalQueueFamily )
+ -		m_generalQueue = m_queue;
+ -	else
+ -		vk.GetDeviceQueue(device(), m_generalQueueFamily, 0, &m_generalQueue);
+  
+  	return true;
+  }
+-@@ -803,24 +780,7 @@ bool CVulkanDevice::createPools()
++@@ -830,24 +807,7 @@ bool CVulkanDevice::createPools()
+  		return false;
+  	}
+  
+ -	VkCommandPoolCreateInfo generalCommandPoolCreateInfo = {
+ -		.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
+ -		.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT,
+ -		.queueFamilyIndex = m_generalQueueFamily,
+ -	};
+ -
+ -	res = vk.CreateCommandPool(device(), &generalCommandPoolCreateInfo, nullptr, &m_generalCommandPool);
+ -	if ( res != VK_SUCCESS )
+ -	{
+ -		vk_errorf( res, "vkCreateCommandPool failed" );
+ -		return false;
+ -	}
+ -
+ -	VkDescriptorPoolSize poolSizes[3] {
+ -		{
+ -			VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER,
+ -			uint32_t(m_descriptorSets.size()),
+ -		},
+ +	VkDescriptorPoolSize poolSizes[2] {
+  		{
+  			VK_DESCRIPTOR_TYPE_STORAGE_IMAGE,
+  			uint32_t(m_descriptorSets.size()) * 2,
+ diff --git a/src/rendervulkan.hpp b/src/rendervulkan.hpp
+-index 98b3936..9c8aaf1 100644
++index ebae5aa..2b10528 100644
+ --- a/src/rendervulkan.hpp
+ +++ b/src/rendervulkan.hpp
+-@@ -728,11 +728,8 @@ public:
++@@ -758,11 +758,8 @@ public:
+  	inline VkPhysicalDevice physDev() {return m_physDev; }
+  	inline VkInstance instance() { return m_instance; }
+  	inline VkQueue queue() {return m_queue;}
+ -	inline VkQueue generalQueue() {return m_generalQueue;}
+  	inline VkCommandPool commandPool() {return m_commandPool;}
+ -	inline VkCommandPool generalCommandPool() {return m_generalCommandPool;}
+  	inline uint32_t queueFamily() {return m_queueFamily;}
+ -	inline uint32_t generalQueueFamily() {return m_generalQueueFamily;}
+  	inline VkBuffer uploadBuffer() {return m_uploadBuffer;}
+  	inline VkPipelineLayout pipelineLayout() {return m_pipelineLayout;}
+  	inline int drmRenderFd() {return m_drmRendererFd;}
+-@@ -783,17 +780,14 @@ protected:
++@@ -813,17 +810,14 @@ protected:
+  	VkPhysicalDevice m_physDev = nullptr;
+  	VkInstance m_instance = nullptr;
+  	VkQueue m_queue = nullptr;
+ -	VkQueue m_generalQueue = nullptr;
+  	VkSamplerYcbcrConversion m_ycbcrConversion = VK_NULL_HANDLE;
+  	VkSampler m_ycbcrSampler = VK_NULL_HANDLE;
+  	VkDescriptorSetLayout m_descriptorSetLayout = VK_NULL_HANDLE;
+  	VkPipelineLayout m_pipelineLayout = VK_NULL_HANDLE;
+  	VkDescriptorPool m_descriptorPool = VK_NULL_HANDLE;
+  	VkCommandPool m_commandPool = VK_NULL_HANDLE;
+ -	VkCommandPool m_generalCommandPool = VK_NULL_HANDLE;
+  
+  	uint32_t m_queueFamily = -1;
+ -	uint32_t m_generalQueueFamily = -1;
+  
+  	int m_drmRendererFd = -1;
+  	dev_t m_drmPrimaryDevId = 0;
+ diff --git a/src/reshade_effect_manager.cpp b/src/reshade_effect_manager.cpp
+-index 382a016..c10bd5d 100644
++index fa37a5c..f8cdc20 100644
+ --- a/src/reshade_effect_manager.cpp
+ +++ b/src/reshade_effect_manager.cpp
+-@@ -865,7 +865,7 @@ bool ReshadeEffectPipeline::init(CVulkanDevice *device, const ReshadeEffectKey &
++@@ -862,7 +862,7 @@ bool ReshadeEffectPipeline::init(CVulkanDevice *device, const ReshadeEffectKey &
+  		VkCommandBufferAllocateInfo commandBufferAllocateInfo =
+          {
+  			.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO,
+ -			.commandPool        = device->generalCommandPool(),
+ +			.commandPool        = device->commandPool(),
+  			.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY,
+  			.commandBufferCount = 1
+  		};
+-@@ -878,7 +878,7 @@ bool ReshadeEffectPipeline::init(CVulkanDevice *device, const ReshadeEffectKey &
++@@ -875,7 +875,7 @@ bool ReshadeEffectPipeline::init(CVulkanDevice *device, const ReshadeEffectKey &
+  			return false;
+  		}
+  
+ -        m_cmdBuffer.emplace(device, cmdBuffer, device->generalQueue(), device->generalQueueFamily());
+ +        m_cmdBuffer.emplace(device, cmdBuffer, device->queue(), device->queueFamily());
+      }
+  
+      // Create Uniform Buffer
+ -- 
+-2.43.0
++2.46.0
+ 
+diff --git a/updpkgsrc.sh b/updpkgsrc.sh
+new file mode 100644
+index 000000000000..cc5a1cb7c018
+--- /dev/null
++++ b/updpkgsrc.sh
+@@ -0,0 +1,103 @@
++#!/usr/bin/env bash
++# Update source array of Git submodules in PKGBUILD
++#
++# Contain functions:
++# "echoSourceTextForSubModule": Echo source array of given Git repository
++# "echoGitCMDForSubModule": Echo Git command for PKGBUILD to change submodule's url
++# "updateBuildScriptForSubModule [Path to PKGBUILD]": Update source array and replace it in PKGBUILD 
++#
++# $1=[Path to Git repository]
++#
++# example:
++# $ bash -c 'source ./updpkgsrc.sh [Path to Git repository] && echoSourceTextForSubModule'
++# $ bash -c 'source ./updpkgsrc.sh [Path to Git repository] && echoGitCMDForSubModule'
++# $ bash -c 'source ./updpkgsrc.sh [Path to Git repository] && updateBuildScriptForSubModule [Path to PKGBUILD]'
++
++if ! type git > /dev/null 2>&1; then
++    echo "This script needs \`git\` in order to work, aborting..." && exit 1
++fi
++
++gitRepo=${1:-.}
++gitModulesStatus=$(git -C "$gitRepo" submodule status --recursive)
++if [[ -z $gitModulesStatus ]]; then
++    echo "No submodule in this repository, aborting..." && exit 1
++else
++    gitModulesFile=$(cat "$gitRepo/.gitmodules")
++fi
++
++# Submodule's Commit Array
++declare -A subCommit
++IFS=$'\n' && for line in $gitModulesStatus; do
++    name=${line#* }
++    commit=${line% *}
++    subCommit+=(["$name"]="${commit:1}")
++done && unset IFS
++
++# Return Submodule's Git Command
++function echoGitCMDForSubModule {
++    gitCMDName="git "
++    subModuleGitCMD+="$gitCMDName"
++    for subName in "${!subCommit[@]}"; do
++        configUrl="-c submodule.${subName}.url=\"\$srcdir/${subName/\//|}\" \\"
++        subModuleGitCMD+="$configUrl"$'\n'$(printf %"${#gitCMDName}"s)
++        ((count++))
++    done
++    subModuleGitCMD+="-c protocol.file.allow=always submodule update --init --progress"
++    echo "$subModuleGitCMD"
++}
++
++declare subModuleSourceTextStart='# Auto generate, do not edit.'
++declare subModuleSourceTextEnd='# End'
++
++# Return Submodule's Source Text
++function echoSourceTextForSubModule {
++    sourceArrayName='source+=('
++    subModuleSourceText+="${subModuleSourceTextStart}"$'\n'"${sourceArrayName}"
++    count=1 && for subName in "${!subCommit[@]}"; do
++        if [[ $subName =~ ^(src|pkg|PKGBUILD|.SRCINFO)$ ]]; then
++            echo 'TODO: fix submodule that name as src,pkg,PKGBUILD or .SRCINFO.' && exit 1
++        fi
++        subUrl=$(echo "$gitModulesFile" | git config -f "/dev/stdin" --get "submodule.${subName}.url")
++        subModule="${subName/\//|}::git+${subUrl}#commit=${subCommit[$subName]}"
++        if [ "${#subCommit[@]}" == "$count" ]; then
++            subModuleSourceText+="'$subModule'"
++        else
++            subModuleSourceText+="'$subModule'"$'\n'$(printf %"${#sourceArrayName}"s)
++        fi
++        ((count++))
++    done
++    subModuleSourceText+=") ${subModuleSourceTextEnd}"
++    echo "$subModuleSourceText"
++}
++
++# Update source array in PKGBUILD
++#
++# $1=[Path to PKGBUILD]
++function updateBuildScriptForSubModule {
++    buildScriptFile=$1
++    if [[ -n $buildScriptFile ]]; then
++        buildScript=$(cat "$1" 2> /dev/null)
++        SourceText="$(echoSourceTextForSubModule)"
++        if [[ $buildScript != *$SourceText* ]]; then
++            sourceTextForSed=$(echo "$SourceText"|sed -ze 's&\n&\\n&g' -e 's&|&\\|&g')
++            sededbuildScript=$(echo "$buildScript" | sed -z "s|\n$subModuleSourceTextStart\nsource+=([^)]*) $subModuleSourceTextEnd\n|\n$sourceTextForSed|")
++
++            if [ "$buildScript" == "$sededbuildScript" ]; then
++                echo "$SourceText" >> "$buildScriptFile"
++            else
++                echo "$sededbuildScript" > "$buildScriptFile"
++            fi
++
++            # shellcheck disable=SC2181,SC2320
++            if [[ $? != 0 ]]; then
++                echo "Failed to update '$buildScriptFile'. The file has not been modified."
++            else
++                echo "The source of submodules in '$buildScriptFile' have updated! Please update checksums, do makepkg again."
++            fi && exit 1
++        else
++            echo "Submodule not updated, continue..." && exit 0
++        fi
++    else
++        echo "Failed to update '$buildScriptFile'. The file is not exist." && exit 1
++    fi
++}
+\ No newline at end of file

@@ -35,7 +35,8 @@ def build_generator(config, repo_root: Path):
                           "generator.manifest")
         if spec:
             raise ValueError(f"unknown generator keys for raw-diff: {sorted(spec)}")
-        return RawDiffGenerator(manifest, campaign_root=config.root)
+        return RawDiffGenerator(manifest, campaign_root=config.root,
+                                repo_root=repo_root, resolve=within)
     if kind == "mutation":
         from generators.mutation import MutationGenerator
 
