@@ -1,0 +1,20 @@
+{
+  "declared": {
+    "depends": []
+  },
+  "description": "A package ships an eBPF object.",
+  "expected": [
+    "A008"
+  ],
+  "manifest": [
+    {
+      "mode": 493,
+      "path": "/usr/bin/demo"
+    },
+    {
+      "mode": 420,
+      "path": "/usr/lib/demo/filter.bpf.o"
+    }
+  ],
+  "stratum": "lang_deep"
+}

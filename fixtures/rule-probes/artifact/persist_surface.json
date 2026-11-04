@@ -1,0 +1,21 @@
+{
+  "declared": {
+    "depends": [],
+    "units": []
+  },
+  "description": "A service is installed but the recipe declares no units.",
+  "expected": [
+    "A002"
+  ],
+  "manifest": [
+    {
+      "mode": 493,
+      "path": "/usr/bin/demo"
+    },
+    {
+      "mode": 420,
+      "path": "/usr/lib/systemd/system/demo.service"
+    }
+  ],
+  "stratum": "persist_surface"
+}

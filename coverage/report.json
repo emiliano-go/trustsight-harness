@@ -1,18 +1,9 @@
 {
   "by_category": {
     "artifact": {
-      "targeted": 0,
+      "targeted": 8,
       "total": 8,
-      "untargeted": [
-        "A001",
-        "A002",
-        "A003",
-        "A004",
-        "A005",
-        "A006",
-        "A007",
-        "A008"
-      ]
+      "untargeted": []
     },
     "composition": {
       "targeted": 4,
@@ -289,6 +280,21 @@
       "campaign": "adversarial-probes",
       "campaign_type": "deterministic",
       "expected_rules": [],
+      "package": "harness-pkg"
+    },
+    {
+      "campaign": "artifact-probes",
+      "campaign_type": "artifact-probe",
+      "expected_rules": [
+        "A001",
+        "A002",
+        "A003",
+        "A004",
+        "A005",
+        "A006",
+        "A007",
+        "A008"
+      ],
       "package": "harness-pkg"
     },
     {
@@ -1685,19 +1691,11 @@
     "TAG_CONVERGENCE"
   ],
   "rules": {
-    "targeted": 154,
+    "targeted": 162,
     "total": 301,
     "unknown_expected_rules": [],
-    "untargeted": 147,
+    "untargeted": 139,
     "untargeted_ids": [
-      "A001",
-      "A002",
-      "A003",
-      "A004",
-      "A005",
-      "A006",
-      "A007",
-      "A008",
       "C006",
       "C008",
       "C009",

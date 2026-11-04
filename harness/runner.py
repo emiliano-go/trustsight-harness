@@ -500,6 +500,37 @@ class Runner:
                          int((time.perf_counter() - started) * 1000))
         return RunResult(report=ReportView(body), body=body, wall_clock_ms=wall)
 
+    def inspect_manifest(self, manifest: list[dict],
+                         declared: dict | None = None) -> RunResult:
+        """Inspect a built-package manifest through the A-series lane.
+
+        Artifact rules read the produced file list, not the recipe diff, so
+        the worker exposes TrustSight's pure inspect_manifest entry point.
+        The synthetic body gives the probe judge the same rule-id shape a
+        normal report carries while keeping the static score at zero.
+        """
+        started = time.perf_counter()
+        with self._lock:
+            reply = self._request({
+                "op": "inspect_manifest",
+                "manifest": manifest,
+                "declared": declared or {},
+            })
+        findings = list(reply.get("findings") or ())
+        body = {
+            "findings": findings,
+            "score_breakdown": [
+                {"rule_id": finding.get("rule_id", "")}
+                for finding in findings if finding.get("rule_id")
+            ],
+            "coverage_gaps": [],
+            "score": 0,
+            "flagged": False,
+            "review_threshold": getattr(self._env, "flag_threshold", 20),
+        }
+        wall = int((time.perf_counter() - started) * 1000)
+        return RunResult(report=ReportView(body), body=body, wall_clock_ms=wall)
+
     def parity_check(self, new_text: str) -> bool:
         """Assert the API body equals what the CLI would emit.
 

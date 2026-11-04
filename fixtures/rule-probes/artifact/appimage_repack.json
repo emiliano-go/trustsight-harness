@@ -1,0 +1,16 @@
+{
+  "declared": {
+    "depends": []
+  },
+  "description": "An AppImage is unpacked and installed executable outside /usr/bin.",
+  "expected": [
+    "A005"
+  ],
+  "manifest": [
+    {
+      "mode": 493,
+      "path": "/opt/demo/demo.AppImage"
+    }
+  ],
+  "stratum": "appimage_repack"
+}

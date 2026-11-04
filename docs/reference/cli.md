@@ -260,7 +260,7 @@ explained. Rule probes stay out of the adversarial bypass rate.
 
 ```bash
 uv run python -m harness coverage
-# 154 of 301 rules targeted by 118 campaigns; 147 untargeted, 9 with a reason and all 9 unreachable by this harness's format.
+# 162 of 301 rules targeted by 119 campaigns; 147 untargeted, 9 with a reason and all 9 unreachable by this harness's format.
 ```
 
 ---

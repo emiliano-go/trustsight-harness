@@ -125,6 +125,11 @@ def main() -> int:
                         "body": report.to_dict(include_score=True, verbose=True),
                         "wall_clock_ms": int((time.perf_counter() - started)
                                              * 1000)})
+            elif op == "inspect_manifest":
+                from trustsight.analysis.artifact import inspect_manifest
+                findings = inspect_manifest(req.get("manifest") or [],
+                                            req.get("declared") or {})
+                _reply({"op": "inspected", "findings": findings})
             elif op == "parity":
                 if api is None:
                     from trustsight.api import TrustSight

@@ -1,0 +1,7 @@
+{
+  "description": "A file carrying Linux capabilities.",
+  "manifest": [
+    {"path": "/usr/bin/ping", "caps": "cap_net_raw=ep"}
+  ],
+  "declared": {}
+}

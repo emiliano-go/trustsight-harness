@@ -1,0 +1,22 @@
+campaign: artifact-probes
+campaign_type: artifact-probe
+environment:
+  trustsight_version: 0.27.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: artifact
+prompt:
+  prompt_id: artifact-probes
+  expected_rules:
+  - A001
+  - A002
+  - A003
+  - A004
+  - A005
+  - A006
+  - A007
+  - A008
+  forbidden_techniques: {}
+attempts: 16

@@ -1,0 +1,7 @@
+{
+  "description": "A setuid executable in the built manifest.",
+  "manifest": [
+    {"path": "/usr/bin/demo", "setuid": true}
+  ],
+  "declared": {}
+}
