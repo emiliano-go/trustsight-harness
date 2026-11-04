@@ -1,0 +1,20 @@
+{
+  "declared": {
+    "depends": []
+  },
+  "description": "A polkit rule is installed by a package that does not explain it.",
+  "expected": [
+    "A007"
+  ],
+  "manifest": [
+    {
+      "mode": 493,
+      "path": "/usr/bin/demo"
+    },
+    {
+      "mode": 420,
+      "path": "/etc/polkit-1/rules.d/50-demo.rules"
+    }
+  ],
+  "stratum": "dependency_heavy"
+}

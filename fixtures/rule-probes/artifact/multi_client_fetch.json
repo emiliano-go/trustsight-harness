@@ -1,0 +1,25 @@
+{
+  "declared": {
+    "depends": [
+      "glibc"
+    ]
+  },
+  "description": "A helper links zlib without declaring it in depends.",
+  "expected": [
+    "A003"
+  ],
+  "manifest": [
+    {
+      "mode": 493,
+      "path": "/usr/bin/demo"
+    },
+    {
+      "links": [
+        "libz.so.1"
+      ],
+      "mode": 420,
+      "path": "/usr/lib/demo/libhelper.so"
+    }
+  ],
+  "stratum": "multi_client_fetch"
+}

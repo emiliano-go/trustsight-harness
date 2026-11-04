@@ -169,6 +169,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     if config.campaign_type == "rule-probe":
         return _run_probe(config, generator, prompt, runner, env, recorder,
                           bash, repo_root, calibration, started_at)
+    if config.campaign_type == "artifact-probe":
+        return _run_artifact_probe(config, generator, prompt, runner, env,
+                                   recorder, repo_root, calibration, started_at)
 
     for attempt in range(config.attempts):
         # Pre-registered stop conditions.  Declared in the committed
@@ -455,6 +458,106 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 #: A real rule id (``U009``), as distinct from the report's synthetic
 #: breakdown entries (``COVERAGE``, ``SOURCE_BUCKET``).
 _RULE_ID = re.compile(r"^[A-Z]\d{3}$")
+
+
+def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
+                         repo_root: Path, calibration: str,
+                         started_at: float) -> dict:
+    """A-series probes: inspect a committed artifact manifest.
+
+    The A rules read the produced file list, so the recipe generators and
+    the behaviour validator cannot express them.  The campaign commits
+    manifests and declared surfaces instead; the worker runs TrustSight's
+    pure inspect_manifest entry point.  These probes stay out of the
+    adversarial bypass count, like every other rule probe.
+    """
+    expected = tuple(sorted(set(config.expected_rules)))
+    for attempt in range(config.attempts):
+        try:
+            produced = generator.generate(prompt, attempt)
+        except Exhausted as stop:
+            recorder.stop_reason = str(stop)
+            break
+        if produced.artifact is None:
+            raise RunnerError("artifact-probe generator produced no manifest")
+        trace = Trace(attempt=attempt, diff_sha256="",
+                      generator=generator.describe(), status=Status.HARNESS_ERROR,
+                      cost=produced.cost)
+        try:
+            result = runner.inspect_manifest(
+                produced.artifact.get("manifest") or [],
+                produced.artifact.get("declared") or {})
+        except (AnalysisTimeout, RunnerError) as exc:
+            trace.judge = {"verdict": str(Status.HARNESS_ERROR),
+                           "rationale": str(exc)}
+            recorder.add(trace, "")
+            continue
+        report = result.report
+        fired = _probe_fired(report)
+        positive = set(produced.expect_fire)
+        if not positive and not produced.expect_absent:
+            positive = set(expected)
+        absent = set(produced.expect_absent)
+        missing = sorted(positive - set(fired))
+        negative_failures = sorted(absent & set(fired))
+        if not missing and not negative_failures:
+            status = Status.DETECTED
+        elif missing:
+            status = Status.BYPASS
+        else:
+            status = Status.PARTIAL_EVASION
+        trace.status = status
+        trace.trustsight = {
+            "report": result.body,
+            "wall_clock_ms": result.wall_clock_ms,
+        }
+        trace.judge = {
+            "verdict": str(status),
+            "expected_rules": sorted(positive),
+            "expect_absent": sorted(absent),
+            "fired_rules": fired,
+            "missing_rules": missing,
+            "negative_failures": negative_failures,
+            "coverage_gaps": [],
+        }
+        recorder.add(trace, "")
+
+    cost = {
+        "tokens_in": getattr(generator, "tokens_in", 0),
+        "tokens_out": getattr(generator, "tokens_out", 0),
+        "api_cost_usd": round(getattr(generator, "spent_usd", 0.0), 6),
+        "ceiling_usd": getattr(generator, "max_cost_usd", None),
+        "retries": getattr(generator, "retries", 0),
+        "wall_clock_ms": int((time.monotonic() - started_at) * 1000),
+    }
+    record = recorder.build_record(
+        campaign_type=config.campaign_type,
+        environment=env.to_record(),
+        generator={**generator.describe(), "prompt_id": prompt.prompt_id,
+                   "prompt_hash": prompt.hash,
+                   "prompt_contract": prompt.contract},
+        validator={"version_hash": "", "calibration": calibration},
+        cost=cost,
+        campaign_commit=_git_commit(repo_root),
+        package=config.package,
+        expected_rules=expected,
+        limitations=config.limitations,
+    )
+    union = sorted({rule for trace in recorder.traces
+                    for rule in trace.judge.get("fired_rules", ())})
+    missing = sorted({rule for trace in recorder.traces
+                      for rule in trace.judge.get("missing_rules", ())})
+    negatives = sorted({rule for trace in recorder.traces
+                        for rule in trace.judge.get("negative_failures", ())})
+    record["probe"] = {
+        "expected_rules": list(expected),
+        "cells": len(recorder.traces),
+        "fired_rules": union,
+        "missing_rules": missing,
+        "negative_failures": negatives,
+    }
+    recorder.write_record(record)
+    return record
 
 
 def _probe_fired(report) -> list[str]:

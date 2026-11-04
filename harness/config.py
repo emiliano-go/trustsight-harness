@@ -116,9 +116,11 @@ def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
             raise ConfigError(f"campaign.{required} is required")
 
     campaign_type = raw.get("campaign_type", "")
-    if campaign_type not in ("deterministic", "stochastic", "rule-probe"):
+    if campaign_type not in ("deterministic", "stochastic", "rule-probe",
+                             "artifact-probe"):
         raise ConfigError(
-            "campaign_type must be 'deterministic', 'stochastic' or 'rule-probe'")
+            "campaign_type must be 'deterministic', 'stochastic', 'rule-probe' "
+            "or 'artifact-probe'")
 
     env = load_environment(raw["environment"], repo_root)
 

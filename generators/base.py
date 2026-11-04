@@ -77,6 +77,8 @@ class Generated:
     #: state that would be wrong for half the cells.
     expect_fire: tuple[str, ...] = ()
     expect_absent: tuple[str, ...] = ()
+    #: An artifact manifest probe: {"manifest": [...], "declared": {...}}.
+    artifact: dict | None = None
 
 
 class Generator(ABC):

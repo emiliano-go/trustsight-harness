@@ -1,0 +1,14 @@
+{
+  "declared": {
+    "depends": []
+  },
+  "description": "An ordinary ELF install; no artifact finding.",
+  "expected": [],
+  "manifest": [
+    {
+      "mode": 493,
+      "path": "/usr/bin/demo"
+    }
+  ],
+  "stratum": "maintainer_churn"
+}

