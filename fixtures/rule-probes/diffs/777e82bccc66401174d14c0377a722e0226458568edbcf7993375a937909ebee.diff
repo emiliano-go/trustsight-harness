@@ -1,0 +1,147 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 368f0a4c9dea..69a0d7afddca 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,31 +1,28 @@
+ pkgbase = amethyst-mod-manager
+ 	pkgdesc = A Linux native mod manager for a variety of games
+-	pkgver = 1.3.13
++	pkgver = 2.0.1
+ 	pkgrel = 1
+ 	url = https://github.com/ChrisDKN/Amethyst-Mod-Manager
+ 	arch = any
+ 	license = GPL-3.0-only
+-	depends = python-gobject
+-	depends = python-customtkinter
+-	depends = python-cairo
+-	depends = gdk-pixbuf2
+ 	depends = gtk3
++	depends = pyside6
++	depends = python-gobject
+ 	depends = python-pillow
+-	depends = python-websocket-client
++	depends = python-certifi
+ 	depends = python-requests
++	depends = python-websocket-client
+ 	depends = python-keyring
++	depends = python-secretstorage
+ 	depends = python-cryptography
+ 	depends = python-jeepney
+ 	depends = python-msgpack
+-	depends = python-rarfile
+ 	depends = python-lz4
+ 	depends = python-py7zr
+ 	depends = python-zstandard
+ 	depends = python-libloot
+ 	depends = python-bsdiff4
+-	optdepends = zenity: native dialog
+-	optdepends = kdialog: native dialog
+-	source = amethyst-mod-manager-1.3.13.tar.gz::https://github.com/ChrisDKN/Amethyst-Mod-Manager/archive/refs/tags/v1.3.13.tar.gz
+-	sha256sums = f9374bef0e6e36decf579d187ca9e0e7fe8f4044cc743522396610e827451014
++	source = amethyst-mod-manager-2.0.1.tar.gz::https://github.com/ChrisDKN/Amethyst-Mod-Manager/archive/refs/tags/v2.0.1.tar.gz
++	sha256sums = cc38bf0a57b19656c315c608e92ca2a09f417cd968aee7152ec67fe9661da5ad
+ 
+ pkgname = amethyst-mod-manager
+diff --git a/PKGBUILD b/PKGBUILD
+index 8b4f0b6d406d..0c2157754fe9 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,55 +1,54 @@
+ # Maintainer: TheBill2001 <tuantran1632001 at gmail dot com>
+ 
+ _pkgname=Amethyst-Mod-Manager
+ pkgname=amethyst-mod-manager
+-pkgver=1.3.13
++pkgver=2.0.1
+ pkgrel=1
+ pkgdesc='A Linux native mod manager for a variety of games'
+ arch=('any')
+ url='https://github.com/ChrisDKN/Amethyst-Mod-Manager'
+ license=('GPL-3.0-only')
+ depends=(
+-    ## UI
+-    'python-gobject'
+-    'python-customtkinter'
+-    'python-cairo'
+-    'gdk-pixbuf2'
++    # UI
+     'gtk3'
++    'pyside6'
++    'python-gobject'
+     'python-pillow'
+ 
+     # Networking
+-    'python-websocket-client'
++    'python-certifi'
+     'python-requests'
++    'python-websocket-client'
+ 
+     # Secret store
+     'python-keyring'
++    'python-secretstorage'
+ 
+     # Cryptography
+     'python-cryptography'
+ 
+     # DBus
+     'python-jeepney'
+ 
+     # Serialization
+     'python-msgpack'
+ 
+     # Archive
+-    'python-rarfile'
+     'python-lz4'
+     'python-py7zr'
+     'python-zstandard'
+ 
+     # Modding tools
+     'python-libloot'
+ 
+     'python-bsdiff4'
+ )
+ optdepends=(
+-    'zenity: native dialog'
+-    'kdialog: native dialog'
++    # 'zenity: native dialog'
++    # 'kdialog: native dialog'
+ )
+ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ChrisDKN/Amethyst-Mod-Manager/archive/refs/tags/v${pkgver}.tar.gz")
+-sha256sums=('f9374bef0e6e36decf579d187ca9e0e7fe8f4044cc743522396610e827451014')
++sha256sums=('cc38bf0a57b19656c315c608e92ca2a09f417cd968aee7152ec67fe9661da5ad')
+ 
+ build() {
+     cd "${_pkgname}-${pkgver}"
+@@ -60,30 +59,30 @@ build()
+ package() {
+     cd "${_pkgname}-${pkgver}"
+ 
+     pushd src > /dev/null
+     find . -path "./appimage" -prune -o \
+         -not -name "requirements*.txt" \
+         -not -name "rebuild_libloot.sh" \
+-        -not -name "run.sh" \
++        -not -name "run_qt.sh" \
+         -not -name "loot.cpython*.so" \
+         -type f \
+         -exec install -Dm 644 '{}' "$pkgdir/usr/share/${pkgname}/{}" \;
+     popd > /dev/null
+ 
+     install -d "$pkgdir/usr/bin/"
+ 
+     echo '#!/bin/sh' > "$pkgdir/usr/bin/${pkgname}"
+-    echo 'exec /usr/bin/python3 /usr/share/'"${pkgname}"'/gui.py "$@"' >> "$pkgdir/usr/bin/${pkgname}"
++    echo 'exec /usr/bin/python3 /usr/share/'"${pkgname}"'/run_qt.py "$@"' >> "$pkgdir/usr/bin/${pkgname}"
+     chmod +x "$pkgdir/usr/bin/${pkgname}"
+ 
+     echo '#!/bin/sh' > "$pkgdir/usr/bin/${pkgname}-cli"
+     echo 'exec /usr/bin/python3 /usr/share/'"${pkgname}"'/cli.py "$@"' >> "$pkgdir/usr/bin/${pkgname}-cli"
+     chmod +x "$pkgdir/usr/bin/${pkgname}-cli"
+ 
+     install -Dm644 "flatpak/io.github.Amethyst.ModManager.desktop" "$pkgdir/usr/share/applications/io.github.Amethyst.ModManager.desktop"
+     install -Dm644 "src/appimage/mod-manager.png" "$pkgdir/usr/share/icons/hicolor/512x512/apps/io.github.Amethyst.ModManager.png"
+ 
+     install -Dm644 Changelog.txt "${pkgdir}/usr/share/${pkgname}/Changelog.txt"
+     install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+     install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+ }

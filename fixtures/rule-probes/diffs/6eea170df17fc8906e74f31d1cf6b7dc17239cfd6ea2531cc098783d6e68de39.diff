@@ -1,0 +1,95 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 92004fece73d..45e99cc25d86 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,19 +1,21 @@
+ pkgbase = amneziawg-dkms-git
+ 	pkgdesc = AmneziaWG is a contemporary version of the popular VPN protocol, WireGuard
+-	pkgver = r1310.515fbf6
++	pkgver = r1316.7e7dfca
+ 	pkgrel = 1
+ 	url = https://github.com/amnezia-vpn/amneziawg-linux-kernel-module
+ 	arch = x86_64
+ 	license = GPLv2
+ 	makedepends = git
+ 	depends = dkms
+ 	depends = wget
+ 	depends = tar
+ 	provides = AMNEZIAWG-MODULE
+ 	conflicts = amneziawg-linux-kernel-module
+ 	source = git+https://github.com/amnezia-vpn/amneziawg-linux-kernel-module.git
+-	source = prepare-sources.sh
++	source = prepare-kernel-sources.sh
++	source = prepare-awg-sources.sh
+ 	sha256sums = SKIP
+ 	sha256sums = fe308a3a980577ba86998d4d17f390a2261177411a13b5bc9fc98e6c282ce05a
++	sha256sums = 71f3ed61c8328ba9f0cd53f30b32535a201bfe2205c3150044a31ca790e3cd01
+ 
+ pkgname = amneziawg-dkms-git
+diff --git a/PKGBUILD b/PKGBUILD
+index d42276247905..4e9d01c78e88 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,21 +1,23 @@
+ # Maintainer: h8ray <gofindme at dmc dot chat>
+ 
+ pkgname=amneziawg-dkms-git
+ _pkgname=amneziawg-linux-kernel-module
+-pkgver=r1310.515fbf6
++pkgver=r1316.7e7dfca
+ pkgrel=1
+ pkgdesc="AmneziaWG is a contemporary version of the popular VPN protocol, WireGuard"
+ arch=("x86_64")
+ url="https://github.com/amnezia-vpn/amneziawg-linux-kernel-module"
+ license=("GPLv2")
+ depends=("dkms" "wget" "tar")
+ makedepends=("git")
+ provides=(AMNEZIAWG-MODULE)
+ conflicts=("$_pkgname")
+ source=("git+https://github.com/amnezia-vpn/amneziawg-linux-kernel-module.git"
+-        "prepare-sources.sh")
++        "prepare-kernel-sources.sh"
++        "prepare-awg-sources.sh")
+ sha256sums=("SKIP"
+-            "fe308a3a980577ba86998d4d17f390a2261177411a13b5bc9fc98e6c282ce05a")
++            "fe308a3a980577ba86998d4d17f390a2261177411a13b5bc9fc98e6c282ce05a"
++            "71f3ed61c8328ba9f0cd53f30b32535a201bfe2205c3150044a31ca790e3cd01")
+ 
+ pkgver() {
+     cd "${srcdir}/${_pkgname}"
+@@ -24,9 +26,11 @@ pkgver()
+ }
+ 
+ prepare() {
+-    cd "${srcdir}/${_pkgname}"
++    cd "${srcdir}"
+ 
+-    cp -vf --no-preserve=ownership --preserve=mode ../prepare-sources.sh kernel-tree-scripts/prepare-sources.sh
++    ./prepare-awg-sources.sh "${_pkgname}"
++
++    cp -vf --no-preserve=ownership --preserve=mode prepare-kernel-sources.sh "${_pkgname}/kernel-tree-scripts/prepare-sources.sh"
+ }
+ 
+ package() {
+diff --git a/prepare-awg-sources.sh b/prepare-awg-sources.sh
+new file mode 100755
+index 000000000000..b7945a5410ff
+--- /dev/null
++++ b/prepare-awg-sources.sh
+@@ -0,0 +1,12 @@
++#!/usr/bin/env bash
++
++set -eux
++
++if [ "$#" -lt 1 ]; then
++    exit 1
++fi
++
++pwd
++
++# Fix Make SIGSEGV https://savannah.gnu.org/bugs/index.php?65172
++sed -i 's/MODERN_KERNEL_SOURCES_NOT_FOUND_ERROR/KERNEL_SRC_ABSENT_ERR/g' "$1/src/Makefile"
+diff --git a/prepare-sources.sh b/prepare-kernel-sources.sh
+similarity index 100%
+rename from prepare-sources.sh
+rename to prepare-kernel-sources.sh

@@ -1,0 +1,32 @@
+diff --git a/PKGBUILD b/PKGBUILD
+index a8dfd6574b9c..7b63f560f77d 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,26 +1,26 @@
+ # Maintainer: Michael Vale <mike@vale.net.au>
+ _pkgname=samplebrain
+ pkgname=$_pkgname-git
+ pkgver=0.18.r6.g6bc1cbe
+ pkgrel=1
+ epoch=
+ pkgdesc="A custom sample mashing app designed by Aphex Twin."
+ arch=('x86_64')
+ url="https://gitlab.com/then-try-this/samplebrain"
+ license=('GPL')
+ groups=()
+ depends=('libsndfile' 'portaudio' 'liblo' 'fftw' 'qt6-base')
+-makedepends=('git')
++makedepends=('git' 'qmake')
+ checkdepends=()
+ optdepends=()
+ provides=()
+ conflicts=()
+ replaces=()
+ backup=()
+ options=()
+ install=
+ changelog=
+ source=("samplebrain-git::git+https://gitlab.com/then-try-this/samplebrain.git")
+ noextract=()
+ md5sums=('SKIP')
+ validpgpkeys=()

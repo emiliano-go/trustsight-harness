@@ -536,16 +536,24 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         report = result.report
         env.check_fingerprint(report)
         fired = _probe_fired(report)
-        missing = sorted(set(expected) - set(fired))
+        # A positive cell names its own rule.  A negative cell names only the
+        # rule it must not fire; without that distinction every twin would
+        # inherit the campaign's expected_rules and fail for firing nothing.
+        positive = set(produced.expect_fire)
+        if not positive and not produced.expect_absent:
+            positive = set(expected)
+        absent = set(produced.expect_absent)
+        missing = sorted(positive - set(fired))
+        negative_failures = sorted(absent & set(fired))
         gaps = [gap for gap in report.coverage_gaps if gap not in env.mode_gaps]
         if gaps:
             status = Status.FAIL_CLOSED_CATCH
-        elif expected and not missing:
+        elif not missing and not negative_failures:
             status = Status.DETECTED
-        elif set(expected) & set(fired):
-            status = Status.PARTIAL_EVASION
-        else:
+        elif missing:
             status = Status.BYPASS
+        else:
+            status = Status.PARTIAL_EVASION
         trace.status = status
         trace.trustsight = {
             "report": result.body,
@@ -554,9 +562,11 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         }
         trace.judge = {
             "verdict": str(status),
-            "expected_rules": list(expected),
+            "expected_rules": sorted(positive),
+            "expect_absent": sorted(absent),
             "fired_rules": fired,
             "missing_rules": missing,
+            "negative_failures": negative_failures,
             "coverage_gaps": gaps,
         }
         recorder.add(trace, diff_text,
@@ -585,11 +595,16 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
     )
     union = sorted({rule for trace in recorder.traces
                     for rule in trace.judge.get("fired_rules", ())})
+    missing = sorted({rule for trace in recorder.traces
+                      for rule in trace.judge.get("missing_rules", ())})
+    negatives = sorted({rule for trace in recorder.traces
+                        for rule in trace.judge.get("negative_failures", ())})
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
         "fired_rules": union,
-        "missing_rules": sorted(set(expected) - set(union)),
+        "missing_rules": missing,
+        "negative_failures": negatives,
     }
     recorder.write_record(record)
     return record

@@ -1,0 +1,82 @@
+diff --git a/mullvad-vpn.install b/mullvad-vpn.install
+index b0c827d22805..f3588f8f91c3 100644
+--- a/mullvad-vpn.install
++++ b/mullvad-vpn.install
+@@ -1,16 +1,18 @@
+ pre_install() {
+-  if systemctl status mullvad-daemon &> /dev/null; then
+-    echo 'Stopping & disabling Mullvad VPN daemon...'
+-    /opt/Mullvad\ VPN/resources/mullvad-setup prepare-restart || true
+-    systemctl disable --now mullvad-daemon
+-    echo 'Disabling Mullvad early boot blocking service...'
+-    systemctl disable mullvad-early-boot-blocking.service || true
+-    cp /var/log/mullvad-vpn/daemon.log /var/log/mullvad-vpn/old-install-daemon.log \
+-      || echo "Failed to copy old daemon log"
++  if which systemctl &> /dev/null && systemctl is-system-running | grep -vq offline &> /dev/null; then
++    if systemctl status mullvad-daemon &> /dev/null; then
++      echo 'Stopping & disabling Mullvad VPN daemon...'
++      /opt/Mullvad\ VPN/resources/mullvad-setup prepare-restart || true
++      systemctl disable --now mullvad-daemon
++      echo 'Disabling Mullvad early boot blocking service...'
++      systemctl disable mullvad-early-boot-blocking.service || true
++      cp /var/log/mullvad-vpn/daemon.log /var/log/mullvad-vpn/old-install-daemon.log \
++        || echo "Failed to copy old daemon log"
++    fi
+   fi
+ 
+   pkill -x "mullvad-gui" || true
+ 
+   rm -f /var/cache/mullvad-vpn/relays.json
+   rm -f /var/cache/mullvad-vpn/api-ip-address.txt
+ }
+@@ -18,13 +20,15 @@ pre_install()
+ post_install() {
+   chmod u+s "/usr/bin/mullvad-exclude"
+ 
+-  echo 'Starting & enabling Mullvad VPN daemon...'
+-  systemctl enable --now mullvad-daemon || echo "Failed to start mullvad-daemon.service"
+-  echo 'Enabling Mullvad early boot blocking service...'
+-  systemctl enable mullvad-early-boot-blocking
++  if which systemctl &> /dev/null && systemctl is-system-running | grep -vq offline &> /dev/null; then
++    echo 'Starting & enabling Mullvad VPN daemon...'
++    systemctl enable --now mullvad-daemon || echo "Failed to start mullvad-daemon.service"
++    echo 'Enabling Mullvad early boot blocking service...'
++    systemctl enable mullvad-early-boot-blocking
++  fi
+ 
+   # Reload apparmor profile
+   if [ -f "/usr/bin/apparmor_parser" ]; then
+     apparmor_parser -r /etc/apparmor.d/mullvad || echo "Failed to reload apparmor profile"
+   fi
+ }
+@@ -34,7 +38,9 @@ pre_upgrade()
+ }
+ 
+ post_upgrade() {
+-  systemctl daemon-reload
++  if which systemctl &> /dev/null && systemctl is-system-running | grep -vq offline &> /dev/null; then
++    systemctl daemon-reload
++  fi
+ 
+   post_install
+ }
+@@ -42,14 +48,16 @@ post_upgrade()
+ pre_remove() {
+   # SIGTERM for some reason causes the app to crash sometimes and SIGINT works as expected.
+   pkill -2 -x "mullvad-gui" || true
+   sleep 0.5
+   pkill -9 -x "mullvad-gui" || true
+ 
+   # the user might've disabled or stopped the services themselves already
+-  echo 'Making sure the services are stopped & disabled...'
+-  systemctl disable --now mullvad-daemon || true
+-  systemctl disable --now mullvad-early-boot-blocking.service || true
++  if which systemctl &> /dev/null && systemctl is-system-running | grep -vq offline &> /dev/null; then
++    echo 'Making sure the services are stopped & disabled...'
++    systemctl disable --now mullvad-daemon || true
++    systemctl disable --now mullvad-early-boot-blocking.service || true
++  fi
+ 
+   /opt/Mullvad\ VPN/resources/mullvad-setup reset-firewall || echo "Failed to reset firewall"
+   /opt/Mullvad\ VPN/resources/mullvad-setup remove-device || echo "Failed to remove device from account"
+ }

@@ -1,0 +1,161 @@
+cells:
+- id: X001-positive
+  path: fixtures/rule-probes/diffs/772d84096e01fa5516d3ae7d080b17894dbdeb7732529310bca8a2cb97c2b4c5.diff
+  expect_fire:
+  - X001
+- id: X001-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X001
+- id: X002-positive
+  path: fixtures/rule-probes/diffs/02bfd460db20565b3edccd8488762fb8ffc6eceed37a1646ff659999ccbeda92.diff
+  expect_fire:
+  - X002
+- id: X002-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X002
+- id: X004-positive
+  path: fixtures/rule-probes/diffs/6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098.diff
+  expect_fire:
+  - X004
+- id: X004-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X004
+- id: X005-positive
+  path: fixtures/rule-probes/diffs/a7cfe7f4b9e7057ee26b9946f31ab2961e2e509811d2d6a789e2c8386958321d.diff
+  expect_fire:
+  - X005
+- id: X005-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X005
+- id: X006-positive
+  path: fixtures/rule-probes/diffs/6a39250b4aae587351a0355cc2f1da805d19cbb64ab28d42a010a47ef58cc098.diff
+  expect_fire:
+  - X006
+- id: X006-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X006
+- id: X007-positive
+  path: fixtures/rule-probes/diffs/5b7a3372877e20f993ce8c345e4ad014ecfb2dc6f21a95b7e7b379e846aa1cd0.diff
+  expect_fire:
+  - X007
+- id: X007-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X007
+- id: X010-positive
+  path: fixtures/rule-probes/diffs/998eae22b8bb40552efb46ffb43bda50e6a9b88084a8e4ebe23ae0aa234f2eac.diff
+  expect_fire:
+  - X010
+- id: X010-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X010
+- id: X011-positive
+  path: fixtures/rule-probes/diffs/162471b9e8b750da56e281f331aa53dad41490d9d95ed998bfe27c9788541772.diff
+  expect_fire:
+  - X011
+- id: X011-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X011
+- id: X012-positive
+  path: fixtures/rule-probes/diffs/06210bd4fbeaba54346f428ec850c61dca552ed20973e53bd3e50c48f2e43a75.diff
+  expect_fire:
+  - X012
+- id: X012-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X012
+- id: X013-positive
+  path: fixtures/rule-probes/diffs/3c828fb69f0ee24d05f3e7bb947de488f911da333ac09f5a2010fd7df3379bcf.diff
+  expect_fire:
+  - X013
+- id: X013-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X013
+- id: X015-positive
+  path: fixtures/rule-probes/diffs/add55ecc70d79e2e52ced8b5001b8970b35e163697981b7710358bda3930f4fd.diff
+  expect_fire:
+  - X015
+- id: X015-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X015
+- id: X016-positive
+  path: fixtures/rule-probes/diffs/2c64a8d228aae2bd401de25b07abb83e5a41f4edbb753c8b1d1fe0c78bfe2e0c.diff
+  expect_fire:
+  - X016
+- id: X016-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X016
+- id: X021-positive
+  path: fixtures/rule-probes/diffs/6a6f1b3961fbe7f3746963c19f6e162aadc927440ed083290d0c01eb02bbdacd.diff
+  expect_fire:
+  - X021
+- id: X021-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X021
+- id: X023-positive
+  path: fixtures/rule-probes/diffs/04e8ae8226f9ae4cd4682021499613aa3fb411c34c071f38cb90127956c20c2a.diff
+  expect_fire:
+  - X023
+- id: X023-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X023
+- id: X024-positive
+  path: fixtures/rule-probes/diffs/c28c41145a8fc389be4daaca125b19824d5a7ad32c963b5768b3c503a719baf6.diff
+  expect_fire:
+  - X024
+- id: X024-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X024
+- id: X026-positive
+  path: fixtures/rule-probes/diffs/f9bd7016afcc9b4c8115d4882c56a06695dfd1803d186f56fb4207179105f9ab.diff
+  expect_fire:
+  - X026
+- id: X026-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X026
+- id: X027-positive
+  path: fixtures/rule-probes/diffs/003053e26f46ddcc320d7e7d2932c3a7a81bebc73d336689c7c4873eac710ae5.diff
+  expect_fire:
+  - X027
+- id: X027-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X027
+- id: X032-positive
+  path: fixtures/rule-probes/diffs/243e8564cf0b24b58c9ef45a82daf441924c181666c84afec1a2cc07be382438.diff
+  expect_fire:
+  - X032
+- id: X032-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X032
+- id: X033-positive
+  path: fixtures/rule-probes/diffs/d06a65fae7f78f019ff97c6b3d4df223cc81732cf6693b62f70529e351a70659.diff
+  expect_fire:
+  - X033
+- id: X033-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X033
+- id: X034-positive
+  path: fixtures/rule-probes/diffs/021f4f0aad580189c17061d91e0d3cd9db82747c9eb1e9c1335c69fec1735d0e.diff
+  expect_fire:
+  - X034
+- id: X034-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - X034

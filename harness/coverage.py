@@ -42,27 +42,6 @@ UNREACHABLE = {
     "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
 }
 
-#: Rules whose evidence is a *second file*.  `Runner.analyze` calls
-#: `analyze_text(package, new_text, old_text)`, so every analysed diff is one
-#: PKGBUILD, and no generator in this suite emits a companion: `diff_against_baseline`
-#: diffs one text against one baseline.  A rule that fires on a committed file -
-#: an embedded binary, a packaged script the recipe never declared, a build-only
-#: path baked into a companion config - therefore has nothing to fire on, however
-#: many campaigns are written against it.
-#:
-#: This is a different fact from "not tried yet", and the report used to conflate
-#: them: a reader counting 181 untargeted rules with 11 explained could not tell
-#: that twelve more were untriable rather than merely untried, which is the
-#: direction that overstates what the suite can do.  Reaching them needs a
-#: multi-file generator and a tree manifest, not a campaign.
-UNREACHABLE_BY_FORMAT = {
-    rule: "needs a committed companion file; the generators diff one PKGBUILD "
-          "against one baseline and never supply a tree manifest"
-    for rule in ("C010", "H066", "H081", "H084", "H085", "H089", "H090",
-                 "H092", "H093", "H094", "H095", "W006")
-}
-
-
 def _campaigns(repo_root: Path) -> list[dict]:
     out = []
     for path in sorted((repo_root / "campaigns").glob("*/campaign.yml")):
@@ -79,26 +58,35 @@ def _campaigns(repo_root: Path) -> list[dict]:
 
 
 def build_coverage(repo_root: Path) -> dict:
-    """The suite's rule coverage: targeted, untargeted, and why."""
-    from trustsight.categories import RULE_CATEGORIES, category_of
+    """The suite's rule coverage: targeted, untargeted, and why.
+
+    The denominator is the full contract, not only the rules with a docs
+    page.  Pseudo ids (the weighted novelty signal, the source bucket, the
+    coverage marker, the P-series practices and TAG_CONVERGENCE) are emitted
+    by the tool and consumed by other surfaces, so a campaign may probe one
+    and the report must be able to name it.
+    """
+    from trustsight.categories import category_of
+    from trustsight.contract import pseudo_rule_ids, rule_ids
 
     try:
         from trustsight.analysis.composition import _STAGE_OF
     except Exception:  # noqa: BLE001  # a private module moving must not fail the report
         _STAGE_OF = {}
 
+    pseudo = set(pseudo_rule_ids())
     campaigns = _campaigns(repo_root)
     targeted: dict[str, list[str]] = {}
     for campaign in campaigns:
         for rule in campaign["expected_rules"]:
             targeted.setdefault(rule, []).append(campaign["campaign"])
 
-    all_rules = sorted(RULE_CATEGORIES)
+    all_rules = sorted(set(rule_ids()) | pseudo)
     unknown = sorted(set(targeted) - set(all_rules))
 
     by_category: dict[str, dict] = {}
     for rule in all_rules:
-        category = str(category_of(rule))
+        category = "pseudo" if rule in pseudo else str(category_of(rule))
         entry = by_category.setdefault(category, {"total": 0, "targeted": 0,
                                                   "untargeted": []})
         entry["total"] += 1
@@ -109,8 +97,6 @@ def build_coverage(repo_root: Path) -> dict:
 
     untargeted = [r for r in all_rules if r not in targeted]
     reasons = {r: UNREACHABLE[r] for r in untargeted if r in UNREACHABLE}
-    reasons.update({r: UNREACHABLE_BY_FORMAT[r] for r in untargeted
-                    if r in UNREACHABLE_BY_FORMAT})
     return {
         "campaigns": campaigns,
         "rules": {
@@ -121,10 +107,10 @@ def build_coverage(repo_root: Path) -> dict:
             "unknown_expected_rules": unknown,
         },
         "by_category": by_category,
+        "pseudo_rule_ids": sorted(pseudo),
         "untargeted_reasons": reasons,
         "untargeted_because_unreachable": sorted(
-            r for r in untargeted if r not in targeted and
-            (r in UNREACHABLE or r in UNREACHABLE_BY_FORMAT)),
+            r for r in untargeted if r not in targeted and r in UNREACHABLE),
         "stage_map_available": bool(_STAGE_OF),
         "stages_targeted": sorted({_STAGE_OF[r] for r in targeted if r in _STAGE_OF}),
     }

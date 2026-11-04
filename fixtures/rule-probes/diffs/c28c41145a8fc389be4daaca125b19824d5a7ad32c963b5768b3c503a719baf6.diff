@@ -1,0 +1,109 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 2a9e6e944872..23d6d71ec01a 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,24 +1,28 @@
+ pkgbase = auracle-git
+ 	pkgdesc = A flexible client for the AUR
+ 	pkgver = r366.8739929
+ 	pkgrel = 1
+ 	url = https://github.com/falconindy/auracle.git
+ 	arch = x86_64
+ 	arch = i686
+ 	license = MIT
++	checkdepends = python
++	checkdepends = fakechroot
+ 	checkdepends = gtest
+ 	checkdepends = gmock
+ 	makedepends = meson
+ 	makedepends = git
+ 	makedepends = perl
+ 	makedepends = systemd
+ 	depends = pacman
+ 	depends = libcurl.so
+ 	depends = libsystemd
+ 	provides = auracle
+ 	conflicts = auracle
+ 	source = git+https://github.com/falconindy/auracle.git
++	source = abseil-fix.patch::https://github.com/inglor/auracle/commit/bcd5ceef60bce3e463cc8a2c93f6750d6dd49f4e.patch
+ 	sha256sums = SKIP
++	sha256sums = bd0fbc1020a51bf24176221586935a59ee5dbc4b2b9e5d9c2d37f79626b7ad2b
+ 
+ pkgname = auracle-git
+ 
+diff --git a/PKGBUILD b/PKGBUILD
+index 4cd413203a5e..f033b429098d 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,18 +1,22 @@
++# Maintainer: Leonidas Spyropoulos <artafinde at gmail dot com>
++
+ pkgname=auracle-git
+ _pkgname=auracle
+ pkgver=r366.8739929
+ pkgrel=1
+ pkgdesc='A flexible client for the AUR'
+ arch=('x86_64' 'i686')
+ url="https://github.com/falconindy/auracle.git"
+ license=('MIT')
+ depends=('pacman' 'libcurl.so' 'libsystemd')
+ makedepends=('meson' 'git' 'perl' 'systemd')
+-checkdepends=('gtest' 'gmock')
++checkdepends=('python' 'fakechroot' 'gtest' 'gmock')
+ provides=("$_pkgname")
+ conflicts=("$_pkgname")
+-source=("git+https://github.com/falconindy/auracle.git")
+-sha256sums=('SKIP')
++source=("git+https://github.com/falconindy/auracle.git"
++        "abseil-fix.patch::https://github.com/inglor/auracle/commit/bcd5ceef60bce3e463cc8a2c93f6750d6dd49f4e.patch")
++sha256sums=('SKIP'
++            'bd0fbc1020a51bf24176221586935a59ee5dbc4b2b9e5d9c2d37f79626b7ad2b')
+ 
+ pkgver() {
+   cd "$_pkgname"
+@@ -20,31 +24,42 @@ pkgver()
+   printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+ }
+ 
++prepare(){
++  cd "$_pkgname"
++
++  patch -Np1 < "$srcdir/abseil-fix.patch"
++}
++
+ build() {
+   cd "$_pkgname"
+ 
+   local meson_args=(
+     --prefix=/usr
+     --buildtype=plain
+     --default-library=static
+   )
+ 
+   [[ -d build ]] && meson_args+=(--wipe)
+ 
++  # Some tests fail with these enabled
++  CFLAGS=${CFLAGS/,-D_GLIBCXX_ASSERTIONS/}
++  CXXFLAGS="${CFLAGS}"
+   meson build "${meson_args[@]}"
+ 
+-  ninja -C build
++  meson compile -C build
+ }
+ 
+ check() {
+-  meson test -C "$_pkgname/build"
++  cd "$_pkgname"
++
++  meson test -C build
+ }
+ 
+ package () {
+   cd "$_pkgname"
+ 
+-  DESTDIR=$pkgdir ninja -C build install
++  DESTDIR="$pkgdir" meson install -C build
+   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+ }
+ 
+ # vim: et ts=2 sw=2

@@ -1,0 +1,17 @@
+cells:
+- id: D003-positive
+  path: fixtures/rule-probes/diffs/53a5327a952a34cce4f535c74f5c07dc456ab5e33b00667c19225b96e56f922d.diff
+  expect_fire:
+  - D003
+- id: D003-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - D003
+- id: D004-positive
+  path: fixtures/rule-probes/diffs/3509a6e3bb45ada61e1b32b509c14d9cd20e862683c18f8c5b07163aca0aa6e1.diff
+  expect_fire:
+  - D004
+- id: D004-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - D004

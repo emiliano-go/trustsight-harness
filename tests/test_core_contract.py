@@ -19,7 +19,7 @@ from pathlib import Path
 
 import yaml
 
-from harness.coverage import UNREACHABLE, UNREACHABLE_BY_FORMAT
+from harness.coverage import UNREACHABLE
 from harness.judge import KNOWN_GAPS, KNOWN_SEVERITIES
 from harness.runner import ReportView
 
@@ -116,17 +116,17 @@ def test_severity_vocabulary_matches_core():
 
 def test_coverage_unreachable_lists_reference_live_rules():
     """A rule removed from core must not linger in the coverage maps."""
-    from trustsight.categories import RULE_CATEGORIES
+    from trustsight.contract import pseudo_rule_ids, rule_ids
 
-    known = set(RULE_CATEGORIES)
-    dead = (set(UNREACHABLE) | set(UNREACHABLE_BY_FORMAT)) - known
+    known = set(rule_ids()) | set(pseudo_rule_ids())
+    dead = set(UNREACHABLE) - known
     assert not dead, f"coverage names rules core no longer defines: {sorted(dead)}"
 
 
 def test_campaign_expected_rules_exist_in_core_taxonomy():
-    from trustsight.categories import RULE_CATEGORIES
+    from trustsight.contract import pseudo_rule_ids, rule_ids
 
-    known = set(RULE_CATEGORIES)
+    known = set(rule_ids()) | set(pseudo_rule_ids())
     unknown: set[str] = set()
     for path in sorted((ROOT / "campaigns").glob("*/campaign.yml")):
         raw = yaml.safe_load(path.read_text()) or {}

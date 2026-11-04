@@ -1,0 +1,6 @@
+{
+  "COVERAGE": "needs a coverage-gap probe, not a rule-firing diff",
+  "D001": "needs the dependency table; move to the stateful lane",
+  "D002": "needs the dependency table; move to the stateful lane",
+  "H064": "needs an established dependency target; move to the stateful lane"
+}

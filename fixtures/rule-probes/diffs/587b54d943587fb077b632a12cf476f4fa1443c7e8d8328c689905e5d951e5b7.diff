@@ -1,0 +1,298 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 6ecec0e2af65..946b2a7aec8e 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,49 +1,49 @@
+ pkgbase = chatgpt-desktop-bin
+ 	pkgdesc = ChatGPT desktop app repackaged from the upstream macOS release archive for Arch Linux
+ 	pkgver = 26.707.72221
+-	pkgrel = 4
++	pkgrel = 5
+ 	url = https://chatgpt.com/download
+ 	arch = x86_64
+ 	license = custom
+ 	makedepends = imagemagick
+ 	makedepends = libarchive
+ 	makedepends = node-gyp
+ 	makedepends = nodejs
+ 	depends = electron39
+ 	depends = openai-codex
+ 	depends = python
+ 	depends = hicolor-icon-theme
+ 	depends = xdg-utils
+ 	provides = openai-codex-desktop
+ 	conflicts = openai-codex-desktop
+ 	replaces = openai-codex-desktop
+ 	noextract = ChatGPT-26.707.72221.zip
+ 	noextract = better-sqlite3-12.9.0.tgz
+ 	noextract = node-pty-1.1.0.tgz
+ 	noextract = electron-v39.8.10-headers.tar.gz
+ 	options = !strip
+ 	options = !debug
+ 	source = ChatGPT-26.707.72221.zip::https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-26.707.72221.zip
+ 	source = better-sqlite3-12.9.0.tgz::https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-12.9.0.tgz
+ 	source = node-pty-1.1.0.tgz::https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz
+ 	source = electron-v39.8.10-headers.tar.gz::https://electronjs.org/headers/v39.8.10/node-v39.8.10-headers.tar.gz
+ 	source = chatgpt-desktop.sh
+ 	source = ChatGPT.desktop
+ 	source = asar-tools.mjs
+ 	source = patch-linux-desktop-name.mjs
+ 	source = patch-linux-open-targets.mjs
+ 	source = patch-linux-opaque-bg.mjs
+ 	source = patch-linux-tooltip-placement.mjs
+ 	source = patch-linux-window-chrome.mjs
+ 	sha256sums = d47a2c0dfb07afec21c415fcec672035a2e90410ecb7c6dc60141518fba524e0
+ 	sha256sums = ad0e29650140c49d0335b1d356596aa8166f12b758f418a98446130e3278f250
+ 	sha256sums = c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60
+ 	sha256sums = 61069dec76ed8d1c10ab6825b194bdf5a19b653286a7c2684b09c62681427446
+-	sha256sums = 60256a33a15fec4245fe6fd1fa51fa1f288e9c5c1f5b67b70ee1041e771d3095
++	sha256sums = 689f8d6a2eae8104761842956854e8f536282963521b47c9b9cc2a6d538bcbcd
+ 	sha256sums = 5657944f83faffcb6051a7f8de00f1a10ff11fcdee382fd7c7a921119124124d
+ 	sha256sums = 6b14d89c0a7907ce988bec8cb38a00d1df74833bec92961f585d41ac8e243c56
+ 	sha256sums = edb819fff34a05f0842f391c4cd72dbd8f2d58c18c2195eca856ca0463ef5d7c
+ 	sha256sums = 74b0c62a48ea4a8bf91f8851c7b3c8ce6845e9107af651f5ee40eb9e3161d8bf
+ 	sha256sums = 49ca13daf940980a03179d7d12d45f950df4f033da2089a39d8e3fc4aadc99c7
+ 	sha256sums = 2ca5f140a91e340266ea663b31cbd197d094a55973b413cb56dcdb88115a07c5
+ 	sha256sums = 9c5d7410cbe94145089fa79cc08ac6bb7197cc8751ad5b45f0ae2331dc39d168
+diff --git a/PKGBUILD b/PKGBUILD
+index 08a44d649d7f..86db946f69aa 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,64 +1,64 @@
+ # Maintainer: Akira <akira.uestc at gmail dot com>
+ # Releases: https://persistent.oaistatic.com/codex-app-prod/appcast.xml
+ 
+ pkgname=chatgpt-desktop-bin
+ pkgver=26.707.72221
+-pkgrel=4
++pkgrel=5
+ pkgdesc="ChatGPT desktop app repackaged from the upstream macOS release archive for Arch Linux"
+ arch=('x86_64')
+ url="https://chatgpt.com/download"
+ license=('custom')
+ options=('!strip' '!debug')
+ provides=('openai-codex-desktop')
+ conflicts=('openai-codex-desktop')
+ replaces=('openai-codex-desktop')
+ 
+ depends=(
+   'electron39'
+   'openai-codex'
+   'python'
+   'hicolor-icon-theme'
+   'xdg-utils'
+ )
+ 
+ makedepends=(
+   'imagemagick'
+   'libarchive'
+   'node-gyp'
+   'nodejs'
+ )
+ 
+ source=(
+   "ChatGPT-${pkgver}.zip::https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-${pkgver}.zip"
+   'better-sqlite3-12.9.0.tgz::https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-12.9.0.tgz'
+   'node-pty-1.1.0.tgz::https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz'
+   'electron-v39.8.10-headers.tar.gz::https://electronjs.org/headers/v39.8.10/node-v39.8.10-headers.tar.gz'
+   'chatgpt-desktop.sh'
+   'ChatGPT.desktop'
+   'asar-tools.mjs'
+   'patch-linux-desktop-name.mjs'
+   'patch-linux-open-targets.mjs'
+   'patch-linux-opaque-bg.mjs'
+   'patch-linux-tooltip-placement.mjs'
+   'patch-linux-window-chrome.mjs'
+ )
+ 
+ noextract=(
+   "ChatGPT-${pkgver}.zip"
+   'better-sqlite3-12.9.0.tgz'
+   'node-pty-1.1.0.tgz'
+   'electron-v39.8.10-headers.tar.gz'
+ )
+ 
+ sha256sums=('d47a2c0dfb07afec21c415fcec672035a2e90410ecb7c6dc60141518fba524e0'
+             'ad0e29650140c49d0335b1d356596aa8166f12b758f418a98446130e3278f250'
+             'c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60'
+             '61069dec76ed8d1c10ab6825b194bdf5a19b653286a7c2684b09c62681427446'
+-            '60256a33a15fec4245fe6fd1fa51fa1f288e9c5c1f5b67b70ee1041e771d3095'
++            '689f8d6a2eae8104761842956854e8f536282963521b47c9b9cc2a6d538bcbcd'
+             '5657944f83faffcb6051a7f8de00f1a10ff11fcdee382fd7c7a921119124124d'
+             '6b14d89c0a7907ce988bec8cb38a00d1df74833bec92961f585d41ac8e243c56'
+             'edb819fff34a05f0842f391c4cd72dbd8f2d58c18c2195eca856ca0463ef5d7c'
+             '74b0c62a48ea4a8bf91f8851c7b3c8ce6845e9107af651f5ee40eb9e3161d8bf'
+             '49ca13daf940980a03179d7d12d45f950df4f033da2089a39d8e3fc4aadc99c7'
+             '2ca5f140a91e340266ea663b31cbd197d094a55973b413cb56dcdb88115a07c5'
+             '9c5d7410cbe94145089fa79cc08ac6bb7197cc8751ad5b45f0ae2331dc39d168')
+diff --git a/chatgpt-desktop.sh b/chatgpt-desktop.sh
+index 9912772194f7..91e80b54fffd 100644
+--- a/chatgpt-desktop.sh
++++ b/chatgpt-desktop.sh
+@@ -37,26 +37,33 @@ fi
+ export CODEX_CLI_PATH="${CODEX_CLI_PATH:-$(command -v codex || true)}"
+ export BUILD_FLAVOR="${BUILD_FLAVOR:-prod}"
+ export NODE_ENV="${NODE_ENV:-production}"
+-export ELECTRON_RENDERER_URL="${ELECTRON_RENDERER_URL:-http://127.0.0.1:5175/}"
+ 
+ http_pid=""
+ electron_pid=""
+ tmpdir=""
+ 
+ cleanup() {
+-  [[ -n "${electron_pid}" ]] && wait "${electron_pid}" 2>/dev/null || true
++  local status=$?
++
++  trap - EXIT HUP INT TERM
+   [[ -n "${http_pid}" ]] && kill "${http_pid}" 2>/dev/null || true
++  [[ -n "${electron_pid}" ]] && kill "${electron_pid}" 2>/dev/null || true
+   [[ -n "${http_pid}" ]] && wait "${http_pid}" 2>/dev/null || true
++  [[ -n "${electron_pid}" ]] && wait "${electron_pid}" 2>/dev/null || true
+   [[ -n "${tmpdir}" ]] && rm -rf "${tmpdir}"
++
++  return "${status}"
+ }
+ 
+ forward_signal() {
+   local sig="$1"
+ 
+   if [[ -n "${electron_pid}" ]] && kill -0 "${electron_pid}" 2>/dev/null; then
+     kill -"${sig}" "${electron_pid}" 2>/dev/null || true
+-    wait "${electron_pid}" 2>/dev/null || true
++  fi
++  if [[ -n "${http_pid}" ]] && kill -0 "${http_pid}" 2>/dev/null; then
++    kill -"${sig}" "${http_pid}" 2>/dev/null || true
+   fi
+ 
+   exit 0
+ }
+@@ -69,21 +76,63 @@ trap 'forward_signal TERM' TERM
+ if [[ -d "${webview_dir}" ]] && find "${webview_dir}" -mindepth 1 -maxdepth 1 -print -quit | grep -q .; then
+   tmpdir="$(mktemp -d)"
+   ready_file="${tmpdir}/ready"
+   fail_file="${tmpdir}/fail"
++  electron_pid_file="${tmpdir}/electron.pid"
+ 
+-  python - 5175 "${webview_dir}" "${ready_file}" "${fail_file}" >/dev/null 2>&1 <<'PY' &
++  python - "${webview_dir}" "${ready_file}" "${fail_file}" "$$" "${electron_pid_file}" >/dev/null 2>&1 <<'PY' &
++import ctypes
+ import http.server
+ import os
++import signal
+ import socketserver
+ import sys
++import threading
++import time
+ 
+-port = int(sys.argv[1])
+-root = sys.argv[2]
+-ready_file = sys.argv[3]
+-fail_file = sys.argv[4]
++root = sys.argv[1]
++ready_file = sys.argv[2]
++fail_file = sys.argv[3]
++launcher_pid = int(sys.argv[4])
++electron_pid_file = sys.argv[5]
+ 
+ os.chdir(root)
+ 
++def terminate_self():
++    os.kill(os.getpid(), signal.SIGTERM)
++
++def bind_to_launcher():
++    libc = ctypes.CDLL(None, use_errno=True)
++    if libc.prctl(1, signal.SIGTERM, 0, 0, 0) != 0:
++        errno = ctypes.get_errno()
++        raise OSError(errno, os.strerror(errno))
++    if os.getppid() != launcher_pid:
++        raise RuntimeError("launcher exited before webview bridge initialization")
++
++def monitor_lifecycle():
++    electron_pid = None
++    while True:
++        if os.getppid() != launcher_pid:
++            terminate_self()
++            return
++
++        if electron_pid is None:
++            try:
++                with open(electron_pid_file) as f:
++                    electron_pid = int(f.read().strip())
++            except (FileNotFoundError, ValueError):
++                time.sleep(0.1)
++                continue
++
++        try:
++            os.kill(electron_pid, 0)
++        except ProcessLookupError:
++            terminate_self()
++            return
++        except PermissionError:
++            pass
++
++        time.sleep(0.25)
++
+ class Handler(http.server.SimpleHTTPRequestHandler):
+     def log_message(self, fmt, *args):
+         pass
+@@ -98,9 +147,11 @@ class TCPServer(socketserver.TCPServer):
+     allow_reuse_address = True
+ 
+ try:
+-    with TCPServer(("127.0.0.1", port), Handler) as httpd:
++    bind_to_launcher()
++    with TCPServer(("127.0.0.1", 0), Handler) as httpd:
++        threading.Thread(target=monitor_lifecycle, daemon=True).start()
+         with open(ready_file, "w") as f:
+-            f.write("ok")
++            f.write(str(httpd.server_address[1]))
+         httpd.serve_forever()
+ except Exception as e:
+     with open(fail_file, "w") as f:
+@@ -106,27 +157,36 @@ except Exception as e:
+     with open(fail_file, "w") as f:
+         f.write(str(e))
+     raise
+ PY
+   http_pid=$!
+ 
+   for _ in {1..50}; do
+     [[ -f "${ready_file}" ]] && break
+     if [[ -f "${fail_file}" ]]; then
+-      echo "Failed to start local webview server on 127.0.0.1:5175" >&2
++      echo "Failed to start local webview server" >&2
+       cat "${fail_file}" >&2
+       exit 1
+     fi
+     kill -0 "${http_pid}" 2>/dev/null || {
+       echo "Local webview server exited before becoming ready" >&2
+       exit 1
+     }
+     sleep 0.1
+   done
+ 
+   [[ -f "${ready_file}" ]] || {
+-    echo "Timed out waiting for local webview server on 127.0.0.1:5175" >&2
++    echo "Timed out waiting for local webview server" >&2
+     exit 1
+   }
++
++  read -r webview_port <"${ready_file}"
++  if [[ ! "${webview_port}" =~ ^[0-9]+$ ]] ||
++    ((webview_port < 1 || webview_port > 65535)); then
++    echo "Local webview server returned an invalid port: ${webview_port}" >&2
++    exit 1
++  fi
++
++  export ELECTRON_RENDERER_URL="${ELECTRON_RENDERER_URL:-http://127.0.0.1:${webview_port}/}"
+ fi
+ 
+ "${electron}" \
+@@ -136,4 +196,7 @@ fi
+   "${appdir}/resources/app.asar" \
+   "$@" &
+ electron_pid=$!
++if [[ -n "${electron_pid_file:-}" ]]; then
++  printf '%s\n' "${electron_pid}" >"${electron_pid_file}"
++fi
+ wait "${electron_pid}"

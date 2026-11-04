@@ -1,0 +1,64 @@
+campaign: rule-probes-h
+campaign_type: rule-probe
+environment:
+  trustsight_version: 0.27.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: raw-diff
+prompt:
+  prompt_id: rule-probes-h
+  expected_rules:
+  - H001
+  - H002
+  - H003
+  - H004
+  - H015
+  - H016
+  - H017
+  - H018
+  - H019
+  - H023
+  - H024
+  - H025
+  - H027
+  - H030
+  - H031
+  - H032
+  - H033
+  - H034
+  - H035
+  - H036
+  - H038
+  - H039
+  - H041
+  - H043
+  - H062
+  - H063
+  - H065
+  - H067
+  - H068
+  - H069
+  - H072
+  - H075
+  - H076
+  - H077
+  - H078
+  - H079
+  - H080
+  - H081
+  - H082
+  - H083
+  - H085
+  - H087
+  - H089
+  - H091
+  - H096
+  - H097
+  - H099
+  - H100
+  - H101
+  - H108
+  forbidden_techniques: {}
+attempts: 100

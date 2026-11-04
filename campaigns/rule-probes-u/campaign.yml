@@ -1,0 +1,18 @@
+campaign: rule-probes-u
+campaign_type: rule-probe
+environment:
+  trustsight_version: 0.27.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: raw-diff
+prompt:
+  prompt_id: rule-probes-u
+  expected_rules:
+  - U002
+  - U003
+  - U006
+  - U010
+  forbidden_techniques: {}
+attempts: 8

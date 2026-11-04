@@ -1,0 +1,57 @@
+cells:
+- id: W001-positive
+  path: fixtures/rule-probes/diffs/a4583de2acdecfbaa73eb6a9ce747d222afc49bdc2ba3e067ab6a6295e72e352.diff
+  expect_fire:
+  - W001
+- id: W001-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W001
+- id: W002-positive
+  path: fixtures/rule-probes/diffs/1cf6cc22fe30ffa6add63e721e16e52893a66ab6383607b9b807785612cb426e.diff
+  expect_fire:
+  - W002
+- id: W002-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W002
+- id: W003-positive
+  path: fixtures/rule-probes/diffs/52724856b79bb496d74d6c5fbcb2d8734c55976985b283bf6fa330fa77c6363f.diff
+  expect_fire:
+  - W003
+- id: W003-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W003
+- id: W005-positive
+  path: fixtures/rule-probes/diffs/2e4f759be2a54bd97138fda1a74505bec3209830a0094ee5b91201667325e8a9.diff
+  expect_fire:
+  - W005
+- id: W005-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W005
+- id: W006-positive
+  path: fixtures/rule-probes/diffs/da0965d61df331b1b91c47f2caaf405c281f388210a335a4942e52c592345b9c.diff
+  expect_fire:
+  - W006
+- id: W006-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W006
+- id: W008-positive
+  path: fixtures/rule-probes/diffs/04e8ae8226f9ae4cd4682021499613aa3fb411c34c071f38cb90127956c20c2a.diff
+  expect_fire:
+  - W008
+- id: W008-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W008
+- id: W011-positive
+  path: fixtures/rule-probes/diffs/53a5327a952a34cce4f535c74f5c07dc456ab5e33b00667c19225b96e56f922d.diff
+  expect_fire:
+  - W011
+- id: W011-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - W011

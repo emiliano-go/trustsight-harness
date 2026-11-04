@@ -1,0 +1,359 @@
+diff --git a/.SRCINFO b/.SRCINFO
+index 6aef0bac34b7..6ecec0e2af65 100644
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,49 +1,51 @@
+ pkgbase = chatgpt-desktop-bin
+ 	pkgdesc = ChatGPT desktop app repackaged from the upstream macOS release archive for Arch Linux
+ 	pkgver = 26.707.72221
+-	pkgrel = 2
++	pkgrel = 4
+ 	url = https://chatgpt.com/download
+ 	arch = x86_64
+ 	license = custom
+ 	makedepends = imagemagick
+ 	makedepends = libarchive
+ 	makedepends = node-gyp
+ 	makedepends = nodejs
+ 	depends = electron39
+ 	depends = openai-codex
+ 	depends = python
+ 	depends = hicolor-icon-theme
+ 	depends = xdg-utils
+ 	provides = openai-codex-desktop
+ 	conflicts = openai-codex-desktop
+ 	replaces = openai-codex-desktop
+ 	noextract = ChatGPT-26.707.72221.zip
+ 	noextract = better-sqlite3-12.9.0.tgz
+ 	noextract = node-pty-1.1.0.tgz
+ 	noextract = electron-v39.8.10-headers.tar.gz
+ 	options = !strip
+ 	options = !debug
+ 	source = ChatGPT-26.707.72221.zip::https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-26.707.72221.zip
+ 	source = better-sqlite3-12.9.0.tgz::https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-12.9.0.tgz
+ 	source = node-pty-1.1.0.tgz::https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz
+ 	source = electron-v39.8.10-headers.tar.gz::https://electronjs.org/headers/v39.8.10/node-v39.8.10-headers.tar.gz
+ 	source = chatgpt-desktop.sh
+ 	source = ChatGPT.desktop
+ 	source = asar-tools.mjs
+ 	source = patch-linux-desktop-name.mjs
+ 	source = patch-linux-open-targets.mjs
+ 	source = patch-linux-opaque-bg.mjs
++	source = patch-linux-tooltip-placement.mjs
+ 	source = patch-linux-window-chrome.mjs
+ 	sha256sums = d47a2c0dfb07afec21c415fcec672035a2e90410ecb7c6dc60141518fba524e0
+ 	sha256sums = ad0e29650140c49d0335b1d356596aa8166f12b758f418a98446130e3278f250
+ 	sha256sums = c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60
+ 	sha256sums = 61069dec76ed8d1c10ab6825b194bdf5a19b653286a7c2684b09c62681427446
+-	sha256sums = 2234d76c97f89ca1d70643ed893a9f6c4641269e2dbd2966743fbe9e62cf5096
++	sha256sums = 60256a33a15fec4245fe6fd1fa51fa1f288e9c5c1f5b67b70ee1041e771d3095
+ 	sha256sums = 5657944f83faffcb6051a7f8de00f1a10ff11fcdee382fd7c7a921119124124d
+ 	sha256sums = 6b14d89c0a7907ce988bec8cb38a00d1df74833bec92961f585d41ac8e243c56
+ 	sha256sums = edb819fff34a05f0842f391c4cd72dbd8f2d58c18c2195eca856ca0463ef5d7c
+ 	sha256sums = 74b0c62a48ea4a8bf91f8851c7b3c8ce6845e9107af651f5ee40eb9e3161d8bf
+ 	sha256sums = 49ca13daf940980a03179d7d12d45f950df4f033da2089a39d8e3fc4aadc99c7
++	sha256sums = 2ca5f140a91e340266ea663b31cbd197d094a55973b413cb56dcdb88115a07c5
+ 	sha256sums = 9c5d7410cbe94145089fa79cc08ac6bb7197cc8751ad5b45f0ae2331dc39d168
+ 
+ pkgname = chatgpt-desktop-bin
+diff --git a/PKGBUILD b/PKGBUILD
+index 94155db5dad8..08a44d649d7f 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,153 +1,156 @@
+ # Maintainer: Akira <akira.uestc at gmail dot com>
+ # Releases: https://persistent.oaistatic.com/codex-app-prod/appcast.xml
+ 
+ pkgname=chatgpt-desktop-bin
+ pkgver=26.707.72221
+-pkgrel=2
++pkgrel=4
+ pkgdesc="ChatGPT desktop app repackaged from the upstream macOS release archive for Arch Linux"
+ arch=('x86_64')
+ url="https://chatgpt.com/download"
+ license=('custom')
+ options=('!strip' '!debug')
+ provides=('openai-codex-desktop')
+ conflicts=('openai-codex-desktop')
+ replaces=('openai-codex-desktop')
+ 
+ depends=(
+   'electron39'
+   'openai-codex'
+   'python'
+   'hicolor-icon-theme'
+   'xdg-utils'
+ )
+ 
+ makedepends=(
+   'imagemagick'
+   'libarchive'
+   'node-gyp'
+   'nodejs'
+ )
+ 
+ source=(
+   "ChatGPT-${pkgver}.zip::https://persistent.oaistatic.com/codex-app-prod/ChatGPT-darwin-arm64-${pkgver}.zip"
+   'better-sqlite3-12.9.0.tgz::https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-12.9.0.tgz'
+   'node-pty-1.1.0.tgz::https://registry.npmjs.org/node-pty/-/node-pty-1.1.0.tgz'
+   'electron-v39.8.10-headers.tar.gz::https://electronjs.org/headers/v39.8.10/node-v39.8.10-headers.tar.gz'
+   'chatgpt-desktop.sh'
+   'ChatGPT.desktop'
+   'asar-tools.mjs'
+   'patch-linux-desktop-name.mjs'
+   'patch-linux-open-targets.mjs'
+   'patch-linux-opaque-bg.mjs'
++  'patch-linux-tooltip-placement.mjs'
+   'patch-linux-window-chrome.mjs'
+ )
+ 
+ noextract=(
+   "ChatGPT-${pkgver}.zip"
+   'better-sqlite3-12.9.0.tgz'
+   'node-pty-1.1.0.tgz'
+   'electron-v39.8.10-headers.tar.gz'
+ )
+ 
+ sha256sums=('d47a2c0dfb07afec21c415fcec672035a2e90410ecb7c6dc60141518fba524e0'
+             'ad0e29650140c49d0335b1d356596aa8166f12b758f418a98446130e3278f250'
+             'c7517f19083ddcb05f276904680eb2b11a6b5ecab778b8e4e5685a6d645b3f60'
+             '61069dec76ed8d1c10ab6825b194bdf5a19b653286a7c2684b09c62681427446'
+-            '2234d76c97f89ca1d70643ed893a9f6c4641269e2dbd2966743fbe9e62cf5096'
++            '60256a33a15fec4245fe6fd1fa51fa1f288e9c5c1f5b67b70ee1041e771d3095'
+             '5657944f83faffcb6051a7f8de00f1a10ff11fcdee382fd7c7a921119124124d'
+             '6b14d89c0a7907ce988bec8cb38a00d1df74833bec92961f585d41ac8e243c56'
+             'edb819fff34a05f0842f391c4cd72dbd8f2d58c18c2195eca856ca0463ef5d7c'
+             '74b0c62a48ea4a8bf91f8851c7b3c8ce6845e9107af651f5ee40eb9e3161d8bf'
+             '49ca13daf940980a03179d7d12d45f950df4f033da2089a39d8e3fc4aadc99c7'
++            '2ca5f140a91e340266ea663b31cbd197d094a55973b413cb56dcdb88115a07c5'
+             '9c5d7410cbe94145089fa79cc08ac6bb7197cc8751ad5b45f0ae2331dc39d168')
+ 
+ prepare() {
+   cd "${srcdir}"
+ 
+   rm -rf dmg app-extracted app.asar app.asar.unpacked icon native-build
+   mkdir -p dmg icon native-build
+ 
+   bsdtar -xf "ChatGPT-${pkgver}.zip" -C "${srcdir}/dmg"
+ 
+   local appdir
+   appdir="$(find dmg -maxdepth 4 -type d -name '*.app' ! -path '*/__MACOSX/*' -print -quit)"
+   [[ -n "${appdir}" ]] || {
+     echo "Could not find .app bundle in ChatGPT archive"
+     return 1
+   }
+ 
+   local resources_dir="${appdir}/Contents/Resources"
+   [[ -f "${resources_dir}/app.asar" ]] || {
+     echo "Could not find app.asar in ChatGPT archive"
+     return 1
+   }
+ 
+   node "${srcdir}/asar-tools.mjs" extract \
+     "${resources_dir}/app.asar" \
+     app-extracted \
+     "${resources_dir}/app.asar.unpacked"
+ 
+   tar -xzf "${srcdir}/electron-v39.8.10-headers.tar.gz" -C native-build
+   mkdir -p native-build/node_modules
+ 
+   tar -xzf "${srcdir}/better-sqlite3-12.9.0.tgz" -C native-build/node_modules
+   mv native-build/node_modules/package native-build/node_modules/better-sqlite3
+ 
+   tar -xzf "${srcdir}/node-pty-1.1.0.tgz" -C native-build/node_modules
+   mv native-build/node_modules/package native-build/node_modules/node-pty
+ 
+   cp -a --no-preserve=ownership app-extracted/node_modules/node-addon-api \
+     native-build/node_modules/
+ 
+   (
+     cd native-build/node_modules/better-sqlite3
+     node-gyp configure --release --nodedir="${srcdir}/native-build/node_headers"
+     mkdir -p \
+       build/Release/.deps/Release/obj.target/sqlite3/gen/sqlite3 \
+       build/Release/.deps/Release/obj.target/better_sqlite3/src \
+       build/Release/.deps/Release/obj.target/better_sqlite3/src/objects \
+       build/Release/.deps/Release/obj.target/better_sqlite3/src/util \
+       build/Release/.deps/Release/obj.target/test_extension/deps
+     node-gyp build --release
+   )
+ 
+   (
+     cd native-build/node_modules/node-pty
+     node-gyp configure --release --nodedir="${srcdir}/native-build/node_headers"
+     mkdir -p build/Release/.deps/Release/obj.target/pty/src/unix
+     node-gyp build --release
+   )
+ 
+   rm -rf app-extracted/node_modules/better-sqlite3/build
+   mkdir -p app-extracted/node_modules/better-sqlite3/build/Release
+   cp -a --no-preserve=ownership \
+     native-build/node_modules/better-sqlite3/build/Release/better_sqlite3.node \
+     native-build/node_modules/better-sqlite3/build/Release/test_extension.node \
+     app-extracted/node_modules/better-sqlite3/build/Release/
+ 
+   rm -rf app-extracted/node_modules/node-pty/build
+   mkdir -p app-extracted/node_modules/node-pty/build/Release
+   cp -a --no-preserve=ownership \
+     native-build/node_modules/node-pty/build/Release/pty.node \
+     app-extracted/node_modules/node-pty/build/Release/
+ 
+   rm -f app-extracted/node_modules/better-sqlite3/.codex-native-module-build.json
+   rm -f app-extracted/node_modules/node-pty/.codex-native-module-build.json
+   rm -rf app-extracted/node_modules/node-mac-permissions
+   rm -rf app-extracted/node_modules/objc-js/prebuilds
+   find app-extracted -type f \( -name '*.dylib' -o -name 'sparkle.node' \) -delete
+   find app-extracted -type d -name '*.dSYM' -prune -exec rm -rf {} +
+   find app-extracted -path '*/prebuilds/*' -type f -name '*.node' \
+     ! \( -path '*/linux-x64/*' -o -path '*/HID-linux-x64/*' -o -path '*/HID_hidraw-linux-x64/*' \) \
+     -delete
+   find app-extracted -path '*/prebuilds/*' -type f -name '*musl*.node' -delete
+ 
+   node "${srcdir}/patch-linux-desktop-name.mjs" app-extracted
+   node "${srcdir}/patch-linux-open-targets.mjs" app-extracted
+   node "${srcdir}/patch-linux-opaque-bg.mjs" app-extracted
++  node "${srcdir}/patch-linux-tooltip-placement.mjs" app-extracted
+   node "${srcdir}/patch-linux-window-chrome.mjs" app-extracted
+ 
+   node "${srcdir}/asar-tools.mjs" pack app-extracted app.asar app.asar.unpacked
+ 
+   magick "${resources_dir}/icon-chatgpt.png" -resize 512x512 icon/chatgpt-desktop.png
+ }
+diff --git a/chatgpt-desktop.sh b/chatgpt-desktop.sh
+index 49749c93d5b3..9912772194f7 100644
+--- a/chatgpt-desktop.sh
++++ b/chatgpt-desktop.sh
+@@ -37,7 +37,7 @@ fi
+ export CODEX_CLI_PATH="${CODEX_CLI_PATH:-$(command -v codex || true)}"
+ export BUILD_FLAVOR="${BUILD_FLAVOR:-prod}"
+ export NODE_ENV="${NODE_ENV:-production}"
+-export ELECTRON_RENDERER_URL="${ELECTRON_RENDERER_URL:-http://localhost:5175/}"
++export ELECTRON_RENDERER_URL="${ELECTRON_RENDERER_URL:-http://127.0.0.1:5175/}"
+ 
+ http_pid=""
+ electron_pid=""
+@@ -88,6 +88,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
+     def log_message(self, fmt, *args):
+         pass
+ 
++    def end_headers(self):
++        self.send_header("Cache-Control", "no-store, no-cache, must-revalidate")
++        self.send_header("Pragma", "no-cache")
++        self.send_header("Expires", "0")
++        super().end_headers()
++
+ class TCPServer(socketserver.TCPServer):
+     allow_reuse_address = True
+ 
+diff --git a/patch-linux-tooltip-placement.mjs b/patch-linux-tooltip-placement.mjs
+new file mode 100644
+index 000000000000..3e25c903ba32
+--- /dev/null
++++ b/patch-linux-tooltip-placement.mjs
+@@ -0,0 +1,106 @@
++#!/usr/bin/env node
++// SPDX-FileCopyrightText: 2026 Arch Linux Contributors
++// SPDX-License-Identifier: 0BSD
++//
++// Keeps titlebar tooltips clear of Electron's Window Controls Overlay on Linux.
++//
++// Electron renders the minimize, maximize, and close buttons above the web
++// contents. Floating UI therefore cannot detect them as an obstruction and may
++// place a top-side tooltip underneath the native controls. For triggers in the
++// titlebar, prefer the bottom side so the tooltip stays in the web content area.
++
++import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
++import { join } from "node:path";
++
++const TAG = "patch-linux-tooltip-placement";
++const PATCH_MARKER = "linuxTooltipOverlayBottom";
++const NATIVE_TITLE_MARKER = ".removeAttribute(`title`)";
++const appRoot = process.argv[2] ?? "app-extracted";
++const assetsRoot = join(appRoot, "webview", "assets");
++
++function fail(message) {
++  console.error(`${TAG}: ${message}`);
++  process.exit(1);
++}
++
++if (!existsSync(assetsRoot) || !statSync(assetsRoot).isDirectory()) {
++  fail(`could not find webview assets directory: ${assetsRoot}`);
++}
++
++const jsFiles = readdirSync(assetsRoot, { withFileTypes: true })
++  .filter((entry) => entry.isFile() && entry.name.endsWith(".js"))
++  .map((entry) => join(assetsRoot, entry.name));
++
++const tooltipFiles = jsFiles.filter((file) => {
++  const source = readFileSync(file, "utf8");
++  return (
++    source.includes("--radix-tooltip-content-available-height") &&
++    source.includes("referenceElementRef:") &&
++    source.includes("positioningElement:")
++  );
++});
++
++if (tooltipFiles.length !== 1) {
++  fail(`expected one tooltip positioning bundle, found ${tooltipFiles.length}`);
++}
++
++const tooltipFile = tooltipFiles[0];
++let source = readFileSync(tooltipFile, "utf8");
++let patchedAny = false;
++
++if (source.includes(PATCH_MARKER)) {
++  console.log(`${TAG}: tooltip placement already patched in ${tooltipFile}`);
++} else {
++  const tooltipFunctionStart =
++    /(function [A-Za-z_$][\w$]*\(\{[^{}]{0,700}positioningElement:[A-Za-z_$][\w$]*,referenceElementRef:([A-Za-z_$][\w$]*),side:([A-Za-z_$][\w$]*),sideOffset:[A-Za-z_$][\w$]*,variant:[A-Za-z_$][\w$]*\}\)\{)let /g;
++  const matches = [...source.matchAll(tooltipFunctionStart)];
++
++  if (matches.length !== 1) {
++    fail(`expected one tooltip positioning function, found ${matches.length}`);
++  }
++
++  const [match, functionStart, referenceRef, side] = matches[0];
++  const titlebarPlacement =
++    `let linuxTooltipReferenceTop=${referenceRef}.current?.getBoundingClientRect().top,` +
++    `linuxTooltipOverlayBottom=typeof navigator===\`undefined\`?64:` +
++    `Math.max(navigator.windowControlsOverlay?.getTitlebarAreaRect?.().bottom??0,64);` +
++    `${side}=${side}===\`top\`&&linuxTooltipReferenceTop!=null&&linuxTooltipReferenceTop<linuxTooltipOverlayBottom?\`bottom\`:${side};let `;
++
++  source = source.replace(match, `${functionStart}${titlebarPlacement}`);
++  patchedAny = true;
++
++  if (!source.includes(PATCH_MARKER)) {
++    fail("patch verification failed: placement marker was not added");
++  }
++}
++
++if (source.includes(NATIVE_TITLE_MARKER)) {
++  console.log(`${TAG}: redundant native tooltip suppression already patched in ${tooltipFile}`);
++} else {
++  const triggerRefCallback =
++    /([A-Za-z_$][\w$]*)=([A-Za-z_$][\w$]*)=>\{([A-Za-z_$][\w$]*)\(\2\),([A-Za-z_$][\w$]*)\(([A-Za-z_$][\w$]*),\2\)\},([A-Za-z_$][\w$]*);return \6=/g;
++  const matches = [...source.matchAll(triggerRefCallback)];
++
++  if (matches.length !== 1) {
++    fail(`expected one tooltip trigger ref callback, found ${matches.length}`);
++  }
++
++  const [match, callback, element, setReference, mergeRef, externalRef, renderedTrigger] =
++    matches[0];
++  const replacement =
++    `${callback}=${element}=>{${element}?.removeAttribute(\`title\`),` +
++    `${setReference}(${element}),${mergeRef}(${externalRef},${element})},` +
++    `${renderedTrigger};return ${renderedTrigger}=`;
++
++  source = source.replace(match, replacement);
++  patchedAny = true;
++
++  if (!source.includes(NATIVE_TITLE_MARKER)) {
++    fail("patch verification failed: native title suppression was not added");
++  }
++}
++
++if (patchedAny) {
++  writeFileSync(tooltipFile, source);
++  console.log(`${TAG}: patched titlebar tooltip behavior in ${tooltipFile}`);
++}

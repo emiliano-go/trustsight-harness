@@ -71,6 +71,12 @@ class Generated:
     cost: dict = field(default_factory=dict)
     new_text: str | None = None
     old_text: str | None = None
+    #: Per-cell probe expectations.  A rule probe normally inherits the
+    #: campaign's expected_rules; an explicit pair lets one campaign carry a
+    #: positive cell and a negative twin without inventing campaign-level
+    #: state that would be wrong for half the cells.
+    expect_fire: tuple[str, ...] = ()
+    expect_absent: tuple[str, ...] = ()
 
 
 class Generator(ABC):

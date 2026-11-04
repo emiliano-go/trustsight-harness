@@ -1,0 +1,65 @@
+cells:
+- id: S001-positive
+  path: fixtures/rule-probes/diffs/b9b5d920230ca5ffebc83ecb72e53f378fe3f78065b0028e2b752c198bedb78f.diff
+  expect_fire:
+  - S001
+- id: S001-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S001
+- id: S002-positive
+  path: fixtures/rule-probes/diffs/4fe4323b3c97e3e7799fe454a69262ad03dc2b57044ff9dd28bc72f4cef24f85.diff
+  expect_fire:
+  - S002
+- id: S002-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S002
+- id: S003-positive
+  path: fixtures/rule-probes/diffs/4ec5465607a14e8220ac480959779c984ec7bad36714ebe48b2f774998a1b578.diff
+  expect_fire:
+  - S003
+- id: S003-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S003
+- id: S004-positive
+  path: fixtures/rule-probes/diffs/a849913fd71db06090eb8b9447fc73fcbda4a0f42aeb7848f7dfd8185e352f0b.diff
+  expect_fire:
+  - S004
+- id: S004-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S004
+- id: S005-positive
+  path: fixtures/rule-probes/diffs/ebca648031ba9cb04e73b3cd6b7955997d98ca390628a8b47850d4011d04e4b3.diff
+  expect_fire:
+  - S005
+- id: S005-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S005
+- id: S006-positive
+  path: fixtures/rule-probes/diffs/5cb03a952be0423647b524865b24213b106e4166eb4fb662719b6c78c9a3b9a9.diff
+  expect_fire:
+  - S006
+- id: S006-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S006
+- id: S007-positive
+  path: fixtures/rule-probes/diffs/dbce3353850954c4f37597c9beead349ac1171a1f3b63342cb2783fba90b7774.diff
+  expect_fire:
+  - S007
+- id: S007-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S007
+- id: S008-positive
+  path: fixtures/rule-probes/diffs/f1c440675b27d65c114db873a035042a4aeabaab561dc1b31aa3699e61b38814.diff
+  expect_fire:
+  - S008
+- id: S008-negative
+  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
+  expect_absent:
+  - S008

@@ -1,0 +1,16 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,9 +1,10 @@
+ pkgname=example-tool
+ pkgver=1.0.0
+ pkgrel=1
+ pkgdesc="Example package"
+ arch=('any')
+ license=('MIT')
+ source=("https://github.com/example/example-tool/archive/v1.0.0.tar.gz")
+ sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
+ build() {
+   cd "$srcdir/example-tool-1.0.0"
++  mkinitcpio -P
+   make
+ }
