@@ -1,0 +1,22 @@
+{
+  "alert_slug": "2026-11-09/151958",
+  "corpus_paths": [],
+  "evidence": {
+    "checks": [
+      {
+        "checks": {},
+        "index": 0,
+        "rule_id": "H058"
+      }
+    ],
+    "findings": [],
+    "package": "adminer"
+  },
+  "package": "adminer",
+  "report_path": "adminer__eca04778ca7a483828a472bc7c8637d809cbfcf0899a4670c95a2eff83d96c5c-fp-report.md",
+  "verdicts": {
+    "findings": [],
+    "root_causes": [],
+    "summary": "H058 fired on routine self-maintained version and license housekeeping and on small batches, not the xz-style account surge it exists for."
+  }
+}
