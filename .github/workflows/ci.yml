@@ -70,11 +70,6 @@ jobs:
       - name: Full test suite
         run: uv run pytest -q
 
-      - name: Regression gate
-        # Replays every committed bypass against the pinned instrument and
-        # writes regression/report.json without judging the result.
-        run: uv run python -m harness regression --jobs auto
-
       - name: Lint
         run: uv run ruff check .
 
@@ -83,6 +78,97 @@ jobs:
           uv run zensical build --strict
           uv run python scripts/build_llms_txt.py
           uv run python scripts/build_llms_txt.py --check
+
+  regression:
+    # A full replay writes gigabytes and restores the database per bypass, so
+    # it is split by global position: each shard replays one slice and the
+    # merge job stitches the verdicts back into the whole-corpus report.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Resolve the pinned TrustSight commit
+        run: echo "TRUSTSIGHT_COMMIT=$(cat .github/trustsight-commit)" >> "$GITHUB_ENV"
+
+      - name: Clone TrustSight
+        run: |
+          git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
+          git -C ../trustsight checkout "$TRUSTSIGHT_COMMIT"
+
+      - name: Enable unprivileged user namespaces
+        run: |
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+          unshare --user --map-root-user true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+
+      - name: Sync (locked)
+        run: uv sync --locked --all-extras
+
+      - name: Replay shard ${{ matrix.shard }}/4
+        run: >-
+          uv run python -m harness regression
+          --shard ${{ matrix.shard }}/4
+          --jobs auto
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: regression-shard-${{ matrix.shard }}
+          path: regression/shard-${{ matrix.shard }}.json
+
+  regression-merge:
+    needs: regression
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Resolve the pinned TrustSight commit
+        run: echo "TRUSTSIGHT_COMMIT=$(cat .github/trustsight-commit)" >> "$GITHUB_ENV"
+
+      - name: Clone TrustSight
+        run: |
+          git clone --depth 50 https://github.com/emiliano-go/trustsight.git ../trustsight
+          git -C ../trustsight checkout "$TRUSTSIGHT_COMMIT"
+
+      - name: Enable unprivileged user namespaces
+        run: |
+          if [ -e /proc/sys/kernel/apparmor_restrict_unprivileged_userns ]; then
+            sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          fi
+          unshare --user --map-root-user true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+
+      - name: Sync (locked)
+        run: uv sync --locked --all-extras
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: regression-shard-*
+          path: regression/shards
+          merge-multiple: true
+
+      # Refuses an incomplete or duplicated shard set, and verifies every
+      # shard was measured under the same instrument before it writes the
+      # report. The checkout is disposable, so the archive is not updated.
+      - name: Merge the shards
+        run: >-
+          uv run python -m harness regression
+          --merge-shards regression/shards
+          --no-archive
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: regression-report
+          path: regression/report.json
 
   # An SBOM is only useful if it describes a build someone can obtain, so
   # it is generated from the lockfile on a tag and attached to the release
