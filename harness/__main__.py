@@ -120,6 +120,15 @@ def main(argv: list[str] | None = None) -> int:
                              "(repeatable)")
     parser.add_argument("--check", action="store_true",
                         help="coverage: exit 1 when any rule is untargeted")
+    parser.add_argument("--shard", metavar="I/N",
+                        help="regression: replay only shard I of N (0-based); "
+                             "write shard-I.json for --merge-shards")
+    parser.add_argument("--merge-shards", metavar="DIR",
+                        help="regression: merge the shard-*.json files in DIR "
+                             "into the whole-corpus report.json")
+    parser.add_argument("--no-archive", action="store_true",
+                        help="regression merge: do not update archive.json "
+                             "(a disposable CI checkout never publishes it)")
     args = parser.parse_args(argv_list)
 
     calibration = _calibration_status()
@@ -127,7 +136,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.target == "regression":
         import yaml
 
-        from .regression import run_regression
+        from .regression import (
+            merge_regression_shards,
+            parse_shard,
+            run_regression,
+        )
         env_path = Path(args.environment or REPO_ROOT / "defaults" / "environment.yml")
         if not env_path.exists():
             # The gate's exit codes are 0 and 2 only: 0 the gate ran and a
@@ -137,13 +150,28 @@ def main(argv: list[str] | None = None) -> int:
             # "broken" to know the report is absent.
             print(f"regression needs an environment file: {env_path}", file=sys.stderr)
             return EXIT_HARNESS
-        stats: dict = {}
+        if args.shard and args.merge_shards:
+            print("--shard and --merge-shards are mutually exclusive",
+                  file=sys.stderr)
+            return EXIT_CONFIG
         try:
-            report = run_regression(REPO_ROOT, yaml.safe_load(read_text_capped(
-                env_path, MAX_ARTIFACT_BYTES, "environment.yml")),
-                                    jobs=args.jobs or "1",
-                                    use_cache=not args.no_cache,
-                                    stats=stats)
+            environment = yaml.safe_load(read_text_capped(
+                env_path, MAX_ARTIFACT_BYTES, "environment.yml"))
+            if args.merge_shards:
+                report = merge_regression_shards(
+                    REPO_ROOT, environment, Path(args.merge_shards),
+                    update_archive=not args.no_archive)
+                prefix = "Merged shards: "
+            else:
+                shard = parse_shard(args.shard) if args.shard else None
+                stats: dict = {}
+                report = run_regression(
+                    REPO_ROOT, environment,
+                    jobs=args.jobs or "1",
+                    use_cache=not args.no_cache,
+                    stats=stats,
+                    shard=shard)
+                prefix = (f"Shard {shard[0]}/{shard[1]}: " if shard else "")
         except NamespaceUnavailableError as exc:
             print(f"environment error: {clean(exc)}", file=sys.stderr)
             return EXIT_CONFIG
@@ -155,10 +183,13 @@ def main(argv: list[str] | None = None) -> int:
             return EXIT_HARNESS
         degraded = report.get("degraded", 0)
         extra = f", {degraded} degraded" if degraded else ""
-        print(f"Of {report['total']} known bypasses, {report['closed']} closed, "
+        print(f"{prefix}Of {report['total']} known bypasses, "
+              f"{report['closed']} closed, "
               f"{report['open']} open{extra} "
               f"as of {report['environment']['trustsight_version']}.")
-        if stats.get("enabled"):
+        if args.merge_shards:
+            print(f"wrote {REPO_ROOT / 'regression' / 'report.json'}")
+        elif stats.get("enabled"):
             print(f"cache: {stats['hits']} hits, {stats['misses']} misses")
         return EXIT_OK
 
