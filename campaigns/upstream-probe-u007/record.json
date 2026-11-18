@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "upstream-probe-u007",
-  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
+  "campaign_commit": "",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 80
+    "wall_clock_ms": 272
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -51,7 +51,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.26.0"
+    "trustsight_version": "0.30.0"
   },
   "expected_rules": [
     "U007"
@@ -97,7 +97,8 @@
       "U007",
       "W011"
     ],
-    "missing_rules": []
+    "missing_rules": [],
+    "negative_failures": []
   },
   "stop_reason": "",
   "validator": {

@@ -14,13 +14,13 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "wave5",
-  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
+  "campaign_commit": "",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 11,
-    "total": 20
+    "open": 17,
+    "total": 17
   },
   "conditional_bypasses": {},
   "cost": {
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 44211
+    "wall_clock_ms": 121645
   },
   "dedup_savings": {
     "analyses_avoided": 0,
@@ -41,7 +41,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -54,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.26.0"
+    "trustsight_version": "0.30.0"
   },
   "expected_rules": [],
   "generator": {
@@ -74,7 +74,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:77d95fbc624814b808f9c47e7d151a4416cb78096dd196aeb95de188f09e7fb0",
@@ -82,7 +82,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:d7a69b9d12ce4a77eaead2beabf2213ee6f85a4ede796fea37a6596bab48db07",
@@ -90,7 +90,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:4405ed32faed491bd32a43ada78ed430df7cb0c826f66464853eebf15e904670",
@@ -98,7 +98,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:b502471dab71640c12d9c0b7932719feb8fa3460a7f4887f10e1901d504c2f01",
@@ -106,7 +106,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:dea2988bae835cc35689f67e2839a47305ede08b34f3a2692c27187b4479f956",
@@ -114,7 +114,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:f8b5a9afded46f9a41db568967161d335f80ac92eae984c46735ddf21690ab36",
@@ -122,7 +122,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:3344cffe85321a16f73c372ffc206f216980b3844b7c1a91941ce2b4a8489060",
@@ -130,7 +130,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:45b5e652f31c21714479ecb363035b16ea3f40f65ecf2eeb114494077bfb77e8",
@@ -138,7 +138,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:f8538b3713d478a98d18587808559d6bb160d1be33e9dfc674b9e5a2fa323c23",
@@ -146,7 +146,7 @@
       "original_campaign": "wave5",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     }
   ],
   "layers_fully_bypassed": 0,

@@ -4,22 +4,22 @@
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.0
+      0.277533
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 0,
-    "estimate": null,
+    "denominator_value": 10,
+    "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "list2-m",
-  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
+  "campaign_commit": "",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 11,
+    "open": 20,
     "total": 20
   },
   "conditional_bypasses": {},
@@ -29,19 +29,19 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1490
+    "wall_clock_ms": 3783
   },
   "dedup_savings": {
-    "analyses_avoided": 0,
-    "attempts": 0
+    "analyses_avoided": 7,
+    "attempts": 17
   },
-  "duplicate_rate": null,
+  "duplicate_rate": 0.4117647058823529,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -54,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.26.0"
+    "trustsight_version": "0.30.0"
   },
   "expected_rules": [
     "R001",
@@ -77,14 +77,16 @@
   },
   "harness_version": "2.5.0",
   "known_bypass_matches": [],
+  "layers_fully_bypassed": 0,
   "limitations": [],
   "minimization_spend": null,
+  "minimum_layer_cut": 1,
   "outcomes": {
     "behavior_lost": 37,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 0,
-    "duplicate": 17,
+    "detected": 10,
+    "duplicate": 7,
     "fail_closed_catch": 0,
     "harness_error": 0,
     "inconclusive": 0,
@@ -94,6 +96,10 @@
     "syntax_error": 0
   },
   "package": "harness-pkg",
+  "resilience_distribution": {
+    "3": 10
+  },
+  "single_layer_failure": {},
   "stop_reason": "54 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
