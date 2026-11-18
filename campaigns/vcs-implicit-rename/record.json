@@ -4,41 +4,44 @@
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.561497
+      0.0
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 3,
-    "estimate": 0.0,
+    "denominator_value": 0,
+    "estimate": null,
     "note": "lower bound (validator is conservative)"
   },
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "vcs-implicit-rename",
-  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
+  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 20,
-    "total": 20
+    "open": 12,
+    "total": 21
   },
+  "conditional_bypasses": {},
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1738
+    "wall_clock_ms": 90
   },
   "dedup_savings": {
     "analyses_avoided": 0,
-    "attempts": 3
+    "attempts": 0
   },
-  "duplicate_rate": 0.0,
+  "duplicate_rate": null,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:5c5abaf0638f029215897461bdf8476e6cd16a2e267e09ffac6a57c8bc57a27d",
+    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -51,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.19.0"
+    "trustsight_version": "0.26.0"
   },
   "expected_rules": [
     "R001",
@@ -71,59 +74,27 @@
     "type": "inputs"
   },
   "harness_version": "2.5.0",
-  "known_bypass_matches": [
-    {
-      "diff_hash": "sha256:7f3122cbbbb55b00ec2b7bb9609bab8a68024ff1cd03c30c608fd90d037f4efa",
-      "observed_status": "detected",
-      "original_campaign": "vcs-implicit-rename",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:0b8fe70b30ccb0900c2ad76d29f8017db82a28a4cd9a73fa002419ec8b5efea3",
-      "observed_status": "detected",
-      "original_campaign": "vcs-implicit-rename",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:362f3879f562401247ab6374ea0c5608af70a60c9d4dd6c1964266707ec2c11a",
-      "observed_status": "detected",
-      "original_campaign": "vcs-implicit-rename",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    }
-  ],
-  "layers_fully_bypassed": 0,
+  "known_bypass_matches": [],
   "limitations": [],
   "minimization_spend": null,
-  "minimum_layer_cut": 1,
   "outcomes": {
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
-    "duplicate": 0,
+    "duplicate": 3,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 3,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
   },
   "package": "harness-pkg",
-  "resilience_distribution": {
-    "1": 3
-  },
-  "single_layer_failure": {
-    "L5": 3
-  },
   "stop_reason": "3 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
+    "version_hash": "sha256:746e350256baf3dc7be01ab5bb2e3d6063d57fec1dd619400069e8c1d2182370"
   }
 }

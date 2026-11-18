@@ -4,41 +4,44 @@
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.324408
+      0.0
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 8,
-    "estimate": 0.0,
+    "denominator_value": 0,
+    "estimate": null,
     "note": "lower bound (validator is conservative)"
   },
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "form-evasions-b6",
-  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
+  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 9,
-    "total": 9
+    "open": 1,
+    "total": 10
   },
+  "conditional_bypasses": {},
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 6881
+    "wall_clock_ms": 412
   },
   "dedup_savings": {
-    "analyses_avoided": 1,
-    "attempts": 9
+    "analyses_avoided": 0,
+    "attempts": 0
   },
-  "duplicate_rate": 0.1111111111111111,
+  "duplicate_rate": null,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
+    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -51,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.19.0"
+    "trustsight_version": "0.26.0"
   },
   "expected_rules": [
     "R001",
@@ -71,100 +74,27 @@
     "type": "inputs"
   },
   "harness_version": "2.5.0",
-  "known_bypass_matches": [
-    {
-      "diff_hash": "sha256:0302f406e1a21b211fe9024b0cad05efb56faf2749880c0ce59d95a2d8867839",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:40f0816ce1dd99adbed6a1fa546da95965d4e56cda1b79c0f487aab20e49a638",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:9bbffaa7a1750f551c8c099a132d540a30ecfb5f2fd4bd71159de7aec1e90db6",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:1c240eb2c20091662148d9cb529b47cf5146b061b2e244ee420bf267409ee2d8",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:17b53511753611a81886c565d23208a47dedac82d9e806ba0ae9bfe8ad8a5ca7",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:d2f17cb4c4443ad774c90ca593e17ceb1d6f97a7d7230cdf22c27930d64638c6",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:f448f55782a73ddaa79ba367efd2dee77d25842cc5ce6225ed77bfdc37cdf69a",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:f49f652c8c41e88506c296063718c4bff9941b16d0f2d703042fe9451f44bff9",
-      "observed_status": "detected",
-      "original_campaign": "form-evasions-b6",
-      "original_trustsight_version": "0.17.1",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    }
-  ],
-  "layers_fully_bypassed": 0,
+  "known_bypass_matches": [],
   "limitations": [],
   "minimization_spend": null,
-  "minimum_layer_cut": 1,
   "outcomes": {
     "behavior_lost": 1,
     "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
-    "duplicate": 1,
+    "duplicate": 9,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 8,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
   },
   "package": "harness-pkg",
-  "resilience_distribution": {
-    "2": 2,
-    "3": 1,
-    "4": 4,
-    "5": 1
-  },
-  "single_layer_failure": {},
   "stop_reason": "10 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
+    "version_hash": "sha256:746e350256baf3dc7be01ab5bb2e3d6063d57fec1dd619400069e8c1d2182370"
   }
 }

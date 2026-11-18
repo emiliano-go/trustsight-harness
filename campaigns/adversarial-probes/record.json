@@ -11,22 +11,25 @@
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "adversarial-probes",
-  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
+  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 0,
-    "total": 0
+    "open": 1,
+    "total": 10
   },
+  "conditional_bypasses": {},
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7461
+    "wall_clock_ms": 1823
   },
   "dedup_savings": {
     "analyses_avoided": 0,
@@ -38,7 +41,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
+    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -51,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.19.0"
+    "trustsight_version": "0.26.0"
   },
   "expected_rules": [],
   "generator": {
@@ -67,51 +70,51 @@
   "known_bypass_matches": [
     {
       "diff_hash": "sha256:893dfcedfb6d61a89a1f251ab51a508d120fa46a1cdbcae100a2411955483476",
-      "observed_status": "detected",
+      "observed_status": "inconclusive",
       "original_campaign": "node-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.19.0"
+      "trustsight_version": "0.26.0"
     },
     {
       "diff_hash": "sha256:a43e7b533584c2110069c666f2b612e4f4f23a23054df4ff33b7830d540b63f2",
-      "observed_status": "detected",
+      "observed_status": "inconclusive",
       "original_campaign": "php-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.19.0"
+      "trustsight_version": "0.26.0"
     },
     {
       "diff_hash": "sha256:53fed95fba98f2ec619d67f5e26dedff2518d3161768cb72ff61c06d12b826bd",
-      "observed_status": "detected",
+      "observed_status": "inconclusive",
       "original_campaign": "lua-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.19.0"
+      "trustsight_version": "0.26.0"
     },
     {
       "diff_hash": "sha256:253d965e3aedc9662a5cc7012e0d66f9822c3ea41eacddba76e9455c5793c3e1",
-      "observed_status": "detected",
+      "observed_status": "inconclusive",
       "original_campaign": "tclsh-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.19.0"
+      "trustsight_version": "0.26.0"
     },
     {
       "diff_hash": "sha256:2f9235196ebb449a649b1d107f23cc630724c52e94c2813ee5a6a641e4b2a169",
-      "observed_status": "detected",
+      "observed_status": "inconclusive",
       "original_campaign": "julia-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.19.0"
+      "trustsight_version": "0.26.0"
     },
     {
       "diff_hash": "sha256:9ba5fde582dfb1c71e0d55db0c52df80c604027d645c5cf73d5bcdf689038526",
-      "observed_status": "detected",
+      "observed_status": "inconclusive",
       "original_campaign": "rscript-solo",
       "original_trustsight_version": "0.13.2",
       "patch_status": "verified",
-      "trustsight_version": "0.19.0"
+      "trustsight_version": "0.26.0"
     }
   ],
   "layers_fully_bypassed": 0,
@@ -122,10 +125,11 @@
     "behavior_lost": 10,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 2,
+    "detected": 0,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
+    "inconclusive": 2,
     "known_bypass_match": 6,
     "partial_evasion": 0,
     "sanitization_failure": 0,
@@ -133,14 +137,12 @@
   },
   "package": "harness-pkg",
   "resilience_distribution": {
-    "1": 8
+    "2": 8
   },
-  "single_layer_failure": {
-    "L5": 8
-  },
+  "single_layer_failure": {},
   "stop_reason": "18 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
+    "version_hash": "sha256:746e350256baf3dc7be01ab5bb2e3d6063d57fec1dd619400069e8c1d2182370"
   }
 }
