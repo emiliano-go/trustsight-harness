@@ -21,15 +21,18 @@ def test_every_expected_rule_exists():
     )
 
 
-def test_some_rules_are_targeted_and_most_are_not():
+def test_every_rule_has_a_probe():
     rules = build_coverage(ROOT)["rules"]
-    assert rules["targeted"] > 0
+    assert rules["targeted"] == rules["total"]
+    assert rules["untargeted"] == 0
+    assert rules["negative_only"]
+    assert rules["positive_targeted"] > 0
     assert rules["targeted"] + rules["untargeted"] == rules["total"]
 
 
 def test_the_denominator_includes_pseudo_rule_ids():
     coverage = build_coverage(ROOT)
-    assert coverage["rules"]["total"] == 301
+    assert coverage["rules"]["total"] == 320
     assert len(coverage["pseudo_rule_ids"]) == 12
     assert "COVERAGE" in coverage["pseudo_rule_ids"]
     assert coverage["by_category"]["pseudo"]["total"] == 12

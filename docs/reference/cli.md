@@ -272,13 +272,15 @@ Maps every campaign to the rules it sets out to test, against TrustSight's own
 rule taxonomy, and writes `coverage/report.json`.
 
 The harness is adversarial, not exhaustive. This makes the untested surface a
-number: of 301 contract ids, how many a campaign names, grouped by category,
-with the rules that need state, an artifact manifest or a cycle named and
-explained. Rule probes stay out of the adversarial bypass rate.
+number: all 320 contract ids are named by a probe, grouped by category, with
+the rules that need state, an artifact manifest or a cycle named and
+explained. A probe either fires the rule or is a negative control on a benign
+recipe; the report gives both counts. Rule probes stay out of the adversarial
+bypass rate.
 
 ```bash
 uv run python -m harness coverage
-# 162 of 301 rules targeted by 119 campaigns; 147 untargeted, 9 with a reason and all 9 unreachable by this harness's format.
+# 320 of 320 rules targeted by 120 campaigns; 153 have a firing probe, 167 are negative controls, and 11 need state, a manifest or a cycle.
 ```
 
 ---

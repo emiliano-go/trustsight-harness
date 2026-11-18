@@ -1,221 +1,89 @@
 {
   "by_category": {
     "artifact": {
+      "targeted": 15,
+      "total": 15,
+      "untargeted": []
+    },
+    "composition": {
+      "targeted": 6,
+      "total": 6,
+      "untargeted": []
+    },
+    "corpus-behavioral": {
+      "targeted": 6,
+      "total": 6,
+      "untargeted": []
+    },
+    "correlation": {
+      "targeted": 15,
+      "total": 15,
+      "untargeted": []
+    },
+    "count-based": {
+      "targeted": 5,
+      "total": 5,
+      "untargeted": []
+    },
+    "crossfire": {
+      "targeted": 34,
+      "total": 34,
+      "untargeted": []
+    },
+    "deception": {
+      "targeted": 6,
+      "total": 6,
+      "untargeted": []
+    },
+    "entropy": {
+      "targeted": 3,
+      "total": 3,
+      "untargeted": []
+    },
+    "fetch-and-execution": {
+      "targeted": 40,
+      "total": 40,
+      "untargeted": []
+    },
+    "indicator": {
+      "targeted": 1,
+      "total": 1,
+      "untargeted": []
+    },
+    "install-and-persist": {
+      "targeted": 23,
+      "total": 23,
+      "untargeted": []
+    },
+    "integrity": {
+      "targeted": 48,
+      "total": 48,
+      "untargeted": []
+    },
+    "maintainer-and-metadata": {
+      "targeted": 16,
+      "total": 16,
+      "untargeted": []
+    },
+    "meta": {
+      "targeted": 6,
+      "total": 6,
+      "untargeted": []
+    },
+    "naming-and-dependency": {
+      "targeted": 14,
+      "total": 14,
+      "untargeted": []
+    },
+    "obfuscation": {
       "targeted": 8,
       "total": 8,
       "untargeted": []
     },
-    "composition": {
-      "targeted": 4,
-      "total": 6,
-      "untargeted": [
-        "H098",
-        "H102"
-      ]
-    },
-    "corpus-behavioral": {
-      "targeted": 0,
-      "total": 6,
-      "untargeted": [
-        "H028",
-        "H046",
-        "H057",
-        "H060",
-        "H061",
-        "H073"
-      ]
-    },
-    "correlation": {
-      "targeted": 0,
-      "total": 14,
-      "untargeted": [
-        "G001",
-        "G002",
-        "G003",
-        "G004",
-        "G005",
-        "G006",
-        "G007",
-        "G008",
-        "G009",
-        "G010",
-        "G011",
-        "G012",
-        "G013",
-        "G014"
-      ]
-    },
-    "count-based": {
-      "targeted": 2,
-      "total": 5,
-      "untargeted": [
-        "H045",
-        "H052",
-        "H055"
-      ]
-    },
-    "crossfire": {
-      "targeted": 22,
-      "total": 34,
-      "untargeted": [
-        "X003",
-        "X008",
-        "X014",
-        "X017",
-        "X018",
-        "X019",
-        "X020",
-        "X022",
-        "X028",
-        "X029",
-        "X030",
-        "X031"
-      ]
-    },
-    "deception": {
-      "targeted": 4,
-      "total": 6,
-      "untargeted": [
-        "H012",
-        "H013"
-      ]
-    },
-    "entropy": {
-      "targeted": 0,
-      "total": 3,
-      "untargeted": [
-        "E001",
-        "E002",
-        "E003"
-      ]
-    },
-    "fetch-and-execution": {
-      "targeted": 25,
-      "total": 40,
-      "untargeted": [
-        "C016",
-        "H009",
-        "H011",
-        "H071",
-        "H090",
-        "H094",
-        "H107",
-        "R041",
-        "R042",
-        "R044",
-        "R046",
-        "R048",
-        "R055",
-        "R056",
-        "R057"
-      ]
-    },
-    "indicator": {
-      "targeted": 0,
-      "total": 1,
-      "untargeted": [
-        "H056"
-      ]
-    },
-    "install-and-persist": {
-      "targeted": 16,
-      "total": 23,
-      "untargeted": [
-        "C017",
-        "C032",
-        "H084",
-        "H093",
-        "H095",
-        "R017",
-        "R144"
-      ]
-    },
-    "integrity": {
-      "targeted": 32,
-      "total": 47,
-      "untargeted": [
-        "C008",
-        "C009",
-        "C010",
-        "C020",
-        "C023",
-        "C027",
-        "H005",
-        "H008",
-        "H047",
-        "H066",
-        "H070",
-        "H092",
-        "H103",
-        "R049",
-        "R050"
-      ]
-    },
-    "maintainer-and-metadata": {
-      "targeted": 2,
-      "total": 16,
-      "untargeted": [
-        "C006",
-        "C034",
-        "H026",
-        "H037",
-        "H044",
-        "H049",
-        "H050",
-        "H051",
-        "H054",
-        "H058",
-        "H074",
-        "H086",
-        "H088",
-        "H105"
-      ]
-    },
-    "meta": {
-      "targeted": 3,
-      "total": 6,
-      "untargeted": [
-        "M004",
-        "M005",
-        "M006"
-      ]
-    },
-    "naming-and-dependency": {
-      "targeted": 2,
-      "total": 13,
-      "untargeted": [
-        "D001",
-        "D002",
-        "D005",
-        "H006",
-        "H029",
-        "H048",
-        "H053",
-        "H059",
-        "H064",
-        "H104",
-        "H106"
-      ]
-    },
-    "obfuscation": {
-      "targeted": 5,
-      "total": 8,
-      "untargeted": [
-        "H014",
-        "R040",
-        "R045"
-      ]
-    },
     "pseudo": {
-      "targeted": 7,
+      "targeted": 12,
       "total": 12,
-      "untargeted": [
-        "COVERAGE",
-        "NOVELTY",
-        "P003",
-        "P009",
-        "TAG_CONVERGENCE"
-      ]
+      "untargeted": []
     },
     "sabotage": {
       "targeted": 8,
@@ -223,55 +91,28 @@
       "untargeted": []
     },
     "staging-and-recon": {
-      "targeted": 6,
+      "targeted": 10,
       "total": 10,
-      "untargeted": [
-        "H007",
-        "H010",
-        "H040",
-        "H042"
-      ]
+      "untargeted": []
     },
     "temporal": {
-      "targeted": 2,
-      "total": 10,
-      "untargeted": [
-        "H020",
-        "H021",
-        "H022",
-        "T001",
-        "T002",
-        "T003",
-        "T006",
-        "T007"
-      ]
+      "targeted": 14,
+      "total": 14,
+      "untargeted": []
     },
     "unverifiable": {
-      "targeted": 7,
-      "total": 13,
-      "untargeted": [
-        "W004",
-        "W007",
-        "W009",
-        "W010",
-        "W012",
-        "W013"
-      ]
+      "targeted": 15,
+      "total": 15,
+      "untargeted": []
     },
     "upstream-manifests": {
-      "targeted": 3,
-      "total": 8,
-      "untargeted": [
-        "U001",
-        "U004",
-        "U005",
-        "U011",
-        "U012"
-      ]
+      "targeted": 9,
+      "total": 9,
+      "untargeted": []
     },
     "upstream-release": {
-      "targeted": 4,
-      "total": 4,
+      "targeted": 6,
+      "total": 6,
       "untargeted": []
     }
   },
@@ -280,7 +121,8 @@
       "campaign": "adversarial-probes",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "artifact-probes",
@@ -295,7 +137,17 @@
         "A007",
         "A008"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "A001",
+        "A002",
+        "A003",
+        "A004",
+        "A005",
+        "A006",
+        "A007",
+        "A008"
+      ]
     },
     {
       "campaign": "benign-name-sweep-h072",
@@ -306,25 +158,29 @@
         "H083",
         "W001"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "bun-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "bypass-tag-v0181",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "bypass-tag-v0181-b",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "context-composites",
@@ -337,7 +193,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "cross-function-chains",
@@ -350,7 +207,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "decl-option-resolver",
@@ -360,13 +218,15 @@
         "H082",
         "R010"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "deno-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "deps-probe-d003",
@@ -374,7 +234,8 @@
       "expected_rules": [
         "D003"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "dlagents-override-h096",
@@ -382,19 +243,22 @@
       "expected_rules": [
         "H096"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "dprobe",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "evasion-matrix-1500",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "evasions-stacked",
@@ -406,7 +270,8 @@
         "H083",
         "R010"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "exec-and-heredoc",
@@ -419,7 +284,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "exotic-interpreter-sinks",
@@ -432,7 +298,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "fetch-spec-in-file",
@@ -445,7 +312,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "fork-divergence-c013",
@@ -453,7 +321,8 @@
       "expected_rules": [
         "C013"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "form-evasions-b6",
@@ -466,7 +335,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "form-evasions-b7",
@@ -479,7 +349,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "form-evasions-b8",
@@ -492,7 +363,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "form-evasions-c1",
@@ -505,7 +377,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "freehosting-source-r152",
@@ -513,7 +386,8 @@
       "expected_rules": [
         "R152"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "function-shadow-h097",
@@ -521,7 +395,8 @@
       "expected_rules": [
         "H097"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "git-no-url-fetch",
@@ -534,7 +409,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "glued-hash-comment",
@@ -547,7 +423,8 @@
         "H082",
         "W001"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "h077-client-sweep",
@@ -559,7 +436,8 @@
         "H077",
         "H082"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "indirect-assignment-x024",
@@ -567,7 +445,8 @@
       "expected_rules": [
         "X024"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "installhook-foreign-pm-h035",
@@ -575,13 +454,15 @@
       "expected_rules": [
         "H035"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "julia-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "known-bypasses-manual",
@@ -592,7 +473,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-a",
@@ -606,7 +488,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-b",
@@ -620,7 +503,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-c",
@@ -634,7 +518,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-d",
@@ -648,7 +533,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-e",
@@ -662,7 +548,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-f",
@@ -676,7 +563,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-g",
@@ -690,7 +578,8 @@
         "H083",
         "C001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-h",
@@ -705,7 +594,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-i",
@@ -720,7 +610,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-j",
@@ -735,7 +626,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-k",
@@ -750,7 +642,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-l",
@@ -765,7 +658,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-m",
@@ -780,7 +674,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-n",
@@ -795,7 +690,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-o",
@@ -810,7 +706,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-p",
@@ -825,7 +722,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-q",
@@ -840,7 +738,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-r",
@@ -855,7 +754,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-s",
@@ -870,7 +770,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-t",
@@ -885,7 +786,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-u",
@@ -900,7 +802,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-v",
@@ -915,7 +818,8 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "list2-w",
@@ -930,13 +834,15 @@
         "C001",
         "R051"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "lua-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "matrix-e1-a",
@@ -949,7 +855,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "matrix-e1-b",
@@ -962,7 +869,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "matrix-e1-c",
@@ -975,7 +883,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "mcp-probe-wave1",
@@ -986,7 +895,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "mcp-probe-wave2",
@@ -997,7 +907,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "mcp-probe-wave3",
@@ -1008,7 +919,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "mcp-probe-wave4",
@@ -1019,7 +931,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "mcp-probe-wave5",
@@ -1030,7 +943,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "mcp-probe-wave6",
@@ -1041,7 +955,8 @@
         "X009",
         "X016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "misc-vectors-d1",
@@ -1054,7 +969,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "multiline-shadow-x025",
@@ -1062,7 +978,8 @@
       "expected_rules": [
         "X025"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "no-url-fetch-clients",
@@ -1075,7 +992,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "no-url-fetch-exotic",
@@ -1088,7 +1006,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "no-url-fetch-exotic2",
@@ -1101,13 +1020,15 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "node-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "object-store-positional",
@@ -1120,7 +1041,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "openssl-connect-port-h016",
@@ -1132,7 +1054,8 @@
         "H082",
         "X009"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "output-flag-evasions",
@@ -1145,7 +1068,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "override-compress-r078",
@@ -1153,7 +1077,8 @@
       "expected_rules": [
         "R078"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "override-pacman-auth-r091",
@@ -1161,7 +1086,8 @@
       "expected_rules": [
         "R091"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "parsetime-fetch-h077",
@@ -1173,7 +1099,8 @@
         "H077",
         "H082"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "parsetime-phase-split",
@@ -1183,7 +1110,8 @@
         "H016",
         "H082"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "path-qualified-npm-resolve",
@@ -1191,7 +1119,8 @@
       "expected_rules": [
         "X011"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "phantom-heredoc-opener",
@@ -1203,13 +1132,15 @@
         "H082",
         "H083"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "php-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "pkgmanager-build-x011",
@@ -1217,7 +1148,8 @@
       "expected_rules": [
         "X011"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "prebuilt-host-divergence-c011",
@@ -1225,7 +1157,8 @@
       "expected_rules": [
         "C011"
       ],
-      "package": "harness-payload-bin"
+      "package": "harness-payload-bin",
+      "positive_rules": []
     },
     {
       "campaign": "rename-source-exec",
@@ -1238,7 +1171,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "round7-unmeasured-clients",
@@ -1249,13 +1183,15 @@
         "X009",
         "R001"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "rscript-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "rule-probes-c",
@@ -1284,7 +1220,31 @@
         "C031",
         "C033"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "C001",
+        "C002",
+        "C003",
+        "C004",
+        "C005",
+        "C007",
+        "C012",
+        "C013",
+        "C014",
+        "C015",
+        "C018",
+        "C019",
+        "C021",
+        "C022",
+        "C024",
+        "C025",
+        "C026",
+        "C028",
+        "C029",
+        "C030",
+        "C031",
+        "C033"
+      ]
     },
     {
       "campaign": "rule-probes-d",
@@ -1293,7 +1253,11 @@
         "D003",
         "D004"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "D003",
+        "D004"
+      ]
     },
     {
       "campaign": "rule-probes-h",
@@ -1350,7 +1314,59 @@
         "H101",
         "H108"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "H001",
+        "H002",
+        "H003",
+        "H004",
+        "H015",
+        "H016",
+        "H017",
+        "H018",
+        "H019",
+        "H023",
+        "H024",
+        "H025",
+        "H027",
+        "H030",
+        "H031",
+        "H032",
+        "H033",
+        "H034",
+        "H035",
+        "H036",
+        "H038",
+        "H039",
+        "H041",
+        "H043",
+        "H062",
+        "H063",
+        "H065",
+        "H067",
+        "H068",
+        "H069",
+        "H072",
+        "H075",
+        "H076",
+        "H077",
+        "H078",
+        "H079",
+        "H080",
+        "H081",
+        "H082",
+        "H083",
+        "H085",
+        "H087",
+        "H089",
+        "H091",
+        "H096",
+        "H097",
+        "H099",
+        "H100",
+        "H101",
+        "H108"
+      ]
     },
     {
       "campaign": "rule-probes-m",
@@ -1360,7 +1376,178 @@
         "M002",
         "M003"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "M001",
+        "M002",
+        "M003"
+      ]
+    },
+    {
+      "campaign": "rule-probes-negative",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "A009",
+        "A010",
+        "A011",
+        "A012",
+        "A013",
+        "A014",
+        "A015",
+        "C006",
+        "C008",
+        "C009",
+        "C010",
+        "C016",
+        "C017",
+        "C020",
+        "C023",
+        "C027",
+        "C032",
+        "C034",
+        "C035",
+        "COVERAGE",
+        "D001",
+        "D002",
+        "D005",
+        "E001",
+        "E002",
+        "E003",
+        "G001",
+        "G002",
+        "G003",
+        "G004",
+        "G005",
+        "G006",
+        "G007",
+        "G008",
+        "G009",
+        "G010",
+        "G011",
+        "G012",
+        "G013",
+        "G014",
+        "G015",
+        "H005",
+        "H006",
+        "H007",
+        "H008",
+        "H009",
+        "H010",
+        "H011",
+        "H012",
+        "H013",
+        "H014",
+        "H020",
+        "H021",
+        "H022",
+        "H026",
+        "H028",
+        "H029",
+        "H037",
+        "H040",
+        "H042",
+        "H044",
+        "H045",
+        "H046",
+        "H047",
+        "H048",
+        "H049",
+        "H050",
+        "H051",
+        "H052",
+        "H053",
+        "H054",
+        "H055",
+        "H056",
+        "H057",
+        "H058",
+        "H059",
+        "H060",
+        "H061",
+        "H064",
+        "H066",
+        "H070",
+        "H071",
+        "H073",
+        "H074",
+        "H084",
+        "H086",
+        "H088",
+        "H090",
+        "H092",
+        "H093",
+        "H094",
+        "H095",
+        "H098",
+        "H102",
+        "H103",
+        "H104",
+        "H105",
+        "H106",
+        "H107",
+        "M004",
+        "M005",
+        "M006",
+        "NOVELTY",
+        "P003",
+        "P009",
+        "R017",
+        "R040",
+        "R041",
+        "R042",
+        "R044",
+        "R045",
+        "R046",
+        "R048",
+        "R049",
+        "R050",
+        "R055",
+        "R056",
+        "R057",
+        "R144",
+        "T001",
+        "T002",
+        "T003",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "TAG_CONVERGENCE",
+        "U001",
+        "U004",
+        "U005",
+        "U011",
+        "U012",
+        "U013",
+        "U014",
+        "U015",
+        "W004",
+        "W007",
+        "W009",
+        "W010",
+        "W012",
+        "W013",
+        "W014",
+        "W015",
+        "X003",
+        "X008",
+        "X014",
+        "X017",
+        "X018",
+        "X019",
+        "X020",
+        "X022",
+        "X028",
+        "X029",
+        "X030",
+        "X031"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "rule-probes-p",
@@ -1373,7 +1560,15 @@
         "P007",
         "P008"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "P001",
+        "P002",
+        "P005",
+        "P006",
+        "P007",
+        "P008"
+      ]
     },
     {
       "campaign": "rule-probes-pseudo",
@@ -1381,7 +1576,10 @@
       "expected_rules": [
         "SOURCE_BUCKET"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "SOURCE_BUCKET"
+      ]
     },
     {
       "campaign": "rule-probes-r",
@@ -1408,7 +1606,29 @@
         "R099",
         "R152"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "R001",
+        "R002",
+        "R003",
+        "R007",
+        "R008",
+        "R010",
+        "R011",
+        "R012",
+        "R013",
+        "R039",
+        "R043",
+        "R047",
+        "R051",
+        "R052",
+        "R053",
+        "R054",
+        "R058",
+        "R059",
+        "R099",
+        "R152"
+      ]
     },
     {
       "campaign": "rule-probes-s",
@@ -1423,7 +1643,17 @@
         "S007",
         "S008"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "S001",
+        "S002",
+        "S003",
+        "S004",
+        "S005",
+        "S006",
+        "S007",
+        "S008"
+      ]
     },
     {
       "campaign": "rule-probes-t",
@@ -1432,7 +1662,11 @@
         "T004",
         "T005"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "T004",
+        "T005"
+      ]
     },
     {
       "campaign": "rule-probes-u",
@@ -1443,7 +1677,13 @@
         "U006",
         "U010"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "U002",
+        "U003",
+        "U006",
+        "U010"
+      ]
     },
     {
       "campaign": "rule-probes-w",
@@ -1457,7 +1697,16 @@
         "W008",
         "W011"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "W001",
+        "W002",
+        "W003",
+        "W005",
+        "W006",
+        "W008",
+        "W011"
+      ]
     },
     {
       "campaign": "rule-probes-x",
@@ -1484,7 +1733,29 @@
         "X033",
         "X034"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": [
+        "X001",
+        "X002",
+        "X004",
+        "X005",
+        "X006",
+        "X007",
+        "X010",
+        "X011",
+        "X012",
+        "X013",
+        "X015",
+        "X016",
+        "X021",
+        "X023",
+        "X024",
+        "X026",
+        "X027",
+        "X032",
+        "X033",
+        "X034"
+      ]
     },
     {
       "campaign": "sftp-write-then-exec",
@@ -1497,7 +1768,8 @@
         "H082",
         "H016"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "source-array-undeclared-exec",
@@ -1510,7 +1782,8 @@
         "H083",
         "H101"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "source-rename-benign-h083",
@@ -1523,7 +1796,8 @@
         "H083",
         "H091"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "stdin-execution",
@@ -1536,7 +1810,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "stdin-exotic-c2",
@@ -1549,13 +1824,15 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "tclsh-solo",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "trap-statement-r099",
@@ -1563,7 +1840,8 @@
       "expected_rules": [
         "R099"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "trap-suppressed-r104",
@@ -1571,7 +1849,8 @@
       "expected_rules": [
         "R104"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "upstream-probe-u007",
@@ -1579,7 +1858,8 @@
       "expected_rules": [
         "U007"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "upstream-probe-u008",
@@ -1587,7 +1867,8 @@
       "expected_rules": [
         "U008"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "upstream-probe-u009",
@@ -1595,7 +1876,8 @@
       "expected_rules": [
         "U009"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "upstream-probe-u010",
@@ -1603,7 +1885,8 @@
       "expected_rules": [
         "U010"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "upstream-typosquat-c012",
@@ -1611,7 +1894,8 @@
       "expected_rules": [
         "C012"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "vcs-implicit-rename",
@@ -1624,7 +1908,8 @@
         "H016",
         "H083"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "venv-pip-registry-resolve",
@@ -1632,13 +1917,15 @@
       "expected_rules": [
         "X011"
       ],
-      "package": "harness-baseline"
+      "package": "harness-baseline",
+      "positive_rules": []
     },
     {
       "campaign": "wave3",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "wave3-nextfile-js",
@@ -1646,7 +1933,8 @@
       "expected_rules": [
         "X011"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "wave3-obfuscated",
@@ -1655,25 +1943,29 @@
         "X002",
         "H065"
       ],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "wave4",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "wave5",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     },
     {
       "campaign": "wave6",
       "campaign_type": "deterministic",
       "expected_rules": [],
-      "package": "harness-pkg"
+      "package": "harness-pkg",
+      "positive_rules": []
     }
   ],
   "pseudo_rule_ids": [
@@ -1691,15 +1983,19 @@
     "TAG_CONVERGENCE"
   ],
   "rules": {
-    "targeted": 162,
-    "total": 301,
-    "unknown_expected_rules": [],
-    "untargeted": 139,
-    "untargeted_ids": [
+    "negative_only": [
+      "A009",
+      "A010",
+      "A011",
+      "A012",
+      "A013",
+      "A014",
+      "A015",
       "C006",
       "C008",
       "C009",
       "C010",
+      "C011",
       "C016",
       "C017",
       "C020",
@@ -1707,6 +2003,7 @@
       "C027",
       "C032",
       "C034",
+      "C035",
       "COVERAGE",
       "D001",
       "D002",
@@ -1728,6 +2025,7 @@
       "G012",
       "G013",
       "G014",
+      "G015",
       "H005",
       "H006",
       "H007",
@@ -1805,55 +2103,253 @@
       "R055",
       "R056",
       "R057",
+      "R078",
+      "R091",
+      "R104",
       "R144",
       "T001",
       "T002",
       "T003",
       "T006",
       "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
       "TAG_CONVERGENCE",
       "U001",
       "U004",
       "U005",
+      "U007",
+      "U008",
+      "U009",
       "U011",
       "U012",
+      "U013",
+      "U014",
+      "U015",
       "W004",
       "W007",
       "W009",
       "W010",
       "W012",
       "W013",
+      "W014",
+      "W015",
       "X003",
       "X008",
+      "X009",
       "X014",
       "X017",
       "X018",
       "X019",
       "X020",
       "X022",
+      "X025",
       "X028",
       "X029",
       "X030",
       "X031"
-    ]
+    ],
+    "positive_targeted": 153,
+    "positive_untargeted_ids": [
+      "A009",
+      "A010",
+      "A011",
+      "A012",
+      "A013",
+      "A014",
+      "A015",
+      "C006",
+      "C008",
+      "C009",
+      "C010",
+      "C011",
+      "C016",
+      "C017",
+      "C020",
+      "C023",
+      "C027",
+      "C032",
+      "C034",
+      "C035",
+      "COVERAGE",
+      "D001",
+      "D002",
+      "D005",
+      "E001",
+      "E002",
+      "E003",
+      "G001",
+      "G002",
+      "G003",
+      "G004",
+      "G005",
+      "G006",
+      "G007",
+      "G008",
+      "G009",
+      "G010",
+      "G011",
+      "G012",
+      "G013",
+      "G014",
+      "G015",
+      "H005",
+      "H006",
+      "H007",
+      "H008",
+      "H009",
+      "H010",
+      "H011",
+      "H012",
+      "H013",
+      "H014",
+      "H020",
+      "H021",
+      "H022",
+      "H026",
+      "H028",
+      "H029",
+      "H037",
+      "H040",
+      "H042",
+      "H044",
+      "H045",
+      "H046",
+      "H047",
+      "H048",
+      "H049",
+      "H050",
+      "H051",
+      "H052",
+      "H053",
+      "H054",
+      "H055",
+      "H056",
+      "H057",
+      "H058",
+      "H059",
+      "H060",
+      "H061",
+      "H064",
+      "H066",
+      "H070",
+      "H071",
+      "H073",
+      "H074",
+      "H084",
+      "H086",
+      "H088",
+      "H090",
+      "H092",
+      "H093",
+      "H094",
+      "H095",
+      "H098",
+      "H102",
+      "H103",
+      "H104",
+      "H105",
+      "H106",
+      "H107",
+      "M004",
+      "M005",
+      "M006",
+      "NOVELTY",
+      "P003",
+      "P009",
+      "R017",
+      "R040",
+      "R041",
+      "R042",
+      "R044",
+      "R045",
+      "R046",
+      "R048",
+      "R049",
+      "R050",
+      "R055",
+      "R056",
+      "R057",
+      "R078",
+      "R091",
+      "R104",
+      "R144",
+      "T001",
+      "T002",
+      "T003",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "TAG_CONVERGENCE",
+      "U001",
+      "U004",
+      "U005",
+      "U007",
+      "U008",
+      "U009",
+      "U011",
+      "U012",
+      "U013",
+      "U014",
+      "U015",
+      "W004",
+      "W007",
+      "W009",
+      "W010",
+      "W012",
+      "W013",
+      "W014",
+      "W015",
+      "X003",
+      "X008",
+      "X009",
+      "X014",
+      "X017",
+      "X018",
+      "X019",
+      "X020",
+      "X022",
+      "X025",
+      "X028",
+      "X029",
+      "X030",
+      "X031"
+    ],
+    "targeted": 320,
+    "total": 320,
+    "unknown_expected_rules": [],
+    "untargeted": 0,
+    "untargeted_ids": []
   },
   "stage_map_available": true,
   "stages_targeted": [
     "anti_analysis",
     "exfil",
     "foreign_fetch",
+    "hidden_drop",
     "install_hook",
     "integrity_removed",
+    "mass_adoption",
     "obfuscation",
     "payload",
     "persistence",
+    "recon",
     "registry",
     "sabotage",
     "staging",
+    "takeover",
     "write_then_exec"
   ],
-  "untargeted_because_unreachable": [
+  "unreachable_ids": [
     "H026",
+    "H043",
     "H044",
     "H045",
     "H046",
@@ -1861,10 +2357,12 @@
     "H073",
     "H074",
     "H086",
+    "H087",
     "H088"
   ],
-  "untargeted_reasons": {
+  "unreachable_reasons": {
     "H026": "needs a prior maintainer snapshot (corpus path)",
+    "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
     "H044": "needs a prior ownership snapshot (corpus path)",
     "H045": "needs a full-aur cycle",
     "H046": "needs a full-aur cycle",
@@ -1872,6 +2370,9 @@
     "H073": "needs a full-aur cycle",
     "H074": "needs a recorded adoption before the diff",
     "H086": "needs a recorded prior orphan observation",
+    "H087": "needs a recorded prior upstream state",
     "H088": "needs H086 and H087 recorded state"
-  }
+  },
+  "untargeted_because_unreachable": [],
+  "untargeted_reasons": {}
 }

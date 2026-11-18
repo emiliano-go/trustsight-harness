@@ -105,7 +105,7 @@ one of them:
 
 ## What ships
 
-- **A campaign suite.** 119 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 120 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025, U007, U008, U009,
   U010), the Atomic Arch
@@ -113,14 +113,15 @@ one of them:
   this harness found against 0.23.0: the `openssl s_client` connect-port
   address, the parse-time fetch, the glued `#`, the undeclared source-array
   execution, the phantom heredoc opener, and the `::` source rename. Every
-  campaign pins TrustSight 0.27.0 and is deterministic.
+  campaign pins TrustSight 0.29.2 and is deterministic.
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's full contract, so the untested surface is a number. 162 of 301
-  rules are targeted by 119 campaigns; the remainder are named with a reason
-  or queued for a dedicated lane. Rule probes measure whether a rule fires
-  without entering the adversarial bypass rate.
+  TrustSight's full contract, so the untested surface is a number. 320 of 320 rules
+  are targeted by 120 campaigns; all are named by a probe: 153 have a firing probe and 167 have a
+  negative control, with the 11 state/artifact/cycle rules also named and
+  explained. Rule probes measure whether a rule fires without entering the
+  adversarial bypass rate.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the
   benign flag rate with a Wilson interval, the other side of the measurement.
   The scan is parallel by default (`--jobs auto`) and a repeat over the same
