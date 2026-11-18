@@ -48,10 +48,20 @@ def _campaigns(repo_root: Path) -> list[dict]:
         raw = yaml.safe_load(
             read_text_capped(path, MAX_ARTIFACT_BYTES, "campaign.yml")) or {}
         rules = tuple((raw.get("prompt") or {}).get("expected_rules") or ())
+        positive: set[str] = set()
+        inputs_path = path.parent / "inputs.yml"
+        if inputs_path.exists():
+            cells = (yaml.safe_load(read_text_capped(
+                inputs_path, MAX_ARTIFACT_BYTES, "inputs.yml")) or {}).get(
+                    "cells", ())
+            for cell in cells or ():
+                if isinstance(cell, dict):
+                    positive.update(cell.get("expect_fire") or ())
         out.append({
             "campaign": raw.get("campaign", path.parent.name),
             "campaign_type": raw.get("campaign_type", "deterministic"),
             "expected_rules": list(rules),
+            "positive_rules": sorted(positive),
             "package": raw.get("package", "harness-pkg"),
         })
     return out
@@ -82,7 +92,11 @@ def build_coverage(repo_root: Path) -> dict:
             targeted.setdefault(rule, []).append(campaign["campaign"])
 
     all_rules = sorted(set(rule_ids()) | pseudo)
-    unknown = sorted(set(targeted) - set(all_rules))
+    positive_targeted = {
+        rule for campaign in campaigns for rule in campaign["positive_rules"]
+        if rule in all_rules
+    }
+    unknown = sorted((set(targeted) | positive_targeted) - set(all_rules))
 
     by_category: dict[str, dict] = {}
     for rule in all_rules:
@@ -105,12 +119,21 @@ def build_coverage(repo_root: Path) -> dict:
             "untargeted": len(untargeted),
             "untargeted_ids": untargeted,
             "unknown_expected_rules": unknown,
+            "positive_targeted": len(positive_targeted),
+            "negative_only": sorted(set(targeted) - positive_targeted),
+            "positive_untargeted_ids": [
+                r for r in all_rules if r not in positive_targeted
+            ],
         },
         "by_category": by_category,
         "pseudo_rule_ids": sorted(pseudo),
         "untargeted_reasons": reasons,
         "untargeted_because_unreachable": sorted(
             r for r in untargeted if r not in targeted and r in UNREACHABLE),
+        "unreachable_ids": sorted(r for r in all_rules if r in UNREACHABLE),
+        "unreachable_reasons": {
+            r: UNREACHABLE[r] for r in all_rules if r in UNREACHABLE
+        },
         "stage_map_available": bool(_STAGE_OF),
         "stages_targeted": sorted({_STAGE_OF[r] for r in targeted if r in _STAGE_OF}),
     }

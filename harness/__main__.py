@@ -230,11 +230,13 @@ def main(argv: list[str] | None = None) -> int:
         # facts and only one of them is a gap in the suite.  Naming them
         # together let a reader count the rules that no campaign can reach as
         # rules nobody had got round to.
-        untriable = len(report["untargeted_because_unreachable"])
+        negative = len(rules["negative_only"])
+        positive = rules["positive_targeted"]
+        unreachable = len(report["unreachable_ids"])
         print(f"{rules['targeted']} of {rules['total']} rules targeted by "
-              f"{len(report['campaigns'])} campaigns; {rules['untargeted']} "
-              f"untargeted, {len(report['untargeted_reasons'])} with a reason "
-              f"and all {untriable} unreachable by this harness's format.")
+              f"{len(report['campaigns'])} campaigns; {positive} have a "
+              f"firing probe, {negative} are negative controls, and "
+              f"{unreachable} need state, a manifest or a cycle.")
         if args.check and rules["untargeted"]:
             print("untargeted rules: " + " ".join(rules["untargeted_ids"]),
                   file=sys.stderr)

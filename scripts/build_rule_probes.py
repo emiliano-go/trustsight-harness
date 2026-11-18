@@ -3,7 +3,8 @@
 
 Every probe is a committed unified diff plus the rule it must fire.  A
 negative twin is a committed benign diff on which the same rule must stay
-quiet.  The source diffs are the labelled malicious fixtures and, for rules
+quiet; a rule the labelled corpus cannot fire still gets a negative-only
+control so the coverage report names every contract id.  The source diffs are the labelled malicious fixtures and, for rules
 the fixtures do not cover, the locked benign corpus; each selected diff is
 content-addressed so the same bytes are never committed twice.
 
@@ -88,7 +89,7 @@ def _campaign(series: str, rules: list[str], cells: int) -> dict:
         "campaign": f"rule-probes-{series.lower()}",
         "campaign_type": "rule-probe",
         "environment": {
-            "trustsight_version": "0.27.0",
+            "trustsight_version": "0.29.2",
             "trustsight_source": "local-path",
             "db_state": "cold",
             "flag_threshold": 20,
@@ -194,6 +195,8 @@ def main(argv: list[str] | None = None) -> int:
         # selected file from the provenance map instead of caching 8k texts.
         pass
 
+    missing = sorted(catalogue - set(positives))
+
     # Materialise selected bytes from the source files recorded above.
     by_sha: dict[str, str] = {}
     for rule, digest in positives.items():
@@ -205,8 +208,26 @@ def main(argv: list[str] | None = None) -> int:
     for digest, text in by_sha.items():
         (diffs_dir / f"{digest}.diff").write_text(text, encoding="utf-8")
 
+    fallback_digest = next(iter(sorted(negatives.values())), "")
+    negative_cells: list[dict] = []
+    for rule in missing:
+        digest = negatives.get(rule) or fallback_digest
+        if not digest:
+            continue
+        if digest not in by_sha:
+            source = negative_sources.get(rule)
+            if source is not None:
+                by_sha[digest] = _read(source)
+                (diffs_dir / f"{digest}.diff").write_text(
+                    by_sha[digest], encoding="utf-8")
+        negative_cells.append({
+            "id": f"{rule}-negative",
+            "path": f"fixtures/rule-probes/diffs/{digest}.diff",
+            "expect_absent": [rule],
+        })
+
     manifest = {
-        "trustsight_version": "0.27.0",
+        "trustsight_version": "0.29.2",
         "source_sha256": _sha256("".join(sorted(by_sha))),
         "rules": {},
     }
@@ -220,6 +241,17 @@ def main(argv: list[str] | None = None) -> int:
             "negative": (f"fixtures/rule-probes/diffs/{negatives[rule]}.diff"
                          if rule in negatives else ""),
             **provenance[rule],
+        }
+    for rule in missing:
+        digest = negatives.get(rule) or fallback_digest
+        if not digest:
+            continue
+        series = _series(rule)
+        manifest["rules"][rule] = {
+            "series": series,
+            "positive": "",
+            "negative": f"fixtures/rule-probes/diffs/{digest}.diff",
+            "source": "negative-control",
         }
     (args.out / "manifest.json").write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -245,6 +277,20 @@ def main(argv: list[str] | None = None) -> int:
             encoding="utf-8")
         (campaign_dir / "inputs.yml").write_text(
             yaml.safe_dump({"cells": cells}, sort_keys=False), encoding="utf-8")
+
+    if negative_cells:
+        negative_dir = args.campaigns / "rule-probes-negative"
+        negative_dir.mkdir(parents=True, exist_ok=True)
+        (negative_dir / "campaign.yml").write_text(
+            yaml.safe_dump(
+                _campaign("negative", sorted({cell["expect_absent"][0]
+                                              for cell in negative_cells}),
+                          len(negative_cells)),
+                sort_keys=False),
+            encoding="utf-8")
+        (negative_dir / "inputs.yml").write_text(
+            yaml.safe_dump({"cells": negative_cells}, sort_keys=False),
+            encoding="utf-8")
 
     missing = sorted(all_catalogue - set(positives))
     print(f"probes: {len(positives)}/{len(catalogue)} rules; "
