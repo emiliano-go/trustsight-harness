@@ -96,3 +96,15 @@ def test_limitations_declared_on_the_campaign_load(tmp_path):
 def test_limitations_default_to_empty(tmp_path):
     (tmp_path / "campaign.yml").write_text(_TEMPLATE.format(package_line=""))
     assert load_campaign(tmp_path, ROOT).limitations == ()
+
+
+def test_a_relative_campaign_directory_resolves_to_an_absolute_root(monkeypatch):
+    from pathlib import Path
+
+    from harness.config import load_campaign
+
+    root = Path(__file__).resolve().parent.parent
+    monkeypatch.chdir(root)
+    config = load_campaign(Path("campaigns/rule-probes-c"), root)
+    assert config.root.is_absolute()
+    assert config.environment.trustsight_version
