@@ -102,6 +102,13 @@ class CampaignConfig:
 
 
 def load_campaign(directory: Path, repo_root: Path) -> CampaignConfig:
+    # A campaign launched by a relative path used to bind its environment
+    # relative to the worker's chdir("/"), so the store sandbox mounted a
+    # non-existent relative path and the analysis failed before attempt 0.
+    # Resolve at the boundary: every consumer of config.root gets an absolute
+    # path, while the CLI can still accept the friendly relative spelling.
+    directory = directory.resolve()
+    repo_root = repo_root.resolve()
     path = directory / "campaign.yml"
     if not path.exists():
         raise ConfigError(f"no campaign.yml in {directory}")
