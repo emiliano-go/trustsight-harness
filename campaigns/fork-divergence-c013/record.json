@@ -14,13 +14,13 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "fork-divergence-c013",
-  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
+  "campaign_commit": "",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 8,
-    "total": 17
+    "open": 4,
+    "total": 4
   },
   "conditional_bypasses": {},
   "cost": {
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 29
+    "wall_clock_ms": 23
   },
   "dedup_savings": {
     "analyses_avoided": 0,
@@ -41,7 +41,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:aff8e31848fce09f0545ad611f7a81d78e628de51f2f656f6f0ca2657e16f5ce",
+    "config_fingerprint": "sha256:34f76b6732f59d1528b777bb6a6000eb646e472e55272102d4e9cdff833a39cb",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 10,
@@ -54,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.26.0"
+    "trustsight_version": "0.30.0"
   },
   "expected_rules": [
     "C013"

@@ -14,13 +14,13 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "wave3",
-  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
+  "campaign_commit": "",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 9,
-    "total": 18
+    "open": 17,
+    "total": 17
   },
   "conditional_bypasses": {},
   "cost": {
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 56958
+    "wall_clock_ms": 144193
   },
   "dedup_savings": {
     "analyses_avoided": 0,
@@ -41,7 +41,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -54,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.26.0"
+    "trustsight_version": "0.30.0"
   },
   "expected_rules": [],
   "generator": {
@@ -74,7 +74,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:e0d6a8f0c9c1bf3f4a6821d7f33f04465e94ec9f7087fed9f772f08c2f24f939",
@@ -82,7 +82,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:cce164fe2e0b55f02ccaf483b1eb1e8430c8155fb26179e82cb32eb8c8f06df9",
@@ -90,7 +90,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:f65aae043865b72be467909651fb788641e681f90ad087c5d1b1dc11ae141640",
@@ -98,7 +98,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:921544988c566e6821e46e090ae761d102ebe9126283c4d97c4803012308d47d",
@@ -106,7 +106,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:1b3da04efa3373d30944e66e80641dced448430b4e11c4a39df659d16e2c48d8",
@@ -114,7 +114,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:bb0a30b2a25e50377a40ced0508265ab845533dd9c0ed4bb3c7c9533a3b86955",
@@ -122,7 +122,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:e887cd2b872f6f69692e48c8561079990269b71f4220500c3a6f81f58eecd855",
@@ -130,7 +130,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:0e823881382b91b43d97617b8fbabc92660deb8ead5bc9f267dc7ff146c43aec",
@@ -138,7 +138,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:bdee20dc372da6fc8563a2e862e8dd49369f7ae8fa5b5c0bfb4ec75492e36fee",
@@ -146,7 +146,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:1712feea76b2771692ecd0877830f1d7e1ec21566bd0cee73537c7dc4fa40297",
@@ -154,7 +154,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:57af1100e25768076dcf499a286c0f474182541bb1aaabd1a8b7dad0f8907a2e",
@@ -162,7 +162,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:e3668f83eac42a24dd0952694ef8c6698e1436da51470dc094fd307100868651",
@@ -170,7 +170,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:881c0cd9101ca6c56f801d75dd9c6985f65b13f56d4a1b402aa028b37f5dfd98",
@@ -178,7 +178,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:3e1b46fbf5f8bd0d58a7b29ee2dd6ea4d86fb033096e428e775f591c852ca000",
@@ -186,7 +186,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:abddfc82bf24e1f2f237a22c2145d66106cc369ee368d905d4b249cb4e663972",
@@ -194,7 +194,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:e2b613e83af802a6570f401c1d4e287cec99799743be0806d892dae2ecf51154",
@@ -202,7 +202,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:2408c528482aea5ebfaf38673e32ac08e3ed0f2c40c9db4a954af017efd02bd3",
@@ -210,7 +210,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:91f1b873f6427de36f09daccb78632bb64254dafda29b973288adb8ef9dc83a9",
@@ -218,7 +218,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     },
     {
       "diff_hash": "sha256:3d9c54fe505b0aeb72829525a9d24da531fb00460049bac8b73eb0099f16e53a",
@@ -226,7 +226,7 @@
       "original_campaign": "wave3",
       "original_trustsight_version": "0.18.1",
       "patch_status": "verified",
-      "trustsight_version": "0.26.0"
+      "trustsight_version": "0.30.0"
     }
   ],
   "layers_fully_bypassed": 0,
