@@ -11,8 +11,10 @@
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "upstream-probe-u010",
-  "campaign_commit": "44a116483f1a5bb4a43c8709c899ac15b00820ae",
+  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -20,13 +22,14 @@
     "open": 0,
     "total": 0
   },
+  "conditional_bypasses": {},
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1254
+    "wall_clock_ms": 454
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -35,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:a0a14f9c2dfe37010edc458ca13c8cbee89a00b3c4acad217a7a8dab1c27a33d",
+    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -48,7 +51,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.21.0"
+    "trustsight_version": "0.26.0"
   },
   "expected_rules": [
     "U010"
@@ -91,6 +94,7 @@
       "H015",
       "H027",
       "H101",
+      "M002",
       "P006",
       "P008",
       "U010",

@@ -1,7 +1,7 @@
 {
   "attempt": 0,
   "cost": {},
-  "db_hash": "sha256:5c9dec1886cc01f5f2307ee1ea87f9b32a4cef0f8f9a2c68beebc558013bedab",
+  "db_hash": "sha256:0ab48b25cba617ed3a4acca0161813b314c095ef63544bb4af60769eb1012977",
   "diff_sha256": "sha256:e96aac8263c2e6d15b00581fdc19c74d4591c7405f2f6888b434a4d256b06eae",
   "environment_ref": "campaign.yml#environment",
   "generator": {
@@ -34,7 +34,7 @@
       "chain": "npm install -> bash \"$srcdir/payload.sh\"",
       "preserved": true,
       "reason": "",
-      "validator_version": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
+      "validator_version": "sha256:746e350256baf3dc7be01ab5bb2e3d6063d57fec1dd619400069e8c1d2182370"
     },
     "constraints": {
       "honored": true,
@@ -53,8 +53,8 @@
   },
   "status": "fail_closed_catch",
   "trustsight": {
-    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
-    "diff_shape_fp": "sha256:3a666ab7fa268383",
+    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+    "diff_shape_fp": "sha256:9d58ccd3ddccbefd",
     "observed_layers": {
       "fired": [
         "L2",
@@ -79,6 +79,20 @@
           "gap": "unpinned_build_deps",
           "kind": "unpinned_deps",
           "w_rule": ""
+        },
+        {
+          "detail": "Upstream Content Not Read: upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
+          "forbids_clean": false,
+          "gap": "",
+          "kind": "upstream_unread",
+          "w_rule": "W011"
+        },
+        {
+          "detail": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
+          "forbids_clean": false,
+          "gap": "",
+          "kind": "federation_unavailable",
+          "w_rule": "W012"
         },
         {
           "detail": "Build Resolves Dependencies From A Registry: build runs npm install evil-dependency, so a registry chooses at build time which code runs; no checksum here covers it; no committed npm manifest names that surface",
@@ -193,7 +207,20 @@
       ],
       "cofire_health": [],
       "comparison_base": "recorded",
-      "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
+      "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
+      "contacts": {
+        "available": true,
+        "note": "",
+        "records": [
+          {
+            "basis": "ledger",
+            "first_seen_utc": "",
+            "kind": "host",
+            "package": "harness-pkg",
+            "value": "evil.example"
+          }
+        ]
+      },
       "coverage_gaps": [
         "tree_not_analyzed",
         "unpinned_build_deps"
@@ -201,6 +228,7 @@
       "coverage_gaps_carried": [],
       "dependencies": [],
       "depth_truncated": false,
+      "diff_shape_fp": "sha256:9d58ccd3ddccbefd",
       "diff_truncated": false,
       "failed": false,
       "file_changes": [
@@ -220,8 +248,41 @@
           "file": "PKGBUILD",
           "line": 14,
           "rule_id": "X011",
+          "rule_uid": "TS-0242",
           "severity": "HIGH",
+          "techniques": [
+            "X011:package manager runs fetched code"
+          ],
           "template": "Package Manager Runs Fetched Code At Build Time: {match}"
+        },
+        {
+          "description": "upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself) [W011]",
+          "evidence": {
+            "match": "upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
+            "upstream_repo": "github.com/example/harness-baseline",
+            "url": "https://github.com/example/harness-baseline"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "rule_id": "W011",
+          "rule_uid": "TS-0271",
+          "severity": "INFO",
+          "techniques": [],
+          "template": "{match}"
+        },
+        {
+          "description": "the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked [W012]",
+          "evidence": {
+            "match": "the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
+            "upstream_repo": "github.com/example/harness-baseline"
+          },
+          "file": "PKGBUILD",
+          "line": null,
+          "rule_id": "W012",
+          "rule_uid": "TS-0272",
+          "severity": "INFO",
+          "techniques": [],
+          "template": "{match}"
         },
         {
           "description": "Downloaded Source File Executed: build() executes declared source file payload.sh [H083]",
@@ -233,7 +294,9 @@
           "file": "PKGBUILD",
           "line": 15,
           "rule_id": "H083",
+          "rule_uid": "TS-0139",
           "severity": "HIGH",
+          "techniques": [],
           "template": "Downloaded Source File Executed: {match}"
         },
         {
@@ -247,8 +310,25 @@
           "file": "PKGBUILD",
           "line": 14,
           "rule_id": "W002",
+          "rule_uid": "TS-0223",
           "severity": "INFO",
+          "techniques": [],
           "template": "Build Resolves Dependencies From A Registry: {match}"
+        },
+        {
+          "description": "rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec [H043]",
+          "evidence": {
+            "match": "rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec",
+            "n_stages": 3,
+            "stages": "payload, registry, write_then_exec"
+          },
+          "file": "",
+          "line": null,
+          "rule_id": "H043",
+          "rule_uid": "TS-0099",
+          "severity": "INFO",
+          "techniques": [],
+          "template": "rule hits span {n_stages} distinct kill-chain stages: {stages}"
         },
         {
           "description": "Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]",
@@ -256,7 +336,9 @@
           "file": "",
           "line": null,
           "rule_id": "SOURCE_BUCKET",
+          "rule_uid": null,
           "severity": "MEDIUM",
+          "techniques": [],
           "template": ""
         }
       ],
@@ -278,6 +360,8 @@
           "coverage": "complete",
           "detection": "fired",
           "findings": [
+            "W011",
+            "W012",
             "W002"
           ],
           "name": "Readability",
@@ -303,7 +387,8 @@
           "coverage": "complete",
           "detection": "fired",
           "findings": [
-            "H083"
+            "H083",
+            "H043"
           ],
           "name": "Behavioral suspicion",
           "status": "fired"
@@ -331,15 +416,15 @@
         }
       },
       "new_commit": "",
-      "new_version": "1.0.0",
+      "new_version": "1.0.0-1",
       "old_commit": "",
-      "old_version": "1.0.0",
+      "old_version": "1.0.0-1",
       "overrides_expired": [],
       "package": "harness-pkg",
       "partial_files": [],
       "required_by": [],
       "resolution_coverage": {
-        "resolved_lines": 5,
+        "resolved_lines": 4,
         "resolved_target_rules": [
           "R001",
           "R002",
@@ -379,26 +464,8 @@
           "reason": "Build Cache Outside The Build Trees: a build tool caches outside $srcdir without an overridden cache directory",
           "rule_id": "C028",
           "severity": "INFO",
+          "techniques": [],
           "template": "build cache written outside the build trees: {match}",
-          "weight": 0
-        },
-        {
-          "evidence": {
-            "added": "['https://evil.example/payload.sh', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
-            "match": "URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.sh', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
-            "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
-          },
-          "file": "PKGBUILD",
-          "licensed_by": [],
-          "line": 8,
-          "params": {
-            "added": "['https://evil.example/payload.sh', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
-            "removed": "['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']"
-          },
-          "reason": "Source URL Changed Without Version Bump: URLs changed: ['https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz'] -> ['https://evil.example/payload.sh', 'https://github.com/example/harness-baseline/archive/v1.0.0.tar.gz']",
-          "rule_id": "C003",
-          "severity": "INFO",
-          "template": "source URLs changed without version bump",
           "weight": 0
         },
         {
@@ -417,8 +484,49 @@
           "reason": "Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency",
           "rule_id": "X011",
           "severity": "HIGH",
+          "techniques": [
+            "X011:package manager runs fetched code"
+          ],
           "template": "Package Manager Runs Fetched Code At Build Time: {match}",
           "weight": 25
+        },
+        {
+          "evidence": {
+            "match": "upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
+            "upstream_repo": "github.com/example/harness-baseline",
+            "url": "https://github.com/example/harness-baseline"
+          },
+          "file": "PKGBUILD",
+          "licensed_by": [],
+          "line": null,
+          "params": {
+            "upstream_repo": "github.com/example/harness-baseline",
+            "url": "https://github.com/example/harness-baseline"
+          },
+          "reason": "Upstream Content Not Read: upstream content declared at https://github.com/example/harness-baseline was not read (A2: the analysis reads declarations, never upstream itself)",
+          "rule_id": "W011",
+          "severity": "INFO",
+          "techniques": [],
+          "template": "{match}",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
+            "upstream_repo": "github.com/example/harness-baseline"
+          },
+          "file": "PKGBUILD",
+          "licensed_by": [],
+          "line": null,
+          "params": {
+            "upstream_repo": "github.com/example/harness-baseline"
+          },
+          "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/example/harness-baseline; U007/U008 could not be checked",
+          "rule_id": "W012",
+          "severity": "INFO",
+          "techniques": [],
+          "template": "{match}",
+          "weight": 0
         },
         {
           "evidence": {
@@ -434,6 +542,7 @@
           "reason": "Critical Build Function Modified: diff modifies build()",
           "rule_id": "H015",
           "severity": "INFO",
+          "techniques": [],
           "template": "critical build function modified: {touched}",
           "weight": 0
         },
@@ -453,6 +562,7 @@
           "reason": "Downloaded Source File Executed: build() executes declared source file payload.sh",
           "rule_id": "H083",
           "severity": "HIGH",
+          "techniques": [],
           "template": "Downloaded Source File Executed: {match}",
           "weight": 25
         },
@@ -474,24 +584,46 @@
           "reason": "Build Resolves Dependencies From A Registry: build runs npm install evil-dependency, so a registry chooses at build time which code runs; no checksum here covers it; no committed npm manifest names that surface",
           "rule_id": "W002",
           "severity": "INFO",
+          "techniques": [],
           "template": "Build Resolves Dependencies From A Registry: {match}",
           "weight": 0
         },
         {
           "evidence": {
-            "match": "rule hits span 6 distinct capability categories",
-            "n_categories": 6
+            "match": "rule hits span 5 distinct capability categories",
+            "n_categories": 5
           },
           "file": "",
           "licensed_by": [],
           "line": null,
           "params": {
-            "n_categories": 6
+            "n_categories": 5
           },
-          "reason": "Capability Density Anomaly: rule hits span 6 distinct capability categories",
+          "reason": "Capability Density Anomaly: rule hits span 5 distinct capability categories",
           "rule_id": "H027",
           "severity": "INFO",
+          "techniques": [],
           "template": "findings span {n_categories} distinct capability categories",
+          "weight": 0
+        },
+        {
+          "evidence": {
+            "match": "rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec",
+            "n_stages": 3,
+            "stages": "payload, registry, write_then_exec"
+          },
+          "file": "",
+          "licensed_by": [],
+          "line": null,
+          "params": {
+            "n_stages": 3,
+            "stages": "payload, registry, write_then_exec"
+          },
+          "reason": "Attack-Chain Composition: rule hits span 3 distinct kill-chain stages: payload, registry, write_then_exec",
+          "rule_id": "H043",
+          "severity": "INFO",
+          "techniques": [],
+          "template": "rule hits span {n_stages} distinct kill-chain stages: {stages}",
           "weight": 0
         },
         {
@@ -507,6 +639,7 @@
           "reason": "Coverage gap: the repository file manifest was unavailable, so only the PKGBUILD was examined",
           "rule_id": "COVERAGE",
           "severity": "INFO",
+          "techniques": [],
           "template": "",
           "weight": 0
         },
@@ -523,6 +656,7 @@
           "reason": "Coverage gap: a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it",
           "rule_id": "COVERAGE",
           "severity": "INFO",
+          "techniques": [],
           "template": "",
           "weight": 0
         },
@@ -535,24 +669,9 @@
           "reason": "Source URL classified as unknown (https://evil.example/payload.sh)",
           "rule_id": "SOURCE_BUCKET",
           "severity": "MEDIUM",
+          "techniques": [],
           "template": "",
           "weight": 20
-        },
-        {
-          "evidence": {
-            "count": 1
-          },
-          "file": "",
-          "licensed_by": [],
-          "line": null,
-          "params": {
-            "count": 1
-          },
-          "reason": "source hosted on a trusted forge over HTTPS",
-          "rule_id": "P007",
-          "severity": "INFO",
-          "template": "",
-          "weight": 0
         },
         {
           "evidence": {},
@@ -563,16 +682,19 @@
           "reason": "checksums declared for all non-VCS sources",
           "rule_id": "P001",
           "severity": "INFO",
+          "techniques": [],
           "template": "",
           "weight": 0
         }
       ],
       "suppressed_rules": [],
       "unresolved_assignments": [],
-      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 2 source URL(s). Signals: Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency [X011]; Downloaded Source File Executed: build() executes declared source file payload.sh [H083]; Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]. Evidence categories fired: L4 (Evasion shape), L5 (Behavioral suspicion). Review the diff before building.",
+      "verdict": "This analysis was incomplete: the repository file manifest was unavailable, so only the PKGBUILD was examined, and a build step resolves dependencies from a package registry, so the code the build will fetch and execute is not in the analysed text and no checksum in this recipe covers it. The result describes what was examined, not the whole change. Version unchanged. modified PKGBUILD; added 1 source URL(s). Signals: Package Manager Runs Fetched Code At Build Time: package manager runs fetched code: npm install evil-dependency [X011]; Downloaded Source File Executed: build() executes declared source file payload.sh [H083]; Source URL classified as unknown (https://evil.example/payload.sh) [SOURCE_BUCKET]. Evidence categories fired: L4 (Evasion shape), L5 (Behavioral suspicion). Review the diff before building.",
       "version_comparison": ""
     },
-    "techniques": [],
-    "wall_clock_ms": 250
+    "techniques": [
+      "X011:package manager runs fetched code"
+    ],
+    "wall_clock_ms": 39
   }
 }

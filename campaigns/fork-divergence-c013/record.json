@@ -11,22 +11,25 @@
     "estimate": null,
     "note": "lower bound (validator is conservative)"
   },
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "fork-divergence-c013",
-  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
+  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 20,
-    "total": 20
+    "open": 8,
+    "total": 17
   },
+  "conditional_bypasses": {},
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 70
+    "wall_clock_ms": 29
   },
   "dedup_savings": {
     "analyses_avoided": 0,
@@ -38,7 +41,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:af594151bca200505aaee53b6912fee342b90fb5362064fbd24591c7c570b6c3",
+    "config_fingerprint": "sha256:aff8e31848fce09f0545ad611f7a81d78e628de51f2f656f6f0ca2657e16f5ce",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 10,
@@ -51,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.19.0"
+    "trustsight_version": "0.26.0"
   },
   "expected_rules": [
     "C013"
@@ -77,6 +80,7 @@
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
+    "inconclusive": 0,
     "known_bypass_match": 0,
     "partial_evasion": 0,
     "sanitization_failure": 0,
@@ -86,6 +90,6 @@
   "stop_reason": "",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
+    "version_hash": "sha256:746e350256baf3dc7be01ab5bb2e3d6063d57fec1dd619400069e8c1d2182370"
   }
 }

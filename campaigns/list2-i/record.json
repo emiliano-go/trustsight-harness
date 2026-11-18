@@ -4,41 +4,44 @@
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.277533
+      0.0
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 10,
-    "estimate": 0.0,
+    "denominator_value": 0,
+    "estimate": null,
     "note": "lower bound (validator is conservative)"
   },
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "list2-i",
-  "campaign_commit": "100c017fd61afb56bff12fb38088f0ab61e73911",
+  "campaign_commit": "c5f8f2dd773f4bb9a14dcacad129ab2875eaaa99",
   "campaign_type": "deterministic",
   "cell_coverage": {
     "cells": [],
     "filled": 0,
-    "open": 16,
-    "total": 16
+    "open": 9,
+    "total": 18
   },
+  "conditional_bypasses": {},
   "cost": {
     "api_cost_usd": 0.0,
     "ceiling_usd": null,
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 13865
+    "wall_clock_ms": 1746
   },
   "dedup_savings": {
-    "analyses_avoided": 1,
-    "attempts": 11
+    "analyses_avoided": 0,
+    "attempts": 0
   },
-  "duplicate_rate": 0.09090909090909091,
+  "duplicate_rate": null,
   "environment": {
     "accumulate": false,
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:91c808fb73652632b6009e0e5df2fa19a1f78f5840702f566c725e91cd914fd5",
+    "config_fingerprint": "sha256:a7ea7dd7b35fe11d3af1c1756daa07d552b56a787be1d43e71d141bd73c56a00",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -51,7 +54,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.19.0"
+    "trustsight_version": "0.26.0"
   },
   "expected_rules": [
     "R001",
@@ -73,113 +76,27 @@
     "type": "inputs"
   },
   "harness_version": "2.5.0",
-  "known_bypass_matches": [
-    {
-      "diff_hash": "sha256:7bfd0a3c1ecbc4eec108d293416733e9b76531657a3db2dc17fb00f23c22331e",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:ab20a12857341681f69904a0a84b0372ac0ac46cd6893930ecce4eae47e7ef8b",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:31090bb348b22b45fed514703f3a7f09d4185a18132ba64553d72bd5a6b6d055",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:9d49be82d98c71e2a36ea2f2059f63a5af321b81adce322e2f608ea03277d1d7",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:27b7875014616ab4b3edea312a48f459990055b83cc9a90399aa24dd96e024c9",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:7ffb35e7d0410dd2fdde292a16d396b50ce95700dac71c282dc7d6628236ba0b",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:6de74dc9cdad0ba8ddf64496d1897fbaad63d2f3056af7f9b9a44871feb9b567",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:f54471b4214bf5cfd16c414d3bff484ec9c87b6322a120ab3ab06844c4563f16",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:5e16bca22eeff8ae522ac0a9b18130415f67265f0d9b6ccc7aceab2bd8e33517",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    },
-    {
-      "diff_hash": "sha256:a4e22953e18eee4cc18f2e1107727cd4c047ca61184c68ac071a2ea53d21b876",
-      "observed_status": "detected",
-      "original_campaign": "list2-i",
-      "original_trustsight_version": "0.17.2",
-      "patch_status": "verified",
-      "trustsight_version": "0.19.0"
-    }
-  ],
-  "layers_fully_bypassed": 0,
+  "known_bypass_matches": [],
   "limitations": [],
   "minimization_spend": null,
-  "minimum_layer_cut": 1,
   "outcomes": {
     "behavior_lost": 44,
     "bypass": 0,
     "constraint_violation": 0,
     "detected": 0,
-    "duplicate": 1,
+    "duplicate": 11,
     "fail_closed_catch": 0,
     "harness_error": 0,
-    "known_bypass_match": 10,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
     "partial_evasion": 0,
     "sanitization_failure": 0,
     "syntax_error": 0
   },
   "package": "harness-pkg",
-  "resilience_distribution": {
-    "2": 10
-  },
-  "single_layer_failure": {},
   "stop_reason": "55 manifest cells exhausted",
   "validator": {
     "calibration": "passed",
-    "version_hash": "sha256:6fe5057544db847418186d139311d848dad1ae00890b17c422d87a06010d3521"
+    "version_hash": "sha256:746e350256baf3dc7be01ab5bb2e3d6063d57fec1dd619400069e8c1d2182370"
   }
 }
