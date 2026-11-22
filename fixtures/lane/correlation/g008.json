@@ -1,0 +1,50 @@
+{
+  "kinds": [
+    "g008"
+  ],
+  "records": [
+    {
+      "adoption": true,
+      "adoption_observed_at": "2026-11-22T06:51:33.197920+00:00",
+      "last_modified": 1760770293,
+      "maintainer": "mallory",
+      "package": "pkg-0"
+    },
+    {
+      "adoption": true,
+      "adoption_observed_at": "2026-11-22T06:51:33.197920+00:00",
+      "last_modified": 1760770293,
+      "maintainer": "mallory",
+      "package": "pkg-1"
+    },
+    {
+      "adoption": true,
+      "adoption_observed_at": "2026-11-22T06:51:33.197920+00:00",
+      "last_modified": 1760770293,
+      "maintainer": "mallory",
+      "package": "pkg-2"
+    },
+    {
+      "adoption": true,
+      "adoption_observed_at": "2026-11-22T06:51:33.197920+00:00",
+      "last_modified": 1760770293,
+      "maintainer": "mallory",
+      "package": "pkg-3"
+    },
+    {
+      "adoption": true,
+      "adoption_observed_at": "2026-11-22T06:51:33.197920+00:00",
+      "last_modified": 1760770293,
+      "maintainer": "mallory",
+      "package": "pkg-4"
+    }
+  ],
+  "seed_transitions": [
+    {
+      "new": "mallory",
+      "observed_at": "2026-11-22T06:51:33.197920+00:00",
+      "old": "alice",
+      "package": "pkg-0"
+    }
+  ]
+}

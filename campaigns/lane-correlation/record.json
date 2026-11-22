@@ -1,20 +1,20 @@
 {
-  "attempts": 6,
+  "attempts": 10,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.390334
+      0.277533
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 6,
+    "denominator_value": 10,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-correlation",
-  "campaign_commit": "c857f74af8ec6f2746db4a2422845808ebfbf7a6",
+  "campaign_commit": "9cd9d877f27b80eb07f867b6f1248e0ed685fe5b",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 96
+    "wall_clock_ms": 74
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -161,10 +161,66 @@
       "lane": "correlation",
       "score": 25,
       "threshold": 20
+    },
+    {
+      "cell": "G008-positive",
+      "expected": [
+        "G008"
+      ],
+      "fired": [
+        "G008"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "G009-positive",
+      "expected": [
+        "G009"
+      ],
+      "fired": [
+        "G009"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "G011-positive",
+      "expected": [
+        "G011"
+      ],
+      "fired": [
+        "G011"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "G015-positive",
+      "expected": [
+        "G015"
+      ],
+      "fired": [
+        "G015"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 15,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 6,
+    "cells": 10,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -179,7 +235,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 6,
+    "detected": 10,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -191,7 +247,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 6,
+    "cells": 10,
     "expected_rules": [
       "G001",
       "G002",
@@ -216,9 +272,13 @@
       "G003",
       "G004",
       "G005",
+      "G008",
+      "G009",
+      "G011",
       "G012",
       "G013",
       "G014",
+      "G015",
       "G016"
     ],
     "missing_rules": [],

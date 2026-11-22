@@ -44,9 +44,43 @@ def _artifact(payload: dict) -> list[dict]:
 
 
 def _correlation(payload: dict) -> list[dict]:
-    from trustsight.analysis.correlation import correlate
+    import json
+    import tempfile
+    from pathlib import Path
 
-    return correlate(payload["records"], _config())
+    from trustsight.analysis.correlation import (
+        correlate,
+        first_seen_adoption_burst,
+        package_creation_burst,
+        sleeper_adoption_campaign,
+        watchlisted_maintainer,
+    )
+
+    records = payload["records"]
+    kinds = set(payload.get("kinds") or ())
+    config = _config()
+    out = correlate(records, config)
+    if "g008" in kinds:
+        from trustsight import db
+
+        for row in payload.get("seed_transitions") or ():
+            db.record_property_transition(
+                str(row.get("package", "")), "maintainer", row.get("old"),
+                row.get("new"), row.get("observed_at"))
+        out.extend(first_seen_adoption_burst(records, config))
+    if "g009" in kinds:
+        path = Path(tempfile.mkdtemp()) / "watchlist.json"
+        path.write_text(json.dumps(payload.get("watchlist") or {}))
+        config.setdefault("thresholds", {}).setdefault("g009", {})[
+            "path"] = str(path)
+        out.extend(watchlisted_maintainer(records, config))
+    if "g011" in kinds:
+        out.extend(package_creation_burst(records, config))
+    if "g015" in kinds:
+        out.extend(sleeper_adoption_campaign(
+            records, payload.get("history") or [], config,
+            payload.get("pushes")))
+    return out
 
 
 def _meta(payload: dict) -> list[dict]:
@@ -220,7 +254,9 @@ CYCLE_KINDS = {
 #: function signatures.
 PAYLOAD_KEYS = {
     "artifact": frozenset({"manifest", "declared"}),
-    "correlation": frozenset({"records"}),
+    "correlation": frozenset({
+        "records", "kinds", "seed_transitions", "watchlist", "history",
+        "pushes"}),
     "warm": frozenset().union(*WARM_KINDS.values()) | {"kind"},
     "meta": frozenset({"triggered", "claims", "rules", "pressure",
                        "cofire_pairs"}),

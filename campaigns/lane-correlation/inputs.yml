@@ -32,3 +32,23 @@ cells:
   payload_path: fixtures/lane/correlation/adoption-window.json
   expect_fire:
   - G014
+- id: G008-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g008.json
+  expect_fire:
+  - G008
+- id: G009-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g009.json
+  expect_fire:
+  - G009
+- id: G011-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g011.json
+  expect_fire:
+  - G011
+- id: G015-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g015.json
+  expect_fire:
+  - G015

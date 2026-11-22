@@ -36,7 +36,7 @@ def test_every_payload_key_is_read_by_its_entry_point():
     from trustsight.full_aur.temporal_engine import run_corpus_sweep
 
     readers = {
-        "correlation": (correlate, lane_probe.PAYLOAD_KEYS["correlation"]),
+        "correlation": (correlate, frozenset({"records"})),
         "temporal": (run_corpus_sweep, lane_probe.CYCLE_KINDS["temporal"]),
         "graph": (run_graph_sweep, lane_probe.CYCLE_KINDS["graph"]),
     }
@@ -45,6 +45,15 @@ def test_every_payload_key_is_read_by_its_entry_point():
         for key in keys:
             assert key in params or any(p.kind is p.VAR_KEYWORD
                                         for p in params.values()), (lane, key)
+    # The correlation lane composes five entry points; only ``records`` is
+    # read by correlate() itself.
+    assert set(lane_probe.PAYLOAD_KEYS["correlation"]) == {
+        "records", "kinds", "seed_transitions", "watchlist", "history",
+        "pushes"}
+    from trustsight.analysis.correlation import sleeper_adoption_campaign
+
+    for key in ("history", "pushes"):
+        assert key in inspect.signature(sleeper_adoption_campaign).parameters
     # The cycle kinds name their own entry point, so each key is checked
     # against the function that actually reads it.
     longitudinal = {
