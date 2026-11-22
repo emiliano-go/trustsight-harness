@@ -11,14 +11,24 @@ generator:
 prompt:
   prompt_id: lane-compose
   expected_rules:
+  - C006
+  - C027
   - C032
+  - C006
+  - C027
   - C032
   - H090
+  - C006
+  - C027
   - C032
   - H093
+  - C006
+  - C027
   - C032
   - H056
   - H066
+  - C006
+  - C027
   - C032
   - W010
   - X028
@@ -33,4 +43,4 @@ prompt:
   - H105
   - H107
   forbidden_techniques: {}
-attempts: 17
+attempts: 19

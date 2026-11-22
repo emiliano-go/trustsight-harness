@@ -1,20 +1,20 @@
 {
-  "attempts": 25,
+  "attempts": 26,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.133192
+      0.128729
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 25,
+    "denominator_value": 26,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-cycle",
-  "campaign_commit": "832e77ace6a7565de65c34052ca22bc238f207cc",
+  "campaign_commit": "69cd0ead99858d27f63d691edd3db468167d5726",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 174
+    "wall_clock_ms": 156
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -71,6 +71,7 @@
     "H055",
     "H057",
     "H058",
+    "H059",
     "H060",
     "H061",
     "H073",
@@ -443,10 +444,24 @@
       "lane": "cycle",
       "score": 15,
       "threshold": 20
+    },
+    {
+      "cell": "H059-positive",
+      "expected": [
+        "H059"
+      ],
+      "fired": [
+        "H059"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 15,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 25,
+    "cells": 26,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -461,7 +476,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 25,
+    "detected": 26,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -473,7 +488,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 25,
+    "cells": 26,
     "expected_rules": [
       "H026",
       "H028",
@@ -492,6 +507,7 @@
       "H055",
       "H057",
       "H058",
+      "H059",
       "H060",
       "H061",
       "H073",
@@ -522,6 +538,7 @@
       "H055",
       "H057",
       "H058",
+      "H059",
       "H060",
       "H061",
       "H073",

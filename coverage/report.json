@@ -123,9 +123,9 @@
       "targeted": 11
     },
     "compose": {
-      "firing": 17,
-      "rules": 17,
-      "targeted": 17
+      "firing": 19,
+      "rules": 19,
+      "targeted": 19
     },
     "correlation": {
       "firing": 16,
@@ -148,9 +148,9 @@
       "targeted": 5
     },
     "static": {
-      "firing": 190,
-      "rules": 219,
-      "targeted": 219
+      "firing": 191,
+      "rules": 217,
+      "targeted": 217
     },
     "upstream": {
       "firing": 9,
@@ -542,14 +542,24 @@
       "campaign": "lane-compose",
       "campaign_type": "lane-probe",
       "expected_rules": [
+        "C006",
+        "C027",
         "C032",
+        "C006",
+        "C027",
         "C032",
         "H090",
+        "C006",
+        "C027",
         "C032",
         "H093",
+        "C006",
+        "C027",
         "C032",
         "H056",
         "H066",
+        "C006",
+        "C027",
         "C032",
         "W010",
         "X028",
@@ -566,6 +576,8 @@
       ],
       "package": "harness-pkg",
       "positive_rules": [
+        "C006",
+        "C027",
         "C032",
         "C035",
         "D001",
@@ -649,6 +661,7 @@
         "H055",
         "H057",
         "H058",
+        "H059",
         "H060",
         "H061",
         "H073",
@@ -677,6 +690,7 @@
         "H055",
         "H057",
         "H058",
+        "H059",
         "H060",
         "H061",
         "H073",
@@ -2407,8 +2421,6 @@
   ],
   "rules": {
     "negative_only": [
-      "C006",
-      "C027",
       "COVERAGE",
       "E001",
       "E002",
@@ -2428,7 +2440,6 @@
       "H040",
       "H044",
       "H046",
-      "H059",
       "H064",
       "H084",
       "H092",
@@ -2446,10 +2457,8 @@
       "W014",
       "W015"
     ],
-    "positive_targeted": 288,
+    "positive_targeted": 291,
     "positive_untargeted_ids": [
-      "C006",
-      "C027",
       "COVERAGE",
       "E001",
       "E002",
@@ -2469,7 +2478,6 @@
       "H040",
       "H044",
       "H046",
-      "H059",
       "H064",
       "H084",
       "H092",
@@ -2529,6 +2537,8 @@
     "A014",
     "A015",
     "A016",
+    "C006",
+    "C027",
     "C032",
     "C035",
     "D001",
@@ -2626,6 +2636,8 @@
     "A014": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "A015": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "A016": "needs the upstream lane: reads an upstream inventory, asset or workflow",
+    "C006": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "C027": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "C032": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "C035": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "D001": "needs the compose lane: supplies the intermediate state the pipeline normally holds",

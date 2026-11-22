@@ -84,3 +84,13 @@ cells:
   payload_path: fixtures/lane/compose/h056.json
   expect_fire:
   - H056
+- id: C006-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/c006.json
+  expect_fire:
+  - C006
+- id: C027-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/c027.json
+  expect_fire:
+  - C027

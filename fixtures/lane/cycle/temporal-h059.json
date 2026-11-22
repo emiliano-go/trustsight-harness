@@ -1,0 +1,17 @@
+{
+  "kind": "temporal",
+  "new_meta": {
+    "foo-bar": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "foo-bar"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {},
+  "source_repos": {
+    "foo-bar": [
+      "https://github.com/other/projectname"
+    ]
+  }
+}

@@ -26,12 +26,15 @@ __all__ = [
     "ALERT_CLASSES",
     "BASELINE_PATH",
     "CLASS_REPRODUCERS",
+    "EXCLUSIONS_PATH",
     "PAYLOAD_KEY",
     "alertable_rules",
+    "exclusions",
     "fired_rules",
     "ledger",
     "missing_classes",
     "missing_rules",
+    "unexplained",
 ]
 
 #: Contract rules that never become a report finding, so they cannot reach
@@ -85,6 +88,7 @@ CLASS_REPRODUCERS: dict[str, str | None] = {
 }
 
 BASELINE_PATH = Path("alerts/baseline.json")
+EXCLUSIONS_PATH = Path("alerts/exclusions.json")
 
 
 def alertable_rules() -> frozenset[str]:
@@ -146,6 +150,22 @@ def missing_classes(repo_root: Path) -> tuple[str, ...]:
                  if not _class_covered(name, repo_root, fired))
 
 
+def exclusions(repo_root: Path) -> dict[str, dict]:
+    """Rules the harness deliberately does not reproduce, with reasons."""
+    path = repo_root / EXCLUSIONS_PATH
+    try:
+        data = read_json_capped(path, MAX_ARTIFACT_BYTES, "exclusions.json")
+    except (OSError, BoundedReadError, json.JSONDecodeError):
+        return {}
+    rules = data.get("rules") if isinstance(data, dict) else None
+    return rules if isinstance(rules, dict) else {}
+
+
+def unexplained(repo_root: Path) -> list[str]:
+    """Missing rules with neither a reproducer nor a recorded exclusion."""
+    return sorted(missing_rules(repo_root) - set(exclusions(repo_root)))
+
+
 def ledger(repo_root: Path) -> dict:
     """The whole alert-space ledger, as ``harness outcomes`` renders it."""
     fired = fired_rules(repo_root)
@@ -163,4 +183,6 @@ def ledger(repo_root: Path) -> dict:
         "missing": sorted(missing_rules(repo_root)),
         "classes": classes,
         "missing_classes": list(missing_classes(repo_root)),
+        "excluded": sorted(exclusions(repo_root)),
+        "unexplained": unexplained(repo_root),
     }

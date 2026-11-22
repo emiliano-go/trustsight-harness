@@ -221,6 +221,51 @@ def _compose(payload: dict) -> list[dict]:
     config = dict(_config())
     if isinstance(payload.get("namespaces"), dict):
         config["namespaces"] = payload["namespaces"]
+    if kind == "provenance":
+        from trustsight.analysis.structural._engine import _provenance_findings
+
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        _provenance_findings(
+            str(payload.get("diff_text", "")), payload.get("current_text"),
+            list(payload.get("added") or ()),
+            list(payload.get("provenance_added") or ()),
+            list(payload.get("removed") or ()),
+            dict(payload.get("source_buckets") or {}),
+            bool(payload.get("maintainer_changed", False)),
+            str(payload.get("package", "")), config, add)
+        return found
+    if kind == "checksums":
+        from types import SimpleNamespace
+
+        from trustsight.analysis.structural._checksums import (
+            addendum4_findings,
+        )
+
+        files = [SimpleNamespace(path=str(row.get("path", "")),
+                                 status=str(row.get("status", "modified")))
+                 for row in payload.get("files") or ()]
+        scope_doc = SimpleNamespace(files=files)
+        post = SimpleNamespace(scalars=dict(payload.get("scalars") or {}))
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        addendum4_findings(
+            str(payload.get("diff_text", "")), scope_doc, None, post,
+            SimpleNamespace(added_urls=(), removed_urls=()), config, add,
+            tree_manifest=[(str(path), b"")
+                           for path in payload.get("tree") or ()],
+            post_text=payload.get("post_text"))
+        return found
     if kind == "ioc":
         from trustsight.analysis.ioc import _ioc_findings
         from trustsight.iocs import load_indicators
@@ -508,6 +553,11 @@ COMPOSE_KINDS = {
                                "current_text"}),
     "commits": frozenset({"previous_diff", "diff_text"}),
     "ioc": frozenset({"entries", "diff_text", "package", "current_text"}),
+    "provenance": frozenset({"diff_text", "current_text", "added",
+                             "provenance_added", "removed", "source_buckets",
+                             "maintainer_changed", "package"}),
+    "checksums": frozenset({"diff_text", "files", "scalars", "tree",
+                            "post_text"}),
     "edge": frozenset({"name", "data"}),
     "committed_path": frozenset({"name", "data"}),
     "tree_manifest": frozenset({"files", "source_urls", "package"}),

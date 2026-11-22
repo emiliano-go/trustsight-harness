@@ -114,3 +114,24 @@ def test_the_ledger_names_every_class_and_rule():
     assert len(out["alertable"]) == 292
     assert set(out["classes"]) == set(ALERT_CLASSES)
     assert out["missing"] == sorted(missing_rules(ROOT))
+
+
+def test_every_missing_rule_is_reproduced_or_excluded():
+    from harness.alerts import exclusions, unexplained
+
+    assert unexplained(ROOT) == [], (
+        "these rules neither fire nor carry an exclusion reason: "
+        f"{unexplained(ROOT)}")
+    for rule, row in exclusions(ROOT).items():
+        assert rule in rule_ids(), rule
+        assert row.get("reason"), rule
+        assert row.get("evidence"), rule
+        assert row.get("emitter"), rule
+
+
+def test_an_exclusion_must_be_withdrawn_once_the_rule_fires():
+    from harness.alerts import exclusions, fired_rules
+
+    stale = sorted(set(exclusions(ROOT)) & fired_rules(ROOT))
+    assert stale == [], (
+        f"these rules now have a firing reproducer; remove the exclusion: {stale}")

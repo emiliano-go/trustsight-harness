@@ -28,6 +28,7 @@ prompt:
   - H055
   - H057
   - H058
+  - H059
   - H060
   - H061
   - H073
@@ -41,4 +42,4 @@ prompt:
   - T011
   - T012
   forbidden_techniques: {}
-attempts: 25
+attempts: 26
