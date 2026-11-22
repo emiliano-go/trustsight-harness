@@ -135,3 +135,9 @@ def test_an_exclusion_must_be_withdrawn_once_the_rule_fires():
     stale = sorted(set(exclusions(ROOT)) & fired_rules(ROOT))
     assert stale == [], (
         f"these rules now have a firing reproducer; remove the exclusion: {stale}")
+
+
+def test_no_alert_class_is_missing():
+    from harness.alerts import missing_classes
+
+    assert missing_classes(ROOT) == ()

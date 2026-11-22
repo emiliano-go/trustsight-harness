@@ -16,6 +16,8 @@ import json
 import sys
 from pathlib import Path
 
+import yaml
+
 from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 from .environment import NamespaceUnavailableError
 from .factory import build_generator
@@ -137,8 +139,6 @@ def main(argv: list[str] | None = None) -> int:
     calibration = _calibration_status()
 
     if args.target == "regression":
-        import yaml
-
         from .regression import (
             merge_regression_shards,
             parse_shard,
@@ -247,7 +247,6 @@ def main(argv: list[str] | None = None) -> int:
         return EXIT_OK
 
     if args.target == "matrix":
-        import yaml
         from trustsight.categories import RULE_CATEGORIES
 
         from .archive import Archive
@@ -268,8 +267,6 @@ def main(argv: list[str] | None = None) -> int:
         return EXIT_OK
 
     if args.target == "benign":
-        import yaml
-
         from .benign import scan_benign
         if not args.corpus:
             print("benign needs --corpus <directory of *.diff>", file=sys.stderr)

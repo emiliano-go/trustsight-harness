@@ -1,10 +1,8 @@
 {
   "alertable": 292,
-  "max_missing_classes": 1,
+  "max_missing_classes": 0,
   "max_missing_rules": 1,
-  "missing_classes": [
-    "refusal"
-  ],
+  "missing_classes": [],
   "missing_rules": [
     "U015"
   ],

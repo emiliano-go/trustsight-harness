@@ -84,7 +84,7 @@ CLASS_REPRODUCERS: dict[str, str | None] = {
     "campaign_cluster": "lane-correlation",
     "impersonation": "lane-correlation",
     "account_context": "lane-correlation",
-    "refusal": None,
+    "refusal": "rule-probes-x",
 }
 
 BASELINE_PATH = Path("alerts/baseline.json")
