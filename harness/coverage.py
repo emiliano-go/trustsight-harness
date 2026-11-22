@@ -23,25 +23,8 @@ from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 __all__ = ["build_coverage"]
 
 
-#: Rules a cold `analyze_text` campaign cannot reach, with the reason.  These
-#: need state the harness does not put in front of the API - a prior AUR
-#: observation, the corpus cycle, or (H043) the aggregated rule set the
-#: composition pass reads.  Kept here so the report says *why* a rule is
-#: unprobed instead of only that it is.
-UNREACHABLE = {
-    "H026": "needs a prior maintainer snapshot (corpus path)",
-    "H044": "needs a prior ownership snapshot (corpus path)",
-    "H045": "needs a full-aur cycle",
-    "H046": "needs a full-aur cycle",
-    "H058": "needs several cycles of maintainer history",
-    "H073": "needs a full-aur cycle",
-    "H074": "needs a recorded adoption before the diff",
-    "H086": "needs a recorded prior orphan observation",
-    "H087": "needs a recorded prior upstream state",
-    "H088": "needs H086 and H087 recorded state",
-    "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
-    "A016": "needs paired release-asset and tag inventories from the opt-in upstream lane; analyze_text never produces them",
-}
+from .lanes import UNREACHABLE  # noqa: E402
+
 
 def _campaigns(repo_root: Path) -> list[dict]:
     out = []

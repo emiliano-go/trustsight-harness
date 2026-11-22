@@ -531,6 +531,18 @@ class Runner:
         wall = int((time.perf_counter() - started) * 1000)
         return RunResult(report=ReportView(body), body=body, wall_clock_ms=wall)
 
+    def lane(self, lane: str, payload: dict) -> list[dict]:
+        """Run one lane cell through its TrustSight entry point.
+
+        The worker owns the call, so the same isolation and the same bound
+        configuration apply as to an analysis.  Findings come back as the
+        core's own dicts; the harness only counts them.
+        """
+        with self._lock:
+            reply = self._request({"op": "lane", "lane": lane,
+                                   "payload": payload})
+        return list(reply.get("findings") or ())
+
     def parity_check(self, new_text: str) -> bool:
         """Assert the API body equals what the CLI would emit.
 

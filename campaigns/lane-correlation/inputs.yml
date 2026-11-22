@@ -1,0 +1,6 @@
+cells:
+- id: G016-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g016.json
+  expect_fire:
+  - G016

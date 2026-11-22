@@ -273,14 +273,14 @@ rule taxonomy, and writes `coverage/report.json`.
 
 The harness is adversarial, not exhaustive. This makes the untested surface a
 number: all 320 contract ids are named by a probe, grouped by category, with
-the rules that need state, an artifact manifest or a cycle named and
+the rules outside the static lane named with the lane that reaches them
 explained. A probe either fires the rule or is a negative control on a benign
 recipe; the report gives both counts. Rule probes stay out of the adversarial
 bypass rate.
 
 ```bash
 uv run python -m harness coverage
-# 324 of 324 rules targeted by 121 campaigns; 156 have a firing probe, 168 are negative controls, and 11 need state, a manifest or a cycle.
+# 325 of 325 rules targeted by 122 campaigns; 157 have a firing probe, 168 are negative controls, and 77 need state, a manifest or a cycle.
 ```
 
 ---

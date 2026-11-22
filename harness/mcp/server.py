@@ -1802,7 +1802,7 @@ def campaign_schema() -> str:
             "campaign": {"type": "string", "description": "Unique campaign name"},
             "campaign_type": {
                 "type": "string",
-                "enum": ["deterministic", "stochastic", "rule-probe", "artifact-probe"],
+                "enum": ["deterministic", "stochastic", "rule-probe", "artifact-probe", "lane-probe"],
                 "description": "Whether verdicts are order-independent",
             },
             "package": {
@@ -1833,7 +1833,7 @@ def campaign_schema() -> str:
                 "required": ["type"],
                 "properties": {
                     "type": {"type": "string", "default": "inputs",
-                             "enum": ["inputs", "raw-diff", "artifact", "mutation", "llm"]},
+                             "enum": ["inputs", "raw-diff", "artifact", "lane", "mutation", "llm"]},
                     "manifest": {
                         "type": "string", "default": "inputs.yml",
                         "description": "inputs generator: strict cells manifest under the campaign root",

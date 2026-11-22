@@ -130,6 +130,14 @@ def main() -> int:
                 findings = inspect_manifest(req.get("manifest") or [],
                                             req.get("declared") or {})
                 _reply({"op": "inspected", "findings": findings})
+            elif op == "lane":
+                from .lane_probe import runner_for
+
+                findings = runner_for(req["lane"])(req.get("payload") or {})
+                # Findings cross a JSON line; the emitter's own objects are
+                # not part of the contract, only the fields it reports.
+                findings = json.loads(json.dumps(findings, default=str))
+                _reply({"op": "laned", "findings": findings})
             elif op == "parity":
                 if api is None:
                     from trustsight.api import TrustSight

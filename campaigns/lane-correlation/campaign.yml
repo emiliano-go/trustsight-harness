@@ -1,0 +1,31 @@
+campaign: lane-correlation
+campaign_type: lane-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: lane
+  manifest: inputs.yml
+prompt:
+  prompt_id: lane-correlation
+  expected_rules:
+  - G001
+  - G002
+  - G003
+  - G004
+  - G005
+  - G006
+  - G007
+  - G008
+  - G009
+  - G010
+  - G011
+  - G012
+  - G013
+  - G014
+  - G015
+  - G016
+  forbidden_techniques: {}
+attempts: 1

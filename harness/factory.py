@@ -45,6 +45,15 @@ def build_generator(config, repo_root: Path):
         if spec:
             raise ValueError(f"unknown generator keys for artifact: {sorted(spec)}")
         return ArtifactGenerator(manifest, repo_root=repo_root, resolve=within)
+    if kind == "lane":
+        from generators.lane import LaneGenerator
+
+        manifest = within(config.root, spec.pop("manifest", "inputs.yml"),
+                          "generator.manifest")
+        if spec:
+            raise ValueError(f"unknown generator keys for lane: {sorted(spec)}")
+        return LaneGenerator(manifest, campaign_root=config.root,
+                             repo_root=repo_root)
     if kind == "mutation":
         from generators.mutation import MutationGenerator
 

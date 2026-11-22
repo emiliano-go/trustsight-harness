@@ -79,6 +79,8 @@ class Generated:
     expect_absent: tuple[str, ...] = ()
     #: An artifact manifest probe: {"manifest": [...], "declared": {...}}.
     artifact: dict | None = None
+    #: A lane probe cell: {"id": ..., "lane": ..., "payload": {...}}.
+    lane_cell: dict | None = None
 
 
 class Generator(ABC):

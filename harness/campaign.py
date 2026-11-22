@@ -172,6 +172,11 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     if config.campaign_type == "artifact-probe":
         return _run_artifact_probe(config, generator, prompt, runner, env,
                                    recorder, repo_root, calibration, started_at)
+    if config.campaign_type == "lane-probe":
+        from .lane_probe import run_lane_probe
+
+        return run_lane_probe(config, generator, prompt, runner, env, recorder,
+                              repo_root, calibration, started_at)
 
     for attempt in range(config.attempts):
         # Pre-registered stop conditions.  Declared in the committed

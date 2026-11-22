@@ -106,7 +106,7 @@ one of them:
 
 ## What ships
 
-- **A campaign suite.** 121 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 122 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025, U007, U008, U009,
   U010), the Atomic Arch
@@ -118,8 +118,8 @@ one of them:
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's full contract, so the untested surface is a number. 324 of 324 rules
-  are targeted by 121 campaigns; all are named by a probe: 156 have a firing probe and 168 have a
+  TrustSight's full contract, so the untested surface is a number. 325 of 325 rules
+  are targeted by 122 campaigns; all are named by a probe: 157 have a firing probe and 168 have a
   negative control, with the 11 state/artifact/cycle rules also named and
   explained. Rule probes measure whether a rule fires without entering the
   adversarial bypass rate.
