@@ -21,9 +21,9 @@ from .status import Status
 
 __all__ = [
     "CYCLE_KINDS",
-    "PROJECT_KINDS",
     "LANE_RUNNERS",
     "PAYLOAD_KEYS",
+    "PROJECT_KINDS",
     "UPSTREAM_KINDS",
     "WARM_KINDS",
     "run_lane_probe",
@@ -214,13 +214,6 @@ class _FakeProject:
 
 
 def _project(payload: dict) -> list[dict]:
-    from trustsight.analysis.temporal import (
-        _package_is_new,
-        _recent_update,
-        _stale_revival,
-        t_metadata_git_divergence,
-        t_packager_not_in_history,
-    )
 
     kind = payload.get("kind")
     project = _FakeProject(payload.get("commits") or ())
