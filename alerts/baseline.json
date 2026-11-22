@@ -1,13 +1,12 @@
 {
   "alertable": 292,
   "max_missing_classes": 1,
-  "max_missing_rules": 35,
+  "max_missing_rules": 30,
   "missing_classes": [
     "refusal"
   ],
   "missing_rules": [
     "C006",
-    "C011",
     "C027",
     "C032",
     "C035",
@@ -36,10 +35,6 @@
     "W010",
     "W014",
     "W015",
-    "X017",
-    "X020",
-    "X022",
-    "X025",
     "X028"
   ],
   "note": "Shrink-only. Remove an entry when its reproducer lands; never add one."

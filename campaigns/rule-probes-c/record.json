@@ -1,20 +1,20 @@
 {
-  "attempts": 52,
+  "attempts": 53,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.068792
+      0.067582
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 52,
+    "denominator_value": 53,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-c",
-  "campaign_commit": "23172497257bdee64c362eb997545e67397e6ec8",
+  "campaign_commit": "add46d9920b142699e94fe4a8d0b15b29a415667",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 10800
+    "wall_clock_ms": 10791
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -89,7 +89,7 @@
   ],
   "flag_ledger": [],
   "generator": {
-    "cells": 52,
+    "cells": 53,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -106,7 +106,7 @@
     "constraint_violation": 0,
     "detected": 41,
     "duplicate": 0,
-    "fail_closed_catch": 11,
+    "fail_closed_catch": 12,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
@@ -116,7 +116,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 52,
+    "cells": 53,
     "expected_rules": [
       "C001",
       "C002",
@@ -161,6 +161,7 @@
       "C008",
       "C009",
       "C010",
+      "C011",
       "C012",
       "C013",
       "C014",
@@ -206,6 +207,7 @@
       "P006",
       "P007",
       "P008",
+      "P009",
       "R007",
       "R047",
       "R053",
@@ -221,11 +223,10 @@
     "missing_rules": [],
     "negative_failures": [],
     "unattempted_rules": [
-      "C011",
       "C027"
     ]
   },
-  "stop_reason": "52 raw-diff cells exhausted",
+  "stop_reason": "53 raw-diff cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": ""

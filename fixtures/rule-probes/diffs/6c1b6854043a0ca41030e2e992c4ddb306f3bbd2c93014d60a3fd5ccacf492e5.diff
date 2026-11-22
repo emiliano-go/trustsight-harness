@@ -1,0 +1,12 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +9 @@
+ pkgname=x
+ pkgver=1
++msg()\
++{
++  echo hi
++}
++package() {
++  msg
++}

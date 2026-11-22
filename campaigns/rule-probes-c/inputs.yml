@@ -208,3 +208,9 @@ cells:
   post_path: fixtures/rule-probes/posts/fddaefd9f0ed201304c3aa26730dc955ff04d7f9d139a67c735a1546698816bf.PKGBUILD
   expect_fire:
   - C034
+- id: C011-positive
+  package: demo-bin
+  path: fixtures/rule-probes/diffs/c2fd238014fd365b7e947b928b742b8791258d98fbf1b8013d6ab41b91f5a7bc.diff
+  post_path: fixtures/rule-probes/posts/c2fd238014fd365b7e947b928b742b8791258d98fbf1b8013d6ab41b91f5a7bc.PKGBUILD
+  expect_fire:
+  - C011

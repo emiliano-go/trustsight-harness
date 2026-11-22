@@ -39,5 +39,9 @@ prompt:
   - X019
   - X029
   - X031
+  - X017
+  - X020
+  - X022
+  - X025
   forbidden_techniques: {}
-attempts: 49
+attempts: 53
