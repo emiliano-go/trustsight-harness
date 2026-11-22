@@ -46,6 +46,7 @@ def summarize(cases: list[dict]) -> dict:
     by_gap: Counter[str] = Counter()
     by_lane: Counter[str] = Counter()
     clean = 0
+    unexpected: Counter[str] = Counter()
     for case in cases:
         if case.get("error") or case.get("unavailable"):
             continue
@@ -56,6 +57,8 @@ def summarize(cases: list[dict]) -> dict:
         reproduced += len(exp & got)
         if not missed and exp:
             clean += 1
+        for rule in got - exp:
+            unexpected[rule] += 1
         for rule in missed:
             by_rule[rule] += 1
             by_gap[gap_group(rule)] += 1
@@ -73,5 +76,6 @@ def summarize(cases: list[dict]) -> dict:
         "by_gap": dict(sorted(by_gap.items())),
         "by_lane": dict(sorted(by_lane.items())),
         "by_rule": dict(sorted(by_rule.items())),
+        "unexpected": dict(sorted(unexpected.items())),
         "gap_groups": GAP_GROUPS,
     }

@@ -144,3 +144,17 @@ def test_the_committed_corpus_parses_and_holds_inputs_not_answers():
                 assert case.pkgbuild_sha256 or entry.get("findings") is None
                 seen += 1
     assert seen >= 10
+
+
+def test_the_assembly_passes_run_over_the_finding_set():
+    """H027/M002/H098 and campaign corroboration are computed after the
+    package entry; a minimal fact must not crash the assembly."""
+    from types import SimpleNamespace
+
+    from harness.replay.package import _assembly
+
+    fact = SimpleNamespace(
+        score_breakdown=[], final_score=0, coverage_gaps=[],
+        source_changes=None)
+    artifacts = SimpleNamespace(new_pkgbuild="pkgname=p\n")
+    assert _assembly(artifacts, SimpleNamespace(package="pkg"), fact, {}) == set()

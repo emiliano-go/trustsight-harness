@@ -66,4 +66,69 @@ def replay_package(artifacts: Artifacts, case, config: dict | None = None) -> Re
     except Exception as exc:  # noqa: BLE001 - a replay failure is reported, never fatal
         return ReplayResult(package=case.package, error=f"{type(exc).__name__}: {exc}"[:300])
     fired = {entry.rule_id for entry in fact.score_breakdown if getattr(entry, "rule_id", "")}
+    fired |= _assembly(artifacts, case, fact, config or {})
     return ReplayResult(package=case.package, fired=fired)
+
+
+def _finding_rows(fact) -> list[dict]:
+    """The fact's findings as the dicts the meta passes expect."""
+    from trustsight.categories import RULE_CATEGORIES
+
+    rows = []
+    for entry in fact.score_breakdown:
+        rule_id = getattr(entry, "rule_id", "")
+        if not rule_id:
+            continue
+        rows.append({"rule_id": rule_id,
+                     "severity": str(getattr(entry, "severity", "")),
+                     "category": RULE_CATEGORIES.get(rule_id, "")})
+    return rows
+
+
+def _added_urls(fact, artifacts) -> list[str]:
+    changes = getattr(fact, "source_changes", None)
+    urls = getattr(changes, "added_urls", None) if changes is not None else None
+    if urls:
+        return [str(url) for url in urls]
+    from trustsight.analysis.structural._provenance import extract_source_array_urls
+
+    try:
+        return [str(url) for url in extract_source_array_urls(artifacts.new_pkgbuild)]
+    except Exception:  # noqa: BLE001 - no urls is a valid state
+        return []
+
+
+def _assembly(artifacts, case, fact, config) -> set[str]:
+    """The stages the pipeline runs after the package entry.
+
+    Meta annotations, the M-series, the naming cluster and campaign
+    corroboration are computed over the finding set, not inside the package
+    entry.  Replay calls the same functions with the same finding set.
+    """
+    from trustsight.analysis.composition import (
+        _meta_annotations,
+        naming_cluster_annotation,
+    )
+    from trustsight.analysis.meta import m_series_findings
+    from trustsight.analysis.pipeline._analyze_helpers import _campaign_corroboration
+
+    rows = _finding_rows(fact)
+    extra: set[str] = set()
+    for pass_ in (
+        lambda: _meta_annotations(rows, config),
+        lambda: naming_cluster_annotation(rows, config),
+        lambda: m_series_findings(rows, config),
+    ):
+        try:
+            extra |= {finding.get("rule_id") for finding in pass_() if finding.get("rule_id")}
+        except Exception:  # noqa: BLE001, S112 - assembly is additive, never fatal
+            continue
+    try:
+        _score, breakdown, _context = _campaign_corroboration(
+            int(getattr(fact, "final_score", 0) or 0),
+            fact.score_breakdown, case.package, _added_urls(fact, artifacts),
+            getattr(fact, "coverage_gaps", None))
+        extra |= {getattr(entry, "rule_id", "") for entry in breakdown or ()}
+    except Exception:  # noqa: BLE001, S110 - campaign state may be unavailable
+        pass
+    return {rule for rule in extra if rule}

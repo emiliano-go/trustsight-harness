@@ -163,7 +163,10 @@
       ],
       "fired": [
         "C011",
+        "G007",
         "H020",
+        "H027",
+        "M002",
         "M003",
         "P001",
         "P009",
@@ -187,7 +190,10 @@
       ],
       "fired": [
         "C011",
+        "G007",
         "H020",
+        "H027",
+        "M002",
         "M003",
         "P001",
         "P009",
@@ -211,7 +217,10 @@
       ],
       "fired": [
         "C011",
+        "G007",
         "H020",
+        "H027",
+        "M002",
         "M003",
         "P001",
         "P009",
@@ -235,7 +244,10 @@
       ],
       "fired": [
         "C011",
+        "G007",
         "H020",
+        "H027",
+        "M002",
         "M003",
         "P001",
         "P009",
@@ -267,6 +279,7 @@
       "fired": [
         "C005",
         "C011",
+        "G007",
         "H020",
         "H027",
         "M002",
@@ -274,23 +287,24 @@
         "P009",
         "SOURCE_BUCKET",
         "W011",
-        "W012"
+        "W012",
+        "W013"
       ],
       "kind": "over_threshold",
       "missed": [
-        "G007",
-        "H049",
-        "W013"
+        "H049"
       ],
       "package": "flclash-myflavor-bin",
       "reproduced": [
         "C005",
         "C011",
+        "G007",
         "H020",
         "H027",
         "M002",
         "W011",
-        "W012"
+        "W012",
+        "W013"
       ],
       "slug": "2026-11-22/084328"
     },
@@ -304,7 +318,10 @@
       ],
       "fired": [
         "C011",
+        "G007",
         "H020",
+        "H027",
+        "M002",
         "M003",
         "P001",
         "P009",
@@ -312,12 +329,12 @@
       ],
       "kind": "over_threshold",
       "missed": [
-        "G007",
         "W013"
       ],
       "package": "gridcraft-private-bin",
       "reproduced": [
         "C011",
+        "G007",
         "H020",
         "M003"
       ],
@@ -333,7 +350,10 @@
       ],
       "fired": [
         "C011",
+        "G007",
         "H020",
+        "H027",
+        "M002",
         "M003",
         "P001",
         "P009",
@@ -341,12 +361,12 @@
       ],
       "kind": "over_threshold",
       "missed": [
-        "G007",
         "W013"
       ],
       "package": "lightcraft-private-bin",
       "reproduced": [
         "C011",
+        "G007",
         "H020",
         "M003"
       ],
@@ -366,6 +386,7 @@
       "fired": [
         "C011",
         "COVERAGE",
+        "G007",
         "H020",
         "H027",
         "M002",
@@ -373,21 +394,21 @@
         "P009",
         "SOURCE_BUCKET",
         "W011",
-        "W012"
-      ],
-      "kind": "over_threshold",
-      "missed": [
-        "G007",
+        "W012",
         "W013"
       ],
+      "kind": "over_threshold",
+      "missed": [],
       "package": "linux-wallpaperengine-v3-bin",
       "reproduced": [
         "C011",
+        "G007",
         "H020",
         "H027",
         "M002",
         "W011",
-        "W012"
+        "W012",
+        "W013"
       ],
       "slug": "2026-11-22/084328"
     },
@@ -684,12 +705,12 @@
       "fired": [
         "C002",
         "H020",
+        "H027",
         "M003",
         "P001"
       ],
       "kind": "over_threshold",
       "missed": [
-        "H027",
         "M002",
         "U001",
         "U002",
@@ -701,7 +722,8 @@
       "package": "dh-to-do",
       "reproduced": [
         "C002",
-        "H020"
+        "H020",
+        "H027"
       ],
       "slug": "2026-11-22/145259"
     },
@@ -760,6 +782,8 @@
       "expected": [],
       "fired": [
         "C002",
+        "G007",
+        "M003",
         "P001"
       ],
       "kind": "alerts",
@@ -771,8 +795,8 @@
   ],
   "summary": {
     "by_gap": {
-      "assembly": 6,
-      "campaign": 8,
+      "assembly": 5,
+      "campaign": 2,
       "longitudinal": 5,
       "other": 2,
       "pure": 1,
@@ -780,18 +804,16 @@
     },
     "by_lane": {
       "compose": 5,
-      "correlation": 4,
       "cycle": 5,
       "meta": 2,
-      "static": 17,
+      "static": 14,
       "upstream": 1
     },
     "by_rule": {
       "C001": 1,
       "E002": 1,
-      "G007": 4,
       "H023": 1,
-      "H027": 2,
+      "H027": 1,
       "H037": 1,
       "H049": 3,
       "H054": 1,
@@ -804,11 +826,11 @@
       "U009": 2,
       "U012": 1,
       "U013": 1,
-      "W013": 4,
+      "W013": 2,
       "W014": 3
     },
     "cases": 25,
-    "cases_clean": 7,
+    "cases_clean": 8,
     "cases_replayed": 24,
     "expected": 135,
     "gap_groups": {
@@ -819,8 +841,29 @@
       "pure": "needs a follow-up call the pipeline makes outside the package entry",
       "upstream": "needs an upstream inventory or the signed federation store"
     },
-    "missed": 34,
-    "rate": 0.7481481481481481,
-    "reproduced": 101
+    "missed": 27,
+    "rate": 0.8,
+    "reproduced": 108,
+    "unexpected": {
+      "C002": 2,
+      "COVERAGE": 12,
+      "D005": 1,
+      "G007": 5,
+      "H020": 3,
+      "H027": 6,
+      "H103": 3,
+      "M002": 6,
+      "M003": 2,
+      "P001": 22,
+      "P006": 1,
+      "P007": 4,
+      "P008": 3,
+      "P009": 15,
+      "R007": 2,
+      "SOURCE_BUCKET": 11,
+      "W007": 3,
+      "W011": 3,
+      "W012": 3
+    }
   }
 }

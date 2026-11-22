@@ -65,7 +65,40 @@ def _prepare_trustsight(root: Path) -> dict:
     ts_db.init_db()
     from trustsight.config import load_config
 
+    _seed_campaigns()
     return load_config()
+
+
+def _seed_campaigns(limit: int = 25) -> int:
+    """Activate the campaigns the feed publishes, so G007/W013 can be reached.
+
+    The watcher keeps campaign state in the store database.  Replay rebuilds
+    the same state from the published campaigns - package membership only,
+    which is what the corroboration pass matches on.
+    """
+    from trustsight import db
+
+    try:
+        from harness.mcp.server import feed_campaign, feed_campaigns
+
+        items = (feed_campaigns(limit=limit).get("items") or [])[:limit]
+    except Exception:  # noqa: BLE001 - replay must run without the feed
+        return 0
+    active = 0
+    for item in items:
+        campaign_id = str(item.get("campaign_id") or "")
+        if not campaign_id:
+            continue
+        try:
+            detail = feed_campaign(campaign_id)
+            names = [str(member.get("package")) for member in detail.get("members") or []
+                     if isinstance(member, dict) and member.get("package")][:2000]
+            if names and db.activate_campaign(
+                    campaign_id, {"package_names": names}, source="feed"):
+                active += 1
+        except Exception:  # noqa: BLE001, S112 - one bad campaign must not stop the run
+            continue
+    return active
 
 
 def run_replay(docs: list[dict], root: Path, per_notification: int = 4) -> dict:

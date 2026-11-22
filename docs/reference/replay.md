@@ -56,19 +56,25 @@ cases with recorded findings):
 | Measure | Value |
 |---|---|
 | Rule instances expected | 135 |
-| Reproduced | 101 (75%) |
-| Cases with no miss | 7 of 24 |
+| Reproduced | 108 (80%) |
+| Cases with no miss | 8 of 24 |
 
 Misses are grouped by the input they still need:
 
 | Gap | Rules | What is missing |
 |---|---|---|
 | `upstream` | U001-U013, W014 (12) | the upstream inventory (or the signed federation store) |
-| `campaign` | G007, W013 (8) | campaign membership and the watchlist |
-| `assembly` | H027, M002, H098 (6) | the union of findings, not one package |
+| `assembly` | H027, M002, H098 (5) | the union of findings plus the corpus state behind H098's candidates |
 | `longitudinal` | H049, H037, H054 (5) | a prior-cycle snapshot or observation counter |
+| `campaign` | W013 (2) | a W-series boundary that only the upstream lane produces |
 | `pure` | H023 (1) | a follow-up stage the package entry does not run |
 | `other` | C001, E002 (2) | the watcher's old companion file came from its database snapshot, not git |
+
+The meta annotations, the M-series and campaign corroboration now run over the
+assembled finding set, and the published campaigns are activated in the replay
+database, which is what closed G007. The report also counts **unexpected**
+findings (fired but not recorded, 19 across the corpus): an assembly that adds
+rules the watcher did not report is visible rather than silently credited.
 
 These are the remaining milestones; none is a fixture defect. The loudest gap
 is upstream: those rules read a manifest inside the declared source archive,
