@@ -1,0 +1,32 @@
+{
+  "detail": {
+    "pkg": {
+      "rules": [
+        "S009",
+        "R001"
+      ]
+    }
+  },
+  "new_meta": {},
+  "now": 1800000000,
+  "old_meta": {},
+  "prior_rule_history": {
+    "pkg": [
+      {
+        "history_id": "h1",
+        "rules": [
+          "H001"
+        ],
+        "timestamp": 1
+      },
+      {
+        "history_id": "h2",
+        "rules": [
+          "H049",
+          "H054"
+        ],
+        "timestamp": 2
+      }
+    ]
+  }
+}

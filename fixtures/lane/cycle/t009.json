@@ -1,0 +1,49 @@
+{
+  "edges": {
+    "dependent-0": [
+      "target"
+    ],
+    "dependent-1": [
+      "target"
+    ],
+    "dependent-2": [
+      "target"
+    ],
+    "dependent-3": [
+      "target"
+    ],
+    "dependent-4": [
+      "target"
+    ],
+    "dependent-5": [
+      "target"
+    ],
+    "dependent-6": [
+      "target"
+    ],
+    "dependent-7": [
+      "target"
+    ],
+    "dependent-8": [
+      "target"
+    ],
+    "dependent-9": [
+      "target"
+    ]
+  },
+  "new_meta": {
+    "target": {
+      "LastModified": 1774080000,
+      "Maintainer": "mallory",
+      "NumVotes": "bad",
+      "Popularity": 0
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {
+    "target": {
+      "LastModified": 1774080000,
+      "Maintainer": "alice"
+    }
+  }
+}

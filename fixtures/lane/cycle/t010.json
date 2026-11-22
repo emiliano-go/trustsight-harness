@@ -1,0 +1,35 @@
+{
+  "detail": {
+    "one": {
+      "dependency_changes": {
+        "depends": [
+          "virtual>=1"
+        ]
+      }
+    },
+    "two": {
+      "dependency_changes": {
+        "makedepends": [
+          "virtual"
+        ]
+      }
+    }
+  },
+  "new_meta": {
+    "one": {
+      "PackageBase": "one"
+    },
+    "provider": {
+      "Maintainer": "mallory",
+      "PackageBase": "provider",
+      "Provides": [
+        "virtual>=1"
+      ]
+    },
+    "two": {
+      "PackageBase": "two"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {}
+}

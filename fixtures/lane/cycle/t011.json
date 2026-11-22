@@ -1,0 +1,24 @@
+{
+  "new_meta": {
+    "pkg": {
+      "FirstSubmitted": 123,
+      "Maintainer": "mallory"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {},
+  "package_cycle_events": {
+    "pkg": [
+      {
+        "cycle_time": 1795680000,
+        "maintainer": "a",
+        "status": "removed"
+      },
+      {
+        "cycle_time": 1799136000,
+        "maintainer": "b",
+        "status": "removed"
+      }
+    ]
+  }
+}

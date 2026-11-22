@@ -1,0 +1,23 @@
+{
+  "detail": {
+    "pkg": {
+      "rules": [
+        "R001"
+      ]
+    }
+  },
+  "maintainer_transitions": {
+    "pkg": [
+      {
+        "id": 7,
+        "new_value": "mallory",
+        "observed_at": 1798272000,
+        "old_value": "alice",
+        "property_key": "maintainer"
+      }
+    ]
+  },
+  "new_meta": {},
+  "now": 1800000000,
+  "old_meta": {}
+}
