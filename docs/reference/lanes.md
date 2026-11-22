@@ -80,6 +80,24 @@ That exercises the rule logic. It does **not** exercise real git acquisition,
 so a defect in the checkout or timestamp plumbing would not be caught here.
 The acquisition path has its own coverage in TrustSight's tests.
 
+## Mutation checks
+
+A rule that fires only when a line is spelled one particular way is weaker
+than one that fires on the technique. `scripts/check_lane_mutations.py`
+re-analyses committed probe diffs after surface-only changes — trailing
+whitespace, a harmless comment line, a blank line — and reports any rule that
+stops firing.
+
+```console
+$ uv run python scripts/check_lane_mutations.py --limit 120 --fail-on-regression
+REGRESSION rule-probes-h/H069-positive under trailing-space: ['H069']
+checked 353 mutated analyses over 120 cases; 2 regression(s)
+```
+
+The two known regressions live in `mutations/baseline.json`. CI fails on a
+**new** regression and on a baseline entry that no longer reproduces, so the
+ledger shrinks as upstream rules are fixed instead of accumulating.
+
 ## Reading the ledger
 
 ```console
