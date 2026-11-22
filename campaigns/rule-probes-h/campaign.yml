@@ -33,6 +33,7 @@ prompt:
   - H038
   - H039
   - H041
+  - H042
   - H043
   - H062
   - H063
@@ -54,17 +55,13 @@ prompt:
   - H087
   - H089
   - H091
+  - H095
   - H096
   - H097
   - H099
   - H100
   - H101
-  - H108
-  - H042
-  - H071
-  - H090
-  - H093
-  - H095
   - H106
+  - H108
   forbidden_techniques: {}
 attempts: 104

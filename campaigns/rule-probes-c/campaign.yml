@@ -16,10 +16,13 @@ prompt:
   - C004
   - C005
   - C007
+  - C008
+  - C009
   - C012
   - C013
   - C014
   - C015
+  - C016
   - C018
   - C019
   - C021
@@ -32,12 +35,5 @@ prompt:
   - C030
   - C031
   - C033
-  - C008
-  - C009
-  - C010
-  - C011
-  - C016
-  - C027
-  - C034
   forbidden_techniques: {}
 attempts: 48

@@ -554,12 +554,17 @@ def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
                       for rule in trace.judge.get("missing_rules", ())})
     negatives = sorted({rule for trace in recorder.traces
                         for rule in trace.judge.get("negative_failures", ())})
+    attempted = {rule for trace in recorder.traces
+                 for rule in trace.judge.get("expected_rules", ())}
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
         "fired_rules": union,
         "missing_rules": missing,
         "negative_failures": negatives,
+        # A rule the campaign claims but no cell ever attempted: the probe
+        # would otherwise read as coverage for a rule nothing ran.
+        "unattempted_rules": sorted(set(expected) - attempted),
     }
     recorder.write_record(record)
     return record
@@ -707,12 +712,17 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
                       for rule in trace.judge.get("missing_rules", ())})
     negatives = sorted({rule for trace in recorder.traces
                         for rule in trace.judge.get("negative_failures", ())})
+    attempted = {rule for trace in recorder.traces
+                 for rule in trace.judge.get("expected_rules", ())}
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
         "fired_rules": union,
         "missing_rules": missing,
         "negative_failures": negatives,
+        # A rule the campaign claims but no cell ever attempted: the probe
+        # would otherwise read as coverage for a rule nothing ran.
+        "unattempted_rules": sorted(set(expected) - attempted),
     }
     recorder.write_record(record)
     return record

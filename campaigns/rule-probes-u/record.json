@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-u",
-  "campaign_commit": "",
+  "campaign_commit": "84898c423a04e1a387a55a8b4fb8393f1ea08f30",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1579
+    "wall_clock_ms": 1275
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -59,6 +59,7 @@
     "U006",
     "U010"
   ],
+  "flag_ledger": [],
   "generator": {
     "cells": 8,
     "manifest": "inputs.yml",
@@ -112,7 +113,8 @@
       "W007"
     ],
     "missing_rules": [],
-    "negative_failures": []
+    "negative_failures": [],
+    "unattempted_rules": []
   },
   "stop_reason": "",
   "validator": {

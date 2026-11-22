@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-x",
-  "campaign_commit": "22ac39997d20732f8d1d603f594d3bdab1c02708",
+  "campaign_commit": "84898c423a04e1a387a55a8b4fb8393f1ea08f30",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 14035
+    "wall_clock_ms": 14400
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -216,7 +216,8 @@
       "X034"
     ],
     "missing_rules": [],
-    "negative_failures": []
+    "negative_failures": [],
+    "unattempted_rules": []
   },
   "stop_reason": "",
   "validator": {

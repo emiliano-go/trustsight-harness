@@ -20,7 +20,10 @@ prompt:
   - R012
   - R013
   - R039
+  - R040
+  - R041
   - R043
+  - R046
   - R047
   - R051
   - R052
@@ -29,10 +32,7 @@ prompt:
   - R058
   - R059
   - R099
-  - R152
-  - R040
-  - R041
-  - R046
   - R144
+  - R152
   forbidden_techniques: {}
 attempts: 44

@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-c",
-  "campaign_commit": "22ac39997d20732f8d1d603f594d3bdab1c02708",
+  "campaign_commit": "84898c423a04e1a387a55a8b4fb8393f1ea08f30",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 10427
+    "wall_clock_ms": 10219
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -62,8 +62,6 @@
     "C007",
     "C008",
     "C009",
-    "C010",
-    "C011",
     "C012",
     "C013",
     "C014",
@@ -76,13 +74,11 @@
     "C024",
     "C025",
     "C026",
-    "C027",
     "C028",
     "C029",
     "C030",
     "C031",
-    "C033",
-    "C034"
+    "C033"
   ],
   "flag_ledger": [],
   "generator": {
@@ -123,8 +119,6 @@
       "C007",
       "C008",
       "C009",
-      "C010",
-      "C011",
       "C012",
       "C013",
       "C014",
@@ -137,13 +131,11 @@
       "C024",
       "C025",
       "C026",
-      "C027",
       "C028",
       "C029",
       "C030",
       "C031",
-      "C033",
-      "C034"
+      "C033"
     ],
     "fired_rules": [
       "C001",
@@ -209,7 +201,8 @@
       "X034"
     ],
     "missing_rules": [],
-    "negative_failures": []
+    "negative_failures": [],
+    "unattempted_rules": []
   },
   "stop_reason": "47 raw-diff cells exhausted",
   "validator": {
