@@ -1,0 +1,9 @@
+{
+  "kind": "keyring",
+  "maintainer_changed": true,
+  "triggered": [
+    {
+      "rule_id": "H078"
+    }
+  ]
+}

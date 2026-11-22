@@ -20,6 +20,7 @@ from .recorder import Recorder, Trace
 from .status import Status
 
 __all__ = [
+    "COMPOSE_KINDS",
     "CYCLE_KINDS",
     "LANE_RUNNERS",
     "PAYLOAD_KEYS",
@@ -214,6 +215,73 @@ class _FakeProject:
             current = self._by_id.get(current.parents[0]) if current.parents else None
 
 
+def _compose(payload: dict) -> list[dict]:
+    """Rule functions over fixture state: findings, text, bytes, config."""
+    kind = payload.get("kind")
+    config = dict(_config())
+    if isinstance(payload.get("namespaces"), dict):
+        config["namespaces"] = payload["namespaces"]
+    if kind == "archive":
+        from trustsight.analysis.archives import check_archive_trailer
+
+        finding = check_archive_trailer(bytes.fromhex(payload["data"]))
+        return [finding] if finding else []
+    if kind == "placeholder":
+        from trustsight.analysis.placeholder import placeholder_finding
+
+        finding = placeholder_finding(payload.get("text"))
+        return [finding] if finding else []
+    if kind == "credential":
+        from trustsight.analysis.adoption import credential_egress_finding
+
+        finding = credential_egress_finding(
+            package_name=str(payload.get("package", "")),
+            findings=list(payload.get("findings") or ()),
+            diff_text=str(payload.get("diff_text", "")))
+        return [finding] if finding else []
+    if kind == "takeover":
+        from trustsight.analysis.adoption import source_takeover_finding
+
+        finding = source_takeover_finding(
+            package_name=str(payload.get("package", "")),
+            findings=list(payload.get("findings") or ()),
+            adopted=bool(payload.get("adopted", False)),
+            maintainer_changed=bool(payload.get("maintainer_changed", False)),
+            added_urls=tuple(payload.get("added_urls") or ()),
+            removed_urls=tuple(payload.get("removed_urls") or ()),
+            current_text=payload.get("current_text"))
+        return [finding] if finding else []
+    if kind == "namespace":
+        from trustsight.analysis.namespaces import owned_namespace_findings
+
+        return owned_namespace_findings(
+            str(payload.get("recipe", "")), config,
+            package_name=str(payload.get("package", "")))
+    if kind == "typosquat":
+        from trustsight.analysis.composition import naming_typosquat_finding
+
+        candidates = [tuple(row) for row in payload.get("candidates") or ()]
+        finding = naming_typosquat_finding(
+            str(payload.get("package", "")), candidates=candidates,
+            self_popularity=payload.get("self_popularity"),
+            min_length=payload.get("min_length"))
+        return [finding] if finding else []
+    if kind == "keyring":
+        from trustsight.analysis.composition import maintainer_keyring_composition
+
+        finding = maintainer_keyring_composition(
+            list(payload.get("triggered") or ()),
+            bool(payload.get("maintainer_changed", False)))
+        return [finding] if finding else []
+    if kind == "naming_cluster":
+        from trustsight.analysis.composition import naming_cluster_annotation
+
+        finding = naming_cluster_annotation(
+            list(payload.get("triggered") or ()), config)
+        return [finding] if finding else []
+    raise ValueError(f"unknown compose kind {kind!r}")
+
+
 def _project(payload: dict) -> list[dict]:
 
     kind = payload.get("kind")
@@ -339,12 +407,28 @@ def _upstream(payload: dict) -> list[dict]:
 #: ``project`` use the API paths instead of a pure function and are not here.
 LANE_RUNNERS = {
     "artifact": _artifact,
+    "compose": _compose,
     "project": _project,
     "warm": _warm,
     "correlation": _correlation,
     "meta": _meta,
     "cycle": _cycle,
     "upstream": _upstream,
+}
+
+#: The compose entry points: rule functions over fixture state.
+COMPOSE_KINDS = {
+    "archive": frozenset({"data"}),
+    "placeholder": frozenset({"text"}),
+    "credential": frozenset({"package", "findings", "diff_text"}),
+    "takeover": frozenset({"package", "findings", "adopted",
+                           "maintainer_changed", "added_urls", "removed_urls",
+                           "current_text"}),
+    "namespace": frozenset({"recipe", "package", "namespaces"}),
+    "typosquat": frozenset({"package", "candidates", "self_popularity",
+                            "min_length"}),
+    "keyring": frozenset({"triggered", "maintainer_changed"}),
+    "naming_cluster": frozenset({"triggered"}),
 }
 
 #: The project entry points: a commit graph, then the git-backed rule.
@@ -385,6 +469,8 @@ CYCLE_KINDS = {
 PAYLOAD_KEYS = {
     "artifact": frozenset({"manifest", "declared"}),
     "project": frozenset().union(*PROJECT_KINDS.values()) | {"kind", "now"},
+    "compose": frozenset().union(*COMPOSE_KINDS.values()) | {"kind",
+                                                             "namespaces"},
     "correlation": frozenset({
         "records", "kinds", "seed_transitions", "watchlist", "history",
         "pushes", "seed_campaigns", "package", "added_urls",

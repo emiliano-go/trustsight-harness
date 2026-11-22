@@ -14,6 +14,7 @@ import yaml
 
 from harness.bounded import MAX_ARTIFACT_BYTES, read_text_capped
 from harness.lane_probe import (
+    COMPOSE_KINDS,
     CYCLE_KINDS,
     PAYLOAD_KEYS,
     PROJECT_KINDS,
@@ -83,6 +84,12 @@ class LaneGenerator(Generator):
                 raise ValueError(  # noqa: TRY004 - a config error, not a type error
                     f"cell {cell_id!r}: payload must be a mapping")
             allowed = PAYLOAD_KEYS[lane]
+            if lane == "compose" and "kind" in inline:
+                kind = inline.get("kind")
+                if kind not in COMPOSE_KINDS:
+                    raise ValueError(f"cell {cell_id!r}: unknown compose kind "
+                                     f"{kind!r}")
+                allowed = PAYLOAD_KEYS[lane] | COMPOSE_KINDS[kind]
             if lane == "project" and "kind" in inline:
                 kind = inline.get("kind")
                 if kind not in PROJECT_KINDS:

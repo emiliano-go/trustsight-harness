@@ -1,0 +1,10 @@
+{
+  "kind": "namespace",
+  "namespaces": {
+    "owned": [
+      "owned.example/apps/"
+    ]
+  },
+  "package": "p",
+  "recipe": "pkgname=p\nsource=(\"https://owned.example/other/x.tar.gz\")\n"
+}

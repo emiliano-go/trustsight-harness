@@ -64,6 +64,12 @@ _CYCLE = frozenset({
     "T008", "T009", "T010", "T011", "T012",
 })
 
+#: Rule functions the pipeline wires over intermediate state: a finding set,
+#: a recipe text, archive bytes.  The lane supplies that state as a fixture.
+_COMPOSE = frozenset({
+    "C035", "H029", "H070", "H098", "H102", "H104", "H105", "H107",
+})
+
 #: The cross-package pass over cycle records.
 _CORRELATION = frozenset(f"G{n:03d}" for n in range(1, 17))
 
@@ -89,6 +95,9 @@ def _build() -> dict[str, Lane]:
         Lane("cycle", _CYCLE,
              "full_aur.temporal_engine.run_corpus_sweep",
              "needs one metadata cycle and the history around it"),
+        Lane("compose", _COMPOSE,
+             "analysis rule functions over fixture state (findings, text, bytes)",
+             "supplies the intermediate state the pipeline normally holds"),
         Lane("correlation", _CORRELATION, "analysis.correlation.correlate",
              "joins records across packages in a cycle"),
         Lane("meta", _META, "analysis.meta.m_series_findings",
@@ -125,7 +134,7 @@ def lane_of(rule_id: str) -> Lane | None:
 def rules_by_lane() -> dict[str, tuple[str, ...]]:
     """Every lane's rules, sorted, in the closed lane order."""
     order = ("static", "artifact", "upstream", "warm", "project",
-             "cycle", "correlation", "meta")
+             "cycle", "compose", "correlation", "meta")
     return {name: tuple(sorted(LANES[name].rules)) for name in order}
 
 
