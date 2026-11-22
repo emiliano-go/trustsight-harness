@@ -83,6 +83,9 @@ def _dispatch_operation(name: str, argv: list[str]) -> int:
     if isinstance(result, dict) and result.get("error"):
         print(f"{name}: {clean(result['error'])}", file=sys.stderr)
         return EXIT_CONFIG
+    # preflight exists to be gated on, so a failed check must not exit 0.
+    if name == "preflight" and isinstance(result, dict) and result.get("ok") is False:
+        return EXIT_CONFIG
     return EXIT_OK
 
 

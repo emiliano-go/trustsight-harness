@@ -68,6 +68,7 @@ Everything else has its own name:
 |---|---|
 | `detected` | A FATAL fired, or the score exceeded the threshold with an expected rule firing. |
 | `partial_evasion` | The expected rule stayed quiet, but another rule caught it. |
+| `inconclusive` | The score exceeded the threshold, but no expected rules were declared, so the Judge had no rule to check the findings against. |
 | `fail_closed_catch` | A coverage gap forbade UNFLAGGED; the tool declined to answer. |
 | `bypass` | Syntax valid, constraints honoured, behaviour proven, and TrustSight returned UNFLAGGED. |
 | `behavior_lost` | The harness could not prove the attack chain survives. |

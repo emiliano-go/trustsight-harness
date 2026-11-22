@@ -1797,12 +1797,12 @@ def campaign_schema() -> str:
     return json.dumps({
         "description": "Schema for campaign.yml files",
         "required_keys": ["campaign", "campaign_type", "environment", "generator", "attempts"],
-        "optional_keys": ["package", "prompt", "stop_conditions"],
+        "optional_keys": ["package", "prompt", "stop_conditions", "archive"],
         "schema": {
             "campaign": {"type": "string", "description": "Unique campaign name"},
             "campaign_type": {
                 "type": "string",
-                "enum": ["deterministic", "stochastic"],
+                "enum": ["deterministic", "stochastic", "rule-probe", "artifact-probe"],
                 "description": "Whether verdicts are order-independent",
             },
             "package": {
@@ -1819,6 +1819,7 @@ def campaign_schema() -> str:
                     "db_state": {"type": "string", "enum": ["cold", "seeded", "snapshot"]},
                     "seed_sha256": {"type": "string"},
                     "db_snapshot": {"type": "string"},
+                    "ioc_baseline": {"type": "string"},
                     "config_fingerprint": {"type": "string"},
                     "flag_threshold": {"type": "integer", "default": 20},
                     "accumulate": {"type": "boolean", "default": False},
@@ -1832,7 +1833,7 @@ def campaign_schema() -> str:
                 "required": ["type"],
                 "properties": {
                     "type": {"type": "string", "default": "inputs",
-                             "enum": ["inputs", "mutation", "llm"]},
+                             "enum": ["inputs", "raw-diff", "artifact", "mutation", "llm"]},
                     "manifest": {
                         "type": "string", "default": "inputs.yml",
                         "description": "inputs generator: strict cells manifest under the campaign root",
@@ -1899,6 +1900,8 @@ def status_definitions() -> str:
             "deps_not_scanned", "ruleset_drifted", "stage_degraded",
             "history_truncated", "noextract_suppressed",
             "binary_metadata", "tokenizer_unavailable",
+            "partial_hunk", "partial_file_analysis", "parent_baseline",
+            "upstream_manifest_incomplete",
         ],
     }, indent=2)
 
