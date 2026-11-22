@@ -23,7 +23,7 @@ from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 __all__ = ["build_coverage"]
 
 
-from .lanes import LANES, UNREACHABLE  # noqa: E402
+from .lanes import LANES, UNREACHABLE
 
 
 def _campaigns(repo_root: Path) -> list[dict]:
