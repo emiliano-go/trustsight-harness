@@ -49,7 +49,8 @@ def test_every_payload_key_is_read_by_its_entry_point():
     # read by correlate() itself.
     assert set(lane_probe.PAYLOAD_KEYS["correlation"]) == {
         "records", "kinds", "seed_transitions", "watchlist", "history",
-        "pushes", "seed_campaigns", "package", "added_urls", "min_packages"}
+        "pushes", "seed_campaigns", "package", "added_urls", "min_packages",
+        "gaps"}
     from trustsight.analysis.correlation import sleeper_adoption_campaign
 
     for key in ("history", "pushes"):

@@ -34,5 +34,17 @@ prompt:
   - R099
   - R144
   - R152
+  - R042
+  - R044
+  - R045
+  - R048
+  - R049
+  - R050
+  - R055
+  - R056
+  - R057
+  - R078
+  - R091
+  - R104
   forbidden_techniques: {}
-attempts: 44
+attempts: 56

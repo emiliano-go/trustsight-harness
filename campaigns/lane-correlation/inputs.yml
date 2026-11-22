@@ -67,3 +67,8 @@ cells:
   payload_path: fixtures/lane/correlation/g010.json
   expect_fire:
   - G010
+- id: W013-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g007.json
+  expect_fire:
+  - W013

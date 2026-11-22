@@ -27,5 +27,6 @@ prompt:
   - G014
   - G015
   - G016
+  - W013
   forbidden_techniques: {}
-attempts: 13
+attempts: 14

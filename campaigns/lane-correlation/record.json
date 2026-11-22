@@ -1,20 +1,20 @@
 {
-  "attempts": 13,
+  "attempts": 14,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.228095
+      0.215311
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 13,
+    "denominator_value": 14,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-correlation",
-  "campaign_commit": "c65961eec78de04ef51db399a81572f0ee5f1640",
+  "campaign_commit": "3ff4f3cdd0c25762a451101bcf61dbaa820d37a9",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 95
+    "wall_clock_ms": 88
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -69,7 +69,8 @@
     "G013",
     "G014",
     "G015",
-    "G016"
+    "G016",
+    "W013"
   ],
   "flag_ledger": [
     {
@@ -238,7 +239,8 @@
         "G007"
       ],
       "fired": [
-        "G007"
+        "G007",
+        "W013"
       ],
       "flag_state": "flagged",
       "gaps": [],
@@ -260,10 +262,25 @@
       "lane": "correlation",
       "score": 25,
       "threshold": 20
+    },
+    {
+      "cell": "W013-positive",
+      "expected": [
+        "W013"
+      ],
+      "fired": [
+        "G007",
+        "W013"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 0,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 13,
+    "cells": 14,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -278,7 +295,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 13,
+    "detected": 14,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -290,7 +307,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 13,
+    "cells": 14,
     "expected_rules": [
       "G001",
       "G002",
@@ -307,7 +324,8 @@
       "G013",
       "G014",
       "G015",
-      "G016"
+      "G016",
+      "W013"
     ],
     "fired_rules": [
       "G001",
@@ -325,7 +343,8 @@
       "G013",
       "G014",
       "G015",
-      "G016"
+      "G016",
+      "W013"
     ],
     "missing_rules": [],
     "negative_failures": []

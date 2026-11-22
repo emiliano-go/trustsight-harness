@@ -2,6 +2,9 @@
   "added_urls": [
     "https://campaign.example/x"
   ],
+  "gaps": [
+    "X001"
+  ],
   "kinds": [
     "g007"
   ],

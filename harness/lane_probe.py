@@ -98,16 +98,17 @@ def _correlation(payload: dict) -> list[dict]:
 
         _, breakdown, _ = _campaign_corroboration(
             0, [], str(payload.get("package", "")),
-            payload.get("added_urls") or ())
+            payload.get("added_urls") or (),
+            coverage_gaps=payload.get("gaps") or ())
         for entry in breakdown:
             rule_id = (entry.get("rule_id") if isinstance(entry, dict)
                        else getattr(entry, "rule_id", ""))
-            if rule_id != "G007":
+            if rule_id not in ("G007", "W013"):
                 continue
             evidence = (entry.get("evidence") if isinstance(entry, dict)
                         else getattr(entry, "evidence", None))
             out.append({
-                "rule_id": "G007",
+                "rule_id": rule_id,
                 "name": "Campaign Corroboration",
                 "severity": "INFO", "category": "correlation",
                 "match": (entry.get("reason") if isinstance(entry, dict)
@@ -387,7 +388,7 @@ PAYLOAD_KEYS = {
     "correlation": frozenset({
         "records", "kinds", "seed_transitions", "watchlist", "history",
         "pushes", "seed_campaigns", "package", "added_urls",
-        "min_packages"}),
+        "min_packages", "gaps"}),
     "warm": frozenset().union(*WARM_KINDS.values()) | {"kind"},
     "meta": frozenset({"triggered", "claims", "rules", "pressure",
                        "cofire_pairs"}),
