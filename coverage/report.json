@@ -123,9 +123,9 @@
       "targeted": 11
     },
     "compose": {
-      "firing": 13,
-      "rules": 13,
-      "targeted": 13
+      "firing": 15,
+      "rules": 15,
+      "targeted": 15
     },
     "correlation": {
       "firing": 16,
@@ -149,8 +149,8 @@
     },
     "static": {
       "firing": 190,
-      "rules": 223,
-      "targeted": 223
+      "rules": 221,
+      "targeted": 221
     },
     "upstream": {
       "firing": 9,
@@ -552,6 +552,8 @@
         "C032",
         "W010",
         "C035",
+        "D001",
+        "D002",
         "H029",
         "H070",
         "H098",
@@ -564,6 +566,8 @@
       "positive_rules": [
         "C032",
         "C035",
+        "D001",
+        "D002",
         "H029",
         "H066",
         "H070",
@@ -2402,8 +2406,6 @@
       "C006",
       "C027",
       "COVERAGE",
-      "D001",
-      "D002",
       "E001",
       "E002",
       "E003",
@@ -2442,13 +2444,11 @@
       "W015",
       "X028"
     ],
-    "positive_targeted": 284,
+    "positive_targeted": 286,
     "positive_untargeted_ids": [
       "C006",
       "C027",
       "COVERAGE",
-      "D001",
-      "D002",
       "E001",
       "E002",
       "E003",
@@ -2531,6 +2531,8 @@
     "A016",
     "C032",
     "C035",
+    "D001",
+    "D002",
     "G001",
     "G002",
     "G003",
@@ -2624,6 +2626,8 @@
     "A016": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "C032": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "C035": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "D001": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "D002": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "G001": "needs the correlation lane: joins records across packages in a cycle",
     "G002": "needs the correlation lane: joins records across packages in a cycle",
     "G003": "needs the correlation lane: joins records across packages in a cycle",

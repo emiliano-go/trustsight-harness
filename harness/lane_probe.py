@@ -221,6 +221,25 @@ def _compose(payload: dict) -> list[dict]:
     config = dict(_config())
     if isinstance(payload.get("namespaces"), dict):
         config["namespaces"] = payload["namespaces"]
+    if kind == "dependencies":
+        from trustsight import db
+        from trustsight.analysis.dependencies import _dependency_findings
+
+        names = list(payload.get("dependencies") or ())
+        if names:
+            db.record_dependency_names(names)
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        _dependency_findings(
+            str(payload.get("diff_text", "")),
+            str(payload.get("package", "")), config, add,
+            current_text=payload.get("current_text"))
+        return found
     if kind == "scriptlet":
         from trustsight.analysis.edges import edge_scriptlet_top_level_execution
 
@@ -454,6 +473,8 @@ LANE_RUNNERS = {
 COMPOSE_KINDS = {
     "archive": frozenset({"data"}),
     "scriptlet": frozenset({"name", "data"}),
+    "dependencies": frozenset({"diff_text", "package", "dependencies",
+                               "current_text"}),
     "edge": frozenset({"name", "data"}),
     "committed_path": frozenset({"name", "data"}),
     "tree_manifest": frozenset({"files", "source_urls", "package"}),

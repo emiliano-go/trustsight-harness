@@ -1,20 +1,20 @@
 {
-  "attempts": 13,
+  "attempts": 15,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.228095
+      0.203883
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 13,
+    "denominator_value": 15,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-compose",
-  "campaign_commit": "30fd9ed95a8b483b610de317ceeeed0f25606968",
+  "campaign_commit": "e69ac1c6d957d99f59043b3196fc49d9496b16ef",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 20
+    "wall_clock_ms": 94
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -64,6 +64,8 @@
     "C032",
     "W010",
     "C035",
+    "D001",
+    "D002",
     "H029",
     "H070",
     "H098",
@@ -254,10 +256,38 @@
       "lane": "compose",
       "score": 0,
       "threshold": 20
+    },
+    {
+      "cell": "D001-positive",
+      "expected": [
+        "D001"
+      ],
+      "fired": [
+        "D001"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "D002-positive",
+      "expected": [
+        "D002"
+      ],
+      "fired": [
+        "D002"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 13,
+    "cells": 15,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -272,7 +302,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 13,
+    "detected": 15,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -284,7 +314,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 13,
+    "cells": 15,
     "expected_rules": [
       "C032",
       "C032",
@@ -296,6 +326,8 @@
       "C032",
       "W010",
       "C035",
+      "D001",
+      "D002",
       "H029",
       "H070",
       "H098",
@@ -307,6 +339,8 @@
     "fired_rules": [
       "C032",
       "C035",
+      "D001",
+      "D002",
       "H029",
       "H066",
       "H070",
