@@ -1,0 +1,111 @@
+{
+  "attempts": 2,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.65762
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 2,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "bypasses_full": 0,
+  "campaign": "rule-probes-pseudo",
+  "campaign_commit": "70003431ddbdd8ebdac701afafb3cadcbb730072",
+  "campaign_type": "rule-probe",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 0,
+    "total": 0
+  },
+  "conditional_bypasses": {},
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 477
+  },
+  "dedup_savings": null,
+  "duplicate_rate": null,
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:8a4a95a765e1343bb487ef1f6d0895af62d06cfe5dea75500c461a42ba5e2e83",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.30.0"
+  },
+  "expected_rules": [
+    "SOURCE_BUCKET"
+  ],
+  "generator": {
+    "cells": 2,
+    "manifest": "inputs.yml",
+    "prompt_contract": 2,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "rule-probes-pseudo",
+    "type": "raw-diff"
+  },
+  "harness_version": "2.5.0",
+  "known_bypass_matches": [],
+  "limitations": [],
+  "minimization_spend": null,
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 2,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-pkg",
+  "probe": {
+    "cells": 2,
+    "expected_rules": [
+      "SOURCE_BUCKET"
+    ],
+    "fired_rules": [
+      "C005",
+      "H004",
+      "H015",
+      "H027",
+      "H091",
+      "M001",
+      "M003",
+      "P001",
+      "P007",
+      "SOURCE_BUCKET"
+    ],
+    "missing_rules": [],
+    "negative_failures": []
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": ""
+  }
+}

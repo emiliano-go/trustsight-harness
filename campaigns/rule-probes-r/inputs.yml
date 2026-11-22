@@ -48,7 +48,7 @@ cells:
   expect_absent:
   - R010
 - id: R011-positive
-  path: fixtures/rule-probes/diffs/766168bb7d52b3de72078237a5ee589427638afa6a3b80adf62c671fbece3df3.diff
+  path: fixtures/rule-probes/diffs/30ca9c36416616eac0a340c946170679b6e5b631491b0a259ed282b89734243d.diff
   expect_fire:
   - R011
 - id: R011-negative

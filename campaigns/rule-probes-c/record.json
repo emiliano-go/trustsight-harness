@@ -1,22 +1,20 @@
 {
   "attempts": 44,
-  "bypass_hashes": [
-    "sha256:125f7d585ae031c01a8cfa4fd31cfab53d32ea2e6503b23d10c5d9ecc21b1e21"
-  ],
+  "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
-      0.004023,
-      0.118077
+      0.0,
+      0.080296
     ],
     "denominator": "attempts reaching TrustSight",
     "denominator_value": 44,
-    "estimate": 0.022727,
+    "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
-  "bypasses": 1,
-  "bypasses_full": 1,
+  "bypasses": 0,
+  "bypasses_full": 0,
   "campaign": "rule-probes-c",
-  "campaign_commit": "",
+  "campaign_commit": "70003431ddbdd8ebdac701afafb3cadcbb730072",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -31,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 13004
+    "wall_clock_ms": 14833
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -40,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:8a4a95a765e1343bb487ef1f6d0895af62d06cfe5dea75500c461a42ba5e2e83",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -93,11 +91,11 @@
   "minimization_spend": null,
   "outcomes": {
     "behavior_lost": 0,
-    "bypass": 1,
+    "bypass": 0,
     "constraint_violation": 0,
     "detected": 36,
     "duplicate": 0,
-    "fail_closed_catch": 7,
+    "fail_closed_catch": 8,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
@@ -145,6 +143,8 @@
       "C015",
       "C018",
       "C019",
+      "C021",
+      "C022",
       "C024",
       "C025",
       "C026",
@@ -165,6 +165,7 @@
       "H075",
       "H077",
       "H083",
+      "H087",
       "H091",
       "H100",
       "M001",
@@ -186,10 +187,7 @@
       "X011",
       "X034"
     ],
-    "missing_rules": [
-      "C021",
-      "C022"
-    ],
+    "missing_rules": [],
     "negative_failures": []
   },
   "stop_reason": "",

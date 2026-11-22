@@ -96,7 +96,7 @@ cells:
   expect_absent:
   - C019
 - id: C021-positive
-  path: fixtures/rule-probes/diffs/777e82bccc66401174d14c0377a722e0226458568edbcf7993375a937909ebee.diff
+  path: fixtures/rule-probes/diffs/dc45ad3968f7b3c588e48149a2c2acae928def923ef8ec6444da74ef62ee9550.diff
   expect_fire:
   - C021
 - id: C021-negative
@@ -104,7 +104,7 @@ cells:
   expect_absent:
   - C021
 - id: C022-positive
-  path: fixtures/rule-probes/diffs/0a9831a38afc145544d46c8567d549e4c7d39022b0766733c017c452d868e600.diff
+  path: fixtures/rule-probes/diffs/276ec594a57c8e67f695bb44970fb1c7729dcf76dc450ffbc5da73f89ea6b828.diff
   expect_fire:
   - C022
 - id: C022-negative
