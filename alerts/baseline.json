@@ -1,7 +1,7 @@
 {
   "alertable": 302,
   "max_missing_classes": 1,
-  "max_missing_rules": 106,
+  "max_missing_rules": 103,
   "missing_classes": [
     "refusal"
   ],
@@ -81,9 +81,6 @@
     "R091",
     "R104",
     "R144",
-    "T001",
-    "T002",
-    "T003",
     "T006",
     "T007",
     "U001",

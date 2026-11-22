@@ -21,6 +21,7 @@ from .status import Status
 
 __all__ = [
     "CYCLE_KINDS",
+    "WARM_KINDS",
     "LANE_RUNNERS",
     "PAYLOAD_KEYS",
     "UPSTREAM_KINDS",
@@ -107,6 +108,30 @@ def _cycle(payload: dict) -> list[dict]:
     raise ValueError(f"unknown cycle kind {kind!r}")
 
 
+def _warm(payload: dict) -> list[dict]:
+    kind = payload.get("kind")
+    config = _config()
+    if kind == "key":
+        from trustsight import db
+        from trustsight.analysis.temporal import t_key_findings, t_key_rotation
+
+        for key in payload.get("seed_keys") or ():
+            db.record_observed_key(str(key))
+        change = {"pgp_keys": {
+            "gained": list(payload.get("gained") or ()),
+            "lost": list(payload.get("lost") or ()),
+        }}
+        return t_key_findings(change, config) + t_key_rotation(change)
+    if kind == "domain":
+        from trustsight import db
+        from trustsight.analysis.temporal import t_domain_findings
+
+        for domain in payload.get("seed_domains") or ():
+            db.record_observed_domain(str(domain))
+        return t_domain_findings(payload.get("maintainer") or "", config)
+    raise ValueError(f"unknown warm kind {kind!r}")
+
+
 def _upstream(payload: dict) -> list[dict]:
     kind = payload.get("kind", "")
     if kind == "release_asset":
@@ -160,10 +185,17 @@ def _upstream(payload: dict) -> list[dict]:
 #: ``project`` use the API paths instead of a pure function and are not here.
 LANE_RUNNERS = {
     "artifact": _artifact,
+    "warm": _warm,
     "correlation": _correlation,
     "meta": _meta,
     "cycle": _cycle,
     "upstream": _upstream,
+}
+
+#: The warm entry points: a seeded key/domain ledger, then the rule.
+WARM_KINDS = {
+    "key": frozenset({"seed_keys", "gained", "lost"}),
+    "domain": frozenset({"seed_domains", "maintainer"}),
 }
 
 #: The cycle entry points and the payload keys each one reads.
@@ -189,6 +221,7 @@ CYCLE_KINDS = {
 PAYLOAD_KEYS = {
     "artifact": frozenset({"manifest", "declared"}),
     "correlation": frozenset({"records"}),
+    "warm": frozenset().union(*WARM_KINDS.values()) | {"kind"},
     "meta": frozenset({"triggered", "claims", "rules", "pressure",
                        "cofire_pairs"}),
     "cycle": frozenset().union(*CYCLE_KINDS.values()) | {"kind"},

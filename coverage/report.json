@@ -153,7 +153,7 @@
       "targeted": 9
     },
     "warm": {
-      "firing": 0,
+      "firing": 3,
       "rules": 3,
       "targeted": 3
     }
@@ -670,6 +670,21 @@
         "U008",
         "U013",
         "U014"
+      ]
+    },
+    {
+      "campaign": "lane-warm",
+      "campaign_type": "lane-probe",
+      "expected_rules": [
+        "T001",
+        "T002",
+        "T003"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "T001",
+        "T002",
+        "T003"
       ]
     },
     {
@@ -2287,9 +2302,6 @@
       "R091",
       "R104",
       "R144",
-      "T001",
-      "T002",
-      "T003",
       "T006",
       "T007",
       "TAG_CONVERGENCE",
@@ -2323,7 +2335,7 @@
       "X030",
       "X031"
     ],
-    "positive_targeted": 202,
+    "positive_targeted": 205,
     "positive_untargeted_ids": [
       "C006",
       "C008",
@@ -2414,9 +2426,6 @@
       "R091",
       "R104",
       "R144",
-      "T001",
-      "T002",
-      "T003",
       "T006",
       "T007",
       "TAG_CONVERGENCE",
