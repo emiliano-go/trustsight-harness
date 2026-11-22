@@ -37,15 +37,17 @@ def test_every_alert_class_declares_a_reproducer_slot():
 
 
 def test_rules_with_no_emitter_are_not_alertable():
+    from trustsight.rule_id_history import ANCHOR_RULE_IDS
+
     from harness.alerts import NON_ALERTING
 
-    assert NON_ALERTING == frozenset({"H028"})
+    assert NON_ALERTING == frozenset(ANCHOR_RULE_IDS)
     assert not (alertable_rules() & NON_ALERTING)
 
 
 def test_artifact_rules_cannot_alert():
     assert not (alertable_rules() & LANES["artifact"].rules)
-    assert len(alertable_rules()) == 302
+    assert len(alertable_rules()) == 292
 
 
 def test_the_missing_rule_set_never_grows():
@@ -109,6 +111,6 @@ def test_the_live_alert_document_still_carries_every_class():
 
 def test_the_ledger_names_every_class_and_rule():
     out = ledger(ROOT)
-    assert len(out["alertable"]) == 302
+    assert len(out["alertable"]) == 292
     assert set(out["classes"]) == set(ALERT_CLASSES)
     assert out["missing"] == sorted(missing_rules(ROOT))

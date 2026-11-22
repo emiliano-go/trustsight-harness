@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 
 from trustsight.contract import rule_ids
+from trustsight.rule_id_history import ANCHOR_RULE_IDS
 
 from .bounded import MAX_ARTIFACT_BYTES, BoundedReadError, read_json_capped
 from .lanes import LANES
@@ -34,9 +35,12 @@ __all__ = [
 ]
 
 #: Contract rules that never become a report finding, so they cannot reach
-#: an alert document.  H028 is a metadata flag on the fact (see
-#: trusttemporal_engine.PER_PACKAGE_INSTANCES: "never a scored finding").
-NON_ALERTING: frozenset[str] = frozenset({"H028"})
+#: an alert document.  TrustSight names them itself: ANCHOR_RULE_IDS are the
+#: ids kept only so their documentation anchors resolve, "which no code path
+#: emits" (trustsight/rule_id_history.py).  Deriving the set instead of
+#: hand-listing it is what caught the first ten: they were sitting in the
+#: backlog as rules that could never fire.
+NON_ALERTING: frozenset[str] = frozenset(ANCHOR_RULE_IDS)
 
 #: Every section of the alert document that carries a rule claim.
 ALERT_CLASSES: dict[str, frozenset[str]] = {
