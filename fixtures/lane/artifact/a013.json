@@ -1,0 +1,9 @@
+{
+  "declared": {},
+  "manifest": [
+    {
+      "content": "ACTION==\"add\", RUN+=\"/usr/bin/evil\"",
+      "path": "/usr/lib/udev/rules.d/99-x.rules"
+    }
+  ]
+}

@@ -16,5 +16,9 @@ prompt:
   - U008
   - U013
   - U014
+  - A009
+  - A010
+  - A014
+  - A015
   forbidden_techniques: {}
-attempts: 5
+attempts: 9

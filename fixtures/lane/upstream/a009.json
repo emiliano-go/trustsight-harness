@@ -1,0 +1,10 @@
+{
+  "artifacts": [
+    {
+      "elf": true,
+      "path": "x",
+      "size": 10
+    }
+  ],
+  "kind": "source_archive"
+}

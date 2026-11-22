@@ -1,0 +1,9 @@
+{
+  "declared": {},
+  "manifest": [
+    {
+      "content": "[Trigger]\nOperation = Install\nExec = /tmp/payload",
+      "path": "/usr/share/libalpm/hooks/y.hook"
+    }
+  ]
+}

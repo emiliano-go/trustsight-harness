@@ -10,8 +10,8 @@ from harness.lanes import LANES, UNREACHABLE, lane_of, rules_by_lane
 #: table deliberately; silently absorbing a drift is how coverage rots.
 EXPECTED_SIZES = {
     "static": 237,
-    "artifact": 15,
-    "upstream": 5,
+    "artifact": 11,
+    "upstream": 9,
     "warm": 3,
     "project": 5,
     "cycle": 26,

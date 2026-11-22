@@ -36,6 +36,12 @@ def _config():
     return load_config()
 
 
+def _artifact(payload: dict) -> list[dict]:
+    from trustsight.analysis.artifact import inspect_manifest
+
+    return inspect_manifest(payload["manifest"], payload.get("declared") or {})
+
+
 def _correlation(payload: dict) -> list[dict]:
     from trustsight.analysis.correlation import correlate
 
@@ -112,6 +118,10 @@ def _upstream(payload: dict) -> list[dict]:
             export_ignore=frozenset(payload.get("export_ignore") or ()),
         )
         return [finding] if finding else []
+    if kind == "source_archive":
+        from trustsight.upstream_collect import _artifact_findings
+
+        return _artifact_findings(payload.get("artifacts") or [])
     if kind == "workflow":
         from trustsight.upstream_collect import _workflow_findings
 
@@ -149,6 +159,7 @@ def _upstream(payload: dict) -> list[dict]:
 #: One named entry point per lane.  ``warm``, ``static``, ``artifact`` and
 #: ``project`` use the API paths instead of a pure function and are not here.
 LANE_RUNNERS = {
+    "artifact": _artifact,
     "correlation": _correlation,
     "meta": _meta,
     "cycle": _cycle,
@@ -176,6 +187,7 @@ CYCLE_KINDS = {
 #: accept is fixture drift, and the lane tests check this table against the
 #: function signatures.
 PAYLOAD_KEYS = {
+    "artifact": frozenset({"manifest", "declared"}),
     "correlation": frozenset({"records"}),
     "meta": frozenset({"triggered", "claims", "rules", "pressure",
                        "cofire_pairs"}),
@@ -194,6 +206,7 @@ UPSTREAM_KINDS = {
         "diff_text", "current_text", "pkgver_changed", "matches", "package",
         "sources_gained"}),
     "workflow": frozenset({"path", "text"}),
+    "source_archive": frozenset({"artifacts"}),
 }
 
 

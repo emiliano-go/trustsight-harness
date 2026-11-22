@@ -118,7 +118,7 @@
   },
   "by_lane": {
     "artifact": {
-      "firing": 8,
+      "firing": 11,
       "rules": 11,
       "targeted": 11
     },
@@ -148,7 +148,7 @@
       "targeted": 237
     },
     "upstream": {
-      "firing": 5,
+      "firing": 9,
       "rules": 9,
       "targeted": 9
     },
@@ -519,6 +519,21 @@
       "positive_rules": []
     },
     {
+      "campaign": "lane-artifact",
+      "campaign_type": "lane-probe",
+      "expected_rules": [
+        "A011",
+        "A012",
+        "A013"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "A011",
+        "A012",
+        "A013"
+      ]
+    },
+    {
       "campaign": "lane-correlation",
       "campaign_type": "lane-probe",
       "expected_rules": [
@@ -638,10 +653,18 @@
         "U007",
         "U008",
         "U013",
-        "U014"
+        "U014",
+        "A009",
+        "A010",
+        "A014",
+        "A015"
       ],
       "package": "harness-pkg",
       "positive_rules": [
+        "A009",
+        "A010",
+        "A014",
+        "A015",
         "A016",
         "U007",
         "U008",
@@ -2175,13 +2198,6 @@
   ],
   "rules": {
     "negative_only": [
-      "A009",
-      "A010",
-      "A011",
-      "A012",
-      "A013",
-      "A014",
-      "A015",
       "C006",
       "C008",
       "C009",
@@ -2307,15 +2323,8 @@
       "X030",
       "X031"
     ],
-    "positive_targeted": 195,
+    "positive_targeted": 202,
     "positive_untargeted_ids": [
-      "A009",
-      "A010",
-      "A011",
-      "A012",
-      "A013",
-      "A014",
-      "A015",
       "C006",
       "C008",
       "C009",

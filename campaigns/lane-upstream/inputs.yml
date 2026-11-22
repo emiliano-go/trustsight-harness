@@ -24,3 +24,23 @@ cells:
   payload_path: fixtures/lane/upstream/u014.json
   expect_fire:
   - U014
+- id: A009-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a009.json
+  expect_fire:
+  - A009
+- id: A010-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a010.json
+  expect_fire:
+  - A010
+- id: A014-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a014.json
+  expect_fire:
+  - A014
+- id: A015-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a015.json
+  expect_fire:
+  - A015

@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "elf_info": {
+        "packed": true
+      },
+      "path": "w"
+    }
+  ],
+  "kind": "source_archive"
+}
