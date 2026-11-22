@@ -280,7 +280,7 @@ bypass rate.
 
 ```bash
 uv run python -m harness coverage
-# 326 of 326 rules targeted by 128 campaigns; 268 have a firing probe, 58 are negative controls, and 77 need state, a manifest or a cycle.
+# 326 of 326 rules targeted by 128 campaigns; 271 have a firing probe, 55 are negative controls, and 78 need state, a manifest or a cycle.
 ```
 
 ---

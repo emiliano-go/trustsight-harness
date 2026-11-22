@@ -128,9 +128,9 @@
       "targeted": 16
     },
     "cycle": {
-      "firing": 22,
-      "rules": 26,
-      "targeted": 26
+      "firing": 23,
+      "rules": 27,
+      "targeted": 27
     },
     "meta": {
       "firing": 7,
@@ -143,9 +143,9 @@
       "targeted": 5
     },
     "static": {
-      "firing": 188,
-      "rules": 237,
-      "targeted": 237
+      "firing": 190,
+      "rules": 236,
+      "targeted": 236
     },
     "upstream": {
       "firing": 9,
@@ -586,10 +586,13 @@
         "H044",
         "H045",
         "H046",
+        "H047",
+        "H048",
         "H049",
         "H050",
         "H051",
         "H052",
+        "H053",
         "H054",
         "H055",
         "H057",
@@ -611,10 +614,13 @@
       "positive_rules": [
         "H037",
         "H045",
+        "H047",
+        "H048",
         "H049",
         "H050",
         "H051",
         "H052",
+        "H053",
         "H054",
         "H055",
         "H057",
@@ -2375,9 +2381,6 @@
       "H040",
       "H044",
       "H046",
-      "H047",
-      "H048",
-      "H053",
       "H056",
       "H059",
       "H064",
@@ -2408,7 +2411,7 @@
       "W015",
       "X028"
     ],
-    "positive_targeted": 268,
+    "positive_targeted": 271,
     "positive_untargeted_ids": [
       "C006",
       "C027",
@@ -2436,9 +2439,6 @@
       "H040",
       "H044",
       "H046",
-      "H047",
-      "H048",
-      "H053",
       "H056",
       "H059",
       "H064",
@@ -2541,6 +2541,7 @@
     "H050",
     "H051",
     "H052",
+    "H053",
     "H054",
     "H055",
     "H057",
@@ -2620,6 +2621,7 @@
     "H050": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H051": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H052": "needs the cycle lane: needs one metadata cycle and the history around it",
+    "H053": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H054": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H055": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H057": "needs the cycle lane: needs one metadata cycle and the history around it",

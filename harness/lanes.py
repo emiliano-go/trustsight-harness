@@ -59,7 +59,7 @@ _PROJECT = frozenset({"H020", "H021", "H022", "T006", "T007"})
 #: One metadata cycle: newer/older metadata, history and graph inputs.
 _CYCLE = frozenset({
     "H026", "H028", "H037", "H044", "H045", "H046", "H049", "H050",
-    "H051", "H052", "H054", "H055", "H057", "H058", "H060", "H061",
+    "H051", "H052", "H053", "H054", "H055", "H057", "H058", "H060", "H061",
     "H073", "H074", "H086", "H087", "H088",
     "T008", "T009", "T010", "T011", "T012",
 })

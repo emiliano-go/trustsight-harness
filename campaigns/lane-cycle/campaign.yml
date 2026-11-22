@@ -17,10 +17,13 @@ prompt:
   - H044
   - H045
   - H046
+  - H047
+  - H048
   - H049
   - H050
   - H051
   - H052
+  - H053
   - H054
   - H055
   - H057
@@ -38,4 +41,4 @@ prompt:
   - T011
   - T012
   forbidden_techniques: {}
-attempts: 22
+attempts: 25

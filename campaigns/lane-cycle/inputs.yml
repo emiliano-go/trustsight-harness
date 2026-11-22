@@ -109,3 +109,18 @@ cells:
   payload_path: fixtures/lane/cycle/temporal-h074.json
   expect_fire:
   - H074
+- id: H047-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h047.json
+  expect_fire:
+  - H047
+- id: H048-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h048.json
+  expect_fire:
+  - H048
+- id: H053-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h053.json
+  expect_fire:
+  - H053
