@@ -92,6 +92,7 @@ Security = [
 Guides = [
   {Overview = "guides/index.md"},
   {"Writing a Campaign" = "guides/writing-a-campaign.md"},
+  {"Replaying Watcher Alerts" = "guides/watcher-replay.md"},
   {"Using in CI" = "guides/using-in-ci.md"},
   {"Auditing Results" = "guides/auditing-results.md"},
 ]
@@ -100,6 +101,7 @@ Guides = [
 Reference = [
   {Overview = "reference/index.md"},
   {"CLI Reference" = "reference/cli.md"},
+  {"Lanes" = "reference/lanes.md"},
   {"Campaign Configuration" = "reference/campaign-config.md"},
   {"Record Schema" = "reference/record-schema.md"},
   {"Terminal Statuses" = "reference/statuses.md"},

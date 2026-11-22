@@ -70,6 +70,18 @@ jobs:
       - name: Full test suite
         run: uv run pytest -q
 
+      # The lane probes are campaigns, so the suite alone does not run them.
+      # This step is what keeps "every lane fires" a fact about the committed
+      # fixtures rather than about the last local run.
+      - name: Lane probes
+        run: |
+          for campaign in campaigns/lane-*; do
+            uv run python -m harness "$campaign"
+          done
+
+      - name: Alert accounting
+        run: uv run python scripts/check_alert_accounting.py
+
       - name: Lint
         run: uv run ruff check .
 
