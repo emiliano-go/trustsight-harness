@@ -123,9 +123,9 @@
       "targeted": 11
     },
     "compose": {
-      "firing": 23,
-      "rules": 23,
-      "targeted": 23
+      "firing": 24,
+      "rules": 24,
+      "targeted": 24
     },
     "correlation": {
       "firing": 16,
@@ -149,8 +149,8 @@
     },
     "static": {
       "firing": 191,
-      "rules": 213,
-      "targeted": 213
+      "rules": 212,
+      "targeted": 212
     },
     "upstream": {
       "firing": 9,
@@ -548,6 +548,7 @@
         "C006",
         "C027",
         "C032",
+        "H084",
         "H090",
         "C006",
         "C027",
@@ -590,6 +591,7 @@
         "H056",
         "H066",
         "H070",
+        "H084",
         "H090",
         "H092",
         "H093",
@@ -2449,7 +2451,6 @@
       "H044",
       "H046",
       "H064",
-      "H084",
       "H094",
       "NOVELTY",
       "P003",
@@ -2461,7 +2462,7 @@
       "W007",
       "W012"
     ],
-    "positive_targeted": 295,
+    "positive_targeted": 296,
     "positive_untargeted_ids": [
       "COVERAGE",
       "E001",
@@ -2483,7 +2484,6 @@
       "H044",
       "H046",
       "H064",
-      "H084",
       "H094",
       "NOVELTY",
       "P003",
@@ -2586,6 +2586,7 @@
     "H070",
     "H073",
     "H074",
+    "H084",
     "H086",
     "H087",
     "H088",
@@ -2689,6 +2690,7 @@
     "H070": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H073": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H074": "needs the cycle lane: needs one metadata cycle and the history around it",
+    "H084": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H086": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H087": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H088": "needs the cycle lane: needs one metadata cycle and the history around it",

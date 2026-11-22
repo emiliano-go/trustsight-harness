@@ -221,6 +221,24 @@ def _compose(payload: dict) -> list[dict]:
     config = dict(_config())
     if isinstance(payload.get("namespaces"), dict):
         config["namespaces"] = payload["namespaces"]
+    if kind == "graph":
+        from trustsight.analysis.edges import build_context
+        from trustsight.analysis.persistence_engine import emit_service_binary
+
+        context = build_context(
+            str(payload.get("diff_text", "")), config,
+            current_text=payload.get("current_text"),
+            tree_manifest=[(str(name), bytes.fromhex(data))
+                           for name, data in payload.get("tree_manifest") or ()])
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        emit_service_binary(context, add)
+        return found
     if kind == "package_text":
         from trustsight.full_aur.analyze._fact import analyze_package_text
         from trustsight.schema import TemporalContext
@@ -571,6 +589,7 @@ COMPOSE_KINDS = {
                                "current_text"}),
     "commits": frozenset({"previous_diff", "diff_text"}),
     "ioc": frozenset({"entries", "diff_text", "package", "current_text"}),
+    "graph": frozenset({"diff_text", "current_text", "tree_manifest"}),
     "package_text": frozenset({"package", "old_pkgbuild", "new_pkgbuild",
                                "maintainer", "srcinfo",
                                "upstream_scan_notes"}),

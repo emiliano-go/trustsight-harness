@@ -114,3 +114,8 @@ cells:
   payload_path: fixtures/lane/compose/w015.json
   expect_fire:
   - W015
+- id: H084-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h084.json
+  expect_fire:
+  - H084

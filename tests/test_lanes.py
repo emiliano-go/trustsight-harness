@@ -9,7 +9,7 @@ from harness.lanes import LANES, UNREACHABLE, lane_of, rules_by_lane
 #: Pinned sizes.  A new rule, or a rule moved between lanes, must update this
 #: table deliberately; silently absorbing a drift is how coverage rots.
 EXPECTED_SIZES = {
-    "static": 213,
+    "static": 212,
     "artifact": 11,
     "upstream": 9,
     "warm": 3,
@@ -17,7 +17,7 @@ EXPECTED_SIZES = {
     "cycle": 27,
     "correlation": 16,
     "meta": 7,
-    "compose": 23,
+    "compose": 24,
 }
 
 
@@ -53,5 +53,5 @@ def test_every_non_static_rule_is_reported_unreachable():
     non_static = {rule for name, rules in rules_by_lane().items()
                   if name != "static" for rule in rules}
     assert set(UNREACHABLE) == non_static
-    assert len(UNREACHABLE) == 101
+    assert len(UNREACHABLE) == 102
     assert all(reason.startswith("needs the ") for reason in UNREACHABLE.values())

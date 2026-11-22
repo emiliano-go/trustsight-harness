@@ -1,20 +1,20 @@
 {
-  "attempts": 23,
+  "attempts": 24,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.143117
+      0.137976
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 23,
+    "denominator_value": 24,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-compose",
-  "campaign_commit": "7c31fc4114fb98f1c4d9d77efab67f0cf7dbe0f3",
+  "campaign_commit": "c732f3afd20d72bba357a319ad2fe208d3dbd903",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 284
+    "wall_clock_ms": 292
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -60,6 +60,7 @@
     "C006",
     "C027",
     "C032",
+    "H084",
     "H090",
     "C006",
     "C027",
@@ -440,10 +441,24 @@
       "lane": "compose",
       "score": 30,
       "threshold": 20
+    },
+    {
+      "cell": "H084-positive",
+      "expected": [
+        "H084"
+      ],
+      "fired": [
+        "H084"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 23,
+    "cells": 24,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -458,7 +473,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 23,
+    "detected": 24,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -470,7 +485,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 23,
+    "cells": 24,
     "expected_rules": [
       "C006",
       "C027",
@@ -478,6 +493,7 @@
       "C006",
       "C027",
       "C032",
+      "H084",
       "H090",
       "C006",
       "C027",
@@ -523,6 +539,7 @@
       "H056",
       "H066",
       "H070",
+      "H084",
       "H090",
       "H092",
       "H093",

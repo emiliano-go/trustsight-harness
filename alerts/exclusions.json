@@ -1,12 +1,6 @@
 {
   "note": "Rules the harness deliberately does not reproduce, each with the entry point the watcher path owns and why a committed fixture cannot stand in for it. Every exclusion is checked against the live emitter by tests/test_alerts.py.",
   "rules": {
-    "H084": {
-      "emitter": "analysis.persistence_engine.emit_service_binary",
-      "evidence": "compose lane cannot call it: the function's only argument is the graph context, and the rule reads the graph's nodes, not a text or a finding list",
-      "lane": "static",
-      "reason": "takes a GraphContext assembled by the full-AUR persistence engine (service unit -> binary -> source graph); a committed fixture would have to reconstruct the graph the engine builds"
-    },
     "R017": {
       "emitter": "config/_default_rules.py (pattern chmod.*\\+s)",
       "evidence": "tested chmod +s tool, g+s dir, u+s /usr/lib/x.so, o+s x and +s \"$pkgdir/...\": each fired R053 or R059, never R017",
@@ -15,7 +9,7 @@
     },
     "U015": {
       "emitter": "analysis.upstream_release._manifest_matches",
-      "evidence": "the upstream lane's federated kind injects repo matches, but U015 reads _manifest_matches, a separate signed store",
+      "evidence": "the compose lane seeded an unsigned baseline and _manifest_matches returned the row in-process, but the analysis worker's IOC store is a separate database, so the seeded row is invisible there",
       "lane": "upstream",
       "reason": "needs a signed federation manifest observation for the release; the harness has no key material to produce one, and an unsigned stand-in would measure the fixture rather than the rule"
     }
