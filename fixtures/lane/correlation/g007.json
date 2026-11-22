@@ -1,0 +1,28 @@
+{
+  "added_urls": [
+    "https://campaign.example/x"
+  ],
+  "kinds": [
+    "g007"
+  ],
+  "package": "member",
+  "records": [
+    {
+      "maintainer": "m",
+      "package": "member"
+    }
+  ],
+  "seed_campaigns": [
+    {
+      "id": "c2",
+      "scope": {
+        "hosts": [
+          "campaign.example"
+        ],
+        "package_names": [
+          "member"
+        ]
+      }
+    }
+  ]
+}

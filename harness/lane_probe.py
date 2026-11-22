@@ -74,6 +74,45 @@ def _correlation(payload: dict) -> list[dict]:
         config.setdefault("thresholds", {}).setdefault("g009", {})[
             "path"] = str(path)
         out.extend(watchlisted_maintainer(records, config))
+    if "g010" in kinds:
+        from trustsight.contacts import shared_first_seen_host
+
+        out.extend(shared_first_seen_host(
+            records, int(payload.get("min_packages", 5))))
+    if "g006" in kinds or "g007" in kinds:
+        from trustsight import db
+
+        for campaign in payload.get("seed_campaigns") or ():
+            db.activate_campaign(str(campaign["id"]),
+                                 campaign.get("scope") or {},
+                                 source="harness-lane")
+    if "g006" in kinds:
+        from trustsight.full_aur._pipeline_helpers import _neighborhood_elevation
+
+        out.extend(_neighborhood_elevation(records))
+    if "g007" in kinds:
+        from trustsight.analysis.pipeline._analyze_helpers import (
+            _campaign_corroboration,
+        )
+
+        _, breakdown, _ = _campaign_corroboration(
+            0, [], str(payload.get("package", "")),
+            payload.get("added_urls") or ())
+        for entry in breakdown:
+            rule_id = (entry.get("rule_id") if isinstance(entry, dict)
+                       else getattr(entry, "rule_id", ""))
+            if rule_id != "G007":
+                continue
+            evidence = (entry.get("evidence") if isinstance(entry, dict)
+                        else getattr(entry, "evidence", None))
+            out.append({
+                "rule_id": "G007",
+                "name": "Campaign Corroboration",
+                "severity": "INFO", "category": "correlation",
+                "match": (entry.get("reason") if isinstance(entry, dict)
+                          else getattr(entry, "reason", "")),
+                "params": dict(evidence or {}),
+            })
     if "g011" in kinds:
         out.extend(package_creation_burst(records, config))
     if "g015" in kinds:
@@ -256,7 +295,8 @@ PAYLOAD_KEYS = {
     "artifact": frozenset({"manifest", "declared"}),
     "correlation": frozenset({
         "records", "kinds", "seed_transitions", "watchlist", "history",
-        "pushes"}),
+        "pushes", "seed_campaigns", "package", "added_urls",
+        "min_packages"}),
     "warm": frozenset().union(*WARM_KINDS.values()) | {"kind"},
     "meta": frozenset({"triggered", "claims", "rules", "pressure",
                        "cofire_pairs"}),

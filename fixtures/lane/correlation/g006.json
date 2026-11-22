@@ -1,0 +1,27 @@
+{
+  "kinds": [
+    "g006"
+  ],
+  "records": [
+    {
+      "hosts_gained": [
+        "campaign.example"
+      ],
+      "maintainer": "m",
+      "package": "alpha"
+    }
+  ],
+  "seed_campaigns": [
+    {
+      "id": "c1",
+      "scope": {
+        "hosts": [
+          "campaign.example"
+        ],
+        "package_names": [
+          "member"
+        ]
+      }
+    }
+  ]
+}

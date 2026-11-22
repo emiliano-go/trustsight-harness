@@ -1,20 +1,20 @@
 {
-  "attempts": 10,
+  "attempts": 13,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.277533
+      0.228095
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 10,
+    "denominator_value": 13,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-correlation",
-  "campaign_commit": "9cd9d877f27b80eb07f867b6f1248e0ed685fe5b",
+  "campaign_commit": "c65961eec78de04ef51db399a81572f0ee5f1640",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 74
+    "wall_clock_ms": 95
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -217,10 +217,53 @@
       "lane": "correlation",
       "score": 15,
       "threshold": 20
+    },
+    {
+      "cell": "G006-positive",
+      "expected": [
+        "G006"
+      ],
+      "fired": [
+        "G006"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "G007-positive",
+      "expected": [
+        "G007"
+      ],
+      "fired": [
+        "G007"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "G010-positive",
+      "expected": [
+        "G010"
+      ],
+      "fired": [
+        "G001",
+        "G010"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 25,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 10,
+    "cells": 13,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -235,7 +278,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 10,
+    "detected": 13,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -247,7 +290,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 10,
+    "cells": 13,
     "expected_rules": [
       "G001",
       "G002",
@@ -272,8 +315,11 @@
       "G003",
       "G004",
       "G005",
+      "G006",
+      "G007",
       "G008",
       "G009",
+      "G010",
       "G011",
       "G012",
       "G013",

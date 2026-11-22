@@ -1,7 +1,7 @@
 {
   "alertable": 302,
   "max_missing_classes": 1,
-  "max_missing_rules": 99,
+  "max_missing_rules": 96,
   "missing_classes": [
     "refusal"
   ],
@@ -22,9 +22,6 @@
     "D001",
     "D002",
     "D005",
-    "G006",
-    "G007",
-    "G010",
     "H005",
     "H006",
     "H007",
