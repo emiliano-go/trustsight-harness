@@ -23,24 +23,47 @@ def test_a_registered_lane_returns_its_findings(monkeypatch):
 
 
 def test_every_payload_key_is_read_by_its_entry_point():
+    from trustsight.analysis.adoption import adoption_findings
     from trustsight.analysis.correlation import correlate
+    from trustsight.analysis.longitudinal import longitudinal_findings
     from trustsight.analysis.meta import (
         campaign_reactivation_notes,
         cofire_absence,
         licensor_absent,
         m_series_findings,
     )
+    from trustsight.full_aur.graph import run_graph_sweep
     from trustsight.full_aur.temporal_engine import run_corpus_sweep
 
     readers = {
         "correlation": (correlate, lane_probe.PAYLOAD_KEYS["correlation"]),
-        "cycle": (run_corpus_sweep, lane_probe.PAYLOAD_KEYS["cycle"]),
+        "temporal": (run_corpus_sweep, lane_probe.CYCLE_KINDS["temporal"]),
+        "graph": (run_graph_sweep, lane_probe.CYCLE_KINDS["graph"]),
     }
     for lane, (function, keys) in readers.items():
         params = inspect.signature(function).parameters
         for key in keys:
             assert key in params or any(p.kind is p.VAR_KEYWORD
                                         for p in params.values()), (lane, key)
+    # The cycle kinds name their own entry point, so each key is checked
+    # against the function that actually reads it.
+    longitudinal = {
+        "diff_text": "diff_text", "package": "package_name",
+        "breaks": "breaks", "current_text": "current_text",
+    }
+    adoption = {
+        "diff_text": "diff_text", "package": "package_name",
+        "was_orphaned": "was_orphaned",
+        "currently_maintained": "currently_maintained",
+        "pkgver_moved": "pkgver_moved", "current_text": "current_text",
+    }
+    for kind, mapping, function in (
+            ("longitudinal", longitudinal, longitudinal_findings),
+            ("adoption", adoption, adoption_findings)):
+        assert set(mapping) == set(lane_probe.CYCLE_KINDS[kind]), kind
+        params = inspect.signature(function).parameters
+        for key, parameter in mapping.items():
+            assert parameter in params, (kind, key)
     # meta composes four entry points, so each key is checked against the
     # one that reads it rather than against a single signature.
     meta_readers = {

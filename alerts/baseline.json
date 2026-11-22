@@ -1,7 +1,7 @@
 {
-  "alertable": 303,
+  "alertable": 302,
   "max_missing_classes": 1,
-  "max_missing_rules": 120,
+  "max_missing_rules": 116,
   "missing_classes": [
     "refusal"
   ],
@@ -47,15 +47,11 @@
     "H020",
     "H021",
     "H022",
-    "H028",
     "H029",
     "H042",
-    "H045",
     "H047",
     "H048",
-    "H052",
     "H053",
-    "H055",
     "H056",
     "H058",
     "H059",

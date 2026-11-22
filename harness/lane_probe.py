@@ -20,8 +20,8 @@ from .recorder import Recorder, Trace
 from .status import Status
 
 __all__ = [
-    "LANE_RUNNERS",
     "CYCLE_KINDS",
+    "LANE_RUNNERS",
     "PAYLOAD_KEYS",
     "UPSTREAM_KINDS",
     "run_lane_probe",

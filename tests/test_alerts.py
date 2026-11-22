@@ -36,9 +36,16 @@ def test_every_alert_class_declares_a_reproducer_slot():
     assert set(CLASS_REPRODUCERS) == set(ALERT_CLASSES)
 
 
+def test_rules_with_no_emitter_are_not_alertable():
+    from harness.alerts import NON_ALERTING
+
+    assert NON_ALERTING == frozenset({"H028"})
+    assert not (alertable_rules() & NON_ALERTING)
+
+
 def test_artifact_rules_cannot_alert():
     assert not (alertable_rules() & LANES["artifact"].rules)
-    assert len(alertable_rules()) == 303
+    assert len(alertable_rules()) == 302
 
 
 def test_the_missing_rule_set_never_grows():
@@ -102,6 +109,6 @@ def test_the_live_alert_document_still_carries_every_class():
 
 def test_the_ledger_names_every_class_and_rule():
     out = ledger(ROOT)
-    assert len(out["alertable"]) == 303
+    assert len(out["alertable"]) == 302
     assert set(out["classes"]) == set(ALERT_CLASSES)
     assert out["missing"] == sorted(missing_rules(ROOT))

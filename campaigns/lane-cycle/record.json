@@ -1,20 +1,20 @@
 {
-  "attempts": 16,
+  "attempts": 19,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.193608
+      0.168179
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 16,
+    "denominator_value": 19,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-cycle",
-  "campaign_commit": "760b6e8fbcf20dd3810c8194d295f188cc105087",
+  "campaign_commit": "6400c09f8b6cf8d3e7913b915c766a6dfe28cb1d",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 116
+    "wall_clock_ms": 114
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -311,10 +311,52 @@
       "lane": "cycle",
       "score": 55,
       "threshold": 20
+    },
+    {
+      "cell": "H045-positive",
+      "expected": [
+        "H045"
+      ],
+      "fired": [
+        "H045"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H052-positive",
+      "expected": [
+        "H052"
+      ],
+      "fired": [
+        "H052"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H055-positive",
+      "expected": [
+        "H055"
+      ],
+      "fired": [
+        "H055"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 15,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 16,
+    "cells": 19,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -329,7 +371,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 16,
+    "detected": 19,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -341,7 +383,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 16,
+    "cells": 19,
     "expected_rules": [
       "H026",
       "H028",
@@ -374,11 +416,14 @@
       "H026",
       "H037",
       "H044",
+      "H045",
       "H046",
       "H049",
       "H050",
       "H051",
+      "H052",
       "H054",
+      "H055",
       "H057",
       "H060",
       "H061",

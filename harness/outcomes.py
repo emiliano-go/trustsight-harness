@@ -15,6 +15,7 @@ from pathlib import Path
 from trustsight.contract import rule_ids
 
 from .alerts import ledger as alert_ledger
+from .bounded import MAX_ARTIFACT_BYTES, BoundedReadError, read_json_capped
 from .lanes import LANES, lane_of
 
 __all__ = ["build_outcomes"]
@@ -47,8 +48,8 @@ def build_outcomes(repo_root: Path) -> dict:
     }
     for path in sorted((repo_root / "campaigns").glob("*/record.json")):
         try:
-            record = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+            record = read_json_capped(path, MAX_ARTIFACT_BYTES, "record.json")
+        except (OSError, BoundedReadError, json.JSONDecodeError):
             continue
         version = str((record.get("environment") or {}).get(
             "trustsight_version", ""))

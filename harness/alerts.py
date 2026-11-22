@@ -18,6 +18,7 @@ from pathlib import Path
 
 from trustsight.contract import rule_ids
 
+from .bounded import MAX_ARTIFACT_BYTES, BoundedReadError, read_json_capped
 from .lanes import LANES
 
 __all__ = [
@@ -31,6 +32,11 @@ __all__ = [
     "missing_classes",
     "missing_rules",
 ]
+
+#: Contract rules that never become a report finding, so they cannot reach
+#: an alert document.  H028 is a metadata flag on the fact (see
+#: trusttemporal_engine.PER_PACKAGE_INSTANCES: "never a scored finding").
+NON_ALERTING: frozenset[str] = frozenset({"H028"})
 
 #: Every section of the alert document that carries a rule claim.
 ALERT_CLASSES: dict[str, frozenset[str]] = {
@@ -83,7 +89,7 @@ def alertable_rules() -> frozenset[str]:
     Artifact rules read a built package the watcher never builds, so they
     cannot alert.  Everything else can appear on a package.
     """
-    return frozenset(rule_ids()) - LANES["artifact"].rules
+    return frozenset(rule_ids()) - LANES["artifact"].rules - NON_ALERTING
 
 
 def _record_paths(repo_root: Path) -> list[Path]:
@@ -95,8 +101,8 @@ def fired_rules(repo_root: Path) -> frozenset[str]:
     fired: set[str] = set()
     for path in _record_paths(repo_root):
         try:
-            record = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+            record = read_json_capped(path, MAX_ARTIFACT_BYTES, "record.json")
+        except (OSError, BoundedReadError, json.JSONDecodeError):
             continue
         probe = record.get("probe") or {}
         fired.update(rule for rule in (probe.get("fired_rules") or ()) if rule)
@@ -121,8 +127,9 @@ def _class_covered(name: str, repo_root: Path, fired: frozenset[str]) -> bool:
         return bool(fired)
     if name == "ioc_match":
         try:
-            record = json.loads(record_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+            record = read_json_capped(record_path, MAX_ARTIFACT_BYTES,
+                                      "record.json")
+        except (OSError, BoundedReadError, json.JSONDecodeError):
             return False
         return bool((record.get("environment") or {}).get("ioc_baseline"))
     return bool(ALERT_CLASSES[name] & fired)
