@@ -40,6 +40,7 @@ UNREACHABLE = {
     "H087": "needs a recorded prior upstream state",
     "H088": "needs H086 and H087 recorded state",
     "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
+    "A016": "needs paired release-asset and tag inventories from the opt-in upstream lane; analyze_text never produces them",
 }
 
 def _campaigns(repo_root: Path) -> list[dict]:

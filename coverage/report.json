@@ -1,8 +1,8 @@
 {
   "by_category": {
     "artifact": {
-      "targeted": 15,
-      "total": 15,
+      "targeted": 16,
+      "total": 16,
       "untargeted": []
     },
     "composition": {
@@ -41,8 +41,8 @@
       "untargeted": []
     },
     "fetch-and-execution": {
-      "targeted": 40,
-      "total": 40,
+      "targeted": 41,
+      "total": 41,
       "untargeted": []
     },
     "indicator": {
@@ -86,8 +86,8 @@
       "untargeted": []
     },
     "sabotage": {
-      "targeted": 8,
-      "total": 8,
+      "targeted": 10,
+      "total": 10,
       "untargeted": []
     },
     "staging-and-recon": {
@@ -1260,6 +1260,22 @@
       ]
     },
     {
+      "campaign": "rule-probes-gaps",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "A016",
+        "H109",
+        "S009",
+        "S010"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "H109",
+        "S009",
+        "S010"
+      ]
+    },
+    {
       "campaign": "rule-probes-h",
       "campaign_type": "rule-probe",
       "expected_rules": [
@@ -1991,6 +2007,7 @@
       "A013",
       "A014",
       "A015",
+      "A016",
       "C006",
       "C008",
       "C009",
@@ -2152,7 +2169,7 @@
       "X030",
       "X031"
     ],
-    "positive_targeted": 153,
+    "positive_targeted": 156,
     "positive_untargeted_ids": [
       "A009",
       "A010",
@@ -2161,6 +2178,7 @@
       "A013",
       "A014",
       "A015",
+      "A016",
       "C006",
       "C008",
       "C009",
@@ -2322,8 +2340,8 @@
       "X030",
       "X031"
     ],
-    "targeted": 320,
-    "total": 320,
+    "targeted": 324,
+    "total": 324,
     "unknown_expected_rules": [],
     "untargeted": 0,
     "untargeted_ids": []
@@ -2348,6 +2366,7 @@
     "write_then_exec"
   ],
   "unreachable_ids": [
+    "A016",
     "H026",
     "H043",
     "H044",
@@ -2361,6 +2380,7 @@
     "H088"
   ],
   "unreachable_reasons": {
+    "A016": "needs paired release-asset and tag inventories from the opt-in upstream lane; analyze_text never produces them",
     "H026": "needs a prior maintainer snapshot (corpus path)",
     "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
     "H044": "needs a prior ownership snapshot (corpus path)",
