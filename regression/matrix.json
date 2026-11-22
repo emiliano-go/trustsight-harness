@@ -49,6 +49,54 @@
       "state": "unproven"
     },
     {
+      "cells": [],
+      "hardened": false,
+      "rule": "A009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A015",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "A016",
+      "state": "unproven"
+    },
+    {
       "cells": [
         {
           "degraded": false,
@@ -145,10 +193,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "C015",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -255,6 +315,24 @@
     {
       "cells": [],
       "hardened": false,
+      "rule": "C033",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C034",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "C035",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
       "rule": "D001",
       "state": "unproven"
     },
@@ -274,6 +352,12 @@
       "cells": [],
       "hardened": false,
       "rule": "D004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "D005",
       "state": "unproven"
     },
     {
@@ -339,8 +423,68 @@
     {
       "cells": [],
       "hardened": false,
-      "rule": "H001",
+      "rule": "G008",
       "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "G015",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
+      "hardened": false,
+      "rule": "H001",
+      "state": "open"
     },
     {
       "cells": [],
@@ -757,10 +901,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "H069",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -775,10 +931,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "H072",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -805,10 +973,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "H077",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -913,10 +1093,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "H091",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -993,6 +1185,42 @@
     {
       "cells": [],
       "hardened": false,
+      "rule": "H104",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H105",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H106",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H107",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H108",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "H109",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
       "rule": "M001",
       "state": "unproven"
     },
@@ -1021,22 +1249,10 @@
       "state": "unproven"
     },
     {
-      "cells": [
-        {
-          "degraded": false,
-          "duplicates": 0,
-          "observations": [],
-          "patch_status": "verified",
-          "shape": [
-            "unshaped"
-          ],
-          "spend_usd": 0,
-          "state": "closed"
-        }
-      ],
-      "hardened": true,
-      "rule": "R001",
-      "state": "hardened"
+      "cells": [],
+      "hardened": false,
+      "rule": "M006",
+      "state": "unproven"
     },
     {
       "cells": [
@@ -1044,6 +1260,17 @@
           "degraded": false,
           "duplicates": 0,
           "observations": [],
+          "patch_status": "",
+          "shape": [
+            "X009:uncatalogued fetch to a shell"
+          ],
+          "spend_usd": 0,
+          "state": "open"
+        },
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
           "patch_status": "verified",
           "shape": [
             "unshaped"
@@ -1052,9 +1279,38 @@
           "state": "closed"
         }
       ],
-      "hardened": true,
+      "hardened": false,
+      "rule": "R001",
+      "state": "open"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "X009:uncatalogued fetch to a shell"
+          ],
+          "spend_usd": 0,
+          "state": "open"
+        },
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "verified",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "closed"
+        }
+      ],
+      "hardened": false,
       "rule": "R002",
-      "state": "hardened"
+      "state": "open"
     },
     {
       "cells": [],
@@ -1075,10 +1331,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "R010",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -1329,6 +1597,18 @@
     {
       "cells": [],
       "hardened": false,
+      "rule": "S009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "S010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
       "rule": "T001",
       "state": "unproven"
     },
@@ -1342,6 +1622,60 @@
       "cells": [],
       "hardened": false,
       "rule": "T003",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T004",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T005",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T006",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T007",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "T012",
       "state": "unproven"
     },
     {
@@ -1383,8 +1717,74 @@
     {
       "cells": [],
       "hardened": false,
-      "rule": "W001",
+      "rule": "U007",
       "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U008",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U009",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "U015",
+      "state": "unproven"
+    },
+    {
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
+      "hardened": false,
+      "rule": "W001",
+      "state": "open"
     },
     {
       "cells": [],
@@ -1438,6 +1838,36 @@
       "cells": [],
       "hardened": false,
       "rule": "W010",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W011",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W012",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W013",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W014",
+      "state": "unproven"
+    },
+    {
+      "cells": [],
+      "hardened": false,
+      "rule": "W015",
       "state": "unproven"
     },
     {
@@ -1513,10 +1943,22 @@
       "state": "unproven"
     },
     {
-      "cells": [],
+      "cells": [
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
+          "patch_status": "",
+          "shape": [
+            "unshaped"
+          ],
+          "spend_usd": 0,
+          "state": "unshaped"
+        }
+      ],
       "hardened": false,
       "rule": "X011",
-      "state": "unproven"
+      "state": "open"
     },
     {
       "cells": [],
@@ -1548,6 +1990,17 @@
           "degraded": false,
           "duplicates": 0,
           "observations": [],
+          "patch_status": "",
+          "shape": [
+            "X009:uncatalogued fetch to a shell"
+          ],
+          "spend_usd": 0,
+          "state": "open"
+        },
+        {
+          "degraded": false,
+          "duplicates": 0,
+          "observations": [],
           "patch_status": "verified",
           "shape": [
             "unshaped"
@@ -1556,9 +2009,9 @@
           "state": "closed"
         }
       ],
-      "hardened": true,
+      "hardened": false,
       "rule": "X016",
-      "state": "hardened"
+      "state": "open"
     },
     {
       "cells": [],
@@ -1671,10 +2124,10 @@
   ],
   "summary": {
     "degraded_cells": 0,
-    "hardened": 9,
-    "open": 0,
-    "rules": 260,
-    "unproven": 251
+    "hardened": 6,
+    "open": 12,
+    "rules": 312,
+    "unproven": 294
   },
-  "trustsight_version": "0.21.0"
+  "trustsight_version": "0.30.0"
 }
