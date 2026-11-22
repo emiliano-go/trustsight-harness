@@ -1,20 +1,20 @@
 {
-  "attempts": 103,
+  "attempts": 104,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.035955
+      0.035621
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 103,
+    "denominator_value": 104,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-h",
-  "campaign_commit": "84898c423a04e1a387a55a8b4fb8393f1ea08f30",
+  "campaign_commit": "2e807712f0cc0654409d9874e62e58ccfc186887",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 18907
+    "wall_clock_ms": 18850
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -79,12 +79,15 @@
     "H041",
     "H042",
     "H043",
+    "H056",
     "H062",
     "H063",
     "H065",
+    "H066",
     "H067",
     "H068",
     "H069",
+    "H071",
     "H072",
     "H075",
     "H076",
@@ -98,7 +101,9 @@
     "H085",
     "H087",
     "H089",
+    "H090",
     "H091",
+    "H093",
     "H095",
     "H096",
     "H097",
@@ -110,7 +115,7 @@
   ],
   "flag_ledger": [],
   "generator": {
-    "cells": 103,
+    "cells": 104,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -125,7 +130,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 81,
+    "detected": 82,
     "duplicate": 0,
     "fail_closed_catch": 22,
     "harness_error": 0,
@@ -137,7 +142,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 103,
+    "cells": 104,
     "expected_rules": [
       "H001",
       "H002",
@@ -164,12 +169,15 @@
       "H041",
       "H042",
       "H043",
+      "H056",
       "H062",
       "H063",
       "H065",
+      "H066",
       "H067",
       "H068",
       "H069",
+      "H071",
       "H072",
       "H075",
       "H076",
@@ -183,7 +191,9 @@
       "H085",
       "H087",
       "H089",
+      "H090",
       "H091",
+      "H093",
       "H095",
       "H096",
       "H097",
@@ -236,6 +246,7 @@
       "H067",
       "H068",
       "H069",
+      "H071",
       "H072",
       "H075",
       "H076",
@@ -294,9 +305,14 @@
     ],
     "missing_rules": [],
     "negative_failures": [],
-    "unattempted_rules": []
+    "unattempted_rules": [
+      "H056",
+      "H066",
+      "H090",
+      "H093"
+    ]
   },
-  "stop_reason": "103 raw-diff cells exhausted",
+  "stop_reason": "104 raw-diff cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": ""

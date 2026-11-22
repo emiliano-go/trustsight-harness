@@ -1,0 +1,10 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,5 +1,12 @@
++pkgname=p
++pkgver=1
++source=(fix.patch)
++sha256sums=('SKIP')
++prepare() {
++  patch -Np1 -i "$srcdir/fix.patch"
++}

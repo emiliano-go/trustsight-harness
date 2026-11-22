@@ -12,5 +12,7 @@ prompt:
   expected_rules:
   - D003
   - D004
+  - D001
+  - D002
   forbidden_techniques: {}
 attempts: 4

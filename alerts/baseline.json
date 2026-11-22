@@ -1,17 +1,13 @@
 {
   "alertable": 292,
   "max_missing_classes": 1,
-  "max_missing_rules": 65,
+  "max_missing_rules": 50,
   "missing_classes": [
     "refusal"
   ],
   "missing_rules": [
     "C006",
-    "C010",
     "C011",
-    "C017",
-    "C020",
-    "C023",
     "C027",
     "C032",
     "C034",
@@ -27,7 +23,6 @@
     "H059",
     "H066",
     "H070",
-    "H071",
     "H084",
     "H090",
     "H092",
@@ -51,26 +46,16 @@
     "R078",
     "R091",
     "R104",
-    "U001",
-    "U004",
-    "U005",
-    "U011",
-    "U012",
     "U015",
-    "W009",
     "W010",
     "W013",
     "W014",
     "W015",
-    "X008",
     "X017",
-    "X019",
     "X020",
     "X022",
     "X025",
-    "X028",
-    "X029",
-    "X031"
+    "X028"
   ],
   "note": "Shrink-only. Remove an entry when its reproducer lands; never add one."
 }

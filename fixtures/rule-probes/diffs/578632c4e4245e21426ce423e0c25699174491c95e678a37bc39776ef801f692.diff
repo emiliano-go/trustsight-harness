@@ -1,0 +1,5 @@
+-pkgver=26.07.07
++pkgver=26.08.26
+ url="https://github.com/kwsch/PKHeX"
+-source=('https://downloads.dfagaming.nl/PKHeX-26.07.07.tar.gz')
++source=('https://downloads.iusearchbtw.nl/PKHeX-26.08.26.tar.gz')

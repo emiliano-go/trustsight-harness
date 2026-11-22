@@ -407,10 +407,11 @@ cells:
   path: fixtures/rule-probes/diffs/91a7fb5913fe9fa14b2882a018963412fc59d110a52d82e93b6fa7f635998c9b.diff
   expect_fire:
   - H071
-  path: fixtures/rule-probes/diffs/4a73d55585595a487a780ada6a1d89bddf904f573118c2b65aff405a216d0745.diff
-  expect_fire:
-  - H095
 - id: H106-positive
   path: fixtures/rule-probes/diffs/84565a5829baf75c7d02dfe329db70f4c00b2b79f9f7f914e5a0205d6bec3e16.diff
   expect_fire:
   - H106
+- id: H095-positive
+  path: fixtures/rule-probes/diffs/4a73d55585595a487a780ada6a1d89bddf904f573118c2b65aff405a216d0745.diff
+  expect_fire:
+  - H095

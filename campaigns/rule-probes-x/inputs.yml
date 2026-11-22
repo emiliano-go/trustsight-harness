@@ -179,3 +179,19 @@ cells:
   path: fixtures/rule-probes/diffs/7de73a6c86473b64b4a02acb2d9c66ba56e4389ad483893b76afa77e511bfe4c.diff
   expect_fire:
   - X030
+- id: X008-positive
+  path: fixtures/rule-probes/diffs/c84b9aa4735cf4ac60efa9a7672e2852f03648ac7bc4ff18b3cde2b1a7be50a0.diff
+  expect_fire:
+  - X008
+- id: X019-positive
+  path: fixtures/rule-probes/diffs/ba97949c95da7b9beeec218f35ef648304fd962ec857a4b8424b1a688289a931.diff
+  expect_fire:
+  - X019
+- id: X029-positive
+  path: fixtures/rule-probes/diffs/9869069038d93838bbbc6475da346a29da15eff4953de8b52bc23f696729f8e6.diff
+  expect_fire:
+  - X029
+- id: X031-positive
+  path: fixtures/rule-probes/diffs/74faf13d89f3f6a2ac595b51df6a2f01dfb39c415285e3ef772975c339ff0394.diff
+  expect_fire:
+  - X031

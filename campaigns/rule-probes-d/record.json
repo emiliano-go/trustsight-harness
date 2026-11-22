@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-d",
-  "campaign_commit": "84898c423a04e1a387a55a8b4fb8393f1ea08f30",
+  "campaign_commit": "2e807712f0cc0654409d9874e62e58ccfc186887",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1450
+    "wall_clock_ms": 1412
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -54,6 +54,8 @@
     "trustsight_version": "0.30.0"
   },
   "expected_rules": [
+    "D001",
+    "D002",
     "D003",
     "D004"
   ],
@@ -88,6 +90,8 @@
   "probe": {
     "cells": 4,
     "expected_rules": [
+      "D001",
+      "D002",
       "D003",
       "D004"
     ],
@@ -118,7 +122,10 @@
     ],
     "missing_rules": [],
     "negative_failures": [],
-    "unattempted_rules": []
+    "unattempted_rules": [
+      "D001",
+      "D002"
+    ]
   },
   "stop_reason": "",
   "validator": {
