@@ -1,20 +1,20 @@
 {
-  "attempts": 16,
+  "attempts": 17,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.193608
+      0.184318
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 16,
+    "denominator_value": 17,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-s",
-  "campaign_commit": "",
+  "campaign_commit": "c857f74af8ec6f2746db4a2422845808ebfbf7a6",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 2511
+    "wall_clock_ms": 2788
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -61,10 +61,12 @@
     "S005",
     "S006",
     "S007",
-    "S008"
+    "S008",
+    "S011"
   ],
+  "flag_ledger": [],
   "generator": {
-    "cells": 16,
+    "cells": 17,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -79,7 +81,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 15,
+    "detected": 16,
     "duplicate": 0,
     "fail_closed_catch": 1,
     "harness_error": 0,
@@ -91,7 +93,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 16,
+    "cells": 17,
     "expected_rules": [
       "S001",
       "S002",
@@ -100,7 +102,8 @@
       "S005",
       "S006",
       "S007",
-      "S008"
+      "S008",
+      "S011"
     ],
     "fired_rules": [
       "C024",
@@ -120,7 +123,8 @@
       "S005",
       "S006",
       "S007",
-      "S008"
+      "S008",
+      "S011"
     ],
     "missing_rules": [],
     "negative_failures": []

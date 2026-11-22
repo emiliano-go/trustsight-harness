@@ -9,7 +9,7 @@ from harness.lanes import LANES, UNREACHABLE, lane_of, rules_by_lane
 #: Pinned sizes.  A new rule, or a rule moved between lanes, must update this
 #: table deliberately; silently absorbing a drift is how coverage rots.
 EXPECTED_SIZES = {
-    "static": 236,
+    "static": 237,
     "artifact": 11,
     "upstream": 9,
     "warm": 3,

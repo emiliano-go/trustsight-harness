@@ -63,3 +63,7 @@ cells:
   path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
   expect_absent:
   - S008
+- id: S011-positive
+  path: fixtures/rule-probes/diffs/5ce747aa315254f6c4af5b538dc4def72e85dd50e241bd7c6cac703877cb2994.diff
+  expect_fire:
+  - S011

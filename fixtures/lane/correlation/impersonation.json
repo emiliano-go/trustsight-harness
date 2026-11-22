@@ -1,0 +1,19 @@
+{
+  "records": [
+    {
+      "impersonated_target": "bar",
+      "maintainer": "evil",
+      "package": "bar"
+    },
+    {
+      "impersonated_target": "baz",
+      "maintainer": "evil",
+      "package": "baz"
+    },
+    {
+      "impersonated_target": "qux",
+      "maintainer": "evil",
+      "package": "qux"
+    }
+  ]
+}

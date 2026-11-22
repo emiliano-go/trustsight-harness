@@ -1,20 +1,20 @@
 {
-  "attempts": 2,
+  "attempts": 6,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.65762
+      0.390334
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 2,
+    "denominator_value": 6,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-correlation",
-  "campaign_commit": "dcf1a041024884755a0c5d7cc8c79407a6a853ad",
+  "campaign_commit": "c857f74af8ec6f2746db4a2422845808ebfbf7a6",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 72
+    "wall_clock_ms": 96
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:46dd4f93943c2d9ee2c7f7bf0d19116caa027db7659b59a903c067b74208db0b",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -103,10 +103,68 @@
       "lane": "correlation",
       "score": 65,
       "threshold": 20
+    },
+    {
+      "cell": "G004-positive",
+      "expected": [
+        "G004"
+      ],
+      "fired": [
+        "G004"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "G005-positive",
+      "expected": [
+        "G005"
+      ],
+      "fired": [
+        "G005"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "G012-G013-positive",
+      "expected": [
+        "G012",
+        "G013"
+      ],
+      "fired": [
+        "G012",
+        "G013"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 50,
+      "threshold": 20
+    },
+    {
+      "cell": "G014-positive",
+      "expected": [
+        "G014"
+      ],
+      "fired": [
+        "G014"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 25,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 2,
+    "cells": 6,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -121,7 +179,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 2,
+    "detected": 6,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -133,7 +191,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 2,
+    "cells": 6,
     "expected_rules": [
       "G001",
       "G002",
@@ -156,6 +214,11 @@
       "G001",
       "G002",
       "G003",
+      "G004",
+      "G005",
+      "G012",
+      "G013",
+      "G014",
       "G016"
     ],
     "missing_rules": [],

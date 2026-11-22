@@ -18,5 +18,6 @@ prompt:
   - S006
   - S007
   - S008
+  - S011
   forbidden_techniques: {}
-attempts: 16
+attempts: 17

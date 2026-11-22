@@ -11,3 +11,24 @@ cells:
   - G001
   - G002
   - G003
+- id: G004-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/upstream-dep.json
+  expect_fire:
+  - G004
+- id: G005-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/impersonation.json
+  expect_fire:
+  - G005
+- id: G012-G013-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/payload-signals.json
+  expect_fire:
+  - G012
+  - G013
+- id: G014-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/adoption-window.json
+  expect_fire:
+  - G014
