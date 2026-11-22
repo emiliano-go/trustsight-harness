@@ -51,8 +51,8 @@ class RawDiffGenerator(Generator):
             if not isinstance(cell, dict):
                 raise ValueError(  # noqa: TRY004 - a config error, not a Python type error
                     f"cell {index} must be a mapping")
-            unknown = set(cell) - {"id", "diff", "path", "expect_fire",
-                                   "expect_absent"}
+            unknown = set(cell) - {"id", "diff", "path", "post_path",
+                                   "expect_fire", "expect_absent"}
             if unknown:
                 raise ValueError(f"cell {index}: unknown keys {sorted(unknown)}")
             cell_id = cell.get("id")
@@ -78,6 +78,18 @@ class RawDiffGenerator(Generator):
                 diff = inline
             if len(diff.encode("utf-8")) > MAX_DIFF_BYTES:
                 raise ValueError(f"cell {cell_id!r} exceeds {MAX_DIFF_BYTES} bytes")
+            post = None
+            post_rel = cell.get("post_path")
+            if post_rel is not None:
+                if not isinstance(post_rel, str) or not post_rel:
+                    raise ValueError(f"cell {cell_id!r}: post_path must be a "
+                                     "non-empty string")
+                if repo_root is None or resolve is None:
+                    raise ValueError(f"cell {cell_id!r}: post_path requires a "
+                                     "repository root")
+                post_source = resolve(repo_root, post_rel, "cell.post_path")
+                post = read_text_capped(post_source, MAX_DIFF_BYTES,
+                                        post_source.name)
             expect_fire = self._expect_list(cell, "expect_fire", cell_id)
             expect_absent = self._expect_list(cell, "expect_absent", cell_id)
             if set(expect_fire) & set(expect_absent):
@@ -86,7 +98,8 @@ class RawDiffGenerator(Generator):
             seen.add(cell_id)
             self._ids.append(cell_id)
             self._generated.append(Generated(
-                diff=diff, expect_fire=expect_fire, expect_absent=expect_absent))
+                diff=diff, post_pkgbuild=post, expect_fire=expect_fire,
+                expect_absent=expect_absent))
 
     @staticmethod
     def _expect_list(cell: dict, key: str, cell_id: str) -> tuple[str, ...]:

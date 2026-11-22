@@ -481,7 +481,8 @@ class Runner:
         return RunResult(report=ReportView(body), body=body, wall_clock_ms=wall)
 
     def analyze_diff(self, diff_text: str,
-                     package: str | None = None) -> RunResult:
+                     package: str | None = None,
+                     post_pkgbuild: str | None = None) -> RunResult:
         """Analyse a unified diff directly.
 
         Rule probes need the diff entry point: rules that read a second file
@@ -494,6 +495,7 @@ class Runner:
                 "op": "analyze_diff",
                 "text": diff_text,
                 "package": package or self._package,
+                "post_pkgbuild": post_pkgbuild,
             })
         body = reply["body"]
         wall = reply.get("wall_clock_ms",

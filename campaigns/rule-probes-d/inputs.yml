@@ -15,3 +15,8 @@ cells:
   path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
   expect_absent:
   - D004
+- id: D005-positive
+  path: fixtures/rule-probes/diffs/be5a73ea92eb2e6412aff54c7debc434d553e5f5557cb7b9855c41e9fa20290d.diff
+  post_path: fixtures/rule-probes/posts/be5a73ea92eb2e6412aff54c7debc434d553e5f5557cb7b9855c41e9fa20290d.PKGBUILD
+  expect_fire:
+  - D005

@@ -636,7 +636,9 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
             env.restore()
         try:
             if produced.new_text is None:
-                result = runner.analyze_diff(diff_text, package=config.package)
+                result = runner.analyze_diff(
+                    diff_text, package=config.package,
+                    post_pkgbuild=produced.post_pkgbuild)
             else:
                 result = runner.analyze(produced.new_text, produced.old_text)
         except (AnalysisTimeout, RunnerError) as exc:

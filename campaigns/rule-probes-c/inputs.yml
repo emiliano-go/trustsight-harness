@@ -203,3 +203,8 @@ cells:
   path: fixtures/rule-probes/diffs/0f26da7f6df14f84280f6e1d85b14c871c0622839d96551aab568fb216b6f185.diff
   expect_fire:
   - C016
+- id: C034-positive
+  path: fixtures/rule-probes/diffs/fddaefd9f0ed201304c3aa26730dc955ff04d7f9d139a67c735a1546698816bf.diff
+  post_path: fixtures/rule-probes/posts/fddaefd9f0ed201304c3aa26730dc955ff04d7f9d139a67c735a1546698816bf.PKGBUILD
+  expect_fire:
+  - C034

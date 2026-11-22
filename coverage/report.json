@@ -143,7 +143,7 @@
       "targeted": 5
     },
     "static": {
-      "firing": 168,
+      "firing": 170,
       "rules": 237,
       "targeted": 237
     },
@@ -1464,7 +1464,8 @@
         "C017",
         "C020",
         "C023",
-        "C027"
+        "C027",
+        "C034"
       ],
       "package": "harness-pkg",
       "positive_rules": [
@@ -1496,7 +1497,8 @@
         "C029",
         "C030",
         "C031",
-        "C033"
+        "C033",
+        "C034"
       ]
     },
     {
@@ -1506,12 +1508,14 @@
         "D003",
         "D004",
         "D001",
-        "D002"
+        "D002",
+        "D005"
       ],
       "package": "harness-pkg",
       "positive_rules": [
         "D003",
-        "D004"
+        "D004",
+        "D005"
       ]
     },
     {
@@ -1591,7 +1595,8 @@
         "H066",
         "H071",
         "H090",
-        "H093"
+        "H093",
+        "H084"
       ],
       "package": "harness-pkg",
       "positive_rules": [
@@ -2313,12 +2318,10 @@
       "C011",
       "C027",
       "C032",
-      "C034",
       "C035",
       "COVERAGE",
       "D001",
       "D002",
-      "D005",
       "E001",
       "E002",
       "E003",
@@ -2388,18 +2391,16 @@
       "X025",
       "X028"
     ],
-    "positive_targeted": 248,
+    "positive_targeted": 250,
     "positive_untargeted_ids": [
       "C006",
       "C011",
       "C027",
       "C032",
-      "C034",
       "C035",
       "COVERAGE",
       "D001",
       "D002",
-      "D005",
       "E001",
       "E002",
       "E003",

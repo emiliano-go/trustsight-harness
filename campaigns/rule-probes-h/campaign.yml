@@ -68,5 +68,6 @@ prompt:
   - H071
   - H090
   - H093
+  - H084
   forbidden_techniques: {}
 attempts: 106

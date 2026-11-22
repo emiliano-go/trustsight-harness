@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-h",
-  "campaign_commit": "2e807712f0cc0654409d9874e62e58ccfc186887",
+  "campaign_commit": "23172497257bdee64c362eb997545e67397e6ec8",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 18850
+    "wall_clock_ms": 18813
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -98,6 +98,7 @@
     "H081",
     "H082",
     "H083",
+    "H084",
     "H085",
     "H087",
     "H089",
@@ -188,6 +189,7 @@
       "H081",
       "H082",
       "H083",
+      "H084",
       "H085",
       "H087",
       "H089",
@@ -308,6 +310,7 @@
     "unattempted_rules": [
       "H056",
       "H066",
+      "H084",
       "H090",
       "H093"
     ]

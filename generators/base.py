@@ -81,6 +81,8 @@ class Generated:
     artifact: dict | None = None
     #: A lane probe cell: {"id": ..., "lane": ..., "payload": {...}}.
     lane_cell: dict | None = None
+    #: The complete post-diff PKGBUILD, when the fixture holds one.
+    post_pkgbuild: str | None = None
 
 
 class Generator(ABC):

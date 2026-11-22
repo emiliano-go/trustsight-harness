@@ -120,7 +120,8 @@ def main() -> int:
                     api = TrustSight()
                 started = time.perf_counter()
                 report = api.analyze_diff(
-                    req["text"], package=req.get("package", package))
+                    req["text"], package=req.get("package", package),
+                    post_pkgbuild=req.get("post_pkgbuild"))
                 _reply({"op": "analyzed",
                         "body": report.to_dict(include_score=True, verbose=True),
                         "wall_clock_ms": int((time.perf_counter() - started)
