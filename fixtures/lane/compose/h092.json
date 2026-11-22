@@ -1,0 +1,8 @@
+{
+  "kind": "package_text",
+  "maintainer": "Mallory <m@x>",
+  "new_pkgbuild": "pkgname=p\npkgver=1\ninstall=p.install\nsource=(\"https://b.example/y\")\nsha256sums=(\"bb\")\n",
+  "old_pkgbuild": "pkgname=p\npkgver=1\ninstall=p.install\nsource=(\"https://a.example/x\")\nsha256sums=(\"aa\")\n",
+  "package": "p",
+  "srcinfo": "pkgbase = p\n\tpkgver = 1\n\tsource = https://a.example/x\n\tsha256sums = aa\n"
+}

@@ -2,46 +2,22 @@
   "note": "Rules the harness deliberately does not reproduce, each with the entry point the watcher path owns and why a committed fixture cannot stand in for it. Every exclusion is checked against the live emitter by tests/test_alerts.py.",
   "rules": {
     "H084": {
-      "lane": "static",
       "emitter": "analysis.persistence_engine.emit_service_binary",
-      "reason": "takes a GraphContext assembled by the full-AUR persistence engine (service unit -> binary -> source graph); a committed fixture would have to reconstruct the graph the engine builds",
-      "evidence": "compose lane cannot call it: the function's only argument is the graph context, and the rule reads the graph's nodes, not a text or a finding list"
-    },
-    "H092": {
+      "evidence": "compose lane cannot call it: the function's only argument is the graph context, and the rule reads the graph's nodes, not a text or a finding list",
       "lane": "static",
-      "emitter": "analysis.pipeline._analyze.analyze_package",
-      "reason": "compares the PKGBUILD with get_srcinfo_at_commit(project, head_commit); it needs a git project checked out at the commit under review",
-      "evidence": "the .SRCINFO is read from the repository at a commit; a pasted .SRCINFO in a multi-file diff is not the same input and does not fire the rule"
-    },
-    "H103": {
-      "lane": "static",
-      "emitter": "full_aur.analyze._fact.analyze_package_text",
-      "reason": "field-level .SRCINFO/PKGBUILD divergence inside the full-AUR package path, which holds both documents at a commit",
-      "evidence": "shares the H092 input: the divergence is computed between the recipe and the committed metadata, not between a diff and a fixture"
-    },
-    "W014": {
-      "lane": "static",
-      "emitter": "full_aur.analyze._fact (upstream_scan_notes)",
-      "reason": "reports that the opt-in upstream scan did not complete; the note is produced by the scanner inside the pipeline, and no recipe or finding carries it",
-      "evidence": "the function that emits it receives upstream_scan_notes from the scan stage, not from the recipe"
-    },
-    "W015": {
-      "lane": "static",
-      "emitter": "full_aur.analyze._fact (upstream_scan_notes)",
-      "reason": "reports an ambiguous archive structure found by the opt-in upstream scan; same pipeline-carried note as W014",
-      "evidence": "emitted only when the scanner reports upstream_scan_ambiguous"
-    },
-    "U015": {
-      "lane": "upstream",
-      "emitter": "analysis.upstream_release._manifest_matches",
-      "reason": "needs a signed federation manifest observation for the release; the harness has no key material to produce one, and an unsigned stand-in would measure the fixture rather than the rule",
-      "evidence": "the upstream lane's federated kind injects repo matches, but U015 reads _manifest_matches, a separate signed store"
+      "reason": "takes a GraphContext assembled by the full-AUR persistence engine (service unit -> binary -> source graph); a committed fixture would have to reconstruct the graph the engine builds"
     },
     "R017": {
-      "lane": "static",
       "emitter": "config/_default_rules.py (pattern chmod.*\\+s)",
-      "reason": "no triggering shape found: every symbolic chmod +s form tested fired R053 or R059, which the rule documents itself as deferring to",
-      "evidence": "tested chmod +s tool, g+s dir, u+s /usr/lib/x.so, o+s x and +s \"$pkgdir/...\": each fired R053 or R059, never R017"
+      "evidence": "tested chmod +s tool, g+s dir, u+s /usr/lib/x.so, o+s x and +s \"$pkgdir/...\": each fired R053 or R059, never R017",
+      "lane": "static",
+      "reason": "no triggering shape found: every symbolic chmod +s form tested fired R053 or R059, which the rule documents itself as deferring to"
+    },
+    "U015": {
+      "emitter": "analysis.upstream_release._manifest_matches",
+      "evidence": "the upstream lane's federated kind injects repo matches, but U015 reads _manifest_matches, a separate signed store",
+      "lane": "upstream",
+      "reason": "needs a signed federation manifest observation for the release; the harness has no key material to produce one, and an unsigned stand-in would measure the fixture rather than the rule"
     }
   }
 }

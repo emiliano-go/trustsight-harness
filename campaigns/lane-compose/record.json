@@ -1,20 +1,20 @@
 {
-  "attempts": 19,
+  "attempts": 23,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.168179
+      0.143117
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 19,
+    "denominator_value": 23,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-compose",
-  "campaign_commit": "69cd0ead99858d27f63d691edd3db468167d5726",
+  "campaign_commit": "7c31fc4114fb98f1c4d9d77efab67f0cf7dbe0f3",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 94
+    "wall_clock_ms": 284
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -64,6 +64,10 @@
     "C006",
     "C027",
     "C032",
+    "H092",
+    "H103",
+    "W014",
+    "W015",
     "H093",
     "C006",
     "C027",
@@ -352,10 +356,94 @@
       "lane": "compose",
       "score": 0,
       "threshold": 20
+    },
+    {
+      "cell": "H092-positive",
+      "expected": [
+        "H092"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H092",
+        "H103",
+        "M003",
+        "P001",
+        "SOURCE_BUCKET"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 100,
+      "threshold": 20
+    },
+    {
+      "cell": "H103-positive",
+      "expected": [
+        "H103"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H092",
+        "H103",
+        "M003",
+        "P001",
+        "SOURCE_BUCKET"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 100,
+      "threshold": 20
+    },
+    {
+      "cell": "W014-positive",
+      "expected": [
+        "W014"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H027",
+        "M002",
+        "P001",
+        "SOURCE_BUCKET",
+        "W014"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 30,
+      "threshold": 20
+    },
+    {
+      "cell": "W015-positive",
+      "expected": [
+        "W015"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H027",
+        "M002",
+        "P001",
+        "SOURCE_BUCKET",
+        "W015"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 30,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 19,
+    "cells": 23,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -370,7 +458,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 19,
+    "detected": 23,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -382,7 +470,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 19,
+    "cells": 23,
     "expected_rules": [
       "C006",
       "C027",
@@ -394,6 +482,10 @@
       "C006",
       "C027",
       "C032",
+      "H092",
+      "H103",
+      "W014",
+      "W015",
       "H093",
       "C006",
       "C027",
@@ -417,24 +509,36 @@
       "H107"
     ],
     "fired_rules": [
+      "C003",
       "C006",
       "C027",
       "C032",
       "C035",
+      "COVERAGE",
       "D001",
       "D002",
+      "H023",
+      "H027",
       "H029",
       "H056",
       "H066",
       "H070",
       "H090",
+      "H092",
       "H093",
       "H098",
       "H102",
+      "H103",
       "H104",
       "H105",
       "H107",
+      "M002",
+      "M003",
+      "P001",
+      "SOURCE_BUCKET",
       "W010",
+      "W014",
+      "W015",
       "X028"
     ],
     "missing_rules": [],

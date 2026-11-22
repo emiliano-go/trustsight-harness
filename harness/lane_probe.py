@@ -221,6 +221,24 @@ def _compose(payload: dict) -> list[dict]:
     config = dict(_config())
     if isinstance(payload.get("namespaces"), dict):
         config["namespaces"] = payload["namespaces"]
+    if kind == "package_text":
+        from trustsight.full_aur.analyze._fact import analyze_package_text
+        from trustsight.schema import TemporalContext
+
+        fact = analyze_package_text(
+            str(payload.get("package", "")),
+            payload.get("old_pkgbuild") or "",
+            str(payload.get("new_pkgbuild", "")),
+            str(payload.get("maintainer", "")),
+            TemporalContext(),
+            srcinfo=payload.get("srcinfo"),
+            upstream_scan_notes=tuple(payload.get("upstream_scan_notes") or ()),
+        )
+        return [{"rule_id": entry.rule_id,
+                 "severity": str(entry.severity),
+                 "reason": getattr(entry, "reason", "")}
+                for entry in fact.score_breakdown
+                if getattr(entry, "rule_id", "")]
     if kind == "provenance":
         from trustsight.analysis.structural._engine import _provenance_findings
 
@@ -553,6 +571,9 @@ COMPOSE_KINDS = {
                                "current_text"}),
     "commits": frozenset({"previous_diff", "diff_text"}),
     "ioc": frozenset({"entries", "diff_text", "package", "current_text"}),
+    "package_text": frozenset({"package", "old_pkgbuild", "new_pkgbuild",
+                               "maintainer", "srcinfo",
+                               "upstream_scan_notes"}),
     "provenance": frozenset({"diff_text", "current_text", "added",
                              "provenance_added", "removed", "source_buckets",
                              "maintainer_changed", "package"}),

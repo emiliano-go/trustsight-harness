@@ -68,7 +68,8 @@ _CYCLE = frozenset({
 #: a recipe text, archive bytes.  The lane supplies that state as a fixture.
 _COMPOSE = frozenset({
     "C006", "C027", "C032", "C035", "D001", "D002", "H029", "H066", "H070", "H090", "H093", "H098", "H102",
-    "H056", "H104", "H105", "H107", "W010", "X028",
+    "H056", "H092", "H103", "H104", "H105", "H107", "W010", "W014",
+    "W015", "X028",
 })
 
 #: The cross-package pass over cycle records.

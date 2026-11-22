@@ -21,6 +21,10 @@ prompt:
   - C006
   - C027
   - C032
+  - H092
+  - H103
+  - W014
+  - W015
   - H093
   - C006
   - C027
@@ -43,4 +47,4 @@ prompt:
   - H105
   - H107
   forbidden_techniques: {}
-attempts: 19
+attempts: 23

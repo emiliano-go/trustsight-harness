@@ -123,9 +123,9 @@
       "targeted": 11
     },
     "compose": {
-      "firing": 19,
-      "rules": 19,
-      "targeted": 19
+      "firing": 23,
+      "rules": 23,
+      "targeted": 23
     },
     "correlation": {
       "firing": 16,
@@ -149,8 +149,8 @@
     },
     "static": {
       "firing": 191,
-      "rules": 217,
-      "targeted": 217
+      "rules": 213,
+      "targeted": 213
     },
     "upstream": {
       "firing": 9,
@@ -552,6 +552,10 @@
         "C006",
         "C027",
         "C032",
+        "H092",
+        "H103",
+        "W014",
+        "W015",
         "H093",
         "C006",
         "C027",
@@ -587,13 +591,17 @@
         "H066",
         "H070",
         "H090",
+        "H092",
         "H093",
         "H098",
         "H102",
+        "H103",
         "H104",
         "H105",
         "H107",
         "W010",
+        "W014",
+        "W015",
         "X028"
       ]
     },
@@ -2442,9 +2450,7 @@
       "H046",
       "H064",
       "H084",
-      "H092",
       "H094",
-      "H103",
       "NOVELTY",
       "P003",
       "P009",
@@ -2453,11 +2459,9 @@
       "U009",
       "U015",
       "W007",
-      "W012",
-      "W014",
-      "W015"
+      "W012"
     ],
-    "positive_targeted": 291,
+    "positive_targeted": 295,
     "positive_untargeted_ids": [
       "COVERAGE",
       "E001",
@@ -2480,9 +2484,7 @@
       "H046",
       "H064",
       "H084",
-      "H092",
       "H094",
-      "H103",
       "NOVELTY",
       "P003",
       "P009",
@@ -2491,9 +2493,7 @@
       "U009",
       "U015",
       "W007",
-      "W012",
-      "W014",
-      "W015"
+      "W012"
     ],
     "targeted": 326,
     "total": 326,
@@ -2590,9 +2590,11 @@
     "H087",
     "H088",
     "H090",
+    "H092",
     "H093",
     "H098",
     "H102",
+    "H103",
     "H104",
     "H105",
     "H107",
@@ -2617,6 +2619,8 @@
     "U013",
     "U014",
     "W010",
+    "W014",
+    "W015",
     "X028"
   ],
   "unreachable_reasons": {
@@ -2689,9 +2693,11 @@
     "H087": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H088": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H090": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "H092": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H093": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H098": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H102": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "H103": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H104": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H105": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H107": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
@@ -2716,6 +2722,8 @@
     "U013": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "U014": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "W010": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "W014": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "W015": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "X028": "needs the compose lane: supplies the intermediate state the pipeline normally holds"
   },
   "untargeted_because_unreachable": [],

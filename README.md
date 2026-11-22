@@ -119,10 +119,10 @@ one of them:
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
   TrustSight's full contract, so the untested surface is a number. 326 of 326 rules
-  are targeted by 128 campaigns; all are named by a probe: 291 have a firing probe and 35 have a
-  negative control, with the 11 state/artifact/cycle rules also named and
-  explained. Rule probes measure whether a rule fires without entering the
-  adversarial bypass rate.
+  are targeted by 129 campaigns; all are named by a probe: 295 have a firing probe and 31 have a
+  negative control, and the rules that need a lane rather than a diff are
+  named by that lane's payload. Rule probes measure whether a rule fires
+  without entering the adversarial bypass rate.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the
   benign flag rate with a Wilson interval, the other side of the measurement.
   The scan is parallel by default (`--jobs auto`) and a repeat over the same
