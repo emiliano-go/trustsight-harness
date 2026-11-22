@@ -21,10 +21,10 @@ from .status import Status
 
 __all__ = [
     "CYCLE_KINDS",
-    "WARM_KINDS",
     "LANE_RUNNERS",
     "PAYLOAD_KEYS",
     "UPSTREAM_KINDS",
+    "WARM_KINDS",
     "run_lane_probe",
     "runner_for",
     "score_findings",

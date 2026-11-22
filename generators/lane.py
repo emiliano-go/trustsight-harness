@@ -13,8 +13,7 @@ from pathlib import Path
 import yaml
 
 from harness.bounded import MAX_ARTIFACT_BYTES, read_text_capped
-from harness.lane_probe import (CYCLE_KINDS, PAYLOAD_KEYS, UPSTREAM_KINDS,
-                                WARM_KINDS)
+from harness.lane_probe import CYCLE_KINDS, PAYLOAD_KEYS, UPSTREAM_KINDS, WARM_KINDS
 from harness.paths import within
 
 from .base import Exhausted, Generated, Generator, Prompt
