@@ -1,0 +1,23 @@
+{
+  "cases": 25,
+  "min_rate": 0.8296,
+  "min_reproduced": 112,
+  "missed_rules": [
+    "H023",
+    "H027",
+    "H037",
+    "H049",
+    "H054",
+    "M002",
+    "U001",
+    "U002",
+    "U003",
+    "U006",
+    "U009",
+    "U012",
+    "U013",
+    "W013",
+    "W014"
+  ],
+  "note": "Shrink-only. Remove an entry when its rule reproduces; never add one without a named input gap."
+}

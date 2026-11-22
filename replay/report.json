@@ -515,6 +515,7 @@
         "H020",
         "H027",
         "H064",
+        "H098",
         "P001",
         "W007",
         "W011",
@@ -522,7 +523,6 @@
       ],
       "kind": "over_threshold",
       "missed": [
-        "H098",
         "U013"
       ],
       "package": "cardwire",
@@ -532,6 +532,7 @@
         "H020",
         "H027",
         "H064",
+        "H098",
         "W011",
         "W012"
       ],
@@ -553,6 +554,7 @@
         "H020",
         "H027",
         "H064",
+        "H098",
         "P001",
         "P009",
         "W007",
@@ -561,7 +563,6 @@
       ],
       "kind": "over_threshold",
       "missed": [
-        "H098",
         "W014"
       ],
       "package": "cardwire-bin",
@@ -570,6 +571,7 @@
         "H020",
         "H027",
         "H064",
+        "H098",
         "W011",
         "W012"
       ],
@@ -618,25 +620,25 @@
         "W014"
       ],
       "fired": [
-        "C002",
+        "C001",
         "COVERAGE",
+        "E002",
         "H020",
         "H027",
         "H103",
         "P001",
         "P009",
-        "R007",
         "W011",
         "W012"
       ],
       "kind": "over_threshold",
       "missed": [
-        "C001",
-        "E002",
         "W014"
       ],
       "package": "linux-galaxyaudio-bin",
       "reproduced": [
+        "C001",
+        "E002",
         "H020",
         "H027",
         "W011",
@@ -795,29 +797,25 @@
   ],
   "summary": {
     "by_gap": {
-      "assembly": 5,
+      "assembly": 3,
       "campaign": 2,
       "longitudinal": 5,
-      "other": 2,
       "pure": 1,
       "upstream": 12
     },
     "by_lane": {
-      "compose": 5,
+      "compose": 3,
       "cycle": 5,
       "meta": 2,
-      "static": 14,
+      "static": 12,
       "upstream": 1
     },
     "by_rule": {
-      "C001": 1,
-      "E002": 1,
       "H023": 1,
       "H027": 1,
       "H037": 1,
       "H049": 3,
       "H054": 1,
-      "H098": 2,
       "M002": 2,
       "U001": 2,
       "U002": 1,
@@ -841,11 +839,11 @@
       "pure": "needs a follow-up call the pipeline makes outside the package entry",
       "upstream": "needs an upstream inventory or the signed federation store"
     },
-    "missed": 27,
-    "rate": 0.8,
-    "reproduced": 108,
+    "missed": 23,
+    "rate": 0.8296296296296296,
+    "reproduced": 112,
     "unexpected": {
-      "C002": 2,
+      "C002": 1,
       "COVERAGE": 12,
       "D005": 1,
       "G007": 5,
@@ -859,7 +857,7 @@
       "P007": 4,
       "P008": 3,
       "P009": 15,
-      "R007": 2,
+      "R007": 1,
       "SOURCE_BUCKET": 11,
       "W007": 3,
       "W011": 3,

@@ -82,6 +82,15 @@ jobs:
       - name: Alert accounting
         run: uv run python scripts/check_alert_accounting.py
 
+      # Replay the committed notification corpus from the commits they name,
+      # then gate on the shrink-only miss baseline.  The corpus is committed,
+      # so the documents do not depend on the feed being reachable.
+      - name: Alert replay
+        run: uv run python -m harness replay_alert --limit 20
+
+      - name: Replay baseline
+        run: uv run python scripts/check_replay_baseline.py
+
       # Surface mutations over the committed probe diffs: a rule that stops
       # firing when an added line gains trailing spaces is evadable by
       # spelling.  Known regressions live in mutations/baseline.json and the

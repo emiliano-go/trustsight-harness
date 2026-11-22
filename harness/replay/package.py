@@ -112,6 +112,15 @@ def _assembly(artifacts, case, fact, config) -> set[str]:
     from trustsight.analysis.meta import m_series_findings
     from trustsight.analysis.pipeline._analyze_helpers import _campaign_corroboration
 
+    def _ids(result) -> set[str]:
+        """A pass returns a list of findings, one finding, or nothing."""
+        if not result:
+            return set()
+        if isinstance(result, dict):
+            return {str(result["rule_id"])} if result.get("rule_id") else set()
+        return {str(item.get("rule_id")) for item in result
+                if isinstance(item, dict) and item.get("rule_id")}
+
     rows = _finding_rows(fact)
     extra: set[str] = set()
     for pass_ in (
@@ -120,7 +129,7 @@ def _assembly(artifacts, case, fact, config) -> set[str]:
         lambda: m_series_findings(rows, config),
     ):
         try:
-            extra |= {finding.get("rule_id") for finding in pass_() if finding.get("rule_id")}
+            extra |= _ids(pass_())
         except Exception:  # noqa: BLE001, S112 - assembly is additive, never fatal
             continue
     try:

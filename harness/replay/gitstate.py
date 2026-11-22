@@ -92,6 +92,18 @@ class Artifacts:
     tree_complete: bool = True
 
 
+_CHECKSUM_FIELDS = ("sha256sums", "sha512sums", "sha1sums", "md5sums", "b2sums")
+
+
+def _checksum_only(old: str, new: str) -> bool:
+    """Whether *old* and *new* differ only in their checksum arrays."""
+    def body(text: str) -> list[str]:
+        return [line for line in text.splitlines()
+                if not line.lstrip().startswith(_CHECKSUM_FIELDS)]
+
+    return bool(old) and old != new and body(old) == body(new)
+
+
 def extract(project, package: str, case, walk_limit: int = WALK_LIMIT) -> Artifacts:
     """Read the two recorded revisions and everything committed beside them."""
     try:
@@ -143,6 +155,10 @@ def extract(project, package: str, case, walk_limit: int = WALK_LIMIT) -> Artifa
         raise ReplayGitError(f"{package}: tree unreadable: {exc}"[:300]) from exc
     tree = [(str(name), body if isinstance(body, bytes) else str(body).encode())
             for name, body in files]
+    artifact_texts = (
+        project.file_at(previous_row["sha"], "PKGBUILD") if previous_row and previous_row["sha"] else "",
+        project.file_at(head_row["sha"], "PKGBUILD"),
+    )
     installs = []
     for name, body in tree:
         if not name.endswith(".install"):
@@ -153,6 +169,14 @@ def extract(project, package: str, case, walk_limit: int = WALK_LIMIT) -> Artifa
                 old = project.file_at(previous_row["sha"], name)
             except Exception:  # noqa: BLE001 - absent before is a fact
                 old = None
+        # The watcher's previous companion file comes from its database
+        # snapshot, not from git.  When the recorded previous revision does
+        # not carry the file at all, that snapshot is unrecoverable.  Only a
+        # checksum-only recipe change is affected by the difference (a
+        # surgical swap must not look broader); for any other change the
+        # install file's absence is a real fact and its hook rules must fire.
+        if not old and body and _checksum_only(artifact_texts[0], artifact_texts[1]):
+            old = body.decode("utf-8", "replace")
         installs.append((name, body.decode("utf-8", "replace"), old))
     try:
         srcinfo = project.file_at(head_row["sha"], ".SRCINFO")

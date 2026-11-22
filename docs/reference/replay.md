@@ -56,19 +56,25 @@ cases with recorded findings):
 | Measure | Value |
 |---|---|
 | Rule instances expected | 135 |
-| Reproduced | 108 (80%) |
+| Reproduced | 112 (83%) |
 | Cases with no miss | 8 of 24 |
 
 Misses are grouped by the input they still need:
 
 | Gap | Rules | What is missing |
 |---|---|---|
-| `upstream` | U001-U013, W014 (12) | the upstream inventory (or the signed federation store) |
-| `assembly` | H027, M002, H098 (5) | the union of findings plus the corpus state behind H098's candidates |
+| `upstream` | U001-U013, W014 (12) | the upstream scan's config and inventory |
 | `longitudinal` | H049, H037, H054 (5) | a prior-cycle snapshot or observation counter |
+| `assembly` | H027, M002 (3) | the layers the upstream and cycle lanes would add |
 | `campaign` | W013 (2) | a W-series boundary that only the upstream lane produces |
-| `pure` | H023 (1) | a follow-up stage the package entry does not run |
-| `other` | C001, E002 (2) | the watcher's old companion file came from its database snapshot, not git |
+| `pure` | H023 (1) | the text pipeline's install-hook stage |
+
+Two reconstruction heuristics keep otherwise-stable rules in place, and both
+are visible in the code and tests: an `.install` file that the previous git
+revision does not carry is treated as unchanged **only** when the recipe
+change is checksum-only (keeping C001 rather than C002), and campaign
+membership comes from the published campaigns rather than the watcher's
+private store.
 
 The meta annotations, the M-series and campaign corroboration now run over the
 assembled finding set, and the published campaigns are activated in the replay
@@ -90,3 +96,18 @@ recorded in the document (the watcher's upstream-scan configuration, its
 private cycle counters, its database observation counts) is not invented. A
 rule that needs such state is reported in the gap table rather than guessed,
 and the exact path for it is the watcher publishing a replay bundle.
+
+## The miss baseline
+
+`replay/baseline.json` records the rules this replay does not yet reproduce,
+with the number reproduced and the rate as floors. It is shrink-only, like
+the alert backlog and the mutation ledger:
+
+```console
+$ python scripts/check_replay_baseline.py
+ok: 15 missed rules, 112 reproduced (0.830), baseline 15
+```
+
+A run that misses a rule the baseline does not name fails, and a baseline
+entry whose rule now reproduces fails too: the ledger cannot quietly grow,
+and a fixed gap cannot leave a stale excuse behind.
