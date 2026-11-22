@@ -1,0 +1,17 @@
+{
+  "asset_inventory": [
+    [
+      "configure.ac",
+      100,
+      "aa"
+    ]
+  ],
+  "kind": "release_asset",
+  "tag_inventory": [
+    [
+      "README",
+      10,
+      "bb"
+    ]
+  ]
+}

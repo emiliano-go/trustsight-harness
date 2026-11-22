@@ -1,0 +1,186 @@
+{
+  "attempts": 5,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.434482
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 5,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "bypasses_full": 0,
+  "campaign": "lane-upstream",
+  "campaign_commit": "8c5b3e30b98da468b70b4a9489722def4b5d2b5a",
+  "campaign_type": "lane-probe",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 0,
+    "total": 0
+  },
+  "conditional_bypasses": {},
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 11
+  },
+  "dedup_savings": null,
+  "duplicate_rate": null,
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.30.0"
+  },
+  "expected_rules": [
+    "A016",
+    "U007",
+    "U008",
+    "U013",
+    "U014"
+  ],
+  "flag_ledger": [
+    {
+      "cell": "A016-positive",
+      "expected": [
+        "A016"
+      ],
+      "fired": [
+        "A016"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "upstream",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "U007-positive",
+      "expected": [
+        "U007"
+      ],
+      "fired": [
+        "U007"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "upstream",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "U008-positive",
+      "expected": [
+        "U008"
+      ],
+      "fired": [
+        "U008"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "upstream",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "U013-positive",
+      "expected": [
+        "U013"
+      ],
+      "fired": [
+        "U013"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "upstream",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "U014-positive",
+      "expected": [
+        "U014"
+      ],
+      "fired": [
+        "U014"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "upstream",
+      "score": 15,
+      "threshold": 20
+    }
+  ],
+  "generator": {
+    "cells": 5,
+    "manifest": "inputs.yml",
+    "prompt_contract": 2,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "lane-upstream",
+    "type": "lane"
+  },
+  "harness_version": "2.5.0",
+  "known_bypass_matches": [],
+  "limitations": [],
+  "minimization_spend": null,
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 5,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-pkg",
+  "probe": {
+    "cells": 5,
+    "expected_rules": [
+      "A016",
+      "U007",
+      "U008",
+      "U013",
+      "U014"
+    ],
+    "fired_rules": [
+      "A016",
+      "U007",
+      "U008",
+      "U013",
+      "U014"
+    ],
+    "missing_rules": [],
+    "negative_failures": []
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": ""
+  }
+}

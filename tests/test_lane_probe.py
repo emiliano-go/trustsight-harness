@@ -79,7 +79,8 @@ def test_every_payload_key_is_read_by_its_entry_point():
 
 
 def test_every_upstream_kind_is_declared():
-    assert set(lane_probe.UPSTREAM_KINDS) == {"release_asset", "federated"}
+    assert set(lane_probe.UPSTREAM_KINDS) == {"release_asset", "federated",
+                                              "workflow"}
     assert "kind" in lane_probe.PAYLOAD_KEYS["upstream"]
 
 

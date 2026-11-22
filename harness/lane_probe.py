@@ -112,6 +112,11 @@ def _upstream(payload: dict) -> list[dict]:
             export_ignore=frozenset(payload.get("export_ignore") or ()),
         )
         return [finding] if finding else []
+    if kind == "workflow":
+        from trustsight.upstream_collect import _workflow_findings
+
+        return _workflow_findings(payload.get("path", "upstream.yml"),
+                                  payload.get("text") or "")
     if kind == "federated":
         from trustsight.analysis.upstream_release import upstream_release_findings
 
@@ -124,7 +129,9 @@ def _upstream(payload: dict) -> list[dict]:
 
         delta = SimpleNamespace(
             version=SimpleNamespace(
-                pkgver_changed=bool(payload.get("pkgver_changed", False))))
+                pkgver_changed=bool(payload.get("pkgver_changed", False))),
+            sources=SimpleNamespace(
+                gained=tuple(payload.get("sources_gained") or ())))
         matches = [SimpleNamespace(**row) for row in payload.get("matches") or []]
         upstream_release_findings(
             payload.get("diff_text") or "",
@@ -184,7 +191,9 @@ UPSTREAM_KINDS = {
     "release_asset": frozenset({
         "asset_inventory", "tag_inventory", "export_ignore"}),
     "federated": frozenset({
-        "diff_text", "current_text", "pkgver_changed", "matches", "package"}),
+        "diff_text", "current_text", "pkgver_changed", "matches", "package",
+        "sources_gained"}),
+    "workflow": frozenset({"path", "text"}),
 }
 
 

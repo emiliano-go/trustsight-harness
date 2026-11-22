@@ -1,0 +1,20 @@
+campaign: lane-upstream
+campaign_type: lane-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: lane
+  manifest: inputs.yml
+prompt:
+  prompt_id: lane-upstream
+  expected_rules:
+  - A016
+  - U007
+  - U008
+  - U013
+  - U014
+  forbidden_techniques: {}
+attempts: 5

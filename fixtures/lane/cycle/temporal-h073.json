@@ -1,0 +1,38 @@
+{
+  "kind": "temporal",
+  "new_meta": {
+    "alpha0": {
+      "LastModified": 1799996400,
+      "Maintainer": "m0",
+      "PackageBase": "alpha0"
+    },
+    "alpha1": {
+      "LastModified": 1799996400,
+      "Maintainer": "m1",
+      "PackageBase": "alpha1"
+    },
+    "alpha2": {
+      "LastModified": 1799996400,
+      "Maintainer": "m2",
+      "PackageBase": "alpha2"
+    },
+    "alpha3": {
+      "LastModified": 1799996400,
+      "Maintainer": "m3",
+      "PackageBase": "alpha3"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {},
+  "prior_history": [
+    {
+      "introduced": 1
+    },
+    {
+      "introduced": 1
+    },
+    {
+      "introduced": 1
+    }
+  ]
+}
