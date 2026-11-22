@@ -60,5 +60,11 @@ prompt:
   - H100
   - H101
   - H108
+  - H042
+  - H071
+  - H090
+  - H093
+  - H095
+  - H106
   forbidden_techniques: {}
-attempts: 100
+attempts: 104

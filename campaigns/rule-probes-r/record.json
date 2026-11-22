@@ -1,20 +1,20 @@
 {
-  "attempts": 40,
+  "attempts": 44,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.087622
+      0.080296
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 40,
+    "denominator_value": 44,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-r",
-  "campaign_commit": "70003431ddbdd8ebdac701afafb3cadcbb730072",
+  "campaign_commit": "22ac39997d20732f8d1d603f594d3bdab1c02708",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 8997
+    "wall_clock_ms": 6201
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:8a4a95a765e1343bb487ef1f6d0895af62d06cfe5dea75500c461a42ba5e2e83",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -64,7 +64,10 @@
     "R012",
     "R013",
     "R039",
+    "R040",
+    "R041",
     "R043",
+    "R046",
     "R047",
     "R051",
     "R052",
@@ -73,10 +76,12 @@
     "R058",
     "R059",
     "R099",
+    "R144",
     "R152"
   ],
+  "flag_ledger": [],
   "generator": {
-    "cells": 40,
+    "cells": 44,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -93,7 +98,7 @@
     "constraint_violation": 0,
     "detected": 26,
     "duplicate": 0,
-    "fail_closed_catch": 14,
+    "fail_closed_catch": 18,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
@@ -103,7 +108,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 40,
+    "cells": 44,
     "expected_rules": [
       "R001",
       "R002",
@@ -115,7 +120,10 @@
       "R012",
       "R013",
       "R039",
+      "R040",
+      "R041",
       "R043",
+      "R046",
       "R047",
       "R051",
       "R052",
@@ -124,6 +132,7 @@
       "R058",
       "R059",
       "R099",
+      "R144",
       "R152"
     ],
     "fired_rules": [
@@ -153,6 +162,7 @@
       "M001",
       "M003",
       "P001",
+      "P006",
       "P007",
       "R001",
       "R002",
@@ -164,7 +174,10 @@
       "R012",
       "R013",
       "R039",
+      "R040",
+      "R041",
       "R043",
+      "R046",
       "R047",
       "R051",
       "R052",
@@ -173,12 +186,16 @@
       "R058",
       "R059",
       "R099",
+      "R144",
       "R152",
       "SOURCE_BUCKET",
       "W007",
+      "W008",
       "X005",
+      "X006",
       "X010",
       "X023",
+      "X026",
       "X034"
     ],
     "missing_rules": [],

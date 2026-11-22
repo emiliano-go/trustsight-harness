@@ -1,0 +1,8 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,5 +1,8 @@
++pkgname=p
++pkgver=1
++install=p.install
++source=(https://e.example/x.tar.gz)
++sha256sums=('SKIP')

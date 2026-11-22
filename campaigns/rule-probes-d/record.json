@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-d",
-  "campaign_commit": "",
+  "campaign_commit": "22ac39997d20732f8d1d603f594d3bdab1c02708",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1976
+    "wall_clock_ms": 1482
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -54,9 +54,11 @@
     "trustsight_version": "0.30.0"
   },
   "expected_rules": [
+    "D002",
     "D003",
     "D004"
   ],
+  "flag_ledger": [],
   "generator": {
     "cells": 4,
     "manifest": "inputs.yml",
@@ -87,6 +89,7 @@
   "probe": {
     "cells": 4,
     "expected_rules": [
+      "D002",
       "D003",
       "D004"
     ],

@@ -1,0 +1,6 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,1 +1,2 @@
+ f() {
++  url=http://abcdefghij234567.onion/x.tar.gz
+}

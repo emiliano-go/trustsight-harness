@@ -32,5 +32,12 @@ prompt:
   - C030
   - C031
   - C033
+  - C008
+  - C009
+  - C010
+  - C011
+  - C016
+  - C027
+  - C034
   forbidden_techniques: {}
-attempts: 44
+attempts: 48

@@ -1,0 +1,6 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,20 +1,60 @@
++package() {
++  dracut --force --include "$srcdir/x" /x
++}

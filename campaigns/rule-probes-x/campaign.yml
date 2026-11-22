@@ -30,5 +30,10 @@ prompt:
   - X032
   - X033
   - X034
+  - X003
+  - X009
+  - X014
+  - X018
+  - X030
   forbidden_techniques: {}
-attempts: 40
+attempts: 45
