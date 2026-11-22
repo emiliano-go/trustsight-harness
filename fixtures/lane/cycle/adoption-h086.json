@@ -1,0 +1,7 @@
+{
+  "currently_maintained": true,
+  "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,4 @@\n pkgname=x\n+package() {\n+  npm install left-pad\n+}\n",
+  "kind": "adoption",
+  "package": "pkg",
+  "was_orphaned": 1
+}

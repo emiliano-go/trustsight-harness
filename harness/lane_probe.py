@@ -21,6 +21,7 @@ from .status import Status
 
 __all__ = [
     "LANE_RUNNERS",
+    "CYCLE_KINDS",
     "PAYLOAD_KEYS",
     "UPSTREAM_KINDS",
     "run_lane_probe",
@@ -62,9 +63,42 @@ def _meta(payload: dict) -> list[dict]:
 
 
 def _cycle(payload: dict) -> list[dict]:
-    from trustsight.full_aur.temporal_engine import run_corpus_sweep
+    kind = payload.get("kind", "temporal")
+    body = {key: value for key, value in payload.items() if key != "kind"}
+    if kind == "temporal":
+        from trustsight.full_aur.temporal_engine import run_corpus_sweep
 
-    return run_corpus_sweep(**payload)
+        return run_corpus_sweep(**body)
+    if kind == "graph":
+        from trustsight.full_aur.graph import run_graph_sweep
+
+        return run_graph_sweep(**body)
+    if kind == "adoption":
+        from trustsight.analysis.adoption import adoption_findings
+
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        adoption_findings(
+            body.pop("diff_text"), package_name=body.pop("package"),
+            was_orphaned=int(body.pop("was_orphaned")),
+            currently_maintained=bool(body.pop("currently_maintained")),
+            add=add, pkgver_moved=bool(body.pop("pkgver_moved", False)),
+            current_text=body.pop("current_text", None))
+        return found
+    if kind == "longitudinal":
+        from trustsight.analysis.longitudinal import longitudinal_findings
+        from trustsight.full_aur.properties import PropertyBreak
+
+        breaks = [PropertyBreak(**row) for row in body.pop("breaks")]
+        return longitudinal_findings(
+            body.pop("diff_text"), body.pop("package"), breaks, _config(),
+            body.pop("current_text", None))
+    raise ValueError(f"unknown cycle kind {kind!r}")
 
 
 def _upstream(payload: dict) -> list[dict]:
@@ -114,6 +148,23 @@ LANE_RUNNERS = {
     "upstream": _upstream,
 }
 
+#: The cycle entry points and the payload keys each one reads.
+CYCLE_KINDS = {
+    "temporal": frozenset({
+        "new_meta", "old_meta", "source_repos", "prior_history",
+        "maintainer_history", "edges", "routine_only", "detail",
+        "maintainer_transitions", "prior_rule_history", "package_cycle_events",
+        "now",
+    }),
+    "graph": frozenset({"new_meta", "old_meta", "changes", "transitions",
+                        "edges"}),
+    "longitudinal": frozenset({"diff_text", "package", "breaks",
+                               "current_text"}),
+    "adoption": frozenset({"diff_text", "package", "was_orphaned",
+                           "currently_maintained", "pkgver_moved",
+                           "current_text"}),
+}
+
 #: The kwargs a cell may carry.  A fixture key that the entry point does not
 #: accept is fixture drift, and the lane tests check this table against the
 #: function signatures.
@@ -121,12 +172,7 @@ PAYLOAD_KEYS = {
     "correlation": frozenset({"records"}),
     "meta": frozenset({"triggered", "claims", "rules", "pressure",
                        "cofire_pairs"}),
-    "cycle": frozenset({
-        "new_meta", "old_meta", "source_repos", "prior_history",
-        "maintainer_history", "edges", "routine_only", "detail",
-        "maintainer_transitions", "prior_rule_history", "package_cycle_events",
-        "now",
-    }),
+    "cycle": frozenset().union(*CYCLE_KINDS.values()) | {"kind"},
     "upstream": frozenset({
         "kind", "asset_inventory", "tag_inventory", "export_ignore",
         "diff_text", "current_text", "pkgver_changed", "matches", "package",

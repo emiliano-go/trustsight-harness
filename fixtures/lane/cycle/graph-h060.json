@@ -1,0 +1,19 @@
+{
+  "changes": {
+    "pkg": "modified"
+  },
+  "edges": {
+    "a": [
+      "orphan"
+    ],
+    "pkg": [
+      "a"
+    ]
+  },
+  "kind": "graph",
+  "new_meta": {
+    "a": {}
+  },
+  "old_meta": {},
+  "transitions": {}
+}

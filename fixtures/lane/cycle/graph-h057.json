@@ -1,0 +1,20 @@
+{
+  "changes": {},
+  "edges": {
+    "leaf": [
+      "mid"
+    ],
+    "mid": [
+      "adopted"
+    ]
+  },
+  "kind": "graph",
+  "new_meta": {},
+  "old_meta": {},
+  "transitions": {
+    "adopted": [
+      "",
+      "mallory"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "breaks": [
+    {
+      "key": "version_scheme",
+      "new_value": "2026.01",
+      "old_value": "1.2.3",
+      "stable_for_n": 20,
+      "weight": 1.0
+    }
+  ],
+  "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=x\n+echo hi\n",
+  "kind": "longitudinal",
+  "package": "pkg"
+}
