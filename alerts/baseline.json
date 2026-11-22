@@ -1,7 +1,7 @@
 {
   "alertable": 302,
   "max_missing_classes": 3,
-  "max_missing_rules": 149,
+  "max_missing_rules": 146,
   "missing_classes": [
     "campaign_cluster",
     "impersonation",
@@ -99,9 +99,6 @@
     "H105",
     "H106",
     "H107",
-    "M004",
-    "M005",
-    "M006",
     "R017",
     "R040",
     "R041",

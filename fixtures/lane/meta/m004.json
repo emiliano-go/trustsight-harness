@@ -1,0 +1,13 @@
+{
+  "cofire_pairs": [
+    [
+      "H016",
+      "H082"
+    ]
+  ],
+  "triggered": [
+    {
+      "rule_id": "H016"
+    }
+  ]
+}

@@ -42,10 +42,23 @@ def _correlation(payload: dict) -> list[dict]:
 
 
 def _meta(payload: dict) -> list[dict]:
-    from trustsight.analysis.meta import m_series_findings
+    from trustsight.analysis.meta import (
+        campaign_reactivation_notes,
+        cofire_absence,
+        licensor_absent,
+        m_series_findings,
+    )
 
-    return m_series_findings(payload["triggered"], _config(),
-                             payload.get("claims"))
+    triggered = payload.get("triggered") or []
+    config = _config()
+    out = m_series_findings(triggered, config, payload.get("claims"))
+    out.extend(licensor_absent(triggered, payload.get("rules") or []))
+    out.extend(campaign_reactivation_notes(payload.get("pressure") or []))
+    for note in cofire_absence(triggered, payload.get("cofire_pairs") or ()):
+        out.append({"rule_id": "M004", "name": "Expected Co-fire Absent",
+                    "severity": "INFO", "category": "meta",
+                    "match": note, "params": {"detail": note}})
+    return out
 
 
 def _cycle(payload: dict) -> list[dict]:
@@ -106,7 +119,8 @@ LANE_RUNNERS = {
 #: function signatures.
 PAYLOAD_KEYS = {
     "correlation": frozenset({"records"}),
-    "meta": frozenset({"triggered", "claims"}),
+    "meta": frozenset({"triggered", "claims", "rules", "pressure",
+                       "cofire_pairs"}),
     "cycle": frozenset({
         "new_meta", "old_meta", "source_repos", "prior_history",
         "maintainer_history", "edges", "routine_only", "detail",

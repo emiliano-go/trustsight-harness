@@ -1,0 +1,15 @@
+{
+  "rules": [
+    {
+      "escalates_when": [
+        "H098"
+      ],
+      "id": "H027"
+    }
+  ],
+  "triggered": [
+    {
+      "rule_id": "H027"
+    }
+  ]
+}

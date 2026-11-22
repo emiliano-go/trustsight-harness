@@ -503,6 +503,27 @@
       ]
     },
     {
+      "campaign": "lane-meta",
+      "campaign_type": "lane-probe",
+      "expected_rules": [
+        "M001",
+        "M002",
+        "M003",
+        "M004",
+        "M005",
+        "M006"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "M001",
+        "M002",
+        "M003",
+        "M004",
+        "M005",
+        "M006"
+      ]
+    },
+    {
       "campaign": "list2-a",
       "campaign_type": "deterministic",
       "expected_rules": [
@@ -2127,9 +2148,6 @@
       "H105",
       "H106",
       "H107",
-      "M004",
-      "M005",
-      "M006",
       "NOVELTY",
       "P003",
       "P009",
@@ -2195,7 +2213,7 @@
       "X030",
       "X031"
     ],
-    "positive_targeted": 157,
+    "positive_targeted": 160,
     "positive_untargeted_ids": [
       "A009",
       "A010",
@@ -2298,9 +2316,6 @@
       "H105",
       "H106",
       "H107",
-      "M004",
-      "M005",
-      "M006",
       "NOVELTY",
       "P003",
       "P009",

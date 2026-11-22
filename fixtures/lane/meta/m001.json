@@ -1,0 +1,10 @@
+{
+  "claims": [
+    "P001"
+  ],
+  "triggered": [
+    {
+      "rule_id": "H091"
+    }
+  ]
+}

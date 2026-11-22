@@ -24,15 +24,35 @@ def test_a_registered_lane_returns_its_findings(monkeypatch):
 
 def test_every_payload_key_is_read_by_its_entry_point():
     from trustsight.analysis.correlation import correlate
-    from trustsight.analysis.meta import m_series_findings
+    from trustsight.analysis.meta import (
+        campaign_reactivation_notes,
+        cofire_absence,
+        licensor_absent,
+        m_series_findings,
+    )
     from trustsight.full_aur.temporal_engine import run_corpus_sweep
 
-    for lane, function in (("correlation", correlate), ("meta", m_series_findings),
-                           ("cycle", run_corpus_sweep)):
+    readers = {
+        "correlation": (correlate, lane_probe.PAYLOAD_KEYS["correlation"]),
+        "cycle": (run_corpus_sweep, lane_probe.PAYLOAD_KEYS["cycle"]),
+    }
+    for lane, (function, keys) in readers.items():
         params = inspect.signature(function).parameters
-        for key in lane_probe.PAYLOAD_KEYS[lane]:
+        for key in keys:
             assert key in params or any(p.kind is p.VAR_KEYWORD
                                         for p in params.values()), (lane, key)
+    # meta composes four entry points, so each key is checked against the
+    # one that reads it rather than against a single signature.
+    meta_readers = {
+        "triggered": (m_series_findings, "triggered"),
+        "claims": (m_series_findings, "claims"),
+        "rules": (licensor_absent, "rules"),
+        "pressure": (campaign_reactivation_notes, "pressure"),
+        "cofire_pairs": (cofire_absence, "pairs"),
+    }
+    assert set(meta_readers) == set(lane_probe.PAYLOAD_KEYS["meta"])
+    for key, (function, parameter) in meta_readers.items():
+        assert parameter in inspect.signature(function).parameters, key
 
 
 def test_every_upstream_kind_is_declared():

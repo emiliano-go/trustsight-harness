@@ -1,0 +1,11 @@
+{
+  "pressure": [
+    {
+      "campaign_id": "c1",
+      "count": 4,
+      "min_interval": 10,
+      "source": "cluster",
+      "span": 3
+    }
+  ]
+}

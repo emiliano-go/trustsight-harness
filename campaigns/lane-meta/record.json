@@ -1,0 +1,203 @@
+{
+  "attempts": 6,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.390334
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 6,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "bypasses_full": 0,
+  "campaign": "lane-meta",
+  "campaign_commit": "5aeaf9d2cbec824a969f0c2fecbb165efa8c0fd4",
+  "campaign_type": "lane-probe",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 0,
+    "total": 0
+  },
+  "conditional_bypasses": {},
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 7
+  },
+  "dedup_savings": null,
+  "duplicate_rate": null,
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:46dd4f93943c2d9ee2c7f7bf0d19116caa027db7659b59a903c067b74208db0b",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.30.0"
+  },
+  "expected_rules": [
+    "M001",
+    "M002",
+    "M003",
+    "M004",
+    "M005",
+    "M006"
+  ],
+  "flag_ledger": [
+    {
+      "cell": "M001-positive",
+      "expected": [
+        "M001"
+      ],
+      "fired": [
+        "M001"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "meta",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "M002-positive",
+      "expected": [
+        "M002"
+      ],
+      "fired": [
+        "M002"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "meta",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "M003-positive",
+      "expected": [
+        "M003"
+      ],
+      "fired": [
+        "M003"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "meta",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "M004-positive",
+      "expected": [
+        "M004"
+      ],
+      "fired": [
+        "M004"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "meta",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "M005-positive",
+      "expected": [
+        "M005"
+      ],
+      "fired": [
+        "M005"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "meta",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "M006-positive",
+      "expected": [
+        "M006"
+      ],
+      "fired": [
+        "M006"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "meta",
+      "score": 0,
+      "threshold": 20
+    }
+  ],
+  "generator": {
+    "cells": 6,
+    "manifest": "inputs.yml",
+    "prompt_contract": 2,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "lane-meta",
+    "type": "lane"
+  },
+  "harness_version": "2.5.0",
+  "known_bypass_matches": [],
+  "limitations": [],
+  "minimization_spend": null,
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 6,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-pkg",
+  "probe": {
+    "cells": 6,
+    "expected_rules": [
+      "M001",
+      "M002",
+      "M003",
+      "M004",
+      "M005",
+      "M006"
+    ],
+    "fired_rules": [
+      "M001",
+      "M002",
+      "M003",
+      "M004",
+      "M005",
+      "M006"
+    ],
+    "missing_rules": [],
+    "negative_failures": []
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": ""
+  }
+}
