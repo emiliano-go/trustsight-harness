@@ -235,3 +235,8 @@ cells:
   post_path: fixtures/rule-probes/posts/6c6aec8dcd037f47844c6d40d112700282027a431112a00642f7f22c91394135.PKGBUILD
   expect_fire:
   - R104
+- id: R017-positive
+  path: fixtures/rule-probes/diffs/r017.diff
+  post_path: fixtures/rule-probes/diffs/r017.post
+  expect_fire:
+  - R017

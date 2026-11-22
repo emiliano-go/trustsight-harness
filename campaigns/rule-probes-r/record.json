@@ -1,20 +1,20 @@
 {
-  "attempts": 56,
+  "attempts": 57,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.064194
+      0.063139
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 56,
+    "denominator_value": 57,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-r",
-  "campaign_commit": "3ff4f3cdd0c25762a451101bcf61dbaa820d37a9",
+  "campaign_commit": "2f4e0c59bb2ec048f3c1f933f274e5ea89ccd0c6",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 7429
+    "wall_clock_ms": 7492
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -93,7 +93,7 @@
   ],
   "flag_ledger": [],
   "generator": {
-    "cells": 56,
+    "cells": 57,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -110,7 +110,7 @@
     "constraint_violation": 0,
     "detected": 38,
     "duplicate": 0,
-    "fail_closed_catch": 18,
+    "fail_closed_catch": 19,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
@@ -120,7 +120,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 56,
+    "cells": 57,
     "expected_rules": [
       "R001",
       "R002",
@@ -199,6 +199,7 @@
       "R011",
       "R012",
       "R013",
+      "R017",
       "R039",
       "R040",
       "R041",

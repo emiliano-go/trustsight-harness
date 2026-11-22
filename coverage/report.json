@@ -148,7 +148,7 @@
       "targeted": 5
     },
     "static": {
-      "firing": 191,
+      "firing": 192,
       "rules": 212,
       "targeted": 212
     },
@@ -2006,6 +2006,7 @@
         "R011",
         "R012",
         "R013",
+        "R017",
         "R039",
         "R040",
         "R041",
@@ -2455,14 +2456,13 @@
       "NOVELTY",
       "P003",
       "P009",
-      "R017",
       "TAG_CONVERGENCE",
       "U009",
       "U015",
       "W007",
       "W012"
     ],
-    "positive_targeted": 296,
+    "positive_targeted": 297,
     "positive_untargeted_ids": [
       "COVERAGE",
       "E001",
@@ -2488,7 +2488,6 @@
       "NOVELTY",
       "P003",
       "P009",
-      "R017",
       "TAG_CONVERGENCE",
       "U009",
       "U015",

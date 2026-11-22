@@ -1,0 +1,8 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +5 @@
+ pkgname=p
+ pkgver=1
++package() {
++  chmod +s
++}

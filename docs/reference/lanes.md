@@ -102,7 +102,7 @@ ledger shrinks as upstream rules are fixed instead of accumulating.
 
 ```console
 $ harness coverage
-326 of 326 rules targeted by 129 campaigns; 296 have a firing probe, ...
+326 of 326 rules targeted by 129 campaigns; 297 have a firing probe, ...
 
 $ harness outcomes
 # per-rule lane, fixtures, fired cells, last firing version

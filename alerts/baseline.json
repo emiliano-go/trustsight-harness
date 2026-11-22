@@ -1,12 +1,11 @@
 {
   "alertable": 292,
   "max_missing_classes": 1,
-  "max_missing_rules": 2,
+  "max_missing_rules": 1,
   "missing_classes": [
     "refusal"
   ],
   "missing_rules": [
-    "R017",
     "U015"
   ],
   "note": "Shrink-only. Remove an entry when its reproducer lands; never add one."
