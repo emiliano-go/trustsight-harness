@@ -1,20 +1,20 @@
 {
-  "attempts": 1,
+  "attempts": 2,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.793451
+      0.65762
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 1,
+    "denominator_value": 2,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "lane-correlation",
-  "campaign_commit": "96722d16edac8d9f383a2b3a635b56fd9c2dc4f6",
+  "campaign_commit": "dcf1a041024884755a0c5d7cc8c79407a6a853ad",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 5
+    "wall_clock_ms": 72
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -85,10 +85,28 @@
       "lane": "correlation",
       "score": 0,
       "threshold": 20
+    },
+    {
+      "cell": "G001-G003-positive",
+      "expected": [
+        "G001",
+        "G002",
+        "G003"
+      ],
+      "fired": [
+        "G001",
+        "G002",
+        "G003"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "correlation",
+      "score": 65,
+      "threshold": 20
     }
   ],
   "generator": {
-    "cells": 1,
+    "cells": 2,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -103,7 +121,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 1,
+    "detected": 2,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -115,7 +133,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 1,
+    "cells": 2,
     "expected_rules": [
       "G001",
       "G002",
@@ -135,6 +153,9 @@
       "G016"
     ],
     "fired_rules": [
+      "G001",
+      "G002",
+      "G003",
       "G016"
     ],
     "missing_rules": [],

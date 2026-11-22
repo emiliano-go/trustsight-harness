@@ -4,3 +4,10 @@ cells:
   payload_path: fixtures/lane/correlation/g016.json
   expect_fire:
   - G016
+- id: G001-G003-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/shared-signals.json
+  expect_fire:
+  - G001
+  - G002
+  - G003

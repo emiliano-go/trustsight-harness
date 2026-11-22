@@ -1,0 +1,53 @@
+{
+  "records": [
+    {
+      "added_literals": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "adoption": true,
+      "hosts_gained": [
+        "new.cdn"
+      ],
+      "maintainer": "m@x",
+      "package": "a"
+    },
+    {
+      "added_literals": [
+        "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+      ],
+      "adoption": true,
+      "hosts_gained": [
+        "new.cdn"
+      ],
+      "maintainer": "m@x",
+      "package": "b"
+    },
+    {
+      "added_literals": [],
+      "adoption": true,
+      "hosts_gained": [
+        "new.cdn"
+      ],
+      "maintainer": "m@x",
+      "package": "c"
+    },
+    {
+      "added_literals": [],
+      "adoption": false,
+      "hosts_gained": [
+        "new.cdn"
+      ],
+      "maintainer": "other@y",
+      "package": "d"
+    },
+    {
+      "added_literals": [],
+      "adoption": false,
+      "hosts_gained": [
+        "new.cdn"
+      ],
+      "maintainer": "other@y",
+      "package": "e"
+    }
+  ]
+}

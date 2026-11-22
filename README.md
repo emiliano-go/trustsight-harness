@@ -119,7 +119,7 @@ one of them:
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
   TrustSight's full contract, so the untested surface is a number. 325 of 325 rules
-  are targeted by 123 campaigns; all are named by a probe: 160 have a firing probe and 165 have a
+  are targeted by 123 campaigns; all are named by a probe: 163 have a firing probe and 162 have a
   negative control, with the 11 state/artifact/cycle rules also named and
   explained. Rule probes measure whether a rule fires without entering the
   adversarial bypass rate.
