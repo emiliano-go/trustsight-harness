@@ -698,6 +698,14 @@ def judge_verdict(
 
 
 @mcp.tool()
+def outcomes(root: str | None = None) -> dict:
+    """Per-rule outcomes over committed records: lane, cells, last firing."""
+    from harness.outcomes import build_outcomes
+
+    return build_outcomes(_root_path(root))
+
+
+@mcp.tool()
 def list_campaigns() -> dict:
     """List all campaigns with their records (if available)."""
     campaigns = []

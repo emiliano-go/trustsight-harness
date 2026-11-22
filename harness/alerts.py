@@ -68,8 +68,8 @@ CLASS_REPRODUCERS: dict[str, str | None] = {
     "package_alert": "evasions-stacked",
     "over_threshold": "evasions-stacked",
     "ioc_match": "wave3-obfuscated",
-    "campaign_cluster": None,
-    "impersonation": None,
+    "campaign_cluster": "lane-correlation",
+    "impersonation": "lane-correlation",
     "account_context": "lane-correlation",
     "refusal": None,
 }

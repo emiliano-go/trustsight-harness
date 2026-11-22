@@ -116,6 +116,48 @@
       "untargeted": []
     }
   },
+  "by_lane": {
+    "artifact": {
+      "firing": 8,
+      "rules": 11,
+      "targeted": 11
+    },
+    "correlation": {
+      "firing": 9,
+      "rules": 16,
+      "targeted": 16
+    },
+    "cycle": {
+      "firing": 6,
+      "rules": 26,
+      "targeted": 26
+    },
+    "meta": {
+      "firing": 7,
+      "rules": 7,
+      "targeted": 7
+    },
+    "project": {
+      "firing": 0,
+      "rules": 5,
+      "targeted": 5
+    },
+    "static": {
+      "firing": 137,
+      "rules": 237,
+      "targeted": 237
+    },
+    "upstream": {
+      "firing": 0,
+      "rules": 9,
+      "targeted": 9
+    },
+    "warm": {
+      "firing": 0,
+      "rules": 3,
+      "targeted": 3
+    }
+  },
   "campaigns": [
     {
       "campaign": "adversarial-probes",

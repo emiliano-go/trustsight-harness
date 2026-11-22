@@ -1,10 +1,8 @@
 {
   "alertable": 303,
-  "max_missing_classes": 3,
+  "max_missing_classes": 1,
   "max_missing_rules": 130,
   "missing_classes": [
-    "campaign_cluster",
-    "impersonation",
     "refusal"
   ],
   "missing_rules": [

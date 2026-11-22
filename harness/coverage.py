@@ -23,7 +23,7 @@ from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 __all__ = ["build_coverage"]
 
 
-from .lanes import UNREACHABLE  # noqa: E402
+from .lanes import LANES, UNREACHABLE  # noqa: E402
 
 
 def _campaigns(repo_root: Path) -> list[dict]:
@@ -95,8 +95,17 @@ def build_coverage(repo_root: Path) -> dict:
 
     untargeted = [r for r in all_rules if r not in targeted]
     reasons = {r: UNREACHABLE[r] for r in untargeted if r in UNREACHABLE}
+    lanes = {}
+    for name, lane in LANES.items():
+        members = sorted(lane.rules)
+        lanes[name] = {
+            "rules": len(members),
+            "targeted": sum(1 for rule in members if rule in targeted),
+            "firing": sum(1 for rule in members if rule in positive_targeted),
+        }
     return {
         "campaigns": campaigns,
+        "by_lane": lanes,
         "rules": {
             "total": len(all_rules),
             "targeted": len(targeted),
