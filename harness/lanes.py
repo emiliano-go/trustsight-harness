@@ -67,7 +67,8 @@ _CYCLE = frozenset({
 #: Rule functions the pipeline wires over intermediate state: a finding set,
 #: a recipe text, archive bytes.  The lane supplies that state as a fixture.
 _COMPOSE = frozenset({
-    "C035", "H029", "H070", "H098", "H102", "H104", "H105", "H107",
+    "C032", "C035", "H029", "H066", "H070", "H090", "H093", "H098", "H102",
+    "H104", "H105", "H107", "W010",
 })
 
 #: The cross-package pass over cycle records.

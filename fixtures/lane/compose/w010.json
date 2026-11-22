@@ -1,0 +1,245 @@
+{
+  "kind": "volume",
+  "triggered": [
+    {
+      "rule_id": "H000",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H001",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H002",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H003",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H004",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H005",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H006",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H007",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H008",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H009",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H010",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H011",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H012",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H013",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H014",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H015",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H016",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H017",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H018",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H019",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H020",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H021",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H022",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H023",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H024",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H025",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H026",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H027",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H028",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H029",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H030",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H031",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H032",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H033",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H034",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H035",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H036",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H037",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H038",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H039",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H040",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H041",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H042",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H043",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H044",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H045",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H046",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H047",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H048",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H049",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H050",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H051",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H052",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H053",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H054",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H055",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H056",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H057",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H058",
+      "severity": "HIGH"
+    },
+    {
+      "rule_id": "H059",
+      "severity": "HIGH"
+    }
+  ]
+}

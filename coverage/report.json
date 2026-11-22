@@ -123,9 +123,9 @@
       "targeted": 11
     },
     "compose": {
-      "firing": 8,
-      "rules": 8,
-      "targeted": 8
+      "firing": 13,
+      "rules": 13,
+      "targeted": 13
     },
     "correlation": {
       "firing": 16,
@@ -149,8 +149,8 @@
     },
     "static": {
       "firing": 190,
-      "rules": 228,
-      "targeted": 228
+      "rules": 223,
+      "targeted": 223
     },
     "upstream": {
       "firing": 9,
@@ -542,6 +542,15 @@
       "campaign": "lane-compose",
       "campaign_type": "lane-probe",
       "expected_rules": [
+        "C032",
+        "C032",
+        "H090",
+        "C032",
+        "H093",
+        "C032",
+        "H066",
+        "C032",
+        "W010",
         "C035",
         "H029",
         "H070",
@@ -553,14 +562,19 @@
       ],
       "package": "harness-pkg",
       "positive_rules": [
+        "C032",
         "C035",
         "H029",
+        "H066",
         "H070",
+        "H090",
+        "H093",
         "H098",
         "H102",
         "H104",
         "H105",
-        "H107"
+        "H107",
+        "W010"
       ]
     },
     {
@@ -2387,7 +2401,6 @@
     "negative_only": [
       "C006",
       "C027",
-      "C032",
       "COVERAGE",
       "D001",
       "D002",
@@ -2412,11 +2425,8 @@
       "H056",
       "H059",
       "H064",
-      "H066",
       "H084",
-      "H090",
       "H092",
-      "H093",
       "H094",
       "H103",
       "NOVELTY",
@@ -2427,17 +2437,15 @@
       "U009",
       "U015",
       "W007",
-      "W010",
       "W012",
       "W014",
       "W015",
       "X028"
     ],
-    "positive_targeted": 279,
+    "positive_targeted": 284,
     "positive_untargeted_ids": [
       "C006",
       "C027",
-      "C032",
       "COVERAGE",
       "D001",
       "D002",
@@ -2462,11 +2470,8 @@
       "H056",
       "H059",
       "H064",
-      "H066",
       "H084",
-      "H090",
       "H092",
-      "H093",
       "H094",
       "H103",
       "NOVELTY",
@@ -2477,7 +2482,6 @@
       "U009",
       "U015",
       "W007",
-      "W010",
       "W012",
       "W014",
       "W015",
@@ -2525,6 +2529,7 @@
     "A014",
     "A015",
     "A016",
+    "C032",
     "C035",
     "G001",
     "G002",
@@ -2564,12 +2569,15 @@
     "H058",
     "H060",
     "H061",
+    "H066",
     "H070",
     "H073",
     "H074",
     "H086",
     "H087",
     "H088",
+    "H090",
+    "H093",
     "H098",
     "H102",
     "H104",
@@ -2594,7 +2602,8 @@
     "U007",
     "U008",
     "U013",
-    "U014"
+    "U014",
+    "W010"
   ],
   "unreachable_reasons": {
     "A001": "needs the artifact lane: reads the built package manifest, not the recipe",
@@ -2613,6 +2622,7 @@
     "A014": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "A015": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "A016": "needs the upstream lane: reads an upstream inventory, asset or workflow",
+    "C032": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "C035": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "G001": "needs the correlation lane: joins records across packages in a cycle",
     "G002": "needs the correlation lane: joins records across packages in a cycle",
@@ -2652,12 +2662,15 @@
     "H058": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H060": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H061": "needs the cycle lane: needs one metadata cycle and the history around it",
+    "H066": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H070": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H073": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H074": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H086": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H087": "needs the cycle lane: needs one metadata cycle and the history around it",
     "H088": "needs the cycle lane: needs one metadata cycle and the history around it",
+    "H090": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
+    "H093": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H098": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H102": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
     "H104": "needs the compose lane: supplies the intermediate state the pipeline normally holds",
@@ -2682,7 +2695,8 @@
     "U007": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "U008": "needs the upstream lane: reads an upstream inventory, asset or workflow",
     "U013": "needs the upstream lane: reads an upstream inventory, asset or workflow",
-    "U014": "needs the upstream lane: reads an upstream inventory, asset or workflow"
+    "U014": "needs the upstream lane: reads an upstream inventory, asset or workflow",
+    "W010": "needs the compose lane: supplies the intermediate state the pipeline normally holds"
   },
   "untargeted_because_unreachable": [],
   "untargeted_reasons": {}

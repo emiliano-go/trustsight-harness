@@ -221,6 +221,40 @@ def _compose(payload: dict) -> list[dict]:
     config = dict(_config())
     if isinstance(payload.get("namespaces"), dict):
         config["namespaces"] = payload["namespaces"]
+    if kind == "scriptlet":
+        from trustsight.analysis.edges import edge_scriptlet_top_level_execution
+
+        finding = edge_scriptlet_top_level_execution(
+            str(payload["name"]), bytes.fromhex(payload["data"]))
+        return [finding] if finding else []
+    if kind == "edge":
+        from trustsight.analysis.edges import edge_committed_payload
+
+        finding = edge_committed_payload(
+            str(payload["name"]), bytes.fromhex(payload["data"]))
+        return [finding] if finding else []
+    if kind == "committed_path":
+        from trustsight.analysis.persistence_engine import (
+            emit_committed_build_path,
+        )
+
+        finding = emit_committed_build_path(
+            str(payload["name"]), bytes.fromhex(payload["data"]))
+        return [finding] if finding else []
+    if kind == "tree_manifest":
+        from trustsight.analysis.delivery._buildtree import scan_tree_manifest
+
+        files = [(str(name), bytes.fromhex(data))
+                 for name, data in payload.get("files") or ()]
+        return scan_tree_manifest(
+            files, list(payload.get("source_urls") or ()),
+            str(payload.get("package", "")))
+    if kind == "volume":
+        from trustsight.analysis.meta import alert_volume_finding
+
+        finding = alert_volume_finding(
+            list(payload.get("triggered") or ()), config)
+        return [finding] if finding else []
     if kind == "archive":
         from trustsight.analysis.archives import check_archive_trailer
 
@@ -419,6 +453,11 @@ LANE_RUNNERS = {
 #: The compose entry points: rule functions over fixture state.
 COMPOSE_KINDS = {
     "archive": frozenset({"data"}),
+    "scriptlet": frozenset({"name", "data"}),
+    "edge": frozenset({"name", "data"}),
+    "committed_path": frozenset({"name", "data"}),
+    "tree_manifest": frozenset({"files", "source_urls", "package"}),
+    "volume": frozenset({"triggered"}),
     "placeholder": frozenset({"text"}),
     "credential": frozenset({"package", "findings", "diff_text"}),
     "takeover": frozenset({"package", "findings", "adopted",
