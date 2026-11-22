@@ -1,0 +1,322 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "cardwire scored 75 (D004) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T10:22:10.000Z",
+  "packages": [
+    "cardwire",
+    "cardwire-bin"
+  ],
+  "payload": {
+    "alerts": [],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 3,
+      "changed": 27,
+      "processed": 30,
+      "refractory": [],
+      "removed": 1
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/cardwire",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,25 +4,22 @@\n pkgbase=cardwire\n pkgname=cardwire\n pkgver=0.12.3\n-pkgrel=1\n+pkgrel=2\n pkgdesc='GPU manager for Linux using eBPF LSM hooks'\n-arch=('x86_64')\n+arch=('x86_64' 'aarch64')\n url='https://github.com/OpenGamingCollective/cardwire'\n license=('GPL3')\n-depends=('hwdata' 'dbus' 'sqlite' 'systemd' 'upower')\n-makedepends=('rust' 'rust-src' 'cargo-binstall' 'libxcb')\n+depends=('hwdata' 'dbus' 'sqlite' 'systemd' 'upower' 'libdrm')\n+makedepends=('rust' 'rust-src' 'bpf-linker' 'libxcb')\n source=(\"https://github.com/OpenGamingCollective/cardwire/archive/refs/tags/v$pkgver.tar.gz\")\n sha256sums=('3cb5d7195806d07f3466b4bf29bd874a9519199442741c9d3cd4518633657fd6')\n+\n+provides=('switcheroo-control')\n+conflicts=('switcheroo-control')\n \n prepare(){\n   cd \"${pkgbase}-${pkgver}\"\n   cargo fetch --locked\n-  # This is a workaround to get cardwire-ebpf building\n-  # bpf-linker linked to llvm 22 or built with llvm 22 cannot compile the crate\n-  # the official binstall ship a llvm 23 static linked bpf-linker, this is what is used\n-  cargo binstall --locked --no-confirm \\\n-    --root \"${srcdir}/cardwire-tools\"\\\n-\t  --version 0.11.0 bpf-linker\n }\n \n build(){\n@@ -31,9 +28,9 @@\n   export RUSTC_BOOTSTRAP=1\n   export RUSTFLAGS=\"${RUSTFLAGS} -C linker=cc\"\n   export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=cc\n+  export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=cc\n   export CARGO_TARGET_DIR=target\n   export RUST_TOOLCHAIN=stable\n-  export PATH=\"${srcdir}/cardwire-tools/bin:$PATH\"\n   cargo build --frozen --release --bins\n }\n ",
+        "diff_sha256": "da6902f527a589d9752026f05d06fba445f1a1599b9c10fac3e57d2b4e13ad38",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Provides/Replaces Scope Expansion: provides claims 'switcheroo-control', established but unrelated to 'cardwire'",
+            "rule_id": "H064",
+            "rule_uid": "TS-0120",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Dependency Hijack Via Provides: provides 'switcheroo-control', an established package unrelated to 'cardwire'",
+            "rule_id": "D004",
+            "rule_uid": "TS-0044",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/OpenGamingCollective/cardwire was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/opengamingcollective/cardwire; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Critical Build Function Modified: diff modifies build(), prepare()",
+            "rule_id": "H015",
+            "rule_uid": "TS-0071",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/cardwire-0.12.3/.github/workflows/cicd.yml",
+            "line": null,
+            "reason": "CI Exfil Shape (Local): upstream/cardwire-0.12.3/.github/workflows/cicd.yml pairs a repository secret with an outbound transfer to sh.rustup.rs",
+            "rule_id": "U013",
+            "rule_uid": "TS-0296",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 5 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Naming/Deception Cluster: 2 naming/deception signals: D004 (dependency hijack), H064 (provides/replaces scope)",
+            "rule_id": "H098",
+            "rule_uid": "TS-0154",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 10:08 UTC",
+        "maintainer": "luytan",
+        "package": "cardwire",
+        "pkgbuild_sha256": "f104fe313e75a325eaaf67959952fd4c03cd175bac01ecac781cee814943b919",
+        "previous_maintainer": "luytan",
+        "previous_pkgbuild_sha256": "068623bb42dbf05728ff2804250f56f047493e2dacfb6c0bcf015bfb3960314e",
+        "rules": [
+          "H064",
+          "D004",
+          "W011",
+          "W012",
+          "H015",
+          "U013",
+          "H020",
+          "H027",
+          "H098",
+          "COVERAGE",
+          "P001"
+        ],
+        "score": 75,
+        "version": "0.12.3-2 -> 0.12.3-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/cardwire-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,17 +3,17 @@\n pkgbase=cardwire-bin\n pkgname=cardwire-bin\n pkgver=0.12.3\n-pkgrel=1\n+pkgrel=3\n pkgdesc='GPU manager for Linux using eBPF LSM hooks'\n arch=('x86_64')\n url='https://github.com/OpenGamingCollective/cardwire'\n license=('GPL3')\n-depends=('hwdata' 'dbus' 'sqlite' 'systemd' 'upower')\n+depends=('hwdata' 'dbus' 'sqlite' 'systemd' 'upower' 'libdrm')\n source=(\"https://github.com/OpenGamingCollective/cardwire/releases/download/v$pkgver/cardwire-$pkgver-1-x86_64.pkg.tar.zst\")\n sha256sums=('5829cbeeaa61d306207f6acb2d5f12b4dc6d62472852865cdfe65e6cb3427c46')\n-prepare(){\n-\ttar -xf cardwire-${pkgver}-1-x86_64.pkg.tar.zst\n-}\n+\n+provides=('cardwire' 'switcheroo-control')\n+conflicts=('cardwire' 'switcheroo-control')\n \n package(){\n \tcd usr",
+        "diff_sha256": "2c5a6311d02325b6b91be278e81d1694e2aa471d94911bf7af9437b504cc3cdc",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Provides/Replaces Scope Expansion: provides claims 'switcheroo-control', established but unrelated to 'cardwire-bin'",
+            "rule_id": "H064",
+            "rule_uid": "TS-0120",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Dependency Hijack Via Provides: provides 'switcheroo-control', an established package unrelated to 'cardwire-bin'",
+            "rule_id": "D004",
+            "rule_uid": "TS-0044",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/OpenGamingCollective/cardwire was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/opengamingcollective/cardwire; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Scan Not Completed: the opt-in upstream scan did not complete: upstream_scan_refused",
+            "rule_id": "W014",
+            "rule_uid": "TS-0298",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Naming/Deception Cluster: 2 naming/deception signals: D004 (dependency hijack), H064 (provides/replaces scope)",
+            "rule_id": "H098",
+            "rule_uid": "TS-0154",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 10:18 UTC",
+        "maintainer": "luytan",
+        "package": "cardwire-bin",
+        "pkgbuild_sha256": "5a9588882df060d36825082313a4ab771c15b4bab208839e7047f2225bf75562",
+        "previous_maintainer": "luytan",
+        "previous_pkgbuild_sha256": "c3d6da8cb5814f62242c5d367a78b899f2594482d2919422c2ae872863c7318f",
+        "rules": [
+          "H064",
+          "D004",
+          "W011",
+          "W012",
+          "W014",
+          "H020",
+          "H027",
+          "H098",
+          "COVERAGE",
+          "P001",
+          "P009"
+        ],
+        "score": 75,
+        "version": "0.12.3-3 -> 0.12.3-3"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: cardwire scored 75 (D004) +1 more",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H064",
+    "D004",
+    "W011",
+    "W012",
+    "H015",
+    "U013",
+    "H020",
+    "H027",
+    "H098",
+    "COVERAGE",
+    "P001",
+    "W014",
+    "P009"
+  ],
+  "slug": "2026-11-22/102210",
+  "tags": [],
+  "time": 1795342930,
+  "title": "TrustSight: cardwire scored 75 (D004) +1 more",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "9afdb2238ab8dba65abb3c2f4f1255a9ba65e695e5102ee24f000da403e523fb",
+    "key_id": "k1",
+    "signature": "XHt7f8x2Ow5Bnu8uPHDz+B/ot/3tSpQt53Otd1M9IJAwGF2VgCdEub84ui/ILd1XS8L6isiBrRAgE13AsW9MBQ==",
+    "signed_at": 1795342930,
+    "webhook_id": "ea871fc56222ce0e40e08a5618eeaea285371959dba77daa02f24e3d6b54c851"
+  }
+}

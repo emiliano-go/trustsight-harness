@@ -1,0 +1,180 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "deveco-devicetool scored 90 (H082)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T12:13:57.000Z",
+  "packages": [
+    "deveco-devicetool"
+  ],
+  "payload": {
+    "alerts": [],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 2,
+      "changed": 10,
+      "processed": 12,
+      "refractory": [],
+      "removed": 6
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/deveco-devicetool",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,7 +1,15 @@\n # Maintainer: HanHaocheng <hanhaocheng@archlinux>\n+#\n+# DevEco Device Tool is behind a logged-in download page and its URL is\n+# signature-bearing, so the source list is intentionally empty. Provide the zip\n+# at build time: copy the download link and run\n+#   ./deveco-devicetool-url\n+# or\n+#   DEVECO_DEVICETOOL_URL='<signed url>' makepkg -si\n+# or drop devicetool-linux-tool-<version>.zip next to this PKGBUILD.\n pkgname=deveco-devicetool\n pkgver=4.0.0.400\n-pkgrel=1\n+pkgrel=2\n pkgdesc='HUAWEI DevEco Device Tool for OpenHarmony device development (VS Code toolchain bundle)'\n arch=('x86_64')\n url='https://device.harmonyos.com/cn/develop/ide/'\n@@ -9,26 +17,54 @@\n depends=('python' 'unzip')\n optdepends=('code: load the bundled DevEco Device Tool extensions')\n options=('!strip')\n-source=(\"devicetool-linux-tool-${pkgver}.zip::https://contentcenter-vali-drcn.dbankcdn.cn/pvt_2/DeveloperAlliance_package_901_9/4e/v3/lGclRHBmTLWHOm_LkEJ46g/devicetool-linux-tool-${pkgver}.zip?HW-CC-KV=V1&HW-CC-Date=20230904T063206Z&HW-CC-Expire=315360000&HW-CC-Sign=9FCEEF20362FDAAE404DA2B838BF6EBDC5074446A4209F487E75059BB471EF6E\")\n-sha256sums=('SKIP')\n+source=()\n+sha256sums=()\n+\n+_zip_glob=devicetool-linux-tool-*.zip\n+\n+pkgver() {\n+  local f v\n+  f=$(compgen -G \"$srcdir/$_zip_glob\" | head -1)\n+  if [[ -n \"$f\" ]]; then\n+    v=$(basename \"$f\" | sed -nE 's/^devicetool-linux-tool-([0-9][0-9.]*)\\.zip$/\\1/p')\n+    [[ -n \"$v\" ]] && { printf '%s' \"$v\"; return; }\n+  fi\n+  printf '%s' \"${pkgver:-0}\"\n+}\n \n prepare() {\n-  unzip -q -o \"$srcdir/devicetool-linux-tool-$pkgver.zip\" -d \"$srcdir/payload\"\n-  chmod +x \"$srcdir/payload/devicetool-linux-tool-$pkgver.sh\"\n-  rm -rf \"$srcdir/extracted\"\n-  # makeself self-extractor: unpack the payload here, never execute the vendor installer\n-  sh \"$srcdir/payload/devicetool-linux-tool-$pkgver.sh\" --noexec --nox11 --target \"$srcdir/extracted\"\n+  local f\n+  f=$(compgen -G \"$srcdir/$_zip_glob\" | head -1)\n+  if [[ -z \"$f\" ]]; then\n+    if [[ -n \"${DEVECO_DEVICETOOL_URL:-}\" ]]; then\n+      f=\"$srcdir/$(basename \"${DEVECO_DEVICETOOL_URL%%\\?*}\")\"\n+      [[ \"$f\" == *.zip ]] || f=\"$srcdir/devicetool-linux-tool.zip\"\n+      msg \"fetching $(basename \"$f\")\"\n+      curl -fL --retry 3 -o \"$f\" \"$DEVECO_DEVICETOOL_URL\"\n+    else\n+      error \"No DevEco Device Tool archive found.\"\n+      error \"\"\n+      error \"  Download it from https://device.harmonyos.com/cn/develop/ide\"\n+      error \"  then either copy the link and run\"\n+      error \"    DEVECO_DEVICETOOL_URL='<signed url>' makepkg -si\"\n+      error \"  or place devicetool-linux-tool-<version>.zip next to this PKGBUILD.\"\n+      return 1\n+    fi\n+  fi\n+  rm -rf \"$srcdir/payload\" \"$srcdir/extracted\"\n+  mkdir -p \"$srcdir/payload\"\n+  unzip -q -o \"$f\" -d \"$srcdir/payload\"\n+  chmod +x \"$srcdir/payload/\"*.sh\n+  sh \"$srcdir/payload/\"*.sh --noexec --nox11 --target \"$srcdir/extracted\"\n }\n \n package() {\n   install -d \"$pkgdir/opt/Huawei/DevEco-Device-Tool/installer\"\n   cp -r --no-preserve=ownership \"$srcdir/extracted/.\" \"$pkgdir/opt/Huawei/DevEco-Device-Tool/installer/\"\n \n-  # USB/JTAG udev rules shipped in the payload\n   install -d \"$pkgdir/usr/lib/udev/rules.d\"\n   install -m644 \"$srcdir/extracted\"/*.rules \"$pkgdir/usr/lib/udev/rules.d/\"\n \n-  # vendor EULA / privacy statement\n   install -Dm644 \"$srcdir/extracted/privacy_statement.txt\" \"$pkgdir/usr/share/licenses/$pkgname/EULA.txt\"\n \n   install -d \"$pkgdir/usr/bin\"\n@@ -38,4 +74,10 @@\n exec sudo -E /opt/Huawei/DevEco-Device-Tool/installer/run.sh --system \"$@\"\n EOF\n   chmod 755 \"$pkgdir/usr/bin/deveco-devicetool\"\n+\n+  install -d \"$pkgdir/usr/share/doc/$pkgname\"\n+  printf '%s\\n' \\\n+    'DevEco Device Tool is installed under /opt/Huawei/DevEco-Device-Tool.' \\\n+    'Run deveco-devicetool once to install the VS Code extensions per user.' \\\n+    > \"$pkgdir/usr/share/doc/$pkgname/README\"\n }",
+        "diff_sha256": "605270307ddadc646a4d05da12050ce1df3ebb209cf254c0addbdcac0553c4dc",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 43,
+            "reason": "Uses curl in PKGBUILD: +      curl -fL --retry 3 -o \"$f\" \"$DEVECO_DEVICETOOL_URL\"",
+            "rule_id": "R010",
+            "rule_uid": "TS-0171",
+            "severity": "LOW",
+            "weight": 5
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 21,
+            "reason": "Checksum Emptied: checksum_array_emptied",
+            "rule_id": "H002",
+            "rule_uid": "TS-0058",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Critical Build Function Modified: diff modifies package(), prepare()",
+            "rule_id": "H015",
+            "rule_uid": "TS-0071",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Fetch Then Execute: prepare() fetches from an unattributed client (curl) and then executes payload/*.sh",
+            "rule_id": "H082",
+            "rule_uid": "TS-0138",
+            "severity": "CRITICAL",
+            "weight": 40
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 5 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: an analysis stage could not complete on this input, so the checks it performs did not run over all of the change",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as declared_upstream (https://device.harmonyos.com/cn/develop/ide)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://device.harmonyos.com/cn/develop/ide (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://device.harmonyos.com/cn/develop/ide (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          }
+        ],
+        "last_modified": "2026-11-22 12:09 UTC",
+        "maintainer": "HanHaocheng",
+        "package": "deveco-devicetool",
+        "pkgbuild_sha256": "e0403d5d90befa21867e82f71ba0f5e6303b2868dc299b9dfe2bf8e7a5e09781",
+        "previous_maintainer": "HanHaocheng",
+        "previous_pkgbuild_sha256": "e205652551dbc8d7dd730ba15c2b5b385847aebb497f06da4ffd0ffe7c127240",
+        "rules": [
+          "R010",
+          "H002",
+          "H015",
+          "H082",
+          "H020",
+          "H027",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY"
+        ],
+        "score": 90,
+        "version": "4.0.0.400-2 -> 4.0.0.400-2"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: deveco-devicetool scored 90 (H082)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "R010",
+    "H002",
+    "H015",
+    "H082",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY"
+  ],
+  "slug": "2026-11-22/121357",
+  "tags": [],
+  "time": 1795349637,
+  "title": "TrustSight: deveco-devicetool scored 90 (H082)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "60ba2f96cce8a0353174c17984bc9a292ecab1e733e171087cf3fd28314bce79",
+    "key_id": "k1",
+    "signature": "4VsQdJ0FrrH8l3xbixamU85/HdCUR1EZjgiTNdczE2V3oi/Qv02A+bTDheremcYWyvdVsy8VrwPe7BtBT2cnDQ==",
+    "signed_at": 1795349637,
+    "webhook_id": "d358f515aee97b741aaa4fde40d9db1b09d9460b17b83cff5698bf2ff6476e58"
+  }
+}

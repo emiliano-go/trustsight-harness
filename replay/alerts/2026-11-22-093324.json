@@ -1,0 +1,547 @@
+{
+  "counts": {
+    "alerts": 46,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "lumalarm scored 60 (H049)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T09:33:24.000Z",
+  "packages": [
+    "rsstig-bin",
+    "rtg",
+    "rustfm-bin",
+    "rvirc-git",
+    "salti-bin",
+    "savras-bin",
+    "sc-cli",
+    "sensor-vision-git",
+    "seqsizzle-bin",
+    "sgram-tui-bin",
+    "sharad_ratatui-bin",
+    "sheetsui-git",
+    "slurmer-bin",
+    "snipt-tui-bin",
+    "sonora-tui-bin",
+    "sprout-tui-bin",
+    "sqwatch",
+    "sshattrick",
+    "stevedore",
+    "streamtop-bin",
+    "sued-rs-bin",
+    "suzui-rs",
+    "tapin-bin",
+    "lumalarm"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "ahp",
+        "package": "rsstig-bin",
+        "pkgbuild_sha256": "90181fefd6fb4d9162e3b47d629876b9c602c492fe14bb9c5d11ab95484a0a41",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rtg",
+        "pkgbuild_sha256": "db9a1e1faaae5d2a497b4015cf2ab4db7b4e7cf6de7640a2402db62349d1591e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rustfm-bin",
+        "pkgbuild_sha256": "75d65920ddfb999463874974782c451f8a897d2bfab13361edf268e1e9218342",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rvirc-git",
+        "pkgbuild_sha256": "60678df4bd2f27a3c06694e0d12e61b07374d8e360c94e78476dcd8432b002bf",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "salti-bin",
+        "pkgbuild_sha256": "a552f001cdfa92d996819f2288f03907333e2ec34e31555dbf259f1f7e6fc440",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "savras-bin",
+        "pkgbuild_sha256": "6f1fa3dbff9fbe719c769156aff80d1a4cd6b7c66513595bc489391b28312c6d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sc-cli",
+        "pkgbuild_sha256": "199fb8ed90eb9234dc9f0e63de2300de97cec22b607ad442cade76725ca0cd07",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sensor-vision-git",
+        "pkgbuild_sha256": "18aab6721ebaf7a185fb6b64ff9f092a1ad48cb21b54f8d75ac623d81f67c93e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "seqsizzle-bin",
+        "pkgbuild_sha256": "673d8d5842710de08217ccde5e7ed7651d45a9f2fcd89e2ba0147e36b2a8e80c",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sgram-tui-bin",
+        "pkgbuild_sha256": "53518e12a9d887c42b42ede34e64f33f4cb5e04e21ca374bedc63e6669b7f6be",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sharad_ratatui-bin",
+        "pkgbuild_sha256": "1c8914d163a2b6223e0f456069961950edfe54dd5e8f5f3f06dcb22e4f5a7f30",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sheetsui-git",
+        "pkgbuild_sha256": "b7a6138c4d3a9ae08355ca56a1a34ee1c16314b781e6db024b4fb20cf859bdda",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "slurmer-bin",
+        "pkgbuild_sha256": "2ab04ce8647e9f7d06e26b74abb026ea2ab870c996b3def760b8b04aaccdc094",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "snipt-tui-bin",
+        "pkgbuild_sha256": "5f8e7c4493fbd8175f4adf6e649dcc471e3161b5815babd6c8d6a4cec80b2648",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sonora-tui-bin",
+        "pkgbuild_sha256": "8f8afc7fc1645b5bdb9c9663c4bbc4487055c9ce8b1c0eaeb91f098f9261d5fe",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sprout-tui-bin",
+        "pkgbuild_sha256": "6e9ead04754c41ffea43a1b22aeae0607603f9f5ff19e45426400c159d9cc664",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sqwatch",
+        "pkgbuild_sha256": "f10d15349fcc3aad1e34abcffaba21f574d9bd851ff44eee24e5a6d5a424a892",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sshattrick",
+        "pkgbuild_sha256": "bb2f9c19277096aa81f00bdbbea76e9af903a78e1ce8660ccbca24e66c9b99a6",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "stevedore",
+        "pkgbuild_sha256": "6469b321f99dd14bda9e9e89a8c0a6407213392d406f5d68aaca1446c22ae762",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "streamtop-bin",
+        "pkgbuild_sha256": "96affa062477c4e23b4760154e7d2213077b068359d6d2502f5fba69b2fdd544",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sued-rs-bin",
+        "pkgbuild_sha256": "b6ba1f64bdf8d396551ed810a65270aff6320abd36b541fdc2577be109c36981",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "suzui-rs",
+        "pkgbuild_sha256": "e8085c9f1083637592cd7617c0c18f0d45379c8e80e34abf04395a9e84c0a330",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tapin-bin",
+        "pkgbuild_sha256": "4fb8a5f15774e830b24b1ec8b566e55ff5d26873f9b2338b4d4ac3cbfc96ba6f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rsstig-bin",
+        "pkgbuild_sha256": "90181fefd6fb4d9162e3b47d629876b9c602c492fe14bb9c5d11ab95484a0a41",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rtg",
+        "pkgbuild_sha256": "db9a1e1faaae5d2a497b4015cf2ab4db7b4e7cf6de7640a2402db62349d1591e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rustfm-bin",
+        "pkgbuild_sha256": "75d65920ddfb999463874974782c451f8a897d2bfab13361edf268e1e9218342",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rvirc-git",
+        "pkgbuild_sha256": "60678df4bd2f27a3c06694e0d12e61b07374d8e360c94e78476dcd8432b002bf",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "salti-bin",
+        "pkgbuild_sha256": "a552f001cdfa92d996819f2288f03907333e2ec34e31555dbf259f1f7e6fc440",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "savras-bin",
+        "pkgbuild_sha256": "6f1fa3dbff9fbe719c769156aff80d1a4cd6b7c66513595bc489391b28312c6d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sc-cli",
+        "pkgbuild_sha256": "199fb8ed90eb9234dc9f0e63de2300de97cec22b607ad442cade76725ca0cd07",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sensor-vision-git",
+        "pkgbuild_sha256": "18aab6721ebaf7a185fb6b64ff9f092a1ad48cb21b54f8d75ac623d81f67c93e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "seqsizzle-bin",
+        "pkgbuild_sha256": "673d8d5842710de08217ccde5e7ed7651d45a9f2fcd89e2ba0147e36b2a8e80c",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sgram-tui-bin",
+        "pkgbuild_sha256": "53518e12a9d887c42b42ede34e64f33f4cb5e04e21ca374bedc63e6669b7f6be",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sharad_ratatui-bin",
+        "pkgbuild_sha256": "1c8914d163a2b6223e0f456069961950edfe54dd5e8f5f3f06dcb22e4f5a7f30",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sheetsui-git",
+        "pkgbuild_sha256": "b7a6138c4d3a9ae08355ca56a1a34ee1c16314b781e6db024b4fb20cf859bdda",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "slurmer-bin",
+        "pkgbuild_sha256": "2ab04ce8647e9f7d06e26b74abb026ea2ab870c996b3def760b8b04aaccdc094",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "snipt-tui-bin",
+        "pkgbuild_sha256": "5f8e7c4493fbd8175f4adf6e649dcc471e3161b5815babd6c8d6a4cec80b2648",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sonora-tui-bin",
+        "pkgbuild_sha256": "8f8afc7fc1645b5bdb9c9663c4bbc4487055c9ce8b1c0eaeb91f098f9261d5fe",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sprout-tui-bin",
+        "pkgbuild_sha256": "6e9ead04754c41ffea43a1b22aeae0607603f9f5ff19e45426400c159d9cc664",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sqwatch",
+        "pkgbuild_sha256": "f10d15349fcc3aad1e34abcffaba21f574d9bd851ff44eee24e5a6d5a424a892",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sshattrick",
+        "pkgbuild_sha256": "bb2f9c19277096aa81f00bdbbea76e9af903a78e1ce8660ccbca24e66c9b99a6",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "stevedore",
+        "pkgbuild_sha256": "6469b321f99dd14bda9e9e89a8c0a6407213392d406f5d68aaca1446c22ae762",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "streamtop-bin",
+        "pkgbuild_sha256": "96affa062477c4e23b4760154e7d2213077b068359d6d2502f5fba69b2fdd544",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "sued-rs-bin",
+        "pkgbuild_sha256": "b6ba1f64bdf8d396551ed810a65270aff6320abd36b541fdc2577be109c36981",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "suzui-rs",
+        "pkgbuild_sha256": "e8085c9f1083637592cd7617c0c18f0d45379c8e80e34abf04395a9e84c0a330",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tapin-bin",
+        "pkgbuild_sha256": "4fb8a5f15774e830b24b1ec8b566e55ff5d26873f9b2338b4d4ac3cbfc96ba6f",
+        "rule_id": "H073"
+      }
+    ],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 23,
+      "changed": 5,
+      "processed": 28,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/lumalarm",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,11 +1,12 @@\n-# Maintainer: Glass Alarm Developer\n-# Contributor: Arch Linux User\n+# Maintainer: DMK_X\n+# Prebuilt binary package \u2014 installs the published release asset with pacman -U\n+# (through an AUR helper), so no compiler or Qt development headers are needed.\n \n pkgname=lumalarm\n pkgver=1.0.5\n pkgrel=1\n pkgdesc=\"Glassmorphism alarm clock for Linux with rtcwake, D-Bus wake helper, multilingual UI and emoji-density control\"\n-arch=('x86_64' 'aarch64')\n+arch=('x86_64')\n url=\"https://github.com/shinigami1231111/lumalarm\"\n license=('GPL-3.0-or-later')\n depends=(\n@@ -14,44 +15,18 @@\n     'qt6-declarative'\n     'util-linux'\n )\n-makedepends=(\n-    'cmake'\n-    'gcc'\n-    'qt6-tools'\n-)\n optdepends=(\n-    'kwindowsystem: native KDE/KWin blur-behind (requires a rebuild with blur enabled)'\n+    'kwindowsystem: native KDE/KWin blur-behind (binary is built with blur off; source rebuild required)'\n )\n install=lumalarm.install\n-source=(\"${pkgname}-${pkgver}.tar.gz::https://github.com/shinigami1231111/lumalarm/archive/refs/tags/v${pkgver}.tar.gz\")\n-sha256sums=('418c7e93dc295a4a4e548ea184ac37b0a25dca1b2dcc9bd6bd5bed47f1cbc638')\n-\n-build() {\n-    cd \"${srcdir}/${pkgname}-${pkgver}\"\n-\n-    # KDE blur is optional and needs KF6WindowSystem at build AND run time;\n-    # keep the AUR build portable. Native translucency still works.\n-    cmake -B build \\\n-        -DCMAKE_INSTALL_PREFIX=/usr \\\n-        -DCMAKE_BUILD_TYPE=Release \\\n-        -DCMAKE_CXX_FLAGS=\"-O2 -pipe\" \\\n-        -DLUMALARM_ENABLE_KDE_BLUR=OFF\n-\n-    # Cap parallel jobs at 80% of available CPUs (never more, never zero).\n-    local jobs=$(( $(nproc) * 80 / 100 ))\n-    [ \"$jobs\" -lt 1 ] && jobs=1\n-    cmake --build build -j\"$jobs\"\n-}\n+source=(\"lumalarm-${pkgver}-${pkgrel}-${CARCH}.pkg.tar.zst::https://raw.githubusercontent.com/shinigami1231111/lumalarm/release-assets/lumalarm-${pkgver}-${pkgrel}-${CARCH}.pkg.tar.zst\")\n+sha256sums=('190a842a4f8f71b01674d055539b7f2ee0612d5d616aa135ba8df4ba30ebf367')\n+noextract=(\"lumalarm-${pkgver}-${pkgrel}-${CARCH}.pkg.tar.zst\")\n \n package() {\n-    cd \"${srcdir}/${pkgname}-${pkgver}\"\n-    DESTDIR=\"${pkgdir}\" cmake --install build\n-\n-    install -Dm644 LICENSE \"${pkgdir}/usr/share/licenses/${pkgname}/LICENSE\"\n-    mkdir -p \"${pkgdir}/usr/share/${pkgname}/tones\"\n-    install -Dm644 resources/lumalarm.desktop \\\n-        \"${pkgdir}/usr/share/applications/${pkgname}.desktop\"\n-\n-    # STG-1.6: no sudoers rule. The D-Bus helper + polkit action are installed\n-    # by CMake; lumalarm.install removes any legacy rule on upgrade.\n+    # Extract only the installed payload; metadata (.PKGINFO/.MTREE/.INSTALL)\n+    # is regenerated by makepkg from this PKGBUILD and lumalarm.install.\n+    tar --use-compress-program=zstd \\\n+        -xf \"${srcdir}/lumalarm-${pkgver}-${pkgrel}-${CARCH}.pkg.tar.zst\" \\\n+        -C \"${pkgdir}\" usr\n }",
+        "diff_sha256": "58cf78436805195763c98be08c76039f1ddb92a368a3ade193c8eacc0f938bbf",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 22,
+            "reason": "Source URL Changed Without Version Bump: URLs changed: ['https://github.com/shinigami1231111/lumalarm/archive/refs/tags/v1.0.5.tar.gz'] -> ['https://raw.githubusercontent.com/shinigami1231111/lumalarm/release-assets/lumalarm-${pkgver}-${pkgrel}-${CARCH}.pkg.tar.zst']",
+            "rule_id": "C003",
+            "rule_uid": "TS-0011",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/lumalarm-1.0.5/CMakeLists.txt",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/lumalarm-1.0.5/CMakeLists.txt (cpp)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/shinigami1231111/lumalarm was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/shinigami1231111/lumalarm; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Critical Build Function Modified: diff modifies package()",
+            "rule_id": "H015",
+            "rule_uid": "TS-0071",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source Origin Changed: source source_hosts changed after 23 stable obs",
+            "rule_id": "H049",
+            "rule_uid": "TS-0105",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Build System Changed: build build_system_markers changed after 23 stable obs: [\"cmake\"] -> [\"none\"]",
+            "rule_id": "H054",
+            "rule_uid": "TS-0110",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Build System Changed: build build_line_count changed after 23 stable obs: \"16-40\" -> \"0-5\"",
+            "rule_id": "H054",
+            "rule_uid": "TS-0110",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Install Hook Present: PKGBUILD declares an install hook",
+            "rule_id": "H023",
+            "rule_uid": "TS-0079",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 7 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 5 distinct layers fired with no strong signal: L1, L2, L3, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: noextract=() suppresses extraction of source archives whose contents could not be examined",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as raw_hosting (https://raw.githubusercontent.com/shinigami1231111/lumalarm/release-assets/lumalarm-${pkgver}-${pkgrel}-${CARCH}.pkg.tar.zst)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 09:27 UTC",
+        "maintainer": "DMK_X",
+        "package": "lumalarm",
+        "pkgbuild_sha256": "08971666b0bd0b1d9b588207541823e286c8d48157a3fd331cd906255e99a26e",
+        "previous_maintainer": "DMK_X",
+        "previous_pkgbuild_sha256": "b8f34326cf7bd945f2dd2cad4af3141c01ab435839997dbf8ee3a91497dbf9c9",
+        "rules": [
+          "C003",
+          "U001",
+          "W011",
+          "W012",
+          "H015",
+          "H020",
+          "H049",
+          "H054",
+          "H054",
+          "H023",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "P001"
+        ],
+        "score": 60,
+        "version": "1.0.5-1 -> 1.0.5-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: lumalarm scored 60 (H049)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H045",
+    "H073",
+    "C003",
+    "U001",
+    "W011",
+    "W012",
+    "H015",
+    "H020",
+    "H049",
+    "H054",
+    "H023",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "P001"
+  ],
+  "slug": "2026-11-22/093324",
+  "tags": [],
+  "time": 1795340004,
+  "title": "TrustSight: lumalarm scored 60 (H049)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "d447d63f42cc3d57ab1a60e92d2c0624fc550134f6fd70fb8353167c30130578",
+    "key_id": "k1",
+    "signature": "zg8zN5SLfVhm4t6fLLq6ZnwvBtiakWjEv7yAMEs63BOqlvVRzZkFp7c8jRCnmTD8ZvOPBIqq7WFkCW2he7WIBQ==",
+    "signed_at": 1795340004,
+    "webhook_id": "d8175c9f0c87beb08c862b77d9325ee63857d17b9ac54625a4db28b36dc33efc"
+  }
+}

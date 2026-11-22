@@ -1,0 +1,405 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "ungoogled-vulcanium scored 90 (X002) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T08:11:20.000Z",
+  "packages": [
+    "ungoogled-vulcanium",
+    "vulcanium"
+  ],
+  "payload": {
+    "alerts": [],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 1,
+      "changed": 20,
+      "processed": 21,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/ungoogled-vulcanium",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,7 +1,7 @@\n # Maintainer: lumexren <lumexren@gmail.com>\n \n pkgname=ungoogled-vulcanium\n-pkgver=157.0.8103.78\n+pkgver=158.0.8127.36\n pkgrel=1\n _launcher_ver=8\n _manual_clone=0\n@@ -9,10 +9,10 @@\n # Check the CRUBIT_REVISION found in tools/rust/update_rust.py\n #_crubit_rev=20dc640430bd60ff2f7f8dbf69c311c5f807adde\n # The commit above cannot be built successfully, use the last known good commit for stable toolchain\n-_crubit_rev=25d2c01bde904c3333bb2d48201e5cbb186a1c7f\n+_crubit_rev=d757594f6f7ac27c0cf9c8ea63d9136f8e1f77ae\n # ungoogled chromium variables\n _uc_usr=ungoogled-software\n-_uc_ver=157.0.8103.78-1\n+_uc_ver=158.0.8127.36-1\n pkgdesc=\"ungoogled-chromium with native Wayland Vulkan rendering and Vulkan Video decoding/encoding\"\n arch=('x86_64')\n url=\"https://github.com/lumexren/vulcanium\"\n@@ -84,17 +84,17 @@\n             'qt6-base: Qt support'\n             'org.freedesktop.secrets: password storage backend on GNOME, KDE and Xfce'\n             'upower: Battery Status API support')\n-provides=('chromium' 'ungoogled-chromium')\n-conflicts=('chromium' 'ungoogled-chromium' 'ungoogled-vulcanium-bin')\n+provides=('vulcanium' 'chromium' 'ungoogled-chromium')\n+conflicts=('chromium' 'ungoogled-chromium' 'vulcanium' 'vulcanium-bin' 'ungoogled-vulcanium-bin')\n options=('!lto') # Chromium adds its own flags for ThinLTO\n source=(https://commondatastorage.googleapis.com/chromium-browser-official/chromium-$pkgver-lite.tar.xz\n         \"git+https://chromium.googlesource.com/external/github.com/google/crubit.git#commit=$_crubit_rev\"\n         ungoogled-chromium-$_uc_ver.tar.gz::https://github.com/$_uc_usr/ungoogled-chromium/archive/$_uc_ver.tar.gz\n         https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver/chromium-launcher-$_launcher_ver.tar.gz\n         \"git+https://github.com/lumexren/vulcanium.git\")\n-sha256sums=('9fdce9d3c866f97f14f7a4250915e8e5b729dc952fcfb3a35507b126233f0660'\n-            'a9c0f429c7a45d31cecd8bd36fc636fbedaf49ff57264a22e3f1eabd4cab523a'\n-            '4028ace0113428dd9ffb0d27f27a54af1b3c1cec9431862ea130ec7f5a74cf9f'\n+sha256sums=('8a93030a68231ea046479c47d6b26dfae43becef1b5343cf95f8146109291d6d'\n+            'fa10e66c8078c2e02cf7e1df0810b7c7d77b89592cc27fca7a756cc4a5ba06cb'\n+            '7c6436fad80824245828b649ca776cb1c44f6827267858a7b1bb482ab62819c9'\n             '213e50f48b67feb4441078d50b0fd431df34323be15be97c55302d3fdac4483a'\n             'SKIP')\n \n@@ -126,7 +126,7 @@\n   #[libvpx]=libvpx\n   [libwebp]=libwebp\n   [libxml]=libxml2\n-  [libxslt]=libxslt\n+  #[libxslt]=libxslt\n   [openh264]=openh264\n   [opus]=opus\n   #[re2]=re2          # needs libstdc++\n@@ -187,8 +187,6 @@\n   # https://crbug.com/456677057\n   patch -Np1 -i \"$srcdir/vulcanium/arch/glibc-2.42-baud-rate-fix.patch\"\n \n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-149-use-of-undeclared-identifier-ERROR.patch\"\n-\n   # Fix issue about missing AVX functions\n   # Credit: https://github.com/ungoogled-software/ungoogled-chromium/pull/3837\n   patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-150-revert-avx-flag-change.patch\"\n@@ -211,11 +209,9 @@\n \n   patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-155-use-system-esbuild.patch\"\n \n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-157-crubit.patch\"\n-\n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-157-revert-gn-check-includes.patch\"\n-\n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-156-isolatedDeclarations.patch\"\n+  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-158-revert-gn-check-includes.patch\"\n+\n+  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-158-isolatedDeclarations.patch\"\n \n   # Work around TypeScript becoming a build dependency: disable tsgo for the\n   # WebUI and point devtools at the system tsc binary\n@@ -255,10 +251,12 @@\n     _line=\"${_line%%#*}\"\n     _line=\"${_line//[[:space:]]/}\"\n     [[ -z \"$_line\" ]] && continue\n-    [[ \"$_line\" == \"branding/0001-vulcanium-branding.patch\" ]] && continue\n     msg2 \"Applying Vulcanium patch: $_line\"\n     patch -Np1 -i \"$_vpatch_dir/$_line\"\n   done < \"$_vpatch_dir/series\"\n+\n+  msg2 \"Applying Vulcanium internal logo assets\"\n+  \"$srcdir/vulcanium/scripts/apply-branding-icons.sh\" vulcanium ./ \"$srcdir/vulcanium\"\n \n   # Link to system tools required by the build\n   mkdir -p third_party/node/linux/node-linux-x64/bin \\\n@@ -387,6 +385,7 @@\n       \"rust_sysroot_absolute=\\\"$_rust_sysroot\\\"\"\n       'rust_bindgen_root=\"/usr\"'\n       \"rustc_version=\\\"$(rustc --version | awk '{ print $2 ;}')\\\"\"\n+      'added_rust_stdlib_libs=[\"addr2line\",\"adler2\",\"gimli\",\"miniz_oxide\"]'\n     )\n   fi\n \n@@ -437,20 +436,20 @@\n   msg2 'Configuring Chromium'\n   gn gen out/Release --args=\"${_flags[*]}\"\n   msg2 'Building Chromium'\n-  ninja -C out/Release chrome chrome_sandbox chromedriver\n+  ninja -j6 -C out/Release chrome chrome_sandbox chromedriver\n }\n \n package() {\n   cd chromium-$pkgver\n \n-  install -Dv out/Release/chrome \"$pkgdir/usr/lib/chromium/chromium\"\n-  install -Dv out/Release/chromedriver \"$pkgdir/usr/bin/chromedriver\"\n-  install -Dvm4755 out/Release/chrome_sandbox \"$pkgdir/usr/lib/chromium/chrome-sandbox\"\n+  install -Dv out/Release/chrome \"$pkgdir/usr/lib/vulcanium/vulcanium\"\n+  install -Dv out/Release/chromedriver \"$pkgdir/usr/bin/vulcanium-chromedriver\"\n+  install -Dvm4755 out/Release/chrome_sandbox \"$pkgdir/usr/lib/vulcanium/chrome-sandbox\"\n   install -Dvm644 \"$srcdir/vulcanium/config/vulcanium-flags.conf\" \\\n-    \"$pkgdir/etc/chromium/default-flags.conf\"\n+    \"$pkgdir/etc/vulcanium/default-flags.conf\"\n \n   install -dm755 \"$pkgdir/usr/bin\"\n-  cat > \"$pkgdir/usr/bin/chromium\" << 'EOF'\n+  cat > \"$pkgdir/usr/bin/vulcanium\" << 'EOF'\n #!/usr/bin/env bash\n set -euo pipefail\n \n@@ -494,8 +493,8 @@\n   done < \"$f\"\n }\n \n-_read_flags \"/etc/chromium/default-flags.conf\"\n-_read_flags \"${XDG_CONFIG_HOME:-$HOME/.config}/chromium-flags.conf\"\n+_read_flags \"/etc/vulcanium/default-flags.conf\"\n+_read_flags \"${XDG_CONFIG_HOME:-$HOME/.config}/vulcanium-flags.conf\"\n for arg in \"$@\"; do\n   _push_flag \"$arg\"\n done\n@@ -509,36 +508,37 @@\n   _flags+=(\"--disable-features=$(IFS=,; echo \"${_disable_features[*]}\")\")\n fi\n \n+export CHROME_DESKTOP=\"vulcanium.desktop\"\n export CHROME_VERSION_EXTRA=\"vulcanium\"\n export CHROME_WRAPPER=\"$(readlink -f \"$0\")\"\n-exec /usr/lib/chromium/chromium \"${_flags[@]}\"\n+exec /usr/lib/vulcanium/vulcanium \"${_flags[@]}\"\n EOF\n-  chmod 755 \"$pkgdir/usr/bin/chromium\"\n+  chmod 755 \"$pkgdir/usr/bin/vulcanium\"\n \n   install -Dvm644 chrome/installer/linux/common/desktop.template \\\n-    \"$pkgdir/usr/share/applications/chromium.desktop\"\n+    \"$pkgdir/usr/share/applications/vulcanium.desktop\"\n   install -Dvm644 chrome/app/resources/manpage.1.in \\\n-    \"$pkgdir/usr/share/man/man1/chromium.1\"\n+    \"$pkgdir/usr/share/man/man1/vulcanium.1\"\n   sed -i \\\n-    -e 's/@@MENUNAME/Chromium/g' \\\n-    -e 's/@@PACKAGE/chromium/g' \\\n-    -e 's/@@desktop_exec/chromium/g' \\\n-    -e 's/@@desktop_icon/chromium/g' \\\n-    -e 's/@@startup_wm_class/chromium/g' \\\n-    -e 's|@@uri_scheme|x-scheme-handler/chromium;|g' \\\n+    -e 's/@@MENUNAME/Vulcanium/g' \\\n+    -e 's/@@PACKAGE/vulcanium/g' \\\n+    -e 's/@@desktop_exec/vulcanium/g' \\\n+    -e 's/@@desktop_icon/vulcanium/g' \\\n+    -e '/^StartupWMClass=/d' \\\n+    -e 's|@@uri_scheme|x-scheme-handler/vulcanium;|g' \\\n     -e 's/@@extra_desktop_entries//g' \\\n-    \"$pkgdir/usr/share/applications/chromium.desktop\" \\\n-    \"$pkgdir/usr/share/man/man1/chromium.1\"\n-\n-  # Fill in common Chrome/Chromium AppData template with Chromium info\n+    \"$pkgdir/usr/share/applications/vulcanium.desktop\" \\\n+    \"$pkgdir/usr/share/man/man1/vulcanium.1\"\n+\n+  # Fill in common Chrome/Chromium AppData template with Vulcanium info\n   (\n     tmpl_file=chrome/installer/linux/common/appdata.xml.template\n     info_file=chrome/installer/linux/common/chromium-browser.info\n-    . $info_file; PACKAGE=chromium\n+    . $info_file; PACKAGE=vulcanium\n     export $(grep -o '^[A-Z_]*' $info_file)\n     sed -E -e 's/@@([A-Z_]*)/\\${\\1}/g' -e '/<update_contact>/d' $tmpl_file | envsubst\n   ) \\\n-  | install -Dvm644 /dev/stdin \"$pkgdir/usr/share/metainfo/chromium.appdata.xml\"\n+  | install -Dvm644 /dev/stdin \"$pkgdir/usr/share/metainfo/vulcanium.appdata.xml\"\n \n   local toplevel_files=(\n     chrome_100_percent.pak\n@@ -562,21 +562,17 @@\n     toplevel_files+=(icudtl.dat)\n   fi\n \n-  cp \"${toplevel_files[@]/#/out/Release/}\" \"$pkgdir/usr/lib/chromium/\"\n-  install -Dvm644 -t \"$pkgdir/usr/lib/chromium/locales\" out/Release/locales/*.pak\n+  cp \"${toplevel_files[@]/#/out/Release/}\" \"$pkgdir/usr/lib/vulcanium/\"\n+  install -Dvm644 -t \"$pkgdir/usr/lib/vulcanium/locales\" out/Release/locales/*.pak\n \n   for size in 16 24 32 48 64 128 256; do\n     install -Dvm644 \"$srcdir/vulcanium/assets/icons/vulcanium/${size}.png\" \\\n-      \"$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/chromium.png\"\n+      \"$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/vulcanium.png\"\n   done\n   install -Dvm644 \"$srcdir/vulcanium/assets/icons/vulcanium.svg\" \\\n-    \"$pkgdir/usr/share/icons/hicolor/scalable/apps/chromium.svg\"\n-\n-  # chromium uses the icon name \"chromium-browser\" internally\n-  # https://github.com/chromium/chromium/blob/160.0.8155.1/chrome/browser/shell_integration_linux.cc#L604\n-  ln -s chromium.png \"$pkgdir/usr/share/icons/hicolor/48x48/apps/chromium-browser.png\"\n-\n-  install -Dvm644 LICENSE \"$pkgdir/usr/share/licenses/chromium/LICENSE\"\n+    \"$pkgdir/usr/share/icons/hicolor/scalable/apps/vulcanium.svg\"\n+\n+  install -Dvm644 LICENSE \"$pkgdir/usr/share/licenses/vulcanium/LICENSE\"\n }\n \n # vim:set ts=2 sw=2 et:",
+        "diff_sha256": "a352bf57172b575ed8854990d8562ef4969b7cb831ab327d0de3fbeebd25852b",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 95,
+            "reason": "Checksum Changed Without Source Change With Stable Version: checksum updated with a version bump that also adds an execution of /etc/vulcanium/default-flags.conf",
+            "rule_id": "C001",
+            "rule_uid": "TS-0009",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 388,
+            "reason": "Non-Literal Executable Name: partial-quote: 'added_rust_stdlib_libs=[\"addr2line\",\"adler2\",\"gimli\",\"miniz_oxide\"]'",
+            "rule_id": "X002",
+            "rule_uid": "TS-0233",
+            "severity": "CRITICAL",
+            "weight": 40
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Official-Repo Name Shadow: provides claims 'chromium', an established package unrelated to 'ungoogled-vulcanium'",
+            "rule_id": "D005",
+            "rule_uid": "TS-0274",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/ci.yml",
+            "line": null,
+            "reason": "New CI Surface Committed: upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/ci.yml added; a new automation surface in the package repo",
+            "rule_id": "U009",
+            "rule_uid": "TS-0269",
+            "severity": "LOW",
+            "weight": 0
+          },
+          {
+            "file": "upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/new_version_check.yml",
+            "line": null,
+            "reason": "New CI Surface Committed: upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/new_version_check.yml added; a new automation surface in the package repo",
+            "rule_id": "U009",
+            "rule_uid": "TS-0269",
+            "severity": "LOW",
+            "weight": 0
+          },
+          {
+            "file": "upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/release-on-tag.yml",
+            "line": null,
+            "reason": "New CI Surface Committed: upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/release-on-tag.yml added; a new automation surface in the package repo",
+            "rule_id": "U009",
+            "rule_uid": "TS-0269",
+            "severity": "LOW",
+            "weight": 0
+          },
+          {
+            "file": "upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/stale.yml",
+            "line": null,
+            "reason": "New CI Surface Committed: upstream/ungoogled-chromium-158.0.8127.36-1/.github/workflows/stale.yml added; a new automation surface in the package repo",
+            "rule_id": "U009",
+            "rule_uid": "TS-0269",
+            "severity": "LOW",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/lumexren/vulcanium was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/lumexren/vulcanium; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Critical Build Function Modified: diff modifies package()",
+            "rule_id": "H015",
+            "rule_uid": "TS-0071",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Packaged File Names A Build-Only Path: a file staged into the package names $pkgdir, a directory that exists only while the package is built",
+            "rule_id": "H089",
+            "rule_uid": "TS-0145",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 8 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: an analysis stage could not complete on this input, so the checks it performs did not run over all of the change",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source tracks a branch or unpinned ref; upstream decides at build time what this compiles and runs",
+            "rule_id": "P008",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:07 UTC",
+        "maintainer": "lumexren",
+        "package": "ungoogled-vulcanium",
+        "pkgbuild_sha256": "166360d6340847032072407d965a7a1873a92c22eb03c6ef3bc0d1748c536b0e",
+        "previous_maintainer": "lumexren",
+        "previous_pkgbuild_sha256": "5f1053353e7e64db7fa73ba1aa06af2314cfea45e96869db8c71bb22a0950f8d",
+        "rules": [
+          "C001",
+          "X002",
+          "D005",
+          "U009",
+          "U009",
+          "U009",
+          "U009",
+          "W011",
+          "W012",
+          "H015",
+          "H089",
+          "H020",
+          "H027",
+          "COVERAGE",
+          "COVERAGE",
+          "P001",
+          "P008"
+        ],
+        "score": 90,
+        "version": "158.0.8127.36-1 -> 158.0.8127.36-1"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/vulcanium",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,7 +1,7 @@\n # Maintainer: lumexren <lumexren@gmail.com>\n \n pkgname=vulcanium\n-pkgver=157.0.8103.78\n+pkgver=158.0.8127.36\n pkgrel=1\n _launcher_ver=8\n _manual_clone=0\n@@ -9,13 +9,13 @@\n # Check the CRUBIT_REVISION found in tools/rust/update_rust.py\n #_crubit_rev=20dc640430bd60ff2f7f8dbf69c311c5f807adde\n # The commit above cannot be built successfully, use the last known good commit for stable toolchain\n-_crubit_rev=25d2c01bde904c3333bb2d48201e5cbb186a1c7f\n+_crubit_rev=d757594f6f7ac27c0cf9c8ea63d9136f8e1f77ae\n pkgdesc=\"Chromium with native Wayland Vulkan rendering and Vulkan Video decoding/encoding\"\n arch=('x86_64')\n url=\"https://github.com/lumexren/vulcanium\"\n license=('BSD-3-Clause')\n provides=('chromium')\n-conflicts=('vulcanium-bin')\n+conflicts=('chromium' 'ungoogled-chromium' 'vulcanium-bin' 'ungoogled-vulcanium' 'ungoogled-vulcanium-bin')\n depends=(\n   'alsa-lib'\n   'at-spi2-core'\n@@ -88,8 +88,8 @@\n         \"git+https://chromium.googlesource.com/external/github.com/google/crubit.git#commit=$_crubit_rev\"\n         https://github.com/foutrelis/chromium-launcher/archive/v$_launcher_ver/chromium-launcher-$_launcher_ver.tar.gz\n         \"git+https://github.com/lumexren/vulcanium.git\")\n-sha256sums=('9fdce9d3c866f97f14f7a4250915e8e5b729dc952fcfb3a35507b126233f0660'\n-            'a9c0f429c7a45d31cecd8bd36fc636fbedaf49ff57264a22e3f1eabd4cab523a'\n+sha256sums=('8a93030a68231ea046479c47d6b26dfae43becef1b5343cf95f8146109291d6d'\n+            'fa10e66c8078c2e02cf7e1df0810b7c7d77b89592cc27fca7a756cc4a5ba06cb'\n             '213e50f48b67feb4441078d50b0fd431df34323be15be97c55302d3fdac4483a'\n             'SKIP')\n \n@@ -121,7 +121,7 @@\n   #[libvpx]=libvpx\n   [libwebp]=libwebp\n   [libxml]=libxml2\n-  [libxslt]=libxslt\n+  #[libxslt]=libxslt\n   [openh264]=openh264\n   [opus]=opus\n   #[re2]=re2          # needs libstdc++\n@@ -190,8 +190,6 @@\n   # https://crbug.com/456677057\n   patch -Np1 -i \"$srcdir/vulcanium/arch/glibc-2.42-baud-rate-fix.patch\"\n \n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-149-use-of-undeclared-identifier-ERROR.patch\"\n-\n   # Fix issue about missing AVX functions\n   # Credit: https://github.com/ungoogled-software/ungoogled-chromium/pull/3837\n   patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-150-revert-avx-flag-change.patch\"\n@@ -214,11 +212,9 @@\n \n   patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-155-use-system-esbuild.patch\"\n \n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-157-crubit.patch\"\n-\n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-157-revert-gn-check-includes.patch\"\n-\n-  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-156-isolatedDeclarations.patch\"\n+  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-158-revert-gn-check-includes.patch\"\n+\n+  patch -Np1 -i \"$srcdir/vulcanium/arch/chromium-158-isolatedDeclarations.patch\"\n \n   # Work around TypeScript becoming a build dependency: disable tsgo for the\n   # WebUI and point devtools at the system tsc binary\n@@ -236,6 +232,9 @@\n       patch -Np1 -i \"$_vpatch_dir/$_line\"\n     done < \"$_vpatch_dir/series\"\n   fi\n+\n+  msg2 \"Applying Vulcanium internal logo assets\"\n+  \"$srcdir/vulcanium/scripts/apply-branding-icons.sh\" vulcanium ./ \"$srcdir/vulcanium\"\n \n   # The unbundled brotli doesn't provide brotli:headers\n   sed -i '/brotli:headers/ d' third_party/pdfium/core/fxcodec/BUILD.gn\n@@ -382,6 +381,7 @@\n       \"rust_sysroot_absolute=\\\"$_rust_sysroot\\\"\"\n       'rust_bindgen_root=\"/usr\"'\n       \"rustc_version=\\\"$(rustc --version | awk '{ print $2 ;}')\\\"\"\n+      'added_rust_stdlib_libs=[\"addr2line\",\"adler2\",\"gimli\",\"miniz_oxide\"]'\n     )\n   fi\n \n@@ -438,7 +438,7 @@\n     install -Dm755 -t ../chromium-$pkgver/third_party/rust-toolchain/crubit/bin/ target/release/cc_bindings_from_rs\n   )\n   gn gen out/Release --args=\"${_flags[*]}\"\n-  ninja -C out/Release chrome chrome_sandbox chromedriver.unstripped\n+  ninja -j6 -C out/Release chrome chrome_sandbox chromedriver.unstripped\n }\n \n package() {\n@@ -511,6 +511,7 @@\n   _flags+=(\"--disable-features=$(IFS=,; echo \"${_disable_features[*]}\")\")\n fi\n \n+export CHROME_DESKTOP=\"vulcanium.desktop\"\n export CHROME_VERSION_EXTRA=\"vulcanium\"\n export CHROME_WRAPPER=\"$(readlink -f \"$0\")\"\n exec /usr/lib/vulcanium/vulcanium \"${_flags[@]}\"\n@@ -526,7 +527,7 @@\n     -e 's/@@PACKAGE/vulcanium/g' \\\n     -e 's/@@desktop_exec/vulcanium/g' \\\n     -e 's/@@desktop_icon/vulcanium/g' \\\n-    -e 's/@@startup_wm_class/vulcanium/g' \\\n+    -e '/^StartupWMClass=/d' \\\n     -e 's|@@uri_scheme|x-scheme-handler/vulcanium;|g' \\\n     -e 's/@@extra_desktop_entries//g' \\\n     \"$pkgdir/usr/share/applications/vulcanium.desktop\" \\",
+        "diff_sha256": "af68ccaa64e766c8bd5c1b1cd55f7a4d956e1e3f1ca977677363de89e2a5cc24",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 91,
+            "reason": "Checksum Updated With Version Bump: sha256sums updated alongside a version move",
+            "rule_id": "C002",
+            "rule_uid": "TS-0010",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 384,
+            "reason": "Non-Literal Executable Name: partial-quote: 'added_rust_stdlib_libs=[\"addr2line\",\"adler2\",\"gimli\",\"miniz_oxide\"]'",
+            "rule_id": "X002",
+            "rule_uid": "TS-0233",
+            "severity": "CRITICAL",
+            "weight": 40
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Unresolved Construct In A Recipe: 1 unresolved assignment(s) this analysis could not resolve: CHROME_WRAPPER",
+            "rule_id": "W008",
+            "rule_uid": "TS-0229",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Provides/Replaces Scope Expansion: conflicts claims 'chromium', widely depended on but unrelated to 'vulcanium'",
+            "rule_id": "H064",
+            "rule_uid": "TS-0120",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/lumexren/vulcanium was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/lumexren/vulcanium; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Critical Build Function Modified: diff modifies package()",
+            "rule_id": "H015",
+            "rule_uid": "TS-0071",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 6 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: an analysis stage could not complete on this input, so the checks it performs did not run over all of the change",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source tracks a branch or unpinned ref; upstream decides at build time what this compiles and runs",
+            "rule_id": "P008",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:07 UTC",
+        "maintainer": "lumexren",
+        "package": "vulcanium",
+        "pkgbuild_sha256": "fa02df8e93eabb415207d43375e301f0516ae7d28df730729e723ebc4c1537ec",
+        "previous_maintainer": "lumexren",
+        "previous_pkgbuild_sha256": "a017a651dda7c42694461de6c860e29e717786f77d458684a1f87186882bf010",
+        "rules": [
+          "C002",
+          "X002",
+          "W008",
+          "H064",
+          "W011",
+          "W012",
+          "H015",
+          "H020",
+          "H027",
+          "COVERAGE",
+          "COVERAGE",
+          "P001",
+          "P008"
+        ],
+        "score": 40,
+        "version": "158.0.8127.36-1 -> 158.0.8127.36-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: ungoogled-vulcanium scored 90 (X002) +1 more",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "C001",
+    "X002",
+    "D005",
+    "U009",
+    "W011",
+    "W012",
+    "H015",
+    "H089",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001",
+    "P008",
+    "C002",
+    "W008",
+    "H064"
+  ],
+  "slug": "2026-11-22/081120",
+  "tags": [],
+  "time": 1795335080,
+  "title": "TrustSight: ungoogled-vulcanium scored 90 (X002) +1 more",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "bfa76fedd89a2bc8ca516b46ca9735fe67a5da13ae166bacb0452b40c3bf576a",
+    "key_id": "k1",
+    "signature": "VEzTY6rjJy76p7duwxhTGarl8Wo5V+WIjyIo1uExWcddJLiBlevnv5sbHka5I0jKUWtPGeg+wjACTlnFNum3DQ==",
+    "signed_at": 1795335080,
+    "webhook_id": "77a6b74899ff824a3e9c0c72861b896a708c0f387b2521b4bfff54dde18af517"
+  }
+}

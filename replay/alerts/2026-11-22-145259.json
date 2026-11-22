@@ -1,0 +1,589 @@
+{
+  "counts": {
+    "alerts": 5,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "dh-to-do scored 45 (NOVELTY)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T14:52:59.000Z",
+  "packages": [
+    "avernella-bin",
+    "liney-bin",
+    "dh-to-do"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n # Maintainer: novesce <120620395+novesce@users.noreply.github.com>\n pkgname=avernella-bin\n-pkgver=0.1+git13.e567d32\n+pkgver=0.1+git15.cd289f2\n pkgrel=1\n pkgdesc='Native Linux client for LINE, packaged from the Avernella Ubuntu release'\n arch=('x86_64')\n@@ -15,9 +15,9 @@\n             'zbar: scanning QR images')\n provides=(\"avernella=$pkgver\")\n conflicts=('avernella')\n-_deb='avernella_0.1+git13.e567d32_amd64.deb'\n-source=(\"https://github.com/novesce/avernella-packaging/releases/download/avernella-e567d32f9fbaefe3e40ca6074d086d8fa2cd42f3/$_deb\")\n-sha256sums=('8704a892f5fa9201abc98194fbfe118db88fe694b32a896d733b9e8835bec564')\n+_deb='avernella_0.1+git15.cd289f2_amd64.deb'\n+source=(\"https://github.com/novesce/avernella-packaging/releases/download/avernella-cd289f20cf55eca870b1788bcccbc5f235641a5b/$_deb\")\n+sha256sums=('9c27e777be819212d1d1d06d5573e8f7ef577b6474a8e7df8353e2880a55913b')\n noextract=(\"$_deb\")\n options=('!strip' '!debug')\n ",
+        "diff_sha256": "062dcdff3e5e79a68b29af8857a1551a2fb2eb67e22faeb73507980c0ec6a6ed",
+        "maintainer": "novesce",
+        "new": "novesce",
+        "old": "autism.th",
+        "package": "avernella-bin",
+        "pkgbuild_sha256": "d015cff286d3ab46fa8c0de071a4fe4de4cb55302d859bc63e261b984067826b",
+        "previous_pkgbuild_sha256": "265bd48c3c8bf61fe7fd126d30fe72dd46e16cb10f74b1bcfbcdb47db64e8bb2",
+        "rule_id": "H044"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n # Maintainer: novesce <120620395+novesce@users.noreply.github.com>\n pkgname=avernella-bin\n-pkgver=0.1+git13.e567d32\n+pkgver=0.1+git15.cd289f2\n pkgrel=1\n pkgdesc='Native Linux client for LINE, packaged from the Avernella Ubuntu release'\n arch=('x86_64')\n@@ -15,9 +15,9 @@\n             'zbar: scanning QR images')\n provides=(\"avernella=$pkgver\")\n conflicts=('avernella')\n-_deb='avernella_0.1+git13.e567d32_amd64.deb'\n-source=(\"https://github.com/novesce/avernella-packaging/releases/download/avernella-e567d32f9fbaefe3e40ca6074d086d8fa2cd42f3/$_deb\")\n-sha256sums=('8704a892f5fa9201abc98194fbfe118db88fe694b32a896d733b9e8835bec564')\n+_deb='avernella_0.1+git15.cd289f2_amd64.deb'\n+source=(\"https://github.com/novesce/avernella-packaging/releases/download/avernella-cd289f20cf55eca870b1788bcccbc5f235641a5b/$_deb\")\n+sha256sums=('9c27e777be819212d1d1d06d5573e8f7ef577b6474a8e7df8353e2880a55913b')\n noextract=(\"$_deb\")\n options=('!strip' '!debug')\n ",
+        "diff_sha256": "062dcdff3e5e79a68b29af8857a1551a2fb2eb67e22faeb73507980c0ec6a6ed",
+        "maintainer": "novesce",
+        "new": "novesce",
+        "old": "autism.th",
+        "package": "avernella-bin",
+        "pkgbuild_sha256": "d015cff286d3ab46fa8c0de071a4fe4de4cb55302d859bc63e261b984067826b",
+        "previous_pkgbuild_sha256": "265bd48c3c8bf61fe7fd126d30fe72dd46e16cb10f74b1bcfbcdb47db64e8bb2",
+        "rule_id": "H026"
+      },
+      {
+        "maintainer": "novesce",
+        "new": "novesce",
+        "old": "autism.th",
+        "package": "liney-bin",
+        "pkgbuild_sha256": "fbfa791358cc9e6cd53d0e04c82bfa321fde92008837134db2f83d7bb6d06dd1",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "novesce",
+        "new": "novesce",
+        "old": "autism.th",
+        "package": "liney-bin",
+        "pkgbuild_sha256": "fbfa791358cc9e6cd53d0e04c82bfa321fde92008837134db2f83d7bb6d06dd1",
+        "rule_id": "H026"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n # Maintainer: novesce <120620395+novesce@users.noreply.github.com>\n pkgname=avernella-bin\n-pkgver=0.1+git13.e567d32\n+pkgver=0.1+git15.cd289f2\n pkgrel=1\n pkgdesc='Native Linux client for LINE, packaged from the Avernella Ubuntu release'\n arch=('x86_64')\n@@ -15,9 +15,9 @@\n             'zbar: scanning QR images')\n provides=(\"avernella=$pkgver\")\n conflicts=('avernella')\n-_deb='avernella_0.1+git13.e567d32_amd64.deb'\n-source=(\"https://github.com/novesce/avernella-packaging/releases/download/avernella-e567d32f9fbaefe3e40ca6074d086d8fa2cd42f3/$_deb\")\n-sha256sums=('8704a892f5fa9201abc98194fbfe118db88fe694b32a896d733b9e8835bec564')\n+_deb='avernella_0.1+git15.cd289f2_amd64.deb'\n+source=(\"https://github.com/novesce/avernella-packaging/releases/download/avernella-cd289f20cf55eca870b1788bcccbc5f235641a5b/$_deb\")\n+sha256sums=('9c27e777be819212d1d1d06d5573e8f7ef577b6474a8e7df8353e2880a55913b')\n noextract=(\"$_deb\")\n options=('!strip' '!debug')\n ",
+        "diff_sha256": "062dcdff3e5e79a68b29af8857a1551a2fb2eb67e22faeb73507980c0ec6a6ed",
+        "maintainer": "novesce",
+        "new": "novesce",
+        "old": "autism.th",
+        "package": "avernella-bin",
+        "pkgbuild_sha256": "d015cff286d3ab46fa8c0de071a4fe4de4cb55302d859bc63e261b984067826b",
+        "previous_pkgbuild_sha256": "265bd48c3c8bf61fe7fd126d30fe72dd46e16cb10f74b1bcfbcdb47db64e8bb2",
+        "rule_id": "H074"
+      }
+    ],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 1,
+      "changed": 29,
+      "processed": 30,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/dh-to-do",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n # Maintainer: Seratym < {replace_by_handle} at proton dot me>\n pkgname=dh-to-do\n-pkgver=3.3.2\n+pkgver=3.4.0\n pkgrel=1\n pkgdesc='A to-do app with a floating reminder of the task you are on, simple lists, and easy time tracking'\n arch=('x86_64')\n@@ -14,7 +14,7 @@\n   \"$pkgname-$pkgver-source.tar.gz::https://github.com/digitalhabits/dh-to-do/archive/refs/tags/v$pkgver.tar.gz\"\n   \"$pkgname.desktop\"\n )\n-sha256sums=('9a07587c7faa741a25bf64c93cc89e869a99eb4e4e4915dda82b3cc12f6c7d77'\n+sha256sums=('c42ef4fb40a94c9c17db187ed9def88a4c934afeba36d3173a68abf18349b57d'\n             '924410004b2b07d3f5278663162fcf8bca79e2b440b79ce08945d2b2298f7a7d')\n \n prepare() {",
+        "diff_sha256": "ef1f95096b428d26ec6c0b07833b46c496bb5138223c067c761758a1aa3f7035",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 17,
+            "reason": "Checksum Updated With Version Bump: sha256sums updated alongside a version move",
+            "rule_id": "C002",
+            "rule_uid": "TS-0010",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/apps/todo/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/apps/todo/package.json: removed @redd/todo, @tauri-apps/cli, @tauri-apps/plugin-http, @types/node, @types/react, @types/react-dom, @vitejs/plugin-react, clsx, esbuild, happy-dom, lucide-react, react, react-dom, react-quill-new, sonner, sql.js, tailwind-merge, trix, typescript, vite",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.lock",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.lock (cargo)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.lock",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.lock: removed adler2, ahash, aho-corasick, alloc-no-stdlib, alloc-stdlib, android_log-sys, android_logger, android_system_properties, anyhow, ascii, async-broadcast, async-channel, async-executor, async-io, async-lock, async-process, async-recursion, async-signal, async-task, async-trait, atk, atk-sys, atomic-waker, autocfg, base64, bit-set, bit-vec, bitflags, block-buffer, block2, blocking, brotli, brotli-decompressor, bs58, bumpalo, bytemuck, byteorder, bytes, cairo-rs, cairo-sys-rs, camino, cargo-platform, cargo_metadata, cargo_toml, cc, cesu8, cfb, cfg-expr, cfg-if, cfg_aliases, chacha20, chrono, chunked_transfer, combine, concurrent-queue, const-random, const-random-macro, cookie, cookie_store, core-foundation, core-foundation-sys, core-graphics, core-graphics-types, cpufeatures, crc32fast, crossbeam-channel, crossbeam-utils, crunchy, crypto-common, cssparser, cssparser-macros, ctor, darling, darling_core, darling_macro, data-url, dbus, defmt, defmt-macros, defmt-parser, deranged, derive_more, derive_more-impl, digest, digital-habits-todo, dirs, dirs-sys, dispatch2, displaydoc, dlopen2, dlopen2_derive, dlv-list, document-features, dom_query, dpi, dtoa, dtoa-short, dunce, dyn-clone, embed-resource, embed_plist, encoding_rs, endi, enumflags2, enumflags2_derive, env_filter, equivalent, erased-serde, errno, event-listener, event-listener-strategy, fallible-iterator, fallible-streaming-iterator, fastrand, fdeflate, fern, field-offset, filetime, find-msvc-tools, flate2, fnv, foldhash, foreign-types, foreign-types-macros, foreign-types-shared, form_urlencoded, futures-channel, futures-core, futures-executor, futures-io, futures-lite, futures-macro, futures-sink, futures-task, futures-util, gdk, gdk-pixbuf, gdk-pixbuf-sys, gdk-sys, gdkwayland-sys, gdkx11, gdkx11-sys, generic-array, getrandom, gio, gio-sys, glib, glib-macros, glib-sys, glob, gobject-sys, gtk, gtk-sys, gtk3-macros, h2, hashbrown, hashlink, heck, hermit-abi, hex, html5ever, http, http-body, http-body-util, httparse, httpdate, hyper, hyper-rustls, hyper-util, iana-time-zone, iana-time-zone-haiku, ico, icu_collections, icu_locale_core, icu_normalizer, icu_normalizer_data, icu_properties, icu_properties_data, icu_provider, ident_case, idna, idna_adapter, indexmap, infer, ipnet, is-docker, is-wsl, itoa, javascriptcore-rs, javascriptcore-rs-sys, jiff, jiff-core, jiff-static, jiff-tzdb, jiff-tzdb-platform, jni, jni-macros, jni-sys, jni-sys-macros, js-sys, json-patch, jsonptr, keyboard-types, libappindicator, libappindicator-sys, libc, libdbus-sys, libloading, libredox, libsqlite3-sys, linux-raw-sys, litemap, litrs, lock_api, log, lru-slab, markup5ever, memchr, memoffset, mime, minisign-verify, miniz_oxide, mio, muda, ndk, ndk-context, ndk-sys, new_debug_unreachable, nix, num-conv, num-traits, num_enum, num_enum_derive, num_threads, objc2, objc2-app-kit, objc2-cloud-kit, objc2-core-data, objc2-core-foundation, objc2-core-graphics, objc2-core-image, objc2-core-location, objc2-core-text, objc2-core-video, objc2-encode, objc2-event-kit, objc2-exception-helper, objc2-foundation, objc2-io-surface, objc2-map-kit, objc2-osa-kit, objc2-quartz-core, objc2-ui-kit, objc2-user-notifications, objc2-web-kit, once_cell, open, openssl-probe, option-ext, ordered-multimap, ordered-stream, osakit, pango, pango-sys, parking, parking_lot, parking_lot_core, pastey, percent-encoding, phf, phf_codegen, phf_generator, phf_macros, phf_shared, pin-project-lite, piper, pkg-config, plist, png, polling, portable-atomic, portable-atomic-util, potential_utf, powerfmt, precomputed-hash, proc-macro-crate, proc-macro-error, proc-macro-error-attr, proc-macro2, psl-types, publicsuffix, quick-xml, quinn, quinn-proto, quinn-udp, quote, r-efi, rand, rand_core, rand_pcg, raw-window-handle, redox_syscall, redox_users, ref-cast, ref-cast-impl, regex, regex-automata, regex-syntax, reqwest, rfd, ring, rusqlite, rust-ini, rustc-hash, rustc_version, rustix, rustls, rustls-native-certs, rustls-pki-types, rustls-platform-verifier, rustls-platform-verifier-android, rustls-webpki, rustversion, ryu, same-file, schannel, schemars, schemars_derive, scopeguard, security-framework, security-framework-sys, selectors, semver, serde, serde-untagged, serde_core, serde_derive, serde_derive_internals, serde_json, serde_repr, serde_spanned, serde_urlencoded, serde_with, serde_with_macros, serialize-to-javascript, serialize-to-javascript-impl, servo_arc, sha2, shlex, signal-hook-registry, simd-adler32, simd_cesu8, simdutf8, siphasher, slab, smallvec, socket2, softbuffer, soup3, soup3-sys, stable_deref_trait, static_vcruntime, string_cache, string_cache_codegen, strsim, subtle, swift-rs, syn, sync_wrapper, synstructure, system-configuration, system-configuration-sys, system-deps, tao, tao-macros, tar, target-lexicon, tauri, tauri-build, tauri-codegen, tauri-macros, tauri-nspanel, tauri-plugin, tauri-plugin-deep-link, tauri-plugin-dialog, tauri-plugin-fs, tauri-plugin-http, tauri-plugin-log, tauri-plugin-opener, tauri-plugin-updater, tauri-runtime, tauri-runtime-wry, tauri-utils, tauri-winres, tempfile, tendril, thiserror, thiserror-impl, time, time-core, time-macros, tiny-keccak, tiny_http, tinystr, tinyvec, tinyvec_macros, tokio, tokio-macros, tokio-rustls, tokio-util, toml, toml_datetime, toml_edit, toml_parser, toml_writer, tower, tower-http, tower-layer, tower-service, tracing, tracing-attributes, tracing-core, tray-icon, try-lock, typed-path, typeid, typenum, uds_windows, unic-char-property, unic-char-range, unic-common, unic-ucd-ident, unic-ucd-version, unicode-ident, unicode-segmentation, untrusted, url, urlencoding, urlpattern, utf8_iter, uuid, vcpkg, version-compare, version_check, vswhom, vswhom-sys, walkdir, want, wasi, wasip2, wasm-bindgen, wasm-bindgen-futures, wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared, wasm-streams, web-sys, web-time, web_atoms, webkit2gtk, webkit2gtk-sys, webpki-root-certs, webpki-roots, webview2-com, webview2-com-macros, webview2-com-sys, winapi, winapi-i686-pc-windows-gnu, winapi-util, winapi-x86_64-pc-windows-gnu, window-vibrancy, windows, windows-collections, windows-core, windows-future, windows-implement, windows-interface, windows-link, windows-numerics, windows-registry, windows-result, windows-strings, windows-sys, windows-targets, windows-threading, windows-version, windows_aarch64_gnullvm, windows_aarch64_msvc, windows_i686_gnu, windows_i686_gnullvm, windows_i686_msvc, windows_x86_64_gnu, windows_x86_64_gnullvm, windows_x86_64_msvc, winnow, winreg, wit-bindgen, writeable, wry, x11, x11-dl, xattr, yoke, yoke-derive, zbus, zbus_macros, zbus_names, zcheapstr, zerocopy, zerocopy-derive, zerofrom, zerofrom-derive, zeroize, zerotrie, zerovec, zerovec-derive, zip, zmij, zvariant, zvariant_derive, zvariant_utils",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.lock",
+            "line": null,
+            "reason": "Lockfile Integrity Weakened: upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.lock: lockfile removed",
+            "rule_id": "U012",
+            "rule_uid": "TS-0279",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.toml",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.toml (cargo)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.toml",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/apps/todo/src-tauri/Cargo.toml: removed base64, block2, chrono, log, objc2, objc2-app-kit, objc2-event-kit, objc2-foundation, parking_lot, reqwest, rusqlite, serde, serde_json, tauri, tauri-build, tauri-nspanel, tauri-plugin-deep-link, tauri-plugin-dialog, tauri-plugin-http, tauri-plugin-log, tauri-plugin-opener, tauri-plugin-updater, tempfile, thiserror, tiny_http, tokio, url, urlencoding, uuid, windows",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/hosting/package-lock.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/hosting/package-lock.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/hosting/package-lock.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/hosting/package-lock.json: removed @aws-sdk/client-secrets-manager, @aws-sdk/core, @aws-sdk/credential-provider-env, @aws-sdk/credential-provider-http, @aws-sdk/credential-provider-ini, @aws-sdk/credential-provider-login, @aws-sdk/credential-provider-node, @aws-sdk/credential-provider-process, @aws-sdk/credential-provider-sso, @aws-sdk/credential-provider-web-identity, @aws-sdk/nested-clients, @aws-sdk/signature-v4-multi-region, @aws-sdk/token-providers, @aws-sdk/types, @aws-sdk/xml-builder, @aws/lambda-invoke-store, @smithy/core, @smithy/credential-provider-imds, @smithy/fetch-http-handler, @smithy/node-http-handler, @smithy/signature-v4, @smithy/types, accepts, array-flatten, body-parser, bowser, bytes, call-bind-apply-helpers, call-bound, content-disposition, content-type, cookie, cookie-signature, debug, depd, destroy, dunder-proto, ee-first, encodeurl, es-define-property, es-errors, es-object-atoms, escape-html, etag, express, finalhandler, forwarded, fresh, function-bind, get-intrinsic, get-proto, gopd, has-symbols, hasown, http-errors, iconv-lite, inherits, ipaddr.js, math-intrinsics, media-typer, merge-descriptors, methods, mime, mime-db, mime-types, ms, negotiator, object-inspect, on-finished, parseurl, path-to-regexp, proxy-addr, qs, range-parser, raw-body, safe-buffer, safer-buffer, send, serve-static, setprototypeof, side-channel, side-channel-list, side-channel-map, side-channel-weakmap, statuses, toidentifier, tslib, type-is, unpipe, utils-merge, vary",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/hosting/package-lock.json",
+            "line": null,
+            "reason": "Lockfile Integrity Weakened: upstream/dh-to-do-3.3.2/hosting/package-lock.json: lockfile removed",
+            "rule_id": "U012",
+            "rule_uid": "TS-0279",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/hosting/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/hosting/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/hosting/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/hosting/package.json: removed @aws-sdk/client-secrets-manager, body-parser, express, proxy-addr, qs",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/package.json: removed @redd/todo, @tauri-apps/cli, @tauri-apps/plugin-http, @types/node, @types/react, @types/react-dom, @vitejs/plugin-react, clsx, esbuild, happy-dom, lucide-react, react, react-dom, react-quill-new, sonner, sql.js, tailwind-merge, trix, typescript, vite",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/pnpm-lock.yaml",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/pnpm-lock.yaml (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/pnpm-lock.yaml",
+            "line": null,
+            "reason": "Lockfile Integrity Weakened: upstream/dh-to-do-3.3.2/pnpm-lock.yaml: lockfile removed",
+            "rule_id": "U012",
+            "rule_uid": "TS-0279",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/products/todo/packages/todo/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest removed: upstream/dh-to-do-3.3.2/products/todo/packages/todo/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.3.2/products/todo/packages/todo/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.3.2/products/todo/packages/todo/package.json: removed @tauri-apps/plugin-http, lucide-react, react, react-dom, sonner, trix",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/apps/todo/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/apps/todo/package.json: added @redd/todo, @tauri-apps/cli, @tauri-apps/plugin-http, @types/node, @types/react, @types/react-dom, @vitejs/plugin-react, clsx, esbuild, happy-dom, lucide-react, react, react-dom, react-quill-new, sonner, sql.js, tailwind-merge, trix, typescript, vite",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.lock",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.lock (cargo)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.lock",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.lock: added adler2, ahash, aho-corasick, alloc-no-stdlib, alloc-stdlib, android_log-sys, android_logger, android_system_properties, anyhow, ascii, async-broadcast, async-channel, async-executor, async-io, async-lock, async-process, async-recursion, async-signal, async-task, async-trait, atk, atk-sys, atomic-waker, autocfg, base64, bit-set, bit-vec, bitflags, block-buffer, block2, blocking, brotli, brotli-decompressor, bs58, bumpalo, bytemuck, byteorder, bytes, cairo-rs, cairo-sys-rs, camino, cargo-platform, cargo_metadata, cargo_toml, cc, cesu8, cfb, cfg-expr, cfg-if, cfg_aliases, chacha20, chrono, chunked_transfer, combine, concurrent-queue, const-oid, const-random, const-random-macro, cookie, cookie_store, core-foundation, core-foundation-sys, core-graphics, core-graphics-types, cpufeatures, crc32fast, crossbeam-channel, crossbeam-utils, crunchy, crypto-common, cssparser, cssparser-macros, ctor, darling, darling_core, darling_macro, data-url, dbus, defmt, defmt-macros, defmt-parser, deranged, derive_more, derive_more-impl, digest, digital-habits-todo, dirs, dirs-sys, dispatch2, displaydoc, dlopen2, dlopen2_derive, dlv-list, document-features, dom_query, dpi, dtoa, dtoa-short, dunce, dyn-clone, embed-resource, embed_plist, encoding_rs, endi, enumflags2, enumflags2_derive, env_filter, equivalent, erased-serde, errno, event-listener, event-listener-strategy, fallible-iterator, fallible-streaming-iterator, fastrand, fdeflate, fern, field-offset, filetime, find-msvc-tools, flate2, fnv, foldhash, foreign-types, foreign-types-macros, foreign-types-shared, form_urlencoded, futures-channel, futures-core, futures-executor, futures-io, futures-lite, futures-macro, futures-sink, futures-task, futures-util, gdk, gdk-pixbuf, gdk-pixbuf-sys, gdk-sys, gdkwayland-sys, gdkx11, gdkx11-sys, generic-array, getrandom, gio, gio-sys, glib, glib-macros, glib-sys, glob, gobject-sys, gtk, gtk-sys, gtk3-macros, h2, hashbrown, hashlink, heck, hermit-abi, hex, html5ever, http, http-body, http-body-util, httparse, httpdate, hybrid-array, hyper, hyper-rustls, hyper-util, iana-time-zone, iana-time-zone-haiku, ico, icu_collections, icu_locale_core, icu_normalizer, icu_normalizer_data, icu_properties, icu_properties_data, icu_provider, ident_case, idna, idna_adapter, indexmap, infer, ipnet, is-docker, is-wsl, itoa, javascriptcore-rs, javascriptcore-rs-sys, jiff, jiff-core, jiff-static, jiff-tzdb, jiff-tzdb-platform, jni, jni-macros, jni-sys, jni-sys-macros, js-sys, json-patch, jsonptr, keyboard-types, keyring, libappindicator, libappindicator-sys, libc, libdbus-sys, libloading, libredox, libsqlite3-sys, linux-raw-sys, litemap, litrs, lock_api, log, lru-slab, markup5ever, memchr, memoffset, mime, minisign-verify, miniz_oxide, mio, muda, ndk, ndk-context, ndk-sys, new_debug_unreachable, nix, num-conv, num-traits, num_enum, num_enum_derive, num_threads, objc2, objc2-app-kit, objc2-cloud-kit, objc2-core-data, objc2-core-foundation, objc2-core-graphics, objc2-core-image, objc2-core-location, objc2-core-text, objc2-core-video, objc2-encode, objc2-event-kit, objc2-exception-helper, objc2-foundation, objc2-io-surface, objc2-map-kit, objc2-osa-kit, objc2-quartz-core, objc2-store-kit, objc2-ui-kit, objc2-user-notifications, objc2-web-kit, once_cell, open, openssl-probe, option-ext, ordered-multimap, ordered-stream, osakit, pango, pango-sys, parking, parking_lot, parking_lot_core, pastey, percent-encoding, phf, phf_codegen, phf_generator, phf_macros, phf_shared, pin-project-lite, piper, pkg-config, plist, png, polling, portable-atomic, portable-atomic-util, potential_utf, powerfmt, precomputed-hash, proc-macro-crate, proc-macro-error, proc-macro-error-attr, proc-macro2, psl-types, publicsuffix, quick-xml, quinn, quinn-proto, quinn-udp, quote, r-efi, rand, rand_core, rand_pcg, raw-window-handle, redox_syscall, redox_users, ref-cast, ref-cast-impl, regex, regex-automata, regex-syntax, reqwest, rfd, ring, rusqlite, rust-ini, rustc-hash, rustc_version, rustix, rustls, rustls-native-certs, rustls-pki-types, rustls-platform-verifier, rustls-platform-verifier-android, rustls-webpki, rustversion, ryu, same-file, schannel, schemars, schemars_derive, scopeguard, security-framework, security-framework-sys, selectors, semver, serde, serde-untagged, serde_core, serde_derive, serde_derive_internals, serde_json, serde_repr, serde_spanned, serde_urlencoded, serde_with, serde_with_macros, serialize-to-javascript, serialize-to-javascript-impl, servo_arc, sha2, shlex, signal-hook-registry, simd-adler32, simd_cesu8, simdutf8, siphasher, slab, smallvec, socket2, softbuffer, soup3, soup3-sys, stable_deref_trait, static_vcruntime, string_cache, string_cache_codegen, strsim, subtle, swift-rs, syn, sync_wrapper, synstructure, system-configuration, system-configuration-sys, system-deps, tao, tao-macros, tar, target-lexicon, tauri, tauri-build, tauri-codegen, tauri-macros, tauri-nspanel, tauri-plugin, tauri-plugin-deep-link, tauri-plugin-dialog, tauri-plugin-fs, tauri-plugin-http, tauri-plugin-log, tauri-plugin-opener, tauri-plugin-updater, tauri-runtime, tauri-runtime-wry, tauri-utils, tauri-winres, tempfile, tendril, thiserror, thiserror-impl, time, time-core, time-macros, tiny-keccak, tiny_http, tinystr, tinyvec, tinyvec_macros, tokio, tokio-macros, tokio-rustls, tokio-util, toml, toml_datetime, toml_edit, toml_parser, toml_writer, tower, tower-http, tower-layer, tower-service, tracing, tracing-attributes, tracing-core, tray-icon, try-lock, typed-path, typeid, typenum, uds_windows, unic-char-property, unic-char-range, unic-common, unic-ucd-ident, unic-ucd-version, unicode-ident, unicode-segmentation, untrusted, url, urlencoding, urlpattern, utf8_iter, uuid, vcpkg, version-compare, version_check, vswhom, vswhom-sys, walkdir, want, wasi, wasip2, wasm-bindgen, wasm-bindgen-futures, wasm-bindgen-macro, wasm-bindgen-macro-support, wasm-bindgen-shared, wasm-streams, web-sys, web-time, web_atoms, webkit2gtk, webkit2gtk-sys, webpki-root-certs, webpki-roots, webview2-com, webview2-com-macros, webview2-com-sys, winapi, winapi-i686-pc-windows-gnu, winapi-util, winapi-x86_64-pc-windows-gnu, window-vibrancy, windows, windows-collections, windows-core, windows-future, windows-implement, windows-interface, windows-link, windows-numerics, windows-registry, windows-result, windows-strings, windows-sys, windows-targets, windows-threading, windows-version, windows_aarch64_gnullvm, windows_aarch64_msvc, windows_i686_gnu, windows_i686_gnullvm, windows_i686_msvc, windows_x86_64_gnu, windows_x86_64_gnullvm, windows_x86_64_msvc, winnow, winreg, wit-bindgen, writeable, wry, x11, x11-dl, xattr, yoke, yoke-derive, zbus, zbus_macros, zbus_names, zcheapstr, zerocopy, zerocopy-derive, zerofrom, zerofrom-derive, zeroize, zerotrie, zerovec, zerovec-derive, zip, zmij, zvariant, zvariant_derive, zvariant_utils",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.lock",
+            "line": null,
+            "reason": "New Remote Source In Manifest: upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.lock now fetches from new host(s): github.com",
+            "rule_id": "U003",
+            "rule_uid": "TS-0218",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.toml",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.toml (cargo)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.toml",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.toml: added base64, block2, chrono, core-foundation, core-graphics, getrandom, keyring, log, objc2, objc2-app-kit, objc2-event-kit, objc2-foundation, objc2-store-kit, parking_lot, reqwest, rusqlite, serde, serde_json, sha2, tauri, tauri-build, tauri-nspanel, tauri-plugin-deep-link, tauri-plugin-dialog, tauri-plugin-http, tauri-plugin-log, tauri-plugin-opener, tauri-plugin-updater, tempfile, thiserror, tiny_http, tokio, url, urlencoding, uuid, windows",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.toml",
+            "line": null,
+            "reason": "New Remote Source In Manifest: upstream/dh-to-do-3.4.0/apps/todo/src-tauri/Cargo.toml now fetches from new host(s): github.com",
+            "rule_id": "U003",
+            "rule_uid": "TS-0218",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/hosting/package-lock.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/hosting/package-lock.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/hosting/package-lock.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/hosting/package-lock.json: added @aws-sdk/client-secrets-manager, @aws-sdk/core, @aws-sdk/credential-provider-env, @aws-sdk/credential-provider-http, @aws-sdk/credential-provider-ini, @aws-sdk/credential-provider-login, @aws-sdk/credential-provider-node, @aws-sdk/credential-provider-process, @aws-sdk/credential-provider-sso, @aws-sdk/credential-provider-web-identity, @aws-sdk/nested-clients, @aws-sdk/signature-v4-multi-region, @aws-sdk/token-providers, @aws-sdk/types, @aws-sdk/xml-builder, @aws/lambda-invoke-store, @smithy/core, @smithy/credential-provider-imds, @smithy/fetch-http-handler, @smithy/node-http-handler, @smithy/signature-v4, @smithy/types, accepts, array-flatten, body-parser, bowser, bytes, call-bind-apply-helpers, call-bound, content-disposition, content-type, cookie, cookie-signature, debug, depd, destroy, dunder-proto, ee-first, encodeurl, es-define-property, es-errors, es-object-atoms, escape-html, etag, express, finalhandler, forwarded, fresh, function-bind, get-intrinsic, get-proto, gopd, has-symbols, hasown, http-errors, iconv-lite, inherits, ipaddr.js, math-intrinsics, media-typer, merge-descriptors, methods, mime, mime-db, mime-types, ms, negotiator, object-inspect, on-finished, parseurl, path-to-regexp, proxy-addr, qs, range-parser, raw-body, safe-buffer, safer-buffer, send, serve-static, setprototypeof, side-channel, side-channel-list, side-channel-map, side-channel-weakmap, statuses, toidentifier, tslib, type-is, unpipe, utils-merge, vary",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/hosting/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/hosting/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/hosting/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/hosting/package.json: added @aws-sdk/client-secrets-manager, body-parser, express, proxy-addr, qs",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/package.json: added @redd/todo, @tauri-apps/cli, @tauri-apps/plugin-http, @types/node, @types/react, @types/react-dom, @vitejs/plugin-react, clsx, esbuild, happy-dom, lucide-react, react, react-dom, react-quill-new, sonner, sql.js, tailwind-merge, trix, typescript, vite",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/pnpm-lock.yaml",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/pnpm-lock.yaml (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/products/todo/packages/todo/package.json",
+            "line": null,
+            "reason": "Manifest Added Or Removed: manifest added: upstream/dh-to-do-3.4.0/products/todo/packages/todo/package.json (npm)",
+            "rule_id": "U001",
+            "rule_uid": "TS-0216",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/products/todo/packages/todo/package.json",
+            "line": null,
+            "reason": "Upstream Dependency Delta: upstream/dh-to-do-3.4.0/products/todo/packages/todo/package.json: added @tauri-apps/plugin-http, lucide-react, react, react-dom, sonner, trix",
+            "rule_id": "U002",
+            "rule_uid": "TS-0217",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/apps/todo/package.json",
+            "line": null,
+            "reason": "Manifest Changed Without Its Lockfile: upstream/dh-to-do-3.4.0/apps/todo/package.json changed but no lockfile (package-lock.json, npm-shrinkwrap.json, yarn.lock, pnpm-lock.yaml, bun.lock) did in the same update",
+            "rule_id": "U006",
+            "rule_uid": "TS-0221",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/products/todo/packages/todo/package.json",
+            "line": null,
+            "reason": "Manifest Changed Without Its Lockfile: upstream/dh-to-do-3.4.0/products/todo/packages/todo/package.json changed but no lockfile (package-lock.json, npm-shrinkwrap.json, yarn.lock, pnpm-lock.yaml, bun.lock) did in the same update",
+            "rule_id": "U006",
+            "rule_uid": "TS-0221",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "upstream/dh-to-do-3.4.0/.github/workflows/build.yml",
+            "line": null,
+            "reason": "New CI Surface Committed: upstream/dh-to-do-3.4.0/.github/workflows/build.yml added; a new automation surface in the package repo",
+            "rule_id": "U009",
+            "rule_uid": "TS-0269",
+            "severity": "LOW",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 4 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 4 distinct layers fired with no strong signal: L1, L3, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Maintainer first seen for this package (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "HIGH",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 14:35 UTC",
+        "maintainer": "Seratym",
+        "package": "dh-to-do",
+        "pkgbuild_sha256": "5c766ab135df5d31983379818929eeff3d85ccff14bdd20f62f3d264c1e1aa87",
+        "previous_maintainer": "Seratym",
+        "previous_pkgbuild_sha256": "0a6c86c0c5f30da64021ae45d3b9166812dba6eba3389d50ab1771e15c7b2075",
+        "rules": [
+          "C002",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U012",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U012",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U001",
+          "U012",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U003",
+          "U001",
+          "U002",
+          "U003",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U001",
+          "U002",
+          "U001",
+          "U001",
+          "U002",
+          "U006",
+          "U006",
+          "U009",
+          "H020",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "NOVELTY",
+          "P001"
+        ],
+        "score": 45,
+        "version": "3.4.0-1 -> 3.4.0-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: dh-to-do scored 45 (NOVELTY)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H044",
+    "H026",
+    "H074",
+    "C002",
+    "U001",
+    "U002",
+    "U012",
+    "U003",
+    "U006",
+    "U009",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-22/145259",
+  "tags": [],
+  "time": 1795359179,
+  "title": "TrustSight: dh-to-do scored 45 (NOVELTY)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "c1ce722f86bd527abfbd308bc72851896e8d0789f2751d7052309847e68307d7",
+    "key_id": "k1",
+    "signature": "rTFLDNx2eRbQUG3gTanbd/RLyx4kIvK091ohw6Xlav/96Jye45uM6ui9TbW4rFZE3T10X7np16uPurLk43TLAw==",
+    "signed_at": 1795359179,
+    "webhook_id": "9ab83dee2b7ff7b09e660be08b71ca5bac993f5605d983946934ca0faadc790e"
+  }
+}

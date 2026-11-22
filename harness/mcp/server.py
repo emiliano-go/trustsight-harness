@@ -1732,6 +1732,36 @@ def sweep(match: list[str] | None = None, jobs: str | None = None) -> dict:
 
 
 @mcp.tool()
+def replay_alert(
+    slugs: list[str] | None = None,
+    limit: int = 20,
+    per_notification: int = 4,
+    refresh: bool = False,
+) -> dict:
+    """Replay recorded watcher alerts from the facts the watcher had.
+
+    Each package is analysed at the two AUR commits whose PKGBUILD digests the
+    notification recorded, so the replay does not depend on how far the
+    repository has moved since.  The document's findings are never passed to
+    the analysis; they are compared afterwards.
+
+    Args:
+        slugs: Replay only these notification slugs (default: the newest).
+        limit: How many notifications to consider (default 20).
+        per_notification: Package cases replayed per notification (default 4).
+        refresh: Re-fetch the documents from the feed even when the committed
+            corpus exists.
+    """
+    from ..replay.runner import documents, run_replay
+
+    root = _repo_root()
+    docs = documents(root, slugs=slugs, limit=limit)
+    if not docs:
+        return {"error": "no replay documents found"}
+    return run_replay(docs, root, per_notification=per_notification)
+
+
+@mcp.tool()
 def coverage() -> dict:
     """Which TrustSight rules the campaign suite targets, and which it cannot."""
     from ..coverage import build_coverage

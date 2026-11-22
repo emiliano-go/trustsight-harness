@@ -1,0 +1,826 @@
+{
+  "cases": [
+    {
+      "expected": [
+        "C002",
+        "H020",
+        "H027",
+        "H040",
+        "H076",
+        "R007"
+      ],
+      "fired": [
+        "C002",
+        "COVERAGE",
+        "D005",
+        "H020",
+        "H027",
+        "H040",
+        "H076",
+        "P001",
+        "P009",
+        "R007"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "voxtype-bin",
+      "reproduced": [
+        "C002",
+        "H020",
+        "H027",
+        "H040",
+        "H076",
+        "R007"
+      ],
+      "slug": "2026-11-22/035852"
+    },
+    {
+      "expected": [
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "P001",
+        "P008",
+        "SOURCE_BUCKET",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H027",
+        "H049",
+        "M002"
+      ],
+      "package": "your-szu-life-git",
+      "reproduced": [
+        "H020",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/041445"
+    },
+    {
+      "expected": [
+        "C001",
+        "D005",
+        "H015",
+        "H020",
+        "H027",
+        "H089",
+        "U009",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "fired": [
+        "C001",
+        "COVERAGE",
+        "D005",
+        "H015",
+        "H020",
+        "H027",
+        "H089",
+        "H103",
+        "P001",
+        "P008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "U009"
+      ],
+      "package": "ungoogled-vulcanium",
+      "reproduced": [
+        "C001",
+        "D005",
+        "H015",
+        "H020",
+        "H027",
+        "H089",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "slug": "2026-11-22/081120"
+    },
+    {
+      "expected": [
+        "C002",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "W008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "fired": [
+        "C002",
+        "COVERAGE",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "H103",
+        "P001",
+        "P008",
+        "W008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "vulcanium",
+      "reproduced": [
+        "C002",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "W008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "slug": "2026-11-22/081120"
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "H020",
+        "M003",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "cadcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722"
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "H020",
+        "M003",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "deckcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722"
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "H020",
+        "M003",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "designcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722"
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "H020",
+        "M003",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "effectcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722"
+    },
+    {
+      "expected": [
+        "C005",
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "fired": [
+        "C005",
+        "C011",
+        "H020",
+        "H027",
+        "M002",
+        "P006",
+        "P009",
+        "SOURCE_BUCKET",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "G007",
+        "H049",
+        "W013"
+      ],
+      "package": "flclash-myflavor-bin",
+      "reproduced": [
+        "C005",
+        "C011",
+        "H020",
+        "H027",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/084328"
+    },
+    {
+      "expected": [
+        "C011",
+        "G007",
+        "H020",
+        "M003",
+        "W013"
+      ],
+      "fired": [
+        "C011",
+        "H020",
+        "M003",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "G007",
+        "W013"
+      ],
+      "package": "gridcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/084328"
+    },
+    {
+      "expected": [
+        "C011",
+        "G007",
+        "H020",
+        "M003",
+        "W013"
+      ],
+      "fired": [
+        "C011",
+        "H020",
+        "M003",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "G007",
+        "W013"
+      ],
+      "package": "lightcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/084328"
+    },
+    {
+      "expected": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "M002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "fired": [
+        "C011",
+        "COVERAGE",
+        "H020",
+        "H027",
+        "M002",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "G007",
+        "W013"
+      ],
+      "package": "linux-wallpaperengine-v3-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "H027",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/084328"
+    },
+    {
+      "expected": [
+        "H015",
+        "H020",
+        "H027",
+        "H037",
+        "H100",
+        "R007",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "H015",
+        "H020",
+        "H027",
+        "H100",
+        "P001",
+        "P007",
+        "R007",
+        "W007",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H037"
+      ],
+      "package": "lumalarm",
+      "reproduced": [
+        "H015",
+        "H020",
+        "H027",
+        "H100",
+        "R007",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/091711"
+    },
+    {
+      "expected": [
+        "C003",
+        "H015",
+        "H020",
+        "H023",
+        "H027",
+        "H049",
+        "H054",
+        "M002",
+        "U001",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H015",
+        "H020",
+        "H027",
+        "M002",
+        "P001",
+        "R007",
+        "SOURCE_BUCKET",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H023",
+        "H049",
+        "H054",
+        "U001"
+      ],
+      "package": "lumalarm",
+      "reproduced": [
+        "C003",
+        "H015",
+        "H020",
+        "H027",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/093324"
+    },
+    {
+      "expected": [
+        "D004",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "U013",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "D004",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "P001",
+        "W007",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H098",
+        "U013"
+      ],
+      "package": "cardwire",
+      "reproduced": [
+        "D004",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/102210"
+    },
+    {
+      "expected": [
+        "D004",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "fired": [
+        "D004",
+        "H020",
+        "H027",
+        "H064",
+        "P001",
+        "P009",
+        "W007",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H098",
+        "W014"
+      ],
+      "package": "cardwire-bin",
+      "reproduced": [
+        "D004",
+        "H020",
+        "H027",
+        "H064",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/102210"
+    },
+    {
+      "expected": [
+        "H002",
+        "H015",
+        "H020",
+        "H027",
+        "H082",
+        "R010"
+      ],
+      "fired": [
+        "COVERAGE",
+        "H002",
+        "H015",
+        "H020",
+        "H027",
+        "H082",
+        "R010",
+        "SOURCE_BUCKET"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "deveco-devicetool",
+      "reproduced": [
+        "H002",
+        "H015",
+        "H020",
+        "H027",
+        "H082",
+        "R010"
+      ],
+      "slug": "2026-11-22/121357"
+    },
+    {
+      "expected": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "fired": [
+        "C002",
+        "COVERAGE",
+        "H020",
+        "H027",
+        "H103",
+        "P001",
+        "P009",
+        "R007",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "C001",
+        "E002",
+        "W014"
+      ],
+      "package": "linux-galaxyaudio-bin",
+      "reproduced": [
+        "H020",
+        "H027",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/140458"
+    },
+    {
+      "expected": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "package": "linux-galaxyaudio-headers-bin",
+      "slug": "2026-11-22/140458",
+      "unavailable": "linux-galaxyaudio-headers-bin: clone unavailable: _TimeoutError: git fetch HEAD does not match the AUR advertisement"
+    },
+    {
+      "expected": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W014"
+      ],
+      "fired": [
+        "C001",
+        "COVERAGE",
+        "E002",
+        "H020",
+        "H027",
+        "P001",
+        "P009"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "W014"
+      ],
+      "package": "druglord2",
+      "reproduced": [
+        "C001",
+        "E002",
+        "H020",
+        "H027"
+      ],
+      "slug": "2026-11-22/143659"
+    },
+    {
+      "expected": [
+        "C002",
+        "H020",
+        "H027",
+        "M002",
+        "U001",
+        "U002",
+        "U003",
+        "U006",
+        "U009",
+        "U012"
+      ],
+      "fired": [
+        "C002",
+        "H020",
+        "M003",
+        "P001"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H027",
+        "M002",
+        "U001",
+        "U002",
+        "U003",
+        "U006",
+        "U009",
+        "U012"
+      ],
+      "package": "dh-to-do",
+      "reproduced": [
+        "C002",
+        "H020"
+      ],
+      "slug": "2026-11-22/145259"
+    },
+    {
+      "expected": [],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "P001",
+        "P007",
+        "P009",
+        "W011",
+        "W012"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "avernella-bin",
+      "reproduced": [],
+      "slug": "2026-11-22/145259"
+    },
+    {
+      "expected": [],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "P001",
+        "P007",
+        "P009",
+        "W011",
+        "W012"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "avernella-bin",
+      "reproduced": [],
+      "slug": "2026-11-22/145259"
+    },
+    {
+      "expected": [],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "P001",
+        "P007",
+        "P009",
+        "W011",
+        "W012"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "avernella-bin",
+      "reproduced": [],
+      "slug": "2026-11-22/145259"
+    },
+    {
+      "expected": [],
+      "fired": [
+        "C002",
+        "P001"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "proc",
+      "reproduced": [],
+      "slug": "2026-11-22/154028"
+    }
+  ],
+  "summary": {
+    "by_gap": {
+      "assembly": 6,
+      "campaign": 8,
+      "longitudinal": 5,
+      "other": 2,
+      "pure": 1,
+      "upstream": 12
+    },
+    "by_lane": {
+      "compose": 5,
+      "correlation": 4,
+      "cycle": 5,
+      "meta": 2,
+      "static": 17,
+      "upstream": 1
+    },
+    "by_rule": {
+      "C001": 1,
+      "E002": 1,
+      "G007": 4,
+      "H023": 1,
+      "H027": 2,
+      "H037": 1,
+      "H049": 3,
+      "H054": 1,
+      "H098": 2,
+      "M002": 2,
+      "U001": 2,
+      "U002": 1,
+      "U003": 1,
+      "U006": 1,
+      "U009": 2,
+      "U012": 1,
+      "U013": 1,
+      "W013": 4,
+      "W014": 3
+    },
+    "cases": 25,
+    "cases_clean": 7,
+    "cases_replayed": 24,
+    "expected": 135,
+    "gap_groups": {
+      "assembly": "needs the union of findings (meta/campaign assembly), not one package",
+      "campaign": "needs campaign membership or the watchlist",
+      "longitudinal": "needs a prior-cycle snapshot or observation counter",
+      "other": "unclassified",
+      "pure": "needs a follow-up call the pipeline makes outside the package entry",
+      "upstream": "needs an upstream inventory or the signed federation store"
+    },
+    "missed": 34,
+    "rate": 0.7481481481481481,
+    "reproduced": 101
+  }
+}

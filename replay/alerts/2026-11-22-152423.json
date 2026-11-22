@@ -1,0 +1,169 @@
+{
+  "counts": {
+    "alerts": 7,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "Campaign across 5 packages (G014)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T15:24:23.000Z",
+  "packages": [
+    "kconfig-frontends",
+    "pacaur-git",
+    "python-george",
+    "tsv-utils-bin",
+    "warmux-git",
+    "butterflypack"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "arkades",
+        "new": "arkades",
+        "package": "kconfig-frontends",
+        "pkgbuild_sha256": "c38d87d6eae4a8837b2c78520a7c26cb31b14cb7460e101a3b7ee8cdb5604aaa",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "arkades",
+        "new": "arkades",
+        "package": "pacaur-git",
+        "pkgbuild_sha256": "73fb5ca86a9fa9437fb3fb29a00719931f85de9bc0c53b8ff48ad2b7e6c2a457",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "medaminezghal",
+        "new": "medaminezghal",
+        "package": "python-george",
+        "pkgbuild_sha256": "592faf1b54a595ed42470ac40bf26bfbba0b53e73165ec538a7aa694fdf1eaed",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Giovani_Geek",
+        "new": "giovani_geek",
+        "package": "tsv-utils-bin",
+        "pkgbuild_sha256": "5cad0f4a1f0eed5fcf75bf49663c5c51b5286b88be9680e9acb745b89c94bc27",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "mtdev",
+        "new": "mtdev",
+        "package": "warmux-git",
+        "pkgbuild_sha256": "baaff199db8ae08683cf8657674650e7f02ed643f63be4d9f63988d35858fc19",
+        "rule_id": "H044"
+      },
+      {
+        "dependency": "python-george",
+        "dependency_new_maintainer": "medaminezghal",
+        "dependency_status": "adopted",
+        "package": "butterflypack",
+        "rule_id": "H046"
+      },
+      {
+        "maintainer": "arkades",
+        "package": "kconfig-frontends",
+        "pkgbuild_sha256": "c38d87d6eae4a8837b2c78520a7c26cb31b14cb7460e101a3b7ee8cdb5604aaa",
+        "rule_id": "G014"
+      }
+    ],
+    "campaign_cluster": [
+      {
+        "campaign_active": true,
+        "campaign_id": "G014:adoption-window",
+        "count": 5,
+        "match": "5 unrelated packages adopted by 4 maintainer(s) (5 dormant) in the window",
+        "members": [
+          "kconfig-frontends",
+          "pacaur-git",
+          "python-george",
+          "tsv-utils-bin",
+          "warmux-git"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2021-02-12 17:34 UTC",
+            "maintainer": "arkades",
+            "package": "kconfig-frontends",
+            "pkgbuild_sha256": "c38d87d6eae4a8837b2c78520a7c26cb31b14cb7460e101a3b7ee8cdb5604aaa",
+            "version": "4.11.0.1-2 -> 4.11.0.1-2"
+          },
+          {
+            "last_modified": "2019-03-05 04:01 UTC",
+            "maintainer": "arkades",
+            "package": "pacaur-git",
+            "pkgbuild_sha256": "73fb5ca86a9fa9437fb3fb29a00719931f85de9bc0c53b8ff48ad2b7e6c2a457",
+            "version": "4.8.4.4.gd1064f3-1 -> 4.8.4.4.gd1064f3-1"
+          },
+          {
+            "last_modified": "2021-09-22 16:52 UTC",
+            "maintainer": "medaminezghal",
+            "package": "python-george",
+            "pkgbuild_sha256": "592faf1b54a595ed42470ac40bf26bfbba0b53e73165ec538a7aa694fdf1eaed",
+            "version": "0.4.0-1 -> 0.4.0-1"
+          },
+          {
+            "last_modified": "2021-03-18 11:55 UTC",
+            "maintainer": "Giovani_Geek",
+            "package": "tsv-utils-bin",
+            "pkgbuild_sha256": "5cad0f4a1f0eed5fcf75bf49663c5c51b5286b88be9680e9acb745b89c94bc27",
+            "version": "2.2.0-1 -> 2.2.0-1"
+          },
+          {
+            "last_modified": "2018-01-31 21:18 UTC",
+            "maintainer": "mtdev",
+            "package": "warmux-git",
+            "pkgbuild_sha256": "baaff199db8ae08683cf8657674650e7f02ed643f63be4d9f63988d35858fc19",
+            "version": "e0dc503-1 -> e0dc503-1"
+          }
+        ],
+        "rule_id": "G014"
+      }
+    ],
+    "cycle": {
+      "added": 3,
+      "changed": 14,
+      "processed": 17,
+      "refractory": [
+        {
+          "campaign_id": "G014:adoption-window",
+          "emitted": true,
+          "rule_id": "G014",
+          "window_start_obs": 70777
+        }
+      ],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: Campaign across 5 packages (G014)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H044",
+    "H046",
+    "G014"
+  ],
+  "slug": "2026-11-22/152423",
+  "tags": [],
+  "time": 1795361063,
+  "title": "TrustSight: Campaign across 5 packages (G014)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "201b15344adc53dab1e4786a89dcc38d84ba646d59ac71cc7c2f910d8bef14ee",
+    "key_id": "k1",
+    "signature": "kQEiXv8Ja3eIAFu11SvkvRPOY1Vog6U844QY/0KWhpy5X7p9ooambnh+/EY4JEUIIG/MRzXMpCWgZ1UnTg2vAw==",
+    "signed_at": 1795361063,
+    "webhook_id": "5d415ac2154bfdafa016d2366a1aeca2462c9000f4af6f04f3ade68f9f2f7943"
+  }
+}

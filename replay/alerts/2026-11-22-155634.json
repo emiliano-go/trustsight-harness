@@ -1,0 +1,466 @@
+{
+  "counts": {
+    "alerts": 21,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "Campaign across 12 packages (G014)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T15:56:34.000Z",
+  "packages": [
+    "cecilia",
+    "cecilia-git",
+    "cherry-font-git",
+    "folly-git",
+    "gbt-git",
+    "libcpufeatures",
+    "libcpufeatures-git",
+    "minecraft-c",
+    "python-aesedb",
+    "python-asyauth",
+    "vcvrack-pro",
+    "virtualmoonatlas",
+    "netexec-git",
+    "python-aardwolf",
+    "python-aardwolf-git",
+    "python-aiosmb",
+    "python-msldap"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "kjmcnamara1",
+        "new": "kjmcnamara1",
+        "package": "cecilia",
+        "pkgbuild_sha256": "984d4ae66bc57ddbe4f1be6a31b5e7881294167c850b0e80a5de0a2c719e0859",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "kjmcnamara1",
+        "new": "kjmcnamara1",
+        "package": "cecilia-git",
+        "pkgbuild_sha256": "f59d9bfb28e83267f9c91ac530aabf121954971843203bd537d43c3d1a5b813b",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "cherry-font-git",
+        "pkgbuild_sha256": "5460da834cb537101b23baaff8d3ab97868c6d10e879e3603188cfff5d99351e",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "folly-git",
+        "pkgbuild_sha256": "5a2bdd5497d9b1059b956e52352236c89fb3eea84f60f342ed07d10feddf6ce8",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "jvybihal",
+        "new": "jvybihal",
+        "package": "gbt-git",
+        "pkgbuild_sha256": "6708bc25a7e2637e0648638b9c048ab2a595f249af264eb2c87fbcc0a94a774f",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "libcpufeatures",
+        "pkgbuild_sha256": "17be7a2ea86bb33bcebb414e6bca95ce87e780d690755f6b36e43ac1e3541a97",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "libcpufeatures-git",
+        "pkgbuild_sha256": "256e8fba44dabd3c7958aed4cd49123ee60599ceee11459b9c451e4bd90fea74",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "minecraft-c",
+        "pkgbuild_sha256": "edc3123eb00e8c1ec17247bfaf6ab2dcef2a3246981893838d14dfa98b4fc81b",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "kiwi42",
+        "new": "kiwi42",
+        "package": "python-aesedb",
+        "pkgbuild_sha256": "a290c7fc69606ccf056da7472600663df2e2c465081bfccbf613b5dd77a9d803",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "kiwi42",
+        "new": "kiwi42",
+        "package": "python-asyauth",
+        "pkgbuild_sha256": "426df50ab14d3d5bd661112965bdbf82a50ebf9daa1e3870e2410beff270409f",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Namfoodle",
+        "new": "namfoodle",
+        "package": "vcvrack-pro",
+        "pkgbuild_sha256": "ed6bdac4368493fe552542429c08c9a7e7d53e3f54cc26752acb1bdb0cf5c218",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Namfoodle",
+        "new": "namfoodle",
+        "package": "vcvrack-pro",
+        "pkgbuild_sha256": "ed6bdac4368493fe552542429c08c9a7e7d53e3f54cc26752acb1bdb0cf5c218",
+        "rule_id": "H026"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "virtualmoonatlas",
+        "pkgbuild_sha256": "431492dc95a14782068e44fc0b69ac3ee4fe1282b8f0ec1259d21f880d79eae7",
+        "rule_id": "H044"
+      },
+      {
+        "dependency": "python-asyauth",
+        "dependency_new_maintainer": "kiwi42",
+        "dependency_status": "adopted",
+        "package": "netexec-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-asyauth",
+        "dependency_new_maintainer": "kiwi42",
+        "dependency_status": "adopted",
+        "package": "python-aardwolf",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-asyauth",
+        "dependency_new_maintainer": "kiwi42",
+        "dependency_status": "adopted",
+        "package": "python-aardwolf-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-asyauth",
+        "dependency_new_maintainer": "kiwi42",
+        "dependency_status": "adopted",
+        "package": "python-aiosmb",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-asyauth",
+        "dependency_new_maintainer": "kiwi42",
+        "dependency_status": "adopted",
+        "package": "python-msldap",
+        "rule_id": "H046"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "new": "fbf-prog64",
+        "package": "cherry-font-git",
+        "pkgbuild_sha256": "5460da834cb537101b23baaff8d3ab97868c6d10e879e3603188cfff5d99351e",
+        "rule_id": "G003"
+      },
+      {
+        "maintainer": "kjmcnamara1",
+        "package": "cecilia",
+        "pkgbuild_sha256": "984d4ae66bc57ddbe4f1be6a31b5e7881294167c850b0e80a5de0a2c719e0859",
+        "rule_id": "G014"
+      },
+      {
+        "maintainer": "fbf-prog64",
+        "package": "cherry-font-git",
+        "pkgbuild_sha256": "5460da834cb537101b23baaff8d3ab97868c6d10e879e3603188cfff5d99351e",
+        "rule_id": "G008"
+      }
+    ],
+    "campaign_cluster": [
+      {
+        "campaign_active": true,
+        "campaign_id": "G003:",
+        "count": 6,
+        "match": "maintainer adopted 6 unrelated packages in the window (first-seen account, 6 dormant targets)",
+        "members": [
+          "cherry-font-git",
+          "folly-git",
+          "libcpufeatures",
+          "libcpufeatures-git",
+          "minecraft-c",
+          "virtualmoonatlas"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2024-07-16 19:49 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "cherry-font-git",
+            "pkgbuild_sha256": "5460da834cb537101b23baaff8d3ab97868c6d10e879e3603188cfff5d99351e",
+            "version": "1.0-3 -> 1.0-3"
+          },
+          {
+            "last_modified": "2021-06-12 05:44 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "folly-git",
+            "pkgbuild_sha256": "5a2bdd5497d9b1059b956e52352236c89fb3eea84f60f342ed07d10feddf6ce8",
+            "version": "2021.05.31.00.r0.g99fbca1df-1 -> 2021.05.31.00.r0.g99fbca1df-1"
+          },
+          {
+            "last_modified": "2025-07-09 00:45 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "libcpufeatures",
+            "pkgbuild_sha256": "17be7a2ea86bb33bcebb414e6bca95ce87e780d690755f6b36e43ac1e3541a97",
+            "version": "0.10.1-1 -> 0.10.1-1"
+          },
+          {
+            "last_modified": "2022-05-02 14:09 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "libcpufeatures-git",
+            "pkgbuild_sha256": "256e8fba44dabd3c7958aed4cd49123ee60599ceee11459b9c451e4bd90fea74",
+            "version": "0.7.0+8.r277.d20220315.188d0d3-2 -> 0.7.0+8.r277.d20220315.188d0d3-2"
+          },
+          {
+            "last_modified": "2022-09-06 17:59 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "minecraft-c",
+            "pkgbuild_sha256": "edc3123eb00e8c1ec17247bfaf6ab2dcef2a3246981893838d14dfa98b4fc81b",
+            "version": "1.2-1 -> 1.2-1"
+          },
+          {
+            "last_modified": "2023-07-02 05:47 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "virtualmoonatlas",
+            "pkgbuild_sha256": "431492dc95a14782068e44fc0b69ac3ee4fe1282b8f0ec1259d21f880d79eae7",
+            "version": "8.2-1 -> 8.2-1"
+          }
+        ],
+        "rule_id": "G003"
+      },
+      {
+        "campaign_active": true,
+        "campaign_id": "G014:adoption-window",
+        "count": 12,
+        "match": "12 unrelated packages adopted by 5 maintainer(s) (11 dormant) in the window",
+        "members": [
+          "cecilia",
+          "cecilia-git",
+          "cherry-font-git",
+          "folly-git",
+          "gbt-git",
+          "libcpufeatures",
+          "libcpufeatures-git",
+          "minecraft-c",
+          "python-aesedb",
+          "python-asyauth",
+          "vcvrack-pro",
+          "virtualmoonatlas"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2026-11-12 22:57 UTC",
+            "maintainer": "kjmcnamara1",
+            "package": "cecilia",
+            "pkgbuild_sha256": "984d4ae66bc57ddbe4f1be6a31b5e7881294167c850b0e80a5de0a2c719e0859",
+            "version": "5.4.1-1 -> 5.4.1-1"
+          },
+          {
+            "last_modified": "2025-09-27 03:03 UTC",
+            "maintainer": "kjmcnamara1",
+            "package": "cecilia-git",
+            "pkgbuild_sha256": "f59d9bfb28e83267f9c91ac530aabf121954971843203bd537d43c3d1a5b813b",
+            "version": "5.4.1.r16.g4bf519e-1 -> 5.4.1.r16.g4bf519e-1"
+          },
+          {
+            "last_modified": "2024-07-16 19:49 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "cherry-font-git",
+            "pkgbuild_sha256": "5460da834cb537101b23baaff8d3ab97868c6d10e879e3603188cfff5d99351e",
+            "version": "1.0-3 -> 1.0-3"
+          },
+          {
+            "last_modified": "2021-06-12 05:44 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "folly-git",
+            "pkgbuild_sha256": "5a2bdd5497d9b1059b956e52352236c89fb3eea84f60f342ed07d10feddf6ce8",
+            "version": "2021.05.31.00.r0.g99fbca1df-1 -> 2021.05.31.00.r0.g99fbca1df-1"
+          },
+          {
+            "last_modified": "2021-05-25 16:26 UTC",
+            "maintainer": "jvybihal",
+            "package": "gbt-git",
+            "pkgbuild_sha256": "6708bc25a7e2637e0648638b9c048ab2a595f249af264eb2c87fbcc0a94a774f",
+            "version": "r306.fd9fbf3-1 -> r306.fd9fbf3-1"
+          },
+          {
+            "last_modified": "2025-07-09 00:45 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "libcpufeatures",
+            "pkgbuild_sha256": "17be7a2ea86bb33bcebb414e6bca95ce87e780d690755f6b36e43ac1e3541a97",
+            "version": "0.10.1-1 -> 0.10.1-1"
+          },
+          {
+            "last_modified": "2022-05-02 14:09 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "libcpufeatures-git",
+            "pkgbuild_sha256": "256e8fba44dabd3c7958aed4cd49123ee60599ceee11459b9c451e4bd90fea74",
+            "version": "0.7.0+8.r277.d20220315.188d0d3-2 -> 0.7.0+8.r277.d20220315.188d0d3-2"
+          },
+          {
+            "last_modified": "2022-09-06 17:59 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "minecraft-c",
+            "pkgbuild_sha256": "edc3123eb00e8c1ec17247bfaf6ab2dcef2a3246981893838d14dfa98b4fc81b",
+            "version": "1.2-1 -> 1.2-1"
+          },
+          {
+            "last_modified": "2024-03-29 09:29 UTC",
+            "maintainer": "kiwi42",
+            "package": "python-aesedb",
+            "pkgbuild_sha256": "a290c7fc69606ccf056da7472600663df2e2c465081bfccbf613b5dd77a9d803",
+            "version": "0.1.6-1 -> 0.1.6-1"
+          },
+          {
+            "last_modified": "2024-10-07 15:15 UTC",
+            "maintainer": "kiwi42",
+            "package": "python-asyauth",
+            "pkgbuild_sha256": "426df50ab14d3d5bd661112965bdbf82a50ebf9daa1e3870e2410beff270409f",
+            "version": "0.0.21-1 -> 0.0.21-1"
+          },
+          {
+            "last_modified": "2025-03-14 10:22 UTC",
+            "maintainer": "Namfoodle",
+            "package": "vcvrack-pro",
+            "pkgbuild_sha256": "ed6bdac4368493fe552542429c08c9a7e7d53e3f54cc26752acb1bdb0cf5c218",
+            "version": "2.6.1-1 -> 2.6.1-1"
+          },
+          {
+            "last_modified": "2023-07-02 05:47 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "virtualmoonatlas",
+            "pkgbuild_sha256": "431492dc95a14782068e44fc0b69ac3ee4fe1282b8f0ec1259d21f880d79eae7",
+            "version": "8.2-1 -> 8.2-1"
+          }
+        ],
+        "rule_id": "G014"
+      },
+      {
+        "campaign_active": true,
+        "campaign_id": "G008:fbf-prog64",
+        "count": 6,
+        "match": "first-seen account fbf-prog64 adopted 6 packages (6 dormant) within 7 days",
+        "members": [
+          "cherry-font-git",
+          "folly-git",
+          "libcpufeatures",
+          "libcpufeatures-git",
+          "minecraft-c",
+          "virtualmoonatlas"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2024-07-16 19:49 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "cherry-font-git",
+            "pkgbuild_sha256": "5460da834cb537101b23baaff8d3ab97868c6d10e879e3603188cfff5d99351e",
+            "version": "1.0-3 -> 1.0-3"
+          },
+          {
+            "last_modified": "2021-06-12 05:44 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "folly-git",
+            "pkgbuild_sha256": "5a2bdd5497d9b1059b956e52352236c89fb3eea84f60f342ed07d10feddf6ce8",
+            "version": "2021.05.31.00.r0.g99fbca1df-1 -> 2021.05.31.00.r0.g99fbca1df-1"
+          },
+          {
+            "last_modified": "2025-07-09 00:45 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "libcpufeatures",
+            "pkgbuild_sha256": "17be7a2ea86bb33bcebb414e6bca95ce87e780d690755f6b36e43ac1e3541a97",
+            "version": "0.10.1-1 -> 0.10.1-1"
+          },
+          {
+            "last_modified": "2022-05-02 14:09 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "libcpufeatures-git",
+            "pkgbuild_sha256": "256e8fba44dabd3c7958aed4cd49123ee60599ceee11459b9c451e4bd90fea74",
+            "version": "0.7.0+8.r277.d20220315.188d0d3-2 -> 0.7.0+8.r277.d20220315.188d0d3-2"
+          },
+          {
+            "last_modified": "2022-09-06 17:59 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "minecraft-c",
+            "pkgbuild_sha256": "edc3123eb00e8c1ec17247bfaf6ab2dcef2a3246981893838d14dfa98b4fc81b",
+            "version": "1.2-1 -> 1.2-1"
+          },
+          {
+            "last_modified": "2023-07-02 05:47 UTC",
+            "maintainer": "fbf-prog64",
+            "package": "virtualmoonatlas",
+            "pkgbuild_sha256": "431492dc95a14782068e44fc0b69ac3ee4fe1282b8f0ec1259d21f880d79eae7",
+            "version": "8.2-1 -> 8.2-1"
+          }
+        ],
+        "rule_id": "G008"
+      }
+    ],
+    "cycle": {
+      "added": 0,
+      "changed": 29,
+      "processed": 29,
+      "refractory": [
+        {
+          "campaign_id": "G003:",
+          "emitted": true,
+          "rule_id": "G003",
+          "window_start_obs": 70840
+        },
+        {
+          "campaign_id": "G014:adoption-window",
+          "emitted": true,
+          "rule_id": "G014",
+          "window_start_obs": 70840
+        },
+        {
+          "campaign_id": "G008:fbf-prog64",
+          "emitted": true,
+          "rule_id": "G008",
+          "window_start_obs": 70840
+        }
+      ],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: Campaign across 12 packages (G014)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H044",
+    "H026",
+    "H046",
+    "G003",
+    "G014",
+    "G008"
+  ],
+  "slug": "2026-11-22/155634",
+  "tags": [],
+  "time": 1795362994,
+  "title": "TrustSight: Campaign across 12 packages (G014)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "c2e1df69b8abb88fd710d5e5950c444701c61b2c029f1a95db33903311b213a5",
+    "key_id": "k1",
+    "signature": "sEbAnn2jKagNvZ3kZnVA2yDspkMK8id0y2Uw4Z691AaslnaqTDeYJvmyV4FQdIN9K/2EGYoFxAOV3yyn/tA8AQ==",
+    "signed_at": 1795362994,
+    "webhook_id": "4f646dc6fba4a72e908365dfa64bcc6bc0b13af496e232da1c75b63665ab9dcc"
+  }
+}

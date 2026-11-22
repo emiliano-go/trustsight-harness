@@ -47,6 +47,7 @@ OPERATIONS: tuple[str, ...] = (
     "matrix",
     "outcomes",
     "watcher_replay",
+    "replay_alert",
     "benign",
     # single-diff helpers
     "analyze_diff",

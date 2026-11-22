@@ -1,0 +1,212 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "your-szu-life-git scored 50 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T04:14:45.000Z",
+  "packages": [
+    "your-szu-life-git"
+  ],
+  "payload": {
+    "alerts": [],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 1,
+      "changed": 17,
+      "processed": 18,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/your-szu-life-git",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n # Maintainer: Rinne <aur@rinne.in>\n pkgname=your-szu-life-git\n-pkgver=0.17.2.r1595b4b\n+pkgver=0.17.3.r606517c\n pkgrel=1\n pkgdesc=\"\u6ce5\u6df1 - \u4f60\u7684SZU\u52a9\u624b\"\n arch=('x86_64')\n@@ -10,7 +10,7 @@\n provides=('your-szu-life')\n conflicts=('your-szu-life-bin' 'your-szu-life')\n makedepends=('base-devel' 'git' 'pnpm' 'rust' 'libarchive')\n-source=(\"$pkgname::git+https://github.com/rinnein/your-szu-life.git#branch=main\")\n+source=(\"$pkgname::git+https://cnb.cool/rinnein/szu/your-szu-life.git#branch=main\")\n sha256sums=('SKIP')\n \n pkgver() {",
+        "diff_sha256": "9a049e8a58f385e9206f9fe7a2999248d0000dba818d623547624de46ba4a74a",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/rinnein/your-szu-life was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/rinnein/your-szu-life; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source Origin Changed: source source_hosts changed after 20 stable obs",
+            "rule_id": "H049",
+            "rule_uid": "TS-0105",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 3 distinct layers fired with no strong signal: L2, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: an analysis stage could not complete on this input, so the checks it performs did not run over all of the change",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://cnb.cool/rinnein/szu/your-szu-life.git#branch=main)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://cnb.cool/rinnein/szu/your-szu-life.git#branch=main (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://cnb.cool/rinnein/szu/your-szu-life.git#branch=main (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source tracks a branch or unpinned ref; upstream decides at build time what this compiles and runs",
+            "rule_id": "P008",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 03:58 UTC",
+        "maintainer": "Rinne",
+        "package": "your-szu-life-git",
+        "pkgbuild_sha256": "f6200c1b7b091601a6a4ccb6dd849baee91e0fc9d925336d579805f1922787e8",
+        "previous_maintainer": "Rinne",
+        "previous_pkgbuild_sha256": "e98d79b806654882d8c5eb2619628ae46110c1b7a7ea2e698f6d95acb31a9c2b",
+        "rules": [
+          "W011",
+          "W012",
+          "H020",
+          "H049",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P008"
+        ],
+        "score": 50,
+        "version": "0.17.3.r606517c-1 -> 0.17.3.r606517c-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: your-szu-life-git scored 50 (SOURCE_BUCKET)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "W011",
+    "W012",
+    "H020",
+    "H049",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001",
+    "P008"
+  ],
+  "slug": "2026-11-22/041445",
+  "tags": [],
+  "time": 1795320885,
+  "title": "TrustSight: your-szu-life-git scored 50 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "faef7001d687513e40195bafd760044430fc9cba6977ec5d2fde7f163b310980",
+    "key_id": "k1",
+    "signature": "jaOpNEnejzt83hlb0REQ4n0qAB7l3VZ66Ft7GpHsOLIzMAq7FEMbX0sRGd29UDnDeE+ptjFQOLBsbM6xS0zWCA==",
+    "signed_at": 1795320885,
+    "webhook_id": "89c4e474cd76ad286b03533ecde70b8fc5f97b0ad132bed832d44da079067f15"
+  }
+}

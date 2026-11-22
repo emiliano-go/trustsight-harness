@@ -1,0 +1,292 @@
+{
+  "counts": {
+    "alerts": 11,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "lumalarm scored 70 (H100)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T09:17:11.000Z",
+  "packages": [
+    "raygun-bin",
+    "raymon-bin",
+    "readio-bin",
+    "red-table",
+    "reeve-tui-bin",
+    "retiretui-bin",
+    "revw-bin",
+    "rex-tui-bin",
+    "rigtop-bin",
+    "rootle-bin",
+    "rsfrac",
+    "lumalarm"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "ahp",
+        "package": "raygun-bin",
+        "pkgbuild_sha256": "b40fbefb82adc47009badde32e7b12e2199195aef8c12a2003a20de8251cef29",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "raymon-bin",
+        "pkgbuild_sha256": "0bd7be21ba9af86cddd8e39710151a7b503fd0a22e4d29bc45f3630d07b32416",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "readio-bin",
+        "pkgbuild_sha256": "fe54112921d658f1d4d22649ca07ac0fb4e7f85bcce762a0b79be6acf3d8ec29",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "red-table",
+        "pkgbuild_sha256": "f0e620ce251d1f562f294d039fb81917453dbd7eeec71e935dedc9aba1a12007",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "reeve-tui-bin",
+        "pkgbuild_sha256": "c6736d8cc7096d6be290a7eafc801beda0478b7769f61c34d459b2c2aaa570b6",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "retiretui-bin",
+        "pkgbuild_sha256": "fa0fb1c21dc1dee8f220bf82b88311933db2b5738e51210694d308144a09a5bf",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "revw-bin",
+        "pkgbuild_sha256": "a4d8da29f0241dbfba3cab0d190c4f7ce1a9aa09af1f895ea153034bed7db534",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rex-tui-bin",
+        "pkgbuild_sha256": "e99f08df08b52ab44b56eb82528ea800c4359aa2109fd92f668b0e367782c6e2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rigtop-bin",
+        "pkgbuild_sha256": "081f087c06d216799eeefb0989f3f1ce772c507196f5754ef96f167c4f07ac90",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rootle-bin",
+        "pkgbuild_sha256": "695bedffcbae3b85bee918c148d74621faff59336e35028071f33a3ae0c7a618",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rsfrac",
+        "pkgbuild_sha256": "5a614eda29c3474e4c2be1c0b725e5d5453d80db9748c7b0ecf72b331cb9a779",
+        "rule_id": "H045"
+      }
+    ],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 11,
+      "changed": 20,
+      "processed": 31,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/lumalarm",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,18 +2,16 @@\n # Contributor: Arch Linux User\n \n pkgname=lumalarm\n-pkgver=1.0.0\n-pkgrel=10\n-pkgdesc=\"A professional glassmorphism alarm clock for Linux with rtcwake support\"\n+pkgver=1.0.5\n+pkgrel=1\n+pkgdesc=\"Glassmorphism alarm clock for Linux with rtcwake, D-Bus wake helper, multilingual UI and emoji-density control\"\n arch=('x86_64' 'aarch64')\n url=\"https://github.com/shinigami1231111/lumalarm\"\n-license=('GPL3')\n+license=('GPL-3.0-or-later')\n depends=(\n     'qt6-base'\n     'qt6-multimedia'\n-    'qt6-multimedia-ffmpeg'\n     'qt6-declarative'\n-    'kwindowsystem'\n     'util-linux'\n )\n makedepends=(\n@@ -21,16 +19,28 @@\n     'gcc'\n     'qt6-tools'\n )\n-source=(\"${pkgname}-${pkgver}.tar.gz::https://github.com/shinigami1231111/lumalarm/archive/v${pkgver}.tar.gz\")\n-sha256sums=('SKIP')\n+optdepends=(\n+    'kwindowsystem: native KDE/KWin blur-behind (requires a rebuild with blur enabled)'\n+)\n+install=lumalarm.install\n+source=(\"${pkgname}-${pkgver}.tar.gz::https://github.com/shinigami1231111/lumalarm/archive/refs/tags/v${pkgver}.tar.gz\")\n+sha256sums=('418c7e93dc295a4a4e548ea184ac37b0a25dca1b2dcc9bd6bd5bed47f1cbc638')\n \n build() {\n     cd \"${srcdir}/${pkgname}-${pkgver}\"\n+\n+    # KDE blur is optional and needs KF6WindowSystem at build AND run time;\n+    # keep the AUR build portable. Native translucency still works.\n     cmake -B build \\\n         -DCMAKE_INSTALL_PREFIX=/usr \\\n         -DCMAKE_BUILD_TYPE=Release \\\n-        -DCMAKE_CXX_FLAGS=\"-O2 -pipe -march=x86-64 -mtune=generic\"\n-    cmake --build build -j$(nproc)\n+        -DCMAKE_CXX_FLAGS=\"-O2 -pipe\" \\\n+        -DLUMALARM_ENABLE_KDE_BLUR=OFF\n+\n+    # Cap parallel jobs at 80% of available CPUs (never more, never zero).\n+    local jobs=$(( $(nproc) * 80 / 100 ))\n+    [ \"$jobs\" -lt 1 ] && jobs=1\n+    cmake --build build -j\"$jobs\"\n }\n \n package() {\n@@ -38,33 +48,10 @@\n     DESTDIR=\"${pkgdir}\" cmake --install build\n \n     install -Dm644 LICENSE \"${pkgdir}/usr/share/licenses/${pkgname}/LICENSE\"\n+    mkdir -p \"${pkgdir}/usr/share/${pkgname}/tones\"\n+    install -Dm644 resources/lumalarm.desktop \\\n+        \"${pkgdir}/usr/share/applications/${pkgname}.desktop\"\n \n-    mkdir -p \"${pkgdir}/usr/share/${pkgname}/tones\"\n-\n-    install -Dm644 resources/lumalarm.desktop \"${pkgdir}/usr/share/applications/lumalarm.desktop\"\n-\n-    install -d \"${pkgdir}/etc/sudoers.d\"\n-\n-    echo \"# Lumalarm: Allow rtcwake without password\" > \"${pkgdir}/etc/sudoers.d/lumalarm\"\n-    echo \"%wheel ALL=(ALL) NOPASSWD: /usr/bin/rtcwake\" >> \"${pkgdir}/etc/sudoers.d/lumalarm\"\n-    chmod 440 \"${pkgdir}/etc/sudoers.d/lumalarm\"\n+    # STG-1.6: no sudoers rule. The D-Bus helper + polkit action are installed\n+    # by CMake; lumalarm.install removes any legacy rule on upgrade.\n }\n-\n-post_install() {\n-    echo \"=== Lumalarm - Post-Install Setup ===\"\n-    echo \"\"\n-    echo \"1. Config directory (auto-created on first run):\"\n-    echo \"   ~/.config/lumalarm/tones\"\n-    echo \"\"\n-    echo \"2. Place custom alarm tones (WAV/MP3) in:\"\n-    echo \"   ~/.config/lumalarm/tones/\"\n-    echo \"\"\n-    echo \"3. For rtcwake (system wake from suspend):\"\n-    echo \"   The PKGBUILD installs a sudoers rule allowing rtcwake without password.\"\n-    echo \"   If you need to set it manually:\"\n-    echo \"   echo 'YOUR_USERNAME ALL=(ALL) NOPASSWD: /usr/bin/rtcwake' | sudo tee /etc/sudoers.d/lumalarm\"\n-    echo \"   sudo chmod 440 /etc/sudoers.d/lumalarm\"\n-    echo \"\"\n-    echo \"4. Run the application:\"\n-    echo \"   lumalarm\"\n-}",
+        "diff_sha256": "416ab52c7c9bd4a1e42acdbc56f046e34b4b22c2cd7945ef974a904e5c7ddc21",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 25,
+            "reason": "Install File Modification: +install=lumalarm.install",
+            "rule_id": "R007",
+            "rule_uid": "TS-0169",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 25,
+            "reason": "Install Hook Added Or Retargeted: install hook added: lumalarm.install; hook script is in this diff",
+            "rule_id": "H100",
+            "rule_uid": "TS-0156",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/shinigami1231111/lumalarm was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/shinigami1231111/lumalarm; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Critical Build Function Modified: diff modifies build(), package()",
+            "rule_id": "H015",
+            "rule_uid": "TS-0071",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Long-Stable Property Changed: install_hook_present changed after 22 stable obs",
+            "rule_id": "H037",
+            "rule_uid": "TS-0093",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 4 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source hosted on a trusted forge over HTTPS",
+            "rule_id": "P007",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://github.com/shinigami1231111/lumalarm/archive/refs/tags/v1.0.5.tar.gz (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://github.com/shinigami1231111/lumalarm/archive/refs/tags/v1.0.5.tar.gz (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:55 UTC",
+        "maintainer": "DMK_X",
+        "package": "lumalarm",
+        "pkgbuild_sha256": "b8f34326cf7bd945f2dd2cad4af3141c01ab435839997dbf8ee3a91497dbf9c9",
+        "previous_maintainer": "DMK_X",
+        "previous_pkgbuild_sha256": "d91790c3c54feeaeb98f9baa4fc0ce33e6e5baa55a06546aefe16dffecf84157",
+        "rules": [
+          "R007",
+          "H100",
+          "W011",
+          "W012",
+          "H015",
+          "H020",
+          "H037",
+          "H027",
+          "COVERAGE",
+          "P007",
+          "NOVELTY",
+          "NOVELTY",
+          "P001"
+        ],
+        "score": 70,
+        "version": "1.0.5-1 -> 1.0.5-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: lumalarm scored 70 (H100)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H045",
+    "R007",
+    "H100",
+    "W011",
+    "W012",
+    "H015",
+    "H020",
+    "H037",
+    "H027",
+    "COVERAGE",
+    "P007",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-22/091711",
+  "tags": [],
+  "time": 1795339031,
+  "title": "TrustSight: lumalarm scored 70 (H100)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "325538a22d6b2d6e4fab0dc6f880964663e1dcc557d0de579a0b8877dd4bc301",
+    "key_id": "k1",
+    "signature": "ZFUGtL77UIR/FLECoJM4dVkpTRR10TR2OO9kvGvcx4DDzP+2pzXoKUa3QHPwbWtMJX0iOayJcBGTY0lqDt8UAA==",
+    "signed_at": 1795339031,
+    "webhook_id": "8a7b3f908d192174bfbe27c82e304c9daa2b10f7dcc8d5ab9cf343e7c810cf00"
+  }
+}

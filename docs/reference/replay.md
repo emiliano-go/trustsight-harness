@@ -1,0 +1,86 @@
+---
+description: How the harness replays a recorded watcher alert from the facts the watcher had, what it may and may not use, and which inputs are still missing.
+---
+
+# Alert Replay
+
+Rule probes answer "can this rule fire at all?". Replay answers a harder
+question: **given only the facts the watcher had, does the harness reach the
+same findings for this package?**
+
+```console
+$ harness replay_alert --limit 20
+$ cat replay/report.json
+```
+
+## The input contract
+
+A replay case carries facts, never answers:
+
+| Allowed | Forbidden |
+|---|---|
+| the notification's diff | the notification's findings |
+| `pkgbuild_sha256`, `previous_pkgbuild_sha256` | rule ids, reasons, score |
+| `last_modified`, `maintainer`, `previous_maintainer` | `expected` inside the input |
+| the version transition | anything derived from the comparison |
+| AUR git history at those commits | |
+| `.SRCINFO`, the tree, `.install` files at the commit | |
+
+`harness/replay/contract.py` enforces this: `validate_case` raises
+`ReplayInputError` when a forbidden key is present, and the tests assert that
+a document's findings are dropped before analysis and only used afterwards to
+compare.
+
+## Reconstructing the package
+
+The notification records the PKGBUILD's SHA-256 before and after the change.
+AUR keeps full history, so those two digests identify the commits exactly:
+
+```
+pkgbuild_sha256           f94c7046...  -> commit b69f0b2
+previous_pkgbuild_sha256  a5e42045...  -> commit bbe5644
+```
+
+`harness/replay/gitstate.py` clones `aur.archlinux.org/<package>.git`,
+resolves both commits **by content hash** (deepening the clone when the blob
+predates the shallow window), and reads the PKGBUILD at each, `.SRCINFO`, the
+whole tracked tree, and every `.install` file. That state feeds
+`analyze_package_text`, TrustSight's own per-package entry — the harness does
+not re-implement any rule.
+
+## What it reproduces today
+
+Measured over the 20 newest notifications in `replay/alerts/` (24 package
+cases with recorded findings):
+
+| Measure | Value |
+|---|---|
+| Rule instances expected | 135 |
+| Reproduced | 101 (75%) |
+| Cases with no miss | 7 of 24 |
+
+Misses are grouped by the input they still need:
+
+| Gap | Rules | What is missing |
+|---|---|---|
+| `upstream` | U001-U013, W014 (12) | the upstream inventory (or the signed federation store) |
+| `campaign` | G007, W013 (8) | campaign membership and the watchlist |
+| `assembly` | H027, M002, H098 (6) | the union of findings, not one package |
+| `longitudinal` | H049, H037, H054 (5) | a prior-cycle snapshot or observation counter |
+| `pure` | H023 (1) | a follow-up stage the package entry does not run |
+| `other` | C001, E002 (2) | the watcher's old companion file came from its database snapshot, not git |
+
+These are the remaining milestones; none is a fixture defect. The loudest gap
+is upstream: those rules read a manifest inside the declared source archive,
+which the AUR repository does not carry. The `other` pair is the clearest
+reconstruction limit: an `.install` file that the watcher's snapshot already
+held but that the prior git commit does not, which turns a surgical checksum
+swap into a broader change.
+
+## Limits
+
+Replay is anchored to commits, not to the clock. AUR metadata that was not
+recorded in the document (the watcher's upstream-scan configuration, its
+private cycle counters, its database observation counts) is not invented. A
+rule that needs such state is reported in the gap table rather than guessed,
+and the exact path for it is the watcher publishing a replay bundle.
