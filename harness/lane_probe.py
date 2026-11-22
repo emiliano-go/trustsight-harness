@@ -221,6 +221,37 @@ def _compose(payload: dict) -> list[dict]:
     config = dict(_config())
     if isinstance(payload.get("namespaces"), dict):
         config["namespaces"] = payload["namespaces"]
+    if kind == "ioc":
+        from trustsight.analysis.ioc import _ioc_findings
+        from trustsight.iocs import load_indicators
+
+        indicators = load_indicators({"entries": list(payload.get("entries") or ())})
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        _ioc_findings(str(payload.get("diff_text", "")),
+                      str(payload.get("package", "")), config, add,
+                      indicators=indicators,
+                      current_text=payload.get("current_text"))
+        return found
+    if kind == "commits":
+        from trustsight.analysis.refusals import pattern_across_commits
+
+        found: list[dict] = []
+
+        def add(rule_id, name, severity, category, match, **extra):
+            found.append({"rule_id": rule_id, "name": name,
+                          "severity": severity, "category": category,
+                          "match": match, **extra})
+
+        pattern_across_commits(
+            str(payload.get("previous_diff", "")),
+            str(payload.get("diff_text", "")), add)
+        return found
     if kind == "dependencies":
         from trustsight import db
         from trustsight.analysis.dependencies import _dependency_findings
@@ -475,6 +506,8 @@ COMPOSE_KINDS = {
     "scriptlet": frozenset({"name", "data"}),
     "dependencies": frozenset({"diff_text", "package", "dependencies",
                                "current_text"}),
+    "commits": frozenset({"previous_diff", "diff_text"}),
+    "ioc": frozenset({"entries", "diff_text", "package", "current_text"}),
     "edge": frozenset({"name", "data"}),
     "committed_path": frozenset({"name", "data"}),
     "tree_manifest": frozenset({"files", "source_urls", "package"}),
