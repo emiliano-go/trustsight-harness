@@ -1,0 +1,34 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "agentic-hive-git scored 65 (H108)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T13:25:34.000Z",
+  "packages": [
+    "agentic-hive-git"
+  ],
+  "priority": null,
+  "rules": [
+    "H020",
+    "H021",
+    "D005",
+    "R007",
+    "X015",
+    "W011",
+    "W012",
+    "H108",
+    "H027",
+    "COVERAGE"
+  ],
+  "slug": "2026-11-21/132534",
+  "tags": [],
+  "time": 1795267534,
+  "title": "TrustSight: agentic-hive-git scored 65 (H108)",
+  "tool_version": "0.30.0"
+}

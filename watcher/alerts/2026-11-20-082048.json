@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "flutter-bin scored 100 (H089)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T08:20:48.000Z",
+  "packages": [
+    "flutter-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "H091",
+    "C011",
+    "D005",
+    "W011",
+    "W012",
+    "H015",
+    "H089",
+    "H020",
+    "H027",
+    "M001",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-20/082048",
+  "tags": [],
+  "time": 1795162848,
+  "title": "TrustSight: flutter-bin scored 100 (H089)",
+  "tool_version": "0.30.0"
+}

@@ -1,0 +1,44 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "ffmpeg-full scored 55 (H077) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-20T17:44:41.000Z",
+  "packages": [
+    "gnome-search-providers-vscode",
+    "ffmpeg-full",
+    "obs-studio-browser"
+  ],
+  "priority": null,
+  "rules": [
+    "H044",
+    "H025",
+    "H015",
+    "H077",
+    "H020",
+    "H049",
+    "H050",
+    "H027",
+    "COVERAGE",
+    "P001",
+    "P002",
+    "D005",
+    "W011",
+    "W012",
+    "M002",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P008"
+  ],
+  "slug": "2026-11-20/174441",
+  "tags": [],
+  "time": 1795196681,
+  "title": "TrustSight: ffmpeg-full scored 55 (H077) +1 more",
+  "tool_version": "0.30.0"
+}

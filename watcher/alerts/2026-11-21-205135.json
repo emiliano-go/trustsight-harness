@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "jacartauc scored 90 (C016)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T20:51:35.000Z",
+  "packages": [
+    "apktool-toolbox",
+    "jacartauc"
+  ],
+  "priority": null,
+  "rules": [
+    "H046",
+    "R007",
+    "C034",
+    "C016",
+    "H015",
+    "H020",
+    "H022",
+    "H027",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-21/205135",
+  "tags": [],
+  "time": 1795294295,
+  "title": "TrustSight: jacartauc scored 90 (C016)",
+  "tool_version": "0.30.0"
+}

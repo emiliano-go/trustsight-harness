@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "hush-shell scored 40 (C015)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T12:39:29.000Z",
+  "packages": [
+    "hush-shell"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "C015",
+    "C002",
+    "W011",
+    "W012",
+    "H015",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001"
+  ],
+  "slug": "2026-11-20/123929",
+  "tags": [],
+  "time": 1795178369,
+  "title": "TrustSight: hush-shell scored 40 (C015)",
+  "tool_version": "0.30.0"
+}

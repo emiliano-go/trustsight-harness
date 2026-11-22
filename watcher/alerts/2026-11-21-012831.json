@@ -1,0 +1,48 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 6
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "onnxruntime-core scored 100 (R039) +5 more",
+  "ioc_packages": [],
+  "iso": "2026-11-21T01:28:31.000Z",
+  "packages": [
+    "onnxruntime-core",
+    "onnxruntime-provider-cuda12-legacy",
+    "onnxruntime-provider-cuda13-rtx",
+    "onnxruntime-provider-openvino",
+    "onnxruntime-provider-tensorrt-cuda13",
+    "python-onnxruntime-core"
+  ],
+  "priority": null,
+  "rules": [
+    "R039",
+    "E003",
+    "X024",
+    "W008",
+    "H030",
+    "D005",
+    "D001",
+    "W011",
+    "W012",
+    "H015",
+    "H065",
+    "H040",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P007",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-21/012831",
+  "tags": [],
+  "time": 1795224511,
+  "title": "TrustSight: onnxruntime-core scored 100 (R039) +5 more",
+  "tool_version": "0.30.0"
+}

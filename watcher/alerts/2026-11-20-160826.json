@@ -1,0 +1,27 @@
+{
+  "counts": {
+    "alerts": 2,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "H044 on autobrr +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-20T16:08:26.000Z",
+  "packages": [
+    "autobrr",
+    "autobrr-runit"
+  ],
+  "priority": null,
+  "rules": [
+    "H044",
+    "H046"
+  ],
+  "slug": "2026-11-20/160826",
+  "tags": [],
+  "time": 1795190906,
+  "title": "TrustSight: H044 on autobrr +1 more",
+  "tool_version": "0.30.0"
+}

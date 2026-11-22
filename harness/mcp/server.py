@@ -706,6 +706,14 @@ def outcomes(root: str | None = None) -> dict:
 
 
 @mcp.tool()
+def watcher_replay(root: str | None = None) -> dict:
+    """Replay every captured watcher alert against the rule ledger."""
+    from harness.watcher import replay
+
+    return replay(_root_path(root))
+
+
+@mcp.tool()
 def list_campaigns() -> dict:
     """List all campaigns with their records (if available)."""
     campaigns = []

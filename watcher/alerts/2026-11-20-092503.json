@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "dolphin-anty-bin scored 65 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T09:25:03.000Z",
+  "packages": [
+    "dolphin-anty-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "C005",
+    "C011",
+    "H015",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-20/092503",
+  "tags": [],
+  "time": 1795166703,
+  "title": "TrustSight: dolphin-anty-bin scored 65 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0"
+}

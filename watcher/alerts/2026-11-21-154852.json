@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "spark-store scored 100 (H108)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T15:48:52.000Z",
+  "packages": [
+    "hakoniwa",
+    "spark-store"
+  ],
+  "priority": null,
+  "rules": [
+    "H044",
+    "R007",
+    "C002",
+    "X015",
+    "H108",
+    "H015",
+    "H017",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P006",
+    "P009"
+  ],
+  "slug": "2026-11-21/154852",
+  "tags": [],
+  "time": 1795276132,
+  "title": "TrustSight: spark-store scored 100 (H108)",
+  "tool_version": "0.30.0"
+}

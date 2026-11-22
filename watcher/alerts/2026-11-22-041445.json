@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "your-szu-life-git scored 50 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T04:14:45.000Z",
+  "packages": [
+    "your-szu-life-git"
+  ],
+  "priority": null,
+  "rules": [
+    "W011",
+    "W012",
+    "H020",
+    "H049",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001",
+    "P008"
+  ],
+  "slug": "2026-11-22/041445",
+  "tags": [],
+  "time": 1795320885,
+  "title": "TrustSight: your-szu-life-git scored 50 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0"
+}

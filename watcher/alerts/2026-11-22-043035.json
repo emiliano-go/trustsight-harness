@@ -1,0 +1,28 @@
+{
+  "counts": {
+    "alerts": 4,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "H059 on libgda5-firebird +3 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T04:30:35.000Z",
+  "packages": [
+    "libgda5-firebird",
+    "libgda5-jdbc",
+    "libgda5-mysql",
+    "libgda5-postgres"
+  ],
+  "priority": null,
+  "rules": [
+    "H059"
+  ],
+  "slug": "2026-11-22/043035",
+  "tags": [],
+  "time": 1795321835,
+  "title": "TrustSight: H059 on libgda5-firebird +3 more",
+  "tool_version": "0.30.0"
+}

@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "uu-remote-official-bin scored 80 (H108)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T04:08:21.000Z",
+  "packages": [
+    "uu-remote-official-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "H059",
+    "H020",
+    "H021",
+    "D005",
+    "R007",
+    "X015",
+    "H108",
+    "H017",
+    "H027",
+    "COVERAGE",
+    "P009"
+  ],
+  "slug": "2026-11-21/040821",
+  "tags": [],
+  "time": 1795234101,
+  "title": "TrustSight: uu-remote-official-bin scored 80 (H108)",
+  "tool_version": "0.30.0"
+}

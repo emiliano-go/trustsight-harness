@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "python-torch-tensorrt scored 80 (H072)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T16:53:05.000Z",
+  "packages": [
+    "python-torch-tensorrt"
+  ],
+  "priority": null,
+  "rules": [
+    "D001",
+    "W011",
+    "W012",
+    "H015",
+    "H097",
+    "H072",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P007",
+    "NOVELTY",
+    "P001",
+    "P008"
+  ],
+  "slug": "2026-11-21/165305",
+  "tags": [],
+  "time": 1795279985,
+  "title": "TrustSight: python-torch-tensorrt scored 80 (H072)",
+  "tool_version": "0.30.0"
+}

@@ -1,0 +1,34 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "kwin-osd-bottom scored 65 (H078)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T21:13:16.000Z",
+  "packages": [
+    "kwin-osd-bottom"
+  ],
+  "priority": null,
+  "rules": [
+    "T003",
+    "T004",
+    "W008",
+    "H015",
+    "H078",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001",
+    "P002"
+  ],
+  "slug": "2026-11-20/211316",
+  "tags": [],
+  "time": 1795209196,
+  "title": "TrustSight: kwin-osd-bottom scored 65 (H078)",
+  "tool_version": "0.30.0"
+}

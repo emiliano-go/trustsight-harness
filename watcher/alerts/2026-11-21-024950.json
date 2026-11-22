@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "python-x-transformers scored 45 (H022)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T02:49:50.000Z",
+  "packages": [
+    "python-x-transformers"
+  ],
+  "priority": null,
+  "rules": [
+    "H030",
+    "W011",
+    "W012",
+    "H015",
+    "W014",
+    "H020",
+    "H022",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "P007",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-21/024950",
+  "tags": [],
+  "time": 1795229390,
+  "title": "TrustSight: python-x-transformers scored 45 (H022)",
+  "tool_version": "0.30.0"
+}

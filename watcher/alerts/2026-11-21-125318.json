@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "your-szu-life-bin scored 80 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T12:53:18.000Z",
+  "packages": [
+    "your-szu-life-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "C005",
+    "C011",
+    "W011",
+    "W012",
+    "H020",
+    "H049",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P006",
+    "P009"
+  ],
+  "slug": "2026-11-21/125318",
+  "tags": [],
+  "time": 1795265598,
+  "title": "TrustSight: your-szu-life-bin scored 80 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0"
+}

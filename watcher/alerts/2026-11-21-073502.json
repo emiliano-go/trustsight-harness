@@ -1,0 +1,36 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "firedragon scored 40 (C001) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-21T07:35:02.000Z",
+  "packages": [
+    "firedragon",
+    "firedragon-catppuccin"
+  ],
+  "priority": null,
+  "rules": [
+    "C001",
+    "D005",
+    "D003",
+    "W011",
+    "W012",
+    "H015",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001"
+  ],
+  "slug": "2026-11-21/073502",
+  "tags": [],
+  "time": 1795246502,
+  "title": "TrustSight: firedragon scored 40 (C001) +1 more",
+  "tool_version": "0.30.0"
+}

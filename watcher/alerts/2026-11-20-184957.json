@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "cachy-auto-update scored 45 (U003)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T18:49:57.000Z",
+  "packages": [
+    "cachy-auto-update"
+  ],
+  "priority": null,
+  "rules": [
+    "C002",
+    "U001",
+    "U002",
+    "U012",
+    "U003",
+    "U006",
+    "W011",
+    "W012",
+    "H020",
+    "H023",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "P001"
+  ],
+  "slug": "2026-11-20/184957",
+  "tags": [],
+  "time": 1795200597,
+  "title": "TrustSight: cachy-auto-update scored 45 (U003)",
+  "tool_version": "0.30.0"
+}

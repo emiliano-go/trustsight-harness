@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "linux-galaxyaudio-bin scored 40 (C001) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-21T14:13:13.000Z",
+  "packages": [
+    "linux-galaxyaudio-bin",
+    "linux-galaxyaudio-headers-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "E002",
+    "C001",
+    "W011",
+    "W012",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-21/141313",
+  "tags": [],
+  "time": 1795270393,
+  "title": "TrustSight: linux-galaxyaudio-bin scored 40 (C001) +1 more",
+  "tool_version": "0.30.0"
+}

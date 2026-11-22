@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "onnxruntime-core-bin scored 45 (D001)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T23:51:54.000Z",
+  "packages": [
+    "onnxruntime-core-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "E001",
+    "D005",
+    "D001",
+    "W011",
+    "W012",
+    "W014",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "P007",
+    "NOVELTY",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-20/235154",
+  "tags": [],
+  "time": 1795218714,
+  "title": "TrustSight: onnxruntime-core-bin scored 45 (D001)",
+  "tool_version": "0.30.0"
+}

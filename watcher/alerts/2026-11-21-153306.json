@@ -1,0 +1,25 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "T011 on python-tokenizers-bin",
+  "ioc_packages": [],
+  "iso": "2026-11-21T15:33:06.000Z",
+  "packages": [
+    "python-tokenizers-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "T011"
+  ],
+  "slug": "2026-11-21/153306",
+  "tags": [],
+  "time": 1795275186,
+  "title": "TrustSight: T011 on python-tokenizers-bin",
+  "tool_version": "0.30.0"
+}

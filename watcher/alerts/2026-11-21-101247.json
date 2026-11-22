@@ -1,0 +1,33 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "substitcher-bin scored 40 (C001)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T10:12:47.000Z",
+  "packages": [
+    "substitcher-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "E002",
+    "C001",
+    "W011",
+    "W012",
+    "W014",
+    "H020",
+    "H027",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-21/101247",
+  "tags": [],
+  "time": 1795255967,
+  "title": "TrustSight: substitcher-bin scored 40 (C001)",
+  "tool_version": "0.30.0"
+}
