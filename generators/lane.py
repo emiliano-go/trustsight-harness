@@ -13,7 +13,13 @@ from pathlib import Path
 import yaml
 
 from harness.bounded import MAX_ARTIFACT_BYTES, read_text_capped
-from harness.lane_probe import CYCLE_KINDS, PAYLOAD_KEYS, UPSTREAM_KINDS, WARM_KINDS
+from harness.lane_probe import (
+    CYCLE_KINDS,
+    PAYLOAD_KEYS,
+    PROJECT_KINDS,
+    UPSTREAM_KINDS,
+    WARM_KINDS,
+)
 from harness.paths import within
 
 from .base import Exhausted, Generated, Generator, Prompt
@@ -77,6 +83,12 @@ class LaneGenerator(Generator):
                 raise ValueError(  # noqa: TRY004 - a config error, not a type error
                     f"cell {cell_id!r}: payload must be a mapping")
             allowed = PAYLOAD_KEYS[lane]
+            if lane == "project" and "kind" in inline:
+                kind = inline.get("kind")
+                if kind not in PROJECT_KINDS:
+                    raise ValueError(f"cell {cell_id!r}: unknown project kind "
+                                     f"{kind!r}")
+                allowed = PAYLOAD_KEYS[lane] | PROJECT_KINDS[kind]
             if lane == "warm" and "kind" in inline:
                 kind = inline.get("kind")
                 if kind not in WARM_KINDS:

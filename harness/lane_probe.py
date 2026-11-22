@@ -21,6 +21,7 @@ from .status import Status
 
 __all__ = [
     "CYCLE_KINDS",
+    "PROJECT_KINDS",
     "LANE_RUNNERS",
     "PAYLOAD_KEYS",
     "UPSTREAM_KINDS",
@@ -181,6 +182,92 @@ def _cycle(payload: dict) -> list[dict]:
     raise ValueError(f"unknown cycle kind {kind!r}")
 
 
+class _FakeCommit:
+    """The commit attributes the project rules read, as a fixture."""
+
+    def __init__(self, row: dict) -> None:
+        self.id = str(row.get("id", ""))
+        self.commit_time = float(row.get("commit_time", 0) or 0)
+        self.parents = tuple(row.get("parents") or ())
+        self.message = str(row.get("message", ""))
+        self.author_name = str(row.get("author_name", ""))
+        self.author_email = str(row.get("author_email", ""))
+        self.committer_name = str(row.get("committer_name", ""))
+        self.committer_email = str(row.get("committer_email", ""))
+
+
+class _FakeProject:
+    """A git-shaped fixture: commits by id, and a walk from a head."""
+
+    def __init__(self, rows) -> None:
+        self._by_id = {row["id"]: _FakeCommit(row) for row in rows or ()}
+
+    def commit_meta(self, ids):
+        return [self._by_id[i] for i in ids if i in self._by_id]
+
+    def walk(self, head: str, limit: int = 100):
+        current = self._by_id.get(head)
+        while current is not None and limit > 0:
+            yield current
+            limit -= 1
+            current = self._by_id.get(current.parents[0]) if current.parents else None
+
+
+def _project(payload: dict) -> list[dict]:
+    from trustsight.analysis.temporal import (
+        _package_is_new,
+        _recent_update,
+        _stale_revival,
+        t_metadata_git_divergence,
+        t_packager_not_in_history,
+    )
+
+    kind = payload.get("kind")
+    project = _FakeProject(payload.get("commits") or ())
+    head = str(payload.get("head", ""))
+    config = _config()
+    clock = payload.get("now")
+    if clock is not None:
+        from unittest import mock
+
+        import trustsight.analysis.temporal as temporal_module
+
+        class _Clock:
+            def time(self):
+                return float(clock)
+
+        with mock.patch.object(temporal_module, "time", _Clock()):
+            return _project_rule(kind, project, head, payload, config)
+    return _project_rule(kind, project, head, payload, config)
+
+
+def _project_rule(kind, project, head, payload, config) -> list[dict]:
+    from trustsight.analysis.temporal import (
+        _package_is_new,
+        _recent_update,
+        _stale_revival,
+        t_metadata_git_divergence,
+        t_packager_not_in_history,
+    )
+
+    if kind == "recent":
+        finding = _recent_update(project, head)
+    elif kind == "new":
+        finding = _package_is_new(project, head, payload.get("package"))
+    elif kind == "revival":
+        finding = _stale_revival(project, str(payload.get("old", "")), head)
+    elif kind == "divergence":
+        findings = t_metadata_git_divergence(
+            project, head, int(payload.get("last_modified", 0) or 0), config)
+        return findings
+    elif kind == "packager":
+        return t_packager_not_in_history(
+            project, head, str(payload.get("maintainer", "")), config)
+    else:
+        raise ValueError(f"unknown project kind {kind!r}")
+    return [finding] if finding else []
+
+
 def _warm(payload: dict) -> list[dict]:
     kind = payload.get("kind")
     config = _config()
@@ -258,11 +345,21 @@ def _upstream(payload: dict) -> list[dict]:
 #: ``project`` use the API paths instead of a pure function and are not here.
 LANE_RUNNERS = {
     "artifact": _artifact,
+    "project": _project,
     "warm": _warm,
     "correlation": _correlation,
     "meta": _meta,
     "cycle": _cycle,
     "upstream": _upstream,
+}
+
+#: The project entry points: a commit graph, then the git-backed rule.
+PROJECT_KINDS = {
+    "recent": frozenset({"commits", "head"}),
+    "new": frozenset({"commits", "head", "package"}),
+    "revival": frozenset({"commits", "head", "old"}),
+    "divergence": frozenset({"commits", "head", "last_modified"}),
+    "packager": frozenset({"commits", "head", "maintainer"}),
 }
 
 #: The warm entry points: a seeded key/domain ledger, then the rule.
@@ -293,6 +390,7 @@ CYCLE_KINDS = {
 #: function signatures.
 PAYLOAD_KEYS = {
     "artifact": frozenset({"manifest", "declared"}),
+    "project": frozenset().union(*PROJECT_KINDS.values()) | {"kind", "now"},
     "correlation": frozenset({
         "records", "kinds", "seed_transitions", "watchlist", "history",
         "pushes", "seed_campaigns", "package", "added_urls",

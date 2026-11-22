@@ -1,0 +1,16 @@
+{
+  "commits": [
+    {
+      "author_email": "s@x",
+      "author_name": "someone",
+      "commit_time": 1800000000,
+      "id": "c1",
+      "message": "import",
+      "parents": []
+    }
+  ],
+  "head": "c1",
+  "kind": "packager",
+  "maintainer": "Mallory <m@x>",
+  "now": 1800000000
+}

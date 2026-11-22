@@ -138,7 +138,7 @@
       "targeted": 7
     },
     "project": {
-      "firing": 0,
+      "firing": 5,
       "rules": 5,
       "targeted": 5
     },
@@ -650,6 +650,25 @@
         "M004",
         "M005",
         "M006"
+      ]
+    },
+    {
+      "campaign": "lane-project",
+      "campaign_type": "lane-probe",
+      "expected_rules": [
+        "H020",
+        "H021",
+        "H022",
+        "T006",
+        "T007"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "H020",
+        "H021",
+        "H022",
+        "T006",
+        "T007"
       ]
     },
     {
@@ -2250,9 +2269,6 @@
       "H012",
       "H013",
       "H014",
-      "H020",
-      "H021",
-      "H022",
       "H026",
       "H028",
       "H029",
@@ -2302,8 +2318,6 @@
       "R091",
       "R104",
       "R144",
-      "T006",
-      "T007",
       "TAG_CONVERGENCE",
       "U001",
       "U004",
@@ -2335,7 +2349,7 @@
       "X030",
       "X031"
     ],
-    "positive_targeted": 212,
+    "positive_targeted": 217,
     "positive_untargeted_ids": [
       "C006",
       "C008",
@@ -2367,9 +2381,6 @@
       "H012",
       "H013",
       "H014",
-      "H020",
-      "H021",
-      "H022",
       "H026",
       "H028",
       "H029",
@@ -2419,8 +2430,6 @@
       "R091",
       "R104",
       "R144",
-      "T006",
-      "T007",
       "TAG_CONVERGENCE",
       "U001",
       "U004",

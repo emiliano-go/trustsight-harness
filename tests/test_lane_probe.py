@@ -66,6 +66,8 @@ def test_every_payload_key_is_read_by_its_entry_point():
         "currently_maintained": "currently_maintained",
         "pkgver_moved": "pkgver_moved", "current_text": "current_text",
     }
+    assert set(lane_probe.PROJECT_KINDS) == {
+        "recent", "new", "revival", "divergence", "packager"}
     for kind, mapping, function in (
             ("longitudinal", longitudinal, longitudinal_findings),
             ("adoption", adoption, adoption_findings)):
