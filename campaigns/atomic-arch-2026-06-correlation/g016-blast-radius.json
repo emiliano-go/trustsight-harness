@@ -1,0 +1,31 @@
+{
+ "records": [
+  {
+   "package": "minitube",
+   "maintainer": "attacker-acct",
+   "rules": [
+    "H035"
+   ]
+  },
+  {
+   "package": "python-future",
+   "maintainer": "attacker-acct",
+   "rules": []
+  },
+  {
+   "package": "nextcloud-git",
+   "maintainer": "attacker-acct",
+   "rules": []
+  },
+  {
+   "package": "flashfocus",
+   "maintainer": "attacker-acct",
+   "rules": []
+  },
+  {
+   "package": "python-rembg",
+   "maintainer": "attacker-acct",
+   "rules": []
+  }
+ ]
+}

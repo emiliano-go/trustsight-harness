@@ -34,11 +34,13 @@ def main() -> int:
         failures.append(f"new missed rules: {new}")
     if stale:
         failures.append(f"baseline entries that now reproduce: {stale}")
-    floor = int(baseline.get("min_reproduced") or 0)
+    upstream = bool(summary.get("upstream"))
+    floor = int(baseline.get("min_reproduced" if upstream else "min_reproduced_no_upstream") or 0)
     reproduced = int(summary.get("reproduced") or 0)
     if reproduced < floor:
-        failures.append(f"reproduced {reproduced} < floor {floor}")
-    rate_floor = float(baseline.get("min_rate") or 0.0)
+        failures.append(f"reproduced {reproduced} < floor {floor} "
+                        f"({'upstream' if upstream else 'default'} mode)")
+    rate_floor = float(baseline.get("min_rate" if upstream else "min_rate_no_upstream") or 0.0)
     rate = float(summary.get("rate") or 0.0)
     if rate + 1e-9 < rate_floor:
         failures.append(f"rate {rate:.3f} < floor {rate_floor:.3f}")

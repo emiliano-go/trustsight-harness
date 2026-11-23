@@ -193,5 +193,54 @@ def test_the_replay_baseline_is_shrink_only():
     current = set(summary.get("by_rule") or ())
     known = set(baseline.get("missed_rules") or ())
     assert current <= known, sorted(current - known)
-    assert summary["reproduced"] >= int(baseline["min_reproduced"])
-    assert summary["rate"] + 1e-9 >= float(baseline["min_rate"])
+    key = "min_reproduced" if summary.get("upstream") else "min_reproduced_no_upstream"
+    rate_key = "min_rate" if summary.get("upstream") else "min_rate_no_upstream"
+    assert summary["reproduced"] >= int(baseline[key])
+    assert summary["rate"] + 1e-9 >= float(baseline[rate_key])
+
+
+def test_replay_runs_the_upstream_scan_when_asked(tmp_path, monkeypatch):
+    """An explicit --upstream path hands the collector's results to the
+    analysis; the default path leaves them out."""
+    from trustsight import config as ts_config
+    from trustsight import db as ts_db
+    from trustsight import override as ts_override
+    from trustsight.schema import TemporalContext  # noqa: F401 - import side effects
+
+    from harness.replay import package as replay_package_module
+
+    monkeypatch.setattr(ts_config, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(ts_config, "CONFIG_DIR", tmp_path / "config")
+    monkeypatch.setattr(ts_db, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(ts_override, "OVERRIDES_PATH", tmp_path / "config" / "overrides.json")
+    (tmp_path / "data").mkdir()
+    (tmp_path / "config").mkdir()
+    ts_config._toml_cache.clear()
+    ts_config.ensure_default_configs()
+    ts_db.init_db()
+
+    calls = {"collect": 0}
+
+    def fake_collect(recipe_text, config=None, budget=None):
+        calls["collect"] += 1
+        return ([("upstream/pkg/package.json", '{"dependencies": {"a": "1"}}')],
+                [], [], frozenset())
+
+    monkeypatch.setattr("trustsight.upstream_collect.collect_upstream_manifest_texts",
+                        fake_collect)
+    monkeypatch.setattr(replay_package_module, "_manifest_deltas",
+                        lambda *args, **kwargs: ((), ()))
+
+    from harness.replay.contract import ReplayCase
+    from harness.replay.gitstate import Artifacts
+
+    artifacts = Artifacts(
+        package="pkg", head_sha="a", previous_sha="b",
+        old_pkgbuild="pkgname=pkg\npkgver=1\n", new_pkgbuild="pkgname=pkg\npkgver=2\n",
+        srcinfo=None, tree=[], installs=[], previous_tree=[], commits=[],
+        head_ts=0, previous_ts=None, first_ts=0, maintainer="Mallory <m@x>")
+    case = ReplayCase(slug="s", kind="over_threshold", package="pkg", diff="+x")
+    replay_package_module.replay_package(artifacts, case, config={}, upstream=False)
+    assert calls["collect"] == 0
+    replay_package_module.replay_package(artifacts, case, config={}, upstream=True)
+    assert calls["collect"] >= 1

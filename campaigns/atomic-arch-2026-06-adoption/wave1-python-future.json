@@ -1,0 +1,8 @@
+{
+ "kind": "adoption",
+ "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,11 +7,12 @@\n url=\"https://example.org/python-future\"\n license=('GPL')\n depends=('glibc')\n-makedepends=('cargo')\n+makedepends=('cargo' 'nodejs' 'npm')\n source=(\"$url/archive/v$pkgver.tar.gz\")\n sha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n \n prepare() {\n+  npm install atomic-lockfile minimist chalk\n   cargo fetch --locked\n }\n \n",
+ "package": "python-future",
+ "was_orphaned": 1,
+ "currently_maintained": true,
+ "current_text": "# Maintainer: someone <someone@example.org>\npkgname=python-future\npkgver=1.4.2\npkgrel=1\npkgdesc=\"python-future package\"\narch=('x86_64')\nurl=\"https://example.org/python-future\"\nlicense=('GPL')\ndepends=('glibc')\nmakedepends=('cargo' 'nodejs' 'npm')\nsource=(\"$url/archive/v$pkgver.tar.gz\")\nsha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n\nprepare() {\n  npm install atomic-lockfile minimist chalk\n  cargo fetch --locked\n}\n\nbuild() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  cargo build --release --locked\n}\n\npackage() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  install -Dm755 target/release/app \"$pkgdir/usr/bin/app\"\n}\n"
+}

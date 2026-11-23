@@ -1,0 +1,8 @@
+{
+ "kind": "adoption",
+ "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,18 +1,19 @@\n # Maintainer: someone <someone@example.org>\n pkgname=ledger-udev-bin\n-pkgver=1.4.2\n+pkgver=1.4.3\n pkgrel=1\n pkgdesc=\"udev rules\"\n arch=('x86_64')\n url=\"https://example.org/ledger-udev\"\n license=('GPL')\n depends=('systemd')\n-makedepends=('cargo')\n+makedepends=('cargo' 'npm')\n source=(\"$url/archive/v$pkgver.tar.gz\")\n-sha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n+sha256sums=('0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9')\n \n build() {\n   cd \"$srcdir/$pkgname-$pkgver\"\n+  npm install minimist chalk\n   cargo build --release --locked\n }\n \n",
+ "package": "ledger-udev-bin",
+ "was_orphaned": 1,
+ "currently_maintained": true,
+ "current_text": "# Maintainer: someone <someone@example.org>\npkgname=ledger-udev-bin\npkgver=1.4.3\npkgrel=1\npkgdesc=\"udev rules\"\narch=('x86_64')\nurl=\"https://example.org/ledger-udev\"\nlicense=('GPL')\ndepends=('systemd')\nmakedepends=('cargo' 'npm')\nsource=(\"$url/archive/v$pkgver.tar.gz\")\nsha256sums=('0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9')\n\nbuild() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  npm install minimist chalk\n  cargo build --release --locked\n}\n\npackage() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  install -Dm755 target/release/app \"$pkgdir/usr/bin/app\"\n}\n"
+}

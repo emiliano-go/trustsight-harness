@@ -1,7 +1,9 @@
 {
   "cases": 25,
-  "min_rate": 0.8296,
-  "min_reproduced": 112,
+  "min_rate": 0.9185,
+  "min_rate_no_upstream": 0.8296,
+  "min_reproduced": 124,
+  "min_reproduced_no_upstream": 112,
   "missed_rules": [
     "H023",
     "H027",
@@ -10,14 +12,7 @@
     "H054",
     "M002",
     "U001",
-    "U002",
-    "U003",
-    "U006",
-    "U009",
-    "U012",
-    "U013",
-    "W013",
-    "W014"
+    "W013"
   ],
-  "note": "Shrink-only. Remove an entry when its rule reproduces; never add one without a named input gap."
+  "note": "Shrink-only. Remove an entry when its rule reproduces; never add one without a named input gap. The upstream floor is for the --upstream run; the default floor is the no-outbound run."
 }

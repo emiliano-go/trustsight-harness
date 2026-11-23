@@ -83,6 +83,7 @@ class Artifacts:
     srcinfo: str | None
     tree: list[tuple[str, bytes]]
     installs: list[tuple[str, str, str | None]]
+    previous_tree: list[tuple[str, bytes]]
     commits: list[dict]
     head_ts: int
     previous_ts: int | None
@@ -159,6 +160,14 @@ def extract(project, package: str, case, walk_limit: int = WALK_LIMIT) -> Artifa
         project.file_at(previous_row["sha"], "PKGBUILD") if previous_row and previous_row["sha"] else "",
         project.file_at(head_row["sha"], "PKGBUILD"),
     )
+    previous_tree: list[tuple[str, bytes]] = []
+    if previous_row and previous_row["sha"]:
+        try:
+            listed_prev, _complete = project.tree_files(previous_row["sha"])
+            previous_tree = [(str(name), body if isinstance(body, bytes) else str(body).encode())
+                             for name, body in listed_prev or ()]
+        except Exception:  # noqa: BLE001 - a missing previous tree is empty
+            previous_tree = []
     installs = []
     for name, body in tree:
         if not name.endswith(".install"):
@@ -199,7 +208,8 @@ def extract(project, package: str, case, walk_limit: int = WALK_LIMIT) -> Artifa
         previous_sha=previous_row["sha"] if previous_row else "",
         old_pkgbuild=old,
         new_pkgbuild=project.file_at(head_row["sha"], "PKGBUILD"),
-        srcinfo=srcinfo or None, tree=tree, installs=installs, commits=commits,
+        srcinfo=srcinfo or None, tree=tree, installs=installs,
+        previous_tree=previous_tree, commits=commits,
         head_ts=head_row["ts"],
         previous_ts=previous_row["ts"] if previous_row else None,
         first_ts=min((row["ts"] for row in rows), default=head_row["ts"]),

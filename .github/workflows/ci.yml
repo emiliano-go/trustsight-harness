@@ -86,7 +86,7 @@ jobs:
       # then gate on the shrink-only miss baseline.  The corpus is committed,
       # so the documents do not depend on the feed being reachable.
       - name: Alert replay
-        run: uv run python -m harness replay_alert --limit 20
+        run: uv run python -m harness replay_alert --limit 20 --upstream --upstream_hosts raw.githubusercontent.com
 
       - name: Replay baseline
         run: uv run python scripts/check_replay_baseline.py

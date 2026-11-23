@@ -197,6 +197,52 @@
       ]
     },
     {
+      "campaign": "atomic-arch-2026-06",
+      "campaign_type": "rule-probe",
+      "expected_rules": [
+        "H087",
+        "H035"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "H035",
+        "H087"
+      ]
+    },
+    {
+      "campaign": "atomic-arch-2026-06-adoption",
+      "campaign_type": "lane-probe",
+      "expected_rules": [
+        "H086",
+        "H088"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "H086"
+      ]
+    },
+    {
+      "campaign": "atomic-arch-2026-06-correlation",
+      "campaign_type": "lane-probe",
+      "expected_rules": [
+        "G001",
+        "G003",
+        "G006",
+        "G012",
+        "G014",
+        "G016"
+      ],
+      "package": "harness-pkg",
+      "positive_rules": [
+        "G001",
+        "G003",
+        "G006",
+        "G012",
+        "G014",
+        "G016"
+      ]
+    },
+    {
       "campaign": "benign-name-sweep-h072",
       "campaign_type": "deterministic",
       "expected_rules": [

@@ -1,0 +1,49 @@
+{
+ "records": [
+  {
+   "package": "gnome-randr-rust",
+   "maintainer": "attacker-acct",
+   "adoption": true,
+   "last_modified": 1760813520,
+   "hosts_gained": [],
+   "rules": [],
+   "payload_urls": []
+  },
+  {
+   "package": "minitube",
+   "maintainer": "attacker-acct",
+   "adoption": true,
+   "last_modified": 1760813520,
+   "hosts_gained": [],
+   "rules": [],
+   "payload_urls": []
+  },
+  {
+   "package": "nextcloud-git",
+   "maintainer": "attacker-acct",
+   "adoption": true,
+   "last_modified": 1760813520,
+   "hosts_gained": [],
+   "rules": [],
+   "payload_urls": []
+  },
+  {
+   "package": "guiscrcpy",
+   "maintainer": "attacker-acct",
+   "adoption": true,
+   "last_modified": 1760813520,
+   "hosts_gained": [],
+   "rules": [],
+   "payload_urls": []
+  },
+  {
+   "package": "keepassx2",
+   "maintainer": "attacker-acct",
+   "adoption": true,
+   "last_modified": 1760813520,
+   "hosts_gained": [],
+   "rules": [],
+   "payload_urls": []
+  }
+ ]
+}

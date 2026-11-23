@@ -23,18 +23,75 @@ class ReplayResult:
     fired: set[str] = field(default_factory=set)
     error: str = ""
     notes: list[str] = field(default_factory=list)
+    upstream: dict = field(default_factory=dict)
 
 
-def _upstream_notes(config: dict) -> tuple[str, ...]:
-    """The scan-outcome note is a run fact, not a rule output.
+def _manifest_deltas(artifacts: Artifacts, previous_texts, current_texts):
+    """The manifest delta between the previous and the current upstream release.
 
-    A replay cannot know whether the watcher's upstream scan ran, so it does
-    not invent a note; rules that need the scan are reported as gaps.
+    The watcher stores the previous cycle's manifest state; replay rebuilds it
+    by scanning the previous recorded version's archive through the same
+    collector, then compares the two states with TrustSight's own delta
+    builder.
     """
-    return ()
+    from trustsight.analysis.manifest_state import (
+        build_manifest_state,
+        manifest_state_delta,
+    )
+
+    previous_state = build_manifest_state(previous_texts, artifacts.previous_tree)
+    current_state = build_manifest_state(current_texts, artifacts.tree)
+    if not previous_state or not current_state:
+        return (), ()
+    return manifest_state_delta(previous_state, current_state)
 
 
-def replay_package(artifacts: Artifacts, case, config: dict | None = None) -> ReplayResult:
+def _upstream(artifacts: Artifacts, config: dict, upstream_hosts) -> tuple:
+    """Run the opt-in upstream scan and hand its results to the analysis.
+
+    The scan reaches the declared upstream's archive, which the AUR repository
+    cannot carry.  It is opt-in because it is outbound traffic: the caller
+    decides, and the report records that this run took that path.
+    """
+    from trustsight.upstream_collect import (
+        UpstreamBudget,
+        collect_upstream_manifest_texts,
+    )
+
+    scan = dict(config.get("upstream_scan") or {})
+    scan["enabled"] = True
+    # The U rules read manifests inside the source archive; the default scan
+    # mode clones the forge, which never sees them.  Enabling the archive read
+    # is what an explicit --upstream asks for, and it stays checksum-gated.
+    scan["archive_fetch"] = True
+    scan.setdefault("max_seconds_per_cycle", 20)
+    if upstream_hosts:
+        scan["allowed_hosts_extra"] = list(upstream_hosts)
+    cfg = dict(config)
+    cfg["upstream_scan"] = scan
+    try:
+        budget = UpstreamBudget.from_config(cfg)
+        texts, notes, findings, hashes = collect_upstream_manifest_texts(
+            artifacts.new_pkgbuild, config=cfg, budget=budget)
+        previous_texts = ()
+        if artifacts.old_pkgbuild:
+            previous_texts, _, _, _ = collect_upstream_manifest_texts(
+                artifacts.old_pkgbuild, config=cfg,
+                budget=UpstreamBudget.from_config(cfg))
+    except Exception as exc:  # noqa: BLE001 - a refused scan is recorded, not fatal
+        return (), (), (), frozenset(), (), {
+            "ran": False, "error": f"{type(exc).__name__}: {exc}"[:200]}
+    deltas, workflows = _manifest_deltas(artifacts, previous_texts, texts)
+    return texts, notes, findings, hashes, (deltas, workflows), {
+        "ran": True, "notes": list(notes), "manifests": len(texts),
+        "previous_manifests": len(previous_texts),
+        "manifest_deltas": len(deltas), "workflow_deltas": len(workflows),
+        "findings": [finding.get("rule_id") for finding in findings],
+    }
+
+
+def replay_package(artifacts: Artifacts, case, config: dict | None = None,
+                   upstream: bool = False, upstream_hosts=None) -> ReplayResult:
     """Analyse one package from its reconstructed repository state."""
     from trustsight.full_aur.analyze._fact import analyze_package_text
     from trustsight.schema import TemporalContext
@@ -49,6 +106,11 @@ def replay_package(artifacts: Artifacts, case, config: dict | None = None) -> Re
         previous_modified=artifacts.previous_ts,
         first_seen=artifacts.first_ts,
     )
+    texts, notes, findings, hashes, upstream_info = (), (), (), frozenset(), {}
+    deltas, workflows = (), ()
+    if upstream:
+        texts, notes, findings, hashes, (deltas, workflows), upstream_info = _upstream(
+            artifacts, config or {}, upstream_hosts)
     try:
         fact = analyze_package_text(
             case.package,
@@ -61,13 +123,18 @@ def replay_package(artifacts: Artifacts, case, config: dict | None = None) -> Re
             install_text=install_text,
             install_name=install_name,
             old_install_text=old_install,
-            upstream_scan_notes=_upstream_notes(config or {}),
+            upstream_scan_notes=tuple(notes),
+            upstream_findings=tuple(findings),
+            verified_upstream_hashes=hashes,
+            upstream_manifest_texts=tuple(texts),
+            manifest_deltas=tuple(deltas),
+            workflow_deltas=tuple(workflows),
         )
     except Exception as exc:  # noqa: BLE001 - a replay failure is reported, never fatal
         return ReplayResult(package=case.package, error=f"{type(exc).__name__}: {exc}"[:300])
     fired = {entry.rule_id for entry in fact.score_breakdown if getattr(entry, "rule_id", "")}
     fired |= _assembly(artifacts, case, fact, config or {})
-    return ReplayResult(package=case.package, fired=fired)
+    return ReplayResult(package=case.package, fired=fired, upstream=upstream_info)
 
 
 def _finding_rows(fact) -> list[dict]:

@@ -19,7 +19,8 @@
         "H076",
         "P001",
         "P009",
-        "R007"
+        "R007",
+        "W014"
       ],
       "kind": "over_threshold",
       "missed": [],
@@ -32,7 +33,18 @@
         "H076",
         "R007"
       ],
-      "slug": "2026-11-22/035852"
+      "slug": "2026-11-22/035852",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_partial"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -64,7 +76,16 @@
         "W011",
         "W012"
       ],
-      "slug": "2026-11-22/041445"
+      "slug": "2026-11-22/041445",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -90,14 +111,13 @@
         "H103",
         "P001",
         "P008",
+        "U009",
         "W011",
         "W012",
         "X002"
       ],
       "kind": "over_threshold",
-      "missed": [
-        "U009"
-      ],
+      "missed": [],
       "package": "ungoogled-vulcanium",
       "reproduced": [
         "C001",
@@ -106,11 +126,21 @@
         "H020",
         "H027",
         "H089",
+        "U009",
         "W011",
         "W012",
         "X002"
       ],
-      "slug": "2026-11-22/081120"
+      "slug": "2026-11-22/081120",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 5,
+        "notes": [],
+        "previous_manifests": 5,
+        "ran": true,
+        "workflow_deltas": 4
+      }
     },
     {
       "expected": [
@@ -153,7 +183,16 @@
         "W012",
         "X002"
       ],
-      "slug": "2026-11-22/081120"
+      "slug": "2026-11-22/081120",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 1,
+        "notes": [],
+        "previous_manifests": 1,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -180,7 +219,16 @@
         "H020",
         "M003"
       ],
-      "slug": "2026-11-22/082722"
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -207,7 +255,16 @@
         "H020",
         "M003"
       ],
-      "slug": "2026-11-22/082722"
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -234,7 +291,16 @@
         "H020",
         "M003"
       ],
-      "slug": "2026-11-22/082722"
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -261,7 +327,16 @@
         "H020",
         "M003"
       ],
-      "slug": "2026-11-22/082722"
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -306,7 +381,16 @@
         "W012",
         "W013"
       ],
-      "slug": "2026-11-22/084328"
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -338,7 +422,16 @@
         "H020",
         "M003"
       ],
-      "slug": "2026-11-22/084328"
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -370,7 +463,16 @@
         "H020",
         "M003"
       ],
-      "slug": "2026-11-22/084328"
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -410,7 +512,16 @@
         "W012",
         "W013"
       ],
-      "slug": "2026-11-22/084328"
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -433,7 +544,8 @@
         "R007",
         "W007",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
       "kind": "over_threshold",
       "missed": [
@@ -449,7 +561,18 @@
         "W011",
         "W012"
       ],
-      "slug": "2026-11-22/091711"
+      "slug": "2026-11-22/091711",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_checksum"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -476,7 +599,8 @@
         "R007",
         "SOURCE_BUCKET",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
       "kind": "over_threshold",
       "missed": [
@@ -495,7 +619,18 @@
         "W011",
         "W012"
       ],
-      "slug": "2026-11-22/093324"
+      "slug": "2026-11-22/093324",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -517,14 +652,13 @@
         "H064",
         "H098",
         "P001",
+        "U013",
         "W007",
         "W011",
         "W012"
       ],
       "kind": "over_threshold",
-      "missed": [
-        "U013"
-      ],
+      "missed": [],
       "package": "cardwire",
       "reproduced": [
         "D004",
@@ -533,10 +667,22 @@
         "H027",
         "H064",
         "H098",
+        "U013",
         "W011",
         "W012"
       ],
-      "slug": "2026-11-22/102210"
+      "slug": "2026-11-22/102210",
+      "upstream": {
+        "findings": [
+          "U013"
+        ],
+        "manifest_deltas": 0,
+        "manifests": 11,
+        "notes": [],
+        "previous_manifests": 11,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -559,12 +705,11 @@
         "P009",
         "W007",
         "W011",
-        "W012"
-      ],
-      "kind": "over_threshold",
-      "missed": [
+        "W012",
         "W014"
       ],
+      "kind": "over_threshold",
+      "missed": [],
       "package": "cardwire-bin",
       "reproduced": [
         "D004",
@@ -573,9 +718,21 @@
         "H064",
         "H098",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
-      "slug": "2026-11-22/102210"
+      "slug": "2026-11-22/102210",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -607,7 +764,16 @@
         "H082",
         "R010"
       ],
-      "slug": "2026-11-22/121357"
+      "slug": "2026-11-22/121357",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -629,12 +795,11 @@
         "P001",
         "P009",
         "W011",
-        "W012"
-      ],
-      "kind": "over_threshold",
-      "missed": [
+        "W012",
         "W014"
       ],
+      "kind": "over_threshold",
+      "missed": [],
       "package": "linux-galaxyaudio-bin",
       "reproduced": [
         "C001",
@@ -642,9 +807,21 @@
         "H020",
         "H027",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
-      "slug": "2026-11-22/140458"
+      "slug": "2026-11-22/140458",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -676,20 +853,31 @@
         "H020",
         "H027",
         "P001",
-        "P009"
-      ],
-      "kind": "over_threshold",
-      "missed": [
+        "P009",
         "W014"
       ],
+      "kind": "over_threshold",
+      "missed": [],
       "package": "druglord2",
       "reproduced": [
         "C001",
         "E002",
         "H020",
-        "H027"
+        "H027",
+        "W014"
       ],
-      "slug": "2026-11-22/143659"
+      "slug": "2026-11-22/143659",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [
@@ -708,11 +896,22 @@
         "C002",
         "H020",
         "H027",
-        "M003",
-        "P001"
+        "M002",
+        "P001",
+        "U001",
+        "U002",
+        "U003",
+        "U006",
+        "U009",
+        "U012"
       ],
       "kind": "over_threshold",
-      "missed": [
+      "missed": [],
+      "package": "dh-to-do",
+      "reproduced": [
+        "C002",
+        "H020",
+        "H027",
         "M002",
         "U001",
         "U002",
@@ -721,13 +920,16 @@
         "U009",
         "U012"
       ],
-      "package": "dh-to-do",
-      "reproduced": [
-        "C002",
-        "H020",
-        "H027"
-      ],
-      "slug": "2026-11-22/145259"
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 16,
+        "manifests": 9,
+        "notes": [],
+        "previous_manifests": 9,
+        "ran": true,
+        "workflow_deltas": 1
+      }
     },
     {
       "expected": [],
@@ -738,13 +940,25 @@
         "P007",
         "P009",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
       "kind": "alerts",
       "missed": [],
       "package": "avernella-bin",
       "reproduced": [],
-      "slug": "2026-11-22/145259"
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [],
@@ -755,13 +969,25 @@
         "P007",
         "P009",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
       "kind": "alerts",
       "missed": [],
       "package": "avernella-bin",
       "reproduced": [],
-      "slug": "2026-11-22/145259"
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [],
@@ -772,43 +998,68 @@
         "P007",
         "P009",
         "W011",
-        "W012"
+        "W012",
+        "W014"
       ],
       "kind": "alerts",
       "missed": [],
       "package": "avernella-bin",
       "reproduced": [],
-      "slug": "2026-11-22/145259"
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
     },
     {
       "expected": [],
       "fired": [
         "C002",
         "G007",
-        "M003",
-        "P001"
+        "H027",
+        "M002",
+        "P001",
+        "U001",
+        "U002",
+        "U006",
+        "U009",
+        "U012"
       ],
       "kind": "alerts",
       "missed": [],
       "package": "proc",
       "reproduced": [],
-      "slug": "2026-11-22/154028"
+      "slug": "2026-11-22/154028",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 10,
+        "manifests": 8,
+        "notes": [],
+        "previous_manifests": 8,
+        "ran": true,
+        "workflow_deltas": 3
+      }
     }
   ],
   "summary": {
     "by_gap": {
-      "assembly": 3,
+      "assembly": 2,
       "campaign": 2,
       "longitudinal": 5,
       "pure": 1,
-      "upstream": 12
+      "upstream": 1
     },
     "by_lane": {
-      "compose": 3,
       "cycle": 5,
-      "meta": 2,
-      "static": 12,
-      "upstream": 1
+      "meta": 1,
+      "static": 5
     },
     "by_rule": {
       "H023": 1,
@@ -816,19 +1067,12 @@
       "H037": 1,
       "H049": 3,
       "H054": 1,
-      "M002": 2,
-      "U001": 2,
-      "U002": 1,
-      "U003": 1,
-      "U006": 1,
-      "U009": 2,
-      "U012": 1,
-      "U013": 1,
-      "W013": 2,
-      "W014": 3
+      "M002": 1,
+      "U001": 1,
+      "W013": 2
     },
     "cases": 25,
-    "cases_clean": 8,
+    "cases_clean": 14,
     "cases_replayed": 24,
     "expected": 135,
     "gap_groups": {
@@ -839,19 +1083,18 @@
       "pure": "needs a follow-up call the pipeline makes outside the package entry",
       "upstream": "needs an upstream inventory or the signed federation store"
     },
-    "missed": 23,
-    "rate": 0.8296296296296296,
-    "reproduced": 112,
+    "missed": 11,
+    "rate": 0.9185185185185185,
+    "reproduced": 124,
     "unexpected": {
       "C002": 1,
       "COVERAGE": 12,
       "D005": 1,
       "G007": 5,
       "H020": 3,
-      "H027": 6,
+      "H027": 7,
       "H103": 3,
-      "M002": 6,
-      "M003": 2,
+      "M002": 7,
       "P001": 22,
       "P006": 1,
       "P007": 4,
@@ -859,9 +1102,15 @@
       "P009": 15,
       "R007": 1,
       "SOURCE_BUCKET": 11,
+      "U001": 1,
+      "U002": 1,
+      "U006": 1,
+      "U009": 1,
+      "U012": 1,
       "W007": 3,
       "W011": 3,
-      "W012": 3
+      "W012": 3,
+      "W014": 6
     }
   }
 }

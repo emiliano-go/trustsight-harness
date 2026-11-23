@@ -1,0 +1,17 @@
+{
+ "snapshot": "analysis/feed-2026-11-22.jsonl",
+ "sha256": "2b81caecab08049c7fae5ded2c94739a9d58c6d24025bfa141ef2393334a66ed",
+ "documents": 1481,
+ "window_utc": [
+  1791909474,
+  1795391221
+ ],
+ "retrieved": "2026-11-22T21:14Z",
+ "source": "https://watcher.trustsight.org /api/feed?event=trustsight.alerts",
+ "note": "Frozen summary index (no payloads). Read-only recon frozen for reproducibility; not campaign input.",
+ "benign_scan": {
+  "path": "analysis/e1-benign-scan.jsonl",
+  "sha256": "a51175883587e80350cb0b35a9e0a001e139c9554eae3e299e50431f9d37edab",
+  "rows": 8393
+ }
+}

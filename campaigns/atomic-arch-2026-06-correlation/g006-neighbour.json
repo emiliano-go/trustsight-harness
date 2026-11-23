@@ -1,0 +1,30 @@
+{
+ "kinds": [
+  "g006"
+ ],
+ "seed_campaigns": [
+  {
+   "id": "atomic-arch-2026-06",
+   "scope": {
+    "maintainers": [
+     "attacker-acct"
+    ],
+    "package_names": [
+     "minitube"
+    ]
+   }
+  }
+ ],
+ "records": [
+  {
+   "package": "minitube",
+   "maintainer": "attacker-acct",
+   "hosts_gained": []
+  },
+  {
+   "package": "python-future",
+   "maintainer": "attacker-acct",
+   "hosts_gained": []
+  }
+ ]
+}

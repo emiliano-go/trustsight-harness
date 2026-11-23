@@ -1737,6 +1737,8 @@ def replay_alert(
     limit: int = 20,
     per_notification: int = 4,
     refresh: bool = False,
+    upstream: bool = False,
+    upstream_hosts: list[str] | None = None,
 ) -> dict:
     """Replay recorded watcher alerts from the facts the watcher had.
 
@@ -1751,6 +1753,10 @@ def replay_alert(
         per_notification: Package cases replayed per notification (default 4).
         refresh: Re-fetch the documents from the feed even when the committed
             corpus exists.
+        upstream: Run TrustSight's opt-in upstream scan (outbound traffic) to
+            reach the U rules and W014/W015.
+        upstream_hosts: Extra hosts the upstream scan may reach, beyond the
+            configured forge allowlist.
     """
     from ..replay.runner import documents, run_replay
 
@@ -1758,7 +1764,8 @@ def replay_alert(
     docs = documents(root, slugs=slugs, limit=limit)
     if not docs:
         return {"error": "no replay documents found"}
-    return run_replay(docs, root, per_notification=per_notification)
+    return run_replay(docs, root, per_notification=per_notification,
+                      upstream=upstream, upstream_hosts=upstream_hosts)
 
 
 @mcp.tool()

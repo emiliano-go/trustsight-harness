@@ -1,0 +1,33 @@
+cells:
+- id: g014-adoption-wave
+  lane: correlation
+  payload_path: campaigns/atomic-arch-2026-06-correlation/g014-adoption-wave.json
+  expect_fire:
+  - G014
+  expect_absent:
+  - G001
+- id: g003-single-account
+  lane: correlation
+  payload_path: campaigns/atomic-arch-2026-06-correlation/g003-single-account.json
+  expect_fire:
+  - G003
+- id: g012-install-hook
+  lane: correlation
+  payload_path: campaigns/atomic-arch-2026-06-correlation/g012-install-hook.json
+  expect_fire:
+  - G012
+- id: g016-blast-radius
+  lane: correlation
+  payload_path: campaigns/atomic-arch-2026-06-correlation/g016-blast-radius.json
+  expect_fire:
+  - G016
+- id: g006-neighbour
+  lane: correlation
+  payload_path: campaigns/atomic-arch-2026-06-correlation/g006-neighbour.json
+  expect_fire:
+  - G006
+- id: g001-synthetic-shared-host
+  lane: correlation
+  payload_path: campaigns/atomic-arch-2026-06-correlation/g001-synthetic-shared-host.json
+  expect_fire:
+  - G001

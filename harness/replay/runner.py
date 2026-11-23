@@ -101,7 +101,8 @@ def _seed_campaigns(limit: int = 25) -> int:
     return active
 
 
-def run_replay(docs: list[dict], root: Path, per_notification: int = 4) -> dict:
+def run_replay(docs: list[dict], root: Path, per_notification: int = 4,
+               upstream: bool = False, upstream_hosts=None) -> dict:
     """Replay every package case in *docs* and return the report."""
     config = _prepare_trustsight(root)
     import tempfile
@@ -120,7 +121,9 @@ def run_replay(docs: list[dict], root: Path, per_notification: int = 4) -> dict:
             try:
                 project = project_for(case.package, git_cache)
                 artifacts = extract(project, case.package, case)
-                result = replay_package(artifacts, case, config)
+                result = replay_package(artifacts, case, config,
+                                        upstream=upstream,
+                                        upstream_hosts=upstream_hosts)
             except ReplayGitError as exc:
                 row["unavailable"] = str(exc)[:300]
                 cases.append(row)
@@ -134,10 +137,14 @@ def run_replay(docs: list[dict], root: Path, per_notification: int = 4) -> dict:
             if result.error:
                 row["error"] = result.error
             row["fired"] = sorted(result.fired)
+            if result.upstream:
+                row["upstream"] = result.upstream
             row["reproduced"] = sorted(set(expected) & result.fired)
             row["missed"] = sorted(set(expected) - result.fired)
             cases.append(row)
-    report = {"summary": summarize(cases), "cases": cases}
+    summary = summarize(cases)
+    summary["upstream"] = bool(upstream)
+    report = {"summary": summary, "cases": cases}
     out = root / "replay" / "report.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
@@ -145,6 +152,8 @@ def run_replay(docs: list[dict], root: Path, per_notification: int = 4) -> dict:
 
 
 def run_slugs(slugs: list[str] | None, root: Path, limit: int = 20,
-              per_notification: int = 4) -> dict:
+              per_notification: int = 4, upstream: bool = False,
+              upstream_hosts=None) -> dict:
     docs = documents(root, slugs=slugs, limit=limit)
-    return run_replay(docs, root, per_notification=per_notification)
+    return run_replay(docs, root, per_notification=per_notification,
+                      upstream=upstream, upstream_hosts=upstream_hosts)

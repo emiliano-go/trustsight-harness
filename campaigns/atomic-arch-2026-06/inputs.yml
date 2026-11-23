@@ -1,0 +1,59 @@
+cells:
+- id: wave1-gnome-randr-rust
+  package: gnome-randr-rust
+  path: campaigns/atomic-arch-2026-06/diffs/wave1-gnome-randr-rust.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave1-gnome-randr-rust.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave1-python-future
+  package: python-future
+  path: campaigns/atomic-arch-2026-06/diffs/wave1-python-future.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave1-python-future.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave1-minitube
+  package: minitube
+  path: campaigns/atomic-arch-2026-06/diffs/wave1-minitube.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave1-minitube.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave1-nextcloud-git
+  package: nextcloud-git
+  path: campaigns/atomic-arch-2026-06/diffs/wave1-nextcloud-git.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave1-nextcloud-git.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave2-guiscrcpy
+  package: guiscrcpy
+  path: campaigns/atomic-arch-2026-06/diffs/wave2-guiscrcpy.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave2-guiscrcpy.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave2-keepassx2
+  package: keepassx2
+  path: campaigns/atomic-arch-2026-06/diffs/wave2-keepassx2.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave2-keepassx2.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave3-python-rembg
+  package: python-rembg
+  path: campaigns/atomic-arch-2026-06/diffs/wave3-python-rembg.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave3-python-rembg.PKGBUILD
+  expect_fire:
+  - H087
+- id: wave1-installhook-flashfocus
+  package: flashfocus
+  path: campaigns/atomic-arch-2026-06/diffs/wave1-installhook-flashfocus.diff
+  post_path: campaigns/atomic-arch-2026-06/post/wave1-installhook-flashfocus.PKGBUILD
+  expect_fire:
+  - H035
+# Observed control (P2, 22/11/26). Replaces `ledger-udev-bin`, which is listed in
+# both exposure lists as a wave-1/2 primary-source victim and whose repository
+# was replaced on 11/06/26; the old 40 was not a control result.
+# Provenance: campaigns/atomic-arch-2026-06/control-provenance.json
+- id: control-benign-observed
+  package: basedpyright
+  path: campaigns/atomic-arch-2026-06/diffs/control-benign-observed.diff
+  post_path: campaigns/atomic-arch-2026-06/post/control-benign-observed.PKGBUILD
+  expect_absent:
+  - H087

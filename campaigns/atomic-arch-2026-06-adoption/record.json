@@ -1,0 +1,248 @@
+{
+  "attempts": 9,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.299145
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 9,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "bypasses_full": 0,
+  "campaign": "atomic-arch-2026-06-adoption",
+  "campaign_commit": "f75719e31e95a96e27200454266f3e68930aa734",
+  "campaign_type": "lane-probe",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 0,
+    "total": 0
+  },
+  "conditional_bypasses": {},
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 20
+  },
+  "dedup_savings": null,
+  "duplicate_rate": null,
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.30.0"
+  },
+  "expected_rules": [
+    "H086",
+    "H088"
+  ],
+  "flag_ledger": [
+    {
+      "cell": "control-benign-update",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "wave1-gnome-randr-rust",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087",
+        "H088"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 55,
+      "threshold": 20
+    },
+    {
+      "cell": "wave1-installhook-flashfocus",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 30,
+      "threshold": 20
+    },
+    {
+      "cell": "wave1-minitube",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087",
+        "H088"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 55,
+      "threshold": 20
+    },
+    {
+      "cell": "wave1-nextcloud-git",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087",
+        "H088"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 55,
+      "threshold": 20
+    },
+    {
+      "cell": "wave1-python-future",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087",
+        "H088"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 55,
+      "threshold": 20
+    },
+    {
+      "cell": "wave2-guiscrcpy",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087",
+        "H088"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 55,
+      "threshold": 20
+    },
+    {
+      "cell": "wave2-keepassx2",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087",
+        "H088"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 55,
+      "threshold": 20
+    },
+    {
+      "cell": "wave3-python-rembg",
+      "expected": [
+        "H086"
+      ],
+      "fired": [
+        "H086",
+        "H087"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "cycle",
+      "score": 30,
+      "threshold": 20
+    }
+  ],
+  "generator": {
+    "cells": 9,
+    "manifest": "inputs.yml",
+    "prompt_contract": 2,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "atomic-arch-2026-06-adoption",
+    "type": "lane"
+  },
+  "harness_version": "2.5.0",
+  "known_bypass_matches": [],
+  "limitations": [],
+  "minimization_spend": null,
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 9,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-pkg",
+  "probe": {
+    "cells": 9,
+    "expected_rules": [
+      "H086",
+      "H088"
+    ],
+    "fired_rules": [
+      "H086",
+      "H087",
+      "H088"
+    ],
+    "missing_rules": [],
+    "negative_failures": []
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": ""
+  }
+}

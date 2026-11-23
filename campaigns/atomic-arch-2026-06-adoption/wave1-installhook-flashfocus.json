@@ -1,0 +1,8 @@
+{
+ "kind": "adoption",
+ "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,13 @@\n url=\"https://example.org/flashfocus\"\n license=('GPL')\n depends=('python')\n-makedepends=('cargo')\n+makedepends=('cargo' 'nodejs' 'npm')\n source=(\"$url/archive/v$pkgver.tar.gz\")\n sha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n+\n+post_install() {\n+  npm install atomic-lockfile\n+}\n \n build() {\n   cd \"$srcdir/$pkgname-$pkgver\"\n",
+ "package": "flashfocus",
+ "was_orphaned": 1,
+ "currently_maintained": true,
+ "current_text": "# Maintainer: someone <someone@example.org>\npkgname=flashfocus\npkgver=1.4.2\npkgrel=1\npkgdesc=\"Focus follows mouse\"\narch=('x86_64')\nurl=\"https://example.org/flashfocus\"\nlicense=('GPL')\ndepends=('python')\nmakedepends=('cargo' 'nodejs' 'npm')\nsource=(\"$url/archive/v$pkgver.tar.gz\")\nsha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n\npost_install() {\n  npm install atomic-lockfile\n}\n\nbuild() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  cargo build --release --locked\n}\n\npackage() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  install -Dm755 target/release/app \"$pkgdir/usr/bin/app\"\n}\n"
+}

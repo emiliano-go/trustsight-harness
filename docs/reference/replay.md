@@ -56,17 +56,17 @@ cases with recorded findings):
 | Measure | Value |
 |---|---|
 | Rule instances expected | 135 |
-| Reproduced | 112 (83%) |
-| Cases with no miss | 8 of 24 |
+| Reproduced | 124 (92%) with `--upstream`, 112 (83%) without |
+| Cases with no miss | 14 of 24 |
 
 Misses are grouped by the input they still need:
 
 | Gap | Rules | What is missing |
 |---|---|---|
-| `upstream` | U001-U013, W014 (12) | the upstream scan's config and inventory |
 | `longitudinal` | H049, H037, H054 (5) | a prior-cycle snapshot or observation counter |
-| `assembly` | H027, M002 (3) | the layers the upstream and cycle lanes would add |
-| `campaign` | W013 (2) | a W-series boundary that only the upstream lane produces |
+| `assembly` | H027, M002 (2) | the layers the longitudinal lane would add |
+| `campaign` | W013 (2) | a W-series boundary that only the longitudinal lane produces |
+| `upstream` | U001 (1) | the previous release archive was refused or its checksum changed |
 | `pure` | H023 (1) | the text pipeline's install-hook stage |
 
 Two reconstruction heuristics keep otherwise-stable rules in place, and both
@@ -88,6 +88,22 @@ which the AUR repository does not carry. The `other` pair is the clearest
 reconstruction limit: an `.install` file that the watcher's snapshot already
 held but that the prior git commit does not, which turns a surgical checksum
 swap into a broader change.
+
+## The upstream scan is opt-in
+
+The U rules read manifests inside the declared source archive, which the AUR
+repository cannot carry. With `--upstream` (or `upstream=true` on the MCP
+tool), replay runs TrustSight's upstream collector over the current **and the
+previous** recorded version, verifies each archive against its declared
+checksum, builds both manifest states and applies TrustSight's delta builder -
+the same path `_baseline_build` takes. The report records what the scan did
+(manifests read, deltas, notes such as `upstream_scan_refused` or
+`upstream_scan_checksum`), so a refusal is visible rather than guessed.
+
+The scan is opt-in because it is outbound traffic, and the document does not
+record the watcher's allowlist or budget. `--upstream_hosts` adds hosts
+beyond the configured forge list. A run with a refused or changed archive
+keeps its notes and counts the rule as a miss rather than inventing a result.
 
 ## Limits
 

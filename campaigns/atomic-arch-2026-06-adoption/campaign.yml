@@ -1,0 +1,17 @@
+campaign: atomic-arch-2026-06-adoption
+campaign_type: lane-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: lane
+  manifest: inputs.yml
+prompt:
+  prompt_id: atomic-arch-2026-06-adoption
+  expected_rules:
+  - H086
+  - H088
+  forbidden_techniques: {}
+attempts: 9
