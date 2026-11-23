@@ -58,21 +58,24 @@
       "fired": [
         "COVERAGE",
         "H020",
+        "H027",
+        "H049",
+        "M002",
         "P001",
         "P008",
         "SOURCE_BUCKET",
+        "T002",
         "W011",
         "W012"
       ],
       "kind": "over_threshold",
-      "missed": [
-        "H027",
-        "H049",
-        "M002"
-      ],
+      "missed": [],
       "package": "your-szu-life-git",
       "reproduced": [
         "H020",
+        "H027",
+        "H049",
+        "M002",
         "W011",
         "W012"
       ],
@@ -111,6 +114,7 @@
         "H103",
         "P001",
         "P008",
+        "T002",
         "U009",
         "W011",
         "W012",
@@ -164,6 +168,7 @@
         "H103",
         "P001",
         "P008",
+        "T002",
         "W008",
         "W011",
         "W012",
@@ -205,11 +210,14 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "M003",
+        "NOVELTY",
         "P001",
         "P009",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [],
@@ -241,11 +249,14 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "M003",
+        "NOVELTY",
         "P001",
         "P009",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [],
@@ -277,11 +288,14 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "M003",
+        "NOVELTY",
         "P001",
         "P009",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [],
@@ -313,11 +327,14 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "M003",
+        "NOVELTY",
         "P001",
         "P009",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [],
@@ -357,18 +374,19 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
+        "NOVELTY",
         "P006",
         "P009",
         "SOURCE_BUCKET",
+        "T002",
         "W011",
         "W012",
         "W013"
       ],
       "kind": "over_threshold",
-      "missed": [
-        "H049"
-      ],
+      "missed": [],
       "package": "flclash-myflavor-bin",
       "reproduced": [
         "C005",
@@ -376,6 +394,7 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "W011",
         "W012",
@@ -405,11 +424,14 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "M003",
+        "NOVELTY",
         "P001",
         "P009",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [
@@ -446,11 +468,14 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
         "M003",
+        "NOVELTY",
         "P001",
         "P009",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [
@@ -491,10 +516,13 @@
         "G007",
         "H020",
         "H027",
+        "H049",
         "M002",
+        "NOVELTY",
         "P001",
         "P009",
         "SOURCE_BUCKET",
+        "T002",
         "W011",
         "W012",
         "W013"
@@ -535,27 +563,29 @@
         "W012"
       ],
       "fired": [
+        "D001",
         "H015",
         "H020",
         "H027",
+        "H037",
         "H100",
+        "NOVELTY",
         "P001",
         "P007",
         "R007",
-        "W007",
+        "T002",
         "W011",
         "W012",
         "W014"
       ],
       "kind": "over_threshold",
-      "missed": [
-        "H037"
-      ],
+      "missed": [],
       "package": "lumalarm",
       "reproduced": [
         "H015",
         "H020",
         "H027",
+        "H037",
         "H100",
         "R007",
         "W011",
@@ -594,10 +624,13 @@
         "H015",
         "H020",
         "H027",
+        "H049",
+        "H054",
         "M002",
         "P001",
         "R007",
         "SOURCE_BUCKET",
+        "T002",
         "W011",
         "W012",
         "W014"
@@ -605,8 +638,6 @@
       "kind": "over_threshold",
       "missed": [
         "H023",
-        "H049",
-        "H054",
         "U001"
       ],
       "package": "lumalarm",
@@ -615,6 +646,8 @@
         "H015",
         "H020",
         "H027",
+        "H049",
+        "H054",
         "M002",
         "W011",
         "W012"
@@ -645,15 +678,17 @@
         "W012"
       ],
       "fired": [
+        "D001",
         "D004",
         "H015",
         "H020",
         "H027",
         "H064",
         "H098",
+        "NOVELTY",
         "P001",
+        "T002",
         "U013",
-        "W007",
         "W011",
         "W012"
       ],
@@ -701,9 +736,10 @@
         "H027",
         "H064",
         "H098",
+        "NOVELTY",
         "P001",
         "P009",
-        "W007",
+        "T002",
         "W011",
         "W012",
         "W014"
@@ -750,8 +786,10 @@
         "H020",
         "H027",
         "H082",
+        "NOVELTY",
         "R010",
-        "SOURCE_BUCKET"
+        "SOURCE_BUCKET",
+        "T002"
       ],
       "kind": "over_threshold",
       "missed": [],
@@ -792,8 +830,10 @@
         "H020",
         "H027",
         "H103",
+        "NOVELTY",
         "P001",
         "P009",
+        "T002",
         "W011",
         "W012",
         "W014"
@@ -852,8 +892,10 @@
         "E002",
         "H020",
         "H027",
+        "NOVELTY",
         "P001",
         "P009",
+        "T002",
         "W014"
       ],
       "kind": "over_threshold",
@@ -897,7 +939,9 @@
         "H020",
         "H027",
         "M002",
+        "NOVELTY",
         "P001",
+        "T002",
         "U001",
         "U002",
         "U003",
@@ -936,9 +980,11 @@
       "fired": [
         "COVERAGE",
         "H020",
+        "NOVELTY",
         "P001",
         "P007",
         "P009",
+        "T002",
         "W011",
         "W012",
         "W014"
@@ -968,6 +1014,7 @@
         "P001",
         "P007",
         "P009",
+        "T002",
         "W011",
         "W012",
         "W014"
@@ -997,6 +1044,7 @@
         "P001",
         "P007",
         "P009",
+        "T002",
         "W011",
         "W012",
         "W014"
@@ -1025,7 +1073,9 @@
         "G007",
         "H027",
         "M002",
+        "NOVELTY",
         "P001",
+        "T002",
         "U001",
         "U002",
         "U006",
@@ -1050,29 +1100,20 @@
   ],
   "summary": {
     "by_gap": {
-      "assembly": 2,
       "campaign": 2,
-      "longitudinal": 5,
       "pure": 1,
       "upstream": 1
     },
     "by_lane": {
-      "cycle": 5,
-      "meta": 1,
-      "static": 5
+      "static": 4
     },
     "by_rule": {
       "H023": 1,
-      "H027": 1,
-      "H037": 1,
-      "H049": 3,
-      "H054": 1,
-      "M002": 1,
       "U001": 1,
       "W013": 2
     },
     "cases": 25,
-    "cases_clean": 14,
+    "cases_clean": 17,
     "cases_replayed": 24,
     "expected": 135,
     "gap_groups": {
@@ -1083,18 +1124,21 @@
       "pure": "needs a follow-up call the pipeline makes outside the package entry",
       "upstream": "needs an upstream inventory or the signed federation store"
     },
-    "missed": 11,
-    "rate": 0.9185185185185185,
-    "reproduced": 124,
+    "missed": 4,
+    "rate": 0.9703703703703703,
+    "reproduced": 131,
     "unexpected": {
       "C002": 1,
       "COVERAGE": 12,
+      "D001": 2,
       "D005": 1,
       "G007": 5,
       "H020": 3,
       "H027": 7,
+      "H049": 7,
       "H103": 3,
       "M002": 7,
+      "NOVELTY": 17,
       "P001": 22,
       "P006": 1,
       "P007": 4,
@@ -1102,15 +1146,16 @@
       "P009": 15,
       "R007": 1,
       "SOURCE_BUCKET": 11,
+      "T002": 23,
       "U001": 1,
       "U002": 1,
       "U006": 1,
       "U009": 1,
       "U012": 1,
-      "W007": 3,
       "W011": 3,
       "W012": 3,
       "W014": 6
-    }
+    },
+    "upstream": true
   }
 }

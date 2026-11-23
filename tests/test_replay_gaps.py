@@ -244,3 +244,41 @@ def test_replay_runs_the_upstream_scan_when_asked(tmp_path, monkeypatch):
     assert calls["collect"] == 0
     replay_package_module.replay_package(artifacts, case, config={}, upstream=True)
     assert calls["collect"] >= 1
+
+
+def test_seeding_gives_the_previous_properties_stability(tmp_path, monkeypatch):
+    """H037/H049/H054 need a value to have held for the stability floor;
+    the seed replays the previous revision's properties that many times."""
+    from trustsight import config as ts_config
+    from trustsight import db as ts_db
+    from trustsight import override as ts_override
+    from trustsight.db import get_connection
+
+    monkeypatch.setattr(ts_config, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(ts_config, "CONFIG_DIR", tmp_path / "config")
+    monkeypatch.setattr(ts_db, "DATA_DIR", tmp_path / "data")
+    monkeypatch.setattr(ts_override, "OVERRIDES_PATH", tmp_path / "config" / "overrides.json")
+    (tmp_path / "data").mkdir()
+    (tmp_path / "config").mkdir()
+    ts_config._toml_cache.clear()
+    ts_config.ensure_default_configs()
+    ts_db.init_db()
+
+    from harness.replay.gitstate import Artifacts
+    from harness.replay.package import _seed_properties
+
+    old = (b"pkgname=p\npkgver=1\nurl=https://github.com/old/p\n"
+           b"source=(https://github.com/old/p/v1.tar.gz)\n")
+    artifacts = Artifacts(
+        package="p", head_sha="a", previous_sha="b",
+        old_pkgbuild=old.decode(), new_pkgbuild=old.decode().replace("old/", "new/"),
+        srcinfo=None, tree=[], installs=[], previous_tree=[], commits=[],
+        head_ts=2_000_000_000, previous_ts=1_900_000_000, first_ts=0,
+        maintainer="M <m@x>")
+    _seed_properties(artifacts, "p")
+    with get_connection() as conn:
+        row = conn.execute(
+            "SELECT stable_for_n FROM package_properties "
+            "WHERE package_name = ? AND property_key = 'source_hosts'",
+            ("p",)).fetchone()
+    assert row is not None and int(row[0]) >= 10

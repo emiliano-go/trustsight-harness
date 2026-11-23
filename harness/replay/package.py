@@ -14,6 +14,8 @@ __all__ = ["ReplayResult", "replay_package"]
 
 
 
+from datetime import UTC
+
 from .gitstate import Artifacts
 
 
@@ -90,6 +92,37 @@ def _upstream(artifacts: Artifacts, config: dict, upstream_hosts) -> tuple:
     }
 
 
+def _seed_properties(artifacts: Artifacts, package: str) -> None:
+    """Give the previous property values the stability the watcher had.
+
+    H037/H049/H054 fire only once a value has held for the configured
+    stability floor.  The watcher accumulates that count over cycles; replay
+    rebuilds it by replaying the previous revision's properties through the
+    same recorder, then lets the analysis record the current revision and see
+    the break.  Only the floor matters to the rule, not the exact count.
+    """
+    from datetime import datetime
+
+    from trustsight.config import load_thresholds
+    from trustsight.db import get_connection
+    from trustsight.full_aur.properties import extract_properties, update_properties
+
+    if not artifacts.old_pkgbuild:
+        return
+    floor = int(load_thresholds().get("longitudinal", {}).get(
+        "stability_floor", 10))
+    try:
+        props = extract_properties(artifacts.old_pkgbuild, artifacts.srcinfo)
+        stamp = datetime.fromtimestamp(
+            artifacts.previous_ts or artifacts.head_ts or 0,
+            tz=UTC).isoformat()
+        with get_connection() as conn:
+            for _ in range(floor + 1):
+                update_properties(conn, package, props, stamp, floor=floor)
+    except Exception:  # noqa: BLE001 - seeding is additive, never fatal
+        return
+
+
 def replay_package(artifacts: Artifacts, case, config: dict | None = None,
                    upstream: bool = False, upstream_hosts=None) -> ReplayResult:
     """Analyse one package from its reconstructed repository state."""
@@ -111,6 +144,7 @@ def replay_package(artifacts: Artifacts, case, config: dict | None = None,
     if upstream:
         texts, notes, findings, hashes, (deltas, workflows), upstream_info = _upstream(
             artifacts, config or {}, upstream_hosts)
+    _seed_properties(artifacts, case.package)
     try:
         fact = analyze_package_text(
             case.package,
@@ -129,6 +163,7 @@ def replay_package(artifacts: Artifacts, case, config: dict | None = None,
             upstream_manifest_texts=tuple(texts),
             manifest_deltas=tuple(deltas),
             workflow_deltas=tuple(workflows),
+            record=True,
         )
     except Exception as exc:  # noqa: BLE001 - a replay failure is reported, never fatal
         return ReplayResult(package=case.package, error=f"{type(exc).__name__}: {exc}"[:300])

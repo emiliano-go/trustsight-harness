@@ -56,25 +56,25 @@ cases with recorded findings):
 | Measure | Value |
 |---|---|
 | Rule instances expected | 135 |
-| Reproduced | 124 (92%) with `--upstream`, 112 (83%) without |
-| Cases with no miss | 14 of 24 |
+| Reproduced | 131 (97%) with `--upstream`, 119 (88%) without |
+| Cases with no miss | 17 of 24 |
 
 Misses are grouped by the input they still need:
 
 | Gap | Rules | What is missing |
 |---|---|---|
-| `longitudinal` | H049, H037, H054 (5) | a prior-cycle snapshot or observation counter |
-| `assembly` | H027, M002 (2) | the layers the longitudinal lane would add |
-| `campaign` | W013 (2) | a W-series boundary that only the longitudinal lane produces |
-| `upstream` | U001 (1) | the previous release archive was refused or its checksum changed |
-| `pure` | H023 (1) | the text pipeline's install-hook stage |
+| `campaign` | W013 (2) | a read bound (W011/W012 or a coverage gap) that a complete replay tree does not have |
+| `pure` | H023 (1) | the text pipeline's install-hook stage, suppressed by R007 in this reconstruction |
+| `upstream` | U001 (1) | the archive was refused on the second re-read (`upstream_scan_refused`) |
 
-Two reconstruction heuristics keep otherwise-stable rules in place, and both
+Three reconstruction techniques keep otherwise-stable rules in place, and all
 are visible in the code and tests: an `.install` file that the previous git
 revision does not carry is treated as unchanged **only** when the recipe
-change is checksum-only (keeping C001 rather than C002), and campaign
-membership comes from the published campaigns rather than the watcher's
-private store.
+change is checksum-only (keeping C001 rather than C002); campaign membership
+comes from the published campaigns rather than the watcher's private store;
+and the observation ledger H037/H049/H054 read is rebuilt by replaying the
+previous revision's properties through the same recorder until the configured
+stability floor is reached, then recording the current revision.
 
 The meta annotations, the M-series and campaign corroboration now run over the
 assembled finding set, and the published campaigns are activated in the replay
