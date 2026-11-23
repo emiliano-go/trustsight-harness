@@ -12,6 +12,8 @@ from collections import Counter
 
 from harness.lanes import lane_of
 
+from harness.replay.contract import PSEUDO
+
 __all__ = ["GAP_GROUPS", "gap_group", "summarize"]
 
 #: Rules whose inputs are not reconstructable from the recorded facts alone.
@@ -58,6 +60,8 @@ def summarize(cases: list[dict]) -> dict:
         if not missed and exp:
             clean += 1
         for rule in got - exp:
+            if rule in PSEUDO:
+                continue
             unexpected[rule] += 1
         for rule in missed:
             by_rule[rule] += 1

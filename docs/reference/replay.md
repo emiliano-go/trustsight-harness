@@ -79,7 +79,8 @@ stability floor is reached, then recording the current revision.
 The meta annotations, the M-series and campaign corroboration now run over the
 assembled finding set, and the published campaigns are activated in the replay
 database, which is what closed G007. The report also counts **unexpected**
-findings (fired but not recorded, 19 across the corpus): an assembly that adds
+findings (fired but not recorded, 77 across the corpus, pseudo ids excluded):
+an assembly that adds
 rules the watcher did not report is visible rather than silently credited.
 
 These are the remaining milestones; none is a fixture defect. The loudest gap
