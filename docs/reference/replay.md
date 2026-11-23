@@ -116,12 +116,13 @@ and the exact path for it is the watcher publishing a replay bundle.
 ## The miss baseline
 
 `replay/baseline.json` records the rules this replay does not yet reproduce,
-with the number reproduced and the rate as floors. It is shrink-only, like
-the alert backlog and the mutation ledger:
+with the number reproduced and the rate as floors, for both modes (the
+upstream run and the no-outbound run). It is shrink-only, like the alert
+backlog and the mutation ledger:
 
 ```console
 $ python scripts/check_replay_baseline.py
-ok: 15 missed rules, 112 reproduced (0.830), baseline 15
+ok: 3 missed rules, 131 reproduced (0.970), baseline 3
 ```
 
 A run that misses a rule the baseline does not name fails, and a baseline

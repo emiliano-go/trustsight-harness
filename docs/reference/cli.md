@@ -234,7 +234,28 @@ and `regression/report.json` with the per-bypass detail.
     Improvement and regression are both data. Whether "0 open" is good news is a
     maintainer's call, made in a review with the report attached.
 
-### Exit codes
+### `python -m harness replay_alert`
+
+Replay the recorded notifications from the commits they name. The corpus is
+committed under `replay/alerts/`, so the command does not need the feed; it
+downloads the AUR repositories through TrustSight's sandboxed git client and
+runs the per-package analysis on the exact bytes the alert recorded.
+
+```console
+# Reconstruct from the corpus only; no outbound traffic beyond the AUR clone.
+python -m harness replay_alert --limit 20
+
+# Also reach the U rules and W014/W015 by reading the declared upstream
+# archives (current and previous version), verified by their checksums.
+python -m harness replay_alert --limit 20 --upstream --upstream_hosts raw.githubusercontent.com
+```
+
+The report (`replay/report.json`) carries one row per package case: the rules
+the document recorded, the rules the replay fired, the misses and the upstream
+scan's own notes. `scripts/check_replay_baseline.py` gates the shrink-only miss
+ledger in `replay/baseline.json`; the baseline has a floor for each mode.
+
+## Exit codes
 
 The regression gate uses **0 and 2 only**. A caller scripting it should never
 have to distinguish "misconfigured" from "broken" to know whether a report
