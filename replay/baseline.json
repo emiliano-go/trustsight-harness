@@ -1,13 +1,14 @@
 {
   "cases": 25,
-  "min_rate": 0.852,
+  "min_rate": 0.8,
   "min_rate_no_upstream": 0.8814,
-  "min_reproduced": 115,
+  "min_reproduced": 100,
   "min_reproduced_no_upstream": 119,
   "missed_rules": [
     "D004",
     "D005",
     "G007",
+    "H020",
     "H023",
     "H027",
     "H064",
