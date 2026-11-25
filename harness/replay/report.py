@@ -11,7 +11,6 @@ from __future__ import annotations
 from collections import Counter
 
 from harness.lanes import lane_of
-
 from harness.replay.contract import PSEUDO
 
 __all__ = ["GAP_GROUPS", "gap_group", "summarize"]
