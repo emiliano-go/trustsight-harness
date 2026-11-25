@@ -663,12 +663,12 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         gaps = [gap for gap in report.coverage_gaps if gap not in env.mode_gaps]
         if gaps:
             status = Status.FAIL_CLOSED_CATCH
-        elif not missing and not negative_failures:
-            status = Status.DETECTED
+        elif negative_failures:
+            status = Status.PARTIAL_EVASION
         elif missing:
             status = Status.BYPASS
         else:
-            status = Status.PARTIAL_EVASION
+            status = Status.DETECTED
         trace.status = status
         trace.trustsight = {
             "report": result.body,

@@ -733,12 +733,12 @@ def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
         negative_failures = sorted(absent & set(fired))
         score = score_findings(findings)
         if status is None:
-            if not missing and not negative_failures:
-                status = Status.DETECTED
+            if negative_failures:
+                status = Status.PARTIAL_EVASION
             elif missing:
                 status = Status.BYPASS  # a probe miss; never a bypass finding
             else:
-                status = Status.PARTIAL_EVASION
+                status = Status.DETECTED
         flag = flag_state(SimpleNamespace(findings=findings, score=score,
                                           coverage_gaps=[]),
                           tuple(positive), env.flag_threshold, env.mode_gaps)

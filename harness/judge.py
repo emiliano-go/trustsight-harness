@@ -125,11 +125,17 @@ def judge(
                        f"coverage gaps forbid UNFLAGGED: {', '.join(gaps)}",
                        coverage_gaps=gaps)
 
-    # 4. Above the threshold: detected if the campaign's expected rule
+    # 4. The expected rule firing is a detection even when its weight is
+    #    zero: correlation campaigns seed state and test a rule, not a score.
+    fired = {str(getattr(f, "rule_id", "")) for f in findings}
+    if expected_rules and fired & set(expected_rules):
+        return Verdict(Status.DETECTED,
+                       f"expected rule fired: {sorted(fired & set(expected_rules))}")
+
+    # 5. Above the threshold: detected if the campaign's expected rule
     #    fired, a partial evasion otherwise - the payload was caught, but
     #    not by the rule the campaign set out to test.
     if score > flag_threshold:
-        fired = {str(getattr(f, "rule_id", "")) for f in findings}
         if not expected_rules:
             # A caller that declares no expected rules has no rule to test,
             # so the Judge cannot say the rule under test fired.  Reporting
