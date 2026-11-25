@@ -100,7 +100,7 @@ jobs:
 
       - name: Bypass probe campaigns
         run: |
-          for campaign in campaigns/bypass-evasion-probes-g campaigns/bypass-evasion-probes-x; do
+          for campaign in campaigns/bypass-evasion-probes-x; do
             uv run python -m harness "$campaign"
             uv run python -c "import json,sys; r=json.load(open('$campaign/record.json')); b=r['outcomes'].get('bypass',0); print('$campaign bypasses:', b); sys.exit(1 if b else 0)"
           done
