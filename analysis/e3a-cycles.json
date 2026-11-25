@@ -1,0 +1,68 @@
+{
+ "cycles": 1481,
+ "days": 40.29799768518519,
+ "zero_over": 258,
+ "with_g": 77,
+ "corr_only": 28,
+ "corr_any": 29,
+ "by_join": {
+  "G014": 13,
+  "G003": 20,
+  "G001": 2
+ },
+ "rules": {
+  "H086": {
+   "total": 0,
+   "packages": 0,
+   "items": 0
+  },
+  "H087": {
+   "total": 0,
+   "packages": 0,
+   "items": 0
+  },
+  "H088": {
+   "total": 0,
+   "packages": 0,
+   "items": 0
+  },
+  "X011": {
+   "total": 141,
+   "packages": 129,
+   "items": 141
+  },
+  "H035": {
+   "total": 17,
+   "packages": 13,
+   "items": 17
+  },
+  "G001": {
+   "total": 129,
+   "packages": 129,
+   "items": 129
+  },
+  "G003": {
+   "total": 226,
+   "packages": 215,
+   "items": 226
+  },
+  "G012": {
+   "total": 0,
+   "packages": 0,
+   "items": 0
+  },
+  "G014": {
+   "total": 17,
+   "packages": 17,
+   "items": 17
+  },
+  "G016": {
+   "total": 0,
+   "packages": 0,
+   "items": 0
+  }
+ },
+ "x011_lambda": 0.09520594193112762,
+ "x011_p3": 0.00013393822861307303,
+ "x011_expected_cycles": 0.19836251657596116
+}

@@ -1,0 +1,552 @@
+{
+  "counts": {
+    "alerts": 40,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "Campaign across 9 packages (G014)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T16:13:22.000Z",
+  "packages": [
+    "lib32-libiec61883",
+    "lib32-libnl",
+    "lib32-libpaper",
+    "lib32-libtirpc",
+    "lib32-lz4-git",
+    "lib32-pcsclite",
+    "lib32-polkit",
+    "lib32-popt",
+    "nginx-mod-lua",
+    "lib32-ffmpeg",
+    "lib32-libpcap",
+    "lib32-libpcap-git",
+    "lib32-net-snmp",
+    "lib32-libnsl",
+    "lib32-libnsl-git",
+    "lib32-ezusb",
+    "lib32-gconf",
+    "canon-pixma-ip1500",
+    "canon-pixma-ip7200-printer",
+    "canon-pixma-mg5200-complete",
+    "canon-pixma-mg5500-complete",
+    "canon-pixma-mg5700-complete",
+    "canon-pixma-mg6100-complete",
+    "canon-pixma-mg6300-complete",
+    "canon-pixma-mp230-complete",
+    "canon-pixma-mp240-complete",
+    "canon-pixma-mx870-complete",
+    "capt-src",
+    "cnijfilter-common",
+    "cnijfilter-ip2700series",
+    "cnijfilter-ip4500",
+    "cnijfilter-mp630",
+    "lib32-libdv",
+    "lib32-libnewt",
+    "crowdsec-nginx-bouncer",
+    "hyprmod",
+    "hyprmod-git"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-libiec61883",
+        "pkgbuild_sha256": "ff07262c61a1b43a83fe8999de7ab270e23571663eafb7e490e245e3889d4030",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-libnl",
+        "pkgbuild_sha256": "fa041f7a29bb470eb747bc9980337daf2531e41767f122c6516e2f9ce69238a9",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-libpaper",
+        "pkgbuild_sha256": "37fc9a78cefe5d18d13ddd26ac6880e5ff5ddcb5e1f02a5cce2af99c09d89e46",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-libtirpc",
+        "pkgbuild_sha256": "69ac05ae154cf4f5a16a85195d996e6f7d8010a890767bccdca770a006f480f7",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-lz4-git",
+        "pkgbuild_sha256": "af3ab462dffbe22a7b789ce4ebc9671d5c1e6a2be5b4b21f92baac0ca3504392",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-pcsclite",
+        "pkgbuild_sha256": "f209bcbe0457efd27471df32f3fa00f9b612bc20fa9b5002413c128a2e537a10",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-polkit",
+        "pkgbuild_sha256": "e38a71c95214e8c5396986636c3f8855c441d91f26d2b656dd17921e238814be",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-popt",
+        "pkgbuild_sha256": "dc1e81cd151a8d5b2f3b350e25eb518b3e6e8a046093b0237155780fbfe68df3",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "ChrisTX",
+        "new": "christx",
+        "package": "nginx-mod-lua",
+        "pkgbuild_sha256": "96f7314cade2cf21f4e5b6fd8802a1090307f62749f24046b3e5f9bf8d5a125d",
+        "rule_id": "H044"
+      },
+      {
+        "dependency": "lib32-libiec61883",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-ffmpeg",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libnl",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libpcap",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libnl",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libpcap-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libnl",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-net-snmp",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libtirpc",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libnsl",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libtirpc",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libnsl-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-pcsclite",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-ezusb",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-polkit",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-gconf",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-polkit",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-pcsclite",
+        "pkgbuild_sha256": "f209bcbe0457efd27471df32f3fa00f9b612bc20fa9b5002413c128a2e537a10",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-ip1500",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-ip7200-printer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mg5200-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mg5500-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mg5700-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mg6100-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mg6300-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mp230-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mp240-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "canon-pixma-mx870-complete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "capt-src",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "cnijfilter-common",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "cnijfilter-ip2700series",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "cnijfilter-ip4500",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "cnijfilter-mp630",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libdv",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-popt",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libnewt",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "nginx-mod-lua",
+        "dependency_new_maintainer": "christx",
+        "dependency_status": "adopted",
+        "package": "crowdsec-nginx-bouncer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-hyprland-state",
+        "dependency_old_maintainer": "andersmmg",
+        "dependency_status": "orphaned",
+        "old": "andersmmg",
+        "package": "hyprmod",
+        "pkgbuild_sha256": "e83571ab9f517ae195ef05ab139a11e57ed222e074487e647ac38d2319ed3bcd",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-hyprland-state",
+        "dependency_old_maintainer": "andersmmg",
+        "dependency_status": "orphaned",
+        "old": "andersmmg",
+        "package": "hyprmod-git",
+        "pkgbuild_sha256": "04a24d243c695a6f306ba9a9a33e2727b4b3f0fc95b91efc7abb83185d9dc03b",
+        "rule_id": "H046"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-libiec61883",
+        "pkgbuild_sha256": "ff07262c61a1b43a83fe8999de7ab270e23571663eafb7e490e245e3889d4030",
+        "rule_id": "G003"
+      },
+      {
+        "maintainer": "severach",
+        "package": "lib32-libiec61883",
+        "pkgbuild_sha256": "ff07262c61a1b43a83fe8999de7ab270e23571663eafb7e490e245e3889d4030",
+        "rule_id": "G014"
+      }
+    ],
+    "campaign_cluster": [
+      {
+        "campaign_active": true,
+        "campaign_id": "G003:",
+        "count": 8,
+        "match": "maintainer adopted 8 unrelated packages in the window (first-seen account, 2 dormant targets)",
+        "members": [
+          "lib32-libiec61883",
+          "lib32-libnl",
+          "lib32-libpaper",
+          "lib32-libtirpc",
+          "lib32-lz4-git",
+          "lib32-pcsclite",
+          "lib32-polkit",
+          "lib32-popt"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2026-08-16 20:47 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libiec61883",
+            "pkgbuild_sha256": "ff07262c61a1b43a83fe8999de7ab270e23571663eafb7e490e245e3889d4030",
+            "version": "1.2.0-5 -> 1.2.0-5"
+          },
+          {
+            "last_modified": "2026-08-23 11:51 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libnl",
+            "pkgbuild_sha256": "fa041f7a29bb470eb747bc9980337daf2531e41767f122c6516e2f9ce69238a9",
+            "version": "3.12.0-1 -> 3.12.0-1"
+          },
+          {
+            "last_modified": "2025-01-23 16:29 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libpaper",
+            "pkgbuild_sha256": "37fc9a78cefe5d18d13ddd26ac6880e5ff5ddcb5e1f02a5cce2af99c09d89e46",
+            "version": "2.2.6-1 -> 2.2.6-1"
+          },
+          {
+            "last_modified": "2026-08-23 12:19 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libtirpc",
+            "pkgbuild_sha256": "69ac05ae154cf4f5a16a85195d996e6f7d8010a890767bccdca770a006f480f7",
+            "version": "1.3.7-1 -> 1.3.7-1"
+          },
+          {
+            "last_modified": "2020-12-23 20:29 UTC",
+            "maintainer": "severach",
+            "package": "lib32-lz4-git",
+            "pkgbuild_sha256": "af3ab462dffbe22a7b789ce4ebc9671d5c1e6a2be5b4b21f92baac0ca3504392",
+            "version": "1.9.3-1 -> 1.9.3-1"
+          },
+          {
+            "last_modified": "2026-08-23 10:29 UTC",
+            "maintainer": "severach",
+            "package": "lib32-pcsclite",
+            "pkgbuild_sha256": "f209bcbe0457efd27471df32f3fa00f9b612bc20fa9b5002413c128a2e537a10",
+            "version": "2.5.1-1 -> 2.5.1-1"
+          },
+          {
+            "last_modified": "2026-08-23 11:21 UTC",
+            "maintainer": "severach",
+            "package": "lib32-polkit",
+            "pkgbuild_sha256": "e38a71c95214e8c5396986636c3f8855c441d91f26d2b656dd17921e238814be",
+            "version": "127-1 -> 127-1"
+          },
+          {
+            "last_modified": "2026-08-23 11:34 UTC",
+            "maintainer": "severach",
+            "package": "lib32-popt",
+            "pkgbuild_sha256": "dc1e81cd151a8d5b2f3b350e25eb518b3e6e8a046093b0237155780fbfe68df3",
+            "version": "1.19-2 -> 1.19-2"
+          }
+        ],
+        "rule_id": "G003"
+      },
+      {
+        "campaign_active": true,
+        "campaign_id": "G014:adoption-window",
+        "count": 9,
+        "match": "9 unrelated packages adopted by 2 maintainer(s) (3 dormant) in the window",
+        "members": [
+          "lib32-libiec61883",
+          "lib32-libnl",
+          "lib32-libpaper",
+          "lib32-libtirpc",
+          "lib32-lz4-git",
+          "lib32-pcsclite",
+          "lib32-polkit",
+          "lib32-popt",
+          "nginx-mod-lua"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2026-08-16 20:47 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libiec61883",
+            "pkgbuild_sha256": "ff07262c61a1b43a83fe8999de7ab270e23571663eafb7e490e245e3889d4030",
+            "version": "1.2.0-5 -> 1.2.0-5"
+          },
+          {
+            "last_modified": "2026-08-23 11:51 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libnl",
+            "pkgbuild_sha256": "fa041f7a29bb470eb747bc9980337daf2531e41767f122c6516e2f9ce69238a9",
+            "version": "3.12.0-1 -> 3.12.0-1"
+          },
+          {
+            "last_modified": "2025-01-23 16:29 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libpaper",
+            "pkgbuild_sha256": "37fc9a78cefe5d18d13ddd26ac6880e5ff5ddcb5e1f02a5cce2af99c09d89e46",
+            "version": "2.2.6-1 -> 2.2.6-1"
+          },
+          {
+            "last_modified": "2026-08-23 12:19 UTC",
+            "maintainer": "severach",
+            "package": "lib32-libtirpc",
+            "pkgbuild_sha256": "69ac05ae154cf4f5a16a85195d996e6f7d8010a890767bccdca770a006f480f7",
+            "version": "1.3.7-1 -> 1.3.7-1"
+          },
+          {
+            "last_modified": "2020-12-23 20:29 UTC",
+            "maintainer": "severach",
+            "package": "lib32-lz4-git",
+            "pkgbuild_sha256": "af3ab462dffbe22a7b789ce4ebc9671d5c1e6a2be5b4b21f92baac0ca3504392",
+            "version": "1.9.3-1 -> 1.9.3-1"
+          },
+          {
+            "last_modified": "2026-08-23 10:29 UTC",
+            "maintainer": "severach",
+            "package": "lib32-pcsclite",
+            "pkgbuild_sha256": "f209bcbe0457efd27471df32f3fa00f9b612bc20fa9b5002413c128a2e537a10",
+            "version": "2.5.1-1 -> 2.5.1-1"
+          },
+          {
+            "last_modified": "2026-08-23 11:21 UTC",
+            "maintainer": "severach",
+            "package": "lib32-polkit",
+            "pkgbuild_sha256": "e38a71c95214e8c5396986636c3f8855c441d91f26d2b656dd17921e238814be",
+            "version": "127-1 -> 127-1"
+          },
+          {
+            "last_modified": "2026-08-23 11:34 UTC",
+            "maintainer": "severach",
+            "package": "lib32-popt",
+            "pkgbuild_sha256": "dc1e81cd151a8d5b2f3b350e25eb518b3e6e8a046093b0237155780fbfe68df3",
+            "version": "1.19-2 -> 1.19-2"
+          },
+          {
+            "last_modified": "2026-03-05 19:22 UTC",
+            "maintainer": "ChrisTX",
+            "package": "nginx-mod-lua",
+            "pkgbuild_sha256": "96f7314cade2cf21f4e5b6fd8802a1090307f62749f24046b3e5f9bf8d5a125d",
+            "version": "1:0.10.29R2-1 -> 1:0.10.29R2-1"
+          }
+        ],
+        "rule_id": "G014"
+      }
+    ],
+    "cycle": {
+      "added": 9,
+      "changed": 43,
+      "processed": 52,
+      "refractory": [
+        {
+          "campaign_id": "G003:",
+          "emitted": true,
+          "rule_id": "G003",
+          "window_start_obs": 70892
+        },
+        {
+          "campaign_id": "G014:adoption-window",
+          "emitted": true,
+          "rule_id": "G014",
+          "window_start_obs": 70892
+        }
+      ],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: Campaign across 9 packages (G014)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H044",
+    "H046",
+    "G003",
+    "G014"
+  ],
+  "slug": "2026-11-22/161322",
+  "tags": [],
+  "time": 1795364002,
+  "title": "TrustSight: Campaign across 9 packages (G014)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "1b16a032114805fd7cce02a1a2689cbfc0edaf5bf3ca43546475ba397507b418",
+    "key_id": "k1",
+    "signature": "OcK8R+bPadAykc8+3c1O9wfqhcZt+0jRD8SPYaeBn/teW5a8/XlCM+Gp2Ege+iX+cRc9SludQnh1gBRZGNgbBw==",
+    "signed_at": 1795364002,
+    "webhook_id": "be9f40aae3666b3accc5f87d5cb1e258004fde88126f5bce2b700d6ae227a2be"
+  }
+}

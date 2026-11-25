@@ -1,0 +1,46 @@
+cells:
+- id: A016-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a016.json
+  expect_fire:
+  - A016
+- id: U007-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/u007.json
+  expect_fire:
+  - U007
+- id: U008-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/u008.json
+  expect_fire:
+  - U008
+- id: U013-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/u013.json
+  expect_fire:
+  - U013
+- id: U014-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/u014.json
+  expect_fire:
+  - U014
+- id: A009-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a009.json
+  expect_fire:
+  - A009
+- id: A010-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a010.json
+  expect_fire:
+  - A010
+- id: A014-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a014.json
+  expect_fire:
+  - A014
+- id: A015-positive
+  lane: upstream
+  payload_path: fixtures/lane/upstream/a015.json
+  expect_fire:
+  - A015

@@ -1,0 +1,17 @@
+{
+  "kind": "temporal",
+  "new_meta": {
+    "python-foo": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "python-foo"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {},
+  "source_repos": {
+    "python-foo": [
+      "https://random.example/x.tar.gz"
+    ]
+  }
+}

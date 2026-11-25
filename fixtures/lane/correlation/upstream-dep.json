@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "package": "alpha",
+      "upstream_dep_additions": [
+        [
+          "sonora",
+          "cdn.example"
+        ]
+      ]
+    },
+    {
+      "package": "beta",
+      "upstream_dep_additions": [
+        [
+          "sonora",
+          "cdn.example"
+        ]
+      ]
+    }
+  ]
+}

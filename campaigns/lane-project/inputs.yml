@@ -1,0 +1,26 @@
+cells:
+- id: H020-positive
+  lane: project
+  payload_path: fixtures/lane/project/h020.json
+  expect_fire:
+  - H020
+- id: H021-positive
+  lane: project
+  payload_path: fixtures/lane/project/h021.json
+  expect_fire:
+  - H021
+- id: H022-positive
+  lane: project
+  payload_path: fixtures/lane/project/h022.json
+  expect_fire:
+  - H022
+- id: T006-positive
+  lane: project
+  payload_path: fixtures/lane/project/t006.json
+  expect_fire:
+  - T006
+- id: T007-positive
+  lane: project
+  payload_path: fixtures/lane/project/t007.json
+  expect_fire:
+  - T007

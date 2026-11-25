@@ -1,0 +1,25 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,18 +1,19 @@
+ # Maintainer: someone <someone@example.org>
+ pkgname=ledger-udev-bin
+-pkgver=1.4.2
++pkgver=1.4.3
+ pkgrel=1
+ pkgdesc="udev rules"
+ arch=('x86_64')
+ url="https://example.org/ledger-udev"
+ license=('GPL')
+ depends=('systemd')
+-makedepends=('cargo')
++makedepends=('cargo' 'npm')
+ source=("$url/archive/v$pkgver.tar.gz")
+-sha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')
++sha256sums=('0a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f9')
+ 
+ build() {
+   cd "$srcdir/$pkgname-$pkgver"
++  npm install minimist chalk
+   cargo build --release --locked
+ }
+ 

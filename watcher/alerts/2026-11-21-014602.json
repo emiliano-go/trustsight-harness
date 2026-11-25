@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "chatwithwork-desktop scored 60 (U003)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T01:46:02.000Z",
+  "packages": [
+    "chatwithwork-desktop"
+  ],
+  "priority": null,
+  "rules": [
+    "C002",
+    "U001",
+    "U002",
+    "U012",
+    "U003",
+    "U006",
+    "U009",
+    "W011",
+    "W012",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "P001"
+  ],
+  "slug": "2026-11-21/014602",
+  "tags": [],
+  "time": 1795225562,
+  "title": "TrustSight: chatwithwork-desktop scored 60 (U003)",
+  "tool_version": "0.30.0"
+}

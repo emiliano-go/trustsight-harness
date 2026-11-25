@@ -1,0 +1,13 @@
+{
+  "artifacts": [
+    {
+      "elf_info": {
+        "runpath": [
+          "/tmp/evil"
+        ]
+      },
+      "path": "z"
+    }
+  ],
+  "kind": "source_archive"
+}

@@ -1,0 +1,14 @@
+{
+  "breaks": [
+    {
+      "key": "configure_flags",
+      "new_value": "[\"--enable-foo\"]",
+      "old_value": "[\"--enable-foo\",\"-fstack-protector-all\"]",
+      "stable_for_n": 20,
+      "weight": 1.0
+    }
+  ],
+  "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=x\n+echo hi\n",
+  "kind": "longitudinal",
+  "package": "pkg"
+}

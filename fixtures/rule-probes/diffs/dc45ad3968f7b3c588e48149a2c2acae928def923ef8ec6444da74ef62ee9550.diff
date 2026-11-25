@@ -1,0 +1,12 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,6 +1,6 @@
+ pkgname=x
+ pkgver=1
+-checkdepends=('pytest' 'coverage')
++checkdepends=('coverage')
+ 
+ build() {
+-  make
++  make V=1
+ }

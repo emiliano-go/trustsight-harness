@@ -1,0 +1,569 @@
+{
+  "attempts": 24,
+  "bypass_hashes": [],
+  "bypass_rate": {
+    "ci_95_wilson": [
+      0.0,
+      0.137976
+    ],
+    "denominator": "attempts reaching TrustSight",
+    "denominator_value": 24,
+    "estimate": 0.0,
+    "note": "lower bound (validator is conservative)"
+  },
+  "bypasses": 0,
+  "bypasses_full": 0,
+  "campaign": "lane-compose",
+  "campaign_commit": "c732f3afd20d72bba357a319ad2fe208d3dbd903",
+  "campaign_type": "lane-probe",
+  "cell_coverage": {
+    "cells": [],
+    "filled": 0,
+    "open": 0,
+    "total": 0
+  },
+  "conditional_bypasses": {},
+  "cost": {
+    "api_cost_usd": 0.0,
+    "ceiling_usd": null,
+    "retries": 0,
+    "tokens_in": 0,
+    "tokens_out": 0,
+    "wall_clock_ms": 292
+  },
+  "dedup_savings": null,
+  "duplicate_rate": null,
+  "environment": {
+    "accumulate": false,
+    "aur_lookup": "frozen-empty",
+    "canary_check": "passed",
+    "canary_score": 0,
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
+    "db_snapshot": "",
+    "db_state": "cold",
+    "flag_threshold": 20,
+    "ioc_baseline": "",
+    "locale": "en_US.UTF-8",
+    "mode_gaps": [
+      "tree_not_analyzed"
+    ],
+    "python_version": "3.13",
+    "seed_sha256": "",
+    "timezone": "",
+    "trustsight_source": "local-path",
+    "trustsight_version": "0.30.0"
+  },
+  "expected_rules": [
+    "C006",
+    "C027",
+    "C032",
+    "C006",
+    "C027",
+    "C032",
+    "H084",
+    "H090",
+    "C006",
+    "C027",
+    "C032",
+    "H092",
+    "H103",
+    "W014",
+    "W015",
+    "H093",
+    "C006",
+    "C027",
+    "C032",
+    "H056",
+    "H066",
+    "C006",
+    "C027",
+    "C032",
+    "W010",
+    "X028",
+    "C035",
+    "D001",
+    "D002",
+    "H029",
+    "H070",
+    "H098",
+    "H102",
+    "H104",
+    "H105",
+    "H107"
+  ],
+  "flag_ledger": [
+    {
+      "cell": "H070-positive",
+      "expected": [
+        "H070"
+      ],
+      "fired": [
+        "H070"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H104-positive",
+      "expected": [
+        "H104"
+      ],
+      "fired": [
+        "H104"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "H107-positive",
+      "expected": [
+        "H107"
+      ],
+      "fired": [
+        "H107"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H105-positive",
+      "expected": [
+        "H105"
+      ],
+      "fired": [
+        "H105"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "C035-positive",
+      "expected": [
+        "C035"
+      ],
+      "fired": [
+        "C035"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H029-positive",
+      "expected": [
+        "H029"
+      ],
+      "fired": [
+        "H029"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H102-positive",
+      "expected": [
+        "H102"
+      ],
+      "fired": [
+        "H102"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H098-positive",
+      "expected": [
+        "H098"
+      ],
+      "fired": [
+        "H098"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "C032-positive",
+      "expected": [
+        "C032"
+      ],
+      "fired": [
+        "C032"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H090-positive",
+      "expected": [
+        "H090"
+      ],
+      "fired": [
+        "H090"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 40,
+      "threshold": 20
+    },
+    {
+      "cell": "H093-positive",
+      "expected": [
+        "H093"
+      ],
+      "fired": [
+        "H093"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H066-positive",
+      "expected": [
+        "H066"
+      ],
+      "fired": [
+        "H066"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "W010-positive",
+      "expected": [
+        "W010"
+      ],
+      "fired": [
+        "W010"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "D001-positive",
+      "expected": [
+        "D001"
+      ],
+      "fired": [
+        "D001"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "D002-positive",
+      "expected": [
+        "D002"
+      ],
+      "fired": [
+        "D002"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "X028-positive",
+      "expected": [
+        "X028"
+      ],
+      "fired": [
+        "X028"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "H056-positive",
+      "expected": [
+        "H056"
+      ],
+      "fired": [
+        "H056"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 15,
+      "threshold": 20
+    },
+    {
+      "cell": "C006-positive",
+      "expected": [
+        "C006"
+      ],
+      "fired": [
+        "C006"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    },
+    {
+      "cell": "C027-positive",
+      "expected": [
+        "C027"
+      ],
+      "fired": [
+        "C027"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 0,
+      "threshold": 20
+    },
+    {
+      "cell": "H092-positive",
+      "expected": [
+        "H092"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H092",
+        "H103",
+        "M003",
+        "P001",
+        "SOURCE_BUCKET"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 100,
+      "threshold": 20
+    },
+    {
+      "cell": "H103-positive",
+      "expected": [
+        "H103"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H092",
+        "H103",
+        "M003",
+        "P001",
+        "SOURCE_BUCKET"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 100,
+      "threshold": 20
+    },
+    {
+      "cell": "W014-positive",
+      "expected": [
+        "W014"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H027",
+        "M002",
+        "P001",
+        "SOURCE_BUCKET",
+        "W014"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 30,
+      "threshold": 20
+    },
+    {
+      "cell": "W015-positive",
+      "expected": [
+        "W015"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H023",
+        "H027",
+        "M002",
+        "P001",
+        "SOURCE_BUCKET",
+        "W015"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 30,
+      "threshold": 20
+    },
+    {
+      "cell": "H084-positive",
+      "expected": [
+        "H084"
+      ],
+      "fired": [
+        "H084"
+      ],
+      "flag_state": "flagged",
+      "gaps": [],
+      "lane": "compose",
+      "score": 25,
+      "threshold": 20
+    }
+  ],
+  "generator": {
+    "cells": 24,
+    "manifest": "inputs.yml",
+    "prompt_contract": 2,
+    "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "prompt_id": "lane-compose",
+    "type": "lane"
+  },
+  "harness_version": "2.5.0",
+  "known_bypass_matches": [],
+  "limitations": [],
+  "minimization_spend": null,
+  "outcomes": {
+    "behavior_lost": 0,
+    "bypass": 0,
+    "constraint_violation": 0,
+    "detected": 24,
+    "duplicate": 0,
+    "fail_closed_catch": 0,
+    "harness_error": 0,
+    "inconclusive": 0,
+    "known_bypass_match": 0,
+    "partial_evasion": 0,
+    "sanitization_failure": 0,
+    "syntax_error": 0
+  },
+  "package": "harness-pkg",
+  "probe": {
+    "cells": 24,
+    "expected_rules": [
+      "C006",
+      "C027",
+      "C032",
+      "C006",
+      "C027",
+      "C032",
+      "H084",
+      "H090",
+      "C006",
+      "C027",
+      "C032",
+      "H092",
+      "H103",
+      "W014",
+      "W015",
+      "H093",
+      "C006",
+      "C027",
+      "C032",
+      "H056",
+      "H066",
+      "C006",
+      "C027",
+      "C032",
+      "W010",
+      "X028",
+      "C035",
+      "D001",
+      "D002",
+      "H029",
+      "H070",
+      "H098",
+      "H102",
+      "H104",
+      "H105",
+      "H107"
+    ],
+    "fired_rules": [
+      "C003",
+      "C006",
+      "C027",
+      "C032",
+      "C035",
+      "COVERAGE",
+      "D001",
+      "D002",
+      "H023",
+      "H027",
+      "H029",
+      "H056",
+      "H066",
+      "H070",
+      "H084",
+      "H090",
+      "H092",
+      "H093",
+      "H098",
+      "H102",
+      "H103",
+      "H104",
+      "H105",
+      "H107",
+      "M002",
+      "M003",
+      "P001",
+      "SOURCE_BUCKET",
+      "W010",
+      "W014",
+      "W015",
+      "X028"
+    ],
+    "missing_rules": [],
+    "negative_failures": []
+  },
+  "stop_reason": "",
+  "validator": {
+    "calibration": "passed",
+    "version_hash": ""
+  }
+}

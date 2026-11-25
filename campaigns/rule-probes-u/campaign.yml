@@ -14,5 +14,10 @@ prompt:
   - U003
   - U006
   - U010
+  - U001
+  - U004
+  - U005
+  - U011
+  - U012
   forbidden_techniques: {}
-attempts: 8
+attempts: 13

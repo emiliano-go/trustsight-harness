@@ -1,0 +1,4 @@
+{
+  "kind": "placeholder",
+  "text": "pkgname=placeholder\npkgver=0.0.0\nsha256sums=(\"SKIP\")\npackage(){ echo x; }\n"
+}

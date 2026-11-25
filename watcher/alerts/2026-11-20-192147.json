@@ -1,0 +1,47 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 3
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "firefox-extension-proton-vpn scored 80 (C001) +2 more",
+  "ioc_packages": [],
+  "iso": "2026-11-20T19:21:47.000Z",
+  "packages": [
+    "firefox-extension-proton-vpn",
+    "proton-vpn-browser-extension",
+    "vtium-fonts"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "C024",
+    "C001",
+    "X011",
+    "H015",
+    "W002",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P005",
+    "P001",
+    "W011",
+    "W012",
+    "W001",
+    "W014",
+    "M002",
+    "SOURCE_BUCKET",
+    "P007",
+    "NOVELTY",
+    "P006",
+    "P002"
+  ],
+  "slug": "2026-11-20/192147",
+  "tags": [],
+  "time": 1795202507,
+  "title": "TrustSight: firefox-extension-proton-vpn scored 80 (C001) +2 more",
+  "tool_version": "0.30.0"
+}

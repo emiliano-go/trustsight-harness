@@ -1,0 +1,5 @@
+{
+  "kind": "workflow",
+  "path": ".github/workflows/b.yml",
+  "text": "with:\n  fetch-depth: 0\nrun: grep -r password ."
+}

@@ -1,0 +1,621 @@
+{
+  "counts": {
+    "alerts": 87,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "H073 on nano-lean +86 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T09:49:53.000Z",
+  "packages": [
+    "taskui",
+    "tatayoyoh-deezer-tui-bin",
+    "termca-git",
+    "termfarm-bin",
+    "termi-tui-bin",
+    "terminal.pong-git",
+    "tgv-bin",
+    "thardians-git",
+    "thom-cameron-isw",
+    "token-monitor-tui-bin",
+    "toktop",
+    "tomatui-bin",
+    "tonus",
+    "toptop-bin",
+    "traceview-bin",
+    "traxor",
+    "tree-ring-memory-bin",
+    "trex-tui-bin",
+    "trnovel-bin",
+    "trollstov",
+    "tshts-git",
+    "tsuchita",
+    "tts-tui",
+    "tuistash-bin",
+    "tuitar",
+    "vib-tui",
+    "vle",
+    "void-tui-bin",
+    "vtui-bin",
+    "whycodes-bin",
+    "wireguard-tui-bin",
+    "wiretui",
+    "wopr_tui_2026-git",
+    "wordl-rs-bin",
+    "wryme",
+    "xylem-bin",
+    "yadb",
+    "ygrep-tui-bin",
+    "youta-bin",
+    "yscan-bin",
+    "ytmusic-tui",
+    "ytunnel-bin",
+    "zch",
+    "nano-lean"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "ahp",
+        "package": "taskui",
+        "pkgbuild_sha256": "70d8b89cff4ebde939fcaea89cae40781ac47eb18459b62a6516760edd9005b7",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tatayoyoh-deezer-tui-bin",
+        "pkgbuild_sha256": "2dea43da35a21ed6544d258b8ced4c7fa48b93fe87dc7dae80014b5212e9cdb1",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "termca-git",
+        "pkgbuild_sha256": "8c15ddf7333fcbbddc5c9803b75459cd57ae322a5572aa69c019df8cd8a4be2f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "termfarm-bin",
+        "pkgbuild_sha256": "0fbe5502a1aa3091eab1bd3a6c6aa309b9d4f03cf29b1e13dc339bdbf81a5125",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "termi-tui-bin",
+        "pkgbuild_sha256": "11843cf1e4b64341fc7803bb3ec82f784bc9b7ed5727fad19897ea68d49f47db",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "terminal.pong-git",
+        "pkgbuild_sha256": "208d4a5f4432eb4e6b08c6bd6dd16805de62b14f0fdb780352fd8ceda17d2123",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tgv-bin",
+        "pkgbuild_sha256": "e3a2886aa550084fa52b7554f315645961d62908e34fe1d207b47647dc460f02",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "thardians-git",
+        "pkgbuild_sha256": "0f9da03d4083b6d978a9f1b52eb1d5b58585119d04da5ff86a6f2cb135ac9f61",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "thom-cameron-isw",
+        "pkgbuild_sha256": "f69e139b813e4d3bf45450fdcdb842305b7c7ae370dd0b4881d8583f2100f76f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "token-monitor-tui-bin",
+        "pkgbuild_sha256": "dfcc51de1ff482b97cfd544771f5bff499f99a6d11be89976ee5ed20422a97ed",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "toktop",
+        "pkgbuild_sha256": "23f84abd113041568e1ecf6d85f1beebc6837a9243d370d08e040b3e0c2ba8fd",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tomatui-bin",
+        "pkgbuild_sha256": "a7b9a01834ecde8bf3ff3ace55b776477c8b411d51d744b51755ad177db8fed1",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tonus",
+        "pkgbuild_sha256": "811cccc7a48b74e2e76e1250fc41aed624941b3cdeebcf9250c52c649c2bde7b",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "toptop-bin",
+        "pkgbuild_sha256": "b524f1fa70e7cece87393d2a355c4f81ae0cf5f5a5d234057f71cead44a704fa",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "traceview-bin",
+        "pkgbuild_sha256": "c3ecc3f52797ad94913e9aad0b8b494defe56b5a7e81becd5d41b59e85a8a3f0",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "traxor",
+        "pkgbuild_sha256": "d9785b7226685aa8be3bf45fc8c35dca55df5ad9686b3290cfc6575623c29301",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tree-ring-memory-bin",
+        "pkgbuild_sha256": "b6e8e76119110943c03aec25e805d42b5c608952dbbff04cb8f10acbe920aac9",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "trex-tui-bin",
+        "pkgbuild_sha256": "cd5d0b71fea00673726b8d2995796a9ad61980beaf9eed61454325f1f1006430",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "trnovel-bin",
+        "pkgbuild_sha256": "13e6b60aaac7e262f595c26404aaf526b93a396d0f025070cfb0a1cf2f1d84f9",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "trollstov",
+        "pkgbuild_sha256": "af82766609d70711bc001af8e3ffac408e5630daf2f3b550b9318681e46db283",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tshts-git",
+        "pkgbuild_sha256": "0b0867ee0bc65e80e97c28ec9ef1a4750a269fef7282ec80a100e0d754e4bab5",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tsuchita",
+        "pkgbuild_sha256": "3f3abea277aa1176ee16a9f239b1215f2d61939e97a8d9b5b9b01a5999fefc2a",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tts-tui",
+        "pkgbuild_sha256": "7cbde39d9a9ad367b2c826fd2dce8cbf946998b210ba3f8f232ee36aa66f0d14",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tuistash-bin",
+        "pkgbuild_sha256": "447144fc643bca429fdb55d9ecf5f14c987495702f77c756f8d94527e295bbbf",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tuitar",
+        "pkgbuild_sha256": "748a3f99dd554d2a50dd8f5c44cc78ad5675104d246eb3163a41a535a579f59e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "vib-tui",
+        "pkgbuild_sha256": "b4e290616a51a2de7aaf76b57b02f4fab16aabed5037364c142b3ee73cba8f53",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "vle",
+        "pkgbuild_sha256": "8f49994b730184c2f5a258dd0d4412be4542256802a53762f288adf17e78616b",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "void-tui-bin",
+        "pkgbuild_sha256": "55f0eebfa67b531fc4f01086433ee30fb71fb8607e608059f39a89e2c2c4c58f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "vtui-bin",
+        "pkgbuild_sha256": "fc6ce552af7ac4e3a2cbac7789736978236daa4c97c6d75df24d81db359bc708",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "whycodes-bin",
+        "pkgbuild_sha256": "48c8d1918d95308f4d7fd0d0cb7e4687e626e1900974721ae6d80cc8fba23edb",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wireguard-tui-bin",
+        "pkgbuild_sha256": "2d7b44fb41f71e3467fbbaae30eafdd2f28d203c1814b748ec2d47755fa08dae",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wiretui",
+        "pkgbuild_sha256": "7e672ee3d60dd2161dee7cf4d2321962d6bc4379fd3a2f1b7be2850f9a4c7f03",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wopr_tui_2026-git",
+        "pkgbuild_sha256": "438e9c1837d5e7923f741da8f332c52ff3c9b1baca8bc1e4c74cf0958a273220",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wordl-rs-bin",
+        "pkgbuild_sha256": "1d7933d1a65e46d17784b9e86140155c8deccd71668f435f5ac0dedf633b6f7c",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wryme",
+        "pkgbuild_sha256": "f75ee9677a44e396fab7ede86a99e188fa9eec31661a19182aa5f36859da5534",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "xylem-bin",
+        "pkgbuild_sha256": "18b7222a7d05126b37b372adae38443701b6dc34c963c39151a40342850f9f98",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "yadb",
+        "pkgbuild_sha256": "f7eb5ba96f1fb763aead93d1c099258ffe50fa13a08556d6d89b98261c1d57cb",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ygrep-tui-bin",
+        "pkgbuild_sha256": "95f423cb0a8fd1aa352c12e9b1c52ea459774015a73511502fb8bf61897a59ad",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "youta-bin",
+        "pkgbuild_sha256": "7aa0ca152ac50603b2302882f8431af28b65f0868c8c982edb1c3b83c51780dd",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "yscan-bin",
+        "pkgbuild_sha256": "596852ee24b3b0639874788966dc738bd7e7968c8ccd62ffb3f6fd8c58784189",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ytmusic-tui",
+        "pkgbuild_sha256": "bb978cff44b0b34ddd24076897696c7cd717741ddfea859aa1545160b88f4021",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ytunnel-bin",
+        "pkgbuild_sha256": "03793b1071cc3241b22eeff353824ff6c10e9fbdc58e454856ce7227d6309658",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "zch",
+        "pkgbuild_sha256": "55a04bd66066516c46bca3cd3b2bc576ad4523d4c2c2bc9dd9314aa21c9add6e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "gilcu3",
+        "package": "nano-lean",
+        "pkgbuild_sha256": "40c42199434d17b5807c9f50512039e4c84378c8a8925fbb938d2044a9ff2336",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "taskui",
+        "pkgbuild_sha256": "70d8b89cff4ebde939fcaea89cae40781ac47eb18459b62a6516760edd9005b7",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tatayoyoh-deezer-tui-bin",
+        "pkgbuild_sha256": "2dea43da35a21ed6544d258b8ced4c7fa48b93fe87dc7dae80014b5212e9cdb1",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "termca-git",
+        "pkgbuild_sha256": "8c15ddf7333fcbbddc5c9803b75459cd57ae322a5572aa69c019df8cd8a4be2f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "termfarm-bin",
+        "pkgbuild_sha256": "0fbe5502a1aa3091eab1bd3a6c6aa309b9d4f03cf29b1e13dc339bdbf81a5125",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "termi-tui-bin",
+        "pkgbuild_sha256": "11843cf1e4b64341fc7803bb3ec82f784bc9b7ed5727fad19897ea68d49f47db",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "terminal.pong-git",
+        "pkgbuild_sha256": "208d4a5f4432eb4e6b08c6bd6dd16805de62b14f0fdb780352fd8ceda17d2123",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tgv-bin",
+        "pkgbuild_sha256": "e3a2886aa550084fa52b7554f315645961d62908e34fe1d207b47647dc460f02",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "thardians-git",
+        "pkgbuild_sha256": "0f9da03d4083b6d978a9f1b52eb1d5b58585119d04da5ff86a6f2cb135ac9f61",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "thom-cameron-isw",
+        "pkgbuild_sha256": "f69e139b813e4d3bf45450fdcdb842305b7c7ae370dd0b4881d8583f2100f76f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "token-monitor-tui-bin",
+        "pkgbuild_sha256": "dfcc51de1ff482b97cfd544771f5bff499f99a6d11be89976ee5ed20422a97ed",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "toktop",
+        "pkgbuild_sha256": "23f84abd113041568e1ecf6d85f1beebc6837a9243d370d08e040b3e0c2ba8fd",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tomatui-bin",
+        "pkgbuild_sha256": "a7b9a01834ecde8bf3ff3ace55b776477c8b411d51d744b51755ad177db8fed1",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tonus",
+        "pkgbuild_sha256": "811cccc7a48b74e2e76e1250fc41aed624941b3cdeebcf9250c52c649c2bde7b",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "toptop-bin",
+        "pkgbuild_sha256": "b524f1fa70e7cece87393d2a355c4f81ae0cf5f5a5d234057f71cead44a704fa",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "traceview-bin",
+        "pkgbuild_sha256": "c3ecc3f52797ad94913e9aad0b8b494defe56b5a7e81becd5d41b59e85a8a3f0",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "traxor",
+        "pkgbuild_sha256": "d9785b7226685aa8be3bf45fc8c35dca55df5ad9686b3290cfc6575623c29301",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tree-ring-memory-bin",
+        "pkgbuild_sha256": "b6e8e76119110943c03aec25e805d42b5c608952dbbff04cb8f10acbe920aac9",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "trex-tui-bin",
+        "pkgbuild_sha256": "cd5d0b71fea00673726b8d2995796a9ad61980beaf9eed61454325f1f1006430",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "trnovel-bin",
+        "pkgbuild_sha256": "13e6b60aaac7e262f595c26404aaf526b93a396d0f025070cfb0a1cf2f1d84f9",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "trollstov",
+        "pkgbuild_sha256": "af82766609d70711bc001af8e3ffac408e5630daf2f3b550b9318681e46db283",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tshts-git",
+        "pkgbuild_sha256": "0b0867ee0bc65e80e97c28ec9ef1a4750a269fef7282ec80a100e0d754e4bab5",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tsuchita",
+        "pkgbuild_sha256": "3f3abea277aa1176ee16a9f239b1215f2d61939e97a8d9b5b9b01a5999fefc2a",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tts-tui",
+        "pkgbuild_sha256": "7cbde39d9a9ad367b2c826fd2dce8cbf946998b210ba3f8f232ee36aa66f0d14",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tuistash-bin",
+        "pkgbuild_sha256": "447144fc643bca429fdb55d9ecf5f14c987495702f77c756f8d94527e295bbbf",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "tuitar",
+        "pkgbuild_sha256": "748a3f99dd554d2a50dd8f5c44cc78ad5675104d246eb3163a41a535a579f59e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "vib-tui",
+        "pkgbuild_sha256": "b4e290616a51a2de7aaf76b57b02f4fab16aabed5037364c142b3ee73cba8f53",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "vle",
+        "pkgbuild_sha256": "8f49994b730184c2f5a258dd0d4412be4542256802a53762f288adf17e78616b",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "void-tui-bin",
+        "pkgbuild_sha256": "55f0eebfa67b531fc4f01086433ee30fb71fb8607e608059f39a89e2c2c4c58f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "vtui-bin",
+        "pkgbuild_sha256": "fc6ce552af7ac4e3a2cbac7789736978236daa4c97c6d75df24d81db359bc708",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "whycodes-bin",
+        "pkgbuild_sha256": "48c8d1918d95308f4d7fd0d0cb7e4687e626e1900974721ae6d80cc8fba23edb",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wireguard-tui-bin",
+        "pkgbuild_sha256": "2d7b44fb41f71e3467fbbaae30eafdd2f28d203c1814b748ec2d47755fa08dae",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wiretui",
+        "pkgbuild_sha256": "7e672ee3d60dd2161dee7cf4d2321962d6bc4379fd3a2f1b7be2850f9a4c7f03",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wopr_tui_2026-git",
+        "pkgbuild_sha256": "438e9c1837d5e7923f741da8f332c52ff3c9b1baca8bc1e4c74cf0958a273220",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wordl-rs-bin",
+        "pkgbuild_sha256": "1d7933d1a65e46d17784b9e86140155c8deccd71668f435f5ac0dedf633b6f7c",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "wryme",
+        "pkgbuild_sha256": "f75ee9677a44e396fab7ede86a99e188fa9eec31661a19182aa5f36859da5534",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "xylem-bin",
+        "pkgbuild_sha256": "18b7222a7d05126b37b372adae38443701b6dc34c963c39151a40342850f9f98",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "yadb",
+        "pkgbuild_sha256": "f7eb5ba96f1fb763aead93d1c099258ffe50fa13a08556d6d89b98261c1d57cb",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ygrep-tui-bin",
+        "pkgbuild_sha256": "95f423cb0a8fd1aa352c12e9b1c52ea459774015a73511502fb8bf61897a59ad",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "youta-bin",
+        "pkgbuild_sha256": "7aa0ca152ac50603b2302882f8431af28b65f0868c8c982edb1c3b83c51780dd",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "yscan-bin",
+        "pkgbuild_sha256": "596852ee24b3b0639874788966dc738bd7e7968c8ccd62ffb3f6fd8c58784189",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ytmusic-tui",
+        "pkgbuild_sha256": "bb978cff44b0b34ddd24076897696c7cd717741ddfea859aa1545160b88f4021",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ytunnel-bin",
+        "pkgbuild_sha256": "03793b1071cc3241b22eeff353824ff6c10e9fbdc58e454856ce7227d6309658",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "zch",
+        "pkgbuild_sha256": "55a04bd66066516c46bca3cd3b2bc576ad4523d4c2c2bc9dd9314aa21c9add6e",
+        "rule_id": "H073"
+      }
+    ],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 44,
+      "changed": 5,
+      "processed": 49,
+      "refractory": [],
+      "removed": 1
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: H073 on nano-lean +86 more",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H045",
+    "H073"
+  ],
+  "slug": "2026-11-22/094953",
+  "tags": [],
+  "time": 1795340993,
+  "title": "TrustSight: H073 on nano-lean +86 more",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "23fcd2509ad6cbe6cb5df5f7dd6d70f53f494d02c36a954b0312ba42a79b7f47",
+    "key_id": "k1",
+    "signature": "V2f8oOZYl5FSgPp12EfAiV7WwISj3PCYat+JPUl+9BtMYs2cQUu8Hhba0qaF2BgzTqLFHtmQuK2OZY/szCTrBQ==",
+    "signed_at": 1795340993,
+    "webhook_id": "df7370a9b43e394a77ccb818c660af6a102557900c9c4f8d9313cad2c0bef4ef"
+  }
+}

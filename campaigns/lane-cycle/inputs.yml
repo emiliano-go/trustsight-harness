@@ -1,0 +1,131 @@
+cells:
+- id: T008-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/t008.json
+  expect_fire:
+  - T008
+- id: T009-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/t009.json
+  expect_fire:
+  - T009
+- id: T010-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/t010.json
+  expect_fire:
+  - T010
+- id: T011-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/t011.json
+  expect_fire:
+  - T011
+- id: T012-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/t012.json
+  expect_fire:
+  - T012
+- id: H057-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/graph-h057.json
+  expect_fire:
+  - H057
+- id: H060-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/graph-h060.json
+  expect_fire:
+  - H060
+- id: H061-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/graph-h061.json
+  expect_fire:
+  - H061
+- id: H037-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h037.json
+  expect_fire:
+  - H037
+- id: H049-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h049.json
+  expect_fire:
+  - H049
+- id: H050-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h050.json
+  expect_fire:
+  - H050
+- id: H051-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h051.json
+  expect_fire:
+  - H051
+- id: H054-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h054.json
+  expect_fire:
+  - H054
+- id: H086-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/adoption-h086.json
+  expect_fire:
+  - H086
+- id: H087-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/adoption-h087.json
+  expect_fire:
+  - H087
+- id: H088-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/adoption-h088.json
+  expect_fire:
+  - H088
+- id: H045-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h045.json
+  expect_fire:
+  - H045
+- id: H052-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h052.json
+  expect_fire:
+  - H052
+- id: H055-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h055.json
+  expect_fire:
+  - H055
+- id: H058-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h058.json
+  expect_fire:
+  - H058
+- id: H073-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h073.json
+  expect_fire:
+  - H073
+- id: H074-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h074.json
+  expect_fire:
+  - H074
+- id: H047-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h047.json
+  expect_fire:
+  - H047
+- id: H048-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/longitudinal-h048.json
+  expect_fire:
+  - H048
+- id: H053-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h053.json
+  expect_fire:
+  - H053
+- id: H059-positive
+  lane: cycle
+  payload_path: fixtures/lane/cycle/temporal-h059.json
+  expect_fire:
+  - H059

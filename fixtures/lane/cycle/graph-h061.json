@@ -1,0 +1,159 @@
+{
+  "changes": {},
+  "edges": {
+    "consumer-0": [
+      "hub"
+    ],
+    "consumer-1": [
+      "hub"
+    ],
+    "consumer-10": [
+      "hub"
+    ],
+    "consumer-11": [
+      "hub"
+    ],
+    "consumer-12": [
+      "hub"
+    ],
+    "consumer-13": [
+      "hub"
+    ],
+    "consumer-14": [
+      "hub"
+    ],
+    "consumer-15": [
+      "hub"
+    ],
+    "consumer-16": [
+      "hub"
+    ],
+    "consumer-17": [
+      "hub"
+    ],
+    "consumer-18": [
+      "hub"
+    ],
+    "consumer-19": [
+      "hub"
+    ],
+    "consumer-2": [
+      "hub"
+    ],
+    "consumer-20": [
+      "hub"
+    ],
+    "consumer-21": [
+      "hub"
+    ],
+    "consumer-22": [
+      "hub"
+    ],
+    "consumer-23": [
+      "hub"
+    ],
+    "consumer-24": [
+      "hub"
+    ],
+    "consumer-25": [
+      "hub"
+    ],
+    "consumer-26": [
+      "hub"
+    ],
+    "consumer-27": [
+      "hub"
+    ],
+    "consumer-28": [
+      "hub"
+    ],
+    "consumer-29": [
+      "hub"
+    ],
+    "consumer-3": [
+      "hub"
+    ],
+    "consumer-30": [
+      "hub"
+    ],
+    "consumer-31": [
+      "hub"
+    ],
+    "consumer-32": [
+      "hub"
+    ],
+    "consumer-33": [
+      "hub"
+    ],
+    "consumer-34": [
+      "hub"
+    ],
+    "consumer-35": [
+      "hub"
+    ],
+    "consumer-36": [
+      "hub"
+    ],
+    "consumer-37": [
+      "hub"
+    ],
+    "consumer-38": [
+      "hub"
+    ],
+    "consumer-39": [
+      "hub"
+    ],
+    "consumer-4": [
+      "hub"
+    ],
+    "consumer-40": [
+      "hub"
+    ],
+    "consumer-41": [
+      "hub"
+    ],
+    "consumer-42": [
+      "hub"
+    ],
+    "consumer-43": [
+      "hub"
+    ],
+    "consumer-44": [
+      "hub"
+    ],
+    "consumer-45": [
+      "hub"
+    ],
+    "consumer-46": [
+      "hub"
+    ],
+    "consumer-47": [
+      "hub"
+    ],
+    "consumer-48": [
+      "hub"
+    ],
+    "consumer-49": [
+      "hub"
+    ],
+    "consumer-5": [
+      "hub"
+    ],
+    "consumer-6": [
+      "hub"
+    ],
+    "consumer-7": [
+      "hub"
+    ],
+    "consumer-8": [
+      "hub"
+    ],
+    "consumer-9": [
+      "hub"
+    ]
+  },
+  "kind": "graph",
+  "new_meta": {},
+  "old_meta": {},
+  "transitions": {}
+}

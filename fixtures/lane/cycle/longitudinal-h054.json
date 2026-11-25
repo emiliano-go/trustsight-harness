@@ -1,0 +1,14 @@
+{
+  "breaks": [
+    {
+      "key": "build_system_markers",
+      "new_value": "cmake",
+      "old_value": "make",
+      "stable_for_n": 20,
+      "weight": 1.0
+    }
+  ],
+  "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=x\n+echo hi\n",
+  "kind": "longitudinal",
+  "package": "pkg"
+}

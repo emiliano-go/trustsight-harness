@@ -1,0 +1,78 @@
+{
+  "counts": {
+    "alerts": 4,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "H059 on libgda5-firebird +3 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T04:30:35.000Z",
+  "packages": [
+    "libgda5-firebird",
+    "libgda5-jdbc",
+    "libgda5-mysql",
+    "libgda5-postgres"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "package": "libgda5-firebird",
+        "pkgbuild_sha256": "f0db770fb3419c76fc69d3d8fcd1ecc72b13072202492c4f5d6b0179b0a8b47e",
+        "rule_id": "H059"
+      },
+      {
+        "package": "libgda5-jdbc",
+        "pkgbuild_sha256": "f0db770fb3419c76fc69d3d8fcd1ecc72b13072202492c4f5d6b0179b0a8b47e",
+        "rule_id": "H059"
+      },
+      {
+        "package": "libgda5-mysql",
+        "pkgbuild_sha256": "f0db770fb3419c76fc69d3d8fcd1ecc72b13072202492c4f5d6b0179b0a8b47e",
+        "rule_id": "H059"
+      },
+      {
+        "package": "libgda5-postgres",
+        "pkgbuild_sha256": "f0db770fb3419c76fc69d3d8fcd1ecc72b13072202492c4f5d6b0179b0a8b47e",
+        "rule_id": "H059"
+      }
+    ],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 6,
+      "changed": 3,
+      "processed": 9,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: H059 on libgda5-firebird +3 more",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H059"
+  ],
+  "slug": "2026-11-22/043035",
+  "tags": [],
+  "time": 1795321835,
+  "title": "TrustSight: H059 on libgda5-firebird +3 more",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "a4488d5113ef9886336757de553d752a18959bebb0d1a6870157195087a53155",
+    "key_id": "k1",
+    "signature": "ohkcaHdKmomTiCzaWlnB368nDVODJtw0oDbnVXoNGB6DYkulAjcQTAKnUK4gfsIPkB5N5LYaY5DuOoD653L+BA==",
+    "signed_at": 1795321835,
+    "webhook_id": "9ad2095635bc13cea67061d279b11c991f53d9f16bd5e10633174928c5611ed2"
+  }
+}

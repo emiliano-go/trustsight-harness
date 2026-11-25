@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "gosplugin-bin scored 50 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T13:27:49.000Z",
+  "packages": [
+    "gosplugin-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "C011",
+    "D005",
+    "H015",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-20/132749",
+  "tags": [],
+  "time": 1795181269,
+  "title": "TrustSight: gosplugin-bin scored 50 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0"
+}

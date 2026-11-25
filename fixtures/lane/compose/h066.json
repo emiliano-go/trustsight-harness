@@ -1,0 +1,11 @@
+{
+  "files": [
+    [
+      "pkg/BUILD",
+      "7f454c46020101"
+    ]
+  ],
+  "kind": "tree_manifest",
+  "package": "p",
+  "source_urls": []
+}

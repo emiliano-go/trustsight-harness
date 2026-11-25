@@ -1,0 +1,17 @@
+{
+  "kind": "temporal",
+  "new_meta": {
+    "pkg": {
+      "LastModified": 1799996400,
+      "Maintainer": "new",
+      "Version": "2"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {
+    "pkg": {
+      "Maintainer": "old",
+      "Version": "1"
+    }
+  }
+}

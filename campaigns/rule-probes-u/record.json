@@ -1,20 +1,20 @@
 {
-  "attempts": 8,
+  "attempts": 13,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.324408
+      0.228095
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 8,
+    "denominator_value": 13,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-u",
-  "campaign_commit": "",
+  "campaign_commit": "2e807712f0cc0654409d9874e62e58ccfc186887",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 1579
+    "wall_clock_ms": 1919
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -54,13 +54,19 @@
     "trustsight_version": "0.30.0"
   },
   "expected_rules": [
+    "U001",
     "U002",
     "U003",
+    "U004",
+    "U005",
     "U006",
-    "U010"
+    "U010",
+    "U011",
+    "U012"
   ],
+  "flag_ledger": [],
   "generator": {
-    "cells": 8,
+    "cells": 13,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -75,9 +81,9 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 5,
+    "detected": 8,
     "duplicate": 0,
-    "fail_closed_catch": 3,
+    "fail_closed_catch": 5,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
@@ -87,12 +93,17 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 8,
+    "cells": 13,
     "expected_rules": [
+      "U001",
       "U002",
       "U003",
+      "U004",
+      "U005",
       "U006",
-      "U010"
+      "U010",
+      "U011",
+      "U012"
     ],
     "fired_rules": [
       "H004",
@@ -104,15 +115,21 @@
       "P001",
       "P007",
       "R007",
+      "U001",
       "U002",
       "U003",
+      "U004",
+      "U005",
       "U006",
       "U010",
+      "U011",
+      "U012",
       "W001",
       "W007"
     ],
     "missing_rules": [],
-    "negative_failures": []
+    "negative_failures": [],
+    "unattempted_rules": []
   },
   "stop_reason": "",
   "validator": {

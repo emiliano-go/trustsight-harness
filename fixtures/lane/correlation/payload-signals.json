@@ -1,0 +1,34 @@
+{
+  "records": [
+    {
+      "maintainer": "m1",
+      "package": "alpha",
+      "payload_urls": [
+        "https://evil.example/x.sh"
+      ],
+      "rules": [
+        "H075"
+      ]
+    },
+    {
+      "maintainer": "m2",
+      "package": "beta",
+      "payload_urls": [
+        "https://evil.example/x.sh"
+      ],
+      "rules": [
+        "H075"
+      ]
+    },
+    {
+      "maintainer": "m3",
+      "package": "gamma",
+      "payload_urls": [
+        "https://evil.example/x.sh"
+      ],
+      "rules": [
+        "H075"
+      ]
+    }
+  ]
+}

@@ -55,3 +55,11 @@ cells:
   path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
   expect_absent:
   - W011
+- id: W004-positive
+  path: fixtures/rule-probes/diffs/8be5b59219fc60f13f44014ce79b6d7389ca3fbcc59a72b394b5edb591dc4655.diff
+  expect_fire:
+  - W004
+- id: W009-positive
+  path: fixtures/rule-probes/diffs/ed593ae59ec82ae79110c9455ca67be2b9be13ee8ee62713477d766a0a78f010.diff
+  expect_fire:
+  - W009

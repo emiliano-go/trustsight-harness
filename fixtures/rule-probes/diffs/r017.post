@@ -1,0 +1,5 @@
+pkgname=p
+pkgver=1
+package() {
+  chmod +s
+}

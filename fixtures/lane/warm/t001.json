@@ -1,0 +1,10 @@
+{
+  "gained": [
+    "NEWKEY"
+  ],
+  "kind": "key",
+  "lost": [],
+  "seed_keys": [
+    "OLDKEY"
+  ]
+}

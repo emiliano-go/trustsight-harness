@@ -1,0 +1,9 @@
+{
+  "declared": {},
+  "manifest": [
+    {
+      "content": "[Trigger]\nOperation = *\nExec = /usr/bin/true",
+      "path": "/usr/share/libalpm/hooks/x.hook"
+    }
+  ]
+}

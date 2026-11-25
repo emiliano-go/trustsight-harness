@@ -1,0 +1,21 @@
+{
+  "records": [
+    {
+      "maintainer": "evil",
+      "package": "pkg-a",
+      "rules": [
+        "H075"
+      ]
+    },
+    {
+      "maintainer": "evil",
+      "package": "pkg-b",
+      "rules": []
+    },
+    {
+      "maintainer": "evil",
+      "package": "pkg-c",
+      "rules": []
+    }
+  ]
+}

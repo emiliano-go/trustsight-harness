@@ -698,6 +698,22 @@ def judge_verdict(
 
 
 @mcp.tool()
+def outcomes(root: str | None = None) -> dict:
+    """Per-rule outcomes over committed records: lane, cells, last firing."""
+    from harness.outcomes import build_outcomes
+
+    return build_outcomes(_root_path(root))
+
+
+@mcp.tool()
+def watcher_replay(root: str | None = None) -> dict:
+    """Replay every captured watcher alert against the rule ledger."""
+    from harness.watcher import replay
+
+    return replay(_root_path(root))
+
+
+@mcp.tool()
 def list_campaigns() -> dict:
     """List all campaigns with their records (if available)."""
     campaigns = []
@@ -1716,6 +1732,43 @@ def sweep(match: list[str] | None = None, jobs: str | None = None) -> dict:
 
 
 @mcp.tool()
+def replay_alert(
+    slugs: list[str] | None = None,
+    limit: int = 20,
+    per_notification: int = 4,
+    refresh: bool = False,
+    upstream: bool = False,
+    upstream_hosts: list[str] | None = None,
+) -> dict:
+    """Replay recorded watcher alerts from the facts the watcher had.
+
+    Each package is analysed at the two AUR commits whose PKGBUILD digests the
+    notification recorded, so the replay does not depend on how far the
+    repository has moved since.  The document's findings are never passed to
+    the analysis; they are compared afterwards.
+
+    Args:
+        slugs: Replay only these notification slugs (default: the newest).
+        limit: How many notifications to consider (default 20).
+        per_notification: Package cases replayed per notification (default 4).
+        refresh: Re-fetch the documents from the feed even when the committed
+            corpus exists.
+        upstream: Run TrustSight's opt-in upstream scan (outbound traffic) to
+            reach the U rules and W014/W015.
+        upstream_hosts: Extra hosts the upstream scan may reach, beyond the
+            configured forge allowlist.
+    """
+    from ..replay.runner import documents, run_replay
+
+    root = _repo_root()
+    docs = documents(root, slugs=slugs, limit=limit)
+    if not docs:
+        return {"error": "no replay documents found"}
+    return run_replay(docs, root, per_notification=per_notification,
+                      upstream=upstream, upstream_hosts=upstream_hosts)
+
+
+@mcp.tool()
 def coverage() -> dict:
     """Which TrustSight rules the campaign suite targets, and which it cannot."""
     from ..coverage import build_coverage
@@ -1797,12 +1850,12 @@ def campaign_schema() -> str:
     return json.dumps({
         "description": "Schema for campaign.yml files",
         "required_keys": ["campaign", "campaign_type", "environment", "generator", "attempts"],
-        "optional_keys": ["package", "prompt", "stop_conditions"],
+        "optional_keys": ["package", "prompt", "stop_conditions", "archive"],
         "schema": {
             "campaign": {"type": "string", "description": "Unique campaign name"},
             "campaign_type": {
                 "type": "string",
-                "enum": ["deterministic", "stochastic"],
+                "enum": ["deterministic", "stochastic", "rule-probe", "artifact-probe", "lane-probe"],
                 "description": "Whether verdicts are order-independent",
             },
             "package": {
@@ -1819,6 +1872,7 @@ def campaign_schema() -> str:
                     "db_state": {"type": "string", "enum": ["cold", "seeded", "snapshot"]},
                     "seed_sha256": {"type": "string"},
                     "db_snapshot": {"type": "string"},
+                    "ioc_baseline": {"type": "string"},
                     "config_fingerprint": {"type": "string"},
                     "flag_threshold": {"type": "integer", "default": 20},
                     "accumulate": {"type": "boolean", "default": False},
@@ -1832,7 +1886,7 @@ def campaign_schema() -> str:
                 "required": ["type"],
                 "properties": {
                     "type": {"type": "string", "default": "inputs",
-                             "enum": ["inputs", "mutation", "llm"]},
+                             "enum": ["inputs", "raw-diff", "artifact", "lane", "mutation", "llm"]},
                     "manifest": {
                         "type": "string", "default": "inputs.yml",
                         "description": "inputs generator: strict cells manifest under the campaign root",
@@ -1899,6 +1953,8 @@ def status_definitions() -> str:
             "deps_not_scanned", "ruleset_drifted", "stage_degraded",
             "history_truncated", "noextract_suppressed",
             "binary_metadata", "tokenizer_unavailable",
+            "partial_hunk", "partial_file_analysis", "parent_baseline",
+            "upstream_manifest_incomplete",
         ],
     }, indent=2)
 

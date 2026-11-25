@@ -1,0 +1,180 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "druglord2 scored 55 (C001)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T14:36:59.000Z",
+  "packages": [
+    "druglord2"
+  ],
+  "payload": {
+    "alerts": [],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 3,
+      "changed": 19,
+      "processed": 22,
+      "refractory": [],
+      "removed": 1
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/druglord2",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -30,7 +30,7 @@\n source=('druglord2-port.tar.gz::https://github.com/burecar/druglord2-linux/releases/download/v1.0/druglord2-port.tar.gz'\n         'druglord2.exe::http://www.geekhideout.com/downloads/druglord2.exe')\n noextract=('druglord2.exe')\n-sha256sums=('7d0062e80a06529cbdee804a683094cd5b0c14a40ab97903cc061314a4705d18'\n+sha256sums=('62968e7dcdafd0775e4d2f029ee84953fc286e1f1da5d26ed1976a19710b40cb'\n             '187515f94d434567c58ecee5ced5c909c3fa6a0cb5054f81987ddb04be5aa5fb')\n \n prepare() {",
+        "diff_sha256": "341ee0c0c85d00233c0cb446239099a413732eaf4d0f933e67ca8911c98aaa22",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Encoded-Alphabet Fraction: 1.00 of added tokens are encoded runs of at least 64 chars (threshold 0.8889)",
+            "rule_id": "E002",
+            "rule_uid": "TS-0046",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 33,
+            "reason": "Checksum Changed Without Source Change With Stable Version: sha256sums changed but source URLs and pkgver/pkgrel/epoch unchanged",
+            "rule_id": "C001",
+            "rule_uid": "TS-0009",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Scan Not Completed: the opt-in upstream scan did not complete: upstream_scan_refused",
+            "rule_id": "W014",
+            "rule_uid": "TS-0298",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 4 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: noextract=() suppresses extraction of source archives whose contents could not be examined",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Maintainer first seen for this package (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "HIGH",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 14:21 UTC",
+        "maintainer": "Burek",
+        "package": "druglord2",
+        "pkgbuild_sha256": "f94c7046a93c70a61c844b953050c5d23908a5ed216df5841e7031c543871a87",
+        "previous_maintainer": "Burek",
+        "previous_pkgbuild_sha256": "a5e42045bd3ab2d3adaee82b341ac1ff169fdecec8b91033dc4f18c09c8075af",
+        "rules": [
+          "E002",
+          "C001",
+          "W014",
+          "H020",
+          "H027",
+          "COVERAGE",
+          "COVERAGE",
+          "NOVELTY",
+          "P001",
+          "P009"
+        ],
+        "score": 55,
+        "version": "1.0-1 -> 1.0-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: druglord2 scored 55 (C001)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "E002",
+    "C001",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "NOVELTY",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-22/143659",
+  "tags": [],
+  "time": 1795358219,
+  "title": "TrustSight: druglord2 scored 55 (C001)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "6905e4588d81e7a255968a5b7d347f50efab3af7f1211a60262de9a7cae973ea",
+    "key_id": "k1",
+    "signature": "0hx58Fw2A7dWMpfle0kq/2YwwZ36CgEzxQfpohMgY4zWT4NWaj75/2pM9souktioxEItqdI/zPrx87Dhuri3DQ==",
+    "signed_at": 1795358219,
+    "webhook_id": "75ef55aa4061fbbd4281154c5b31701cdc7701acfc4ea7a9723a1b1bcbeab1ff"
+  }
+}

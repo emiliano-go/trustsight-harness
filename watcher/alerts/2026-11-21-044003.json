@@ -1,0 +1,34 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "ungoogled-chromium-xdg scored 55 (C004)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T04:40:03.000Z",
+  "packages": [
+    "ungoogled-chromium-xdg"
+  ],
+  "priority": null,
+  "rules": [
+    "C014",
+    "C004",
+    "D005",
+    "W011",
+    "W012",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001"
+  ],
+  "slug": "2026-11-21/044003",
+  "tags": [],
+  "time": 1795236003,
+  "title": "TrustSight: ungoogled-chromium-xdg scored 55 (C004)",
+  "tool_version": "0.30.0"
+}

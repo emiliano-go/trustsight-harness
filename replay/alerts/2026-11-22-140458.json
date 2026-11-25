@@ -1,0 +1,319 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "linux-galaxyaudio-bin scored 40 (C001) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T14:04:58.000Z",
+  "packages": [
+    "linux-galaxyaudio-bin",
+    "linux-galaxyaudio-headers-bin"
+  ],
+  "payload": {
+    "alerts": [],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 2,
+      "changed": 10,
+      "processed": 12,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/linux-galaxyaudio-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -16,7 +16,7 @@\n   \"${_pkgname}-headers-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst::https://github.com/antpln/${_pkgname}/releases/download/v${pkgver}/${_pkgname}-headers-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst\"\n   \"${_pkgname}.preset\"\n )\n-sha256sums=('af78a1ccc0fd45ed9e1af51d98aff3713bb03e9f585463d31b06ed2d2c5584da' '8f212f037eb23349e6c43ae1ddb546bc7e9780bb4eb67347ad3417bf6a1580c9' 'ed5f628f80039519b190f5ee5d529d167b6521a041ab20701f0c86a76a4ae963')\n+sha256sums=('789539cc71383ece1b9af4799c82188642b381899a37dbd05c978f80ad822281' 'd8dd54672cc5a901aa9cd001534822b2afc0d675d027bd2b258496b291d6620f' 'ed5f628f80039519b190f5ee5d529d167b6521a041ab20701f0c86a76a4ae963')\n noextract=(\"${_pkgname}-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst\" \"${_pkgname}-headers-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst\")\n \n package_linux-galaxyaudio-bin() {",
+        "diff_sha256": "6cd76194dd97bf5b13e4bfef233a31a26308d464a410807bcdcb3d01bd7042b0",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Encoded-Alphabet Fraction: 1.00 of added tokens are encoded runs of at least 64 chars (threshold 0.8889)",
+            "rule_id": "E002",
+            "rule_uid": "TS-0046",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 19,
+            "reason": "Checksum Changed Without Source Change With Stable Version: sha256sums changed but source URLs and pkgver/pkgrel/epoch unchanged",
+            "rule_id": "C001",
+            "rule_uid": "TS-0009",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/antpln/linux-galaxyaudio was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/antpln/linux-galaxyaudio; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Scan Not Completed: the opt-in upstream scan did not complete: upstream_scan_refused",
+            "rule_id": "W014",
+            "rule_uid": "TS-0298",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 4 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: noextract=() suppresses extraction of source archives whose contents could not be examined",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 13:54 UTC",
+        "maintainer": "antpln",
+        "package": "linux-galaxyaudio-bin",
+        "pkgbuild_sha256": "4b31a659824a996302f2bd86f8382d2b7312e73d5d94401c596b88de4989b4c0",
+        "previous_maintainer": "antpln",
+        "previous_pkgbuild_sha256": "60a716c52e1fe67b52326caf2490f90c0e9f107fc8c6dffcf7e81fee31e0710f",
+        "rules": [
+          "E002",
+          "C001",
+          "W011",
+          "W012",
+          "W014",
+          "H020",
+          "H027",
+          "COVERAGE",
+          "COVERAGE",
+          "P001",
+          "P009"
+        ],
+        "score": 40,
+        "version": "7.3.5-1 -> 7.3.5-1"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/linux-galaxyaudio-headers-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -16,7 +16,7 @@\n   \"${_pkgname}-headers-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst::https://github.com/antpln/${_pkgname}/releases/download/v${pkgver}/${_pkgname}-headers-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst\"\n   \"${_pkgname}.preset\"\n )\n-sha256sums=('af78a1ccc0fd45ed9e1af51d98aff3713bb03e9f585463d31b06ed2d2c5584da' '8f212f037eb23349e6c43ae1ddb546bc7e9780bb4eb67347ad3417bf6a1580c9' 'ed5f628f80039519b190f5ee5d529d167b6521a041ab20701f0c86a76a4ae963')\n+sha256sums=('789539cc71383ece1b9af4799c82188642b381899a37dbd05c978f80ad822281' 'd8dd54672cc5a901aa9cd001534822b2afc0d675d027bd2b258496b291d6620f' 'ed5f628f80039519b190f5ee5d529d167b6521a041ab20701f0c86a76a4ae963')\n noextract=(\"${_pkgname}-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst\" \"${_pkgname}-headers-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst\")\n \n package_linux-galaxyaudio-bin() {",
+        "diff_sha256": "6cd76194dd97bf5b13e4bfef233a31a26308d464a410807bcdcb3d01bd7042b0",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Encoded-Alphabet Fraction: 1.00 of added tokens are encoded runs of at least 64 chars (threshold 0.8889)",
+            "rule_id": "E002",
+            "rule_uid": "TS-0046",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 19,
+            "reason": "Checksum Changed Without Source Change With Stable Version: sha256sums changed but source URLs and pkgver/pkgrel/epoch unchanged",
+            "rule_id": "C001",
+            "rule_uid": "TS-0009",
+            "severity": "HIGH",
+            "weight": 25
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/antpln/linux-galaxyaudio was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/antpln/linux-galaxyaudio; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Scan Not Completed: the opt-in upstream scan did not complete: upstream_scan_refused",
+            "rule_id": "W014",
+            "rule_uid": "TS-0298",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 4 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: noextract=() suppresses extraction of source archives whose contents could not be examined",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 13:54 UTC",
+        "maintainer": "antpln",
+        "package": "linux-galaxyaudio-headers-bin",
+        "pkgbuild_sha256": "4b31a659824a996302f2bd86f8382d2b7312e73d5d94401c596b88de4989b4c0",
+        "previous_maintainer": "antpln",
+        "previous_pkgbuild_sha256": "60a716c52e1fe67b52326caf2490f90c0e9f107fc8c6dffcf7e81fee31e0710f",
+        "rules": [
+          "E002",
+          "C001",
+          "W011",
+          "W012",
+          "W014",
+          "H020",
+          "H027",
+          "COVERAGE",
+          "COVERAGE",
+          "P001",
+          "P009"
+        ],
+        "score": 40,
+        "version": "7.3.5-1 -> 7.3.5-1"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: linux-galaxyaudio-bin scored 40 (C001) +1 more",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "E002",
+    "C001",
+    "W011",
+    "W012",
+    "W014",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-22/140458",
+  "tags": [],
+  "time": 1795356298,
+  "title": "TrustSight: linux-galaxyaudio-bin scored 40 (C001) +1 more",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "04b87994734868779c183ed92bd6a2b7623442cdb1f437ad5794d3207aad6e66",
+    "key_id": "k1",
+    "signature": "sm1hmhJ9WRsV0YoeYwXCM8+2w9ZHoux7WdCC7rHDznpaqePRirCgmF4kMy+h2tEcNot0IhVfIkvyIUhEh739Dg==",
+    "signed_at": 1795356298,
+    "webhook_id": "67dbd92c953f5016aac58041f0ce8dd7754b452b6c482b0b626fca085c18bbdd"
+  }
+}

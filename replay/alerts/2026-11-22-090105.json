@@ -1,0 +1,1446 @@
+{
+  "counts": {
+    "alerts": 214,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "H045 on bbcli-tui-bin +213 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T09:01:05.000Z",
+  "packages": [
+    "bbcli-tui-bin",
+    "bigbrainwordle-bin",
+    "blippy-bin",
+    "blur-git",
+    "borg-tui-bin",
+    "bunflared-bin",
+    "bytebeat-rs",
+    "cc-code-bin",
+    "cctrail-bin",
+    "cgol-tui-rs-bin",
+    "chaos-rpg-bin",
+    "chessterm-tui",
+    "claudash-bin",
+    "claude-code-rust-bin",
+    "cloofy-bin",
+    "comfygit-bin",
+    "commandok-bin",
+    "confetty_rs-git",
+    "coven-bin",
+    "crmux-bin",
+    "crossfyre-toolchain-bin",
+    "crossword-git",
+    "deadline",
+    "declutter-diff-bin",
+    "degra02-nordvpn-tui-git",
+    "depot-rs",
+    "deputui",
+    "dfdisk-bin",
+    "discovery-rs",
+    "dsnitch-bin",
+    "enimtui",
+    "erldash-bin",
+    "every-other-token-bin",
+    "fastcards-bin",
+    "fileview-bin",
+    "fishtanks-bin",
+    "flip7-git",
+    "flowlens-bin",
+    "forgetop-bin",
+    "gentooplz",
+    "git-time-machine-tui",
+    "gitty-tui-bin",
+    "gmsg-bin",
+    "graph-tui-bin",
+    "gtm-tui-git",
+    "hedos-bin",
+    "herdfold-bin",
+    "herdr-reviewr-bin",
+    "hncli",
+    "hnr-git",
+    "holly-hacker-td-git",
+    "hostkeep-bin",
+    "hotpath",
+    "hustle-tracker-bin",
+    "ilmari-bin",
+    "inertia-bin",
+    "invocra-bin",
+    "invoicepilot-bin",
+    "iris-tui-bin",
+    "jdtui-bin",
+    "judo-git",
+    "kdwarn-pgtui",
+    "keybr-tui-bin",
+    "kimun-bin",
+    "kktypr-bin",
+    "kubectl-watch-bin",
+    "lazy-etherscan",
+    "lazymqtt-bin",
+    "lazyslurm-bin",
+    "limitdeck-bin",
+    "linear-tui",
+    "llm-cost-dashboard-bin",
+    "llmtrim-bin",
+    "maelstrom-tui-bin",
+    "martty-bin",
+    "material",
+    "meteo-tui-git",
+    "miditui-git",
+    "mindfork-rs-bin",
+    "miniam-bin",
+    "mlbt-bin",
+    "mobicat-bin",
+    "modder-rs-git",
+    "mtui-bin",
+    "mxr-bin",
+    "nereid-bin",
+    "noble-bin",
+    "noctavox-bin",
+    "norte",
+    "nviwatch",
+    "oak-keyring-bin",
+    "oeis-tui-bin",
+    "opencode-stats-bin",
+    "orbit-cli-bin",
+    "partly-claudy",
+    "pgmon-bin",
+    "pixtuoid-tui",
+    "private_poker",
+    "procnetmon-git",
+    "proqi-bin",
+    "proxy-scraper-checker-bin",
+    "qmassa",
+    "quick-note-git",
+    "rada-fm-bin",
+    "raijin-git",
+    "ratifact-bin",
+    "ratslate-bin"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "ahp",
+        "package": "bbcli-tui-bin",
+        "pkgbuild_sha256": "9c13836ed798c5a870c15b8ae0b700c37ec7733875b7b72391e4b70458eea0ba",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bigbrainwordle-bin",
+        "pkgbuild_sha256": "1e0765995b7430b88583a5b0ce499519dcab080d0eeeb49fed4c35de16c920af",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "blippy-bin",
+        "pkgbuild_sha256": "eb8b07d00487d3197bdade589c4eba87aa5f143de8d744b344533d8d031cd22e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "blur-git",
+        "pkgbuild_sha256": "c988c55cb8cfd3c4caffa2b7091b242fa66eb9a9c57a29ad67f2dee1c8fae956",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "borg-tui-bin",
+        "pkgbuild_sha256": "202aea147fbd6c3c311933e112aebf4a2b9982f693944b096b49fa9a03de519a",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bunflared-bin",
+        "pkgbuild_sha256": "bc726fc00c4f9926557a16de6d835f1dd6bc9c8faca7713f2ba1b7ae9b7a6812",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bytebeat-rs",
+        "pkgbuild_sha256": "4508182e88515ae85031f78c6a5d209b3986b770f4210afa0ae1c169cfa0ee21",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cc-code-bin",
+        "pkgbuild_sha256": "964bc649c001721fd9cb935f1798e96f7c60634d3cbd13962e37f5a1adba9943",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cctrail-bin",
+        "pkgbuild_sha256": "c27ee5b405bf4a5805a2abb98368e6d948ed691cbb073b90ff2a9804cfbebcaa",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cgol-tui-rs-bin",
+        "pkgbuild_sha256": "64a7a22a97b805ce36f8d954e75e5788bc395fc5388d2aba4f5b5a7654b005d2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "chaos-rpg-bin",
+        "pkgbuild_sha256": "a464195add6049dd113e09fb8d941f4479bf4d3076c5800640d746bd9b6e14f7",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "chessterm-tui",
+        "pkgbuild_sha256": "3b424a5304b28c7cb57de701bfe62a7110975234bf67adc8a6d73eb08e491d83",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "claudash-bin",
+        "pkgbuild_sha256": "1f1cbfb55794ee1585f189bbc2710a98c3354d013188d6000da89d56fd19576e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "claude-code-rust-bin",
+        "pkgbuild_sha256": "c949215c4b2a9645f861a5f490764451e67d12d9a8ee0f7cf128400e70b0dc3c",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cloofy-bin",
+        "pkgbuild_sha256": "fc1dd088eb19500e59aa3d28bed4c23920680819ba648f07ef164fdabcd75754",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "comfygit-bin",
+        "pkgbuild_sha256": "a0f771ad5a1553fda5ad1d7e31a3c939a1052279f0d6ef013b35f524a8a7dbf9",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "commandok-bin",
+        "pkgbuild_sha256": "079414e0a14b9c2e29679a10a684b831fff361cf6b6c314c915dfae35b265757",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "confetty_rs-git",
+        "pkgbuild_sha256": "ebee93c01ef1b09b5a91a2f8e5ff9d2f58020e086720f03d6a387d1fa3078057",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "coven-bin",
+        "pkgbuild_sha256": "8bde15c9716c22fdc43ac5df57069605a8cae84db169c15dbdb70a34c3b9646d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "crmux-bin",
+        "pkgbuild_sha256": "75a87a7efb1347f095da3ae9c7b053b85a443c32342118dd2d64cc2a7b19a301",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "crossfyre-toolchain-bin",
+        "pkgbuild_sha256": "d4438a8cc8c79f0e9765ef08e864d600889f23b855578e1dc660e864b1445edf",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "crossword-git",
+        "pkgbuild_sha256": "8b1da68693c73aec4ce9d51671354542203295ba194a4f5729a7541970fef101",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "deadline",
+        "pkgbuild_sha256": "458d2b26fbcf1c776c43785bb9bc3e581e5669962525867163b7a3bb4a70124d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "declutter-diff-bin",
+        "pkgbuild_sha256": "977ec7df626516a356fe27c851164c52db3a4a3f9b63fc4b05d64044730eb552",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "degra02-nordvpn-tui-git",
+        "pkgbuild_sha256": "5963ddaa774e418efa11c1b0f4ad91fd46f33f670d890103382107988881c7de",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "depot-rs",
+        "pkgbuild_sha256": "c05fdd5a4b6f48befa6546fc935c4be12bec72a7eaf4b504fb59ca399e9ed1cb",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "deputui",
+        "pkgbuild_sha256": "22e696623ec587689435a7000ce0bd92b434895298c53db5ac8f134e5bd7f04f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "dfdisk-bin",
+        "pkgbuild_sha256": "2ee1e469a4b95193dae92a6f3a1a993fedffbf39c3425f344875e2a1f44d835b",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "discovery-rs",
+        "pkgbuild_sha256": "1dfe0b2768a03db88fa8ae4cf7142a540896775ab6d16d54f1052b1e217c72bb",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "dsnitch-bin",
+        "pkgbuild_sha256": "596f089d5954ab4285bfd2f5b5fd53ee19a67e4a0d56a5d99fa81792acedec8f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "enimtui",
+        "pkgbuild_sha256": "090297c2b2a433d4d716076a09ef6f7fd36b50cbd07a7cbea6963d705ec5269d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "erldash-bin",
+        "pkgbuild_sha256": "e9140a87dab177067bc270464ae1eac2ce0b638590d1bd579df91b3414fa77b2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "every-other-token-bin",
+        "pkgbuild_sha256": "df7874e0c569fd6b404505872ec0e9aa8a440a74e3fcb59a820f0adba4d46819",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "fastcards-bin",
+        "pkgbuild_sha256": "45843834ed6885c6555d72f4453d116f656f28a2ba4ac892e75285f2f657385e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "fileview-bin",
+        "pkgbuild_sha256": "f9cf85d12aa6c865b91e6ea69b6255d9e2df00eaed091ca2adde8f0538ef3920",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "fishtanks-bin",
+        "pkgbuild_sha256": "b3dd67ba59c9576ff284b6d6fe4f39d939c72c042bd85ad8308b45e66fae6329",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "flip7-git",
+        "pkgbuild_sha256": "095db291dad2b5c76d24311eaeba8c9b1ae2df0592b8d0ba6af3d86e952fb983",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "flowlens-bin",
+        "pkgbuild_sha256": "4906e2c684e15afe874ccfd32bf2ccbc2a922413b7f07a97be70ea9993e9cadf",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "forgetop-bin",
+        "pkgbuild_sha256": "15b202ce7c9d0c1d04d560a28953affebe617ca251dc0e1d632dd696477607e2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gentooplz",
+        "pkgbuild_sha256": "aa90485c7147df37fc946caa75ad059fd00e726551d306319a32b23c020df303",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "git-time-machine-tui",
+        "pkgbuild_sha256": "c958b811ba1775b0fb9a7c0340fc29259e0fa94225ebe59c0ec5752e5f71c263",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gitty-tui-bin",
+        "pkgbuild_sha256": "62356eac8c94f2757610c9f92faf9f1b9d15e69828e26322f06e001732f391d2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gmsg-bin",
+        "pkgbuild_sha256": "c27e9575cd3587ba8afb4484458c8d4edeb9e3af1ff4bda99831d2821afdb48d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "graph-tui-bin",
+        "pkgbuild_sha256": "5e2dbcec1c4271457c1d3a506230eea2646f7330131468dd4d767039886845a2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gtm-tui-git",
+        "pkgbuild_sha256": "15be5f954bf6c5d79a38ab5be03c5bbfa9d7eb107c51bb0e4f0ca3272e335536",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hedos-bin",
+        "pkgbuild_sha256": "847953f635b4e4ac010fa90a7d2d2c6d72135460eee756a0219eeb4cc73ecbc4",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "herdfold-bin",
+        "pkgbuild_sha256": "2a6014faeec631d7e241c1128aa5780dcacd61eb2af7b588de375cffa84f93c0",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "herdr-reviewr-bin",
+        "pkgbuild_sha256": "1ff579a805f2f3afd40a0db163f111d8bc8444722c537146b705468684d73235",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hncli",
+        "pkgbuild_sha256": "cb0f4b35e2a588dee48cf3b618e6a27cd414f5723ef2291f6540135b3961e2d4",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hnr-git",
+        "pkgbuild_sha256": "d407c79df206fd2a1b466e8fe7f0a2bfca467532611323297cd7aee42ae047f5",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "holly-hacker-td-git",
+        "pkgbuild_sha256": "2ccdb95e64d0747879488dfca38bf964a7132d4525c2441c94bbe0c4656c9670",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hostkeep-bin",
+        "pkgbuild_sha256": "ad3f37e94c85a80c6f181470df6ba3a1692cdf2cecbe8543bd7a828415f331e1",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hotpath",
+        "pkgbuild_sha256": "ca348f1f49967fd584de5569c266ce956dbdeefc5ea7aa076e9dffc03cb6c81f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hustle-tracker-bin",
+        "pkgbuild_sha256": "af4e2a3819ab648748f5c37c654e8425983bd659536f24d67de447fa179bc910",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ilmari-bin",
+        "pkgbuild_sha256": "180a8fdb124cfc4a0622b40102e79ca0469b80268cb07268ddf3a27828cc9205",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "inertia-bin",
+        "pkgbuild_sha256": "acf277851e7c47c5aa4b200decb7e5fe4fe0fd2922e4cbe69beebcee2eaf7ed1",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "invocra-bin",
+        "pkgbuild_sha256": "e962f5d17e3b964390f383bf65e09cf144fab809edd2bcd8c4e751e34cebb3e5",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "invoicepilot-bin",
+        "pkgbuild_sha256": "b9f986f1ca5e33510567595d63165af6344cb4c0cd927727602d3449d33ae226",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "iris-tui-bin",
+        "pkgbuild_sha256": "1e878c4c8ea705cb6f1427c7111261657fe2e315dc7518523d2cd1655cb7f737",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "jdtui-bin",
+        "pkgbuild_sha256": "f12751768e16bca7c382232c050a8ec9174f02f2b6e40151543b74cc5f557f4f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "judo-git",
+        "pkgbuild_sha256": "ec0a3071078cf6132c5f15a5fe7da389d5842650d8cb0f1ee76351a473ed4915",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kdwarn-pgtui",
+        "pkgbuild_sha256": "176e5f8457e9ce459c71e80b7c19dfd16c6381d23de6769868824aef59b5a974",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "keybr-tui-bin",
+        "pkgbuild_sha256": "bbeb0090db6cff02af9c6881d4bfa453c9a27a2c42a895e3654cf404f9e27156",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kimun-bin",
+        "pkgbuild_sha256": "15334b9c9ffefdc2badbeaffd33b3185ead18f10249ac0010b2e54b5eaf6ef14",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kktypr-bin",
+        "pkgbuild_sha256": "73bdb3c288c21c93e6efa7bb5b05520411c435e8036e752c391c02941d8d8180",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kubectl-watch-bin",
+        "pkgbuild_sha256": "384a3ae12de51dbb45f4ee03831c483c8ee188a1aef6f405125903617846a8c1",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "lazy-etherscan",
+        "pkgbuild_sha256": "63ea41c27534751145d8481f716091404d6443f48a37ff47a3ac412eda92bb5f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "lazymqtt-bin",
+        "pkgbuild_sha256": "7ff3e0c63a12576f7b2b6519b2cee94fb7c7a699b7621c955128d89a3d1834b8",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "lazyslurm-bin",
+        "pkgbuild_sha256": "ca400f528e0d27eb340cf05c4f747fbf6aca04c98023a3131a28c17984d59040",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "limitdeck-bin",
+        "pkgbuild_sha256": "5496bcd114f7282b01a1b5457a4e10fbf5eb56b2b4bee277c4e35639807b939d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "linear-tui",
+        "pkgbuild_sha256": "645b09054b724e9964bde2e0430b79fb70fabc492ddbef8c750cb044400aef83",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "llm-cost-dashboard-bin",
+        "pkgbuild_sha256": "e988a3c15a66d7bae8d0a19e7d6ee80cae9c98f6275f69606f3ec608166fd40d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "llmtrim-bin",
+        "pkgbuild_sha256": "fcebdb79afb71a87d2e444a7883dd208929e5392c3e302808ee112a1af668b7d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "maelstrom-tui-bin",
+        "pkgbuild_sha256": "067f7efaeeac0c0e1ff98d0d6a3a0d19ef4467114c471f4ff0698710a346f137",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "martty-bin",
+        "pkgbuild_sha256": "7cfe1d0fb5c831fa202d0ca1ba79f14627ad4d4a3b24e0770ccb569bea4105de",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "material",
+        "pkgbuild_sha256": "97d08270adb83dd092f411a50ae6047cc011a45ca04e9b77f9fb455a94e993c7",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "meteo-tui-git",
+        "pkgbuild_sha256": "ba57b960473c03384dc2c0db843830bbc632b5ff1a622c66652e35bb68ec6f31",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "miditui-git",
+        "pkgbuild_sha256": "45db555ee04ed81e5973d8b3beb3b03cc88701504c2688a39d784d229aea210a",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mindfork-rs-bin",
+        "pkgbuild_sha256": "15e600f6df4bf9d4aa978f7e709b363163e130b47dc80e44dde412d571108fe3",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "miniam-bin",
+        "pkgbuild_sha256": "07f24199b2d7ad77a1deed7bde03f06c39e4c3a5c9617d08277ffbc51ace2787",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mlbt-bin",
+        "pkgbuild_sha256": "4993f5eab6b7b48e0c17522388dc92f4b885cf53f0e06cb3dab8803fe90679c5",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mobicat-bin",
+        "pkgbuild_sha256": "1b67886573098c7b67c4b0811341526946e24286e82ef3a57e75591bef6ea652",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "modder-rs-git",
+        "pkgbuild_sha256": "42d9e5b5874f67784ea69f06d2131698a21fec65882962ba2e2e0ae655011645",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mtui-bin",
+        "pkgbuild_sha256": "91173177c06f1667d79b9d85de1c27f05deb9c7a04514146ab65b926fac25015",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mxr-bin",
+        "pkgbuild_sha256": "6f86f3a78cd2b910c5c9042ddafb940936ef0d7d67e1bf01c75630aca5687d51",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "nereid-bin",
+        "pkgbuild_sha256": "cfc74e3bc91f90aa3a4d266cd43a0815b6c04e6dc14d4189a48b089b3e23172d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "noble-bin",
+        "pkgbuild_sha256": "3e211ac23cc0df6627a3c4ea5566ae9f89ea2ce83615dfcd7876e5d0b702c34f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "noctavox-bin",
+        "pkgbuild_sha256": "aeb9b1881411d31787456e91e124349c5d7deb37788c3c5e150e4e661982c8db",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "norte",
+        "pkgbuild_sha256": "20ef55b1f271186c28d07bbd4f4eec5fdaa7a4b30884889c22c4265b3a0fe022",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "nviwatch",
+        "pkgbuild_sha256": "9478160740298a2e737dea89a317f22585ec2ce7b066ef5eaf35e98af822f71e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "oak-keyring-bin",
+        "pkgbuild_sha256": "d9124ff537be3bddcd4bb27cd036c123a15c4abc23046630c3a9f50f66f8f36e",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "oeis-tui-bin",
+        "pkgbuild_sha256": "a0615c43a8baa33a01326cc7b0d4f7ce5c9e54a0132ee293f1b1bbdf10c3c684",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "opencode-stats-bin",
+        "pkgbuild_sha256": "2a221d34667eb2d4382141a423283833f1dc5dc86947ce5f132c8c5a9dd8c6d0",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "orbit-cli-bin",
+        "pkgbuild_sha256": "7921c49f9e87458beb52b2b524956f0b88447fe24bc81c976925f73539439bf2",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "partly-claudy",
+        "pkgbuild_sha256": "d8b813c5d997c184879778654e99e6940fc3c6931103e3d975afe6c26f0fb83f",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "pgmon-bin",
+        "pkgbuild_sha256": "4fa6eaac68c89b1fd93ee2bfac7cdc05c9a3192984c0c1c8865d4f4d1c31bd5c",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "pixtuoid-tui",
+        "pkgbuild_sha256": "ace29921b6bef9c9774fb13c19c6fdb354b15b50aa56c88f89dca37524c3c04d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "private_poker",
+        "pkgbuild_sha256": "a5115eec9b994a8fbd2d29780b77a58cba3f8dee3de38203df37dd6d7ca05156",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "procnetmon-git",
+        "pkgbuild_sha256": "1388e325913c7e3daacd321b3e3b631507776045b8fc5efc3bdea0cd425a6643",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "proqi-bin",
+        "pkgbuild_sha256": "006d1a541713f1f762f98df8b99428072509cfe8933f4b14c4ffa946a87302b8",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "proxy-scraper-checker-bin",
+        "pkgbuild_sha256": "a5d6542d8bef48317ad97c25e66eafed5c303f3453299f01b29dc121c0fe7527",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "qmassa",
+        "pkgbuild_sha256": "98a6503639351503ce969b196cc81df4fc3c4fe062ce8ebc2179665529302e09",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "quick-note-git",
+        "pkgbuild_sha256": "f1b261ec1a9dd6ddd10b7175f94b49df659d1db180d02029ab84097d4e4e93e3",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rada-fm-bin",
+        "pkgbuild_sha256": "cb4bb643e8f25123c9b89953dd23a46f847c7a24c4847f20ebf7a75a04865a67",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "raijin-git",
+        "pkgbuild_sha256": "8a10e7bd0f484ef6078795e6f71ed33296de53bd7754cb4f0368fe0ee611c1cb",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ratifact-bin",
+        "pkgbuild_sha256": "08f1f83223978d3d26af74588a3b4c86455a3b44f9ffa4dcd7904ebd32bf4a7a",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ratslate-bin",
+        "pkgbuild_sha256": "d5b87d414f4fc29d538eaed93b4051e6c41c9164832c8c6169b5583c8a1b3cff",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bbcli-tui-bin",
+        "pkgbuild_sha256": "9c13836ed798c5a870c15b8ae0b700c37ec7733875b7b72391e4b70458eea0ba",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bigbrainwordle-bin",
+        "pkgbuild_sha256": "1e0765995b7430b88583a5b0ce499519dcab080d0eeeb49fed4c35de16c920af",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "blippy-bin",
+        "pkgbuild_sha256": "eb8b07d00487d3197bdade589c4eba87aa5f143de8d744b344533d8d031cd22e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "blur-git",
+        "pkgbuild_sha256": "c988c55cb8cfd3c4caffa2b7091b242fa66eb9a9c57a29ad67f2dee1c8fae956",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "borg-tui-bin",
+        "pkgbuild_sha256": "202aea147fbd6c3c311933e112aebf4a2b9982f693944b096b49fa9a03de519a",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bunflared-bin",
+        "pkgbuild_sha256": "bc726fc00c4f9926557a16de6d835f1dd6bc9c8faca7713f2ba1b7ae9b7a6812",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "bytebeat-rs",
+        "pkgbuild_sha256": "4508182e88515ae85031f78c6a5d209b3986b770f4210afa0ae1c169cfa0ee21",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cc-code-bin",
+        "pkgbuild_sha256": "964bc649c001721fd9cb935f1798e96f7c60634d3cbd13962e37f5a1adba9943",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cctrail-bin",
+        "pkgbuild_sha256": "c27ee5b405bf4a5805a2abb98368e6d948ed691cbb073b90ff2a9804cfbebcaa",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cgol-tui-rs-bin",
+        "pkgbuild_sha256": "64a7a22a97b805ce36f8d954e75e5788bc395fc5388d2aba4f5b5a7654b005d2",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "chaos-rpg-bin",
+        "pkgbuild_sha256": "a464195add6049dd113e09fb8d941f4479bf4d3076c5800640d746bd9b6e14f7",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "chessterm-tui",
+        "pkgbuild_sha256": "3b424a5304b28c7cb57de701bfe62a7110975234bf67adc8a6d73eb08e491d83",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "claudash-bin",
+        "pkgbuild_sha256": "1f1cbfb55794ee1585f189bbc2710a98c3354d013188d6000da89d56fd19576e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "claude-code-rust-bin",
+        "pkgbuild_sha256": "c949215c4b2a9645f861a5f490764451e67d12d9a8ee0f7cf128400e70b0dc3c",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "cloofy-bin",
+        "pkgbuild_sha256": "fc1dd088eb19500e59aa3d28bed4c23920680819ba648f07ef164fdabcd75754",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "comfygit-bin",
+        "pkgbuild_sha256": "a0f771ad5a1553fda5ad1d7e31a3c939a1052279f0d6ef013b35f524a8a7dbf9",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "commandok-bin",
+        "pkgbuild_sha256": "079414e0a14b9c2e29679a10a684b831fff361cf6b6c314c915dfae35b265757",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "confetty_rs-git",
+        "pkgbuild_sha256": "ebee93c01ef1b09b5a91a2f8e5ff9d2f58020e086720f03d6a387d1fa3078057",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "coven-bin",
+        "pkgbuild_sha256": "8bde15c9716c22fdc43ac5df57069605a8cae84db169c15dbdb70a34c3b9646d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "crmux-bin",
+        "pkgbuild_sha256": "75a87a7efb1347f095da3ae9c7b053b85a443c32342118dd2d64cc2a7b19a301",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "crossfyre-toolchain-bin",
+        "pkgbuild_sha256": "d4438a8cc8c79f0e9765ef08e864d600889f23b855578e1dc660e864b1445edf",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "crossword-git",
+        "pkgbuild_sha256": "8b1da68693c73aec4ce9d51671354542203295ba194a4f5729a7541970fef101",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "deadline",
+        "pkgbuild_sha256": "458d2b26fbcf1c776c43785bb9bc3e581e5669962525867163b7a3bb4a70124d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "declutter-diff-bin",
+        "pkgbuild_sha256": "977ec7df626516a356fe27c851164c52db3a4a3f9b63fc4b05d64044730eb552",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "degra02-nordvpn-tui-git",
+        "pkgbuild_sha256": "5963ddaa774e418efa11c1b0f4ad91fd46f33f670d890103382107988881c7de",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "depot-rs",
+        "pkgbuild_sha256": "c05fdd5a4b6f48befa6546fc935c4be12bec72a7eaf4b504fb59ca399e9ed1cb",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "deputui",
+        "pkgbuild_sha256": "22e696623ec587689435a7000ce0bd92b434895298c53db5ac8f134e5bd7f04f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "dfdisk-bin",
+        "pkgbuild_sha256": "2ee1e469a4b95193dae92a6f3a1a993fedffbf39c3425f344875e2a1f44d835b",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "discovery-rs",
+        "pkgbuild_sha256": "1dfe0b2768a03db88fa8ae4cf7142a540896775ab6d16d54f1052b1e217c72bb",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "dsnitch-bin",
+        "pkgbuild_sha256": "596f089d5954ab4285bfd2f5b5fd53ee19a67e4a0d56a5d99fa81792acedec8f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "enimtui",
+        "pkgbuild_sha256": "090297c2b2a433d4d716076a09ef6f7fd36b50cbd07a7cbea6963d705ec5269d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "erldash-bin",
+        "pkgbuild_sha256": "e9140a87dab177067bc270464ae1eac2ce0b638590d1bd579df91b3414fa77b2",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "every-other-token-bin",
+        "pkgbuild_sha256": "df7874e0c569fd6b404505872ec0e9aa8a440a74e3fcb59a820f0adba4d46819",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "fastcards-bin",
+        "pkgbuild_sha256": "45843834ed6885c6555d72f4453d116f656f28a2ba4ac892e75285f2f657385e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "fileview-bin",
+        "pkgbuild_sha256": "f9cf85d12aa6c865b91e6ea69b6255d9e2df00eaed091ca2adde8f0538ef3920",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "fishtanks-bin",
+        "pkgbuild_sha256": "b3dd67ba59c9576ff284b6d6fe4f39d939c72c042bd85ad8308b45e66fae6329",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "flip7-git",
+        "pkgbuild_sha256": "095db291dad2b5c76d24311eaeba8c9b1ae2df0592b8d0ba6af3d86e952fb983",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "flowlens-bin",
+        "pkgbuild_sha256": "4906e2c684e15afe874ccfd32bf2ccbc2a922413b7f07a97be70ea9993e9cadf",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "forgetop-bin",
+        "pkgbuild_sha256": "15b202ce7c9d0c1d04d560a28953affebe617ca251dc0e1d632dd696477607e2",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gentooplz",
+        "pkgbuild_sha256": "aa90485c7147df37fc946caa75ad059fd00e726551d306319a32b23c020df303",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "git-time-machine-tui",
+        "pkgbuild_sha256": "c958b811ba1775b0fb9a7c0340fc29259e0fa94225ebe59c0ec5752e5f71c263",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gitty-tui-bin",
+        "pkgbuild_sha256": "62356eac8c94f2757610c9f92faf9f1b9d15e69828e26322f06e001732f391d2",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gmsg-bin",
+        "pkgbuild_sha256": "c27e9575cd3587ba8afb4484458c8d4edeb9e3af1ff4bda99831d2821afdb48d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "graph-tui-bin",
+        "pkgbuild_sha256": "5e2dbcec1c4271457c1d3a506230eea2646f7330131468dd4d767039886845a2",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "gtm-tui-git",
+        "pkgbuild_sha256": "15be5f954bf6c5d79a38ab5be03c5bbfa9d7eb107c51bb0e4f0ca3272e335536",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hedos-bin",
+        "pkgbuild_sha256": "847953f635b4e4ac010fa90a7d2d2c6d72135460eee756a0219eeb4cc73ecbc4",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "herdfold-bin",
+        "pkgbuild_sha256": "2a6014faeec631d7e241c1128aa5780dcacd61eb2af7b588de375cffa84f93c0",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "herdr-reviewr-bin",
+        "pkgbuild_sha256": "1ff579a805f2f3afd40a0db163f111d8bc8444722c537146b705468684d73235",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hncli",
+        "pkgbuild_sha256": "cb0f4b35e2a588dee48cf3b618e6a27cd414f5723ef2291f6540135b3961e2d4",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hnr-git",
+        "pkgbuild_sha256": "d407c79df206fd2a1b466e8fe7f0a2bfca467532611323297cd7aee42ae047f5",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "holly-hacker-td-git",
+        "pkgbuild_sha256": "2ccdb95e64d0747879488dfca38bf964a7132d4525c2441c94bbe0c4656c9670",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hostkeep-bin",
+        "pkgbuild_sha256": "ad3f37e94c85a80c6f181470df6ba3a1692cdf2cecbe8543bd7a828415f331e1",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hotpath",
+        "pkgbuild_sha256": "ca348f1f49967fd584de5569c266ce956dbdeefc5ea7aa076e9dffc03cb6c81f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "hustle-tracker-bin",
+        "pkgbuild_sha256": "af4e2a3819ab648748f5c37c654e8425983bd659536f24d67de447fa179bc910",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ilmari-bin",
+        "pkgbuild_sha256": "180a8fdb124cfc4a0622b40102e79ca0469b80268cb07268ddf3a27828cc9205",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "inertia-bin",
+        "pkgbuild_sha256": "acf277851e7c47c5aa4b200decb7e5fe4fe0fd2922e4cbe69beebcee2eaf7ed1",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "invocra-bin",
+        "pkgbuild_sha256": "e962f5d17e3b964390f383bf65e09cf144fab809edd2bcd8c4e751e34cebb3e5",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "invoicepilot-bin",
+        "pkgbuild_sha256": "b9f986f1ca5e33510567595d63165af6344cb4c0cd927727602d3449d33ae226",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "iris-tui-bin",
+        "pkgbuild_sha256": "1e878c4c8ea705cb6f1427c7111261657fe2e315dc7518523d2cd1655cb7f737",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "jdtui-bin",
+        "pkgbuild_sha256": "f12751768e16bca7c382232c050a8ec9174f02f2b6e40151543b74cc5f557f4f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "judo-git",
+        "pkgbuild_sha256": "ec0a3071078cf6132c5f15a5fe7da389d5842650d8cb0f1ee76351a473ed4915",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kdwarn-pgtui",
+        "pkgbuild_sha256": "176e5f8457e9ce459c71e80b7c19dfd16c6381d23de6769868824aef59b5a974",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "keybr-tui-bin",
+        "pkgbuild_sha256": "bbeb0090db6cff02af9c6881d4bfa453c9a27a2c42a895e3654cf404f9e27156",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kimun-bin",
+        "pkgbuild_sha256": "15334b9c9ffefdc2badbeaffd33b3185ead18f10249ac0010b2e54b5eaf6ef14",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kktypr-bin",
+        "pkgbuild_sha256": "73bdb3c288c21c93e6efa7bb5b05520411c435e8036e752c391c02941d8d8180",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "kubectl-watch-bin",
+        "pkgbuild_sha256": "384a3ae12de51dbb45f4ee03831c483c8ee188a1aef6f405125903617846a8c1",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "lazy-etherscan",
+        "pkgbuild_sha256": "63ea41c27534751145d8481f716091404d6443f48a37ff47a3ac412eda92bb5f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "lazymqtt-bin",
+        "pkgbuild_sha256": "7ff3e0c63a12576f7b2b6519b2cee94fb7c7a699b7621c955128d89a3d1834b8",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "lazyslurm-bin",
+        "pkgbuild_sha256": "ca400f528e0d27eb340cf05c4f747fbf6aca04c98023a3131a28c17984d59040",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "limitdeck-bin",
+        "pkgbuild_sha256": "5496bcd114f7282b01a1b5457a4e10fbf5eb56b2b4bee277c4e35639807b939d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "linear-tui",
+        "pkgbuild_sha256": "645b09054b724e9964bde2e0430b79fb70fabc492ddbef8c750cb044400aef83",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "llm-cost-dashboard-bin",
+        "pkgbuild_sha256": "e988a3c15a66d7bae8d0a19e7d6ee80cae9c98f6275f69606f3ec608166fd40d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "llmtrim-bin",
+        "pkgbuild_sha256": "fcebdb79afb71a87d2e444a7883dd208929e5392c3e302808ee112a1af668b7d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "maelstrom-tui-bin",
+        "pkgbuild_sha256": "067f7efaeeac0c0e1ff98d0d6a3a0d19ef4467114c471f4ff0698710a346f137",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "martty-bin",
+        "pkgbuild_sha256": "7cfe1d0fb5c831fa202d0ca1ba79f14627ad4d4a3b24e0770ccb569bea4105de",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "material",
+        "pkgbuild_sha256": "97d08270adb83dd092f411a50ae6047cc011a45ca04e9b77f9fb455a94e993c7",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "meteo-tui-git",
+        "pkgbuild_sha256": "ba57b960473c03384dc2c0db843830bbc632b5ff1a622c66652e35bb68ec6f31",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "miditui-git",
+        "pkgbuild_sha256": "45db555ee04ed81e5973d8b3beb3b03cc88701504c2688a39d784d229aea210a",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mindfork-rs-bin",
+        "pkgbuild_sha256": "15e600f6df4bf9d4aa978f7e709b363163e130b47dc80e44dde412d571108fe3",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "miniam-bin",
+        "pkgbuild_sha256": "07f24199b2d7ad77a1deed7bde03f06c39e4c3a5c9617d08277ffbc51ace2787",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mlbt-bin",
+        "pkgbuild_sha256": "4993f5eab6b7b48e0c17522388dc92f4b885cf53f0e06cb3dab8803fe90679c5",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mobicat-bin",
+        "pkgbuild_sha256": "1b67886573098c7b67c4b0811341526946e24286e82ef3a57e75591bef6ea652",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "modder-rs-git",
+        "pkgbuild_sha256": "42d9e5b5874f67784ea69f06d2131698a21fec65882962ba2e2e0ae655011645",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mtui-bin",
+        "pkgbuild_sha256": "91173177c06f1667d79b9d85de1c27f05deb9c7a04514146ab65b926fac25015",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "mxr-bin",
+        "pkgbuild_sha256": "6f86f3a78cd2b910c5c9042ddafb940936ef0d7d67e1bf01c75630aca5687d51",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "nereid-bin",
+        "pkgbuild_sha256": "cfc74e3bc91f90aa3a4d266cd43a0815b6c04e6dc14d4189a48b089b3e23172d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "noble-bin",
+        "pkgbuild_sha256": "3e211ac23cc0df6627a3c4ea5566ae9f89ea2ce83615dfcd7876e5d0b702c34f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "noctavox-bin",
+        "pkgbuild_sha256": "aeb9b1881411d31787456e91e124349c5d7deb37788c3c5e150e4e661982c8db",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "norte",
+        "pkgbuild_sha256": "20ef55b1f271186c28d07bbd4f4eec5fdaa7a4b30884889c22c4265b3a0fe022",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "nviwatch",
+        "pkgbuild_sha256": "9478160740298a2e737dea89a317f22585ec2ce7b066ef5eaf35e98af822f71e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "oak-keyring-bin",
+        "pkgbuild_sha256": "d9124ff537be3bddcd4bb27cd036c123a15c4abc23046630c3a9f50f66f8f36e",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "oeis-tui-bin",
+        "pkgbuild_sha256": "a0615c43a8baa33a01326cc7b0d4f7ce5c9e54a0132ee293f1b1bbdf10c3c684",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "opencode-stats-bin",
+        "pkgbuild_sha256": "2a221d34667eb2d4382141a423283833f1dc5dc86947ce5f132c8c5a9dd8c6d0",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "orbit-cli-bin",
+        "pkgbuild_sha256": "7921c49f9e87458beb52b2b524956f0b88447fe24bc81c976925f73539439bf2",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "partly-claudy",
+        "pkgbuild_sha256": "d8b813c5d997c184879778654e99e6940fc3c6931103e3d975afe6c26f0fb83f",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "pgmon-bin",
+        "pkgbuild_sha256": "4fa6eaac68c89b1fd93ee2bfac7cdc05c9a3192984c0c1c8865d4f4d1c31bd5c",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "pixtuoid-tui",
+        "pkgbuild_sha256": "ace29921b6bef9c9774fb13c19c6fdb354b15b50aa56c88f89dca37524c3c04d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "private_poker",
+        "pkgbuild_sha256": "a5115eec9b994a8fbd2d29780b77a58cba3f8dee3de38203df37dd6d7ca05156",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "procnetmon-git",
+        "pkgbuild_sha256": "1388e325913c7e3daacd321b3e3b631507776045b8fc5efc3bdea0cd425a6643",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "proqi-bin",
+        "pkgbuild_sha256": "006d1a541713f1f762f98df8b99428072509cfe8933f4b14c4ffa946a87302b8",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "proxy-scraper-checker-bin",
+        "pkgbuild_sha256": "a5d6542d8bef48317ad97c25e66eafed5c303f3453299f01b29dc121c0fe7527",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "qmassa",
+        "pkgbuild_sha256": "98a6503639351503ce969b196cc81df4fc3c4fe062ce8ebc2179665529302e09",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "quick-note-git",
+        "pkgbuild_sha256": "f1b261ec1a9dd6ddd10b7175f94b49df659d1db180d02029ab84097d4e4e93e3",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "rada-fm-bin",
+        "pkgbuild_sha256": "cb4bb643e8f25123c9b89953dd23a46f847c7a24c4847f20ebf7a75a04865a67",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "raijin-git",
+        "pkgbuild_sha256": "8a10e7bd0f484ef6078795e6f71ed33296de53bd7754cb4f0368fe0ee611c1cb",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ratifact-bin",
+        "pkgbuild_sha256": "08f1f83223978d3d26af74588a3b4c86455a3b44f9ffa4dcd7904ebd32bf4a7a",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ratslate-bin",
+        "pkgbuild_sha256": "d5b87d414f4fc29d538eaed93b4051e6c41c9164832c8c6169b5583c8a1b3cff",
+        "rule_id": "H073"
+      }
+    ],
+    "campaign_cluster": [],
+    "cycle": {
+      "added": 107,
+      "changed": 13,
+      "processed": 120,
+      "refractory": [],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: H045 on bbcli-tui-bin +213 more",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H045",
+    "H073"
+  ],
+  "slug": "2026-11-22/090105",
+  "tags": [],
+  "time": 1795338065,
+  "title": "TrustSight: H045 on bbcli-tui-bin +213 more",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "d11a361e1d456757c26b8f5da8606094c71a2bd738538e561b2f63fabb04618d",
+    "key_id": "k1",
+    "signature": "6KSODcBMBpafyLfYeE51VNBCjP6AlNbmDB/OE72CRidp47Co/hYDvUq42ZIgcO+vLboje8bwh7g5SsOzY0B0AA==",
+    "signed_at": 1795338065,
+    "webhook_id": "70a36e58c5392eea28e7ba111e15712e84e661611f560a4beff8f0fd5efca9a8"
+  }
+}

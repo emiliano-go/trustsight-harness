@@ -48,7 +48,7 @@ cells:
   expect_absent:
   - R010
 - id: R011-positive
-  path: fixtures/rule-probes/diffs/766168bb7d52b3de72078237a5ee589427638afa6a3b80adf62c671fbece3df3.diff
+  path: fixtures/rule-probes/diffs/30ca9c36416616eac0a340c946170679b6e5b631491b0a259ed282b89734243d.diff
   expect_fire:
   - R011
 - id: R011-negative
@@ -159,3 +159,84 @@ cells:
   path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
   expect_absent:
   - R152
+- id: R040-positive
+  path: fixtures/rule-probes/diffs/67d37d2ca27df954ba542655acc762f402c1f779d6a6de912f8a47b881bd700f.diff
+  expect_fire:
+  - R040
+- id: R041-positive
+  path: fixtures/rule-probes/diffs/1ec74332925cf1b82ec1ab10c7795ba3fa8af3d24693962a4e01d5f7cf0457b6.diff
+  expect_fire:
+  - R041
+- id: R046-positive
+  path: fixtures/rule-probes/diffs/70016264a29bd061a42133aecfa4aae8c60406da5cbf9a824b731c69684583bc.diff
+  expect_fire:
+  - R046
+- id: R144-positive
+  path: fixtures/rule-probes/diffs/297164e9b819091562c802202066b3004506a6515666c9ca506adde063d12f54.diff
+  expect_fire:
+  - R144
+- id: R042-positive
+  path: fixtures/rule-probes/diffs/08d077cd8a849fa198feb67111e68da5251038bea41eef1f763bb0ede62d5919.diff
+  post_path: fixtures/rule-probes/posts/08d077cd8a849fa198feb67111e68da5251038bea41eef1f763bb0ede62d5919.PKGBUILD
+  expect_fire:
+  - R042
+- id: R044-positive
+  path: fixtures/rule-probes/diffs/d3f22ff0e549bb41b2ccc2edcd95bf649905ba18d853ce47802faa86719b06df.diff
+  post_path: fixtures/rule-probes/posts/d3f22ff0e549bb41b2ccc2edcd95bf649905ba18d853ce47802faa86719b06df.PKGBUILD
+  expect_fire:
+  - R044
+- id: R045-positive
+  path: fixtures/rule-probes/diffs/b2ae633d14f0176e3bafb7b396fd0341995f31d9cd909272f150965ab56d14c4.diff
+  post_path: fixtures/rule-probes/posts/b2ae633d14f0176e3bafb7b396fd0341995f31d9cd909272f150965ab56d14c4.PKGBUILD
+  expect_fire:
+  - R045
+- id: R048-positive
+  path: fixtures/rule-probes/diffs/6a4789d3fa33b226c1882bae90e41eb5b70e39cc0c1aceecb2fb7c2ced6b5c68.diff
+  post_path: fixtures/rule-probes/posts/6a4789d3fa33b226c1882bae90e41eb5b70e39cc0c1aceecb2fb7c2ced6b5c68.PKGBUILD
+  expect_fire:
+  - R048
+- id: R049-positive
+  path: fixtures/rule-probes/diffs/ee8061dad4352a483071b6287475bf27285658b54cee720cc1875a430a41518e.diff
+  post_path: fixtures/rule-probes/posts/ee8061dad4352a483071b6287475bf27285658b54cee720cc1875a430a41518e.PKGBUILD
+  expect_fire:
+  - R049
+- id: R050-positive
+  path: fixtures/rule-probes/diffs/bcd3829cf49c0b5cd277928e7a19586f1a695f784e061303158c21d3165c35cd.diff
+  post_path: fixtures/rule-probes/posts/bcd3829cf49c0b5cd277928e7a19586f1a695f784e061303158c21d3165c35cd.PKGBUILD
+  expect_fire:
+  - R050
+- id: R055-positive
+  path: fixtures/rule-probes/diffs/4f7b0a13f773f2b69e98d963df9a263a066cf8804e8b1c22e98c55cf551befe3.diff
+  post_path: fixtures/rule-probes/posts/4f7b0a13f773f2b69e98d963df9a263a066cf8804e8b1c22e98c55cf551befe3.PKGBUILD
+  expect_fire:
+  - R055
+- id: R056-positive
+  path: fixtures/rule-probes/diffs/ca8ac6951b8e1ada6f95ac6c068d94e2cc958664f589b23a0262f189f31683fd.diff
+  post_path: fixtures/rule-probes/posts/ca8ac6951b8e1ada6f95ac6c068d94e2cc958664f589b23a0262f189f31683fd.PKGBUILD
+  expect_fire:
+  - R056
+- id: R057-positive
+  path: fixtures/rule-probes/diffs/1be1250ea65d1648e453529f3778bf8d55dedfc30b661b591b2c3dfb460c082e.diff
+  post_path: fixtures/rule-probes/posts/1be1250ea65d1648e453529f3778bf8d55dedfc30b661b591b2c3dfb460c082e.PKGBUILD
+  expect_fire:
+  - R057
+- id: R078-positive
+  path: fixtures/rule-probes/diffs/768d21cd47949c6b5836cb4e026a35de33f2699b9cbbe39a0967d67e13a3d640.diff
+  post_path: fixtures/rule-probes/posts/768d21cd47949c6b5836cb4e026a35de33f2699b9cbbe39a0967d67e13a3d640.PKGBUILD
+  expect_fire:
+  - R078
+- id: R091-positive
+  path: fixtures/rule-probes/diffs/8e8e26d072d941ed9668163c75e657cbe086d503ad94c21fbd91f2e97cf8d7a8.diff
+  post_path: fixtures/rule-probes/posts/8e8e26d072d941ed9668163c75e657cbe086d503ad94c21fbd91f2e97cf8d7a8.PKGBUILD
+  expect_fire:
+  - R091
+- id: R104-positive
+  path: fixtures/rule-probes/diffs/6c6aec8dcd037f47844c6d40d112700282027a431112a00642f7f22c91394135.diff
+  post_path: fixtures/rule-probes/posts/6c6aec8dcd037f47844c6d40d112700282027a431112a00642f7f22c91394135.PKGBUILD
+  expect_fire:
+  - R104
+- id: R017-positive
+  path: fixtures/rule-probes/diffs/r017.diff
+  post_path: fixtures/rule-probes/diffs/r017.post
+  expect_fire:
+  - R017

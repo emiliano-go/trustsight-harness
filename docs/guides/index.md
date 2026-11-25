@@ -14,6 +14,11 @@ harness and run the shipped campaign.
     Configure `campaign.yml`, choose a generator, declare constraints, and
     pre-register stop conditions.
 
+-   [**Replaying Watcher Alerts**](watcher-replay.md)
+
+    Capture stored alerts and replay them against the rule ledger, so the
+    reproducibility claim is measured on the real stream.
+
 -   [**Using in CI**](using-in-ci.md)
 
     Gate pull requests on the regression gate or on a campaign record.

@@ -1,0 +1,18 @@
+campaign: lane-warm
+campaign_type: lane-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: lane
+  manifest: inputs.yml
+prompt:
+  prompt_id: lane-warm
+  expected_rules:
+  - T001
+  - T002
+  - T003
+  forbidden_techniques: {}
+attempts: 3

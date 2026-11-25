@@ -79,6 +79,12 @@ class Generated:
     expect_absent: tuple[str, ...] = ()
     #: An artifact manifest probe: {"manifest": [...], "declared": {...}}.
     artifact: dict | None = None
+    #: A lane probe cell: {"id": ..., "lane": ..., "payload": {...}}.
+    lane_cell: dict | None = None
+    #: The complete post-diff PKGBUILD, when the fixture holds one.
+    post_pkgbuild: str | None = None
+    #: A per-cell package name for rules that read it (``-bin``, names).
+    package_name: str | None = None
 
 
 class Generator(ABC):

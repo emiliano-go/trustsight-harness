@@ -1,0 +1,42 @@
+{
+  "kinds": [
+    "g010"
+  ],
+  "records": [
+    {
+      "hosts_gained": [
+        "evil-cdn.example"
+      ],
+      "maintainer": "m0",
+      "package": "package-0"
+    },
+    {
+      "hosts_gained": [
+        "evil-cdn.example"
+      ],
+      "maintainer": "m1",
+      "package": "package-1"
+    },
+    {
+      "hosts_gained": [
+        "evil-cdn.example"
+      ],
+      "maintainer": "m2",
+      "package": "package-2"
+    },
+    {
+      "hosts_gained": [
+        "evil-cdn.example"
+      ],
+      "maintainer": "m3",
+      "package": "package-3"
+    },
+    {
+      "hosts_gained": [
+        "evil-cdn.example"
+      ],
+      "maintainer": "m4",
+      "package": "package-4"
+    }
+  ]
+}

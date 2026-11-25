@@ -1,0 +1,37 @@
+{
+  "kinds": [
+    "g011"
+  ],
+  "records": [
+    {
+      "brand_new": true,
+      "maintainer": "newbie",
+      "package": "alpha",
+      "placeholder": true
+    },
+    {
+      "brand_new": true,
+      "maintainer": "newbie",
+      "package": "beta",
+      "placeholder": true
+    },
+    {
+      "brand_new": true,
+      "maintainer": "newbie",
+      "package": "gamma",
+      "placeholder": true
+    },
+    {
+      "brand_new": true,
+      "maintainer": "newbie",
+      "package": "delta",
+      "placeholder": true
+    },
+    {
+      "brand_new": true,
+      "maintainer": "newbie",
+      "package": "epsilon",
+      "placeholder": true
+    }
+  ]
+}

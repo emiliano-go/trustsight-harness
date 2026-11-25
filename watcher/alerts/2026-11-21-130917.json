@@ -1,0 +1,41 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "vanyavpn-appimage scored 100 (H001) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-21T13:09:17.000Z",
+  "packages": [
+    "vanyavpn-appimage",
+    "ma35d1-nuwriter-git"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "R053",
+    "H001",
+    "H100",
+    "C005",
+    "H015",
+    "H083",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P009",
+    "S002",
+    "W011",
+    "W012"
+  ],
+  "slug": "2026-11-21/130917",
+  "tags": [],
+  "time": 1795266557,
+  "title": "TrustSight: vanyavpn-appimage scored 100 (H001) +1 more",
+  "tool_version": "0.30.0"
+}

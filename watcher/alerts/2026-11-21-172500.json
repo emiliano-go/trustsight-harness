@@ -1,0 +1,42 @@
+{
+  "counts": {
+    "alerts": 2,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "amber-package-manager scored 100 (H042)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T17:25:00.000Z",
+  "packages": [
+    "python-pytest-postgresql",
+    "pg_activity",
+    "amber-package-manager"
+  ],
+  "priority": null,
+  "rules": [
+    "H046",
+    "R007",
+    "C033",
+    "X015",
+    "H108",
+    "H015",
+    "H017",
+    "H042",
+    "H020",
+    "H049",
+    "H027",
+    "H043",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-21/172500",
+  "tags": [],
+  "time": 1795281900,
+  "title": "TrustSight: amber-package-manager scored 100 (H042)",
+  "tool_version": "0.30.0"
+}

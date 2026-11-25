@@ -1,0 +1,20 @@
+{
+  "commits": [
+    {
+      "commit_time": 1756800000,
+      "id": "old",
+      "parents": []
+    },
+    {
+      "commit_time": 1799913600,
+      "id": "new",
+      "parents": [
+        "old"
+      ]
+    }
+  ],
+  "head": "new",
+  "kind": "revival",
+  "now": 1800000000,
+  "old": "old"
+}

@@ -1,0 +1,121 @@
+cells:
+- id: H070-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h070.json
+  expect_fire:
+  - H070
+- id: H104-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h104.json
+  expect_fire:
+  - H104
+- id: H107-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h107.json
+  expect_fire:
+  - H107
+- id: H105-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h105.json
+  expect_fire:
+  - H105
+- id: C035-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/c035.json
+  expect_fire:
+  - C035
+- id: H029-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h029.json
+  expect_fire:
+  - H029
+- id: H102-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h102.json
+  expect_fire:
+  - H102
+- id: H098-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h098.json
+  expect_fire:
+  - H098
+- id: C032-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/c032.json
+  expect_fire:
+  - C032
+- id: H090-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h090.json
+  expect_fire:
+  - H090
+- id: H093-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h093.json
+  expect_fire:
+  - H093
+- id: H066-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h066.json
+  expect_fire:
+  - H066
+- id: W010-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/w010.json
+  expect_fire:
+  - W010
+- id: D001-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/d001.json
+  expect_fire:
+  - D001
+- id: D002-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/d002.json
+  expect_fire:
+  - D002
+- id: X028-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/x028.json
+  expect_fire:
+  - X028
+- id: H056-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h056.json
+  expect_fire:
+  - H056
+- id: C006-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/c006.json
+  expect_fire:
+  - C006
+- id: C027-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/c027.json
+  expect_fire:
+  - C027
+- id: H092-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h092.json
+  expect_fire:
+  - H092
+- id: H103-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h103.json
+  expect_fire:
+  - H103
+- id: W014-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/w014.json
+  expect_fire:
+  - W014
+- id: W015-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/w015.json
+  expect_fire:
+  - W015
+- id: H084-positive
+  lane: compose
+  payload_path: fixtures/lane/compose/h084.json
+  expect_fire:
+  - H084

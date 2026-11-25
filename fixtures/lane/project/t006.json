@@ -1,0 +1,13 @@
+{
+  "commits": [
+    {
+      "commit_time": 1799996400,
+      "id": "c1",
+      "parents": []
+    }
+  ],
+  "head": "c1",
+  "kind": "divergence",
+  "last_modified": 1800169200,
+  "now": 1800000000
+}

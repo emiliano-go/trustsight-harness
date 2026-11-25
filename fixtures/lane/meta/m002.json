@@ -1,0 +1,13 @@
+{
+  "triggered": [
+    {
+      "rule_id": "H003"
+    },
+    {
+      "rule_id": "C002"
+    },
+    {
+      "rule_id": "H020"
+    }
+  ]
+}

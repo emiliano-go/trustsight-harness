@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "ferronweb scored 55 (SOURCE_BUCKET) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-21T08:22:57.000Z",
+  "packages": [
+    "ferronweb",
+    "i4tools-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "C025",
+    "C003",
+    "H015",
+    "W001",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "H001",
+    "P009"
+  ],
+  "slug": "2026-11-21/082257",
+  "tags": [],
+  "time": 1795249377,
+  "title": "TrustSight: ferronweb scored 55 (SOURCE_BUCKET) +1 more",
+  "tool_version": "0.30.0"
+}

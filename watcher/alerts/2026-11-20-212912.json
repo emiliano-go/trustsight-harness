@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "nextendo-citron-bin scored 35 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T21:29:12.000Z",
+  "packages": [
+    "nextendo-citron-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "D005",
+    "H020",
+    "H049",
+    "H027",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "P006",
+    "P009"
+  ],
+  "slug": "2026-11-20/212912",
+  "tags": [],
+  "time": 1795210152,
+  "title": "TrustSight: nextendo-citron-bin scored 35 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0"
+}

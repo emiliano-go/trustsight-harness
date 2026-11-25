@@ -1,0 +1,7 @@
+{
+  "kind": "domain",
+  "maintainer": "m@new.example",
+  "seed_domains": [
+    "old.example"
+  ]
+}

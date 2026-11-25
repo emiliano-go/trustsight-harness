@@ -1,0 +1,18 @@
+campaign: rule-probes-gaps
+campaign_type: rule-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: raw-diff
+prompt:
+  prompt_id: rule-probes-gaps
+  expected_rules:
+  - A016
+  - H109
+  - S009
+  - S010
+  forbidden_techniques: {}
+attempts: 4

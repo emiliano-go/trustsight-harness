@@ -1,0 +1,25 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "H059 on ch34xpar-dkms-git",
+  "ioc_packages": [],
+  "iso": "2026-11-20T09:41:11.000Z",
+  "packages": [
+    "ch34xpar-dkms-git"
+  ],
+  "priority": null,
+  "rules": [
+    "H059"
+  ],
+  "slug": "2026-11-20/094111",
+  "tags": [],
+  "time": 1795167671,
+  "title": "TrustSight: H059 on ch34xpar-dkms-git",
+  "tool_version": "0.30.0"
+}

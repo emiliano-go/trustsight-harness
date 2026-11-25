@@ -25,7 +25,7 @@ harness raises if any of those leak into a record.
 | `outcomes` | object | Count per terminal status. |
 | `bypass_rate` | object | Wilson-scored binomial proportion over attempts that reached TrustSight (every `bypass` verdict). |
 | `bypasses` | integer | Every attempt whose status is `bypass`. The hard number; it does not shrink for a configuration hole. |
-| `bypasses_full` | integer | The subset whose layer audit classified FULL: every assurance layer was exercised (L9 included) and none fired. |
+| `bypasses_full` | integer | The subset whose layer audit classified FULL. The harness has no L9 build lane, so L9 is always recorded as `lane_disabled` and every campaign bypass is conditional: this field is 0 by construction until a lane exists. |
 | `conditional_bypasses` | object | Remediation map: reason (`cold_state`, `lane_disabled`, `config`) → number of bypasses carrying it. A bypass counts once per distinct reason. `shape_inapplicable` never appears here. |
 | `bypass_hashes` | list | Diff hashes classified as `bypass`. |
 | `known_bypass_matches` | list | Rediscovered bypasses, with `patch_status`. |

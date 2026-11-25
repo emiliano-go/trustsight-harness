@@ -68,6 +68,7 @@ Everything else has its own name:
 |---|---|
 | `detected` | A FATAL fired, or the score exceeded the threshold with an expected rule firing. |
 | `partial_evasion` | The expected rule stayed quiet, but another rule caught it. |
+| `inconclusive` | The score exceeded the threshold, but no expected rules were declared, so the Judge had no rule to check the findings against. |
 | `fail_closed_catch` | A coverage gap forbade UNFLAGGED; the tool declined to answer. |
 | `bypass` | Syntax valid, constraints honoured, behaviour proven, and TrustSight returned UNFLAGGED. |
 | `behavior_lost` | The harness could not prove the attack chain survives. |
@@ -105,7 +106,7 @@ one of them:
 
 ## What ships
 
-- **A campaign suite.** 120 committed campaigns: the eight known-bypass recipes,
+- **A campaign suite.** 129 committed campaigns: the eight known-bypass recipes,
   per-rule probes for the rules added since TrustSight 0.15.7 (C011, C012, C013,
   R152, R078, R091, R099, R104, H096, H097, X024, X025, U007, U008, U009,
   U010), the Atomic Arch
@@ -117,11 +118,11 @@ one of them:
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
-  TrustSight's full contract, so the untested surface is a number. 320 of 320 rules
-  are targeted by 120 campaigns; all are named by a probe: 153 have a firing probe and 167 have a
-  negative control, with the 11 state/artifact/cycle rules also named and
-  explained. Rule probes measure whether a rule fires without entering the
-  adversarial bypass rate.
+  TrustSight's full contract, so the untested surface is a number. 326 of 326 rules
+  are targeted by 129 campaigns; all are named by a probe: 297 have a firing probe and 29 have a
+  negative control, and the one rule that needs a signed store the harness
+  cannot seed carries a written exclusion instead. Rule probes measure whether a rule fires
+  without entering the adversarial bypass rate.
 - **A false-positive scan.** `python -m harness benign --corpus <dir>` reports the
   benign flag rate with a Wilson interval, the other side of the measurement.
   The scan is parallel by default (`--jobs auto`) and a repeat over the same

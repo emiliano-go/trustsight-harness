@@ -1,0 +1,31 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "plink2-bin scored 50 (SOURCE_BUCKET)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T04:55:54.000Z",
+  "packages": [
+    "plink2-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "C011",
+    "H020",
+    "M003",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-21/045554",
+  "tags": [],
+  "time": 1795236954,
+  "title": "TrustSight: plink2-bin scored 50 (SOURCE_BUCKET)",
+  "tool_version": "0.30.0"
+}

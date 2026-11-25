@@ -1,0 +1,2932 @@
+{
+  "counts": {
+    "alerts": 54,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 15
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "Campaign across 15 packages (G010)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T08:43:28.000Z",
+  "packages": [
+    "a-puzzle-a-day",
+    "absorb-bin",
+    "absotui-bin",
+    "agent-console-tui-bin",
+    "agent-tui-bin",
+    "almavorn-bin",
+    "angry-duiker",
+    "anthropometer-bin",
+    "archive-utils",
+    "ario-tui-bin",
+    "astray",
+    "aven-bin",
+    "axyl1410-tetris-tui-git",
+    "b4n-bin",
+    "battleship-rs-git",
+    "deckcraft-private-bin",
+    "designcraft-private-bin",
+    "filmcraft-private-bin",
+    "flclash-myflavor-bin",
+    "gridcraft-private-bin",
+    "honk-bin",
+    "lightcraft-private-bin",
+    "linux-wallpaperengine-v3-bin",
+    "mactahoe-icon-theme",
+    "misterdownloadmanager-private-bin",
+    "oplus-connect-private-bin",
+    "pdfcraft-private-bin",
+    "photocraft-private-bin",
+    "soundcraft-private-bin",
+    "texturecraft-private-bin",
+    "uu-remote-linux-private-bin",
+    "vectorcraft-private-bin",
+    "wordcraft-private-bin",
+    "wowtype-core",
+    "gitqlient",
+    "gitqlient-git"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "ahp",
+        "package": "a-puzzle-a-day",
+        "pkgbuild_sha256": "b4930777ec090468383f30a3f151b405453494051567093bc4de6e54c5fd34b3",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "absorb-bin",
+        "pkgbuild_sha256": "506e251100a5e1cded434bc8483c35f17098fc8e464a37d49c4f7fb762a445f8",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "absotui-bin",
+        "pkgbuild_sha256": "616099ff6f18b91fd12aedf1f27973e113e9ab859f8d18fc4a3a19a5043b6b69",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "agent-console-tui-bin",
+        "pkgbuild_sha256": "6ba49da33a6ea4c8b8fb8676ba7c2a3c69b71f61316a3b2649f1596067d7efed",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "agent-tui-bin",
+        "pkgbuild_sha256": "02d76eeae826b06b0e4c10550c3e8f682089453a8a8ca52cc2ac04660251ad9b",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "almavorn-bin",
+        "pkgbuild_sha256": "5142fab5b3f1c0623471eaf25e598c877ee20c5cb5fc5d7b1cc11d92401a1831",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "angry-duiker",
+        "pkgbuild_sha256": "d69fd452b741ba98ea9603d8797e0ba4fb1d5136f2601172a78913aeb027cb41",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "anthropometer-bin",
+        "pkgbuild_sha256": "f0324e5e45d37043eae46ed3ac9e2bc0ab82e8d383b3bdbee9a577ff016c2cbc",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "archive-utils",
+        "pkgbuild_sha256": "c7f25e08e7da9ace6c95679134b5488bd40ec195606aae92ab9c4f70d665104d",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ario-tui-bin",
+        "pkgbuild_sha256": "f79de7cf272856e9cdca384e86725d85b69137c89f965523cc85d360e26f5570",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "astray",
+        "pkgbuild_sha256": "51e6d99f45cb2ce20842cffcbab3f5dac692a651d1dbc234e6df221bac8e8b70",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "aven-bin",
+        "pkgbuild_sha256": "9f7449570283a33f23f9be9180b0f4bef1f41114d7bbd22c3822cd5c5cd50fec",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "axyl1410-tetris-tui-git",
+        "pkgbuild_sha256": "5c18ba0c77e9ba8b0b353ad1be55d3d1f56f186031544d0c54970786fb3bdb54",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "b4n-bin",
+        "pkgbuild_sha256": "433b7b7b4f914724d891f2b9ac7945301caac31dc52a910e49426327b333b0c5",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "battleship-rs-git",
+        "pkgbuild_sha256": "cdb95dbba4d658c442e2e9db177c033064826dcbcc0ef2bed3fe391bf457434c",
+        "rule_id": "H045"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "a-puzzle-a-day",
+        "pkgbuild_sha256": "b4930777ec090468383f30a3f151b405453494051567093bc4de6e54c5fd34b3",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "absorb-bin",
+        "pkgbuild_sha256": "506e251100a5e1cded434bc8483c35f17098fc8e464a37d49c4f7fb762a445f8",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "absotui-bin",
+        "pkgbuild_sha256": "616099ff6f18b91fd12aedf1f27973e113e9ab859f8d18fc4a3a19a5043b6b69",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "agent-console-tui-bin",
+        "pkgbuild_sha256": "6ba49da33a6ea4c8b8fb8676ba7c2a3c69b71f61316a3b2649f1596067d7efed",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "agent-tui-bin",
+        "pkgbuild_sha256": "02d76eeae826b06b0e4c10550c3e8f682089453a8a8ca52cc2ac04660251ad9b",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "almavorn-bin",
+        "pkgbuild_sha256": "5142fab5b3f1c0623471eaf25e598c877ee20c5cb5fc5d7b1cc11d92401a1831",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "angry-duiker",
+        "pkgbuild_sha256": "d69fd452b741ba98ea9603d8797e0ba4fb1d5136f2601172a78913aeb027cb41",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "anthropometer-bin",
+        "pkgbuild_sha256": "f0324e5e45d37043eae46ed3ac9e2bc0ab82e8d383b3bdbee9a577ff016c2cbc",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "archive-utils",
+        "pkgbuild_sha256": "c7f25e08e7da9ace6c95679134b5488bd40ec195606aae92ab9c4f70d665104d",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "ario-tui-bin",
+        "pkgbuild_sha256": "f79de7cf272856e9cdca384e86725d85b69137c89f965523cc85d360e26f5570",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "astray",
+        "pkgbuild_sha256": "51e6d99f45cb2ce20842cffcbab3f5dac692a651d1dbc234e6df221bac8e8b70",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "aven-bin",
+        "pkgbuild_sha256": "9f7449570283a33f23f9be9180b0f4bef1f41114d7bbd22c3822cd5c5cd50fec",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "axyl1410-tetris-tui-git",
+        "pkgbuild_sha256": "5c18ba0c77e9ba8b0b353ad1be55d3d1f56f186031544d0c54970786fb3bdb54",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "b4n-bin",
+        "pkgbuild_sha256": "433b7b7b4f914724d891f2b9ac7945301caac31dc52a910e49426327b333b0c5",
+        "rule_id": "H073"
+      },
+      {
+        "maintainer": "ahp",
+        "package": "battleship-rs-git",
+        "pkgbuild_sha256": "cdb95dbba4d658c442e2e9db177c033064826dcbcc0ef2bed3fe391bf457434c",
+        "rule_id": "H073"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,12 +2,13 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=deckcraft-private-bin\n pkgver=0.18.1\n-pkgrel=2\n+pkgrel=3\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 PowerPoint \u66ff\u4ee3\uff08\u6f14\u793a\u6587\u7a3f\uff09\uff0c\u4e0a\u6e38 storytold/deckcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/deckcraft'\n # GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n _gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n+_gh_mirror=\"${_gh_mirror%/}/\"\n license=('MIT' 'Apache')\n provides=(\"deckcraft=$pkgver\")\n conflicts=('deckcraft' 'deckcraft-bin' 'deckcraft-git' 'ai.storyteller.deckcraft')",
+        "diff_sha256": "77a63317c96418b5626f1b1ba801fadadddb9497086bdefaf60ea92e6d8bf559",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "deckcraft-private-bin",
+        "pkgbuild_sha256": "e0aafff46a045b6ea4bb193c9123ee8794f9443fbd87bacea54f6baafdbf7ef1",
+        "previous_pkgbuild_sha256": "4886d9f851f80c19435ee4e6886fe3440d4995c21eca845604836c6f9c98481e",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,12 +2,13 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=designcraft-private-bin\n pkgver=0.20.1\n-pkgrel=2\n+pkgrel=3\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe InDesign \u66ff\u4ee3\uff08\u6392\u7248\u51fa\u7248\uff09\uff0c\u4e0a\u6e38 storytold/designcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/designcraft'\n # GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n _gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n+_gh_mirror=\"${_gh_mirror%/}/\"\n license=('MIT' 'Apache')\n provides=(\"designcraft=$pkgver\")\n conflicts=('designcraft' 'designcraft-bin' 'designcraft-git' 'ai.storyteller.designcraft')",
+        "diff_sha256": "97dd68210d93e8c13855d364c2cf38ae40147881cbce600681118e549de4f414",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "designcraft-private-bin",
+        "pkgbuild_sha256": "7708476435f76e684f0a2e99011a2fa09da5c610a7fc6fdbbb5872a57e727fe6",
+        "previous_pkgbuild_sha256": "92465f31200af8a4406f86b4c1d3c53bc75065cd00986341bfa235150ef5b3ef",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,13 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=filmcraft-private-bin\n pkgver=0.20.1\n-pkgrel=1\n+pkgrel=3\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Premiere Pro \u66ff\u4ee3\uff08\u89c6\u9891\u7f16\u8f91\uff09\uff0c\u4e0a\u6e38 storytold/filmcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/filmcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n+_gh_mirror=\"${_gh_mirror%/}/\"\n license=('MIT' 'Apache')\n provides=(\"filmcraft=$pkgver\")\n conflicts=('filmcraft' 'filmcraft-bin' 'filmcraft-git' 'ai.storyteller.filmcraft')\n@@ -23,7 +26,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/filmcraft/releases/download/v${pkgver}/filmcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/filmcraft/releases/download/v${pkgver}/filmcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('bbdee1fe9e8671094e4e548d3920a808b7c7411a802d743b19158753d951d722')\n \n package() {",
+        "diff_sha256": "553bcd49c9ee021c7cc3ca9eb7518c2005a3caaeb0d753e2252d23dbebeb71b1",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "filmcraft-private-bin",
+        "pkgbuild_sha256": "0d43b2c7d79b2ece9ee38bbb5b6bfca01a1a1531244d69f8245f543a682850c8",
+        "previous_pkgbuild_sha256": "c9192687e919aec0b307c460b639d386c618483247d74c28fa7ad479731f6957",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,10 +4,12 @@\n pkgname=flclash-myflavor-bin\n _pkgname=FlClash\n pkgver=1.19.34\n-pkgrel=2\n+pkgrel=3\n pkgdesc=\"Multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free, follows the mainline mihomo core updates. (Forked by myflavor)\"\n arch=('x86_64')\n url=\"https://github.com/myflavor/FlClash\"\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-only')\n conflicts=(\"${pkgname%-bin}\")\n provides=(\"${pkgname%-bin}=${pkgver}\")\n@@ -26,7 +28,7 @@\n \n \n source_x86_64=(\n-    \"${pkgname%-bin}-${pkgver}-x86_64.deb::https://gh-proxy.com/${url}/releases/download/v${pkgver}/${_pkgname}-${pkgver}-linux-amd64.deb\"\n+    \"${pkgname%-bin}-${pkgver}-x86_64.deb::${_gh_mirror}${url}/releases/download/v${pkgver}/${_pkgname}-${pkgver}-linux-amd64.deb\"\n )\n \n ",
+        "diff_sha256": "a1c6311edf822a88d3890e9cc06b8429097082d8e43dca38a5068b48fa521175",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "flclash-myflavor-bin",
+        "pkgbuild_sha256": "c866ebd0da097b943f7b5c9e513e32224b83dd1f080bb870ed58842420d495d6",
+        "previous_pkgbuild_sha256": "47c68977541c3495ad5153239b138acef48145eb1116b51d52b0a260de852e48",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=gridcraft-private-bin\n pkgver=0.19.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Microsoft Excel \u66ff\u4ee3\uff08\u7535\u5b50\u8868\u683c\uff09\uff0c\u4e0a\u6e38 storytold/gridcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/gridcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"gridcraft=$pkgver\")\n conflicts=('gridcraft' 'gridcraft-bin' 'gridcraft-git' 'ai.storyteller.gridcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/gridcraft/releases/download/v${pkgver}/gridcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/gridcraft/releases/download/v${pkgver}/gridcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('ab8f44806b81e79ead6d408bf8f9f63bb896330380ec30a71b70359edcf66d44')\n \n package() {",
+        "diff_sha256": "4c292d439adeece2f6e7ba40586d580d6c481057de20f7996941af6c351a5e71",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "gridcraft-private-bin",
+        "pkgbuild_sha256": "a8df95eaa88a114290db553fd708f7678b15b8382fe00501bd91480b3dfa4579",
+        "previous_pkgbuild_sha256": "d3a2a99eaa32780afda94ed74bc13c62425443dfa5f149ce86c66440881d13d4",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,7 +2,7 @@\n \n pkgname=honk-bin\n pkgver=0.1.0beta.6\n-pkgrel=2\n+pkgrel=3\n pkgdesc='Experimental Linux eBPF transparent proxy engine (prebuilt musl static full build)'\n arch=('x86_64' 'aarch64')\n url='https://github.com/daeuniverse/honk'\n@@ -47,7 +47,7 @@\n # A trailing slash is optional. The sha256s below pin the exact upstream bytes,\n # so a broken or hostile mirror fails the build instead of shipping a different\n # binary.\n-_github_mirror=\"${GITHUB_MIRROR:-}\"\n+_github_mirror=\"${GITHUB_MIRROR:-https://gh-proxy.cn}\"\n [[ -n \"$_github_mirror\" ]] && _github_mirror=\"${_github_mirror%/}/\"\n _dl_base=\"${_github_mirror}${url}/releases/download/v${_upver}\"\n ",
+        "diff_sha256": "2911cca94f2b8ecf594e8856b1e736fc63c4852dbd1ad585ac8f0f424b9f1e6a",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "honk-bin",
+        "pkgbuild_sha256": "e2fff3046e06a2c7117d5f37c57e02760394e6a092c9b5f46db8c0665931f840",
+        "previous_pkgbuild_sha256": "d7a84e432c289b262221168f32a93a65019b3dd4d20a4b3c8a50389643fca09d",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=lightcraft-private-bin\n pkgver=0.21.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Lightroom \u66ff\u4ee3\uff08\u7167\u7247\u7ba1\u7406\u4e0e raw\uff09\uff0c\u4e0a\u6e38 storytold/lightcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/lightcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"lightcraft=$pkgver\")\n conflicts=('lightcraft' 'lightcraft-bin' 'lightcraft-git' 'ai.storyteller.lightcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/lightcraft/releases/download/v${pkgver}/lightcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/lightcraft/releases/download/v${pkgver}/lightcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('84c8ac2a29611665f7e4b1078b7b1503b0564225f4ab1285448963aa92f4fec0')\n \n package() {",
+        "diff_sha256": "e96a7ed2b0e662bce2c62caf9b69b025b6a3b1843c9ea2c8474aea59abec378a",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "lightcraft-private-bin",
+        "pkgbuild_sha256": "12263c720f0d2d7462ec7e8175795afe6c21cbc2635da2c56243ea2070e68255",
+        "previous_pkgbuild_sha256": "c532e13c81fbad785243de7d6be84304d8d94c34e68532898e9bfe743ab88864",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -15,10 +15,12 @@\n pkgname=linux-wallpaperengine-v3-bin\n _pkgname=linux-wallpaperengine\n pkgver=1.0.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc=\"Wallpaper Engine backgrounds for Linux (prebuilt x86-64-v3)\"\n arch=('x86_64')\n url=\"https://github.com/Become-ILLUSORY/linux-wallpaperengine\"\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-only')\n provides=(\"${_pkgname}=${pkgver}\" \"linux-wallpaperengine\")\n conflicts=(\"${_pkgname}\" \"linux-wallpaperengine-git\" \"linux-wallpaperengine-core-git\")\n@@ -68,7 +70,7 @@\n     'zlib-ng-compat'\n )\n \n-source=(\"${pkgname}-${pkgver}.tar.zst::https://github.com/Become-ILLUSORY/linux-wallpaperengine/releases/download/v${pkgver}/${_pkgname}-${pkgver}-x86_64.tar.zst\")\n+source=(\"${pkgname}-${pkgver}.tar.zst::${_gh_mirror}https://github.com/Become-ILLUSORY/linux-wallpaperengine/releases/download/v${pkgver}/${_pkgname}-${pkgver}-x86_64.tar.zst\")\n sha256sums=('108ca1eeb6ebadf83a41c3269d6e762a5441f92842b54103d6c5cd6ac5e746a6')\n \n # The tarball is already a complete, correctly laid out install tree; makepkg",
+        "diff_sha256": "c9022048a002e53e92f46518d1686f0dbd485931c21ae7d9e6ea8015c2e64c96",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "linux-wallpaperengine-v3-bin",
+        "pkgbuild_sha256": "b866b499709c5402e3c3ffaaf949d624a425d481aa82e03bd4a504d666545bef",
+        "previous_pkgbuild_sha256": "84db6c87f2e0408c712bd7dd8bb7d40d1580ae82c98929b1edcc21fe9364012f",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,15 +1,17 @@\n # Maintainer: illusory\n pkgname=mactahoe-icon-theme\n pkgver=2026.09.10\n-pkgrel=1\n+pkgrel=2\n pkgdesc='macOS Tahoe \u98ce\u683c\u7684\u56fe\u6807\u4e0e\u9f20\u6807\u6307\u9488\u4e3b\u9898\uff08\u9884\u7f16\u8bd1\uff0c\u65e0\u9700\u6e32\u67d3\u5de5\u5177\uff09'\n arch=('any')\n url='https://github.com/vinceliuice/MacTahoe-icon-theme'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-or-later')\n depends=('gtk-update-icon-cache' 'hicolor-icon-theme')\n options=('!strip')\n _tag=2026-09-10\n-source=(\"https://github.com/vinceliuice/MacTahoe-icon-theme/archive/refs/tags/${_tag}.tar.gz\")\n+source=(\"${_gh_mirror}https://github.com/vinceliuice/MacTahoe-icon-theme/archive/refs/tags/${_tag}.tar.gz\")\n sha256sums=('6330369e9e10a28cfc8da598ebf63a7204be705403519963ff84e1cb84719d35')\n \n prepare() {",
+        "diff_sha256": "09ecb6111ea5d469430e3c50f7b990601869154a2a9a9464a09a199744c9bb3e",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "mactahoe-icon-theme",
+        "pkgbuild_sha256": "887c5a5e6b84b0419ffd42e80e6574882645b74707136561af9bb12277692f74",
+        "previous_pkgbuild_sha256": "c9ee83b69af5990298061ebc59d92653b92a8eae23d7ba160dca4e6c8468c8bc",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -9,10 +9,12 @@\n _distname=MisterDownloadManager\n _iconrev=8d68f9bf6dc7a84d16a0b7088d916a7ca16368b7\n pkgver=0.5.2\n-pkgrel=2\n+pkgrel=3\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u591a\u7ebf\u7a0b/\u65ad\u70b9\u7eed\u4f20/\u6d4f\u89c8\u5668\u63a5\u7ba1/BT \u4e0b\u8f7d\u7ba1\u7406\u5668\uff0c\u4e0a\u6e38 anefzaoui/misterdownloadmanager'\n arch=('x86_64')\n url=\"https://github.com/${_upstream}\"\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-only')\n depends=('glibc' 'gcc-libs' 'gtk3' 'libglvnd' 'libx11' 'libxcursor' 'libxi'\n          'libxkbcommon' 'libxkbcommon-x11' 'libxrender' 'wayland' 'dbus'\n@@ -22,7 +24,7 @@\n provides=(\"${_pkgname}\")\n conflicts=(\"${_pkgname}\")\n options=('!strip')\n-source=(\"${_distname}-${pkgver}-linux-x86_64.tar.gz::https://gh-proxy.com/https://github.com/${_upstream}/releases/download/v${pkgver}/${_distname}-${pkgver}-linux-x86_64.tar.gz\"\n+source=(\"${_distname}-${pkgver}-linux-x86_64.tar.gz::${_gh_mirror}https://github.com/${_upstream}/releases/download/v${pkgver}/${_distname}-${pkgver}-linux-x86_64.tar.gz\"\n         \"misterdownloadmanager.png::https://raw.githubusercontent.com/${_upstream}/${_iconrev}/art/Mister%20Download%20Manager.png\")\n sha256sums=('3327ebd6b5565186c3e1286bbfdc85ffc95fa681cc2a57a51b0bc07ff42a009f'\n             '0bd9403acd085b2bbe8c8c2ebcc9f082faba8d0c0a649327164b0ea95d77d425')",
+        "diff_sha256": "cfb9e216c3a2660eeceed4859c3dda0080ef5d48e98a0f1294a0d6d016dd110d",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "misterdownloadmanager-private-bin",
+        "pkgbuild_sha256": "edcc142719540415500870eb78e74f6d9a882cb58c34aecaf06d7ff5f0dadd97",
+        "previous_pkgbuild_sha256": "50178c151c48240dd74d0a4b2c84e140c5777bb1d563648c7552360f2836e88e",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,10 +6,12 @@\n #   sha256 \u9501\u6784\u5efa\u65f6\u4ea7\u7269\uff0csource \u8d70 gh-proxy \u52a0\u901f\u3002\n pkgname=oplus-connect-private-bin\n pkgver=1.0.0.r19.gfd752ee\n-pkgrel=3\n+pkgrel=4\n pkgdesc='Linux client for OPPO and OnePlus device connectivity\uff08\u81ea\u7528\u7ef4\u62a4\uff0cCI \u81ea\u7f16\u8bd1\u91cd\u6253\u5305\u7248\uff09'\n arch=('x86_64')\n url='https://github.com/YuKongA/oplus-connect'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT')\n depends=(\n   'glibc' 'gcc-libs' 'glib2' 'fontconfig' 'freetype2' 'libxcb' 'libxkbcommon' 'libxkbcommon-x11'\n@@ -24,7 +26,7 @@\n )\n provides=(\"oplus-connect=$pkgver\")\n conflicts=('oplus-connect' 'oplus-connect-git')\n-source=(\"${pkgname}-${pkgver}.pkg.tar.zst::https://gh-proxy.com/https://github.com/Become-ILLUSORY/aur-auto-update/releases/download/oplus-connect-latest/oplus-connect-${pkgver}-1-x86_64.pkg.tar.zst\")\n+source=(\"${pkgname}-${pkgver}.pkg.tar.zst::${_gh_mirror}https://github.com/Become-ILLUSORY/aur-auto-update/releases/download/oplus-connect-latest/oplus-connect-${pkgver}-1-x86_64.pkg.tar.zst\")\n sha256sums=('cbc2c361cfd182bf72c10192cf3412cad33b8d24a1cad32cff5394be4121f5d1')\n \n package() {",
+        "diff_sha256": "678328c7a4e1f61d709493042ca143b8ea8e20bda20e9b452c14cf1b91685139",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "oplus-connect-private-bin",
+        "pkgbuild_sha256": "a2d8878c07e3b830e835430769c6fc5c644d5ec95abddcaafcb23e99b1e9aba1",
+        "previous_pkgbuild_sha256": "c853b25da560386333462aa45d5ebfabb13db954eab7451e7d6588daf15b49d6",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=pdfcraft-private-bin\n pkgver=0.21.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Acrobat \u66ff\u4ee3\uff08PDF \u9605\u8bfb\u6574\u7406\u4fdd\u62a4\uff09\uff0c\u4e0a\u6e38 storytold/pdfcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/pdfcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"pdfcraft=$pkgver\")\n conflicts=('pdfcraft' 'pdfcraft-bin' 'pdfcraft-git' 'ai.storyteller.pdfcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/pdfcraft/releases/download/v${pkgver}/pdfcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/pdfcraft/releases/download/v${pkgver}/pdfcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('1fb565339968cb12947544ec3b74472ef4ea196c308ea3c0efdaf1ca566046e5')\n \n package() {",
+        "diff_sha256": "e8c0c22968d82d6ec82cd898077138cd22abd345ca8fe7a2409b26129ede4dab",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "pdfcraft-private-bin",
+        "pkgbuild_sha256": "e5af978d8d1f5654f9580ed86e6bcd3dda16158156abd70b63844d07b4e578b0",
+        "previous_pkgbuild_sha256": "d1b64273af986c13917afa814fb0aa1a0034235ba9ee62e972d187aebec40417",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=photocraft-private-bin\n pkgver=0.23.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Photoshop \u66ff\u4ee3\uff08\u56fe\u50cf\u7f16\u8f91\uff09\uff0c\u4e0a\u6e38 storytold/photocraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/photocraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"photocraft=$pkgver\")\n conflicts=('photocraft' 'photocraft-bin' 'photocraft-git' 'ai.storyteller.photocraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/photocraft/releases/download/v${pkgver}/photocraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/photocraft/releases/download/v${pkgver}/photocraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('6f55b05a7880a6db38374ac7985730304bcc9b499dae0f18f9d2dbd6bbb8d201')\n \n package() {",
+        "diff_sha256": "7b8027b178d71e5a399f0d207bd482ce1e03dab43084a6698c946b081227ef9d",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "photocraft-private-bin",
+        "pkgbuild_sha256": "72b754ff43f8518ec877a2347e81cc51927ea800d339aad284c92994adc36cbd",
+        "previous_pkgbuild_sha256": "3180153e9651f3ba5fb879cafa8ae17cd5c95878ef70764ece490fcf6f6286b5",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=soundcraft-private-bin\n pkgver=0.20.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Pro Tools \u66ff\u4ee3\uff08DAW \u97f3\u9891\uff09\uff0c\u4e0a\u6e38 storytold/soundcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/soundcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"soundcraft=$pkgver\")\n conflicts=('soundcraft' 'soundcraft-bin' 'soundcraft-git' 'ai.storyteller.soundcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/soundcraft/releases/download/v${pkgver}/soundcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/soundcraft/releases/download/v${pkgver}/soundcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('fa629b37c70c03ed89e5e20617a049de725fc28cbb50a7f4cbcd4c3c26a3727d')\n \n package() {",
+        "diff_sha256": "396d6d78c1bc32de877693938d5ed624dc0ce055c494bd8ea28841c05a2333f2",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "soundcraft-private-bin",
+        "pkgbuild_sha256": "3b9f8b36b0888c354c4ddc299da2afb5e2781380137cd810e7314d967bad1cfc",
+        "previous_pkgbuild_sha256": "ceb8600ced5b216c04b1a2ecf023ebe22874bfd3ac20e1c9553151817afc18d3",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=texturecraft-private-bin\n pkgver=0.6.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Substance Painter \u66ff\u4ee3\uff08PBR 3D \u7eb9\u7406\uff09\uff0c\u4e0a\u6e38 storytold/texturecraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/texturecraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"texturecraft=$pkgver\")\n conflicts=('texturecraft' 'texturecraft-bin' 'texturecraft-git' 'ai.storyteller.texturecraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/texturecraft/releases/download/v${pkgver}/texturecraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/texturecraft/releases/download/v${pkgver}/texturecraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('e67d2c661d1e6c7c82a2a59ee9a9757bf62db998749ccd3f40a5423d895feb61')\n \n package() {",
+        "diff_sha256": "4c8cc73043aa242e932ef1427ed14f4055b24315580ec7bd168b5c05bd097c4a",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "texturecraft-private-bin",
+        "pkgbuild_sha256": "4008900ab4c8d431474b6b3c9dc6d72fd1cbef84b8cd58fe50a742c0d7222c98",
+        "previous_pkgbuild_sha256": "6036291fe21b05aba46bcc6c9b024e7da268c1b94eb29ef3e1240d5c2c30b8ff",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,10 +5,12 @@\n #   sha256 \u9501\u4e0a\u6e38\u4f34\u968f .sha256 \u6587\u4ef6\uff0csource \u8d70 gh-proxy.com \u52a0\u901f\uff08\u5927\u9646\u76f4\u8fde GitHub \u6162\uff09\u3002\n pkgname=uu-remote-linux-private-bin\n pkgver=0.2.64\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u975e\u5b98\u65b9 UU \u8fdc\u7a0b Linux \u88ab\u63a7\u7aef + \u5b9e\u9a8c\u6027\u63a7\u5236\u7aef\uff08\u7f51\u6613 UU \u8fdc\u7a0b\uff09\uff0c\u4e0a\u6e38 VallierDev/uu-remote-linux'\n arch=('x86_64' 'aarch64')\n url='https://github.com/VallierDev/uu-remote-linux'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL3')\n depends=('gtk3' 'gdk-pixbuf2' 'cairo' 'glib2' 'pango' 'gcc-libs'\n          'libx11' 'libxext' 'libxfixes' 'libxtst' 'ffmpeg')\n@@ -18,8 +20,8 @@\n             'xdg-desktop-portal: \u684c\u9762\u901a\u77e5')\n provides=(\"uu-remote-linux=$pkgver\")\n conflicts=('uu-remote-linux')\n-source_x86_64=(\"https://gh-proxy.com/https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-x86_64-linux.tar.gz\")\n-source_aarch64=(\"https://gh-proxy.com/https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-aarch64-linux.tar.gz\")\n+source_x86_64=(\"${_gh_mirror}https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-x86_64-linux.tar.gz\")\n+source_aarch64=(\"${_gh_mirror}https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-aarch64-linux.tar.gz\")\n sha256sums_x86_64=('54f84421c5c93fbf00b827d407d5443da0385a75813f9398c7e7d95f39c1e56b')\n sha256sums_aarch64=('755900fce294ced6efdaf2358779895d0456f443fc9d6f913e1b96ea65ccb789')\n ",
+        "diff_sha256": "246fb6384ea9a371541efc20547815cf733c86658ae1796222a8fa9b48baecb8",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "uu-remote-linux-private-bin",
+        "pkgbuild_sha256": "cd321d1f042b713e2f21130196979fa8782a738a4ddc4eea5b2b046b91e424d4",
+        "previous_pkgbuild_sha256": "63dd329584d63e326f2947bd9dafa1453f5de564db09f9bcb3f048c0a6418976",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=vectorcraft-private-bin\n pkgver=0.24.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Illustrator \u66ff\u4ee3\uff08\u77e2\u91cf\u63d2\u753b\uff09\uff0c\u4e0a\u6e38 storytold/vectorcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/vectorcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"vectorcraft=$pkgver\")\n conflicts=('vectorcraft' 'vectorcraft-bin' 'vectorcraft-git' 'ai.storyteller.vectorcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/vectorcraft/releases/download/v${pkgver}/vectorcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/vectorcraft/releases/download/v${pkgver}/vectorcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('8fe8af94743dce6d6129947e860341bcb76356178149b6de8b1ef30792d5c6fe')\n \n package() {",
+        "diff_sha256": "c92f55668c01db563c7f217d1feeb1b39b00ff5d27927d71f206ef0bd43354a3",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "vectorcraft-private-bin",
+        "pkgbuild_sha256": "3ffda96a87e568102c47243d8a4873613a8b28be250a3fc6ade0a46b4f0d7be8",
+        "previous_pkgbuild_sha256": "cd2bb36184c2249fc2a75bef8c8bba10e931171aedd2ede2fab9fc55694376ca",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=wordcraft-private-bin\n pkgver=0.18.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Microsoft Word \u66ff\u4ee3\uff08\u7eaf Rust \u5b57\u5904\u7406\u5668\uff09\uff0c\u4e0a\u6e38 storytold/wordcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/wordcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"wordcraft=$pkgver\")\n conflicts=('wordcraft' 'wordcraft-bin' 'wordcraft-git' 'ai.storyteller.wordcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/wordcraft/releases/download/v${pkgver}/wordcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/wordcraft/releases/download/v${pkgver}/wordcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('5b1b2851bdebf75a23f2ce2efdbda2b2b542749b9fe653f9b7b16dc209dcbb64')\n \n package() {",
+        "diff_sha256": "a0635f30d9f0c87447bb21f0db688dcb6cd411165419bcb46e50715507f8c1ea",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "wordcraft-private-bin",
+        "pkgbuild_sha256": "e55236fa82bd22b25b33ef44154fa2b5aa87b48e52cc1d51a0b18ec801900519",
+        "previous_pkgbuild_sha256": "110cce8e57d2b82c16499b85235d27901fbef2aa4ce893e74277ea226fdce26a",
+        "rule_id": "H058"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,7 +5,7 @@\n \n pkgname=wowtype-core\n pkgver=0.7.4\n-pkgrel=1\n+pkgrel=2\n pkgdesc='WeChat-style pinyin input method for fcitx5, with bundled dictionaries and language model'\n arch=('x86_64')\n url='https://github.com/Gloridust/WowType'\n@@ -18,7 +18,7 @@\n install=\"$pkgname.install\"\n \n # gh-proxy.com \u524d\u7f00\u7528\u4e8e\u56fd\u5185\u52a0\u901f\uff1b\u6362\u955c\u50cf\u53ea\u9700 export GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n-_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.com/}\"\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n _pkgfile=\"wowtype-$pkgver-1-x86_64.pkg.tar.zst\"\n source=(\n   \"$_pkgfile::${_gh_mirror}https://github.com/Gloridust/WowType/releases/download/v$pkgver/$_pkgfile\"",
+        "diff_sha256": "eed770e1bfedf1e3676132bc5587ca6d2c52388f8ef05977ae2e8000669f1275",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "wowtype-core",
+        "pkgbuild_sha256": "56090fe21059c94fd70e8d569c3f02876f94e0edb3c76da5519c2997969c701f",
+        "previous_pkgbuild_sha256": "b3c89121b969566238cd0f245175e7be26608fae3b370339d9b45ed9d55263cf",
+        "rule_id": "H058"
+      },
+      {
+        "maintainer": "francescmm",
+        "new": "francescmm",
+        "old": "duongdominhchau",
+        "package": "gitqlient",
+        "pkgbuild_sha256": "9eccbf8b115f6b411f0581fdcaa84d10eb346f444d9181fa5a373212b5f8c575",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "francescmm",
+        "new": "francescmm",
+        "old": "duongdominhchau",
+        "package": "gitqlient",
+        "pkgbuild_sha256": "9eccbf8b115f6b411f0581fdcaa84d10eb346f444d9181fa5a373212b5f8c575",
+        "rule_id": "H026"
+      },
+      {
+        "maintainer": "francescmm",
+        "new": "francescmm",
+        "old": "duongdominhchau",
+        "package": "gitqlient-git",
+        "pkgbuild_sha256": "d6902ad220f994ce16ee3cec194cf7116cc5d9fba4c31c7f908a56655adcb606",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "francescmm",
+        "new": "francescmm",
+        "old": "duongdominhchau",
+        "package": "gitqlient-git",
+        "pkgbuild_sha256": "d6902ad220f994ce16ee3cec194cf7116cc5d9fba4c31c7f908a56655adcb606",
+        "rule_id": "H026"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,10 +4,12 @@\n pkgname=flclash-myflavor-bin\n _pkgname=FlClash\n pkgver=1.19.34\n-pkgrel=2\n+pkgrel=3\n pkgdesc=\"Multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free, follows the mainline mihomo core updates. (Forked by myflavor)\"\n arch=('x86_64')\n url=\"https://github.com/myflavor/FlClash\"\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-only')\n conflicts=(\"${pkgname%-bin}\")\n provides=(\"${pkgname%-bin}=${pkgver}\")\n@@ -26,7 +28,7 @@\n \n \n source_x86_64=(\n-    \"${pkgname%-bin}-${pkgver}-x86_64.deb::https://gh-proxy.com/${url}/releases/download/v${pkgver}/${_pkgname}-${pkgver}-linux-amd64.deb\"\n+    \"${pkgname%-bin}-${pkgver}-x86_64.deb::${_gh_mirror}${url}/releases/download/v${pkgver}/${_pkgname}-${pkgver}-linux-amd64.deb\"\n )\n \n ",
+        "diff_sha256": "a1c6311edf822a88d3890e9cc06b8429097082d8e43dca38a5068b48fa521175",
+        "maintainer": "illusory",
+        "new": "illusory",
+        "old": "illusory",
+        "package": "flclash-myflavor-bin",
+        "pkgbuild_sha256": "c866ebd0da097b943f7b5c9e513e32224b83dd1f080bb870ed58842420d495d6",
+        "previous_pkgbuild_sha256": "47c68977541c3495ad5153239b138acef48145eb1116b51d52b0a260de852e48",
+        "rule_id": "G001"
+      }
+    ],
+    "campaign_cluster": [
+      {
+        "campaign_active": true,
+        "campaign_id": "G001:gh-proxy.cn",
+        "count": 15,
+        "host": "gh-proxy.cn",
+        "match": "gained host gh-proxy.cn appears in 15 packages in the window",
+        "members": [
+          "flclash-myflavor-bin",
+          "gridcraft-private-bin",
+          "lightcraft-private-bin",
+          "linux-wallpaperengine-v3-bin",
+          "mactahoe-icon-theme",
+          "misterdownloadmanager-private-bin",
+          "oplus-connect-private-bin",
+          "pdfcraft-private-bin",
+          "photocraft-private-bin",
+          "soundcraft-private-bin",
+          "texturecraft-private-bin",
+          "uu-remote-linux-private-bin",
+          "vectorcraft-private-bin",
+          "wordcraft-private-bin",
+          "wowtype-core"
+        ],
+        "members_detail": [
+          {
+            "diff_sha256": "a1c6311edf822a88d3890e9cc06b8429097082d8e43dca38a5068b48fa521175",
+            "last_modified": "2026-11-22 08:24 UTC",
+            "maintainer": "illusory",
+            "package": "flclash-myflavor-bin",
+            "pkgbuild_sha256": "c866ebd0da097b943f7b5c9e513e32224b83dd1f080bb870ed58842420d495d6",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "47c68977541c3495ad5153239b138acef48145eb1116b51d52b0a260de852e48",
+            "version": "1.19.34-3 -> 1.19.34-3"
+          },
+          {
+            "diff_sha256": "4c292d439adeece2f6e7ba40586d580d6c481057de20f7996941af6c351a5e71",
+            "last_modified": "2026-11-22 08:25 UTC",
+            "maintainer": "illusory",
+            "package": "gridcraft-private-bin",
+            "pkgbuild_sha256": "a8df95eaa88a114290db553fd708f7678b15b8382fe00501bd91480b3dfa4579",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "d3a2a99eaa32780afda94ed74bc13c62425443dfa5f149ce86c66440881d13d4",
+            "version": "0.19.1-2 -> 0.19.1-2"
+          },
+          {
+            "diff_sha256": "e96a7ed2b0e662bce2c62caf9b69b025b6a3b1843c9ea2c8474aea59abec378a",
+            "last_modified": "2026-11-22 08:25 UTC",
+            "maintainer": "illusory",
+            "package": "lightcraft-private-bin",
+            "pkgbuild_sha256": "12263c720f0d2d7462ec7e8175795afe6c21cbc2635da2c56243ea2070e68255",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "c532e13c81fbad785243de7d6be84304d8d94c34e68532898e9bfe743ab88864",
+            "version": "0.21.1-2 -> 0.21.1-2"
+          },
+          {
+            "diff_sha256": "c9022048a002e53e92f46518d1686f0dbd485931c21ae7d9e6ea8015c2e64c96",
+            "last_modified": "2026-11-22 08:25 UTC",
+            "maintainer": "illusory",
+            "package": "linux-wallpaperengine-v3-bin",
+            "pkgbuild_sha256": "b866b499709c5402e3c3ffaaf949d624a425d481aa82e03bd4a504d666545bef",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "84db6c87f2e0408c712bd7dd8bb7d40d1580ae82c98929b1edcc21fe9364012f",
+            "version": "1.0.1-2 -> 1.0.1-2"
+          },
+          {
+            "diff_sha256": "09ecb6111ea5d469430e3c50f7b990601869154a2a9a9464a09a199744c9bb3e",
+            "last_modified": "2026-11-22 08:26 UTC",
+            "maintainer": "illusory",
+            "package": "mactahoe-icon-theme",
+            "pkgbuild_sha256": "887c5a5e6b84b0419ffd42e80e6574882645b74707136561af9bb12277692f74",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "c9ee83b69af5990298061ebc59d92653b92a8eae23d7ba160dca4e6c8468c8bc",
+            "version": "2026.09.10-2 -> 2026.09.10-2"
+          },
+          {
+            "diff_sha256": "cfb9e216c3a2660eeceed4859c3dda0080ef5d48e98a0f1294a0d6d016dd110d",
+            "last_modified": "2026-11-22 08:26 UTC",
+            "maintainer": "illusory",
+            "package": "misterdownloadmanager-private-bin",
+            "pkgbuild_sha256": "edcc142719540415500870eb78e74f6d9a882cb58c34aecaf06d7ff5f0dadd97",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "50178c151c48240dd74d0a4b2c84e140c5777bb1d563648c7552360f2836e88e",
+            "version": "0.5.2-3 -> 0.5.2-3"
+          },
+          {
+            "diff_sha256": "678328c7a4e1f61d709493042ca143b8ea8e20bda20e9b452c14cf1b91685139",
+            "last_modified": "2026-11-22 08:36 UTC",
+            "maintainer": "illusory",
+            "package": "oplus-connect-private-bin",
+            "pkgbuild_sha256": "a2d8878c07e3b830e835430769c6fc5c644d5ec95abddcaafcb23e99b1e9aba1",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "c853b25da560386333462aa45d5ebfabb13db954eab7451e7d6588daf15b49d6",
+            "version": "1.0.0.r19.gfd752ee-4 -> 1.0.0.r19.gfd752ee-4"
+          },
+          {
+            "diff_sha256": "e8c0c22968d82d6ec82cd898077138cd22abd345ca8fe7a2409b26129ede4dab",
+            "last_modified": "2026-11-22 08:29 UTC",
+            "maintainer": "illusory",
+            "package": "pdfcraft-private-bin",
+            "pkgbuild_sha256": "e5af978d8d1f5654f9580ed86e6bcd3dda16158156abd70b63844d07b4e578b0",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "d1b64273af986c13917afa814fb0aa1a0034235ba9ee62e972d187aebec40417",
+            "version": "0.21.1-2 -> 0.21.1-2"
+          },
+          {
+            "diff_sha256": "7b8027b178d71e5a399f0d207bd482ce1e03dab43084a6698c946b081227ef9d",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "photocraft-private-bin",
+            "pkgbuild_sha256": "72b754ff43f8518ec877a2347e81cc51927ea800d339aad284c92994adc36cbd",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "3180153e9651f3ba5fb879cafa8ae17cd5c95878ef70764ece490fcf6f6286b5",
+            "version": "0.23.1-2 -> 0.23.1-2"
+          },
+          {
+            "diff_sha256": "396d6d78c1bc32de877693938d5ed624dc0ce055c494bd8ea28841c05a2333f2",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "soundcraft-private-bin",
+            "pkgbuild_sha256": "3b9f8b36b0888c354c4ddc299da2afb5e2781380137cd810e7314d967bad1cfc",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "ceb8600ced5b216c04b1a2ecf023ebe22874bfd3ac20e1c9553151817afc18d3",
+            "version": "0.20.1-2 -> 0.20.1-2"
+          },
+          {
+            "diff_sha256": "4c8cc73043aa242e932ef1427ed14f4055b24315580ec7bd168b5c05bd097c4a",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "texturecraft-private-bin",
+            "pkgbuild_sha256": "4008900ab4c8d431474b6b3c9dc6d72fd1cbef84b8cd58fe50a742c0d7222c98",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "6036291fe21b05aba46bcc6c9b024e7da268c1b94eb29ef3e1240d5c2c30b8ff",
+            "version": "0.6.1-2 -> 0.6.1-2"
+          },
+          {
+            "diff_sha256": "246fb6384ea9a371541efc20547815cf733c86658ae1796222a8fa9b48baecb8",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "uu-remote-linux-private-bin",
+            "pkgbuild_sha256": "cd321d1f042b713e2f21130196979fa8782a738a4ddc4eea5b2b046b91e424d4",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "63dd329584d63e326f2947bd9dafa1453f5de564db09f9bcb3f048c0a6418976",
+            "version": "0.2.64-2 -> 0.2.64-2"
+          },
+          {
+            "diff_sha256": "c92f55668c01db563c7f217d1feeb1b39b00ff5d27927d71f206ef0bd43354a3",
+            "last_modified": "2026-11-22 08:34 UTC",
+            "maintainer": "illusory",
+            "package": "vectorcraft-private-bin",
+            "pkgbuild_sha256": "3ffda96a87e568102c47243d8a4873613a8b28be250a3fc6ade0a46b4f0d7be8",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "cd2bb36184c2249fc2a75bef8c8bba10e931171aedd2ede2fab9fc55694376ca",
+            "version": "0.24.1-2 -> 0.24.1-2"
+          },
+          {
+            "diff_sha256": "a0635f30d9f0c87447bb21f0db688dcb6cd411165419bcb46e50715507f8c1ea",
+            "last_modified": "2026-11-22 08:31 UTC",
+            "maintainer": "illusory",
+            "package": "wordcraft-private-bin",
+            "pkgbuild_sha256": "e55236fa82bd22b25b33ef44154fa2b5aa87b48e52cc1d51a0b18ec801900519",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "110cce8e57d2b82c16499b85235d27901fbef2aa4ce893e74277ea226fdce26a",
+            "version": "0.18.1-2 -> 0.18.1-2"
+          },
+          {
+            "diff_sha256": "eed770e1bfedf1e3676132bc5587ca6d2c52388f8ef05977ae2e8000669f1275",
+            "last_modified": "2026-11-22 08:33 UTC",
+            "maintainer": "illusory",
+            "package": "wowtype-core",
+            "pkgbuild_sha256": "56090fe21059c94fd70e8d569c3f02876f94e0edb3c76da5519c2997969c701f",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "b3c89121b969566238cd0f245175e7be26608fae3b370339d9b45ed9d55263cf",
+            "version": "0.7.4-2 -> 0.7.4-2"
+          }
+        ],
+        "rule_id": "G001"
+      },
+      {
+        "count": 15,
+        "host": "gh-proxy.cn",
+        "match": "first-seen host gh-proxy.cn gained by 15 packages in the window",
+        "members": [
+          "flclash-myflavor-bin",
+          "gridcraft-private-bin",
+          "lightcraft-private-bin",
+          "linux-wallpaperengine-v3-bin",
+          "mactahoe-icon-theme",
+          "misterdownloadmanager-private-bin",
+          "oplus-connect-private-bin",
+          "pdfcraft-private-bin",
+          "photocraft-private-bin",
+          "soundcraft-private-bin",
+          "texturecraft-private-bin",
+          "uu-remote-linux-private-bin",
+          "vectorcraft-private-bin",
+          "wordcraft-private-bin",
+          "wowtype-core"
+        ],
+        "members_detail": [
+          {
+            "diff_sha256": "a1c6311edf822a88d3890e9cc06b8429097082d8e43dca38a5068b48fa521175",
+            "last_modified": "2026-11-22 08:24 UTC",
+            "maintainer": "illusory",
+            "package": "flclash-myflavor-bin",
+            "pkgbuild_sha256": "c866ebd0da097b943f7b5c9e513e32224b83dd1f080bb870ed58842420d495d6",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "47c68977541c3495ad5153239b138acef48145eb1116b51d52b0a260de852e48",
+            "version": "1.19.34-3 -> 1.19.34-3"
+          },
+          {
+            "diff_sha256": "4c292d439adeece2f6e7ba40586d580d6c481057de20f7996941af6c351a5e71",
+            "last_modified": "2026-11-22 08:25 UTC",
+            "maintainer": "illusory",
+            "package": "gridcraft-private-bin",
+            "pkgbuild_sha256": "a8df95eaa88a114290db553fd708f7678b15b8382fe00501bd91480b3dfa4579",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "d3a2a99eaa32780afda94ed74bc13c62425443dfa5f149ce86c66440881d13d4",
+            "version": "0.19.1-2 -> 0.19.1-2"
+          },
+          {
+            "diff_sha256": "e96a7ed2b0e662bce2c62caf9b69b025b6a3b1843c9ea2c8474aea59abec378a",
+            "last_modified": "2026-11-22 08:25 UTC",
+            "maintainer": "illusory",
+            "package": "lightcraft-private-bin",
+            "pkgbuild_sha256": "12263c720f0d2d7462ec7e8175795afe6c21cbc2635da2c56243ea2070e68255",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "c532e13c81fbad785243de7d6be84304d8d94c34e68532898e9bfe743ab88864",
+            "version": "0.21.1-2 -> 0.21.1-2"
+          },
+          {
+            "diff_sha256": "c9022048a002e53e92f46518d1686f0dbd485931c21ae7d9e6ea8015c2e64c96",
+            "last_modified": "2026-11-22 08:25 UTC",
+            "maintainer": "illusory",
+            "package": "linux-wallpaperengine-v3-bin",
+            "pkgbuild_sha256": "b866b499709c5402e3c3ffaaf949d624a425d481aa82e03bd4a504d666545bef",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "84db6c87f2e0408c712bd7dd8bb7d40d1580ae82c98929b1edcc21fe9364012f",
+            "version": "1.0.1-2 -> 1.0.1-2"
+          },
+          {
+            "diff_sha256": "09ecb6111ea5d469430e3c50f7b990601869154a2a9a9464a09a199744c9bb3e",
+            "last_modified": "2026-11-22 08:26 UTC",
+            "maintainer": "illusory",
+            "package": "mactahoe-icon-theme",
+            "pkgbuild_sha256": "887c5a5e6b84b0419ffd42e80e6574882645b74707136561af9bb12277692f74",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "c9ee83b69af5990298061ebc59d92653b92a8eae23d7ba160dca4e6c8468c8bc",
+            "version": "2026.09.10-2 -> 2026.09.10-2"
+          },
+          {
+            "diff_sha256": "cfb9e216c3a2660eeceed4859c3dda0080ef5d48e98a0f1294a0d6d016dd110d",
+            "last_modified": "2026-11-22 08:26 UTC",
+            "maintainer": "illusory",
+            "package": "misterdownloadmanager-private-bin",
+            "pkgbuild_sha256": "edcc142719540415500870eb78e74f6d9a882cb58c34aecaf06d7ff5f0dadd97",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "50178c151c48240dd74d0a4b2c84e140c5777bb1d563648c7552360f2836e88e",
+            "version": "0.5.2-3 -> 0.5.2-3"
+          },
+          {
+            "diff_sha256": "678328c7a4e1f61d709493042ca143b8ea8e20bda20e9b452c14cf1b91685139",
+            "last_modified": "2026-11-22 08:36 UTC",
+            "maintainer": "illusory",
+            "package": "oplus-connect-private-bin",
+            "pkgbuild_sha256": "a2d8878c07e3b830e835430769c6fc5c644d5ec95abddcaafcb23e99b1e9aba1",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "c853b25da560386333462aa45d5ebfabb13db954eab7451e7d6588daf15b49d6",
+            "version": "1.0.0.r19.gfd752ee-4 -> 1.0.0.r19.gfd752ee-4"
+          },
+          {
+            "diff_sha256": "e8c0c22968d82d6ec82cd898077138cd22abd345ca8fe7a2409b26129ede4dab",
+            "last_modified": "2026-11-22 08:29 UTC",
+            "maintainer": "illusory",
+            "package": "pdfcraft-private-bin",
+            "pkgbuild_sha256": "e5af978d8d1f5654f9580ed86e6bcd3dda16158156abd70b63844d07b4e578b0",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "d1b64273af986c13917afa814fb0aa1a0034235ba9ee62e972d187aebec40417",
+            "version": "0.21.1-2 -> 0.21.1-2"
+          },
+          {
+            "diff_sha256": "7b8027b178d71e5a399f0d207bd482ce1e03dab43084a6698c946b081227ef9d",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "photocraft-private-bin",
+            "pkgbuild_sha256": "72b754ff43f8518ec877a2347e81cc51927ea800d339aad284c92994adc36cbd",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "3180153e9651f3ba5fb879cafa8ae17cd5c95878ef70764ece490fcf6f6286b5",
+            "version": "0.23.1-2 -> 0.23.1-2"
+          },
+          {
+            "diff_sha256": "396d6d78c1bc32de877693938d5ed624dc0ce055c494bd8ea28841c05a2333f2",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "soundcraft-private-bin",
+            "pkgbuild_sha256": "3b9f8b36b0888c354c4ddc299da2afb5e2781380137cd810e7314d967bad1cfc",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "ceb8600ced5b216c04b1a2ecf023ebe22874bfd3ac20e1c9553151817afc18d3",
+            "version": "0.20.1-2 -> 0.20.1-2"
+          },
+          {
+            "diff_sha256": "4c8cc73043aa242e932ef1427ed14f4055b24315580ec7bd168b5c05bd097c4a",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "texturecraft-private-bin",
+            "pkgbuild_sha256": "4008900ab4c8d431474b6b3c9dc6d72fd1cbef84b8cd58fe50a742c0d7222c98",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "6036291fe21b05aba46bcc6c9b024e7da268c1b94eb29ef3e1240d5c2c30b8ff",
+            "version": "0.6.1-2 -> 0.6.1-2"
+          },
+          {
+            "diff_sha256": "246fb6384ea9a371541efc20547815cf733c86658ae1796222a8fa9b48baecb8",
+            "last_modified": "2026-11-22 08:30 UTC",
+            "maintainer": "illusory",
+            "package": "uu-remote-linux-private-bin",
+            "pkgbuild_sha256": "cd321d1f042b713e2f21130196979fa8782a738a4ddc4eea5b2b046b91e424d4",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "63dd329584d63e326f2947bd9dafa1453f5de564db09f9bcb3f048c0a6418976",
+            "version": "0.2.64-2 -> 0.2.64-2"
+          },
+          {
+            "diff_sha256": "c92f55668c01db563c7f217d1feeb1b39b00ff5d27927d71f206ef0bd43354a3",
+            "last_modified": "2026-11-22 08:34 UTC",
+            "maintainer": "illusory",
+            "package": "vectorcraft-private-bin",
+            "pkgbuild_sha256": "3ffda96a87e568102c47243d8a4873613a8b28be250a3fc6ade0a46b4f0d7be8",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "cd2bb36184c2249fc2a75bef8c8bba10e931171aedd2ede2fab9fc55694376ca",
+            "version": "0.24.1-2 -> 0.24.1-2"
+          },
+          {
+            "diff_sha256": "a0635f30d9f0c87447bb21f0db688dcb6cd411165419bcb46e50715507f8c1ea",
+            "last_modified": "2026-11-22 08:31 UTC",
+            "maintainer": "illusory",
+            "package": "wordcraft-private-bin",
+            "pkgbuild_sha256": "e55236fa82bd22b25b33ef44154fa2b5aa87b48e52cc1d51a0b18ec801900519",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "110cce8e57d2b82c16499b85235d27901fbef2aa4ce893e74277ea226fdce26a",
+            "version": "0.18.1-2 -> 0.18.1-2"
+          },
+          {
+            "diff_sha256": "eed770e1bfedf1e3676132bc5587ca6d2c52388f8ef05977ae2e8000669f1275",
+            "last_modified": "2026-11-22 08:33 UTC",
+            "maintainer": "illusory",
+            "package": "wowtype-core",
+            "pkgbuild_sha256": "56090fe21059c94fd70e8d569c3f02876f94e0edb3c76da5519c2997969c701f",
+            "previous_maintainer": "illusory",
+            "previous_pkgbuild_sha256": "b3c89121b969566238cd0f245175e7be26608fae3b370339d9b45ed9d55263cf",
+            "version": "0.7.4-2 -> 0.7.4-2"
+          }
+        ],
+        "rule_id": "G010"
+      }
+    ],
+    "cycle": {
+      "added": 15,
+      "changed": 27,
+      "processed": 42,
+      "refractory": [
+        {
+          "campaign_id": "G001:gh-proxy.cn",
+          "emitted": true,
+          "rule_id": "G001",
+          "window_start_obs": 70061
+        }
+      ],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [
+      {
+        "aur": "https://aur.archlinux.org/packages/flclash-myflavor-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,10 +4,12 @@\n pkgname=flclash-myflavor-bin\n _pkgname=FlClash\n pkgver=1.19.34\n-pkgrel=2\n+pkgrel=3\n pkgdesc=\"Multi-platform proxy client based on ClashMeta, simple and easy to use, open-source and ad-free, follows the mainline mihomo core updates. (Forked by myflavor)\"\n arch=('x86_64')\n url=\"https://github.com/myflavor/FlClash\"\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-only')\n conflicts=(\"${pkgname%-bin}\")\n provides=(\"${pkgname%-bin}=${pkgver}\")\n@@ -26,7 +28,7 @@\n \n \n source_x86_64=(\n-    \"${pkgname%-bin}-${pkgver}-x86_64.deb::https://gh-proxy.com/${url}/releases/download/v${pkgver}/${_pkgname}-${pkgver}-linux-amd64.deb\"\n+    \"${pkgname%-bin}-${pkgver}-x86_64.deb::${_gh_mirror}${url}/releases/download/v${pkgver}/${_pkgname}-${pkgver}-linux-amd64.deb\"\n )\n \n ",
+        "diff_sha256": "a1c6311edf822a88d3890e9cc06b8429097082d8e43dca38a5068b48fa521175",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Binary Artifact From Untrusted Source: binary artifact from unknown bucket: https://gh-proxy.cn/https://github.com/myflavor/FlClash/releases/download/v1.19.34/FlClash-1.19.34-linux-amd64.deb",
+            "rule_id": "C005",
+            "rule_uid": "TS-0013",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": 12,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream github.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/myflavor/FlClash was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/myflavor/flclash; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source Origin Changed: source source_hosts changed after 25 stable obs",
+            "rule_id": "H049",
+            "rule_uid": "TS-0105",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 4 distinct layers fired with no strong signal: L1, L2, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/myflavor/FlClash/releases/download/v1.19.34/FlClash-1.19.34-linux-amd64.deb (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source pinned to a tag (tags can be repointed; commit pins cannot)",
+            "rule_id": "P006",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: W011, W012",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:24 UTC",
+        "maintainer": "illusory",
+        "package": "flclash-myflavor-bin",
+        "pkgbuild_sha256": "c866ebd0da097b943f7b5c9e513e32224b83dd1f080bb870ed58842420d495d6",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "47c68977541c3495ad5153239b138acef48145eb1116b51d52b0a260de852e48",
+        "rules": [
+          "C005",
+          "C011",
+          "W011",
+          "W012",
+          "H020",
+          "H049",
+          "H027",
+          "M002",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P006",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 80,
+        "version": "1.19.34-3 -> 1.19.34-3"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/gridcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=gridcraft-private-bin\n pkgver=0.19.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Microsoft Excel \u66ff\u4ee3\uff08\u7535\u5b50\u8868\u683c\uff09\uff0c\u4e0a\u6e38 storytold/gridcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/gridcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"gridcraft=$pkgver\")\n conflicts=('gridcraft' 'gridcraft-bin' 'gridcraft-git' 'ai.storyteller.gridcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/gridcraft/releases/download/v${pkgver}/gridcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/gridcraft/releases/download/v${pkgver}/gridcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('ab8f44806b81e79ead6d408bf8f9f63bb896330380ec30a71b70359edcf66d44')\n \n package() {",
+        "diff_sha256": "4c292d439adeece2f6e7ba40586d580d6c481057de20f7996941af6c351a5e71",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/gridcraft/releases/download/v0.19.1/gridcraft-0.19.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:25 UTC",
+        "maintainer": "illusory",
+        "package": "gridcraft-private-bin",
+        "pkgbuild_sha256": "a8df95eaa88a114290db553fd708f7678b15b8382fe00501bd91480b3dfa4579",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "d3a2a99eaa32780afda94ed74bc13c62425443dfa5f149ce86c66440881d13d4",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.19.1-2 -> 0.19.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/lightcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=lightcraft-private-bin\n pkgver=0.21.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Lightroom \u66ff\u4ee3\uff08\u7167\u7247\u7ba1\u7406\u4e0e raw\uff09\uff0c\u4e0a\u6e38 storytold/lightcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/lightcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"lightcraft=$pkgver\")\n conflicts=('lightcraft' 'lightcraft-bin' 'lightcraft-git' 'ai.storyteller.lightcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/lightcraft/releases/download/v${pkgver}/lightcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/lightcraft/releases/download/v${pkgver}/lightcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('84c8ac2a29611665f7e4b1078b7b1503b0564225f4ab1285448963aa92f4fec0')\n \n package() {",
+        "diff_sha256": "e96a7ed2b0e662bce2c62caf9b69b025b6a3b1843c9ea2c8474aea59abec378a",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/lightcraft/releases/download/v0.21.1/lightcraft-0.21.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:25 UTC",
+        "maintainer": "illusory",
+        "package": "lightcraft-private-bin",
+        "pkgbuild_sha256": "12263c720f0d2d7462ec7e8175795afe6c21cbc2635da2c56243ea2070e68255",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "c532e13c81fbad785243de7d6be84304d8d94c34e68532898e9bfe743ab88864",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.21.1-2 -> 0.21.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/linux-wallpaperengine-v3-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -15,10 +15,12 @@\n pkgname=linux-wallpaperengine-v3-bin\n _pkgname=linux-wallpaperengine\n pkgver=1.0.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc=\"Wallpaper Engine backgrounds for Linux (prebuilt x86-64-v3)\"\n arch=('x86_64')\n url=\"https://github.com/Become-ILLUSORY/linux-wallpaperengine\"\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-only')\n provides=(\"${_pkgname}=${pkgver}\" \"linux-wallpaperengine\")\n conflicts=(\"${_pkgname}\" \"linux-wallpaperengine-git\" \"linux-wallpaperengine-core-git\")\n@@ -68,7 +70,7 @@\n     'zlib-ng-compat'\n )\n \n-source=(\"${pkgname}-${pkgver}.tar.zst::https://github.com/Become-ILLUSORY/linux-wallpaperengine/releases/download/v${pkgver}/${_pkgname}-${pkgver}-x86_64.tar.zst\")\n+source=(\"${pkgname}-${pkgver}.tar.zst::${_gh_mirror}https://github.com/Become-ILLUSORY/linux-wallpaperengine/releases/download/v${pkgver}/${_pkgname}-${pkgver}-x86_64.tar.zst\")\n sha256sums=('108ca1eeb6ebadf83a41c3269d6e762a5441f92842b54103d6c5cd6ac5e746a6')\n \n # The tarball is already a complete, correctly laid out install tree; makepkg",
+        "diff_sha256": "c9022048a002e53e92f46518d1686f0dbd485931c21ae7d9e6ea8015c2e64c96",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 23,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream github.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/Become-ILLUSORY/linux-wallpaperengine was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/become-illusory/linux-wallpaperengine; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 4 distinct layers fired with no strong signal: L1, L2, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: noextract=() suppresses extraction of source archives whose contents could not be examined",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/Become-ILLUSORY/linux-wallpaperengine/releases/download/v1.0.1/linux-wallpaperengine-1.0.1-x86_64.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: W011, W012, deps_not_scanned, noextract_suppressed",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:25 UTC",
+        "maintainer": "illusory",
+        "package": "linux-wallpaperengine-v3-bin",
+        "pkgbuild_sha256": "b866b499709c5402e3c3ffaaf949d624a425d481aa82e03bd4a504d666545bef",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "84db6c87f2e0408c712bd7dd8bb7d40d1580ae82c98929b1edcc21fe9364012f",
+        "rules": [
+          "C011",
+          "W011",
+          "W012",
+          "H020",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "1.0.1-2 -> 1.0.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/oplus-connect-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,10 +6,12 @@\n #   sha256 \u9501\u6784\u5efa\u65f6\u4ea7\u7269\uff0csource \u8d70 gh-proxy \u52a0\u901f\u3002\n pkgname=oplus-connect-private-bin\n pkgver=1.0.0.r19.gfd752ee\n-pkgrel=3\n+pkgrel=4\n pkgdesc='Linux client for OPPO and OnePlus device connectivity\uff08\u81ea\u7528\u7ef4\u62a4\uff0cCI \u81ea\u7f16\u8bd1\u91cd\u6253\u5305\u7248\uff09'\n arch=('x86_64')\n url='https://github.com/YuKongA/oplus-connect'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT')\n depends=(\n   'glibc' 'gcc-libs' 'glib2' 'fontconfig' 'freetype2' 'libxcb' 'libxkbcommon' 'libxkbcommon-x11'\n@@ -24,7 +26,7 @@\n )\n provides=(\"oplus-connect=$pkgver\")\n conflicts=('oplus-connect' 'oplus-connect-git')\n-source=(\"${pkgname}-${pkgver}.pkg.tar.zst::https://gh-proxy.com/https://github.com/Become-ILLUSORY/aur-auto-update/releases/download/oplus-connect-latest/oplus-connect-${pkgver}-1-x86_64.pkg.tar.zst\")\n+source=(\"${pkgname}-${pkgver}.pkg.tar.zst::${_gh_mirror}https://github.com/Become-ILLUSORY/aur-auto-update/releases/download/oplus-connect-latest/oplus-connect-${pkgver}-1-x86_64.pkg.tar.zst\")\n sha256sums=('cbc2c361cfd182bf72c10192cf3412cad33b8d24a1cad32cff5394be4121f5d1')\n \n package() {",
+        "diff_sha256": "678328c7a4e1f61d709493042ca143b8ea8e20bda20e9b452c14cf1b91685139",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 14,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream github.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/YuKongA/oplus-connect was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/yukonga/oplus-connect; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 4 distinct layers fired with no strong signal: L1, L2, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/Become-ILLUSORY/aur-auto-update/releases/download/oplus-connect-latest/oplus-connect-1.0.0.r19.gfd752ee-1-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: W011, W012, deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:36 UTC",
+        "maintainer": "illusory",
+        "package": "oplus-connect-private-bin",
+        "pkgbuild_sha256": "a2d8878c07e3b830e835430769c6fc5c644d5ec95abddcaafcb23e99b1e9aba1",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "c853b25da560386333462aa45d5ebfabb13db954eab7451e7d6588daf15b49d6",
+        "rules": [
+          "C011",
+          "W011",
+          "W012",
+          "H020",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "1.0.0.r19.gfd752ee-4 -> 1.0.0.r19.gfd752ee-4"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/pdfcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=pdfcraft-private-bin\n pkgver=0.21.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Acrobat \u66ff\u4ee3\uff08PDF \u9605\u8bfb\u6574\u7406\u4fdd\u62a4\uff09\uff0c\u4e0a\u6e38 storytold/pdfcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/pdfcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"pdfcraft=$pkgver\")\n conflicts=('pdfcraft' 'pdfcraft-bin' 'pdfcraft-git' 'ai.storyteller.pdfcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/pdfcraft/releases/download/v${pkgver}/pdfcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/pdfcraft/releases/download/v${pkgver}/pdfcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('1fb565339968cb12947544ec3b74472ef4ea196c308ea3c0efdaf1ca566046e5')\n \n package() {",
+        "diff_sha256": "e8c0c22968d82d6ec82cd898077138cd22abd345ca8fe7a2409b26129ede4dab",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/pdfcraft/releases/download/v0.21.1/pdfcraft-0.21.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:29 UTC",
+        "maintainer": "illusory",
+        "package": "pdfcraft-private-bin",
+        "pkgbuild_sha256": "e5af978d8d1f5654f9580ed86e6bcd3dda16158156abd70b63844d07b4e578b0",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "d1b64273af986c13917afa814fb0aa1a0034235ba9ee62e972d187aebec40417",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.21.1-2 -> 0.21.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/photocraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=photocraft-private-bin\n pkgver=0.23.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Photoshop \u66ff\u4ee3\uff08\u56fe\u50cf\u7f16\u8f91\uff09\uff0c\u4e0a\u6e38 storytold/photocraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/photocraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"photocraft=$pkgver\")\n conflicts=('photocraft' 'photocraft-bin' 'photocraft-git' 'ai.storyteller.photocraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/photocraft/releases/download/v${pkgver}/photocraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/photocraft/releases/download/v${pkgver}/photocraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('6f55b05a7880a6db38374ac7985730304bcc9b499dae0f18f9d2dbd6bbb8d201')\n \n package() {",
+        "diff_sha256": "7b8027b178d71e5a399f0d207bd482ce1e03dab43084a6698c946b081227ef9d",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/photocraft/releases/download/v0.23.1/photocraft-0.23.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:30 UTC",
+        "maintainer": "illusory",
+        "package": "photocraft-private-bin",
+        "pkgbuild_sha256": "72b754ff43f8518ec877a2347e81cc51927ea800d339aad284c92994adc36cbd",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "3180153e9651f3ba5fb879cafa8ae17cd5c95878ef70764ece490fcf6f6286b5",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.23.1-2 -> 0.23.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/soundcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=soundcraft-private-bin\n pkgver=0.20.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Pro Tools \u66ff\u4ee3\uff08DAW \u97f3\u9891\uff09\uff0c\u4e0a\u6e38 storytold/soundcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/soundcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"soundcraft=$pkgver\")\n conflicts=('soundcraft' 'soundcraft-bin' 'soundcraft-git' 'ai.storyteller.soundcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/soundcraft/releases/download/v${pkgver}/soundcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/soundcraft/releases/download/v${pkgver}/soundcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('fa629b37c70c03ed89e5e20617a049de725fc28cbb50a7f4cbcd4c3c26a3727d')\n \n package() {",
+        "diff_sha256": "396d6d78c1bc32de877693938d5ed624dc0ce055c494bd8ea28841c05a2333f2",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/soundcraft/releases/download/v0.20.1/soundcraft-0.20.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:30 UTC",
+        "maintainer": "illusory",
+        "package": "soundcraft-private-bin",
+        "pkgbuild_sha256": "3b9f8b36b0888c354c4ddc299da2afb5e2781380137cd810e7314d967bad1cfc",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "ceb8600ced5b216c04b1a2ecf023ebe22874bfd3ac20e1c9553151817afc18d3",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.20.1-2 -> 0.20.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/texturecraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=texturecraft-private-bin\n pkgver=0.6.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Substance Painter \u66ff\u4ee3\uff08PBR 3D \u7eb9\u7406\uff09\uff0c\u4e0a\u6e38 storytold/texturecraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/texturecraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"texturecraft=$pkgver\")\n conflicts=('texturecraft' 'texturecraft-bin' 'texturecraft-git' 'ai.storyteller.texturecraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/texturecraft/releases/download/v${pkgver}/texturecraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/texturecraft/releases/download/v${pkgver}/texturecraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('e67d2c661d1e6c7c82a2a59ee9a9757bf62db998749ccd3f40a5423d895feb61')\n \n package() {",
+        "diff_sha256": "4c8cc73043aa242e932ef1427ed14f4055b24315580ec7bd168b5c05bd097c4a",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/texturecraft/releases/download/v0.6.1/texturecraft-0.6.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:30 UTC",
+        "maintainer": "illusory",
+        "package": "texturecraft-private-bin",
+        "pkgbuild_sha256": "4008900ab4c8d431474b6b3c9dc6d72fd1cbef84b8cd58fe50a742c0d7222c98",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "6036291fe21b05aba46bcc6c9b024e7da268c1b94eb29ef3e1240d5c2c30b8ff",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.6.1-2 -> 0.6.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/uu-remote-linux-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,10 +5,12 @@\n #   sha256 \u9501\u4e0a\u6e38\u4f34\u968f .sha256 \u6587\u4ef6\uff0csource \u8d70 gh-proxy.com \u52a0\u901f\uff08\u5927\u9646\u76f4\u8fde GitHub \u6162\uff09\u3002\n pkgname=uu-remote-linux-private-bin\n pkgver=0.2.64\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u975e\u5b98\u65b9 UU \u8fdc\u7a0b Linux \u88ab\u63a7\u7aef + \u5b9e\u9a8c\u6027\u63a7\u5236\u7aef\uff08\u7f51\u6613 UU \u8fdc\u7a0b\uff09\uff0c\u4e0a\u6e38 VallierDev/uu-remote-linux'\n arch=('x86_64' 'aarch64')\n url='https://github.com/VallierDev/uu-remote-linux'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL3')\n depends=('gtk3' 'gdk-pixbuf2' 'cairo' 'glib2' 'pango' 'gcc-libs'\n          'libx11' 'libxext' 'libxfixes' 'libxtst' 'ffmpeg')\n@@ -18,8 +20,8 @@\n             'xdg-desktop-portal: \u684c\u9762\u901a\u77e5')\n provides=(\"uu-remote-linux=$pkgver\")\n conflicts=('uu-remote-linux')\n-source_x86_64=(\"https://gh-proxy.com/https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-x86_64-linux.tar.gz\")\n-source_aarch64=(\"https://gh-proxy.com/https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-aarch64-linux.tar.gz\")\n+source_x86_64=(\"${_gh_mirror}https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-x86_64-linux.tar.gz\")\n+source_aarch64=(\"${_gh_mirror}https://github.com/VallierDev/uu-remote-linux/releases/download/v${pkgver}/uu-remote-linux-v${pkgver}-aarch64-linux.tar.gz\")\n sha256sums_x86_64=('54f84421c5c93fbf00b827d407d5443da0385a75813f9398c7e7d95f39c1e56b')\n sha256sums_aarch64=('755900fce294ced6efdaf2358779895d0456f443fc9d6f913e1b96ea65ccb789')\n ",
+        "diff_sha256": "246fb6384ea9a371541efc20547815cf733c86658ae1796222a8fa9b48baecb8",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 13,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream github.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/VallierDev/uu-remote-linux was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/vallierdev/uu-remote-linux; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 4 distinct layers fired with no strong signal: L1, L2, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/VallierDev/uu-remote-linux/releases/download/v0.2.64/uu-remote-linux-v0.2.64-aarch64-linux.tar.gz (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source pinned to a tag (tags can be repointed; commit pins cannot)",
+            "rule_id": "P006",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: W011, W012, deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:30 UTC",
+        "maintainer": "illusory",
+        "package": "uu-remote-linux-private-bin",
+        "pkgbuild_sha256": "cd321d1f042b713e2f21130196979fa8782a738a4ddc4eea5b2b046b91e424d4",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "63dd329584d63e326f2947bd9dafa1453f5de564db09f9bcb3f048c0a6418976",
+        "rules": [
+          "C011",
+          "W011",
+          "W012",
+          "H020",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P006",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.2.64-2 -> 0.2.64-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/vectorcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=vectorcraft-private-bin\n pkgver=0.24.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Illustrator \u66ff\u4ee3\uff08\u77e2\u91cf\u63d2\u753b\uff09\uff0c\u4e0a\u6e38 storytold/vectorcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/vectorcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"vectorcraft=$pkgver\")\n conflicts=('vectorcraft' 'vectorcraft-bin' 'vectorcraft-git' 'ai.storyteller.vectorcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/vectorcraft/releases/download/v${pkgver}/vectorcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/vectorcraft/releases/download/v${pkgver}/vectorcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('8fe8af94743dce6d6129947e860341bcb76356178149b6de8b1ef30792d5c6fe')\n \n package() {",
+        "diff_sha256": "c92f55668c01db563c7f217d1feeb1b39b00ff5d27927d71f206ef0bd43354a3",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/vectorcraft/releases/download/v0.24.1/vectorcraft-0.24.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:34 UTC",
+        "maintainer": "illusory",
+        "package": "vectorcraft-private-bin",
+        "pkgbuild_sha256": "3ffda96a87e568102c47243d8a4873613a8b28be250a3fc6ade0a46b4f0d7be8",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "cd2bb36184c2249fc2a75bef8c8bba10e931171aedd2ede2fab9fc55694376ca",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 50,
+        "version": "0.24.1-2 -> 0.24.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/wordcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,12 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=wordcraft-private-bin\n pkgver=0.18.1\n-pkgrel=1\n+pkgrel=2\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Microsoft Word \u66ff\u4ee3\uff08\u7eaf Rust \u5b57\u5904\u7406\u5668\uff09\uff0c\u4e0a\u6e38 storytold/wordcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/wordcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('MIT' 'Apache')\n provides=(\"wordcraft=$pkgver\")\n conflicts=('wordcraft' 'wordcraft-bin' 'wordcraft-git' 'ai.storyteller.wordcraft')\n@@ -23,7 +25,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/wordcraft/releases/download/v${pkgver}/wordcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/wordcraft/releases/download/v${pkgver}/wordcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('5b1b2851bdebf75a23f2ce2efdbda2b2b542749b9fe653f9b7b16dc209dcbb64')\n \n package() {",
+        "diff_sha256": "a0635f30d9f0c87447bb21f0db688dcb6cd411165419bcb46e50715507f8c1ea",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/storytold/wordcraft/releases/download/v0.18.1/wordcraft-0.18.1-linux-x86_64.pkg.tar.zst (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:31 UTC",
+        "maintainer": "illusory",
+        "package": "wordcraft-private-bin",
+        "pkgbuild_sha256": "e55236fa82bd22b25b33ef44154fa2b5aa87b48e52cc1d51a0b18ec801900519",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "110cce8e57d2b82c16499b85235d27901fbef2aa4ce893e74277ea226fdce26a",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "P009"
+        ],
+        "score": 50,
+        "version": "0.18.1-2 -> 0.18.1-2"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/filmcraft-private-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,10 +2,13 @@\n # \u81ea\u7528\u7ef4\u62a4\uff1a\u4ec5\u4fe1\u4efb\u5b98\u65b9 GitHub release \u8d44\u4ea7\uff0csha256 \u9501\u5b9a\u5b98\u65b9 SHA256SUMS.txt\u3002\n pkgname=filmcraft-private-bin\n pkgver=0.20.1\n-pkgrel=1\n+pkgrel=3\n pkgdesc='\u81ea\u7528\u7ef4\u62a4\uff1a\u5f00\u6e90 clean-room \u7248 Adobe Premiere Pro \u66ff\u4ee3\uff08\u89c6\u9891\u7f16\u8f91\uff09\uff0c\u4e0a\u6e38 storytold/filmcraft'\n arch=('x86_64')\n url='https://getartcraft.com/apps/filmcraft'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n+_gh_mirror=\"${_gh_mirror%/}/\"\n license=('MIT' 'Apache')\n provides=(\"filmcraft=$pkgver\")\n conflicts=('filmcraft' 'filmcraft-bin' 'filmcraft-git' 'ai.storyteller.filmcraft')\n@@ -23,7 +26,7 @@\n             'vulkan-driver: GPU rendering through Vulkan'\n             'xdg-desktop-portal: native desktop integration and file dialogs'\n             'cups: printing support')\n-source=(\"https://gh-proxy.com/https://github.com/storytold/filmcraft/releases/download/v${pkgver}/filmcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n+source=(\"${_gh_mirror}https://github.com/storytold/filmcraft/releases/download/v${pkgver}/filmcraft-${pkgver}-linux-x86_64.pkg.tar.zst\")\n sha256sums=('bbdee1fe9e8671094e4e548d3920a808b7c7411a802d743b19158753d951d722')\n \n package() {",
+        "diff_sha256": "553bcd49c9ee021c7cc3ca9eb7518c2005a3caaeb0d753e2252d23dbebeb71b1",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 10,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream getartcraft.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Composition Not Owned Elsewhere: 2 capability families co-occurred with no cluster rule: source, temporal",
+            "rule_id": "M003",
+            "rule_uid": "TS-0162",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "source hosted on a trusted forge over HTTPS",
+            "rule_id": "P007",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:24 UTC",
+        "maintainer": "illusory",
+        "package": "filmcraft-private-bin",
+        "pkgbuild_sha256": "0d43b2c7d79b2ece9ee38bbb5b6bfca01a1a1531244d69f8245f543a682850c8",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "c9192687e919aec0b307c460b639d386c618483247d74c28fa7ad479731f6957",
+        "rules": [
+          "C011",
+          "H020",
+          "M003",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "P007",
+          "NOVELTY",
+          "P001",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 40,
+        "version": "0.20.1-3 -> 0.20.1-3"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/honk-bin",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,7 +2,7 @@\n \n pkgname=honk-bin\n pkgver=0.1.0beta.6\n-pkgrel=2\n+pkgrel=3\n pkgdesc='Experimental Linux eBPF transparent proxy engine (prebuilt musl static full build)'\n arch=('x86_64' 'aarch64')\n url='https://github.com/daeuniverse/honk'\n@@ -47,7 +47,7 @@\n # A trailing slash is optional. The sha256s below pin the exact upstream bytes,\n # so a broken or hostile mirror fails the build instead of shipping a different\n # binary.\n-_github_mirror=\"${GITHUB_MIRROR:-}\"\n+_github_mirror=\"${GITHUB_MIRROR:-https://gh-proxy.cn}\"\n [[ -n \"$_github_mirror\" ]] && _github_mirror=\"${_github_mirror%/}/\"\n _dl_base=\"${_github_mirror}${url}/releases/download/v${_upver}\"\n ",
+        "diff_sha256": "2911cca94f2b8ecf594e8856b1e736fc63c4852dbd1ad585ac8f0f424b9f1e6a",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": 50,
+            "reason": "Prebuilt Binary From Non-Upstream Host: prebuilt package sources from gh-proxy.cn, not declared upstream github.com",
+            "rule_id": "C011",
+            "rule_uid": "TS-0019",
+            "severity": "MEDIUM",
+            "weight": 15
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/daeuniverse/honk was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/daeuniverse/honk; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Capability Density Anomaly: rule hits span 3 distinct capability categories",
+            "rule_id": "H027",
+            "rule_uid": "TS-0083",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Weak Signal Across Layers: 4 distinct layers fired with no strong signal: L1, L2, L5, L6",
+            "rule_id": "M002",
+            "rule_uid": "TS-0161",
+            "severity": "MEDIUM",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "the recipe declares a prebuilt deliverable (-bin/-appimage/-wine name or a prebuilt-artifact source)",
+            "rule_id": "P009",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: W011, W012, deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:25 UTC",
+        "maintainer": "illusory",
+        "package": "honk-bin",
+        "pkgbuild_sha256": "e2fff3046e06a2c7117d5f37c57e02760394e6a092c9b5f46db8c0665931f840",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "d7a84e432c289b262221168f32a93a65019b3dd4d20a4b3c8a50389643fca09d",
+        "rules": [
+          "C011",
+          "W011",
+          "W012",
+          "H020",
+          "H027",
+          "M002",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "P009",
+          "G007",
+          "W013"
+        ],
+        "score": 40,
+        "version": "0.1.0beta.6-3 -> 0.1.0beta.6-3"
+      },
+      {
+        "aur": "https://aur.archlinux.org/packages/mactahoe-icon-theme",
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,15 +1,17 @@\n # Maintainer: illusory\n pkgname=mactahoe-icon-theme\n pkgver=2026.09.10\n-pkgrel=1\n+pkgrel=2\n pkgdesc='macOS Tahoe \u98ce\u683c\u7684\u56fe\u6807\u4e0e\u9f20\u6807\u6307\u9488\u4e3b\u9898\uff08\u9884\u7f16\u8bd1\uff0c\u65e0\u9700\u6e32\u67d3\u5de5\u5177\uff09'\n arch=('any')\n url='https://github.com/vinceliuice/MacTahoe-icon-theme'\n+# GitHub \u4e0b\u8f7d\u52a0\u901f\u955c\u50cf\uff1b\u6362\u955c\u50cf\u53ef makepkg GH_MIRROR=https://\u53e6\u4e00\u955c\u50cf/\n+_gh_mirror=\"${GH_MIRROR:-https://gh-proxy.cn/}\"\n license=('GPL-3.0-or-later')\n depends=('gtk-update-icon-cache' 'hicolor-icon-theme')\n options=('!strip')\n _tag=2026-09-10\n-source=(\"https://github.com/vinceliuice/MacTahoe-icon-theme/archive/refs/tags/${_tag}.tar.gz\")\n+source=(\"${_gh_mirror}https://github.com/vinceliuice/MacTahoe-icon-theme/archive/refs/tags/${_tag}.tar.gz\")\n sha256sums=('6330369e9e10a28cfc8da598ebf63a7204be705403519963ff84e1cb84719d35')\n \n prepare() {",
+        "diff_sha256": "09ecb6111ea5d469430e3c50f7b990601869154a2a9a9464a09a199744c9bb3e",
+        "findings": [
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Upstream Content Not Read: upstream content declared at https://github.com/vinceliuice/MacTahoe-icon-theme was not read (A2: the analysis reads declarations, never upstream itself)",
+            "rule_id": "W011",
+            "rule_uid": "TS-0271",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "PKGBUILD",
+            "line": null,
+            "reason": "Federation Not Consulted: the upstream_repo federation channel holds no data for github.com/vinceliuice/mactahoe-icon-theme; U007/U008 could not be checked",
+            "rule_id": "W012",
+            "rule_uid": "TS-0272",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Very Recent Update: updated 0h ago (< 72h)",
+            "rule_id": "H020",
+            "rule_uid": "TS-0076",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Coverage gap: the AUR dependency walk stopped before the closure was exhausted, so some packages this build will pull in were never analysed",
+            "rule_id": "COVERAGE",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL classified as unknown (https://gh-proxy.cn/)",
+            "rule_id": "SOURCE_BUCKET",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 20
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen globally: https://gh-proxy.cn/https://github.com/vinceliuice/MacTahoe-icon-theme/archive/refs/tags/2026-09-10.tar.gz (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 10
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "Source URL first seen in this package: https://gh-proxy.cn/ (maturity=1.00)",
+            "rule_id": "NOVELTY",
+            "rule_uid": null,
+            "severity": "MEDIUM",
+            "weight": 5
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "checksums declared for all non-VCS sources",
+            "rule_id": "P001",
+            "rule_uid": null,
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "stands in active campaign G001:gh-proxy.cn (corroboration, weight 0)",
+            "rule_id": "G007",
+            "rule_uid": "TS-0054",
+            "severity": "INFO",
+            "weight": 0
+          },
+          {
+            "file": "",
+            "line": null,
+            "reason": "campaign perimeter boundary visible: W011, W012, deps_not_scanned",
+            "rule_id": "W013",
+            "rule_uid": "TS-0289",
+            "severity": "INFO",
+            "weight": 0
+          }
+        ],
+        "last_modified": "2026-11-22 08:26 UTC",
+        "maintainer": "illusory",
+        "package": "mactahoe-icon-theme",
+        "pkgbuild_sha256": "887c5a5e6b84b0419ffd42e80e6574882645b74707136561af9bb12277692f74",
+        "previous_maintainer": "illusory",
+        "previous_pkgbuild_sha256": "c9ee83b69af5990298061ebc59d92653b92a8eae23d7ba160dca4e6c8468c8bc",
+        "rules": [
+          "W011",
+          "W012",
+          "H020",
+          "COVERAGE",
+          "SOURCE_BUCKET",
+          "NOVELTY",
+          "NOVELTY",
+          "P001",
+          "G007",
+          "W013"
+        ],
+        "score": 35,
+        "version": "2026.09.10-2 -> 2026.09.10-2"
+      }
+    ],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: Campaign across 15 packages (G001)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H045",
+    "H073",
+    "H058",
+    "H044",
+    "H026",
+    "G001",
+    "C005",
+    "C011",
+    "W011",
+    "W012",
+    "H020",
+    "H049",
+    "H027",
+    "M002",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P006",
+    "P009",
+    "G007",
+    "W013",
+    "M003",
+    "COVERAGE",
+    "P001",
+    "P007",
+    "G010"
+  ],
+  "slug": "2026-11-22/084328",
+  "tags": [],
+  "time": 1795337008,
+  "title": "TrustSight: Campaign across 15 packages (G001)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "2c257cdcc9280b4e52998f130e3090c95b95684a575c8db619373d5efc6ec233",
+    "key_id": "k1",
+    "signature": "pAP2Ee/McpqdMETaI9CiLTQDiBtazCOwN0buGqAbSUAGejrTvkW5V249sLr5Sv6bg2LJkTnxvyv+NVPmACFLBQ==",
+    "signed_at": 1795337008,
+    "webhook_id": "9ead8e57e8090ea6afe8abb7cca452ee002ed9d3b8a193584365307b47e21b7a"
+  }
+}

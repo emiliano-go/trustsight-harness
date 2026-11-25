@@ -1,0 +1,46 @@
+cells:
+- id: control-benign-update
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/control-benign-update.json
+  expect_fire:
+  - H086
+- id: wave1-gnome-randr-rust
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave1-gnome-randr-rust.json
+  expect_fire:
+  - H086
+- id: wave1-installhook-flashfocus
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave1-installhook-flashfocus.json
+  expect_fire:
+  - H086
+- id: wave1-minitube
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave1-minitube.json
+  expect_fire:
+  - H086
+- id: wave1-nextcloud-git
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave1-nextcloud-git.json
+  expect_fire:
+  - H086
+- id: wave1-python-future
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave1-python-future.json
+  expect_fire:
+  - H086
+- id: wave2-guiscrcpy
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave2-guiscrcpy.json
+  expect_fire:
+  - H086
+- id: wave2-keepassx2
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave2-keepassx2.json
+  expect_fire:
+  - H086
+- id: wave3-python-rembg
+  lane: cycle
+  payload_path: campaigns/atomic-arch-2026-06-adoption/wave3-python-rembg.json
+  expect_fire:
+  - H086

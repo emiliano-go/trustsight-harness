@@ -1,0 +1,37 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "open-quickshare scored 60 (U003)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T20:09:42.000Z",
+  "packages": [
+    "open-quickshare"
+  ],
+  "priority": null,
+  "rules": [
+    "C002",
+    "D005",
+    "U001",
+    "U002",
+    "U012",
+    "U003",
+    "U009",
+    "H015",
+    "H020",
+    "H027",
+    "M002",
+    "COVERAGE",
+    "P001"
+  ],
+  "slug": "2026-11-20/200942",
+  "tags": [],
+  "time": 1795205382,
+  "title": "TrustSight: open-quickshare scored 60 (U003)",
+  "tool_version": "0.30.0"
+}

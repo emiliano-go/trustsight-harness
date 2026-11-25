@@ -1,0 +1,16 @@
+cells:
+- id: A011-positive
+  lane: artifact
+  payload_path: fixtures/lane/artifact/a011.json
+  expect_fire:
+  - A011
+- id: A012-positive
+  lane: artifact
+  payload_path: fixtures/lane/artifact/a012.json
+  expect_fire:
+  - A012
+- id: A013-positive
+  lane: artifact
+  payload_path: fixtures/lane/artifact/a013.json
+  expect_fire:
+  - A013

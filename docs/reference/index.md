@@ -10,6 +10,8 @@ reasoning behind them, see [Explanation](../explanation/index.md).
 | Page | What it covers |
 |---|---|
 | [CLI](cli.md) | The five commands: a campaign, the sweep, the regression gate, the coverage report, and the benign scan. |
+| [Lanes](lanes.md) | The nine analysis lanes, their entry points, and how every rule is reproduced or excluded. |
+| [Alert Replay](replay.md) | Replaying a recorded alert from the facts the watcher had, and the inputs still missing. |
 | [Campaign Configuration](campaign-config.md) | Every key of `campaign.yml`, its type, and whether it is required. |
 | [Record Schema](record-schema.md) | `record.json`, field by field, including the forbidden fields. |
 | [Terminal Statuses](statuses.md) | The eleven terminal statuses and the order the Judge applies them in. |

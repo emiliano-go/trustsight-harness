@@ -1,0 +1,25 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "T011 on xdg-desktop-portal-gtk4-bin",
+  "ioc_packages": [],
+  "iso": "2026-11-21T11:16:33.000Z",
+  "packages": [
+    "xdg-desktop-portal-gtk4-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "T011"
+  ],
+  "slug": "2026-11-21/111633",
+  "tags": [],
+  "time": 1795259793,
+  "title": "TrustSight: T011 on xdg-desktop-portal-gtk4-bin",
+  "tool_version": "0.30.0"
+}

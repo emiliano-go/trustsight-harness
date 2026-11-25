@@ -1,0 +1,11 @@
+{
+  "note": "Rules the harness deliberately does not reproduce, each with the entry point the watcher path owns and why a committed fixture cannot stand in for it. Every exclusion is checked against the live emitter by tests/test_alerts.py.",
+  "rules": {
+    "U015": {
+      "emitter": "analysis.upstream_release._manifest_matches",
+      "evidence": "the compose lane seeded an unsigned baseline and _manifest_matches returned the row in-process, but the analysis worker's IOC store is a separate database, so the seeded row is invisible there",
+      "lane": "upstream",
+      "reason": "needs a signed federation manifest observation for the release; the harness has no key material to produce one, and an unsigned stand-in would measure the fixture rather than the rule"
+    }
+  }
+}

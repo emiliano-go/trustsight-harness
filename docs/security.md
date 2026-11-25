@@ -21,8 +21,10 @@ depends on a reviewer remembering it is not a boundary.
 any circumstances.
 
 `bash -n` parses a script and reports syntax errors without executing it. That
-is the sole shell interaction in the codebase, and it is treated formally rather
-than trusted:
+is the only time a *generated recipe* meets a shell. (The false-positive
+workflow also runs a sandboxed `git apply` on an agent-supplied fix diff; it
+applies a patch in a throwaway tree and never touches a recipe.) The parse is
+treated formally rather than trusted:
 
 - the content goes to an **anonymous, sealed memory file** — `memfd_create`
   with `F_ADD_SEALS` (`WRITE|SHRINK|GROW`), read by bash through

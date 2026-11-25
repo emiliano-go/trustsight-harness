@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "tabdance-elvish-bin scored 90 (D004)",
+  "ioc_packages": [],
+  "iso": "2026-11-21T13:57:13.000Z",
+  "packages": [
+    "tabdance-elvish-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "H064",
+    "D004",
+    "W011",
+    "W012",
+    "H020",
+    "H027",
+    "H098",
+    "P007",
+    "NOVELTY",
+    "P006",
+    "P009"
+  ],
+  "slug": "2026-11-21/135713",
+  "tags": [],
+  "time": 1795269433,
+  "title": "TrustSight: tabdance-elvish-bin scored 90 (D004)",
+  "tool_version": "0.30.0"
+}

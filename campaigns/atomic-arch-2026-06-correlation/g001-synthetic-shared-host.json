@@ -1,0 +1,52 @@
+{
+ "records": [
+  {
+   "package": "gnome-randr-rust",
+   "maintainer": "acct-1",
+   "adoption": true,
+   "hosts_gained": [
+    "cdn.atomic.example"
+   ]
+  },
+  {
+   "package": "python-future",
+   "maintainer": "acct-2",
+   "adoption": true,
+   "hosts_gained": [
+    "cdn.atomic.example"
+   ]
+  },
+  {
+   "package": "minitube",
+   "maintainer": "acct-3",
+   "adoption": true,
+   "hosts_gained": [
+    "cdn.atomic.example"
+   ]
+  },
+  {
+   "package": "nextcloud-git",
+   "maintainer": "acct-4",
+   "adoption": true,
+   "hosts_gained": [
+    "cdn.atomic.example"
+   ]
+  },
+  {
+   "package": "guiscrcpy",
+   "maintainer": "acct-5",
+   "adoption": true,
+   "hosts_gained": [
+    "cdn.atomic.example"
+   ]
+  },
+  {
+   "package": "keepassx2",
+   "maintainer": "acct-6",
+   "adoption": true,
+   "hosts_gained": [
+    "cdn.atomic.example"
+   ]
+  }
+ ]
+}

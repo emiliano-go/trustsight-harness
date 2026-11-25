@@ -172,6 +172,11 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     if config.campaign_type == "artifact-probe":
         return _run_artifact_probe(config, generator, prompt, runner, env,
                                    recorder, repo_root, calibration, started_at)
+    if config.campaign_type == "lane-probe":
+        from .lane_probe import run_lane_probe
+
+        return run_lane_probe(config, generator, prompt, runner, env, recorder,
+                              repo_root, calibration, started_at)
 
     for attempt in range(config.attempts):
         # Pre-registered stop conditions.  Declared in the committed
@@ -549,12 +554,17 @@ def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
                       for rule in trace.judge.get("missing_rules", ())})
     negatives = sorted({rule for trace in recorder.traces
                         for rule in trace.judge.get("negative_failures", ())})
+    attempted = {rule for trace in recorder.traces
+                 for rule in trace.judge.get("expected_rules", ())}
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
         "fired_rules": union,
         "missing_rules": missing,
         "negative_failures": negatives,
+        # A rule the campaign claims but no cell ever attempted: the probe
+        # would otherwise read as coverage for a rule nothing ran.
+        "unattempted_rules": sorted(set(expected) - attempted),
     }
     recorder.write_record(record)
     return record
@@ -626,7 +636,9 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
             env.restore()
         try:
             if produced.new_text is None:
-                result = runner.analyze_diff(diff_text, package=config.package)
+                result = runner.analyze_diff(
+                    diff_text, package=produced.package_name or config.package,
+                    post_pkgbuild=produced.post_pkgbuild)
             else:
                 result = runner.analyze(produced.new_text, produced.old_text)
         except (AnalysisTimeout, RunnerError) as exc:
@@ -651,12 +663,12 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         gaps = [gap for gap in report.coverage_gaps if gap not in env.mode_gaps]
         if gaps:
             status = Status.FAIL_CLOSED_CATCH
-        elif not missing and not negative_failures:
-            status = Status.DETECTED
+        elif negative_failures:
+            status = Status.PARTIAL_EVASION
         elif missing:
             status = Status.BYPASS
         else:
-            status = Status.PARTIAL_EVASION
+            status = Status.DETECTED
         trace.status = status
         trace.trustsight = {
             "report": result.body,
@@ -702,12 +714,17 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
                       for rule in trace.judge.get("missing_rules", ())})
     negatives = sorted({rule for trace in recorder.traces
                         for rule in trace.judge.get("negative_failures", ())})
+    attempted = {rule for trace in recorder.traces
+                 for rule in trace.judge.get("expected_rules", ())}
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
         "fired_rules": union,
         "missing_rules": missing,
         "negative_failures": negatives,
+        # A rule the campaign claims but no cell ever attempted: the probe
+        # would otherwise read as coverage for a rule nothing ran.
+        "unattempted_rules": sorted(set(expected) - attempted),
     }
     recorder.write_record(record)
     return record

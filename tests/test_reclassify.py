@@ -117,3 +117,12 @@ def test_reclassify_is_a_cli_target(capsys):
         cli.main(["reclassify", "--help"])
     assert exc.value.code == 0
     assert "warm re-measured" in capsys.readouterr().out
+
+
+def test_reclassify_without_a_warm_environment_is_a_config_error(tmp_path):
+    """The yaml import used to be function-local, so reaching reclassify
+    first raised UnboundLocalError instead of returning the config error."""
+    from harness import __main__ as cli
+
+    rc = cli.main(["reclassify", "--record", str(tmp_path), "--check"])
+    assert rc == 1

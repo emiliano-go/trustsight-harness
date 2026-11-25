@@ -1,0 +1,1716 @@
+{
+  "counts": {
+    "alerts": 183,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "Campaign across 21 packages (G014)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T15:40:28.000Z",
+  "packages": [
+    "agy-acp-server",
+    "aspnet-runtime-10.0-bin",
+    "aspnet-targeting-pack-10.0-bin",
+    "basket-git",
+    "ctl",
+    "dagu",
+    "deskew-git",
+    "dotnet-host-10.0-bin",
+    "dotnet-runtime-10.0-bin",
+    "dotnet-sdk-10.0-bin",
+    "dotnet-targeting-pack-10.0-bin",
+    "hebcal",
+    "lib32-libnsl",
+    "nsc",
+    "proc",
+    "python-bpylist2",
+    "python-camelot-git",
+    "python-pywpsrpc",
+    "rufin",
+    "slack-desktop-wayland",
+    "spyglass-bin",
+    "csharpier",
+    "csharpier-bin",
+    "dev-proxy",
+    "dotnet-azure-core",
+    "dotnet-azure-identity",
+    "dotnet-build-deps-10.0-bin",
+    "hexus",
+    "hexus-git",
+    "jackett",
+    "lconnect-linux",
+    "lconnect-linux-bin",
+    "lubelogger",
+    "powershell-lts",
+    "prowlarr",
+    "prowlarr-develop",
+    "radarr",
+    "radarr-develop",
+    "recyclarr",
+    "sonarr-develop",
+    "spiceforge",
+    "syncclipboard-desktop",
+    "syncclipboard-server",
+    "whisparr-eros",
+    "whisparr-eros-develop",
+    "nota-daw",
+    "slimit-gpu",
+    "slimit-gpu-git",
+    "art-rawconverter-ctlscripts",
+    "autoroute",
+    "baballonia",
+    "bassboom-2",
+    "bassboom-2-git",
+    "bassboom-3",
+    "bassboom-3-git",
+    "bedrockboot",
+    "capri-desktop",
+    "clangsharp-pinvoke-generator",
+    "clonedash-git",
+    "csharp-ls",
+    "ctdb-cli",
+    "ddinfo-tools",
+    "ddinfo-tools-git",
+    "disc-image-studio",
+    "disc-image-studio-git",
+    "discord-chat-exporter-cli",
+    "discord-chat-exporter-core",
+    "discord-chat-exporter-gui",
+    "discord-chat-exporter-plus-cli",
+    "elite-insights-bin",
+    "elite-insights-cli-bin",
+    "ez2lazer",
+    "factorio-yafc-ce-git",
+    "filee-git",
+    "g0v0",
+    "g0v0-robin",
+    "garnet-bin",
+    "gpu-t",
+    "gpu-t-git",
+    "grooveauthor-bin",
+    "hedgemodmanager-git",
+    "il2cppdumper",
+    "ilspy-bin",
+    "imewlconverter",
+    "kiota",
+    "kittenspaceagency-bin",
+    "littlebigmouse",
+    "marksman-git",
+    "mediaboom-3",
+    "mediaboom-3-git",
+    "mpf-cli",
+    "mpf-cli-git",
+    "mpf-ui",
+    "mpf-ui-git",
+    "narc-cli",
+    "ndecrypt-git",
+    "netcoredbg",
+    "netcoredbg-bin",
+    "nitrocid-25",
+    "nitrocid-25-git",
+    "nitrocid-25-lite",
+    "nitrocid-25-lite-git",
+    "nitrocid-27",
+    "nitrocid-27-git",
+    "nitrocid-27-lite",
+    "nitrocid-27-lite-git",
+    "nitrocid-28",
+    "nitrocid-28-git",
+    "nitrocid-28-lite",
+    "nitrocid-28-lite-git",
+    "nitrocid-29",
+    "nitrocid-29-git",
+    "nitrocid-29-lite",
+    "nitrocid-29-lite-git",
+    "openshock-desktop-bin",
+    "opentabletdriver",
+    "opentabletdriver-git",
+    "osu-radio-bin",
+    "osu-radio-git",
+    "pcl-n-beta-bin",
+    "pcl-n-bin",
+    "powershell-editor-services",
+    "ps3-disc-dumper",
+    "pupdate",
+    "rabbitmq-client-git",
+    "roslyn-language-server",
+    "roslyn-ls",
+    "shauns_audio_visualizer",
+    "silkfly-git",
+    "sourcegit",
+    "ss14.launcher",
+    "ss14.launcher-bin",
+    "tofu",
+    "trie-git",
+    "undertalemodtool-avalonia-bin",
+    "vintagestory",
+    "vintagestory-server",
+    "vintagestory-unstable",
+    "vrc-video-cacher-bin",
+    "vrcx",
+    "vrcx-bin",
+    "vrcx-git",
+    "vrcx-nightly-bin",
+    "youtubedownloader",
+    "aurindexer-git",
+    "borea-git",
+    "cs-script",
+    "dotnet-build-deps-10.0",
+    "dotnet-source-build-reference-packages",
+    "dotnet-source-build-reference-packages-10.0",
+    "dotnet-system-io-ports-native",
+    "dotnet-system-io-ports-native-10.0",
+    "dotnet-system-io-ports-native-debug",
+    "ez2lazer-git",
+    "froststrap",
+    "froststrap-git",
+    "fsautocomplete",
+    "fsautocomplete-bin",
+    "git-credential-manager",
+    "hypricing-git",
+    "libstarfish",
+    "mesen-ce-git",
+    "mesen2-git",
+    "nkit",
+    "nkit-git",
+    "nkit-ui",
+    "nkit-ui-git",
+    "omnisharp-roslyn-bin",
+    "openhv",
+    "openssh-gui-git",
+    "openutau",
+    "owovrc-cli",
+    "pudu-launcher-git",
+    "starfish",
+    "thrive",
+    "wheelwizard",
+    "lib32-python",
+    "lib32-qt3",
+    "python-pyiosbackup"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "MegaDrive",
+        "new": "megadrive",
+        "package": "agy-acp-server",
+        "pkgbuild_sha256": "8b530c677129dffab1ef287321d4ee56c61fff84c7fa9997215591310404405e",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Gr3q",
+        "new": "gr3q",
+        "package": "aspnet-runtime-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Gr3q",
+        "new": "gr3q",
+        "package": "aspnet-targeting-pack-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "arkades",
+        "new": "arkades",
+        "package": "basket-git",
+        "pkgbuild_sha256": "a6c0e9fd49a08a42c183b36fbbbfae106b72be1aa0fc62926567d0948db5de92",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "damir",
+        "new": "damir",
+        "package": "ctl",
+        "pkgbuild_sha256": "46a898dd5b7bd945b28cfb0200d68fb6387f1046aac393011b0c4be1a0c3f163",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "AlD",
+        "new": "ald",
+        "package": "dagu",
+        "pkgbuild_sha256": "71e27129b72811032fdce964d05164d2390c5eda483b7049cf04732e822a1419",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "chowbok",
+        "new": "chowbok",
+        "package": "deskew-git",
+        "pkgbuild_sha256": "64b8de213aed1fc3ddb2177cf054adc4e393287d3f97c3b83c837b564aa93e1a",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Gr3q",
+        "new": "gr3q",
+        "package": "dotnet-host-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Gr3q",
+        "new": "gr3q",
+        "package": "dotnet-runtime-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Gr3q",
+        "new": "gr3q",
+        "package": "dotnet-sdk-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Gr3q",
+        "new": "gr3q",
+        "package": "dotnet-targeting-pack-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "coolreader18",
+        "new": "coolreader18",
+        "package": "hebcal",
+        "pkgbuild_sha256": "64c82363130a00e0bca2e1fe36bbd459de6ffed9abf12e44c8dceda3c09dd835",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "viktoracoric",
+        "new": "viktoracoric",
+        "package": "lib32-libnsl",
+        "pkgbuild_sha256": "f6d185b19a653c9bd30a6ec74d17b19f0630004db357be627bf1eea67fe977e5",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "hristov",
+        "new": "hristov",
+        "package": "nsc",
+        "pkgbuild_sha256": "91621b1ac2e51a14dd5fa807f6c3bfb5e516bccbdaa0678b45fb491c2dbd6f79",
+        "rule_id": "H044"
+      },
+      {
+        "diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,7 @@\n pkgname=${_appname}\n pkgdesc=\"Semantic CLI tool for process management. Target by port, PID, name or path.\"\n \n-pkgver=2.1.0\n+pkgver=2.1.1\n pkgrel=1\n _pkgvername=v${pkgver}\n \n@@ -24,7 +24,7 @@\n options=('!lto' '!strip')\n \n source=(\"${pkgname}-${pkgver}.tgz::${url}/archive/v${pkgver}.tar.gz\")\n-sha256sums=('90e80c5c20fb352b68f655db4aab723b35f75f4505db58309246bf7097ebc142')\n+sha256sums=('4f5d4df58ba92bb97b4554599f3dd64f3fe684d2c773c077168ceb5e434b13bf')\n \n prepare() {\n \tcd \"${_pkgname}-${pkgver}\" || exit",
+        "diff_sha256": "a490bad15162aac2945caa55a3a403a417e6756e1d2670bed632a956b8ef8812",
+        "maintainer": "JasonLandbridge",
+        "new": "jasonlandbridge",
+        "package": "proc",
+        "pkgbuild_sha256": "c7fdf2d63c2c6fc2e26783c2c456a833be8945d67715df1fd603ebb846e9a7bd",
+        "previous_pkgbuild_sha256": "fa43922860f01134035ead94b9431252865b56c18775a2bb90235595f50a3457",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "taotieren",
+        "new": "taotieren",
+        "package": "python-bpylist2",
+        "pkgbuild_sha256": "0f20b46f490ab7051d1ddbb9c643eaf067c00d2d0c3242bd725c0b763799b971",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "lukerb52",
+        "new": "lukerb52",
+        "package": "python-camelot-git",
+        "pkgbuild_sha256": "fad22116b2cb2bb199504306884fccc42179d503128e1c3af2bf662521ee76f8",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "evine",
+        "new": "evine",
+        "package": "python-pywpsrpc",
+        "pkgbuild_sha256": "fa74ad60233ae6ccbad5bb53b41b64936d1ba0ff3c54d333005be8396b6a367d",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "seppia",
+        "new": "seppia",
+        "package": "rufin",
+        "pkgbuild_sha256": "c3769627344c8262c5d79ee72705d5d66717a55949302b7db4e67e834d2389f2",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "jetm",
+        "new": "jetm",
+        "package": "slack-desktop-wayland",
+        "pkgbuild_sha256": "738089a3f056a52289c53442c63d48a6c1c43c1b2fe7251c170cf066da440c63",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "JasonLandbridge",
+        "new": "jasonlandbridge",
+        "package": "spyglass-bin",
+        "pkgbuild_sha256": "4c0e75db7d5817e12f3b2e5c776c4cc72c75c7b132487f7009938217da479978",
+        "rule_id": "H044"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "csharpier",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "aspnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "csharpier-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dev-proxy",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "aspnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-azure-core",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "aspnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-azure-identity",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-build-deps-10.0-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-targeting-pack-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "maintainer": "Gr3q",
+        "new": "Gr3q",
+        "package": "dotnet-sdk-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "hexus",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "hexus-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "jackett",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "lconnect-linux",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "lconnect-linux-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "lubelogger",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "powershell-lts",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "prowlarr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "prowlarr-develop",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "radarr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "radarr-develop",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "recyclarr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "sonarr-develop",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "spiceforge",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "syncclipboard-desktop",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "syncclipboard-server",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "whisparr-eros",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "whisparr-eros-develop",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nota-daw",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-targeting-pack-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "slimit-gpu",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-targeting-pack-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "slimit-gpu-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "ctl",
+        "dependency_new_maintainer": "damir",
+        "dependency_status": "adopted",
+        "package": "art-rawconverter-ctlscripts",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "maintainer": "Gr3q",
+        "new": "Gr3q",
+        "package": "aspnet-runtime-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "autoroute",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "baballonia",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "bassboom-2",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "bassboom-2-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "bassboom-3",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "bassboom-3-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "bedrockboot",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "capri-desktop",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "clangsharp-pinvoke-generator",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "clonedash-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-targeting-pack-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "csharp-ls",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ctdb-cli",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ddinfo-tools",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ddinfo-tools-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "disc-image-studio",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "disc-image-studio-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "discord-chat-exporter-cli",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "discord-chat-exporter-core",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "discord-chat-exporter-gui",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "discord-chat-exporter-plus-cli",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "elite-insights-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "elite-insights-cli-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ez2lazer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "factorio-yafc-ce-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "filee-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "g0v0",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "g0v0-robin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "garnet-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "gpu-t",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "gpu-t-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "grooveauthor-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "hedgemodmanager-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "il2cppdumper",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ilspy-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "imewlconverter",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "kiota",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "kittenspaceagency-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "littlebigmouse",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "marksman-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mediaboom-3",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mediaboom-3-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mpf-cli",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mpf-cli-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mpf-ui",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mpf-ui-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "narc-cli",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ndecrypt-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "netcoredbg",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "netcoredbg-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-25",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-25-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-25-lite",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-25-lite-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-27",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-27-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-27-lite",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-27-lite-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-28",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-28-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-28-lite",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-28-lite-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-29",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-29-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-29-lite",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nitrocid-29-lite-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "openshock-desktop-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "opentabletdriver",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "opentabletdriver-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "osu-radio-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "osu-radio-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "pcl-n-beta-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "pcl-n-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "powershell-editor-services",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ps3-disc-dumper",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "pupdate",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "rabbitmq-client-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "roslyn-language-server",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-targeting-pack-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "roslyn-ls",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "shauns_audio_visualizer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "silkfly-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "sourcegit",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ss14.launcher",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ss14.launcher-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "tofu",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "trie-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "undertalemodtool-avalonia-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vintagestory",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vintagestory-server",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vintagestory-unstable",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vrc-video-cacher-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vrcx",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vrcx-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vrcx-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-runtime-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "vrcx-nightly-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "youtubedownloader",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "aurindexer-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "borea-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "cs-script",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-build-deps-10.0",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-source-build-reference-packages",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-source-build-reference-packages-10.0",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-system-io-ports-native",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-system-io-ports-native-10.0",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "dotnet-system-io-ports-native-debug",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "ez2lazer-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "froststrap",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "froststrap-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "fsautocomplete",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "fsautocomplete-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "git-credential-manager",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "hypricing-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "libstarfish",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mesen-ce-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "mesen2-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nkit",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nkit-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nkit-ui",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "nkit-ui-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "omnisharp-roslyn-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "openhv",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "openssh-gui-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "openutau",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "owovrc-cli",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "pudu-launcher-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "starfish",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "thrive",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-sdk-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "package": "wheelwizard",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "dotnet-targeting-pack-10.0-bin",
+        "dependency_new_maintainer": "gr3q",
+        "dependency_status": "adopted",
+        "maintainer": "Gr3q",
+        "new": "Gr3q",
+        "package": "aspnet-targeting-pack-10.0-bin",
+        "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libnsl",
+        "dependency_new_maintainer": "viktoracoric",
+        "dependency_status": "adopted",
+        "package": "lib32-python",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-libnsl",
+        "dependency_new_maintainer": "viktoracoric",
+        "dependency_status": "adopted",
+        "package": "lib32-qt3",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-bpylist2",
+        "dependency_new_maintainer": "taotieren",
+        "dependency_status": "adopted",
+        "package": "python-pyiosbackup",
+        "rule_id": "H046"
+      },
+      {
+        "maintainer": "MegaDrive",
+        "package": "agy-acp-server",
+        "pkgbuild_sha256": "8b530c677129dffab1ef287321d4ee56c61fff84c7fa9997215591310404405e",
+        "rule_id": "G014"
+      }
+    ],
+    "campaign_cluster": [
+      {
+        "campaign_active": true,
+        "campaign_id": "G014:adoption-window",
+        "count": 21,
+        "match": "21 unrelated packages adopted by 15 maintainer(s) (9 dormant) in the window",
+        "members": [
+          "agy-acp-server",
+          "aspnet-runtime-10.0-bin",
+          "aspnet-targeting-pack-10.0-bin",
+          "basket-git",
+          "ctl",
+          "dagu",
+          "deskew-git",
+          "dotnet-host-10.0-bin",
+          "dotnet-runtime-10.0-bin",
+          "dotnet-sdk-10.0-bin",
+          "dotnet-targeting-pack-10.0-bin",
+          "hebcal",
+          "lib32-libnsl",
+          "nsc",
+          "proc",
+          "python-bpylist2",
+          "python-camelot-git",
+          "python-pywpsrpc",
+          "rufin",
+          "slack-desktop-wayland",
+          "spyglass-bin"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2026-10-14 17:05 UTC",
+            "maintainer": "MegaDrive",
+            "package": "agy-acp-server",
+            "pkgbuild_sha256": "8b530c677129dffab1ef287321d4ee56c61fff84c7fa9997215591310404405e",
+            "version": "1.4.0-1 -> 1.4.0-1"
+          },
+          {
+            "last_modified": "2026-11-12 10:38 UTC",
+            "maintainer": "Gr3q",
+            "package": "aspnet-runtime-10.0-bin",
+            "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+            "version": "10.0.0.sdk100-3 -> 10.0.0.sdk100-3"
+          },
+          {
+            "last_modified": "2026-11-12 10:38 UTC",
+            "maintainer": "Gr3q",
+            "package": "aspnet-targeting-pack-10.0-bin",
+            "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+            "version": "10.0.0.sdk100-3 -> 10.0.0.sdk100-3"
+          },
+          {
+            "last_modified": "2021-02-19 12:53 UTC",
+            "maintainer": "arkades",
+            "package": "basket-git",
+            "pkgbuild_sha256": "a6c0e9fd49a08a42c183b36fbbbfae106b72be1aa0fc62926567d0948db5de92",
+            "version": "2.49.90.r1501.79a7ef1-1 -> 2.49.90.r1501.79a7ef1-1"
+          },
+          {
+            "last_modified": "2026-06-15 10:30 UTC",
+            "maintainer": "damir",
+            "package": "ctl",
+            "pkgbuild_sha256": "46a898dd5b7bd945b28cfb0200d68fb6387f1046aac393011b0c4be1a0c3f163",
+            "version": "1.5.5-1 -> 1.5.5-1"
+          },
+          {
+            "last_modified": "2025-03-18 08:50 UTC",
+            "maintainer": "AlD",
+            "package": "dagu",
+            "pkgbuild_sha256": "71e27129b72811032fdce964d05164d2390c5eda483b7049cf04732e822a1419",
+            "version": "1.16.4-0 -> 1.16.4-0"
+          },
+          {
+            "last_modified": "2023-10-30 20:36 UTC",
+            "maintainer": "chowbok",
+            "package": "deskew-git",
+            "pkgbuild_sha256": "64b8de213aed1fc3ddb2177cf054adc4e393287d3f97c3b83c837b564aa93e1a",
+            "version": "v1.30.r40.ga29039e-2 -> v1.30.r40.ga29039e-2"
+          },
+          {
+            "last_modified": "2026-11-12 10:38 UTC",
+            "maintainer": "Gr3q",
+            "package": "dotnet-host-10.0-bin",
+            "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+            "version": "10.0.0.sdk100-3 -> 10.0.0.sdk100-3"
+          },
+          {
+            "last_modified": "2026-11-12 10:38 UTC",
+            "maintainer": "Gr3q",
+            "package": "dotnet-runtime-10.0-bin",
+            "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+            "version": "10.0.0.sdk100-3 -> 10.0.0.sdk100-3"
+          },
+          {
+            "last_modified": "2026-11-12 10:38 UTC",
+            "maintainer": "Gr3q",
+            "package": "dotnet-sdk-10.0-bin",
+            "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+            "version": "10.0.0.sdk100-3 -> 10.0.0.sdk100-3"
+          },
+          {
+            "last_modified": "2026-11-12 10:38 UTC",
+            "maintainer": "Gr3q",
+            "package": "dotnet-targeting-pack-10.0-bin",
+            "pkgbuild_sha256": "d727abf5e0f5b9b6de5cb74aa4ca105d903fb8fa501ed3f913b9adcfa45cc451",
+            "version": "10.0.0.sdk100-3 -> 10.0.0.sdk100-3"
+          },
+          {
+            "last_modified": "2025-04-03 13:34 UTC",
+            "maintainer": "coolreader18",
+            "package": "hebcal",
+            "pkgbuild_sha256": "64c82363130a00e0bca2e1fe36bbd459de6ffed9abf12e44c8dceda3c09dd835",
+            "version": "5.9.0-1 -> 5.9.0-1"
+          },
+          {
+            "last_modified": "2026-08-23 12:16 UTC",
+            "maintainer": "viktoracoric",
+            "package": "lib32-libnsl",
+            "pkgbuild_sha256": "f6d185b19a653c9bd30a6ec74d17b19f0630004db357be627bf1eea67fe977e5",
+            "version": "2.0.1-2 -> 2.0.1-2"
+          },
+          {
+            "last_modified": "2024-10-27 22:29 UTC",
+            "maintainer": "hristov",
+            "package": "nsc",
+            "pkgbuild_sha256": "91621b1ac2e51a14dd5fa807f6c3bfb5e516bccbdaa0678b45fb491c2dbd6f79",
+            "version": "2.10.0-1 -> 2.10.0-1"
+          },
+          {
+            "diff_sha256": "a490bad15162aac2945caa55a3a403a417e6756e1d2670bed632a956b8ef8812",
+            "last_modified": "2026-10-31 02:41 UTC",
+            "maintainer": "JasonLandbridge",
+            "package": "proc",
+            "pkgbuild_sha256": "c7fdf2d63c2c6fc2e26783c2c456a833be8945d67715df1fd603ebb846e9a7bd",
+            "previous_pkgbuild_sha256": "fa43922860f01134035ead94b9431252865b56c18775a2bb90235595f50a3457",
+            "version": "2.1.1-1 -> 2.1.1-1"
+          },
+          {
+            "last_modified": "2025-12-24 19:09 UTC",
+            "maintainer": "taotieren",
+            "package": "python-bpylist2",
+            "pkgbuild_sha256": "0f20b46f490ab7051d1ddbb9c643eaf067c00d2d0c3242bd725c0b763799b971",
+            "version": "4.1.1-2 -> 4.1.1-2"
+          },
+          {
+            "last_modified": "2021-03-30 14:47 UTC",
+            "maintainer": "lukerb52",
+            "package": "python-camelot-git",
+            "pkgbuild_sha256": "fad22116b2cb2bb199504306884fccc42179d503128e1c3af2bf662521ee76f8",
+            "version": "v0.8.2.r26.g7709e58-5 -> v0.8.2.r26.g7709e58-5"
+          },
+          {
+            "last_modified": "2021-04-11 11:15 UTC",
+            "maintainer": "evine",
+            "package": "python-pywpsrpc",
+            "pkgbuild_sha256": "fa74ad60233ae6ccbad5bb53b41b64936d1ba0ff3c54d333005be8396b6a367d",
+            "version": "2.3.1-1 -> 2.3.1-1"
+          },
+          {
+            "last_modified": "2026-11-10 14:54 UTC",
+            "maintainer": "seppia",
+            "package": "rufin",
+            "pkgbuild_sha256": "c3769627344c8262c5d79ee72705d5d66717a55949302b7db4e67e834d2389f2",
+            "version": "0.9.0-1 -> 0.9.0-1"
+          },
+          {
+            "last_modified": "2026-11-07 17:01 UTC",
+            "maintainer": "jetm",
+            "package": "slack-desktop-wayland",
+            "pkgbuild_sha256": "738089a3f056a52289c53442c63d48a6c1c43c1b2fe7251c170cf066da440c63",
+            "version": "4.49.89-1 -> 4.49.89-1"
+          },
+          {
+            "last_modified": "2024-04-29 10:06 UTC",
+            "maintainer": "JasonLandbridge",
+            "package": "spyglass-bin",
+            "pkgbuild_sha256": "4c0e75db7d5817e12f3b2e5c776c4cc72c75c7b132487f7009938217da479978",
+            "version": "23.11.1-3 -> 23.11.1-3"
+          }
+        ],
+        "rule_id": "G014"
+      }
+    ],
+    "cycle": {
+      "added": 1,
+      "changed": 32,
+      "processed": 33,
+      "refractory": [
+        {
+          "campaign_id": "G014:adoption-window",
+          "emitted": true,
+          "rule_id": "G014",
+          "window_start_obs": 70811
+        }
+      ],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: Campaign across 21 packages (G014)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H044",
+    "H046",
+    "G014"
+  ],
+  "slug": "2026-11-22/154028",
+  "tags": [],
+  "time": 1795362028,
+  "title": "TrustSight: Campaign across 21 packages (G014)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "578d084318f44ca567960d0106b6b61b1220fcadfe119dca8c80bac94b5d6725",
+    "key_id": "k1",
+    "signature": "DZRejtoZsDxg0fCGerHriDTPtDqoHVo1h/LVCFSDdojGeY/PfIa4UcB541vU9IKX0jh1OpRsQhhD4mC63QiIBQ==",
+    "signed_at": 1795362028,
+    "webhook_id": "79b9cedde4400d04e2f0f947a847ecb76538ceb61b649edbc34b19a57ea2c5ed"
+  }
+}

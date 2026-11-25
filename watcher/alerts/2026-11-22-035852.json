@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "voxtype-bin-rc scored 65 (H076) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-22T03:58:52.000Z",
+  "packages": [
+    "voxtype-bin-rc",
+    "voxtype-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "H020",
+    "H021",
+    "H091",
+    "R007",
+    "W008",
+    "H076",
+    "H040",
+    "H027",
+    "H043",
+    "COVERAGE",
+    "C002",
+    "P001",
+    "P009"
+  ],
+  "slug": "2026-11-22/035852",
+  "tags": [],
+  "time": 1795319932,
+  "title": "TrustSight: voxtype-bin-rc scored 65 (H076) +1 more",
+  "tool_version": "0.30.0"
+}

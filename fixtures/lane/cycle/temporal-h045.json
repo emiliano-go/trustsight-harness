@@ -1,0 +1,57 @@
+{
+  "kind": "temporal",
+  "new_meta": {
+    "pkg0": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg0"
+    },
+    "pkg1": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg1"
+    },
+    "pkg2": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg2"
+    },
+    "pkg3": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg3"
+    },
+    "pkg4": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg4"
+    },
+    "pkg5": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg5"
+    },
+    "pkg6": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg6"
+    },
+    "pkg7": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg7"
+    },
+    "pkg8": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg8"
+    },
+    "pkg9": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "pkg9"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {}
+}

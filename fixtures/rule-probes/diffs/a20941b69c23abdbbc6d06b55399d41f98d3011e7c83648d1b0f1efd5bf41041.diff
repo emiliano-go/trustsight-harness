@@ -1,0 +1,8 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +5 @@
+ pkgname=x
+ pkgver=1
++package() {
++  find "$srcdir" -type f -exec sh {} +
++}

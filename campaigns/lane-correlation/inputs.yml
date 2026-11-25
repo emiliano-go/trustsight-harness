@@ -1,0 +1,74 @@
+cells:
+- id: G016-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g016.json
+  expect_fire:
+  - G016
+- id: G001-G003-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/shared-signals.json
+  expect_fire:
+  - G001
+  - G002
+  - G003
+- id: G004-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/upstream-dep.json
+  expect_fire:
+  - G004
+- id: G005-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/impersonation.json
+  expect_fire:
+  - G005
+- id: G012-G013-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/payload-signals.json
+  expect_fire:
+  - G012
+  - G013
+- id: G014-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/adoption-window.json
+  expect_fire:
+  - G014
+- id: G008-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g008.json
+  expect_fire:
+  - G008
+- id: G009-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g009.json
+  expect_fire:
+  - G009
+- id: G011-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g011.json
+  expect_fire:
+  - G011
+- id: G015-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g015.json
+  expect_fire:
+  - G015
+- id: G006-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g006.json
+  expect_fire:
+  - G006
+- id: G007-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g007.json
+  expect_fire:
+  - G007
+- id: G010-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g010.json
+  expect_fire:
+  - G010
+- id: W013-positive
+  lane: correlation
+  payload_path: fixtures/lane/correlation/g007.json
+  expect_fire:
+  - W013

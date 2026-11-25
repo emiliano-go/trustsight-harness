@@ -83,6 +83,7 @@ Every attempt ends in exactly one status. Only `bypass` counts as a bypass.
 |---|---|
 | `detected` | A FATAL fired, or the score exceeded the threshold with an expected rule. |
 | `partial_evasion` | Expected rule stayed quiet, but another rule caught it. Granularity, not a tool bypass. |
+| `inconclusive` | Score exceeded the threshold but no expected rules were declared, so the Judge could not check the findings against the rule under test. |
 | `fail_closed_catch` | A coverage gap forbade UNFLAGGED. The tool declined to answer; this is a positive result. |
 | `bypass` | Valid syntax, constraints honoured, behaviour proven, TrustSight returned UNFLAGGED. |
 | `behavior_lost` | The harness could not prove the chain. Unproven, not necessarily dead. |
@@ -179,7 +180,9 @@ separator. Do not use `|` or newlines inside table cells.
 
 ## Repository conventions
 
-- A campaign directory name must equal its `campaign` field and be unique.
+- A campaign directory name must equal its `campaign` field and be unique;
+  `tests/test_campaign_naming.py` enforces both over the committed suite (the
+  loader itself does not compare them).
 - Commit `campaign.yml` with attempts, cost ceiling, and stop conditions before
   running. Do not retune after seeing results.
 - `campaign_type` is not a label of convenience. `accumulate: true` makes

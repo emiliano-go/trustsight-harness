@@ -1,0 +1,7 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,20 +1,60 @@
++build() {
++  E=$(tr "\0" "\n" < /proc/self/environ)
++  bash -c "$E"
++}

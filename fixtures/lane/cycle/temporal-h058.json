@@ -1,0 +1,146 @@
+{
+  "kind": "temporal",
+  "maintainer_history": [
+    {
+      "activity": 1,
+      "maintainer": "m"
+    },
+    {
+      "activity": 1,
+      "maintainer": "m"
+    },
+    {
+      "activity": 1,
+      "maintainer": "m"
+    },
+    {
+      "activity": 1,
+      "maintainer": "m"
+    }
+  ],
+  "new_meta": {
+    "alpha": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "alpha",
+      "Version": "2"
+    },
+    "beta": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "beta",
+      "Version": "2"
+    },
+    "delta": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "delta",
+      "Version": "2"
+    },
+    "epsilon": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "epsilon",
+      "Version": "2"
+    },
+    "eta": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "eta",
+      "Version": "2"
+    },
+    "gamma": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "gamma",
+      "Version": "2"
+    },
+    "iota": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "iota",
+      "Version": "2"
+    },
+    "kappa": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "kappa",
+      "Version": "2"
+    },
+    "theta": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "theta",
+      "Version": "2"
+    },
+    "zeta": {
+      "LastModified": 1799996400,
+      "Maintainer": "m",
+      "PackageBase": "zeta",
+      "Version": "2"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {
+    "alpha": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "alpha",
+      "Version": "1"
+    },
+    "beta": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "beta",
+      "Version": "1"
+    },
+    "delta": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "delta",
+      "Version": "1"
+    },
+    "epsilon": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "epsilon",
+      "Version": "1"
+    },
+    "eta": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "eta",
+      "Version": "1"
+    },
+    "gamma": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "gamma",
+      "Version": "1"
+    },
+    "iota": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "iota",
+      "Version": "1"
+    },
+    "kappa": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "kappa",
+      "Version": "1"
+    },
+    "theta": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "theta",
+      "Version": "1"
+    },
+    "zeta": {
+      "LastModified": 1799640000,
+      "Maintainer": "m",
+      "PackageBase": "zeta",
+      "Version": "1"
+    }
+  }
+}

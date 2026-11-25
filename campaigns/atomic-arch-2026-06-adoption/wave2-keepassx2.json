@@ -1,0 +1,8 @@
+{
+ "kind": "adoption",
+ "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,7 +7,7 @@\n url=\"https://example.org/keepassx2\"\n license=('GPL')\n depends=('glibc')\n-makedepends=('cargo')\n+makedepends=('cargo' 'bun')\n source=(\"$url/archive/v$pkgver.tar.gz\")\n sha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n \n@@ -18,5 +18,6 @@\n \n package() {\n   cd \"$srcdir/$pkgname-$pkgver\"\n+  bun add lockfile-js\n   install -Dm755 target/release/app \"$pkgdir/usr/bin/app\"\n }\n",
+ "package": "keepassx2",
+ "was_orphaned": 1,
+ "currently_maintained": true,
+ "current_text": "# Maintainer: someone <someone@example.org>\npkgname=keepassx2\npkgver=1.4.2\npkgrel=1\npkgdesc=\"keepassx2 package\"\narch=('x86_64')\nurl=\"https://example.org/keepassx2\"\nlicense=('GPL')\ndepends=('glibc')\nmakedepends=('cargo' 'bun')\nsource=(\"$url/archive/v$pkgver.tar.gz\")\nsha256sums=('9f2c1d7e4b8a3c6f0d5e2a9b7c4f1e8d3a6b9c2f5e8d1a4b7c0f3e6d9a2b5c8f')\n\nbuild() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  cargo build --release --locked\n}\n\npackage() {\n  cd \"$srcdir/$pkgname-$pkgver\"\n  bun add lockfile-js\n  install -Dm755 target/release/app \"$pkgdir/usr/bin/app\"\n}\n"
+}

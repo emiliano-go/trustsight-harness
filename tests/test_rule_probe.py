@@ -60,3 +60,25 @@ def test_raw_diff_generator_reads_a_committed_multi_file_diff(tmp_path):
     assert negative.expect_fire == ()
     assert negative.expect_absent == ("H027",)
     assert "demo.service" in positive.diff
+
+
+def test_raw_diff_generator_carries_a_post_pkgbuild(tmp_path):
+    from harness.paths import within
+
+    (tmp_path / "fixtures").mkdir()
+    (tmp_path / "fixtures" / "rule.diff").write_text(
+        "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1 +1,2 @@\n pkgname=p\n+depends=('curl')\n")
+    (tmp_path / "fixtures" / "post.PKGBUILD").write_text(
+        "pkgname=p\ndepends=('curl')\n")
+    manifest = tmp_path / "inputs.yml"
+    manifest.write_text(
+        "cells:\n"
+        "- id: positive\n"
+        "  path: fixtures/rule.diff\n"
+        "  post_path: fixtures/post.PKGBUILD\n"
+        "  expect_fire: [H027]\n")
+    generator = RawDiffGenerator(manifest, campaign_root=tmp_path,
+                                 repo_root=tmp_path, resolve=within)
+    produced = generator.generate(SimpleNamespace(), 0)
+    assert produced.post_pkgbuild == "pkgname=p\ndepends=('curl')\n"
+    assert produced.new_text is None

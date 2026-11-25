@@ -1,0 +1,10 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,5 +1,10 @@
++pkgname=p
++pkgver=1
++source=(x.service)
++sha256sums=('SKIP')
++package() {
++  install -Dm644 "$srcdir/x.service" "$pkgdir/usr/lib/systemd/system/x.service"
++}

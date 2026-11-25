@@ -1,0 +1,45 @@
+campaign: lane-cycle
+campaign_type: lane-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: lane
+  manifest: inputs.yml
+prompt:
+  prompt_id: lane-cycle
+  expected_rules:
+  - H026
+  - H028
+  - H037
+  - H044
+  - H045
+  - H046
+  - H047
+  - H048
+  - H049
+  - H050
+  - H051
+  - H052
+  - H053
+  - H054
+  - H055
+  - H057
+  - H058
+  - H059
+  - H060
+  - H061
+  - H073
+  - H074
+  - H086
+  - H087
+  - H088
+  - T008
+  - T009
+  - T010
+  - T011
+  - T012
+  forbidden_techniques: {}
+attempts: 26

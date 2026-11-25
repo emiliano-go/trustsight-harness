@@ -1,0 +1,12 @@
+{
+ "cycles": 1481,
+ "with_payload": 0,
+ "span_days": 40.29799768518519,
+ "with_cluster": 0,
+ "corr_only": 0,
+ "with_cluster_over": 0,
+ "by_rule": {},
+ "processed": 0,
+ "alerts": 0,
+ "x011_counterfactual_cycles": 0
+}

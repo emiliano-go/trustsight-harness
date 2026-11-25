@@ -1,0 +1,33 @@
+{
+  "kind": "temporal",
+  "new_meta": {
+    "alpha": {
+      "LastModified": 1799996400,
+      "Maintainer": "m0",
+      "PackageBase": "alpha"
+    },
+    "beta": {
+      "LastModified": 1799996400,
+      "Maintainer": "m1",
+      "PackageBase": "beta"
+    },
+    "gamma": {
+      "LastModified": 1799996400,
+      "Maintainer": "m2",
+      "PackageBase": "gamma"
+    }
+  },
+  "now": 1800000000,
+  "old_meta": {},
+  "source_repos": {
+    "alpha": [
+      "https://git.example/one"
+    ],
+    "beta": [
+      "https://git.example/one"
+    ],
+    "gamma": [
+      "https://git.example/one"
+    ]
+  }
+}

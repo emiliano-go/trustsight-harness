@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 2
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "icebath scored 40 (H100) +1 more",
+  "ioc_packages": [],
+  "iso": "2026-11-21T11:33:17.000Z",
+  "packages": [
+    "icebath",
+    "icebath-bin"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "C002",
+    "H100",
+    "H015",
+    "W014",
+    "H020",
+    "H027",
+    "P001",
+    "P006",
+    "P009"
+  ],
+  "slug": "2026-11-21/113317",
+  "tags": [],
+  "time": 1795260797,
+  "title": "TrustSight: icebath scored 40 (H100) +1 more",
+  "tool_version": "0.30.0"
+}

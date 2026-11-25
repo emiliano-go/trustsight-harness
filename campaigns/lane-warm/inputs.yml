@@ -1,0 +1,16 @@
+cells:
+- id: T001-positive
+  lane: warm
+  payload_path: fixtures/lane/warm/t001.json
+  expect_fire:
+  - T001
+- id: T002-positive
+  lane: warm
+  payload_path: fixtures/lane/warm/t002.json
+  expect_fire:
+  - T002
+- id: T003-positive
+  lane: warm
+  payload_path: fixtures/lane/warm/t003.json
+  expect_fire:
+  - T003

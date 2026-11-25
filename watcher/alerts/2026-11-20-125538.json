@@ -1,0 +1,32 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "por-cli scored 40 (H077)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T12:55:38.000Z",
+  "packages": [
+    "por-cli"
+  ],
+  "priority": null,
+  "rules": [
+    "W011",
+    "W012",
+    "H077",
+    "H020",
+    "H027",
+    "COVERAGE",
+    "NOVELTY",
+    "P006"
+  ],
+  "slug": "2026-11-20/125538",
+  "tags": [],
+  "time": 1795179338,
+  "title": "TrustSight: por-cli scored 40 (H077)",
+  "tool_version": "0.30.0"
+}

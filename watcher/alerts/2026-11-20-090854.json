@@ -1,0 +1,38 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 1
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "pigment-launcher scored 60 (D003)",
+  "ioc_packages": [],
+  "iso": "2026-11-20T09:08:54.000Z",
+  "packages": [
+    "pigment-launcher"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "E003",
+    "C028",
+    "C002",
+    "H100",
+    "D003",
+    "W011",
+    "W012",
+    "H015",
+    "H020",
+    "H037",
+    "H027",
+    "M002",
+    "P001"
+  ],
+  "slug": "2026-11-20/090854",
+  "tags": [],
+  "time": 1795165734,
+  "title": "TrustSight: pigment-launcher scored 60 (D003)",
+  "tool_version": "0.30.0"
+}

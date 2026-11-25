@@ -1,0 +1,11 @@
+{
+  "candidates": [
+    [
+      "electron",
+      50000
+    ]
+  ],
+  "kind": "typosquat",
+  "package": "electorn",
+  "self_popularity": 1
+}

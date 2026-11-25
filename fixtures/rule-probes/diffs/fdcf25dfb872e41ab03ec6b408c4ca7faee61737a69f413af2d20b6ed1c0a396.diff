@@ -1,0 +1,9 @@
+--- /dev/null
++++ b/PKGBUILD
+@@ -0,0 +1,6 @@
++pkgname=rivermonad
++pkgver=0.2.0
++pkgrel=1
++source=('https://github.com/u/rivermonad/archive/v0.2.0.tar.gz')
++sha256sums=('0000000000000000000000000000000000000000000000000000000000000000')
++depends=('waymobar')

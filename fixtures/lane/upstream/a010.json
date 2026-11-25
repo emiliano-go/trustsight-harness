@@ -1,0 +1,10 @@
+{
+  "artifacts": [
+    {
+      "mode": 4755,
+      "path": "y",
+      "setuid": true
+    }
+  ],
+  "kind": "source_archive"
+}

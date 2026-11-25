@@ -1,0 +1,45 @@
+{
+  "history": [
+    {
+      "adoption_ts": 1790146319.282453,
+      "current_maintainer": "m1",
+      "last_modified": 1760770319.282453,
+      "maintainer": "m1",
+      "package": "alpha",
+      "previous_maintainer": ""
+    },
+    {
+      "adoption_ts": 1790146319.282453,
+      "current_maintainer": "m2",
+      "last_modified": 1760770319.282453,
+      "maintainer": "m2",
+      "package": "beta",
+      "previous_maintainer": ""
+    },
+    {
+      "adoption_ts": 1790146319.282453,
+      "current_maintainer": "m1",
+      "last_modified": 1760770319.282453,
+      "maintainer": "m1",
+      "package": "gamma",
+      "previous_maintainer": ""
+    }
+  ],
+  "kinds": [
+    "g015"
+  ],
+  "records": [
+    {
+      "maintainer": "m1",
+      "package": "alpha"
+    },
+    {
+      "maintainer": "m2",
+      "package": "beta"
+    },
+    {
+      "maintainer": "m1",
+      "package": "gamma"
+    }
+  ]
+}

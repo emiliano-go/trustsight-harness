@@ -1,0 +1,11 @@
+--- /dev/null
++++ b/PKGBUILD
+@@ -0,0 +1,8 @@
++pkgname=ext-bin
++pkgver=1.0
++pkgrel=1
++url="https://kagi.com/search"
++license=('custom')
++arch=('any')
++source=("x.xpi::https://mirror.example.net/x-1.0.xpi")
++sha256sums=('SKIP')

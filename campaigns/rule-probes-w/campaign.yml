@@ -13,9 +13,11 @@ prompt:
   - W001
   - W002
   - W003
+  - W004
   - W005
   - W006
   - W008
   - W011
+  - W009
   forbidden_techniques: {}
-attempts: 14
+attempts: 16

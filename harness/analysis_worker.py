@@ -120,7 +120,8 @@ def main() -> int:
                     api = TrustSight()
                 started = time.perf_counter()
                 report = api.analyze_diff(
-                    req["text"], package=req.get("package", package))
+                    req["text"], package=req.get("package", package),
+                    post_pkgbuild=req.get("post_pkgbuild"))
                 _reply({"op": "analyzed",
                         "body": report.to_dict(include_score=True, verbose=True),
                         "wall_clock_ms": int((time.perf_counter() - started)
@@ -130,6 +131,14 @@ def main() -> int:
                 findings = inspect_manifest(req.get("manifest") or [],
                                             req.get("declared") or {})
                 _reply({"op": "inspected", "findings": findings})
+            elif op == "lane":
+                from .lane_probe import runner_for
+
+                findings = runner_for(req["lane"])(req.get("payload") or {})
+                # Findings cross a JSON line; the emitter's own objects are
+                # not part of the contract, only the fields it reports.
+                findings = json.loads(json.dumps(findings, default=str))
+                _reply({"op": "laned", "findings": findings})
             elif op == "parity":
                 if api is None:
                     from trustsight.api import TrustSight

@@ -1,0 +1,16 @@
+{
+ "package": "basedpyright",
+ "old_commit": "cf97996e6905",
+ "new_commit": "78b1180adbd9",
+ "diff_sha256": "36fe934c1964f930141d4c34f58668e33f80d5eed6aac206780de5c785f82483",
+ "pkgbuild_sha256": "6ca083e8c5f34c91c6fbdb50a83f3e414494e9cce7f27cc0e8da6e685cc0eacf",
+ "score_static_cold": 40,
+ "rules": [
+  "D003",
+  "W002",
+  "W007",
+  "X011"
+ ],
+ "provenance_class": "observed",
+ "note": "Real AUR update that adds a registry install inside build(); post-image fetched from cgit at new_commit. Chosen because it scores in the same band as the invalidated control (40) and shares its scored signals (X011 + D003), without H087."
+}

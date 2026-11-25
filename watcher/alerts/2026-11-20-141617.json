@@ -1,0 +1,40 @@
+{
+  "counts": {
+    "alerts": 0,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 6
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "jdk scored 75 (X002) +5 more",
+  "ioc_packages": [],
+  "iso": "2026-11-20T14:16:17.000Z",
+  "packages": [
+    "jdk",
+    "jdk-doc",
+    "jdk-lts",
+    "jdk-lts-doc",
+    "jre",
+    "jre-lts"
+  ],
+  "priority": null,
+  "rules": [
+    "R007",
+    "X002",
+    "D005",
+    "H015",
+    "H020",
+    "H050",
+    "H027",
+    "COVERAGE",
+    "SOURCE_BUCKET",
+    "NOVELTY",
+    "P001"
+  ],
+  "slug": "2026-11-20/141617",
+  "tags": [],
+  "time": 1795184177,
+  "title": "TrustSight: jdk scored 75 (X002) +5 more",
+  "tool_version": "0.30.0"
+}

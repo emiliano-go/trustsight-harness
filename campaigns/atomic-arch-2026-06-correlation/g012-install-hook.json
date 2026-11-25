@@ -1,0 +1,70 @@
+{
+ "records": [
+  {
+   "package": "gnome-randr-rust",
+   "maintainer": "acct-1",
+   "adoption": false,
+   "last_modified": 0,
+   "hosts_gained": [],
+   "rules": [
+    "H035"
+   ],
+   "payload_urls": []
+  },
+  {
+   "package": "minitube",
+   "maintainer": "acct-1",
+   "adoption": false,
+   "last_modified": 0,
+   "hosts_gained": [],
+   "rules": [
+    "H035"
+   ],
+   "payload_urls": []
+  },
+  {
+   "package": "nextcloud-git",
+   "maintainer": "acct-2",
+   "adoption": false,
+   "last_modified": 0,
+   "hosts_gained": [],
+   "rules": [
+    "H035"
+   ],
+   "payload_urls": []
+  },
+  {
+   "package": "guiscrcpy",
+   "maintainer": "acct-2",
+   "adoption": false,
+   "last_modified": 0,
+   "hosts_gained": [],
+   "rules": [
+    "H035"
+   ],
+   "payload_urls": []
+  },
+  {
+   "package": "keepassx2",
+   "maintainer": "acct-3",
+   "adoption": false,
+   "last_modified": 0,
+   "hosts_gained": [],
+   "rules": [
+    "H035"
+   ],
+   "payload_urls": []
+  },
+  {
+   "package": "flashfocus",
+   "maintainer": "acct-3",
+   "adoption": false,
+   "last_modified": 0,
+   "hosts_gained": [],
+   "rules": [
+    "H035"
+   ],
+   "payload_urls": []
+  }
+ ]
+}

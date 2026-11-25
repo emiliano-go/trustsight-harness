@@ -23,24 +23,8 @@ from .bounded import MAX_ARTIFACT_BYTES, read_text_capped
 __all__ = ["build_coverage"]
 
 
-#: Rules a cold `analyze_text` campaign cannot reach, with the reason.  These
-#: need state the harness does not put in front of the API - a prior AUR
-#: observation, the corpus cycle, or (H043) the aggregated rule set the
-#: composition pass reads.  Kept here so the report says *why* a rule is
-#: unprobed instead of only that it is.
-UNREACHABLE = {
-    "H026": "needs a prior maintainer snapshot (corpus path)",
-    "H044": "needs a prior ownership snapshot (corpus path)",
-    "H045": "needs a full-aur cycle",
-    "H046": "needs a full-aur cycle",
-    "H058": "needs several cycles of maintainer history",
-    "H073": "needs a full-aur cycle",
-    "H074": "needs a recorded adoption before the diff",
-    "H086": "needs a recorded prior orphan observation",
-    "H087": "needs a recorded prior upstream state",
-    "H088": "needs H086 and H087 recorded state",
-    "H043": "composition pass reads the aggregated rule set, not analyze_text findings",
-}
+from .lanes import LANES, UNREACHABLE
+
 
 def _campaigns(repo_root: Path) -> list[dict]:
     out = []
@@ -111,8 +95,17 @@ def build_coverage(repo_root: Path) -> dict:
 
     untargeted = [r for r in all_rules if r not in targeted]
     reasons = {r: UNREACHABLE[r] for r in untargeted if r in UNREACHABLE}
+    lanes = {}
+    for name, lane in LANES.items():
+        members = sorted(lane.rules)
+        lanes[name] = {
+            "rules": len(members),
+            "targeted": sum(1 for rule in members if rule in targeted),
+            "firing": sum(1 for rule in members if rule in positive_targeted),
+        }
     return {
         "campaigns": campaigns,
+        "by_lane": lanes,
         "rules": {
             "total": len(all_rules),
             "targeted": len(targeted),

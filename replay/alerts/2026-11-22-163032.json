@@ -1,0 +1,2615 @@
+{
+  "counts": {
+    "alerts": 269,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "Campaign across 18 packages (G014)",
+  "ioc_packages": [],
+  "iso": "2026-11-22T16:30:32.000Z",
+  "packages": [
+    "alpm-html",
+    "heli-x",
+    "lib32-speex",
+    "lib32-taglib",
+    "lib32-tesseract",
+    "lib32-wavpack",
+    "r-bff",
+    "r-box",
+    "r-bsgenome.hsapiens.ncbi.grch38",
+    "r-covr",
+    "r-dada2",
+    "r-dofuture",
+    "r-gridextra",
+    "r-remotes",
+    "r-rvest",
+    "softmaker-office-2024-bin",
+    "softmaker-office-nx-bin",
+    "zramswap",
+    "lib32-libshout",
+    "lib32-sdl_sound",
+    "proton-xiv-bin",
+    "emby-server-beta",
+    "open-webui-no-venv",
+    "parsedmarc",
+    "python-azure-ai-documentintelligence",
+    "python-azure-cognitiveservices-speech",
+    "python-azure-cosmos",
+    "python-azure-data-tables",
+    "python-azure-identity",
+    "python-azure-iot-device",
+    "python-azure-keyvault-secrets",
+    "python-azure-mgmt-core",
+    "python-azure-monitor-ingestion",
+    "python-azure-search-documents",
+    "python-azure-storage-blob",
+    "python-graphrag-vectors",
+    "python-microsoft-kiota-authentication-azure",
+    "python-skillopt",
+    "python-skillopt-webui",
+    "python-graphrag-llm",
+    "python-graphrag-storage",
+    "python-mailsuite",
+    "python-msgraph-core",
+    "python-msgraph-sdk",
+    "archivy",
+    "archivy-git",
+    "ceph-git",
+    "ceph-libs-git",
+    "ceph-mgr-git",
+    "curator",
+    "elasticsearch-faker-git",
+    "fs2es-indexer",
+    "python-cherche-git",
+    "python-elasticsearch-curator",
+    "python-elasticsearch-dsl",
+    "python-elasticsearch-dsl7",
+    "python-tt-tools-common",
+    "python-tt-tools-common-git",
+    "tt-smi",
+    "tt-smi-git",
+    "tt-topology",
+    "tt-topology-git",
+    "imap-upload-git",
+    "imapfetch-git",
+    "python-microsoft-kiota-http",
+    "python-microsoft-kiota-serialization-form",
+    "python-microsoft-kiota-serialization-json",
+    "python-microsoft-kiota-serialization-multipart",
+    "python-microsoft-kiota-serialization-text",
+    "httpobs-git",
+    "spiderfoot",
+    "python-microsoft-kiota-abstractions",
+    "r-jaspbff",
+    "r-cfdnapro",
+    "r-animalcules",
+    "r-flexsurv",
+    "r-gtfstools",
+    "r-h3jsr",
+    "r-r5r",
+    "r-s7",
+    "r-rbec",
+    "r-kernelshap",
+    "r-stacks",
+    "r-abseqr",
+    "r-adamgui",
+    "r-allelicimbalance",
+    "r-amaretto",
+    "r-amplican",
+    "r-asics",
+    "r-autonomics",
+    "r-bayesfm",
+    "r-bigpint",
+    "r-boutroslab.plotting.general",
+    "r-bubbletree",
+    "r-cafe",
+    "r-catalyst",
+    "r-cemitool",
+    "r-chemminer",
+    "r-chromscape",
+    "r-cindex",
+    "r-citefuse",
+    "r-cnvmetrics",
+    "r-cnvrd2",
+    "r-comapr",
+    "r-comet",
+    "r-compspot",
+    "r-conclus",
+    "r-condformat",
+    "r-conos",
+    "r-corral",
+    "r-crisprvariants",
+    "r-ctdquerier",
+    "r-dartr",
+    "r-dartr.base",
+    "r-deco",
+    "r-decomptumor2sig",
+    "r-demuxmix",
+    "r-densityclust",
+    "r-dep",
+    "r-diagis",
+    "r-differentialregulation",
+    "r-discorhythm",
+    "r-dittoseq",
+    "r-doscheda",
+    "r-egg",
+    "r-elmer",
+    "r-epimutacions",
+    "r-erccdashboard",
+    "r-fcbf",
+    "r-flowgraph",
+    "r-genomicinteractions",
+    "r-genomicozone",
+    "r-genvisr",
+    "r-get",
+    "r-ggbio",
+    "r-ggcyto",
+    "r-ggfortify",
+    "r-ggpp",
+    "r-ggpubr",
+    "r-ggstar",
+    "r-gprofiler2",
+    "r-granie",
+    "r-gseamining",
+    "r-h5vc",
+    "r-hh",
+    "r-hiccompare",
+    "r-hicdoc",
+    "r-hippo",
+    "r-hmisc",
+    "r-hpaanalyze",
+    "r-imas",
+    "r-infercnv",
+    "r-ingredients",
+    "r-isoformswitchanalyzer",
+    "r-isomirs",
+    "r-jaspgraphs",
+    "r-knowseq",
+    "r-linkhd",
+    "r-macsquantifyr",
+    "r-mageckflute",
+    "r-mdp",
+    "r-methylclock",
+    "r-methylinheritance",
+    "r-mgcviz",
+    "r-mirt",
+    "r-mitch",
+    "r-mixomics",
+    "r-mqmetrics",
+    "r-msstatslip",
+    "r-msstatsptm",
+    "r-msstatsqcgui",
+    "r-msstatssamplesize",
+    "r-msstatstmtptm",
+    "r-musicatk",
+    "r-mwastools",
+    "r-netprior",
+    "r-networktools",
+    "r-omicrexposome",
+    "r-omixer",
+    "r-pathvar",
+    "r-peacoqc",
+    "r-peakpanther",
+    "r-pepsnmr",
+    "r-phyloprofile",
+    "r-plotgrouper",
+    "r-podcall",
+    "r-progeny",
+    "r-ptairms",
+    "r-purecn",
+    "r-regionalst",
+    "r-resolve",
+    "r-restriktor",
+    "r-rexposome",
+    "r-ritan",
+    "r-rnaseqr",
+    "r-rnbeads",
+    "r-rstan",
+    "r-ruv",
+    "r-ruvcorr",
+    "r-sangeranalyser",
+    "r-sarc",
+    "r-savr",
+    "r-scifer",
+    "r-scrnaseqapp",
+    "r-sctransform",
+    "r-seqarchrplus",
+    "r-shinystan",
+    "r-siamcat",
+    "r-sitepath",
+    "r-snphood",
+    "r-sojourner",
+    "r-sparsesignatures",
+    "r-spatialde",
+    "r-spatialheatmap",
+    "r-speaq",
+    "r-spiat",
+    "r-sracipe",
+    "r-stategra",
+    "r-statr",
+    "r-strandcheckr",
+    "r-structtoolbox",
+    "r-subcellbarcode",
+    "r-survivalanalysis",
+    "r-survminer",
+    "r-survmisc",
+    "r-tpp",
+    "r-transite",
+    "r-tripr",
+    "r-tronco",
+    "r-tscr",
+    "r-upsetr",
+    "r-vdjdive",
+    "r-viridis",
+    "r-waffle",
+    "r-xina",
+    "r-yapsa",
+    "r-dockerfiler",
+    "r-jasptools",
+    "r-opencpu",
+    "r-pacman",
+    "r-protgear",
+    "r-systempiperdata",
+    "r-adductomicsr",
+    "r-bioccheck",
+    "r-biocpkgtools",
+    "r-bis",
+    "r-geofastq",
+    "r-geoquery",
+    "r-hmdhfdplus",
+    "r-immunotation",
+    "r-kableextra",
+    "r-mastr",
+    "r-osmdata",
+    "r-rfarm",
+    "r-rtcga",
+    "r-rtcgatoolbox",
+    "r-splicewiz",
+    "r-tcgabiolinks",
+    "r-tcgautils",
+    "r-tidyverse",
+    "r-webchem"
+  ],
+  "payload": {
+    "alerts": [
+      {
+        "maintainer": "nogweii",
+        "new": "nogweii",
+        "package": "alpm-html",
+        "pkgbuild_sha256": "da0f655edc70b9b4bcd8e1964614bfc26df981e250476e511ba04d9c911d93d7",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "diwou",
+        "new": "diwou",
+        "package": "heli-x",
+        "pkgbuild_sha256": "d0175506043cc6e2628f58381b87bcbd5247d50aab827368d79db172bfd00b87",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "diwou",
+        "new": "diwou",
+        "package": "heli-x",
+        "pkgbuild_sha256": "d0175506043cc6e2628f58381b87bcbd5247d50aab827368d79db172bfd00b87",
+        "rule_id": "H026"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-speex",
+        "pkgbuild_sha256": "fea77ecb90e3a36e3c65df04327080241c2a96f81a24bbab05b43f13c0677f02",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-taglib",
+        "pkgbuild_sha256": "1e35df37a0da001aa605d9aeaaf5bf33abe8e76e1adafb6128cb35896953957f",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-tesseract",
+        "pkgbuild_sha256": "dfea09e4892cdc5a3b029707545df4853fecc9a62e6ede51a83f62bfc64b1488",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "severach",
+        "new": "severach",
+        "package": "lib32-wavpack",
+        "pkgbuild_sha256": "6f7f2596e72b76e1ca656a853bc6565e0c19630136765110a17e5ba873d581ff",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-bff",
+        "pkgbuild_sha256": "f3104191e3813cd31e748aac6de2a1db735826ebd4eebf9fdd054fbd9d0659dd",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-box",
+        "pkgbuild_sha256": "2ddefe2bf3038872666680f604c28f060f6e4f4d1aac24ccd13ec3a7794ebf5c",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-bsgenome.hsapiens.ncbi.grch38",
+        "pkgbuild_sha256": "8ab68de11cfcb1a9e69b6041dcc483ea96fdf864ca782c63dcbff30bf09ba280",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-covr",
+        "pkgbuild_sha256": "1b0d0e5cd61cc1af4f27c41628edb976694d6fcf980b75906b525fa2afa27b7e",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-dada2",
+        "pkgbuild_sha256": "ecf720940e88459bd6b799cfe58f1a17e1185cb7d77cb007d0058647ddd07cdb",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-dofuture",
+        "pkgbuild_sha256": "13877cd0bf014db423a1e5822e1efdafe4bd20706a33140806dbde2e34c3b287",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-gridextra",
+        "pkgbuild_sha256": "7abf0b242e6952c6bbe728dd203ad8502fdf273922c7120d1c427317bfe0a83f",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-remotes",
+        "pkgbuild_sha256": "f404b95b28f3cd3b521f601dd082ffd62d022d8c559dd0c2914c1ea3a8cd8e2f",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-rvest",
+        "pkgbuild_sha256": "1c2539e5d7e97d5828a984d6c7db561b2f9b1991ed51a0bcd9553a853a13aba6",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "psi-jack",
+        "new": "psi-jack",
+        "package": "softmaker-office-2024-bin",
+        "pkgbuild_sha256": "7483c6f135d28fb70780659f9e1f0e9fc62a93740159ac9925e2a6d47f7af7e6",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "ynnsn",
+        "new": "ynnsn",
+        "package": "softmaker-office-nx-bin",
+        "pkgbuild_sha256": "9bc75917e7eacd0d386a03f2781268bbd2a8865729291839f48027846a2ce5cc",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "Heptazhou",
+        "new": "heptazhou",
+        "package": "zramswap",
+        "pkgbuild_sha256": "f19d2eaf217c9bb872b347609fa9e4783c1ab29a73c2146cb593501871cd51b5",
+        "rule_id": "H044"
+      },
+      {
+        "maintainer": "diwou",
+        "new": "diwou",
+        "package": "heli-x",
+        "pkgbuild_sha256": "d0175506043cc6e2628f58381b87bcbd5247d50aab827368d79db172bfd00b87",
+        "rule_id": "H074"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-gridextra",
+        "pkgbuild_sha256": "7abf0b242e6952c6bbe728dd203ad8502fdf273922c7120d1c427317bfe0a83f",
+        "rule_id": "T009"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-rvest",
+        "pkgbuild_sha256": "1c2539e5d7e97d5828a984d6c7db561b2f9b1991ed51a0bcd9553a853a13aba6",
+        "rule_id": "T009"
+      },
+      {
+        "maintainer": "Heptazhou",
+        "new": "heptazhou",
+        "package": "zramswap",
+        "pkgbuild_sha256": "f19d2eaf217c9bb872b347609fa9e4783c1ab29a73c2146cb593501871cd51b5",
+        "rule_id": "T009"
+      },
+      {
+        "dependency": "lib32-speex",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-libshout",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-speex",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "lib32-sdl_sound",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-speex",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "proton-xiv-bin",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "lib32-tesseract",
+        "dependency_new_maintainer": "severach",
+        "dependency_status": "adopted",
+        "package": "emby-server-beta",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "open-webui-no-venv",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-pygelf",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "parsedmarc",
+        "pkgbuild_sha256": "251c2fa91db57b25de92382e6675e7a6fa8d4d03ba7fc2bc6366fb075ffef017",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-ai-documentintelligence",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-cognitiveservices-speech",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-cosmos",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-data-tables",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-msal-extensions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-azure-identity",
+        "pkgbuild_sha256": "443e153ac7697bb74e047c355ff0f6ee4cbe82717b66d828c7f249aff9b75bb5",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-iot-device",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-keyvault-secrets",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-mgmt-core",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-azure-monitor-ingestion",
+        "pkgbuild_sha256": "88fe51ca1aca3dc63ec8bdec953f1189ede39cf5d4f070876be0a197fa947a5b",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-search-documents",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-azure-storage-blob",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-identity",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-graphrag-vectors",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-abstractions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-authentication-azure",
+        "pkgbuild_sha256": "7483a27ef998709d784ec8d4936db242ffba083d4bfa3a5fa7a4438019805d31",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-identity",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-skillopt",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-identity",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-skillopt-webui",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-identity",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-graphrag-llm",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-azure-identity",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-graphrag-storage",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-msgraph-sdk",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-mailsuite",
+        "pkgbuild_sha256": "41766978625a75199fb9a89efca0468cd68907a1e79c2e00037ab5bb312816d9",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-serialization-json",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-msgraph-core",
+        "pkgbuild_sha256": "bf7d1a62dfc1fa778ec0a781bd002d23947ac0c667eb3252d0cb9780ee7106bc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-msgraph-core",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-msgraph-sdk",
+        "pkgbuild_sha256": "0789db67306be99811e5ebebc48fa7b6e610fa230f8f6cd5edb7507bdb4e4145",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "archivy",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "archivy-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "ceph-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "ceph-libs-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "ceph-mgr-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "curator",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "elasticsearch-faker-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "fs2es-indexer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-cherche-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-elasticsearch-curator",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-elasticsearch-dsl",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-elasticsearch-dsl7",
+        "pkgbuild_sha256": "e26af8015942a7b0fba79619b23b60fde089062dc55ce48e6675614d04ad50f3",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-tt-tools-common",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "python-tt-tools-common-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "tt-smi",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "tt-smi-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "tt-topology",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-elasticsearch7.13",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "tt-topology-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-imapclient",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "imap-upload-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-imapclient",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "imapfetch-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-abstractions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-http",
+        "pkgbuild_sha256": "bb4e7476aef64c0bc378c3abac9dac210564fb53b61bbb1206703af61b859649",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-abstractions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-serialization-form",
+        "pkgbuild_sha256": "5ee9ab70c86dbe8608f27a53d8ba2be781100a78fa0f3418ad6a6235e207cc49",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-abstractions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-serialization-json",
+        "pkgbuild_sha256": "7f6447a5d664879b974d46717b5ae153f02c92b0b0474753f345c3d02413cbb5",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-abstractions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-serialization-multipart",
+        "pkgbuild_sha256": "6d6055cbaad516c6d625402496901c30ab4e9f4348f9f9256fbb7addfd5b051c",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-microsoft-kiota-abstractions",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-serialization-text",
+        "pkgbuild_sha256": "186e330a1d7b5ba7042707c40b6437221014e18285c1f6ca1dd44452a3fccd04",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-publicsuffixlist",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "httpobs-git",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-publicsuffixlist",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "package": "spiderfoot",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "python-std-uritemplate",
+        "dependency_old_maintainer": "dpeukert",
+        "dependency_status": "orphaned",
+        "old": "dpeukert",
+        "package": "python-microsoft-kiota-abstractions",
+        "pkgbuild_sha256": "aa81aa73080d61595f278ec58d3a8e4578d204568ebc86a22f962de990140db6",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-bff",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-jaspbff",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-bsgenome.hsapiens.ncbi.grch38",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-cfdnapro",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-covr",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-animalcules",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-covr",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-flexsurv",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-covr",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-gtfstools",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-covr",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-h3jsr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-covr",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-r5r",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-covr",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-s7",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-dada2",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rbec",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-dofuture",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-kernelshap",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-dofuture",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-stacks",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-abseqr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-adamgui",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-allelicimbalance",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-amaretto",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-amplican",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-asics",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-autonomics",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-bayesfm",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-bigpint",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-boutroslab.plotting.general",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-bubbletree",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-cafe",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-catalyst",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-cemitool",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-chemminer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-chromscape",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-cindex",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-citefuse",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-cnvmetrics",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-cnvrd2",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-comapr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-comet",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-compspot",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-conclus",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-condformat",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-conos",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-corral",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-crisprvariants",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ctdquerier",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-dartr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-dartr.base",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-deco",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-decomptumor2sig",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-demuxmix",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-densityclust",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-dep",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-diagis",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-differentialregulation",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-discorhythm",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-dittoseq",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-doscheda",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-egg",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-elmer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-epimutacions",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-erccdashboard",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-fcbf",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-flowgraph",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-genomicinteractions",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-genomicozone",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-genvisr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-get",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ggbio",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ggcyto",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ggfortify",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ggpp",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ggpubr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ggstar",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-gprofiler2",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-granie",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-gseamining",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-h5vc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hh",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hiccompare",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hicdoc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hippo",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hmisc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hpaanalyze",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-imas",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-infercnv",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ingredients",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-isoformswitchanalyzer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-isomirs",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-jaspgraphs",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-knowseq",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-linkhd",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-macsquantifyr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mageckflute",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mdp",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-methylclock",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-methylinheritance",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mgcviz",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mirt",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mitch",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mixomics",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mqmetrics",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-msstatslip",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-msstatsptm",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-msstatsqcgui",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-msstatssamplesize",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-msstatstmtptm",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-musicatk",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mwastools",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-netprior",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-networktools",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-omicrexposome",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-omixer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-pathvar",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-peacoqc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-peakpanther",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-pepsnmr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-phyloprofile",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-plotgrouper",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-podcall",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-progeny",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ptairms",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-purecn",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-regionalst",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-resolve",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-restriktor",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rexposome",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ritan",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rnaseqr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rnbeads",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rstan",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ruv",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-ruvcorr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sangeranalyser",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sarc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-savr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-scifer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-scrnaseqapp",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sctransform",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-seqarchrplus",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-shinystan",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-siamcat",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sitepath",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-snphood",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sojourner",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sparsesignatures",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-spatialde",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-spatialheatmap",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-speaq",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-spiat",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-sracipe",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-stategra",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-statr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-strandcheckr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-structtoolbox",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-subcellbarcode",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-survivalanalysis",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-survminer",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-survmisc",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tpp",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-transite",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tripr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tronco",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tscr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-upsetr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-vdjdive",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-viridis",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-waffle",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-xina",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-gridextra",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-yapsa",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-remotes",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-dockerfiler",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-remotes",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-jasptools",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-remotes",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-opencpu",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-remotes",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-pacman",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-remotes",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-protgear",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-remotes",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-systempiperdata",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-adductomicsr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-bioccheck",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-biocpkgtools",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-bis",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-geofastq",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-geoquery",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-hmdhfdplus",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-immunotation",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-kableextra",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-mastr",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-osmdata",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rfarm",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rtcga",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-rtcgatoolbox",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-splicewiz",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tcgabiolinks",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tcgautils",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-tidyverse",
+        "rule_id": "H046"
+      },
+      {
+        "dependency": "r-rvest",
+        "dependency_new_maintainer": "adityaruplaha",
+        "dependency_status": "adopted",
+        "package": "r-webchem",
+        "rule_id": "H046"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "new": "adityaruplaha",
+        "package": "r-bff",
+        "pkgbuild_sha256": "f3104191e3813cd31e748aac6de2a1db735826ebd4eebf9fdd054fbd9d0659dd",
+        "rule_id": "G003"
+      },
+      {
+        "maintainer": "nogweii",
+        "package": "alpm-html",
+        "pkgbuild_sha256": "da0f655edc70b9b4bcd8e1964614bfc26df981e250476e511ba04d9c911d93d7",
+        "rule_id": "G014"
+      },
+      {
+        "maintainer": "adityaruplaha",
+        "package": "r-bff",
+        "pkgbuild_sha256": "f3104191e3813cd31e748aac6de2a1db735826ebd4eebf9fdd054fbd9d0659dd",
+        "rule_id": "G008"
+      }
+    ],
+    "campaign_cluster": [
+      {
+        "campaign_active": true,
+        "campaign_id": "G003:",
+        "count": 9,
+        "match": "maintainer adopted 9 unrelated packages in the window (first-seen account, 8 dormant targets)",
+        "members": [
+          "r-bff",
+          "r-box",
+          "r-bsgenome.hsapiens.ncbi.grch38",
+          "r-covr",
+          "r-dada2",
+          "r-dofuture",
+          "r-gridextra",
+          "r-remotes",
+          "r-rvest"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2025-05-20 06:18 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-bff",
+            "pkgbuild_sha256": "f3104191e3813cd31e748aac6de2a1db735826ebd4eebf9fdd054fbd9d0659dd",
+            "version": "4.4.1-1 -> 4.4.1-1"
+          },
+          {
+            "last_modified": "2026-08-21 14:47 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-box",
+            "pkgbuild_sha256": "2ddefe2bf3038872666680f604c28f060f6e4f4d1aac24ccd13ec3a7794ebf5c",
+            "version": "1.2.3-1 -> 1.2.3-1"
+          },
+          {
+            "last_modified": "2023-07-03 12:12 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-bsgenome.hsapiens.ncbi.grch38",
+            "pkgbuild_sha256": "8ab68de11cfcb1a9e69b6041dcc483ea96fdf864ca782c63dcbff30bf09ba280",
+            "version": "1.3.1000-3 -> 1.3.1000-3"
+          },
+          {
+            "last_modified": "2024-04-27 00:09 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-covr",
+            "pkgbuild_sha256": "1b0d0e5cd61cc1af4f27c41628edb976694d6fcf980b75906b525fa2afa27b7e",
+            "version": "3.6.4-2 -> 3.6.4-2"
+          },
+          {
+            "last_modified": "2023-11-02 09:37 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-dada2",
+            "pkgbuild_sha256": "ecf720940e88459bd6b799cfe58f1a17e1185cb7d77cb007d0058647ddd07cdb",
+            "version": "1.30.0-1 -> 1.30.0-1"
+          },
+          {
+            "last_modified": "2024-06-21 18:04 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-dofuture",
+            "pkgbuild_sha256": "13877cd0bf014db423a1e5822e1efdafe4bd20706a33140806dbde2e34c3b287",
+            "version": "1.0.1-2 -> 1.0.1-2"
+          },
+          {
+            "last_modified": "2018-06-11 10:17 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-gridextra",
+            "pkgbuild_sha256": "7abf0b242e6952c6bbe728dd203ad8502fdf273922c7120d1c427317bfe0a83f",
+            "version": "2.3-1 -> 2.3-1"
+          },
+          {
+            "last_modified": "2024-03-18 08:36 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-remotes",
+            "pkgbuild_sha256": "f404b95b28f3cd3b521f601dd082ffd62d022d8c559dd0c2914c1ea3a8cd8e2f",
+            "version": "2.5.0-1 -> 2.5.0-1"
+          },
+          {
+            "last_modified": "2024-03-19 03:13 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-rvest",
+            "pkgbuild_sha256": "1c2539e5d7e97d5828a984d6c7db561b2f9b1991ed51a0bcd9553a853a13aba6",
+            "version": "1.0.4-1 -> 1.0.4-1"
+          }
+        ],
+        "rule_id": "G003"
+      },
+      {
+        "campaign_active": true,
+        "campaign_id": "G003:",
+        "count": 4,
+        "match": "maintainer adopted 4 unrelated packages in the window",
+        "members": [
+          "lib32-speex",
+          "lib32-taglib",
+          "lib32-tesseract",
+          "lib32-wavpack"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2026-08-16 20:04 UTC",
+            "maintainer": "severach",
+            "package": "lib32-speex",
+            "pkgbuild_sha256": "fea77ecb90e3a36e3c65df04327080241c2a96f81a24bbab05b43f13c0677f02",
+            "version": "1.2.1-2 -> 1.2.1-2"
+          },
+          {
+            "last_modified": "2026-08-16 21:09 UTC",
+            "maintainer": "severach",
+            "package": "lib32-taglib",
+            "pkgbuild_sha256": "1e35df37a0da001aa605d9aeaaf5bf33abe8e76e1adafb6128cb35896953957f",
+            "version": "2.3.1-1 -> 2.3.1-1"
+          },
+          {
+            "last_modified": "2025-05-26 11:11 UTC",
+            "maintainer": "severach",
+            "package": "lib32-tesseract",
+            "pkgbuild_sha256": "dfea09e4892cdc5a3b029707545df4853fecc9a62e6ede51a83f62bfc64b1488",
+            "version": "5.5.1-1 -> 5.5.1-1"
+          },
+          {
+            "last_modified": "2026-08-16 20:45 UTC",
+            "maintainer": "severach",
+            "package": "lib32-wavpack",
+            "pkgbuild_sha256": "6f7f2596e72b76e1ca656a853bc6565e0c19630136765110a17e5ba873d581ff",
+            "version": "5.9.0-1 -> 5.9.0-1"
+          }
+        ],
+        "rule_id": "G003"
+      },
+      {
+        "campaign_active": true,
+        "campaign_id": "G014:adoption-window",
+        "count": 18,
+        "match": "18 unrelated packages adopted by 7 maintainer(s) (10 dormant) in the window",
+        "members": [
+          "alpm-html",
+          "heli-x",
+          "lib32-speex",
+          "lib32-taglib",
+          "lib32-tesseract",
+          "lib32-wavpack",
+          "r-bff",
+          "r-box",
+          "r-bsgenome.hsapiens.ncbi.grch38",
+          "r-covr",
+          "r-dada2",
+          "r-dofuture",
+          "r-gridextra",
+          "r-remotes",
+          "r-rvest",
+          "softmaker-office-2024-bin",
+          "softmaker-office-nx-bin",
+          "zramswap"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2026-11-05 04:59 UTC",
+            "maintainer": "nogweii",
+            "package": "alpm-html",
+            "pkgbuild_sha256": "da0f655edc70b9b4bcd8e1964614bfc26df981e250476e511ba04d9c911d93d7",
+            "version": "0.10.0-1 -> 0.10.0-1"
+          },
+          {
+            "last_modified": "2026-11-22 16:24 UTC",
+            "maintainer": "diwou",
+            "package": "heli-x",
+            "pkgbuild_sha256": "d0175506043cc6e2628f58381b87bcbd5247d50aab827368d79db172bfd00b87",
+            "version": "11.0.2675-2 -> 11.0.2675-2"
+          },
+          {
+            "last_modified": "2026-08-16 20:04 UTC",
+            "maintainer": "severach",
+            "package": "lib32-speex",
+            "pkgbuild_sha256": "fea77ecb90e3a36e3c65df04327080241c2a96f81a24bbab05b43f13c0677f02",
+            "version": "1.2.1-2 -> 1.2.1-2"
+          },
+          {
+            "last_modified": "2026-08-16 21:09 UTC",
+            "maintainer": "severach",
+            "package": "lib32-taglib",
+            "pkgbuild_sha256": "1e35df37a0da001aa605d9aeaaf5bf33abe8e76e1adafb6128cb35896953957f",
+            "version": "2.3.1-1 -> 2.3.1-1"
+          },
+          {
+            "last_modified": "2025-05-26 11:11 UTC",
+            "maintainer": "severach",
+            "package": "lib32-tesseract",
+            "pkgbuild_sha256": "dfea09e4892cdc5a3b029707545df4853fecc9a62e6ede51a83f62bfc64b1488",
+            "version": "5.5.1-1 -> 5.5.1-1"
+          },
+          {
+            "last_modified": "2026-08-16 20:45 UTC",
+            "maintainer": "severach",
+            "package": "lib32-wavpack",
+            "pkgbuild_sha256": "6f7f2596e72b76e1ca656a853bc6565e0c19630136765110a17e5ba873d581ff",
+            "version": "5.9.0-1 -> 5.9.0-1"
+          },
+          {
+            "last_modified": "2025-05-20 06:18 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-bff",
+            "pkgbuild_sha256": "f3104191e3813cd31e748aac6de2a1db735826ebd4eebf9fdd054fbd9d0659dd",
+            "version": "4.4.1-1 -> 4.4.1-1"
+          },
+          {
+            "last_modified": "2026-08-21 14:47 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-box",
+            "pkgbuild_sha256": "2ddefe2bf3038872666680f604c28f060f6e4f4d1aac24ccd13ec3a7794ebf5c",
+            "version": "1.2.3-1 -> 1.2.3-1"
+          },
+          {
+            "last_modified": "2023-07-03 12:12 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-bsgenome.hsapiens.ncbi.grch38",
+            "pkgbuild_sha256": "8ab68de11cfcb1a9e69b6041dcc483ea96fdf864ca782c63dcbff30bf09ba280",
+            "version": "1.3.1000-3 -> 1.3.1000-3"
+          },
+          {
+            "last_modified": "2024-04-27 00:09 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-covr",
+            "pkgbuild_sha256": "1b0d0e5cd61cc1af4f27c41628edb976694d6fcf980b75906b525fa2afa27b7e",
+            "version": "3.6.4-2 -> 3.6.4-2"
+          },
+          {
+            "last_modified": "2023-11-02 09:37 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-dada2",
+            "pkgbuild_sha256": "ecf720940e88459bd6b799cfe58f1a17e1185cb7d77cb007d0058647ddd07cdb",
+            "version": "1.30.0-1 -> 1.30.0-1"
+          },
+          {
+            "last_modified": "2024-06-21 18:04 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-dofuture",
+            "pkgbuild_sha256": "13877cd0bf014db423a1e5822e1efdafe4bd20706a33140806dbde2e34c3b287",
+            "version": "1.0.1-2 -> 1.0.1-2"
+          },
+          {
+            "last_modified": "2018-06-11 10:17 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-gridextra",
+            "pkgbuild_sha256": "7abf0b242e6952c6bbe728dd203ad8502fdf273922c7120d1c427317bfe0a83f",
+            "version": "2.3-1 -> 2.3-1"
+          },
+          {
+            "last_modified": "2024-03-18 08:36 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-remotes",
+            "pkgbuild_sha256": "f404b95b28f3cd3b521f601dd082ffd62d022d8c559dd0c2914c1ea3a8cd8e2f",
+            "version": "2.5.0-1 -> 2.5.0-1"
+          },
+          {
+            "last_modified": "2024-03-19 03:13 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-rvest",
+            "pkgbuild_sha256": "1c2539e5d7e97d5828a984d6c7db561b2f9b1991ed51a0bcd9553a853a13aba6",
+            "version": "1.0.4-1 -> 1.0.4-1"
+          },
+          {
+            "last_modified": "2026-10-08 20:35 UTC",
+            "maintainer": "psi-jack",
+            "package": "softmaker-office-2024-bin",
+            "pkgbuild_sha256": "7483c6f135d28fb70780659f9e1f0e9fc62a93740159ac9925e2a6d47f7af7e6",
+            "version": "1238-1 -> 1238-1"
+          },
+          {
+            "last_modified": "2026-09-28 22:21 UTC",
+            "maintainer": "ynnsn",
+            "package": "softmaker-office-nx-bin",
+            "pkgbuild_sha256": "9bc75917e7eacd0d386a03f2781268bbd2a8865729291839f48027846a2ce5cc",
+            "version": "1504-1 -> 1504-1"
+          },
+          {
+            "last_modified": "2024-11-03 12:09 UTC",
+            "maintainer": "Heptazhou",
+            "package": "zramswap",
+            "pkgbuild_sha256": "f19d2eaf217c9bb872b347609fa9e4783c1ab29a73c2146cb593501871cd51b5",
+            "version": "7-2 -> 7-2"
+          }
+        ],
+        "rule_id": "G014"
+      },
+      {
+        "campaign_active": true,
+        "campaign_id": "G008:adityaruplaha",
+        "count": 9,
+        "match": "first-seen account adityaruplaha adopted 9 packages (8 dormant) within 7 days",
+        "members": [
+          "r-bff",
+          "r-box",
+          "r-bsgenome.hsapiens.ncbi.grch38",
+          "r-covr",
+          "r-dada2",
+          "r-dofuture",
+          "r-gridextra",
+          "r-remotes",
+          "r-rvest"
+        ],
+        "members_detail": [
+          {
+            "last_modified": "2025-05-20 06:18 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-bff",
+            "pkgbuild_sha256": "f3104191e3813cd31e748aac6de2a1db735826ebd4eebf9fdd054fbd9d0659dd",
+            "version": "4.4.1-1 -> 4.4.1-1"
+          },
+          {
+            "last_modified": "2026-08-21 14:47 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-box",
+            "pkgbuild_sha256": "2ddefe2bf3038872666680f604c28f060f6e4f4d1aac24ccd13ec3a7794ebf5c",
+            "version": "1.2.3-1 -> 1.2.3-1"
+          },
+          {
+            "last_modified": "2023-07-03 12:12 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-bsgenome.hsapiens.ncbi.grch38",
+            "pkgbuild_sha256": "8ab68de11cfcb1a9e69b6041dcc483ea96fdf864ca782c63dcbff30bf09ba280",
+            "version": "1.3.1000-3 -> 1.3.1000-3"
+          },
+          {
+            "last_modified": "2024-04-27 00:09 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-covr",
+            "pkgbuild_sha256": "1b0d0e5cd61cc1af4f27c41628edb976694d6fcf980b75906b525fa2afa27b7e",
+            "version": "3.6.4-2 -> 3.6.4-2"
+          },
+          {
+            "last_modified": "2023-11-02 09:37 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-dada2",
+            "pkgbuild_sha256": "ecf720940e88459bd6b799cfe58f1a17e1185cb7d77cb007d0058647ddd07cdb",
+            "version": "1.30.0-1 -> 1.30.0-1"
+          },
+          {
+            "last_modified": "2024-06-21 18:04 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-dofuture",
+            "pkgbuild_sha256": "13877cd0bf014db423a1e5822e1efdafe4bd20706a33140806dbde2e34c3b287",
+            "version": "1.0.1-2 -> 1.0.1-2"
+          },
+          {
+            "last_modified": "2018-06-11 10:17 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-gridextra",
+            "pkgbuild_sha256": "7abf0b242e6952c6bbe728dd203ad8502fdf273922c7120d1c427317bfe0a83f",
+            "version": "2.3-1 -> 2.3-1"
+          },
+          {
+            "last_modified": "2024-03-18 08:36 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-remotes",
+            "pkgbuild_sha256": "f404b95b28f3cd3b521f601dd082ffd62d022d8c559dd0c2914c1ea3a8cd8e2f",
+            "version": "2.5.0-1 -> 2.5.0-1"
+          },
+          {
+            "last_modified": "2024-03-19 03:13 UTC",
+            "maintainer": "adityaruplaha",
+            "package": "r-rvest",
+            "pkgbuild_sha256": "1c2539e5d7e97d5828a984d6c7db561b2f9b1991ed51a0bcd9553a853a13aba6",
+            "version": "1.0.4-1 -> 1.0.4-1"
+          }
+        ],
+        "rule_id": "G008"
+      }
+    ],
+    "cycle": {
+      "added": 1,
+      "changed": 50,
+      "processed": 51,
+      "refractory": [
+        {
+          "campaign_id": "G003:",
+          "emitted": true,
+          "rule_id": "G003",
+          "window_start_obs": 70950
+        },
+        {
+          "campaign_id": "G014:adoption-window",
+          "emitted": true,
+          "rule_id": "G014",
+          "window_start_obs": 70950
+        },
+        {
+          "campaign_id": "G008:adityaruplaha",
+          "emitted": true,
+          "rule_id": "G008",
+          "window_start_obs": 70950
+        }
+      ],
+      "removed": 0
+    },
+    "event": "trustsight.alerts",
+    "impersonation": [],
+    "ioc_matches": [],
+    "over_threshold": [],
+    "over_threshold_grouped": 0,
+    "priority": "default",
+    "refusals": [],
+    "title": "TrustSight: Campaign across 18 packages (G014)",
+    "tool": "trustsight",
+    "tool_version": "0.30.0"
+  },
+  "priority": null,
+  "rules": [
+    "H044",
+    "H026",
+    "H074",
+    "T009",
+    "H046",
+    "G003",
+    "G014",
+    "G008"
+  ],
+  "slug": "2026-11-22/163032",
+  "tags": [],
+  "time": 1795365032,
+  "title": "TrustSight: Campaign across 18 packages (G014)",
+  "tool_version": "0.30.0",
+  "verification": {
+    "algorithm": "Ed25519",
+    "body_sha256": "2f7ad86e836dcffbfd52ea989c3fbe024169658c06790435ff5d9b366f799166",
+    "key_id": "k1",
+    "signature": "pM20aFVhSvCrcHd78VB23ioKdfGOd0wLLRCOeqDA++iPCt1J9Ewxy4mY1jRgqxIKSo5SjKPgJdMzFxK9gRJMCQ==",
+    "signed_at": 1795365032,
+    "webhook_id": "47c984e21de8a8ffeadc31dc2c99008ba92441bd4fb4edce9f1c73e90587c1e8"
+  }
+}

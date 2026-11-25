@@ -1,0 +1,7 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +1,5 @@
+ pkgname=p
++build() {
++  curl --outp "$srcdir/x.zip" "$url"
++}

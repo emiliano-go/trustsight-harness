@@ -1,0 +1,15 @@
+{
+  "kinds": [
+    "g009"
+  ],
+  "records": [
+    {
+      "package": "pkg-a"
+    }
+  ],
+  "watchlist": {
+    "packages": {
+      "pkg-a": "operator"
+    }
+  }
+}

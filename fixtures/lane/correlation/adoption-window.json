@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "adoption": true,
+      "last_modified": 1,
+      "maintainer": "m1",
+      "package": "alpha"
+    },
+    {
+      "adoption": true,
+      "last_modified": 1,
+      "maintainer": "m2",
+      "package": "beta"
+    },
+    {
+      "adoption": true,
+      "last_modified": 1,
+      "maintainer": "m3",
+      "package": "gamma"
+    }
+  ]
+}

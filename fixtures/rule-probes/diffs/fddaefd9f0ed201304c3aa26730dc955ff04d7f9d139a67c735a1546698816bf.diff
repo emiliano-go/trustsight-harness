@@ -1,0 +1,13 @@
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -1,2 +1,2 @@
+ pkgname=demo
+-pkgver=1
++pkgver=2
+--- a/.SRCINFO
++++ b/.SRCINFO
+@@ -1,3 +1,3 @@
+ pkgbase = demo
+-	pkgver = 1
++	pkgver = 1
+ 	pkgrel = 1

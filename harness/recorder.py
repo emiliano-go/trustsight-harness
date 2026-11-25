@@ -51,6 +51,9 @@ class Trace:
     judge: dict = field(default_factory=dict)
     cost: dict = field(default_factory=dict)
     db_hash: str = ""
+    #: The flag test's answer (flagged / unflagged / inconclusive).  Empty
+    #: outside the probe paths, where a bypass verdict owns the question.
+    flag_state: str = ""
     #: The minimizer's result for this attempt, when it ran.  Kept off the
     #: measured path: the campaign's cost and analysis counts exclude it.
     minimized: dict = field(default_factory=dict)
@@ -68,6 +71,8 @@ class Trace:
             "cost": self.cost,
             "db_hash": self.db_hash,
         }
+        if self.flag_state:
+            out["flag_state"] = self.flag_state
         if self.minimized:
             out["minimized"] = self.minimized
         return out
@@ -83,6 +88,9 @@ class Recorder:
         self.traces: list[Trace] = []
         self.bypass_hashes: list[str] = []
         self.known_matches: list[dict] = []
+        #: One row per probe cell: what was expected, what fired, and the
+        #: flag answer.  Kept off the bypass arithmetic on purpose.
+        self.flag_rows: list[dict] = []
         self.stop_reason = ""
         #: One line per attempt, truncated at the start of a run.  Appended
         #: after each attempt so a crash mid-campaign leaves the attempts that
@@ -173,6 +181,7 @@ class Recorder:
             "attempts": len(self.traces),
             "stop_reason": self.stop_reason,
             "outcomes": self.outcomes(),
+            "flag_ledger": list(self.flag_rows),
             # Remediation T7: what the attack set does not cover.  The layer
             # numbers are only meaningful beside this.
             "limitations": list(limitations),

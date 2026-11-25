@@ -1,0 +1,25 @@
+{
+  "counts": {
+    "alerts": 1,
+    "impersonation": 0,
+    "ioc": 0,
+    "over_threshold": 0
+  },
+  "day": "",
+  "event": "trustsight.alerts",
+  "headline": "T010 on python-hatch-rs",
+  "ioc_packages": [],
+  "iso": "2026-11-21T19:00:48.000Z",
+  "packages": [
+    "python-hatch-rs"
+  ],
+  "priority": null,
+  "rules": [
+    "T010"
+  ],
+  "slug": "2026-11-21/190048",
+  "tags": [],
+  "time": 1795287648,
+  "title": "TrustSight: T010 on python-hatch-rs",
+  "tool_version": "0.30.0"
+}

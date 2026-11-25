@@ -1,0 +1,1153 @@
+{
+  "cases": [
+    {
+      "expected": [
+        "C002",
+        "H020",
+        "H027",
+        "H040",
+        "H076",
+        "R007"
+      ],
+      "fired": [
+        "C002",
+        "COVERAGE",
+        "D005",
+        "H020",
+        "H027",
+        "H040",
+        "H076",
+        "P001",
+        "P009",
+        "R007",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "voxtype-bin",
+      "reproduced": [
+        "C002",
+        "H020",
+        "H027",
+        "H040",
+        "H076",
+        "R007"
+      ],
+      "slug": "2026-11-22/035852",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_partial"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "P001",
+        "P008",
+        "SOURCE_BUCKET",
+        "T002",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "your-szu-life-git",
+      "reproduced": [
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/041445",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C001",
+        "D005",
+        "H015",
+        "H020",
+        "H027",
+        "H089",
+        "U009",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "fired": [
+        "C001",
+        "COVERAGE",
+        "D005",
+        "H015",
+        "H020",
+        "H027",
+        "H089",
+        "H103",
+        "P001",
+        "P008",
+        "T002",
+        "U009",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "ungoogled-vulcanium",
+      "reproduced": [
+        "C001",
+        "D005",
+        "H015",
+        "H020",
+        "H027",
+        "H089",
+        "U009",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "slug": "2026-11-22/081120",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 5,
+        "notes": [],
+        "previous_manifests": 5,
+        "ran": true,
+        "workflow_deltas": 4
+      }
+    },
+    {
+      "expected": [
+        "C002",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "W008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "fired": [
+        "C002",
+        "COVERAGE",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "H103",
+        "P001",
+        "P008",
+        "T002",
+        "W008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "vulcanium",
+      "reproduced": [
+        "C002",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "W008",
+        "W011",
+        "W012",
+        "X002"
+      ],
+      "slug": "2026-11-22/081120",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 1,
+        "notes": [],
+        "previous_manifests": 1,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "M003",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "cadcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "M003",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "deckcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "M003",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "designcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "fired": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "M003",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "effectcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/082722",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C005",
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "fired": [
+        "C005",
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "NOVELTY",
+        "P006",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "flclash-myflavor-bin",
+      "reproduced": [
+        "C005",
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "G007",
+        "H020",
+        "M003",
+        "W013"
+      ],
+      "fired": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "M003",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "W013"
+      ],
+      "package": "gridcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "G007",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "G007",
+        "H020",
+        "M003",
+        "W013"
+      ],
+      "fired": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "M003",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "W013"
+      ],
+      "package": "lightcraft-private-bin",
+      "reproduced": [
+        "C011",
+        "G007",
+        "H020",
+        "M003"
+      ],
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "M002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "fired": [
+        "C011",
+        "COVERAGE",
+        "G007",
+        "H020",
+        "H027",
+        "H049",
+        "M002",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "SOURCE_BUCKET",
+        "T002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "linux-wallpaperengine-v3-bin",
+      "reproduced": [
+        "C011",
+        "G007",
+        "H020",
+        "H027",
+        "M002",
+        "W011",
+        "W012",
+        "W013"
+      ],
+      "slug": "2026-11-22/084328",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "H015",
+        "H020",
+        "H027",
+        "H037",
+        "H100",
+        "R007",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "D001",
+        "H015",
+        "H020",
+        "H027",
+        "H037",
+        "H100",
+        "NOVELTY",
+        "P001",
+        "P007",
+        "R007",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "lumalarm",
+      "reproduced": [
+        "H015",
+        "H020",
+        "H027",
+        "H037",
+        "H100",
+        "R007",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/091711",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_checksum"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C003",
+        "H015",
+        "H020",
+        "H023",
+        "H027",
+        "H049",
+        "H054",
+        "M002",
+        "U001",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "C003",
+        "COVERAGE",
+        "H015",
+        "H020",
+        "H027",
+        "H049",
+        "H054",
+        "M002",
+        "P001",
+        "R007",
+        "SOURCE_BUCKET",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "missed": [
+        "H023",
+        "U001"
+      ],
+      "package": "lumalarm",
+      "reproduced": [
+        "C003",
+        "H015",
+        "H020",
+        "H027",
+        "H049",
+        "H054",
+        "M002",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/093324",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "D004",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "U013",
+        "W011",
+        "W012"
+      ],
+      "fired": [
+        "D001",
+        "D004",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "NOVELTY",
+        "P001",
+        "T002",
+        "U013",
+        "W011",
+        "W012"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "cardwire",
+      "reproduced": [
+        "D004",
+        "H015",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "U013",
+        "W011",
+        "W012"
+      ],
+      "slug": "2026-11-22/102210",
+      "upstream": {
+        "findings": [
+          "U013"
+        ],
+        "manifest_deltas": 0,
+        "manifests": 11,
+        "notes": [],
+        "previous_manifests": 11,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "D004",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "fired": [
+        "D004",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "cardwire-bin",
+      "reproduced": [
+        "D004",
+        "H020",
+        "H027",
+        "H064",
+        "H098",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "slug": "2026-11-22/102210",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "H002",
+        "H015",
+        "H020",
+        "H027",
+        "H082",
+        "R010"
+      ],
+      "fired": [
+        "COVERAGE",
+        "H002",
+        "H015",
+        "H020",
+        "H027",
+        "H082",
+        "NOVELTY",
+        "R010",
+        "SOURCE_BUCKET",
+        "T002"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "deveco-devicetool",
+      "reproduced": [
+        "H002",
+        "H015",
+        "H020",
+        "H027",
+        "H082",
+        "R010"
+      ],
+      "slug": "2026-11-22/121357",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "fired": [
+        "C001",
+        "COVERAGE",
+        "E002",
+        "H020",
+        "H027",
+        "H103",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "linux-galaxyaudio-bin",
+      "reproduced": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "slug": "2026-11-22/140458",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "package": "linux-galaxyaudio-headers-bin",
+      "slug": "2026-11-22/140458",
+      "unavailable": "linux-galaxyaudio-headers-bin: clone unavailable: _TimeoutError: git fetch HEAD does not match the AUR advertisement"
+    },
+    {
+      "expected": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W014"
+      ],
+      "fired": [
+        "C001",
+        "COVERAGE",
+        "E002",
+        "H020",
+        "H027",
+        "NOVELTY",
+        "P001",
+        "P009",
+        "T002",
+        "W014"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "druglord2",
+      "reproduced": [
+        "C001",
+        "E002",
+        "H020",
+        "H027",
+        "W014"
+      ],
+      "slug": "2026-11-22/143659",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [
+        "C002",
+        "H020",
+        "H027",
+        "M002",
+        "U001",
+        "U002",
+        "U003",
+        "U006",
+        "U009",
+        "U012"
+      ],
+      "fired": [
+        "C002",
+        "H020",
+        "H027",
+        "M002",
+        "NOVELTY",
+        "P001",
+        "T002",
+        "U001",
+        "U002",
+        "U003",
+        "U006",
+        "U009",
+        "U012"
+      ],
+      "kind": "over_threshold",
+      "missed": [],
+      "package": "dh-to-do",
+      "reproduced": [
+        "C002",
+        "H020",
+        "H027",
+        "M002",
+        "U001",
+        "U002",
+        "U003",
+        "U006",
+        "U009",
+        "U012"
+      ],
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 16,
+        "manifests": 9,
+        "notes": [],
+        "previous_manifests": 9,
+        "ran": true,
+        "workflow_deltas": 1
+      }
+    },
+    {
+      "expected": [],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "NOVELTY",
+        "P001",
+        "P007",
+        "P009",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "avernella-bin",
+      "reproduced": [],
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "P001",
+        "P007",
+        "P009",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "avernella-bin",
+      "reproduced": [],
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [],
+      "fired": [
+        "COVERAGE",
+        "H020",
+        "P001",
+        "P007",
+        "P009",
+        "T002",
+        "W011",
+        "W012",
+        "W014"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "avernella-bin",
+      "reproduced": [],
+      "slug": "2026-11-22/145259",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 0,
+        "manifests": 0,
+        "notes": [
+          "upstream_scan_refused"
+        ],
+        "previous_manifests": 0,
+        "ran": true,
+        "workflow_deltas": 0
+      }
+    },
+    {
+      "expected": [],
+      "fired": [
+        "C002",
+        "G007",
+        "H027",
+        "M002",
+        "NOVELTY",
+        "P001",
+        "T002",
+        "U001",
+        "U002",
+        "U006",
+        "U009",
+        "U012"
+      ],
+      "kind": "alerts",
+      "missed": [],
+      "package": "proc",
+      "reproduced": [],
+      "slug": "2026-11-22/154028",
+      "upstream": {
+        "findings": [],
+        "manifest_deltas": 10,
+        "manifests": 8,
+        "notes": [],
+        "previous_manifests": 8,
+        "ran": true,
+        "workflow_deltas": 3
+      }
+    }
+  ],
+  "summary": {
+    "by_gap": {
+      "campaign": 2,
+      "pure": 1,
+      "upstream": 1
+    },
+    "by_lane": {
+      "static": 4
+    },
+    "by_rule": {
+      "H023": 1,
+      "U001": 1,
+      "W013": 2
+    },
+    "cases": 25,
+    "cases_clean": 17,
+    "cases_replayed": 24,
+    "expected": 135,
+    "gap_groups": {
+      "assembly": "needs the union of findings (meta/campaign assembly), not one package",
+      "campaign": "needs campaign membership or the watchlist",
+      "longitudinal": "needs a prior-cycle snapshot or observation counter",
+      "other": "unclassified",
+      "pure": "needs a follow-up call the pipeline makes outside the package entry",
+      "upstream": "needs an upstream inventory or the signed federation store"
+    },
+    "missed": 4,
+    "rate": 0.9703703703703703,
+    "reproduced": 131,
+    "unexpected": {
+      "C002": 1,
+      "D001": 2,
+      "D005": 1,
+      "G007": 5,
+      "H020": 3,
+      "H027": 7,
+      "H049": 7,
+      "H103": 3,
+      "M002": 7,
+      "R007": 1,
+      "T002": 23,
+      "U001": 1,
+      "U002": 1,
+      "U006": 1,
+      "U009": 1,
+      "U012": 1,
+      "W011": 3,
+      "W012": 3,
+      "W014": 6
+    },
+    "upstream": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "kind": "naming_cluster",
+  "triggered": [
+    {
+      "rule_id": "H029"
+    },
+    {
+      "rule_id": "C012"
+    }
+  ]
+}

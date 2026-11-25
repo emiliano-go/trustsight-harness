@@ -1,0 +1,7 @@
+{
+  "note": "Surface mutations that make a rule stop firing, measured over the committed probe diffs. Shrink-only: fix the rule upstream, then remove the entry.",
+  "known": [
+    {"rule": "H069", "mutation": "trailing-space", "evidence": "added line with trailing spaces no longer matches the rule's end-anchored pattern"},
+    {"rule": "H072", "mutation": "trailing-space", "evidence": "added line with trailing spaces no longer matches the rule's end-anchored pattern"}
+  ]
+}

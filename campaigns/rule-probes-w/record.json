@@ -1,20 +1,20 @@
 {
-  "attempts": 14,
+  "attempts": 16,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.215311
+      0.193608
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 14,
+    "denominator_value": 16,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-w",
-  "campaign_commit": "",
+  "campaign_commit": "2e807712f0cc0654409d9874e62e58ccfc186887",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 2645
+    "wall_clock_ms": 2292
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:438329bd2d922888b6701a07c20434310be8ced651c7c180b2a5c505d657ac0c",
+    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -57,13 +57,16 @@
     "W001",
     "W002",
     "W003",
+    "W004",
     "W005",
     "W006",
     "W008",
+    "W009",
     "W011"
   ],
+  "flag_ledger": [],
   "generator": {
-    "cells": 14,
+    "cells": 16,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -78,9 +81,9 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 11,
+    "detected": 12,
     "duplicate": 0,
-    "fail_closed_catch": 3,
+    "fail_closed_catch": 4,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
@@ -90,14 +93,16 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 14,
+    "cells": 16,
     "expected_rules": [
       "W001",
       "W002",
       "W003",
+      "W004",
       "W005",
       "W006",
       "W008",
+      "W009",
       "W011"
     ],
     "fired_rules": [
@@ -126,13 +131,17 @@
       "R007",
       "R010",
       "SOURCE_BUCKET",
+      "U001",
+      "U006",
       "W001",
       "W002",
       "W003",
+      "W004",
       "W005",
       "W006",
       "W007",
       "W008",
+      "W009",
       "W011",
       "W012",
       "X002",
@@ -142,7 +151,8 @@
       "X034"
     ],
     "missing_rules": [],
-    "negative_failures": []
+    "negative_failures": [],
+    "unattempted_rules": []
   },
   "stop_reason": "",
   "validator": {
