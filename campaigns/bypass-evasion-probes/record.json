@@ -1,20 +1,20 @@
 {
-  "attempts": 74,
+  "attempts": 72,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.04935
+      0.050651
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 74,
+    "denominator_value": 72,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "bypass-evasion-probes",
-  "campaign_commit": "99f92ea0d20334e498a624953b6c9e299d10529d",
+  "campaign_commit": "a6aa5effb9b19a722c30b7016a8cdd718c8a43c8",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 8341
+    "wall_clock_ms": 7774
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,15 +38,14 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:018658c362dc57be7e02bc3dfa88f30fa9ff152508804501fad76eda2a49077a",
+    "config_fingerprint": "sha256:e8df2d058b1c8f4e9c9918347adcc3d7b4316132668483b2faf680fd4f95b0a6",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
@@ -105,7 +104,7 @@
   ],
   "flag_ledger": [],
   "generator": {
-    "cells": 74,
+    "cells": 72,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -120,7 +119,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 50,
+    "detected": 48,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -132,7 +131,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 74,
+    "cells": 72,
     "expected_rules": [
       "C001",
       "C020",
@@ -290,9 +289,12 @@
       "T004",
       "T005"
     ],
-    "unattempted_rules": []
+    "unattempted_rules": [
+      "D004",
+      "H064"
+    ]
   },
-  "stop_reason": "",
+  "stop_reason": "72 raw-diff cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": ""
