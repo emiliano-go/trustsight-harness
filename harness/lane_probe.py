@@ -67,27 +67,29 @@ def _correlation(payload: dict) -> list[dict]:
 
         for row in payload.get("seed_transitions") or ():
             db.record_property_transition(
-                str(row.get("package", "")), "maintainer", row.get("old"),
-                row.get("new"), row.get("observed_at"))
+                str(row.get("package", "")),
+                "maintainer",
+                row.get("old"),
+                row.get("new"),
+                row.get("observed_at"),
+            )
         out.extend(first_seen_adoption_burst(records, config))
     if "g009" in kinds:
         path = Path(tempfile.mkdtemp()) / "watchlist.json"
         path.write_text(json.dumps(payload.get("watchlist") or {}))
-        config.setdefault("thresholds", {}).setdefault("g009", {})[
-            "path"] = str(path)
+        config.setdefault("thresholds", {}).setdefault("g009", {})["path"] = str(path)
         out.extend(watchlisted_maintainer(records, config))
     if "g010" in kinds:
         from trustsight.contacts import shared_first_seen_host
 
-        out.extend(shared_first_seen_host(
-            records, int(payload.get("min_packages", 5))))
+        out.extend(shared_first_seen_host(records, int(payload.get("min_packages", 5))))
     if "g006" in kinds or "g007" in kinds:
         from trustsight import db
 
         for campaign in payload.get("seed_campaigns") or ():
-            db.activate_campaign(str(campaign["id"]),
-                                 campaign.get("scope") or {},
-                                 source="harness-lane")
+            db.activate_campaign(
+                str(campaign["id"]), campaign.get("scope") or {}, source="harness-lane"
+            )
     if "g006" in kinds:
         from trustsight.full_aur._pipeline_helpers import _neighborhood_elevation
 
@@ -98,30 +100,47 @@ def _correlation(payload: dict) -> list[dict]:
         )
 
         _, breakdown, _ = _campaign_corroboration(
-            0, [], str(payload.get("package", "")),
+            0,
+            [],
+            str(payload.get("package", "")),
             payload.get("added_urls") or (),
-            coverage_gaps=payload.get("gaps") or ())
+            coverage_gaps=payload.get("gaps") or (),
+        )
         for entry in breakdown:
-            rule_id = (entry.get("rule_id") if isinstance(entry, dict)
-                       else getattr(entry, "rule_id", ""))
+            rule_id = (
+                entry.get("rule_id")
+                if isinstance(entry, dict)
+                else getattr(entry, "rule_id", "")
+            )
             if rule_id not in ("G007", "W013"):
                 continue
-            evidence = (entry.get("evidence") if isinstance(entry, dict)
-                        else getattr(entry, "evidence", None))
-            out.append({
-                "rule_id": rule_id,
-                "name": "Campaign Corroboration",
-                "severity": "INFO", "category": "correlation",
-                "match": (entry.get("reason") if isinstance(entry, dict)
-                          else getattr(entry, "reason", "")),
-                "params": dict(evidence or {}),
-            })
+            evidence = (
+                entry.get("evidence")
+                if isinstance(entry, dict)
+                else getattr(entry, "evidence", None)
+            )
+            out.append(
+                {
+                    "rule_id": rule_id,
+                    "name": "Campaign Corroboration",
+                    "severity": "INFO",
+                    "category": "correlation",
+                    "match": (
+                        entry.get("reason")
+                        if isinstance(entry, dict)
+                        else getattr(entry, "reason", "")
+                    ),
+                    "params": dict(evidence or {}),
+                }
+            )
     if "g011" in kinds:
         out.extend(package_creation_burst(records, config))
     if "g015" in kinds:
-        out.extend(sleeper_adoption_campaign(
-            records, payload.get("history") or [], config,
-            payload.get("pushes")))
+        out.extend(
+            sleeper_adoption_campaign(
+                records, payload.get("history") or [], config, payload.get("pushes")
+            )
+        )
     return out
 
 
@@ -139,9 +158,16 @@ def _meta(payload: dict) -> list[dict]:
     out.extend(licensor_absent(triggered, payload.get("rules") or []))
     out.extend(campaign_reactivation_notes(payload.get("pressure") or []))
     for note in cofire_absence(triggered, payload.get("cofire_pairs") or ()):
-        out.append({"rule_id": "M004", "name": "Expected Co-fire Absent",
-                    "severity": "INFO", "category": "meta",
-                    "match": note, "params": {"detail": note}})
+        out.append(
+            {
+                "rule_id": "M004",
+                "name": "Expected Co-fire Absent",
+                "severity": "INFO",
+                "category": "meta",
+                "match": note,
+                "params": {"detail": note},
+            }
+        )
     return out
 
 
@@ -162,16 +188,26 @@ def _cycle(payload: dict) -> list[dict]:
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         adoption_findings(
-            body.pop("diff_text"), package_name=body.pop("package"),
+            body.pop("diff_text"),
+            package_name=body.pop("package"),
             was_orphaned=int(body.pop("was_orphaned")),
             currently_maintained=bool(body.pop("currently_maintained")),
-            add=add, pkgver_moved=bool(body.pop("pkgver_moved", False)),
-            current_text=body.pop("current_text", None))
+            add=add,
+            pkgver_moved=bool(body.pop("pkgver_moved", False)),
+            current_text=body.pop("current_text", None),
+        )
         return found
     if kind == "longitudinal":
         from trustsight.analysis.longitudinal import longitudinal_findings
@@ -179,8 +215,12 @@ def _cycle(payload: dict) -> list[dict]:
 
         breaks = [PropertyBreak(**row) for row in body.pop("breaks")]
         return longitudinal_findings(
-            body.pop("diff_text"), body.pop("package"), breaks, _config(),
-            body.pop("current_text", None))
+            body.pop("diff_text"),
+            body.pop("package"),
+            breaks,
+            _config(),
+            body.pop("current_text", None),
+        )
     raise ValueError(f"unknown cycle kind {kind!r}")
 
 
@@ -226,16 +266,27 @@ def _compose(payload: dict) -> list[dict]:
         from trustsight.analysis.persistence_engine import emit_service_binary
 
         context = build_context(
-            str(payload.get("diff_text", "")), config,
+            str(payload.get("diff_text", "")),
+            config,
             current_text=payload.get("current_text"),
-            tree_manifest=[(str(name), bytes.fromhex(data))
-                           for name, data in payload.get("tree_manifest") or ()])
+            tree_manifest=[
+                (str(name), bytes.fromhex(data))
+                for name, data in payload.get("tree_manifest") or ()
+            ],
+        )
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         emit_service_binary(context, add)
         return found
@@ -252,29 +303,44 @@ def _compose(payload: dict) -> list[dict]:
             srcinfo=payload.get("srcinfo"),
             upstream_scan_notes=tuple(payload.get("upstream_scan_notes") or ()),
         )
-        return [{"rule_id": entry.rule_id,
-                 "severity": str(entry.severity),
-                 "reason": getattr(entry, "reason", "")}
-                for entry in fact.score_breakdown
-                if getattr(entry, "rule_id", "")]
+        return [
+            {
+                "rule_id": entry.rule_id,
+                "severity": str(entry.severity),
+                "reason": getattr(entry, "reason", ""),
+            }
+            for entry in fact.score_breakdown
+            if getattr(entry, "rule_id", "")
+        ]
     if kind == "provenance":
         from trustsight.analysis.structural._engine import _provenance_findings
 
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         _provenance_findings(
-            str(payload.get("diff_text", "")), payload.get("current_text"),
+            str(payload.get("diff_text", "")),
+            payload.get("current_text"),
             list(payload.get("added") or ()),
             list(payload.get("provenance_added") or ()),
             list(payload.get("removed") or ()),
             dict(payload.get("source_buckets") or {}),
             bool(payload.get("maintainer_changed", False)),
-            str(payload.get("package", "")), config, add)
+            str(payload.get("package", "")),
+            config,
+            add,
+        )
         return found
     if kind == "checksums":
         from types import SimpleNamespace
@@ -283,24 +349,39 @@ def _compose(payload: dict) -> list[dict]:
             addendum4_findings,
         )
 
-        files = [SimpleNamespace(path=str(row.get("path", "")),
-                                 status=str(row.get("status", "modified")))
-                 for row in payload.get("files") or ()]
+        files = [
+            SimpleNamespace(
+                path=str(row.get("path", "")), status=str(row.get("status", "modified"))
+            )
+            for row in payload.get("files") or ()
+        ]
         scope_doc = SimpleNamespace(files=files)
         post = SimpleNamespace(scalars=dict(payload.get("scalars") or {}))
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         addendum4_findings(
-            str(payload.get("diff_text", "")), scope_doc, None, post,
-            SimpleNamespace(added_urls=(), removed_urls=()), config, add,
-            tree_manifest=[(str(path), b"")
-                           for path in payload.get("tree") or ()],
-            post_text=payload.get("post_text"))
+            str(payload.get("diff_text", "")),
+            scope_doc,
+            None,
+            post,
+            SimpleNamespace(added_urls=(), removed_urls=()),
+            config,
+            add,
+            tree_manifest=[(str(path), b"") for path in payload.get("tree") or ()],
+            post_text=payload.get("post_text"),
+        )
         return found
     if kind == "ioc":
         from trustsight.analysis.ioc import _ioc_findings
@@ -310,14 +391,25 @@ def _compose(payload: dict) -> list[dict]:
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
-        _ioc_findings(str(payload.get("diff_text", "")),
-                      str(payload.get("package", "")), config, add,
-                      indicators=indicators,
-                      current_text=payload.get("current_text"))
+        _ioc_findings(
+            str(payload.get("diff_text", "")),
+            str(payload.get("package", "")),
+            config,
+            add,
+            indicators=indicators,
+            current_text=payload.get("current_text"),
+        )
         return found
     if kind == "commits":
         from trustsight.analysis.refusals import pattern_across_commits
@@ -325,13 +417,22 @@ def _compose(payload: dict) -> list[dict]:
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         pattern_across_commits(
             str(payload.get("previous_diff", "")),
-            str(payload.get("diff_text", "")), add)
+            str(payload.get("diff_text", "")),
+            add,
+        )
         return found
     if kind == "dependencies":
         from trustsight import db
@@ -343,26 +444,38 @@ def _compose(payload: dict) -> list[dict]:
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         _dependency_findings(
             str(payload.get("diff_text", "")),
-            str(payload.get("package", "")), config, add,
-            current_text=payload.get("current_text"))
+            str(payload.get("package", "")),
+            config,
+            add,
+            current_text=payload.get("current_text"),
+        )
         return found
     if kind == "scriptlet":
         from trustsight.analysis.edges import edge_scriptlet_top_level_execution
 
         finding = edge_scriptlet_top_level_execution(
-            str(payload["name"]), bytes.fromhex(payload["data"]))
+            str(payload["name"]), bytes.fromhex(payload["data"])
+        )
         return [finding] if finding else []
     if kind == "edge":
         from trustsight.analysis.edges import edge_committed_payload
 
         finding = edge_committed_payload(
-            str(payload["name"]), bytes.fromhex(payload["data"]))
+            str(payload["name"]), bytes.fromhex(payload["data"])
+        )
         return [finding] if finding else []
     if kind == "committed_path":
         from trustsight.analysis.persistence_engine import (
@@ -370,21 +483,25 @@ def _compose(payload: dict) -> list[dict]:
         )
 
         finding = emit_committed_build_path(
-            str(payload["name"]), bytes.fromhex(payload["data"]))
+            str(payload["name"]), bytes.fromhex(payload["data"])
+        )
         return [finding] if finding else []
     if kind == "tree_manifest":
         from trustsight.analysis.delivery._buildtree import scan_tree_manifest
 
-        files = [(str(name), bytes.fromhex(data))
-                 for name, data in payload.get("files") or ()]
+        files = [
+            (str(name), bytes.fromhex(data))
+            for name, data in payload.get("files") or ()
+        ]
         return scan_tree_manifest(
-            files, list(payload.get("source_urls") or ()),
-            str(payload.get("package", "")))
+            files,
+            list(payload.get("source_urls") or ()),
+            str(payload.get("package", "")),
+        )
     if kind == "volume":
         from trustsight.analysis.meta import alert_volume_finding
 
-        finding = alert_volume_finding(
-            list(payload.get("triggered") or ()), config)
+        finding = alert_volume_finding(list(payload.get("triggered") or ()), config)
         return [finding] if finding else []
     if kind == "archive":
         from trustsight.analysis.archives import check_archive_trailer
@@ -402,7 +519,8 @@ def _compose(payload: dict) -> list[dict]:
         finding = credential_egress_finding(
             package_name=str(payload.get("package", "")),
             findings=list(payload.get("findings") or ()),
-            diff_text=str(payload.get("diff_text", "")))
+            diff_text=str(payload.get("diff_text", "")),
+        )
         return [finding] if finding else []
     if kind == "takeover":
         from trustsight.analysis.adoption import source_takeover_finding
@@ -414,35 +532,42 @@ def _compose(payload: dict) -> list[dict]:
             maintainer_changed=bool(payload.get("maintainer_changed", False)),
             added_urls=tuple(payload.get("added_urls") or ()),
             removed_urls=tuple(payload.get("removed_urls") or ()),
-            current_text=payload.get("current_text"))
+            current_text=payload.get("current_text"),
+        )
         return [finding] if finding else []
     if kind == "namespace":
         from trustsight.analysis.namespaces import owned_namespace_findings
 
         return owned_namespace_findings(
-            str(payload.get("recipe", "")), config,
-            package_name=str(payload.get("package", "")))
+            str(payload.get("recipe", "")),
+            config,
+            package_name=str(payload.get("package", "")),
+        )
     if kind == "typosquat":
         from trustsight.analysis.composition import naming_typosquat_finding
 
         candidates = [tuple(row) for row in payload.get("candidates") or ()]
         finding = naming_typosquat_finding(
-            str(payload.get("package", "")), candidates=candidates,
+            str(payload.get("package", "")),
+            candidates=candidates,
             self_popularity=payload.get("self_popularity"),
-            min_length=payload.get("min_length"))
+            min_length=payload.get("min_length"),
+        )
         return [finding] if finding else []
     if kind == "keyring":
         from trustsight.analysis.composition import maintainer_keyring_composition
 
         finding = maintainer_keyring_composition(
             list(payload.get("triggered") or ()),
-            bool(payload.get("maintainer_changed", False)))
+            bool(payload.get("maintainer_changed", False)),
+        )
         return [finding] if finding else []
     if kind == "naming_cluster":
         from trustsight.analysis.composition import naming_cluster_annotation
 
         finding = naming_cluster_annotation(
-            list(payload.get("triggered") or ()), config)
+            list(payload.get("triggered") or ()), config
+        )
         return [finding] if finding else []
     raise ValueError(f"unknown compose kind {kind!r}")
 
@@ -485,11 +610,13 @@ def _project_rule(kind, project, head, payload, config) -> list[dict]:
         finding = _stale_revival(project, str(payload.get("old", "")), head)
     elif kind == "divergence":
         findings = t_metadata_git_divergence(
-            project, head, int(payload.get("last_modified", 0) or 0), config)
+            project, head, int(payload.get("last_modified", 0) or 0), config
+        )
         return findings
     elif kind == "packager":
         return t_packager_not_in_history(
-            project, head, str(payload.get("maintainer", "")), config)
+            project, head, str(payload.get("maintainer", "")), config
+        )
     else:
         raise ValueError(f"unknown project kind {kind!r}")
     return [finding] if finding else []
@@ -504,10 +631,12 @@ def _warm(payload: dict) -> list[dict]:
 
         for key in payload.get("seed_keys") or ():
             db.record_observed_key(str(key))
-        change = {"pgp_keys": {
-            "gained": list(payload.get("gained") or ()),
-            "lost": list(payload.get("lost") or ()),
-        }}
+        change = {
+            "pgp_keys": {
+                "gained": list(payload.get("gained") or ()),
+                "lost": list(payload.get("lost") or ()),
+            }
+        }
         return t_key_findings(change, config) + t_key_rotation(change)
     if kind == "domain":
         from trustsight import db
@@ -537,23 +666,32 @@ def _upstream(payload: dict) -> list[dict]:
     if kind == "workflow":
         from trustsight.upstream_collect import _workflow_findings
 
-        return _workflow_findings(payload.get("path", "upstream.yml"),
-                                  payload.get("text") or "")
+        return _workflow_findings(
+            payload.get("path", "upstream.yml"), payload.get("text") or ""
+        )
     if kind == "federated":
         from trustsight.analysis.upstream_release import upstream_release_findings
 
         found: list[dict] = []
 
         def add(rule_id, name, severity, category, match, **extra):
-            found.append({"rule_id": rule_id, "name": name,
-                          "severity": severity, "category": category,
-                          "match": match, **extra})
+            found.append(
+                {
+                    "rule_id": rule_id,
+                    "name": name,
+                    "severity": severity,
+                    "category": category,
+                    "match": match,
+                    **extra,
+                }
+            )
 
         delta = SimpleNamespace(
             version=SimpleNamespace(
-                pkgver_changed=bool(payload.get("pkgver_changed", False))),
-            sources=SimpleNamespace(
-                gained=tuple(payload.get("sources_gained") or ())))
+                pkgver_changed=bool(payload.get("pkgver_changed", False))
+            ),
+            sources=SimpleNamespace(gained=tuple(payload.get("sources_gained") or ())),
+        )
         matches = [SimpleNamespace(**row) for row in payload.get("matches") or []]
         upstream_release_findings(
             payload.get("diff_text") or "",
@@ -585,31 +723,52 @@ LANE_RUNNERS = {
 COMPOSE_KINDS = {
     "archive": frozenset({"data"}),
     "scriptlet": frozenset({"name", "data"}),
-    "dependencies": frozenset({"diff_text", "package", "dependencies",
-                               "current_text"}),
+    "dependencies": frozenset({"diff_text", "package", "dependencies", "current_text"}),
     "commits": frozenset({"previous_diff", "diff_text"}),
     "ioc": frozenset({"entries", "diff_text", "package", "current_text"}),
     "graph": frozenset({"diff_text", "current_text", "tree_manifest"}),
-    "package_text": frozenset({"package", "old_pkgbuild", "new_pkgbuild",
-                               "maintainer", "srcinfo",
-                               "upstream_scan_notes"}),
-    "provenance": frozenset({"diff_text", "current_text", "added",
-                             "provenance_added", "removed", "source_buckets",
-                             "maintainer_changed", "package"}),
-    "checksums": frozenset({"diff_text", "files", "scalars", "tree",
-                            "post_text"}),
+    "package_text": frozenset(
+        {
+            "package",
+            "old_pkgbuild",
+            "new_pkgbuild",
+            "maintainer",
+            "srcinfo",
+            "upstream_scan_notes",
+        }
+    ),
+    "provenance": frozenset(
+        {
+            "diff_text",
+            "current_text",
+            "added",
+            "provenance_added",
+            "removed",
+            "source_buckets",
+            "maintainer_changed",
+            "package",
+        }
+    ),
+    "checksums": frozenset({"diff_text", "files", "scalars", "tree", "post_text"}),
     "edge": frozenset({"name", "data"}),
     "committed_path": frozenset({"name", "data"}),
     "tree_manifest": frozenset({"files", "source_urls", "package"}),
     "volume": frozenset({"triggered"}),
     "placeholder": frozenset({"text"}),
     "credential": frozenset({"package", "findings", "diff_text"}),
-    "takeover": frozenset({"package", "findings", "adopted",
-                           "maintainer_changed", "added_urls", "removed_urls",
-                           "current_text"}),
+    "takeover": frozenset(
+        {
+            "package",
+            "findings",
+            "adopted",
+            "maintainer_changed",
+            "added_urls",
+            "removed_urls",
+            "current_text",
+        }
+    ),
     "namespace": frozenset({"recipe", "package", "namespaces"}),
-    "typosquat": frozenset({"package", "candidates", "self_popularity",
-                            "min_length"}),
+    "typosquat": frozenset({"package", "candidates", "self_popularity", "min_length"}),
     "keyring": frozenset({"triggered", "maintainer_changed"}),
     "naming_cluster": frozenset({"triggered"}),
 }
@@ -631,19 +790,34 @@ WARM_KINDS = {
 
 #: The cycle entry points and the payload keys each one reads.
 CYCLE_KINDS = {
-    "temporal": frozenset({
-        "new_meta", "old_meta", "source_repos", "prior_history",
-        "maintainer_history", "edges", "routine_only", "detail",
-        "maintainer_transitions", "prior_rule_history", "package_cycle_events",
-        "now",
-    }),
-    "graph": frozenset({"new_meta", "old_meta", "changes", "transitions",
-                        "edges"}),
-    "longitudinal": frozenset({"diff_text", "package", "breaks",
-                               "current_text"}),
-    "adoption": frozenset({"diff_text", "package", "was_orphaned",
-                           "currently_maintained", "pkgver_moved",
-                           "current_text"}),
+    "temporal": frozenset(
+        {
+            "new_meta",
+            "old_meta",
+            "source_repos",
+            "prior_history",
+            "maintainer_history",
+            "edges",
+            "routine_only",
+            "detail",
+            "maintainer_transitions",
+            "prior_rule_history",
+            "package_cycle_events",
+            "now",
+        }
+    ),
+    "graph": frozenset({"new_meta", "old_meta", "changes", "transitions", "edges"}),
+    "longitudinal": frozenset({"diff_text", "package", "breaks", "current_text"}),
+    "adoption": frozenset(
+        {
+            "diff_text",
+            "package",
+            "was_orphaned",
+            "currently_maintained",
+            "pkgver_moved",
+            "current_text",
+        }
+    ),
 }
 
 #: The kwargs a cell may carry.  A fixture key that the entry point does not
@@ -652,29 +826,53 @@ CYCLE_KINDS = {
 PAYLOAD_KEYS = {
     "artifact": frozenset({"manifest", "declared"}),
     "project": frozenset().union(*PROJECT_KINDS.values()) | {"kind", "now"},
-    "compose": frozenset().union(*COMPOSE_KINDS.values()) | {"kind",
-                                                             "namespaces"},
-    "correlation": frozenset({
-        "records", "kinds", "seed_transitions", "watchlist", "history",
-        "pushes", "seed_campaigns", "package", "added_urls",
-        "min_packages", "gaps"}),
+    "compose": frozenset().union(*COMPOSE_KINDS.values()) | {"kind", "namespaces"},
+    "correlation": frozenset(
+        {
+            "records",
+            "kinds",
+            "seed_transitions",
+            "watchlist",
+            "history",
+            "pushes",
+            "seed_campaigns",
+            "package",
+            "added_urls",
+            "min_packages",
+            "gaps",
+        }
+    ),
     "warm": frozenset().union(*WARM_KINDS.values()) | {"kind"},
-    "meta": frozenset({"triggered", "claims", "rules", "pressure",
-                       "cofire_pairs"}),
+    "meta": frozenset({"triggered", "claims", "rules", "pressure", "cofire_pairs"}),
     "cycle": frozenset().union(*CYCLE_KINDS.values()) | {"kind"},
-    "upstream": frozenset({
-        "kind", "asset_inventory", "tag_inventory", "export_ignore",
-        "diff_text", "current_text", "pkgver_changed", "matches", "package",
-    }),
+    "upstream": frozenset(
+        {
+            "kind",
+            "asset_inventory",
+            "tag_inventory",
+            "export_ignore",
+            "diff_text",
+            "current_text",
+            "pkgver_changed",
+            "matches",
+            "package",
+        }
+    ),
 }
 
 #: The upstream kinds and the payload keys each one reads.
 UPSTREAM_KINDS = {
-    "release_asset": frozenset({
-        "asset_inventory", "tag_inventory", "export_ignore"}),
-    "federated": frozenset({
-        "diff_text", "current_text", "pkgver_changed", "matches", "package",
-        "sources_gained"}),
+    "release_asset": frozenset({"asset_inventory", "tag_inventory", "export_ignore"}),
+    "federated": frozenset(
+        {
+            "diff_text",
+            "current_text",
+            "pkgver_changed",
+            "matches",
+            "package",
+            "sources_gained",
+        }
+    ),
     "workflow": frozenset({"path", "text"}),
     "source_archive": frozenset({"artifacts"}),
 }
@@ -690,17 +888,29 @@ def runner_for(lane: str):
 
 def score_findings(findings) -> int:
     """Sum the severity weights, clamped, exactly as the report would."""
-    weights = (_config().get("severity_weights", {}) or {})
+    weights = _config().get("severity_weights", {}) or {}
     total = 0
     for finding in findings or ():
-        severity = (finding.get("severity") if isinstance(finding, dict)
-                    else getattr(finding, "severity", ""))
+        severity = (
+            finding.get("severity")
+            if isinstance(finding, dict)
+            else getattr(finding, "severity", "")
+        )
         total += int(weights.get(str(severity), 0))
     return max(0, min(100, total))
 
 
-def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
-                   repo_root, calibration: str, started_at: float) -> dict:
+def run_lane_probe(
+    config,
+    generator,
+    prompt,
+    runner,
+    env,
+    recorder: Recorder,
+    repo_root,
+    calibration: str,
+    started_at: float,
+) -> dict:
     """Run one `lane-probe` campaign and write its record."""
     from .campaign import _git_commit
 
@@ -725,8 +935,13 @@ def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
             status = Status.HARNESS_ERROR
             reason = f"{type(exc).__name__}: {exc}"
             harness_errors += 1
-        fired = sorted({str(f.get("rule_id", "")) for f in findings
-                        if isinstance(f, dict) and f.get("rule_id")})
+        fired = sorted(
+            {
+                str(f.get("rule_id", ""))
+                for f in findings
+                if isinstance(f, dict) and f.get("rule_id")
+            }
+        )
         positive = set(produced.expect_fire) or set(expected)
         absent = set(produced.expect_absent)
         missing = sorted(positive - set(fired))
@@ -739,12 +954,19 @@ def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
                 status = Status.BYPASS  # a probe miss; never a bypass finding
             else:
                 status = Status.DETECTED
-        flag = flag_state(SimpleNamespace(findings=findings, score=score,
-                                          coverage_gaps=[]),
-                          tuple(positive), env.flag_threshold, env.mode_gaps)
-        trace = Trace(attempt=attempt, diff_sha256=digest,
-                      generator=generator.describe(), status=status,
-                      flag_state=str(flag))
+        flag = flag_state(
+            SimpleNamespace(findings=findings, score=score, coverage_gaps=[]),
+            tuple(positive),
+            env.flag_threshold,
+            env.mode_gaps,
+        )
+        trace = Trace(
+            attempt=attempt,
+            diff_sha256=digest,
+            generator=generator.describe(),
+            status=status,
+            flag_state=str(flag),
+        )
         trace.trustsight = {"lane": lane, "findings": findings, "score": score}
         trace.judge = {
             "verdict": str(status),
@@ -758,31 +980,40 @@ def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
             "reason": reason,
         }
         recorder.add(trace, payload_text)
-        recorder.flag_rows.append({
-            "cell": cell.get("id", ""),
-            "lane": lane,
-            "expected": sorted(positive),
-            "fired": fired,
-            "score": score,
-            "threshold": env.flag_threshold,
-            "gaps": [],
-            "flag_state": str(flag),
-        })
+        recorder.flag_rows.append(
+            {
+                "cell": cell.get("id", ""),
+                "lane": lane,
+                "expected": sorted(positive),
+                "fired": fired,
+                "score": score,
+                "threshold": env.flag_threshold,
+                "gaps": [],
+                "flag_state": str(flag),
+            }
+        )
         if _abort(harness_errors, attempt + 1):
             raise RuntimeError(
-                f"{harness_errors} harness errors in {attempt + 1} attempts")
+                f"{harness_errors} harness errors in {attempt + 1} attempts"
+            )
 
     cost = {
-        "tokens_in": 0, "tokens_out": 0, "api_cost_usd": 0.0,
-        "ceiling_usd": None, "retries": 0,
+        "tokens_in": 0,
+        "tokens_out": 0,
+        "api_cost_usd": 0.0,
+        "ceiling_usd": None,
+        "retries": 0,
         "wall_clock_ms": int((time.monotonic() - started_at) * 1000),
     }
     record = recorder.build_record(
         campaign_type=config.campaign_type,
         environment=env.to_record(),
-        generator={**generator.describe(), "prompt_id": prompt.prompt_id,
-                   "prompt_hash": prompt.hash,
-                   "prompt_contract": prompt.contract},
+        generator={
+            **generator.describe(),
+            "prompt_id": prompt.prompt_id,
+            "prompt_hash": prompt.hash,
+            "prompt_contract": prompt.contract,
+        },
         validator={"version_hash": "", "calibration": calibration},
         cost=cost,
         campaign_commit=_git_commit(repo_root),
@@ -790,12 +1021,27 @@ def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
         expected_rules=expected,
         limitations=config.limitations,
     )
-    union = sorted({rule for trace in recorder.traces
-                    for rule in trace.judge.get("fired_rules", ())})
-    missing = sorted({rule for trace in recorder.traces
-                      for rule in trace.judge.get("missing_rules", ())})
-    negatives = sorted({rule for trace in recorder.traces
-                        for rule in trace.judge.get("negative_failures", ())})
+    union = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("fired_rules", ())
+        }
+    )
+    missing = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("missing_rules", ())
+        }
+    )
+    negatives = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("negative_failures", ())
+        }
+    )
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
@@ -813,5 +1059,7 @@ def _abort(errors: int, attempts: int) -> bool:
         _MIN_ATTEMPTS_BEFORE_ABORT,
     )
 
-    return (attempts >= _MIN_ATTEMPTS_BEFORE_ABORT
-            and errors / attempts > HARNESS_ERROR_ABORT_RATE)
+    return (
+        attempts >= _MIN_ATTEMPTS_BEFORE_ABORT
+        and errors / attempts > HARNESS_ERROR_ABORT_RATE
+    )

@@ -25,34 +25,36 @@ KNOWN_SEVERITIES = frozenset({"FATAL", "CRITICAL", "HIGH", "MEDIUM", "LOW", "INF
 #: TrustSight's coverage-gap vocabulary.  A gap type added after the Judge
 #: was written must be understood before it can decide whether it forbids
 #: UNFLAGGED; guessing would let a new bypass channel pass as fail-closed.
-KNOWN_GAPS = frozenset({
-    "diff_truncated",
-    "scan_truncated",
-    "line_truncated",
-    "tree_not_analyzed",
-    "unresolved_source",
-    "unresolved_parse_time",
-    "snapshot_refused",
-    "unpinned_build_deps",
-    "companion_truncated",
-    "deps_not_scanned",
-    "ruleset_drifted",
-    "stage_degraded",
-    "history_truncated",
-    "noextract_suppressed",
-    "binary_metadata",
-    "tokenizer_unavailable",
-    # Added by the typed-core work: a hunk cut mid-stream, an install
-    # script shown only in part, and a first review compared against the
-    # parent commit only.  An unrecognised gap stops the run by design, so
-    # the vocabulary grows with the instrument.
-    "partial_hunk",
-    "partial_file_analysis",
-    "parent_baseline",
-    # Added with the upstream-manifest rules: a committed manifest was read
-    # but could not be fully resolved.  Fail-closed like the rest.
-    "upstream_manifest_incomplete",
-})
+KNOWN_GAPS = frozenset(
+    {
+        "diff_truncated",
+        "scan_truncated",
+        "line_truncated",
+        "tree_not_analyzed",
+        "unresolved_source",
+        "unresolved_parse_time",
+        "snapshot_refused",
+        "unpinned_build_deps",
+        "companion_truncated",
+        "deps_not_scanned",
+        "ruleset_drifted",
+        "stage_degraded",
+        "history_truncated",
+        "noextract_suppressed",
+        "binary_metadata",
+        "tokenizer_unavailable",
+        # Added by the typed-core work: a hunk cut mid-stream, an install
+        # script shown only in part, and a first review compared against the
+        # parent commit only.  An unrecognised gap stops the run by design, so
+        # the vocabulary grows with the instrument.
+        "partial_hunk",
+        "partial_file_analysis",
+        "parent_baseline",
+        # Added with the upstream-manifest rules: a committed manifest was read
+        # but could not be fully resolved.  Fail-closed like the rest.
+        "upstream_manifest_incomplete",
+    }
+)
 
 
 class UnknownVerdictError(RuntimeError):
@@ -110,27 +112,37 @@ def judge(
 
     # 2. A FATAL finding is a detection whatever the arithmetic says.
     if "FATAL" in severities:
-        fatal_ids = tuple(str(getattr(f, "rule_id", "")) for f in findings
-                          if str(getattr(f, "severity", "")) == "FATAL")
-        return Verdict(Status.DETECTED,
-                       f"FATAL finding: {', '.join(fatal_ids)}",
-                       fatal=True, coverage_gaps=all_gaps)
+        fatal_ids = tuple(
+            str(getattr(f, "rule_id", ""))
+            for f in findings
+            if str(getattr(f, "severity", "")) == "FATAL"
+        )
+        return Verdict(
+            Status.DETECTED,
+            f"FATAL finding: {', '.join(fatal_ids)}",
+            fatal=True,
+            coverage_gaps=all_gaps,
+        )
 
     # 3. A coverage gap forbids UNFLAGGED, so the tool did not come back
     #    clean - it came back saying it could not tell.  That is the
     #    fail-closed design working, and counting it as a bypass would
     #    score TrustSight worst exactly where it behaves best.
     if gaps:
-        return Verdict(Status.FAIL_CLOSED_CATCH,
-                       f"coverage gaps forbid UNFLAGGED: {', '.join(gaps)}",
-                       coverage_gaps=gaps)
+        return Verdict(
+            Status.FAIL_CLOSED_CATCH,
+            f"coverage gaps forbid UNFLAGGED: {', '.join(gaps)}",
+            coverage_gaps=gaps,
+        )
 
     # 4. The expected rule firing is a detection even when its weight is
     #    zero: correlation campaigns seed state and test a rule, not a score.
     fired = {str(getattr(f, "rule_id", "")) for f in findings}
     if expected_rules and fired & set(expected_rules):
-        return Verdict(Status.DETECTED,
-                       f"expected rule fired: {sorted(fired & set(expected_rules))}")
+        return Verdict(
+            Status.DETECTED,
+            f"expected rule fired: {sorted(fired & set(expected_rules))}",
+        )
 
     # 5. Above the threshold: detected if the campaign's expected rule
     #    fired, a partial evasion otherwise - the payload was caught, but
@@ -142,25 +154,34 @@ def judge(
             # `detected` here would be a threshold repass dressed as a second
             # opinion: the score is kept in the rationale, but the status
             # says the measurement is inconclusive.
-            return Verdict(Status.INCONCLUSIVE,
-                           f"score {score} > threshold {flag_threshold}, but no "
-                           "expected rules were declared, so the findings "
-                           "cannot be checked against the rule under test")
+            return Verdict(
+                Status.INCONCLUSIVE,
+                f"score {score} > threshold {flag_threshold}, but no "
+                "expected rules were declared, so the findings "
+                "cannot be checked against the rule under test",
+            )
         if fired & set(expected_rules):
-            return Verdict(Status.DETECTED,
-                           f"score {score} > threshold {flag_threshold}")
+            return Verdict(
+                Status.DETECTED, f"score {score} > threshold {flag_threshold}"
+            )
         catching = tuple(
-            {"rule_id": str(getattr(f, "rule_id", "")),
-             "severity": str(getattr(f, "severity", "")),
-             "weight": int(getattr(f, "weight", 0) or 0)}
-            for f in findings if int(getattr(f, "weight", 0) or 0) > 0
+            {
+                "rule_id": str(getattr(f, "rule_id", "")),
+                "severity": str(getattr(f, "severity", "")),
+                "weight": int(getattr(f, "weight", 0) or 0),
+            }
+            for f in findings
+            if int(getattr(f, "weight", 0) or 0) > 0
         )
-        return Verdict(Status.PARTIAL_EVASION,
-                       f"score {score} > threshold {flag_threshold}, but none of "
-                       f"{list(expected_rules)} fired",
-                       catching_rules=catching)
+        return Verdict(
+            Status.PARTIAL_EVASION,
+            f"score {score} > threshold {flag_threshold}, but none of "
+            f"{list(expected_rules)} fired",
+            catching_rules=catching,
+        )
 
     # 5. At or below the threshold, with no gaps and no FATAL: UNFLAGGED.
-    return Verdict(Status.BYPASS,
-                   f"score {score} <= threshold {flag_threshold}; "
-                   "coverage_gaps empty; no fatal")
+    return Verdict(
+        Status.BYPASS,
+        f"score {score} <= threshold {flag_threshold}; coverage_gaps empty; no fatal",
+    )

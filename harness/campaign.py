@@ -71,8 +71,7 @@ def _git_commit(directory: Path) -> str:
             packed = git_dir / "packed-refs"
             if packed.exists():
                 target = head[4:].strip()
-                for line in read_text_capped(
-                        packed, 65536, "packed-refs").splitlines():
+                for line in read_text_capped(packed, 65536, "packed-refs").splitlines():
                     if line.startswith("#"):
                         continue
                     parts = line.split()
@@ -85,9 +84,14 @@ def _git_commit(directory: Path) -> str:
     return ""
 
 
-def run_campaign(config: CampaignConfig, generator: Generator, *,
-                 repo_root: Path, calibration: str,
-                 runner: Runner | None = None) -> dict:
+def run_campaign(
+    config: CampaignConfig,
+    generator: Generator,
+    *,
+    repo_root: Path,
+    calibration: str,
+    runner: Runner | None = None,
+) -> dict:
     """Run one campaign; *runner* is reused if given instead of spawned.
 
     A pool worker hands its long-lived runner in so a sweep does not pay a
@@ -98,7 +102,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     env.bind(config.root)
 
     bash = resolve_bash()
-    behavior = BehaviorValidator(config.prompt.get("behavior_goal", "fetch_then_execute"))
+    behavior = BehaviorValidator(
+        config.prompt.get("behavior_goal", "fetch_then_execute")
+    )
     checkers = build_checkers(config.forbidden)
     if runner is None:
         runner = Runner(package=config.package, env=env)
@@ -113,8 +119,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     # The initial read only feeds the prompt map, so a corrupt shared file
     # must not stop the run; the final merge is the one that must succeed.
     try:
-        archive = Archive.load(repo_root / "archive.json",
-                               saturation=config.archive.cell_saturation)
+        archive = Archive.load(
+            repo_root / "archive.json", saturation=config.archive.cell_saturation
+        )
     except ArchiveError:
         archive = Archive(saturation=config.archive.cell_saturation)
     recorder = Recorder(config.root, config.name, HARNESS_VERSION)
@@ -132,8 +139,8 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     # The environment is verified before a single attempt is charged for.
     env.restore()
     canary_text = read_text_capped(
-        repo_root / "defaults/canary.PKGBUILD", MAX_ARTIFACT_BYTES,
-        "canary.PKGBUILD")
+        repo_root / "defaults/canary.PKGBUILD", MAX_ARTIFACT_BYTES, "canary.PKGBUILD"
+    )
     env.check_canary(lambda name, text: runner.analyze(text).report)
     # Adopt the fingerprint from the canary, not from the first attempt.
     # `check_fingerprint` takes whatever it is shown first and refuses every
@@ -142,7 +149,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     # attempt 1 into a recorded observation instead of a refusal.
     env.check_fingerprint(runner.analyze(canary_text).report)
     if not runner.parity_check(canary_text):
-        raise EnvironmentError_("API and CLI report bodies differ; the instrument is broken")
+        raise EnvironmentError_(
+            "API and CLI report bodies differ; the instrument is broken"
+        )
     # `mode_gaps` is now derived from the canary and will be checked again
     # after every subsequent restore.
 
@@ -151,15 +160,17 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     #: the measured path: the metric is coverage, and shrinking is bookkeeping.
     filled_cells: set[tuple] = set()
     minimization = {"analyses": 0, "attempts": 0, "partial": 0}
-    exporter = Exporter(repo_root / "fixtures-out",
-                        validator_calibration=calibration,
-                        provenance={
-                            "campaign": config.name,
-                            "generator": generator.describe(),
-                            "prompt_hash": prompt.hash,
-                            "trustsight_version": env.trustsight_version,
-                            "harness_version": HARNESS_VERSION,
-                        })
+    exporter = Exporter(
+        repo_root / "fixtures-out",
+        validator_calibration=calibration,
+        provenance={
+            "campaign": config.name,
+            "generator": generator.describe(),
+            "prompt_hash": prompt.hash,
+            "trustsight_version": env.trustsight_version,
+            "harness_version": HARNESS_VERSION,
+        },
+    )
 
     stop = config.stop_conditions or {}
     stop_after_bypasses = int(stop.get("bypasses", 0) or 0)
@@ -167,16 +178,44 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     started_at = time.monotonic()
 
     if config.campaign_type == "rule-probe":
-        return _run_probe(config, generator, prompt, runner, env, recorder,
-                          bash, repo_root, calibration, started_at)
+        return _run_probe(
+            config,
+            generator,
+            prompt,
+            runner,
+            env,
+            recorder,
+            bash,
+            repo_root,
+            calibration,
+            started_at,
+        )
     if config.campaign_type == "artifact-probe":
-        return _run_artifact_probe(config, generator, prompt, runner, env,
-                                   recorder, repo_root, calibration, started_at)
+        return _run_artifact_probe(
+            config,
+            generator,
+            prompt,
+            runner,
+            env,
+            recorder,
+            repo_root,
+            calibration,
+            started_at,
+        )
     if config.campaign_type == "lane-probe":
         from .lane_probe import run_lane_probe
 
-        return run_lane_probe(config, generator, prompt, runner, env, recorder,
-                              repo_root, calibration, started_at)
+        return run_lane_probe(
+            config,
+            generator,
+            prompt,
+            runner,
+            env,
+            recorder,
+            repo_root,
+            calibration,
+            started_at,
+        )
 
     for attempt in range(config.attempts):
         # Pre-registered stop conditions.  Declared in the committed
@@ -193,8 +232,10 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         # the next generation, or the generator spends budget rediscovering it.
         attempt_prompt = replace(
             prompt,
-            open_cells=archive.open_cells(config.expected_rules,
-                                          env.trustsight_version))
+            open_cells=archive.open_cells(
+                config.expected_rules, env.trustsight_version
+            ),
+        )
         try:
             produced = generator.generate(attempt_prompt, attempt)
         except Exhausted as stop:
@@ -203,20 +244,31 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 
         diff_text = produced.diff
         digest = diff_hash(diff_text)
-        trace = Trace(attempt=attempt, diff_sha256=digest,
-                      generator=generator.describe(), status=Status.HARNESS_ERROR,
-                      cost=produced.cost)
+        trace = Trace(
+            attempt=attempt,
+            diff_sha256=digest,
+            generator=generator.describe(),
+            status=Status.HARNESS_ERROR,
+            cost=produced.cost,
+        )
 
-        status, reason, stages = _validate(diff_text, digest, dedup, known,
-                                           bash, checkers, behavior,
-                                           version=env.trustsight_version,
-                                           full_new=produced.new_text,
-                                           full_old=produced.old_text,
-                                           semantic=semantic, archive=archive,
-                                           expected_rules=config.expected_rules)
+        status, reason, stages = _validate(
+            diff_text,
+            digest,
+            dedup,
+            known,
+            bash,
+            checkers,
+            behavior,
+            version=env.trustsight_version,
+            full_new=produced.new_text,
+            full_old=produced.old_text,
+            semantic=semantic,
+            archive=archive,
+            expected_rules=config.expected_rules,
+        )
         trace.stages = stages
-        cells = [(c["rule"], tuple(c["shape"]))
-                 for c in stages.get("_cells", ())]
+        cells = [(c["rule"], tuple(c["shape"])) for c in stages.get("_cells", ())]
         cell_degraded = bool(stages.get("_degraded"))
 
         report = None
@@ -234,14 +286,19 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 # canary's wake.
                 env.restore()
             try:
-                result = runner.analyze(stages["_new_text"], stages.get("_old_text") or None)
+                result = runner.analyze(
+                    stages["_new_text"], stages.get("_old_text") or None
+                )
             except AnalysisTimeout as exc:
                 # A diff that hangs the analyser is a finding about the
                 # tool, kept with its evidence rather than discarded.
                 harness_errors += 1
                 trace.status = Status.HARNESS_ERROR
-                trace.judge = {"verdict": str(Status.HARNESS_ERROR),
-                               "rationale": str(exc), "timeout": True}
+                trace.judge = {
+                    "verdict": str(Status.HARNESS_ERROR),
+                    "rationale": str(exc),
+                    "timeout": True,
+                }
                 recorder.add(trace, diff_text)
                 exporter.export_robustness(trace, diff_text, f"timeout: {exc}")
                 if _abort(harness_errors, attempt + 1):
@@ -250,7 +307,10 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             except RunnerError as exc:
                 harness_errors += 1
                 trace.status = Status.HARNESS_ERROR
-                trace.judge = {"verdict": str(Status.HARNESS_ERROR), "rationale": str(exc)}
+                trace.judge = {
+                    "verdict": str(Status.HARNESS_ERROR),
+                    "rationale": str(exc),
+                }
                 recorder.add(trace, diff_text)
                 exporter.export_robustness(trace, diff_text, str(exc))
                 if _abort(harness_errors, attempt + 1):
@@ -269,8 +329,9 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 "techniques": list(finding_techniques(report.findings) or ()),
                 # The core's additive shape fingerprint when the report
                 # carries it; the local projection is the degradation path.
-                "diff_shape_fp": (result.body.get("diff_shape_fp")
-                                  or diff_shape_fp(diff_text)),
+                "diff_shape_fp": (
+                    result.body.get("diff_shape_fp") or diff_shape_fp(diff_text)
+                ),
             }
             # Addendum 5 §4: the layers this attempt passed and the layer
             # that stopped it, from the report's own `layers` projection.
@@ -282,8 +343,8 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 # observed traversal.  `[layers]` overrides move a rule in
                 # every surface, telemetry included.
                 trace.trustsight["observed_layers"] = observed_layers(
-                    result.body.get("findings", ()),
-                    parse_overrides(load_config()))
+                    result.body.get("findings", ()), parse_overrides(load_config())
+                )
             except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
             # Addendum 5 §6.5 M004: a declared co-fire that did not happen is
@@ -294,7 +355,8 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
                 pairs = getattr(config, "cofire_pairs", ()) or ()
                 if pairs:
                     trace.trustsight["cofire_health"] = cofire_absence(
-                        list(result.body.get("findings", ())), pairs)
+                        list(result.body.get("findings", ())), pairs
+                    )
             except Exception:  # noqa: BLE001, S110 - telemetry must never fail a run
                 pass
             if prompt.expected_iocs:
@@ -315,10 +377,14 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         stages.pop("_new_text", None)
         stages.pop("_old_text", None)
 
-        verdict = judge(early_status=status, early_reason=reason, report=report,
-                        flag_threshold=env.flag_threshold,
-                        expected_rules=config.expected_rules,
-                        mode_gaps=env.mode_gaps)
+        verdict = judge(
+            early_status=status,
+            early_reason=reason,
+            report=report,
+            flag_threshold=env.flag_threshold,
+            expected_rules=config.expected_rules,
+            mode_gaps=env.mode_gaps,
+        )
 
         # A rediscovered bypass is a patch-verification event, not a new
         # find.  Rerunning it answers a question no fresh attempt can - did
@@ -327,22 +393,29 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         if digest in known:
             origin = known.get(digest) or {}
             event = patch_verification(
-                verdict, digest=digest, origin=origin,
+                verdict,
+                digest=digest,
+                origin=origin,
                 reached=report is not None,
-                trustsight_version=env.trustsight_version)
+                trustsight_version=env.trustsight_version,
+            )
             if event is not None:
                 recorder.known_matches.append(event)
                 verdict = replace(
-                    verdict, status=Status.KNOWN_BYPASS_MATCH,
+                    verdict,
+                    status=Status.KNOWN_BYPASS_MATCH,
                     rationale=f"{verdict.rationale} "
-                              f"(known bypass from "
-                              f"{origin.get('original_campaign', '?')}; "
-                              f"{'still open' if event['patch_status'] == 'regression' else 'closed'})")
+                    f"(known bypass from "
+                    f"{origin.get('original_campaign', '?')}; "
+                    f"{'still open' if event['patch_status'] == 'regression' else 'closed'})",
+                )
 
         trace.status = verdict.status
         trace.judge = {
-            "verdict": str(verdict.status), "rationale": verdict.rationale,
-            "fatal": verdict.fatal, "coverage_gaps": list(verdict.coverage_gaps),
+            "verdict": str(verdict.status),
+            "rationale": verdict.rationale,
+            "fatal": verdict.fatal,
+            "coverage_gaps": list(verdict.coverage_gaps),
             "catching_rules": list(verdict.catching_rules),
         }
         # Section 6: classify a bypass by the layers that never got a
@@ -362,14 +435,17 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 
                 overrides = parse_overrides(load_config())
                 suppressed = {
-                    layer for layer in (
+                    layer
+                    for layer in (
                         layer_of(str(row.get("rule_id", "")), overrides)
                         for row in result.body.get("suppressed_rules", ())
                         if isinstance(row, dict)
-                    ) if layer is not None
+                    )
+                    if layer is not None
                 }
                 empty = {
-                    layer for layer in LAYER_ORDER
+                    layer
+                    for layer in LAYER_ORDER
                     if not rules_in_layer(layer, overrides)
                 }
                 trace.trustsight["layer_audit"] = layer_audit(
@@ -390,10 +466,17 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
         # known-bypass rediscovery is a patch-verification event, not a new
         # cell, so it is skipped here.
         if verdict.status is Status.BYPASS and cells:
-            minimized = _minimize(diff_text, runner=runner, env=env, bash=bash,
-                                  checkers=checkers, behavior=behavior,
-                                  expected_rules=config.expected_rules,
-                                  cells=cells, budget=config.archive.minimize_budget)
+            minimized = _minimize(
+                diff_text,
+                runner=runner,
+                env=env,
+                bash=bash,
+                checkers=checkers,
+                behavior=behavior,
+                expected_rules=config.expected_rules,
+                cells=cells,
+                budget=config.archive.minimize_budget,
+            )
             if minimized is not None:
                 minimization["analyses"] += minimized.analyses
                 minimization["attempts"] += 1
@@ -409,11 +492,16 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
             else:
                 representative = diff_text
             for rule, shape in cells:
-                archive.observe(rule, shape, diff=representative,
-                                campaign=config.name, attempt=attempt,
-                                version=env.trustsight_version,
-                                cost=float(produced.cost.get("api_cost_usd", 0.0) or 0.0),
-                                degraded=cell_degraded)
+                archive.observe(
+                    rule,
+                    shape,
+                    diff=representative,
+                    campaign=config.name,
+                    attempt=attempt,
+                    version=env.trustsight_version,
+                    cost=float(produced.cost.get("api_cost_usd", 0.0) or 0.0),
+                    degraded=cell_degraded,
+                )
                 filled_cells.add((rule, shape))
         recorder.add(trace, diff_text, analysed_text, old_text=old_text)
         exporter.export(trace, diff_text)
@@ -432,9 +520,12 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     record = recorder.build_record(
         campaign_type=config.campaign_type,
         environment=env.to_record(),
-        generator={**generator.describe(), "prompt_id": prompt.prompt_id,
-                   "prompt_hash": prompt.hash,
-                   "prompt_contract": prompt.contract},
+        generator={
+            **generator.describe(),
+            "prompt_id": prompt.prompt_id,
+            "prompt_hash": prompt.hash,
+            "prompt_contract": prompt.contract,
+        },
         validator={"version_hash": behavior.version_hash, "calibration": calibration},
         cost=cost,
         campaign_commit=_git_commit(repo_root),
@@ -456,7 +547,8 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
     archive.merge_into(repo_root / "archive.json")
     # The campaign-level artifact: this run's own cells, beside the record.
     archive.slice(filled_cells, env.trustsight_version).save(
-        config.root / "archive.json")
+        config.root / "archive.json"
+    )
     return record
 
 
@@ -465,9 +557,17 @@ def run_campaign(config: CampaignConfig, generator: Generator, *,
 _RULE_ID = re.compile(r"^[A-Z]\d{3}$")
 
 
-def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
-                         repo_root: Path, calibration: str,
-                         started_at: float) -> dict:
+def _run_artifact_probe(
+    config,
+    generator,
+    prompt,
+    runner,
+    env,
+    recorder,
+    repo_root: Path,
+    calibration: str,
+    started_at: float,
+) -> dict:
     """A-series probes: inspect a committed artifact manifest.
 
     The A rules read the produced file list, so the recipe generators and
@@ -485,16 +585,20 @@ def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
             break
         if produced.artifact is None:
             raise RunnerError("artifact-probe generator produced no manifest")
-        trace = Trace(attempt=attempt, diff_sha256="",
-                      generator=generator.describe(), status=Status.HARNESS_ERROR,
-                      cost=produced.cost)
+        trace = Trace(
+            attempt=attempt,
+            diff_sha256="",
+            generator=generator.describe(),
+            status=Status.HARNESS_ERROR,
+            cost=produced.cost,
+        )
         try:
             result = runner.inspect_manifest(
                 produced.artifact.get("manifest") or [],
-                produced.artifact.get("declared") or {})
+                produced.artifact.get("declared") or {},
+            )
         except (AnalysisTimeout, RunnerError) as exc:
-            trace.judge = {"verdict": str(Status.HARNESS_ERROR),
-                           "rationale": str(exc)}
+            trace.judge = {"verdict": str(Status.HARNESS_ERROR), "rationale": str(exc)}
             recorder.add(trace, "")
             continue
         report = result.report
@@ -538,9 +642,12 @@ def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
     record = recorder.build_record(
         campaign_type=config.campaign_type,
         environment=env.to_record(),
-        generator={**generator.describe(), "prompt_id": prompt.prompt_id,
-                   "prompt_hash": prompt.hash,
-                   "prompt_contract": prompt.contract},
+        generator={
+            **generator.describe(),
+            "prompt_id": prompt.prompt_id,
+            "prompt_hash": prompt.hash,
+            "prompt_contract": prompt.contract,
+        },
         validator={"version_hash": "", "calibration": calibration},
         cost=cost,
         campaign_commit=_git_commit(repo_root),
@@ -548,14 +655,32 @@ def _run_artifact_probe(config, generator, prompt, runner, env, recorder,
         expected_rules=expected,
         limitations=config.limitations,
     )
-    union = sorted({rule for trace in recorder.traces
-                    for rule in trace.judge.get("fired_rules", ())})
-    missing = sorted({rule for trace in recorder.traces
-                      for rule in trace.judge.get("missing_rules", ())})
-    negatives = sorted({rule for trace in recorder.traces
-                        for rule in trace.judge.get("negative_failures", ())})
-    attempted = {rule for trace in recorder.traces
-                 for rule in trace.judge.get("expected_rules", ())}
+    union = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("fired_rules", ())
+        }
+    )
+    missing = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("missing_rules", ())
+        }
+    )
+    negatives = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("negative_failures", ())
+        }
+    )
+    attempted = {
+        rule
+        for trace in recorder.traces
+        for rule in trace.judge.get("expected_rules", ())
+    }
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
@@ -587,8 +712,18 @@ def _probe_fired(report) -> list[str]:
     return sorted(fired)
 
 
-def _run_probe(config, generator, prompt, runner, env, recorder, bash,
-               repo_root, calibration, started_at) -> dict:
+def _run_probe(
+    config,
+    generator,
+    prompt,
+    runner,
+    env,
+    recorder,
+    bash,
+    repo_root,
+    calibration,
+    started_at,
+) -> dict:
     """Measure whether the expected rules fire, not whether a chain exists.
 
     An adversarial campaign asks "did the payload survive".  A rule probe
@@ -607,9 +742,13 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
 
         diff_text = produced.diff
         digest = diff_hash(diff_text)
-        trace = Trace(attempt=attempt, diff_sha256=digest,
-                      generator=generator.describe(), status=Status.HARNESS_ERROR,
-                      cost=produced.cost)
+        trace = Trace(
+            attempt=attempt,
+            diff_sha256=digest,
+            generator=generator.describe(),
+            status=Status.HARNESS_ERROR,
+            cost=produced.cost,
+        )
 
         clean = sanitize(diff_text)
         trace.stages["sanitization"] = {"passed": clean.ok, "reason": clean.reason}
@@ -621,8 +760,11 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         if produced.new_text is not None:
             syntax = validate_syntax(diff_text, bash)
             trace.stages["syntax"] = {
-                "bash_n_old": syntax.bash_n_old, "bash_n_new": syntax.bash_n_new,
-                "bash_path": syntax.bash_path, "reason": syntax.reason}
+                "bash_n_old": syntax.bash_n_old,
+                "bash_n_new": syntax.bash_n_new,
+                "bash_path": syntax.bash_path,
+                "reason": syntax.reason,
+            }
             if not syntax.ok:
                 trace.status = Status.SYNTAX_ERROR
                 recorder.add(trace, diff_text)
@@ -637,14 +779,15 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         try:
             if produced.new_text is None:
                 result = runner.analyze_diff(
-                    diff_text, package=produced.package_name or config.package,
-                    post_pkgbuild=produced.post_pkgbuild)
+                    diff_text,
+                    package=produced.package_name or config.package,
+                    post_pkgbuild=produced.post_pkgbuild,
+                )
             else:
                 result = runner.analyze(produced.new_text, produced.old_text)
         except (AnalysisTimeout, RunnerError) as exc:
             trace.status = Status.HARNESS_ERROR
-            trace.judge = {"verdict": str(Status.HARNESS_ERROR),
-                           "rationale": str(exc)}
+            trace.judge = {"verdict": str(Status.HARNESS_ERROR), "rationale": str(exc)}
             recorder.add(trace, diff_text)
             continue
 
@@ -684,8 +827,9 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
             "negative_failures": negative_failures,
             "coverage_gaps": gaps,
         }
-        recorder.add(trace, diff_text,
-                     produced.new_text if produced.new_text is not None else "")
+        recorder.add(
+            trace, diff_text, produced.new_text if produced.new_text is not None else ""
+        )
 
     cost = {
         "tokens_in": getattr(generator, "tokens_in", 0),
@@ -698,9 +842,12 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
     record = recorder.build_record(
         campaign_type=config.campaign_type,
         environment=env.to_record(),
-        generator={**generator.describe(), "prompt_id": prompt.prompt_id,
-                   "prompt_hash": prompt.hash,
-                   "prompt_contract": prompt.contract},
+        generator={
+            **generator.describe(),
+            "prompt_id": prompt.prompt_id,
+            "prompt_hash": prompt.hash,
+            "prompt_contract": prompt.contract,
+        },
         validator={"version_hash": "", "calibration": calibration},
         cost=cost,
         campaign_commit=_git_commit(repo_root),
@@ -708,14 +855,32 @@ def _run_probe(config, generator, prompt, runner, env, recorder, bash,
         expected_rules=expected,
         limitations=config.limitations,
     )
-    union = sorted({rule for trace in recorder.traces
-                    for rule in trace.judge.get("fired_rules", ())})
-    missing = sorted({rule for trace in recorder.traces
-                      for rule in trace.judge.get("missing_rules", ())})
-    negatives = sorted({rule for trace in recorder.traces
-                        for rule in trace.judge.get("negative_failures", ())})
-    attempted = {rule for trace in recorder.traces
-                 for rule in trace.judge.get("expected_rules", ())}
+    union = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("fired_rules", ())
+        }
+    )
+    missing = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("missing_rules", ())
+        }
+    )
+    negatives = sorted(
+        {
+            rule
+            for trace in recorder.traces
+            for rule in trace.judge.get("negative_failures", ())
+        }
+    )
+    attempted = {
+        rule
+        for trace in recorder.traces
+        for rule in trace.judge.get("expected_rules", ())
+    }
     record["probe"] = {
         "expected_rules": list(expected),
         "cells": len(recorder.traces),
@@ -740,18 +905,25 @@ def _cell_coverage(filled: set, archive, version: str) -> dict:
     return {
         "filled": len(filled),
         "cells": sorted(f"{rule}[{'+'.join(shape)}]" for rule, shape in filled),
-        "open": sum(1 for entry in archive.cells.values()
-                    if not archive.is_closed(entry.rule, entry.shape, version)),
+        "open": sum(
+            1
+            for entry in archive.cells.values()
+            if not archive.is_closed(entry.rule, entry.shape, version)
+        ),
         "total": len(archive.cells),
     }
 
 
 def _abort(errors: int, attempts: int) -> bool:
-    return attempts >= _MIN_ATTEMPTS_BEFORE_ABORT and errors / attempts > HARNESS_ERROR_ABORT_RATE
+    return (
+        attempts >= _MIN_ATTEMPTS_BEFORE_ABORT
+        and errors / attempts > HARNESS_ERROR_ABORT_RATE
+    )
 
 
-def patch_verification(verdict, *, digest: str, origin: dict,
-                       reached: bool, trustsight_version: str) -> dict | None:
+def patch_verification(
+    verdict, *, digest: str, origin: dict, reached: bool, trustsight_version: str
+) -> dict | None:
     """The record of a rediscovery, or ``None`` when nothing was verified.
 
     A known bypass re-run against a newer TrustSight answers a question no
@@ -784,9 +956,22 @@ def patch_verification(verdict, *, digest: str, origin: dict,
     }
 
 
-def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
-              *, version="", full_new=None, full_old=None,
-              semantic=None, archive=None, expected_rules=()):
+def _validate(
+    diff_text,
+    digest,
+    dedup,
+    known,
+    bash,
+    checkers,
+    behavior,
+    *,
+    version="",
+    full_new=None,
+    full_old=None,
+    semantic=None,
+    archive=None,
+    expected_rules=(),
+):
     """Run the pre-TrustSight stages; return (status, reason, stages)."""
     stages: dict = {}
 
@@ -805,13 +990,19 @@ def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
     # allowed through, to be recorded as `known_bypass_match` further down.
     origin = known.get(digest)
     if origin and origin.get("original_trustsight_version") == version:
-        reason = (f"already recorded as a bypass at {version} "
-                  f"in campaign {origin.get('original_campaign', '?')}")
+        reason = (
+            f"already recorded as a bypass at {version} "
+            f"in campaign {origin.get('original_campaign', '?')}"
+        )
         return Status.DUPLICATE, reason, stages
 
     syntax = validate_syntax(diff_text, bash)
-    stages["syntax"] = {"bash_n_old": syntax.bash_n_old, "bash_n_new": syntax.bash_n_new,
-                        "bash_path": syntax.bash_path, "reason": syntax.reason}
+    stages["syntax"] = {
+        "bash_n_old": syntax.bash_n_old,
+        "bash_n_new": syntax.bash_n_new,
+        "bash_path": syntax.bash_path,
+        "reason": syntax.reason,
+    }
     if not syntax.ok:
         return Status.SYNTAX_ERROR, syntax.reason, stages
     # The whole file where the generator supplied it, the reconstruction
@@ -824,16 +1015,24 @@ def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
     stages["_text_source"] = "generator" if full_new is not None else "diff"
 
     constraints = validate_constraints(new_text, checkers)
-    stages["constraints"] = {"honored": constraints.ok,
-                             "violated": list(constraints.violated)}
+    stages["constraints"] = {
+        "honored": constraints.ok,
+        "violated": list(constraints.violated),
+    }
     if not constraints.ok:
-        return (Status.CONSTRAINT_VIOLATION,
-                f"forbidden techniques used: {', '.join(constraints.violated)}", stages)
+        return (
+            Status.CONSTRAINT_VIOLATION,
+            f"forbidden techniques used: {', '.join(constraints.violated)}",
+            stages,
+        )
 
     proven = behavior.validate(new_text)
-    stages["behavior"] = {"preserved": proven.preserved, "chain": proven.chain,
-                          "reason": proven.reason,
-                          "validator_version": behavior.version_hash}
+    stages["behavior"] = {
+        "preserved": proven.preserved,
+        "chain": proven.chain,
+        "reason": proven.reason,
+        "validator_version": behavior.version_hash,
+    }
     if not proven.preserved:
         return Status.BEHAVIOR_LOST, proven.reason, stages
 
@@ -843,29 +1042,33 @@ def _validate(diff_text, digest, dedup, known, bash, checkers, behavior,
     # *diff*: `crossfire_techniques` detects techniques on the added lines,
     # and the reconstructed file has none.
     cells = cells_for(expected_rules, diff_text, proven.chain, proven.context)
-    stages["_cells"] = [{"rule": rule, "shape": list(shape)}
-                        for rule, shape, _key in cells]
+    stages["_cells"] = [
+        {"rule": rule, "shape": list(shape)} for rule, shape, _key in cells
+    ]
     # The technique vocabulary being unreachable is a fact about the
     # instrument, not the attempt; the matrix marks the cell `degraded`.
     stages["_degraded"] = technique_vocabulary(new_text) is None
     if cells:
         if archive is not None and all(
-                archive.is_closed(rule, shape, version)
-                for rule, shape, _key in cells):
-            return (Status.DUPLICATE,
-                    f"cell(s) already saturated at {version}", stages)
+            archive.is_closed(rule, shape, version) for rule, shape, _key in cells
+        ):
+            return (Status.DUPLICATE, f"cell(s) already saturated at {version}", stages)
         if semantic is not None and semantic.attempt([key for _r, _s, key in cells]):
             if archive is not None:
                 for rule, shape, _key in cells:
                     archive.note_duplicate(rule, shape, version)
-            return (Status.DUPLICATE,
-                    "same (rule, shape) already measured in this campaign", stages)
+            return (
+                Status.DUPLICATE,
+                "same (rule, shape) already measured in this campaign",
+                stages,
+            )
 
     return None, "", stages
 
 
-def _minimize(diff_text, *, runner, env, bash, checkers, behavior,
-              expected_rules, cells, budget):
+def _minimize(
+    diff_text, *, runner, env, bash, checkers, behavior, expected_rules, cells, budget
+):
     """Shrink *diff_text* while the whole pipeline still accepts it.
 
     The oracle re-runs every property the specification names - parses,
@@ -894,9 +1097,13 @@ def _minimize(diff_text, *, runner, env, bash, checkers, behavior,
             result = runner.analyze(syntax.new_text)
         except Exception:  # noqa: BLE001 - an analysis fault is not a reduction
             return False
-        verdict = judge(early_status=None, report=result.report,
-                        flag_threshold=env.flag_threshold,
-                        expected_rules=expected_rules, mode_gaps=env.mode_gaps)
+        verdict = judge(
+            early_status=None,
+            report=result.report,
+            flag_threshold=env.flag_threshold,
+            expected_rules=expected_rules,
+            mode_gaps=env.mode_gaps,
+        )
         return verdict.status is Status.BYPASS
 
     try:
