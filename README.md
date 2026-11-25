@@ -114,7 +114,7 @@ one of them:
   this harness found against 0.23.0: the `openssl s_client` connect-port
   address, the parse-time fetch, the glued `#`, the undeclared source-array
   execution, the phantom heredoc opener, and the `::` source rename. Every
-  campaign pins TrustSight 0.30.0 and is deterministic.
+  campaign pins TrustSight 0.31.0 and is deterministic.
 - **A regression gate.** `python -m harness regression` replays every committed
   bypass and reports how many are still open, with the closing version recorded.
 - **A coverage report.** `python -m harness coverage` maps the campaigns to
