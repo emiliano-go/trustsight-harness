@@ -1,7 +1,7 @@
 campaign: bypass-evasion-probes-x
 campaign_type: rule-probe
 environment:
-  trustsight_version: 0.30.0
+  trustsight_version: 0.31.0
   trustsight_source: local-path
   db_state: cold
   flag_threshold: 20
