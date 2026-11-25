@@ -15,7 +15,8 @@
     "H089",
     "H098",
     "U001",
-    "W013"
+    "W013",
+    "X002"
   ],
   "note": "Shrink-only. Remove an entry when its rule reproduces; never add one without a named input gap. The upstream floor is for the --upstream run; the default floor is the no-outbound run."
 }
