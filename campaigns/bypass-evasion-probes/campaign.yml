@@ -1,0 +1,61 @@
+campaign: bypass-evasion-probes
+campaign_type: rule-probe
+environment:
+  trustsight_version: 0.30.0
+  trustsight_source: local-path
+  db_state: cold
+  flag_threshold: 20
+generator:
+  type: raw-diff
+prompt:
+  prompt_id: bypass-evasion-probes
+  expected_rules:
+  - C001
+  - C020
+  - D003
+  - D004
+  - E001
+  - E002
+  - E003
+  - H001
+  - H004
+  - H019
+  - H025
+  - H032
+  - H033
+  - H038
+  - H039
+  - H041
+  - H042
+  - H062
+  - H063
+  - H064
+  - H077
+  - H079
+  - H083
+  - H085
+  - H094
+  - H096
+  - H097
+  - H108
+  - P001
+  - P002
+  - P003
+  - P005
+  - R003
+  - R042
+  - R045
+  - R058
+  - R078
+  - S001
+  - S002
+  - S003
+  - S004
+  - S005
+  - S006
+  - S007
+  - S008
+  - T004
+  - T005
+  forbidden_techniques: {}
+attempts: 74

@@ -1,0 +1,786 @@
+cells:
+- id: G001-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      hosts_gained:
+      - evilcdn.example
+    - package: beta
+      maintainer: m2
+      hosts_gained:
+      - evilcdn.example
+    - package: gamma
+      maintainer: m3
+      hosts_gained:
+      - evilcdn.example
+    - package: delta
+      maintainer: m4
+      hosts_gained:
+      - evilcdn.example
+    - package: epsilon
+      maintainer: m5
+      hosts_gained:
+      - evilcdn.example
+  expect_fire:
+  - G001
+- id: G001-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      hosts_gained:
+      - evilcdn.example
+    - package: beta
+      maintainer: m2
+      hosts_gained:
+      - evilcdn.example
+    - package: gamma
+      maintainer: m3
+      hosts_gained:
+      - evilcdn.example
+    - package: delta
+      maintainer: m4
+      hosts_gained:
+      - evilcdn.example:8443
+    - package: epsilon
+      maintainer: m5
+      hosts_gained:
+      - evilcdn.example:8443
+  expect_absent:
+  - G001
+- id: G002-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      added_literals:
+      - ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56
+    - package: beta
+      maintainer: m2
+      added_literals:
+      - ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56
+  expect_fire:
+  - G002
+- id: G002-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      added_literals:
+      - ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56ab12cd34ef56
+    - package: beta
+      maintainer: m2
+      added_literals:
+      - AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56AB12CD34EF56
+  expect_absent:
+  - G002
+- id: G003-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: mallory
+      adoption: true
+      adoption_predicates:
+      - H044
+      previous_maintainer: alice
+      source_repos: []
+    - package: beta
+      maintainer: mallory
+      adoption: true
+      adoption_predicates:
+      - H044
+      previous_maintainer: bob
+      source_repos: []
+    - package: gamma
+      maintainer: mallory
+      adoption: true
+      adoption_predicates:
+      - H044
+      previous_maintainer: carol
+      source_repos: []
+  expect_fire:
+  - G003
+- id: G003-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: mallory
+      adoption: true
+      adoption_predicates:
+      - H044
+      previous_maintainer: alice
+      source_repos: []
+    - package: beta
+      maintainer: mallory
+      adoption: true
+      adoption_predicates:
+      - H044
+      previous_maintainer: alice
+      source_repos: []
+    - package: gamma
+      maintainer: mallory
+      adoption: true
+      adoption_predicates:
+      - H044
+      previous_maintainer: alice
+      source_repos: []
+  expect_absent:
+  - G003
+- id: G006-control
+  lane: correlation
+  payload:
+    kinds:
+    - g006
+    records:
+    - package: alpha
+      maintainer: m
+      hosts_gained:
+      - campaign.example
+    seed_campaigns:
+    - id: c1
+      scope:
+        hosts:
+        - campaign.example
+        package_names:
+        - member
+  expect_fire:
+  - G006
+- id: G006-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g006
+    records:
+    - package: alpha
+      maintainer: m
+      hosts_gained:
+      - campaign.example:8443
+    seed_campaigns:
+    - id: c2
+      scope:
+        hosts:
+        - campaign.example
+        package_names: []
+  expect_absent:
+  - G006
+- id: G007-control
+  lane: correlation
+  payload:
+    kinds:
+    - g007
+    records:
+    - package: gamma
+      maintainer: m3
+    package: gamma
+    added_urls:
+    - https://ctrl.example/x.sh
+    gaps:
+    - X001
+    seed_campaigns:
+    - id: c1
+      scope:
+        package_names:
+        - alpha
+        - beta
+        urls:
+        - https://ctrl.example/x.sh
+  expect_fire:
+  - G007
+- id: G007-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g007
+    records:
+    - package: gamma
+      maintainer: m3
+    package: gamma
+    added_urls:
+    - http://scheme.example/x.sh
+    gaps:
+    - X001
+    seed_campaigns:
+    - id: c2
+      scope:
+        package_names:
+        - alpha
+        - beta
+        urls:
+        - https://scheme.example/x.sh
+  expect_absent:
+  - G007
+- id: G008-control
+  lane: correlation
+  payload:
+    kinds:
+    - g008
+    records:
+    - package: pkg-0
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-1
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-2
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-3
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-4
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    seed_transitions:
+    - package: pkg-0
+      old: alice
+      new: mallory
+      observed_at: '2026-11-23T12:00:00+00:00'
+  expect_fire:
+  - G008
+- id: G008-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g008
+    records:
+    - package: pkg-0
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-1
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-2
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-3
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    - package: pkg-4
+      maintainer: mallory
+      adoption: true
+      adoption_observed_at: '2026-11-23T12:00:00+00:00'
+      last_modified: 1760770293
+    seed_transitions:
+    - package: pkg-0
+      old: alice
+      new: mallory
+      observed_at: '2025-10-18T00:00:00+00:00'
+  expect_absent:
+  - G008
+- id: G010-control
+  lane: correlation
+  payload:
+    kinds:
+    - g010
+    min_packages: 5
+    records:
+    - package: package-0
+      maintainer: m0
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-1
+      maintainer: m1
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-2
+      maintainer: m2
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-3
+      maintainer: m3
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-4
+      maintainer: m4
+      hosts_gained:
+      - evil-cdn.example
+  expect_fire:
+  - G010
+- id: G010-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g010
+    min_packages: 5
+    records:
+    - package: package-0
+      maintainer: m0
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-1
+      maintainer: m1
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-2
+      maintainer: m2
+      hosts_gained:
+      - evil-cdn.example
+    - package: package-3
+      maintainer: m3
+      hosts_gained:
+      - evil-cdn.example:8443
+    - package: package-4
+      maintainer: m4
+      hosts_gained:
+      - evil-cdn.example:8443
+  expect_absent:
+  - G010
+- id: G011-control
+  lane: correlation
+  payload:
+    kinds:
+    - g011
+    records:
+    - package: alpha
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+    - package: beta
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+    - package: gamma
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+    - package: delta
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+    - package: epsilon
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+  expect_fire:
+  - G011
+- id: G011-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g011
+    records:
+    - package: alpha
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+      maintainer_established: true
+    - package: beta
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+      maintainer_established: true
+    - package: gamma
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+      maintainer_established: true
+    - package: delta
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+      maintainer_established: true
+    - package: epsilon
+      maintainer: newbie
+      brand_new: true
+      placeholder: true
+      maintainer_established: true
+  expect_absent:
+  - G011
+- id: G012-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      rules:
+      - H075
+    - package: beta
+      maintainer: m2
+      rules:
+      - H075
+    - package: gamma
+      maintainer: m3
+      rules:
+      - H075
+  expect_fire:
+  - G012
+- id: G012-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: sonora
+      maintainer: m1
+      rules:
+      - H075
+    - package: sonora-bin
+      maintainer: m2
+      rules:
+      - H075
+    - package: sonora-qt
+      maintainer: m3
+      rules:
+      - H075
+  expect_absent:
+  - G012
+- id: G013-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      payload_urls:
+      - https://evil.example/x.sh
+    - package: beta
+      maintainer: m2
+      payload_urls:
+      - https://evil.example/x.sh
+  expect_fire:
+  - G013
+- id: G013-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m1
+      payload_urls:
+      - https://evil.example/x.sh
+    - package: beta
+      maintainer: m2
+      payload_urls:
+      - http://evil.example/x.sh
+  expect_absent:
+  - G013
+- id: G015-control
+  lane: correlation
+  payload:
+    kinds:
+    - g015
+    records:
+    - package: alpha
+      maintainer: m1
+    - package: beta
+      maintainer: m2
+    - package: gamma
+      maintainer: m1
+    history:
+    - adoption_ts: 1790146319.282453
+      current_maintainer: m1
+      last_modified: 1760770319.282453
+      maintainer: m1
+      package: alpha
+      previous_maintainer: ''
+    - adoption_ts: 1790146319.282453
+      current_maintainer: m2
+      last_modified: 1760770319.282453
+      maintainer: m2
+      package: beta
+      previous_maintainer: ''
+    - adoption_ts: 1790146319.282453
+      current_maintainer: m1
+      last_modified: 1760770319.282453
+      maintainer: m1
+      package: gamma
+      previous_maintainer: ''
+  expect_fire:
+  - G015
+- id: G015-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g015
+    records:
+    - package: alpha
+      maintainer: m1
+    - package: beta
+      maintainer: m2
+    - package: gamma
+      maintainer: m1
+    history:
+    - adoption_ts: 1790146319.282453
+      current_maintainer: m1
+      last_modified: 1760770319.282453
+      maintainer: m1
+      package: alpha
+      previous_maintainer: alice
+    - adoption_ts: 1790146319.282453
+      current_maintainer: m2
+      last_modified: 1760770319.282453
+      maintainer: m2
+      package: beta
+      previous_maintainer: alice
+    - adoption_ts: 1790146319.282453
+      current_maintainer: m1
+      last_modified: 1760770319.282453
+      maintainer: m1
+      package: gamma
+      previous_maintainer: alice
+  expect_absent:
+  - G015
+- id: G016-control
+  lane: correlation
+  payload:
+    records:
+    - package: pkg-a
+      maintainer: evil
+      rules:
+      - H075
+    - package: pkg-b
+      maintainer: evil
+      rules: []
+    - package: pkg-c
+      maintainer: evil
+      rules: []
+  expect_fire:
+  - G016
+- id: G016-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: pkg-a
+      maintainer: evil
+      rules:
+      - X011
+    - package: pkg-b
+      maintainer: evil
+      rules: []
+    - package: pkg-c
+      maintainer: evil
+      rules: []
+  expect_absent:
+  - G016
+- id: G004-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      upstream_dep_additions:
+      - - sonora
+        - cdn.example
+    - package: beta
+      upstream_dep_additions:
+      - - sonora
+        - cdn.example
+  expect_fire:
+  - G004
+- id: G004-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      upstream_dep_additions:
+      - - sonora
+        - cdn.example
+    - package: beta
+      upstream_dep_additions:
+      - - sonora
+        - CDN.EXAMPLE
+  expect_absent:
+  - G004
+- id: G005-control
+  lane: correlation
+  payload:
+    records:
+    - package: clone-a
+      maintainer: evil
+      impersonated_target: yay
+    - package: clone-b
+      maintainer: evil
+      impersonated_target: yay
+    - package: clone-c
+      maintainer: evil
+      impersonated_target: yay
+  expect_fire:
+  - G005
+- id: G005-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: clone-a
+      maintainer: evil
+      impersonated_target: yay
+    - package: clone-b
+      maintainer: evil
+      impersonated_target: yay
+    - package: clone-c
+      maintainer: "evil\u200B"
+      impersonated_target: yay
+    - package: clone-d
+      maintainer: "evil\u200B"
+      impersonated_target: yay
+  expect_absent:
+  - G005
+- id: G001-family-control
+  lane: correlation
+  payload:
+    records:
+    - package: alpha
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: beta
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: gamma
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: delta
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: epsilon
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+  expect_fire:
+  - G001
+- id: G001-family-bypass
+  lane: correlation
+  payload:
+    records:
+    - package: evil-i18n-aa
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-bb
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-cc
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-dd
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-ee
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+  expect_absent:
+  - G001
+- id: G010-family-control
+  lane: correlation
+  payload:
+    kinds:
+    - g010
+    min_packages: 5
+    records:
+    - package: alpha
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: beta
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: gamma
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: delta
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: epsilon
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+  expect_fire:
+  - G010
+- id: G010-family-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g010
+    min_packages: 5
+    records:
+    - package: evil-i18n-aa
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-bb
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-cc
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-dd
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+    - package: evil-i18n-ee
+      maintainer: m@x
+      hosts_gained:
+      - evil.cdn
+  expect_absent:
+  - G010
+- id: G014-control
+  lane: correlation
+  payload:
+    kinds:
+    - g014
+    records:
+    - package: alpha
+      maintainer: m1
+      adoption: true
+      last_modified: 1760770293
+    - package: beta
+      maintainer: m2
+      adoption: true
+      last_modified: 1760770293
+    - package: gamma
+      maintainer: m1
+      adoption: true
+      last_modified: 1760770293
+  expect_fire:
+  - G014
+- id: G014-bypass
+  lane: correlation
+  payload:
+    kinds:
+    - g014
+    records:
+    - package: vim
+      maintainer: m1
+      adoption: true
+      last_modified: 1760770293
+    - package: vimium
+      maintainer: m2
+      adoption: true
+      last_modified: 1760770293
+    - package: vimpc
+      maintainer: m1
+      adoption: true
+      last_modified: 1760770293
+  expect_absent:
+  - G014
