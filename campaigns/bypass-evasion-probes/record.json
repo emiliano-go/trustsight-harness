@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "bypass-evasion-probes",
-  "campaign_commit": "c8c1477b11a2b232486b9d13eb612d9b85df54e4",
+  "campaign_commit": "99f92ea0d20334e498a624953b6c9e299d10529d",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 8697
+    "wall_clock_ms": 8341
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:07bd4ad6de656975ef0fa21c7dc9879872f7fd55a66f02d23e1b683178627298",
+    "config_fingerprint": "sha256:018658c362dc57be7e02bc3dfa88f30fa9ff152508804501fad76eda2a49077a",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -120,13 +120,13 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 52,
+    "detected": 50,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
     "inconclusive": 0,
     "known_bypass_match": 0,
-    "partial_evasion": 22,
+    "partial_evasion": 24,
     "sanitization_failure": 0,
     "syntax_error": 0
   },
@@ -286,7 +286,9 @@
       "S005",
       "S006",
       "S007",
-      "S008"
+      "S008",
+      "T004",
+      "T005"
     ],
     "unattempted_rules": []
   },

@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "bypass-evasion-probes-g",
-  "campaign_commit": "c8c1477b11a2b232486b9d13eb612d9b85df54e4",
+  "campaign_commit": "99f92ea0d20334e498a624953b6c9e299d10529d",
   "campaign_type": "lane-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 105
+    "wall_clock_ms": 96
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -290,12 +290,13 @@
         "G008"
       ],
       "fired": [
+        "G003",
         "G008"
       ],
       "flag_state": "flagged",
       "gaps": [],
       "lane": "correlation",
-      "score": 25,
+      "score": 40,
       "threshold": 20
     },
     {
@@ -318,12 +319,13 @@
         "G016"
       ],
       "fired": [
+        "G003",
         "G008"
       ],
       "flag_state": "flagged",
       "gaps": [],
       "lane": "correlation",
-      "score": 25,
+      "score": 50,
       "threshold": 20
     },
     {

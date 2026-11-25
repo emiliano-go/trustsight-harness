@@ -14,7 +14,7 @@
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "bypass-evasion-probes-x",
-  "campaign_commit": "10a580f6c45402526a7716e0ffad9c10e4f928d7",
+  "campaign_commit": "99f92ea0d20334e498a624953b6c9e299d10529d",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 6018
+    "wall_clock_ms": 5937
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:07bd4ad6de656975ef0fa21c7dc9879872f7fd55a66f02d23e1b683178627298",
+    "config_fingerprint": "sha256:018658c362dc57be7e02bc3dfa88f30fa9ff152508804501fad76eda2a49077a",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
