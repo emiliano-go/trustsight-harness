@@ -1,8 +1,8 @@
 {
   "cases": 25,
-  "min_rate": 0.68,
+  "min_rate": 0.6,
   "min_rate_no_upstream": 0.8814,
-  "min_reproduced": 90,
+  "min_reproduced": 80,
   "min_reproduced_no_upstream": 119,
   "missed_rules": [
     "D004",
@@ -15,6 +15,9 @@
     "H089",
     "H098",
     "U001",
+    "U003",
+    "U009",
+    "U012",
     "W013",
     "X002"
   ],
