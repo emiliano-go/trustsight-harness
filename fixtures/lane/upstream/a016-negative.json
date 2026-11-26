@@ -1,0 +1,22 @@
+{
+  "asset_inventory": [
+    [
+      "l9-1.0/configure",
+      100,
+      "aa"
+    ],
+    [
+      "l9-1.0/README",
+      10,
+      "bb"
+    ]
+  ],
+  "kind": "release_asset",
+  "tag_inventory": [
+    [
+      "l9-1.0/README",
+      10,
+      "bb"
+    ]
+  ]
+}

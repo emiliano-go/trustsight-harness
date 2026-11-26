@@ -1,0 +1,9 @@
+{
+  "declared": {},
+  "manifest": [
+    {
+      "content": "ACTION==\"add\", SYMLINK+=\"l9-%k\"\n",
+      "path": "/usr/lib/udev/rules.d/99-l9.rules"
+    }
+  ]
+}

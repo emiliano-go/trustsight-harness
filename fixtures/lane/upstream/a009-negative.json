@@ -1,0 +1,9 @@
+{
+  "artifacts": [
+    {
+      "elf": false,
+      "path": "src/main.c"
+    }
+  ],
+  "kind": "source_archive"
+}
