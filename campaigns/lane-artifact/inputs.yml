@@ -14,3 +14,18 @@ cells:
   payload_path: fixtures/lane/artifact/a013.json
   expect_fire:
   - A013
+- id: A011-negative
+  lane: artifact
+  payload_path: fixtures/lane/artifact/a011-negative.json
+  expect_absent:
+  - A011
+- id: A012-negative
+  lane: artifact
+  payload_path: fixtures/lane/artifact/a012-negative.json
+  expect_absent:
+  - A012
+- id: A013-negative
+  lane: artifact
+  payload_path: fixtures/lane/artifact/a013-negative.json
+  expect_absent:
+  - A013

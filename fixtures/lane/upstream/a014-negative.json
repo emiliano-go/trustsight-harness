@@ -1,0 +1,13 @@
+{
+  "artifacts": [
+    {
+      "elf_info": {
+        "runpath": [
+          "$ORIGIN/../lib"
+        ]
+      },
+      "path": "lib/tool.so"
+    }
+  ],
+  "kind": "source_archive"
+}

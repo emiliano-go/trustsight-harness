@@ -6,6 +6,15 @@ from types import SimpleNamespace
 
 from generators.rawdiff import RawDiffGenerator
 from harness.campaign import _probe_fired
+from harness.lane_probe import _positive_expectation
+
+
+def test_a_negative_only_lane_cell_expects_no_rule():
+    assert _positive_expectation((), ("A011",), ("A011", "A012")) == set()
+
+
+def test_an_unlabelled_lane_cell_defaults_to_the_campaign_rules():
+    assert _positive_expectation((), (), ("A011",)) == {"A011"}
 
 
 def test_probe_fired_reads_weight_zero_rules_from_the_breakdown():

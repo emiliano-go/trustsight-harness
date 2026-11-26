@@ -699,6 +699,18 @@ def score_findings(findings) -> int:
     return max(0, min(100, total))
 
 
+def _positive_expectation(expect_fire, expect_absent, default) -> set[str]:
+    """The rules a cell must fire, without turning a negative into a miss.
+
+    A cell that names only ``expect_absent`` is a negative control: it
+    expects no rule, so it must not inherit the campaign's expected list.
+    """
+    positive = set(expect_fire)
+    if positive:
+        return positive
+    return set() if set(expect_absent) else set(default)
+
+
 def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
                    repo_root, calibration: str, started_at: float) -> dict:
     """Run one `lane-probe` campaign and write its record."""
@@ -727,7 +739,8 @@ def run_lane_probe(config, generator, prompt, runner, env, recorder: Recorder,
             harness_errors += 1
         fired = sorted({str(f.get("rule_id", "")) for f in findings
                         if isinstance(f, dict) and f.get("rule_id")})
-        positive = set(produced.expect_fire) or set(expected)
+        positive = _positive_expectation(
+            produced.expect_fire, produced.expect_absent, expected)
         absent = set(produced.expect_absent)
         missing = sorted(positive - set(fired))
         negative_failures = sorted(absent & set(fired))

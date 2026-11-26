@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "elf": false,
+      "mode": 493,
+      "path": "vendor/tool",
+      "setuid": false
+    }
+  ],
+  "kind": "source_archive"
+}

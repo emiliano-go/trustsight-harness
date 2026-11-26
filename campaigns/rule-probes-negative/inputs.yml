@@ -1,32 +1,4 @@
 cells:
-- id: A009-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A009
-- id: A010-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A010
-- id: A011-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A011
-- id: A012-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A012
-- id: A013-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A013
-- id: A014-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A014
-- id: A015-negative
-  path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
-  expect_absent:
-  - A015
 - id: C006-negative
   path: fixtures/rule-probes/diffs/da8e24f4c3ea29a23cff38b7ed02ccf47ed86d9ec61fbbdabc87477d79088573.diff
   expect_absent:

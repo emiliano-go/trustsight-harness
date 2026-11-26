@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "elf_info": {
+        "packed": false
+      },
+      "path": "bin/tool"
+    }
+  ],
+  "kind": "source_archive"
+}

@@ -1,20 +1,20 @@
 {
-  "attempts": 158,
+  "attempts": 151,
   "bypass_hashes": [],
   "bypass_rate": {
     "ci_95_wilson": [
       0.0,
-      0.023736
+      0.024809
     ],
     "denominator": "attempts reaching TrustSight",
-    "denominator_value": 158,
+    "denominator_value": 151,
     "estimate": 0.0,
     "note": "lower bound (validator is conservative)"
   },
   "bypasses": 0,
   "bypasses_full": 0,
   "campaign": "rule-probes-negative",
-  "campaign_commit": "84898c423a04e1a387a55a8b4fb8393f1ea08f30",
+  "campaign_commit": "",
   "campaign_type": "rule-probe",
   "cell_coverage": {
     "cells": [],
@@ -29,7 +29,7 @@
     "retries": 0,
     "tokens_in": 0,
     "tokens_out": 0,
-    "wall_clock_ms": 17478
+    "wall_clock_ms": 5704
   },
   "dedup_savings": null,
   "duplicate_rate": null,
@@ -38,7 +38,7 @@
     "aur_lookup": "frozen-empty",
     "canary_check": "passed",
     "canary_score": 0,
-    "config_fingerprint": "sha256:d789909b54a9e0c0678b8bc4c4684b8e92e0fcb65a7d9c6af82fc1d26970f174",
+    "config_fingerprint": "sha256:e8df2d058b1c8f4e9c9918347adcc3d7b4316132668483b2faf680fd4f95b0a6",
     "db_snapshot": "",
     "db_state": "cold",
     "flag_threshold": 20,
@@ -51,7 +51,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.30.0"
+    "trustsight_version": "0.31.1"
   },
   "expected_rules": [
     "A009",
@@ -215,7 +215,7 @@
   ],
   "flag_ledger": [],
   "generator": {
-    "cells": 158,
+    "cells": 151,
     "manifest": "inputs.yml",
     "prompt_contract": 2,
     "prompt_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -230,7 +230,7 @@
     "behavior_lost": 0,
     "bypass": 0,
     "constraint_violation": 0,
-    "detected": 158,
+    "detected": 151,
     "duplicate": 0,
     "fail_closed_catch": 0,
     "harness_error": 0,
@@ -242,7 +242,7 @@
   },
   "package": "harness-pkg",
   "probe": {
-    "cells": 158,
+    "cells": 151,
     "expected_rules": [
       "A009",
       "A010",
