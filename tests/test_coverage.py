@@ -32,7 +32,7 @@ def test_every_rule_has_a_probe():
 
 def test_the_denominator_includes_pseudo_rule_ids():
     coverage = build_coverage(ROOT)
-    assert coverage["rules"]["total"] == 326
+    assert coverage["rules"]["total"] == 327
     assert len(coverage["pseudo_rule_ids"]) == 12
     assert "COVERAGE" in coverage["pseudo_rule_ids"]
     assert coverage["by_category"]["pseudo"]["total"] == 12
