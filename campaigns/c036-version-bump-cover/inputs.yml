@@ -1,0 +1,7 @@
+cells:
+- id: bump-adds-script-execution
+  package: harness-c036
+  path: campaigns/c036-version-bump-cover/diffs/bump-adds-script-execution.diff
+  post_path: campaigns/c036-version-bump-cover/post/bump-adds-script-execution.PKGBUILD
+  expect_fire:
+  - C036
