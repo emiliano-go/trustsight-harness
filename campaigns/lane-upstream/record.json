@@ -51,7 +51,7 @@
     "seed_sha256": "",
     "timezone": "",
     "trustsight_source": "local-path",
-    "trustsight_version": "0.31.1"
+    "trustsight_version": "0.31.0"
   },
   "expected_rules": [
     "A016",
